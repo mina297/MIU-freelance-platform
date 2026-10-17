@@ -1,229 +1,140 @@
 # MIU Freelance Platform
 
-A freelance platform for **Misr International University (MIU)** students. Students find real freelance work, and clients (staff, clubs, alumni) find trusted student talent.
+**Your Talent. Real Opportunities.**
 
-> Status: 🚧 in development
+A university-focused freelance marketplace designed to connect **Misr International University (MIU)** students with clients seeking creative, technical, and professional services.
 
----
+> **Project status:** Academic software engineering project — Phase 1 frontend prototype in development. Features described below include planned capabilities; real payments, identity verification, AI services, and backend integrations are **not live**.
 
-## Table of Contents
+## Overview
 
-- [About](#about)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [Environment Variables](#environment-variables)
-- [Database](#database)
-- [Git Workflow](#git-workflow)
-- [Roadmap](#roadmap)
-- [Team](#team)
+MIU Freelance Platform aims to help students gain practical experience, showcase their skills, build portfolios, and work on real projects. Clients can discover student talent through two complementary marketplace experiences:
 
----
+| Marketplace model | How it works |
+| --- | --- |
+| **Projects & proposals** (inspired by Mostaql) | Clients post projects with budgets and deadlines; students submit proposals with their price, timeline, and approach. Clients review proposals and select a freelancer. |
+| **Services** (inspired by Khamsat) | Students publish services with descriptions, prices, delivery times, and portfolio samples. Clients browse services and place orders directly. |
 
-## About
+Both models are designed to support order tracking, delivery, reviews, and a planned payment/escrow workflow.
 
-Students have skills, but no trusted place to find real paid work. Clients often don't know which students to ask. This platform connects both sides in one place and builds trust through profiles and reviews.
+## Key Features
 
-**Roles**
-- **Student:** creates a profile, browses jobs, applies, gets reviewed
-- **Client:** posts jobs, reviews applicants, picks a student, leaves reviews
-- **Admin:** manages users, jobs, and reviews
+### For students / freelancers
+- Create a profile showcasing skills, experience, and portfolio work.
+- Browse projects and submit or manage proposals.
+- Publish and manage freelance services.
+- Track orders, deliveries, and project progress.
+- Receive AI-assisted job recommendations (planned; mocked in Phase 1).
+- Build a reputation through ratings and reviews.
 
-**Core flow**
+### For clients
+- Post projects and compare freelancer proposals.
+- Search student profiles and browse listed services.
+- Place service orders and track progress.
+- Review deliverables and provide feedback.
+- View EGP-denominated checkout, transactions, and escrow status in the prototype.
 
-```
-Client posts job → Students apply → Client accepts one
-→ Job in progress → Job completed → Both sides review
-```
+### Trust, verification, and AI
+- **Identity verification concept:** A single live camera view shows the user’s face and physical ID at the same time. MIU students and university members use an appropriate MIU-issued ID; external users use a national or other accepted government ID. AI-assisted matching and affiliation checks are planned, with privacy safeguards and human review.
+- **Skills matching:** Recommend relevant opportunities and freelancers.
+- **AI chatbot:** Help users navigate the platform and common workflows.
+- **Content review:** Assist moderators by flagging potentially inappropriate comments or reviews.
 
----
+**Phase 1 note:** These interfaces use mock data and simulated results. No real biometric matching, document processing, or production AI service is implemented in Phase 1.
 
-## Features
+## Administration and Committees
 
-### MVP
-- [ ] Register / login with MIU email, email verification, password reset
-- [ ] Role-based access (student, client, admin)
-- [ ] Student and client profiles
-- [ ] Create, edit, and cancel jobs
-- [ ] Browse jobs with search, filters, and pagination
-- [ ] Apply to jobs with a message and proposed price
-- [ ] Accept / reject applicants
-- [ ] Job status tracking (open, in progress, completed, cancelled)
-- [ ] Reviews and ratings
-- [ ] Student and client dashboards
-- [ ] Admin panel (manage users, jobs, reviews, basic stats)
+The platform includes a **Super Admin** role responsible for governance, account management, permissions, and escalations, with five specialized departments:
 
-### Planned
-- [ ] Chat between client and student
-- [ ] Notifications
-- [ ] File uploads
-- [ ] Arabic / English support
+| Department | Responsibilities |
+| --- | --- |
+| **Verification Committee** | Review identity and profile verification cases. |
+| **Marketplace Operations** | Review projects, services, proposals, and reported content. |
+| **Finance Committee** | Review payment, escrow, refund, and transaction records. |
+| **Support & Disputes** | Handle support requests, delivery disputes, and escalations. |
+| **AI & Quality Committee** | Review AI-related feedback, flagged content, and quality issues. |
 
-> Online payments are intentionally out of scope for the MVP.
+**Committee members do not self-register.** Their accounts are created by the Super Admin, and they log in with their assigned credentials. Role-based access restricts each department to its authorized functions.
 
----
+## Payments and Currency
 
-## Tech Stack
+All project budgets, proposal prices, service prices, transaction displays, and planned escrow flows use **Egyptian Pounds (EGP) only**. There is no currency conversion feature.
 
-| Layer | Technology |
-|-------|------------|
-| Frontend | React |
-| Backend | Node.js, Express |
-| Database | PostgreSQL |
-| ORM | Prisma |
-| Version control | Git, GitHub |
+Payment, escrow funding, release, refund, and payout screens are **simulated in Phase 1**. Any future real-money integration will require an approved payment provider and appropriate institutional, legal, and financial authorization.
 
----
+## Technology Stack
+
+| Area | Technology | Status |
+| --- | --- | --- |
+| Frontend | React (JavaScript), Vite, React Router | Phase 1 |
+| Styling | Tailwind CSS v4 | Phase 1 |
+| Icons | Lucide React | Phase 1 |
+| Frontend state | React Context and local mock data where appropriate | Phase 1 |
+| Backend | Node.js, Express | Planned |
+| Database | PostgreSQL, Prisma | Planned |
+| Mobile packaging | Capacitor (Android) | Planned later phase |
+
+## Development Roadmap
+
+### Phase 1 — Frontend and Prototypes
+- [ ] Build responsive public, student, client, and administrative interfaces.
+- [ ] Demonstrate both projects/proposals and services/orders using mock data.
+- [ ] Build simulated verification, AI, checkout, escrow, and committee workflows.
+- [ ] Prepare the Software Requirements Specification (SRS) and prototypes of all forms/pages.
+
+### Phase 2 — Backend and Integrations (Planned)
+- [ ] Implement APIs, database models, and real authentication.
+- [ ] Integrate approved verification and AI services where feasible.
+- [ ] Evaluate payment-provider sandbox integration and approved financial workflows.
+
+### Phase 3 — Mobile Packaging (Planned)
+- [ ] Adapt and package the responsive application using Capacitor.
+- [ ] Test Android navigation and device compatibility.
+
+> The Phase 1 academic discussion requires an SRS covering the preface and introduction, similar systems, functional user requirements, non-functional user requirements, and prototypes of all forms/pages. The working React frontend is an additional team development objective unless explicitly required by the instructor.
 
 ## Project Structure
 
-```
-.
-├── frontend/              # React app
-│   └── src/
-│       ├── components/
-│       ├── pages/
-│       ├── hooks/
-│       ├── context/
-│       └── services/
-├── backend/               # Express API
-│   ├── prisma/
-│   │   └── schema.prisma
-│   └── src/
-│       ├── routes/
-│       ├── controllers/
-│       ├── middleware/
-│       └── utils/
-├── MASTER_PLAN.md         # Full project plan and decisions
-└── README.md
-```
+The following is an **illustrative target structure**; the actual repository may evolve:
 
----
+```text
+src/
+├── app/              # Routing and application providers
+├── components/       # Shared UI components
+├── features/         # Auth, projects, services, orders, admin, etc.
+├── layouts/          # Public, authenticated, and admin layouts
+├── data/             # Mock fixtures and demo scenarios
+├── hooks/            # Reusable hooks
+├── utils/            # Validation, permissions, EGP formatting
+├── assets/           # Images and other static assets
+└── styles/           # Global styling
+```
 
 ## Getting Started
 
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (LTS version)
-- [Git](https://git-scm.com/)
-- [PostgreSQL](https://www.postgresql.org/) (or Docker)
-
-### 1. Clone the repository
+Once the frontend source code is added to this repository and a `package.json` is available:
 
 ```bash
-git clone <repo-url>
-cd <project-folder>
-```
-
-### 2. Set up the backend
-
-```bash
-cd backend
 npm install
-cp .env.example .env        # then fill in your values
-npx prisma migrate dev      # creates the database tables
-npm run dev                 # starts the API
+npm run dev
 ```
 
-### 3. Set up the frontend
+Open the local address printed by Vite. Commands and setup details may change as the project is initialized.
 
-Open a new terminal:
+## Team Collaboration
 
-```bash
-cd frontend
-npm install
-cp .env.example .env        # then fill in your values
-npm run dev                 # starts the React app
-```
+This is a five-member software engineering project. Frontend work is divided into feature modules covering authentication and verification, marketplace workflows, dashboards and administration, public UI, and profiles and support.
 
-### 4. Open the app
+Contributors should use feature branches, open pull requests for review, follow the shared design system, and test their changes before merging.
 
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:5000
+## Project Notes
 
-*(Ports may differ depending on your setup.)*
+- **Institution:** Misr International University (MIU), Egypt.
+- **Purpose:** University software engineering project.
+- **Design:** Intended to follow the approved Figma design and MIU-inspired visual identity; institutional branding and deployment require appropriate approval.
+- **Availability:** This repository is not presented as an official MIU service or a production payment platform.
+- **License:** To be determined by the project team.
 
 ---
 
-## Environment Variables
-
-**Never commit `.env` files.** Use `.env.example` as a template.
-
-### `backend/.env`
-
-```env
-PORT=5000
-DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/freelance_db"
-JWT_SECRET=change_this_to_a_long_random_string
-CLIENT_URL=http://localhost:5173
-```
-
-### `frontend/.env`
-
-```env
-VITE_API_URL=http://localhost:5000
-```
-
----
-
-## Database
-
-We use **Prisma** with **PostgreSQL**. The schema lives in `backend/prisma/schema.prisma`.
-
-Useful commands (run from `backend/`):
-
-```bash
-npx prisma migrate dev      # apply changes and create a migration
-npx prisma studio           # browse the database in your browser
-npx prisma generate         # regenerate the Prisma client
-```
-
-After pulling changes that touch the schema, run `npx prisma migrate dev` again.
-
----
-
-## Git Workflow
-
-- **No direct pushes to `main`.**
-- Create one branch per feature or fix:
-  ```bash
-  git checkout -b feature/job-posting
-  ```
-- Branch names: `feature/...`, `fix/...`, `docs/...`
-- Write clear commit messages: `add job posting endpoint`, not `update`.
-- Open a **pull request** and get at least one review before merging.
-- Pull the latest `main` before starting new work.
-- Keep tasks small, ideally 1 to 2 days each.
-
----
-
-## Roadmap
-
-| Phase | Goal | Status |
-|-------|------|--------|
-| 1 | Scope, design, repo setup, database schema | ⬜ |
-| 2 | Auth and profiles | ⬜ |
-| 3 | Jobs and applications (core flow end to end) | ⬜ |
-| 4 | Reviews, dashboards, admin panel | ⬜ |
-| 5 | Testing, polish, deployment | ⬜ |
-
-See [`MASTER_PLAN.md`](./MASTER_PLAN.md) for the full plan.
-
----
-
-## Team
-
-| Name | Role | GitHub |
-|------|------|--------|
-| Mina Samaan | Team Lead | [@mina297](https://github.com/mina297) |
-| Marina Ashraf | Member | [@Marina-Ashraf](https://github.com/Marina-Ashraf) |
-| Marina Hanna | Member | [@marina2405238-cloud](https://github.com/marina2405238-cloud) |
-| Carol Adel | Member | [@caroladel](https://github.com/caroladel) |
-| Sama Mohamed | Member | [@SamaMohamed6](https://github.com/SamaMohamed6) |
-
----
-
-## License
-
-Developed as a university project at Misr International University (MIU). All rights reserved by the project team and the university.
+**MIU Freelance Platform** — *Your Talent. Real Opportunities.*
