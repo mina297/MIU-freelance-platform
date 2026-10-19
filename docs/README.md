@@ -72,7 +72,7 @@ This documentation is intended for:
 
 | Document | Purpose |
 |---|---|
-| [Deployment Guide](07-HANDOVER/DEPLOYMENT_GUIDE.md) | Deployment preparation and verified procedures |
+| [Deployment Guide](07-HANDOVER/DEPLOYMENT_GUIDE.md) | Deployment preparation and procedures awaiting verification |
 | [Maintenance Guide](07-HANDOVER/MAINTENANCE_GUIDE.md) | Long-term development guidance |
 | [Known Issues](07-HANDOVER/KNOWN_ISSUES.md) | Open questions, issues, and limitations |
 

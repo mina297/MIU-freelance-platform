@@ -73,7 +73,19 @@ Additional proposed routes may include:
 
 These supporting routes extend the SRS prototype inventory without changing its numbering.
 
-## 3. Layout Groups
+## 3. Current Implementation Snapshot
+
+As inspected on 20 October 2026, the frontend is an initial React/Vite scaffold with a single static `App` component.
+
+- React Router is installed but is not configured in the application entry point.
+- None of the proposed routes in this document are currently implemented.
+- The visible scaffold contains an MIU Freelance heading and a non-functional **Post a Job** button.
+- No authentication, marketplace, dashboard, committee, AI, verification, payment, or escrow workflow is implemented by the current source.
+- This snapshot records observed code only. It does not change the planned route map or the SRS requirements.
+
+Update this section when route implementation materially changes, and do not mark a route implemented without inspecting and verifying it.
+
+## 4. Layout Groups
 
 ### Public Layout
 Landing, catalogues, service/project details, informational pages.
@@ -90,7 +102,7 @@ Client dashboard, project management, proposals, checkout, orders.
 ### Administrative Layout
 Super Admin and five committees, with role-aware navigation.
 
-## 4. Navigation Rules
+## 5. Navigation Rules
 
 - Public content is discoverable without a mock account where appropriate.
 - Protected pages check the intended role.
@@ -100,7 +112,7 @@ Super Admin and five committees, with role-aware navigation.
 - Deep links should work during a frontend demo.
 - Navigation labels should align with the approved design.
 
-## 5. Prototype Tracking
+## 6. Prototype Tracking
 
 Each SRS prototype should eventually have:
 - Screenshot or Figma frame
@@ -111,7 +123,7 @@ Each SRS prototype should eventually have:
 - Related functional requirement IDs
 - Implementation/testing status
 
-## 6. Route Change Process
+## 7. Route Change Process
 
 Before changing a shared path:
 1. Identify linked pages and navigation actions.

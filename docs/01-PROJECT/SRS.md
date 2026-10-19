@@ -9,7 +9,7 @@ document_type: Software Requirements Specification
 phase: 1
 version: "1.1"
 date: October 2026
-status: Under Development
+status: Baseline
 tags:
   - MIU
   - Software-Engineering
@@ -18,9 +18,7 @@ tags:
   - Requirements
 ---
 
-# Software Requirements Specification
-
-# MIU Freelance Platform
+# MIU Freelance Platform — Software Requirements Specification
 
 **Phase 1 — Version 1.1**
 
@@ -30,7 +28,7 @@ tags:
 - Carol Adel — ID: 2024/07765
 - Marina Ashraf — ID: 2024/06654
 - Marina Hanna — ID: 2024/05238
-	- Sama Mohamed — ID: 2024/00293
+- Sama Mohamed — ID: 2024/00293
 
 **Submitted to:** Dr. Mohamed Mahmoud Youssef Shalaby
 
@@ -38,7 +36,7 @@ tags:
 
 ---
 
-# Table of Contents
+## Table of Contents
 
 1. [[#1. Preface]]
 2. [[#2. Introduction]]
@@ -50,7 +48,7 @@ tags:
 
 ---
 
-# 1. Preface
+## 1. Preface
 
 This Software Requirements Specification defines the Phase 1 user requirements and interface prototypes for the MIU Freelance Platform.
 
@@ -75,9 +73,9 @@ This document establishes a shared basis for design review and later implementat
 
 ---
 
-# 2. Introduction
+## 2. Introduction
 
-## 2.1 Purpose
+### 2.1 Purpose
 
 The MIU Freelance Platform will connect student freelancers with clients through two marketplace models.
 
@@ -90,7 +88,7 @@ The system is intended to support:
 - Controlled payments
 - Role-specific oversight
 
-## 2.2 Scope
+### 2.2 Scope
 
 The platform includes:
 
@@ -111,7 +109,7 @@ The platform includes:
 
 No live payment capability is claimed in Phase 1.
 
-## 2.3 User Classes
+### 2.3 User Classes
 
 | User Class | Primary Goals |
 |---|---|
@@ -125,7 +123,7 @@ No live payment capability is claimed in Phase 1.
 | Support and Disputes Committee | Manage tickets, evidence, disputes, and recorded decisions. |
 | AI and Quality Committee | Review matching, chatbot, moderation, feedback, and AI-related error reports. |
 
-## 2.4 Operating Assumptions and Constraints
+### 2.4 Operating Assumptions and Constraints
 
 - EGP is the only supported currency. The interface does not provide currency conversion or a currency selector.
 - Identity checks distinguish MIU users, who submit MIU ID, from external clients, who submit government ID.
@@ -135,9 +133,9 @@ No live payment capability is claimed in Phase 1.
 
 ---
 
-# 3. Similar Systems
+## 3. Similar Systems
 
-## 3.1 Mostaql
+### 3.1 Mostaql
 
 Mostaql represents the project-proposal model used as a conceptual reference.
 
@@ -145,7 +143,7 @@ A client publishes a project with requirements and budget, freelancers submit co
 
 The MIU platform adopts this interaction pattern without claiming an affiliation or an exact copy of Mostaql.
 
-## 3.2 Khamsat
+### 3.2 Khamsat
 
 Khamsat represents the service-catalogue model used as a conceptual reference.
 
@@ -153,7 +151,7 @@ Freelancers publish predefined services, buyers browse listings, and an order be
 
 The MIU platform adopts this interaction pattern without claiming an affiliation or an exact copy of Khamsat.
 
-## 3.3 Comparison and Planned Adaptation
+### 3.3 Comparison and Planned Adaptation
 
 | Capability | Mostaql-like Reference | Khamsat-like Reference | MIU Planned Approach |
 |---|---|---|---|
@@ -167,7 +165,7 @@ The MIU platform adopts this interaction pattern without claiming an affiliation
 
 ---
 
-# 4. Functional User Requirements
+## 4. Functional User Requirements
 
 The following requirements are organized by user role.
 
@@ -175,7 +173,7 @@ Each role section states the complete set of actions that the role should be abl
 
 These requirements describe planned behavior and do not claim that the functions are already implemented.
 
-## 4.1 Visitor Functional Requirements
+### 4.1 Visitor Functional Requirements
 
 | ID | Requirement |
 |---|---|
@@ -185,7 +183,7 @@ These requirements describe planned behavior and do not claim that the functions
 | FR-V04 | Open the login and password-recovery forms. |
 | FR-V05 | Change the displayed interface language. |
 
-## 4.2 Student Functional Requirements
+### 4.2 Student Functional Requirements
 
 | ID | Requirement |
 |---|---|
@@ -206,7 +204,7 @@ These requirements describe planned behavior and do not claim that the functions
 | FR-S15 | Use translation controls and the planned help chatbot. |
 | FR-S16 | Manage password, language, notification, and active-session settings. |
 
-## 4.3 Client Functional Requirements
+### 4.3 Client Functional Requirements
 
 | ID | Requirement |
 |---|---|
@@ -228,7 +226,7 @@ These requirements describe planned behavior and do not claim that the functions
 | FR-C16 | Use translation controls and the planned help chatbot. |
 | FR-C17 | Manage password, language, notification, and active-session settings. |
 
-## 4.4 Super Admin Functional Requirements
+### 4.4 Super Admin Functional Requirements
 
 | ID | Requirement |
 |---|---|
@@ -243,7 +241,7 @@ These requirements describe planned behavior and do not claim that the functions
 | FR-A09 | View audit records for administrative and committee actions. |
 | FR-A10 | Manage permitted platform settings without changing the EGP-only rule. |
 
-## 4.5 Verification Committee Functional Requirements
+### 4.5 Verification Committee Functional Requirements
 
 | ID | Requirement |
 |---|---|
@@ -253,7 +251,7 @@ These requirements describe planned behavior and do not claim that the functions
 | FR-VC04 | Approve, reject, or request resubmission and record the decision reason. |
 | FR-VC05 | View only the identity information necessary for verification work. |
 
-## 4.6 Marketplace Operations Committee Functional Requirements
+### 4.6 Marketplace Operations Committee Functional Requirements
 
 | ID | Requirement |
 |---|---|
@@ -263,7 +261,7 @@ These requirements describe planned behavior and do not claim that the functions
 | FR-MO04 | Review planned automated moderation flags and record the final human decision. |
 | FR-MO05 | Escalate cases outside its authority to the Super Admin or appropriate committee. |
 
-## 4.7 Finance Committee Functional Requirements
+### 4.7 Finance Committee Functional Requirements
 
 | ID | Requirement |
 |---|---|
@@ -273,7 +271,7 @@ These requirements describe planned behavior and do not claim that the functions
 | FR-FC04 | Perform permitted sandbox finance actions and record reasons. |
 | FR-FC05 | Escalate unresolved or unauthorized finance actions. |
 
-## 4.8 Support and Disputes Committee Functional Requirements
+### 4.8 Support and Disputes Committee Functional Requirements
 
 | ID | Requirement |
 |---|---|
@@ -283,7 +281,7 @@ These requirements describe planned behavior and do not claim that the functions
 | FR-SD04 | Communicate with the involved users and record case notes. |
 | FR-SD05 | Resolve permitted cases or escalate financial and final decisions. |
 
-## 4.9 AI and Quality Committee Functional Requirements
+### 4.9 AI and Quality Committee Functional Requirements
 
 | ID | Requirement |
 |---|---|
@@ -295,7 +293,7 @@ These requirements describe planned behavior and do not claim that the functions
 
 ---
 
-# 5. Non-Functional User Requirements
+## 5. Non-Functional User Requirements
 
 These requirements define expected quality and operating constraints.
 
@@ -324,13 +322,13 @@ Target values are acceptance goals for later implementation and testing.
 
 ---
 
-# 6. System Requirements
+## 6. System Requirements
 
 This section identifies the technical environment and supporting capabilities required to implement and operate the planned platform.
 
 The selected products and providers may change during later design and implementation work.
 
-## 6.1 Client Device Requirements
+### 6.1 Client Device Requirements
 
 | ID | Requirement |
 |---|---|
@@ -339,7 +337,7 @@ The selected products and providers may change during later design and implement
 | SR-03 | The device must permit file selection or camera capture when the user uploads identity documents, portfolio files, project attachments, deliveries, or dispute evidence. |
 | SR-04 | JavaScript and secure HTTPS connections must be enabled for the implemented web application. |
 
-## 6.2 Application Software Requirements
+### 6.2 Application Software Requirements
 
 | ID | Requirement |
 |---|---|
@@ -350,7 +348,7 @@ The selected products and providers may change during later design and implement
 | SR-09 | The web interface must use EGP as the only transaction and display currency. |
 | SR-10 | Capacitor packaging may be added after the responsive web application is stable; it is not required for the Phase 1 prototype. |
 
-## 6.3 External Service Requirements
+### 6.3 External Service Requirements
 
 | ID | Requirement |
 |---|---|
@@ -360,7 +358,7 @@ The selected products and providers may change during later design and implement
 | SR-14 | The planned skills matcher, chatbot, translation, and comment-moderation functions require later AI or language services with human-review paths. |
 | SR-15 | Email or notification delivery requires a later notification provider for verification, password reset, order, case, and account messages. |
 
-## 6.4 Hosting and Security Requirements
+### 6.4 Hosting and Security Requirements
 
 | ID | Requirement |
 |---|---|
@@ -372,7 +370,7 @@ The selected products and providers may change during later design and implement
 
 ---
 
-# 7. Prototypes of All Forms and Pages
+## 7. Prototypes of All Forms and Pages
 
 This section is reserved for screenshots captured from the running frontend application.
 
@@ -380,7 +378,7 @@ Replace each labeled placeholder with the corresponding screenshot after the HTM
 
 Source code should remain in the project files and should not be pasted into this SRS.
 
-## 7.1 Prototype Inventory
+### 7.1 Prototype Inventory
 
 | ID | Page or Form | Primary Access |
 |---|---|---|
@@ -416,9 +414,9 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-## 7.2 Prototype Screenshots
+### 7.2 Prototype Screenshots
 
-### P-01 — Landing Page
+#### P-01 — Landing Page
 
 **Access:** Public
 
@@ -429,7 +427,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-02 — Registration and Role Selection
+#### P-02 — Registration and Role Selection
 
 **Access:** Public
 
@@ -440,7 +438,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-03 — Login
+#### P-03 — Login
 
 **Access:** Public
 
@@ -451,7 +449,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-04 — Forgot and Reset Password
+#### P-04 — Forgot and Reset Password
 
 **Access:** Public
 
@@ -462,7 +460,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-05 — Identity Verification
+#### P-05 — Identity Verification
 
 **Access:** Student or Client
 
@@ -473,7 +471,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-06 — Projects Catalogue
+#### P-06 — Projects Catalogue
 
 **Access:** Public and Student
 
@@ -484,7 +482,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-07 — Project Details
+#### P-07 — Project Details
 
 **Access:** Public and Student
 
@@ -495,7 +493,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-08 — Submit or Edit Proposal
+#### P-08 — Submit or Edit Proposal
 
 **Access:** Student
 
@@ -506,7 +504,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-09 — Services Catalogue
+#### P-09 — Services Catalogue
 
 **Access:** Public and Client
 
@@ -517,7 +515,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-10 — Service Details and Package Selection
+#### P-10 — Service Details and Package Selection
 
 **Access:** Public and Client
 
@@ -528,7 +526,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-11 — Student Dashboard
+#### P-11 — Student Dashboard
 
 **Access:** Student
 
@@ -539,7 +537,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-12 — Student Profile and Portfolio
+#### P-12 — Student Profile and Portfolio
 
 **Access:** Student
 
@@ -550,7 +548,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-13 — Service Editor
+#### P-13 — Service Editor
 
 **Access:** Student
 
@@ -561,7 +559,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-14 — Student Proposals and Orders
+#### P-14 — Student Proposals and Orders
 
 **Access:** Student
 
@@ -572,7 +570,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-15 — Client Dashboard
+#### P-15 — Client Dashboard
 
 **Access:** Client
 
@@ -583,7 +581,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-16 — Post or Edit Project
+#### P-16 — Post or Edit Project
 
 **Access:** Client
 
@@ -594,7 +592,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-17 — Proposal Comparison
+#### P-17 — Proposal Comparison
 
 **Access:** Client
 
@@ -605,7 +603,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-18 — Checkout and Sandbox Escrow
+#### P-18 — Checkout and Sandbox Escrow
 
 **Access:** Client
 
@@ -616,7 +614,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-19 — Order Workspace
+#### P-19 — Order Workspace
 
 **Access:** Student and Client
 
@@ -627,7 +625,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-20 — Messages Chatbot and Translation
+#### P-20 — Messages Chatbot and Translation
 
 **Access:** Registered User
 
@@ -638,7 +636,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-21 — Support Ticket and Dispute Form
+#### P-21 — Support Ticket and Dispute Form
 
 **Access:** Registered User
 
@@ -649,7 +647,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-22 — Super Admin Dashboard
+#### P-22 — Super Admin Dashboard
 
 **Access:** Super Admin
 
@@ -660,7 +658,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-23 — Committee Account Management
+#### P-23 — Committee Account Management
 
 **Access:** Super Admin
 
@@ -671,7 +669,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-24 — Verification Committee Dashboard
+#### P-24 — Verification Committee Dashboard
 
 **Access:** Verification Committee
 
@@ -682,7 +680,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-25 — Marketplace Operations Dashboard
+#### P-25 — Marketplace Operations Dashboard
 
 **Access:** Marketplace Operations Committee
 
@@ -693,7 +691,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-26 — Finance Committee Dashboard
+#### P-26 — Finance Committee Dashboard
 
 **Access:** Finance Committee
 
@@ -704,7 +702,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-27 — Support and Disputes Dashboard
+#### P-27 — Support and Disputes Dashboard
 
 **Access:** Support and Disputes Committee
 
@@ -715,7 +713,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-28 — AI and Quality Dashboard
+#### P-28 — AI and Quality Dashboard
 
 **Access:** AI and Quality Committee
 
@@ -726,7 +724,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-### P-29 — Notifications and Settings
+#### P-29 — Notifications and Settings
 
 **Access:** Registered User
 
@@ -737,7 +735,7 @@ Source code should remain in the project files and should not be pasted into thi
 
 ---
 
-# End of Document
+## End of Document
 
 **Document:** MIU Freelance Platform — Phase 1 SRS
 

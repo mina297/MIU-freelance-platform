@@ -1,16 +1,61 @@
-# React + Vite
+# MIU Freelance Platform Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This directory contains the Phase 1 React frontend for the MIU Freelance Platform.
 
-Currently, two official plugins are available:
+The application is currently an initial scaffold. It renders a static MIU Freelance heading and a non-functional **Post a Job** button. The marketplace routes and workflows described in the project documentation are planned and are not yet implemented here.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Technology
 
-## React Compiler
+- React with JavaScript
+- Vite
+- Tailwind CSS v4
+- React Router
+- Lucide React
+- React Hot Toast
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Installed dependencies do not imply that their planned integrations are complete.
 
-## Expanding the ESLint configuration
+## Local Development
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+From this directory:
+
+```bash
+npm install
+npm run dev
+```
+
+Available project scripts:
+
+```bash
+npm run dev
+npm run build
+npm run lint
+npm run format
+npm run preview
+```
+
+`npm run format` modifies files under `src`; review the resulting diff before committing it.
+
+## Phase 1 Boundaries
+
+Phase 1 uses mock data and simulated frontend behavior. Do not represent authentication, identity verification, AI, payment, or escrow demonstrations as production functionality.
+
+- Use EGP only for monetary values.
+- Do not add public committee registration.
+- Use fictional identities and safe placeholder assets.
+- Do not add real payment credentials or identity documents.
+- Keep backend, database, live integrations, and Capacitor packaging outside Phase 1 unless explicitly authorized.
+
+## Documentation
+
+Before implementing a feature, follow the repository [AI agent instructions](../AGENTS.md) and read the [documentation hub](../docs/README.md).
+
+Key references:
+
+- [SRS v1.1](../docs/01-PROJECT/SRS.md)
+- [Pages and Routes](../docs/03-DESIGN/PAGES_AND_ROUTES.md)
+- [Frontend Architecture](../docs/04-ARCHITECTURE/FRONTEND_ARCHITECTURE.md)
+- [Coding Standards](../docs/05-DEVELOPMENT/CODING_STANDARDS.md)
+- [Testing Strategy](../docs/05-DEVELOPMENT/TESTING_STRATEGY.md)
+
+Do not mark a planned feature as implemented until its behavior has been inspected and verified.

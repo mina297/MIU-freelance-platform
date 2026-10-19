@@ -1,7 +1,7 @@
 
 # MIU Freelance Platform
 
-### Your Talent. Real Opportunities.
+## Your Talent. Real Opportunities.
 
 **A university-focused freelancing marketplace connecting student talent with real opportunities.**
 

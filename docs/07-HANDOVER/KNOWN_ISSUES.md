@@ -32,6 +32,7 @@ Do not confuse a planned feature with a software defect.
 | KL-04 | Known Limitation | Real online payments and escrow are outside Phase 1. | Expected |
 | KL-05 | Known Limitation | Capacitor mobile packaging is a later-phase goal. | Expected |
 | KL-06 | Documentation Gap | SRS prototype screenshot placeholders need completed interface captures. | Pending |
+| KL-07 | Known Limitation | The current frontend is an initial static React/Vite scaffold; the proposed routes and workflows are not yet implemented. | Expected |
 
 These are scope limitations and documentation tasks, not verified software bugs.
 
