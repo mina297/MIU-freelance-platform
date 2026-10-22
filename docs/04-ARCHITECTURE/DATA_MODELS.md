@@ -275,9 +275,11 @@ provisional status constants, and a small deterministic fixture in
 an accepted proposal linked to a project order, and a service package with an
 extra linked to a service order. The participant summaries are fictional
 integration references, not full account or profile records. The fixture is
-checked for broken references and EGP totals by a local test. These are mock
-records only; no marketplace screen, persistence, payment, or escrow is
-implemented by this foundation.
+checked for broken references and EGP totals by local tests. Marketplace
+selectors support text, category, skill, and status filtering. Shared EGP and
+date formatters provide consistent display values. These are mock records
+only; no marketplace screen, persistence, payment, or escrow is implemented
+by this foundation.
 
 ## Related Documents
 

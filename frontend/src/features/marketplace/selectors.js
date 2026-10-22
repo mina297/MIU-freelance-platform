@@ -33,3 +33,31 @@ export const getOrdersByClient = (clientId, data = marketplaceData) =>
 
 export const getOrdersByStudent = (studentId, data = marketplaceData) =>
   data.orders.filter((order) => order.studentId === studentId);
+
+const includesQuery = (record, query) =>
+  `${record.title} ${record.description}`.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase());
+
+/**
+ * Filter projects without changing their source order. Empty options mean no
+ * restriction; a skill filter matches a project requiring that skill.
+ */
+export function findProjects({ query = "", categoryId, skillId, status } = {}, data = marketplaceData) {
+  return data.projects.filter(
+    (project) =>
+      includesQuery(project, query) &&
+      (!categoryId || project.categoryId === categoryId) &&
+      (!skillId || project.requiredSkillIds.includes(skillId)) &&
+      (!status || project.status === status),
+  );
+}
+
+/** Filter service listings using the same search terms and filter semantics. */
+export function findServices({ query = "", categoryId, skillId, status } = {}, data = marketplaceData) {
+  return data.services.filter(
+    (service) =>
+      includesQuery(service, query) &&
+      (!categoryId || service.categoryId === categoryId) &&
+      (!skillId || service.skillIds.includes(skillId)) &&
+      (!status || service.status === status),
+  );
+}
