@@ -602,6 +602,108 @@ npm.cmd run build
 node node_modules/prettier/bin/prettier.cjs --check src/features/public/LandingPage.jsx src/features/public/landing/discoveryModel.js src/features/public/landing/SectionHeading.jsx src/features/public/landing/HeroSection.jsx src/features/public/landing/DiscoveryCard.jsx src/features/public/landing/FeaturedOpportunities.jsx src/features/public/landing/FeaturedStudents.jsx src/features/public/landing/TrustSection.jsx src/features/public/landing/landing.css src/features/public/landing/landing.test.js
 ```
 
+## Member 4 — Loading, empty, and error states
+
+Reusable presentation is provided by:
+
+- `frontend/src/components/ui/LoadingSpinner.jsx`
+- `frontend/src/components/ui/Skeleton.jsx`
+- `frontend/src/components/ui/ProgressIndicator.jsx`
+- `frontend/src/components/feedback/LoadingState.jsx`
+- `frontend/src/components/feedback/EmptyState.jsx`
+- `frontend/src/components/feedback/ErrorState.jsx`
+
+Their styles are scoped in `components/ui/states.css`. Existing Button, Card,
+global tokens, marketplace screens, routing, and the separate How It Works
+implementation are unchanged. This branch addresses Member 4's loading screens,
+skeleton loaders, progress indicators, empty states, and recoverable error
+presentation responsibilities. Related quality requirements: NFR-02, NFR-03,
+NFR-16; the demonstration does not mark these SRS requirements complete.
+
+| Component | Contract |
+|---|---|
+| LoadingSpinner | `label` defaults to Loading; standalone `role="status"` exposes this text. Use `decorative` when another message already announces the operation. Artwork is always hidden from assistive technology. |
+| Skeleton | Decorative, noninteractive placeholders hidden from assistive technology. `variant`: `text` (default), `circle`, or `rectangle`. Text `lines` defaults to 3 and is bounded to 1–10. No fake content or focus targets. |
+| ProgressIndicator | Visible `label` associated with native `<progress>` using generated ID or unique supplied `id`. Finite `value` is clamped between 0 and positive finite `max` (default 100). Omitted/nonfinite value means indeterminate, with no fabricated percentage. Invalid max falls back to 100. Updates are not independently live-announced. |
+| LoadingState | `message` defaults to Loading content…; one atomic status message, decorative spinner, and optional skeleton (`showSkeleton`, default true). Keep this announcement outside the consumer's busy content container; set `aria-busy` on that separate container. |
+| EmptyState | Named section with `title`, optional `description`, and decorative icon. Recovery button appears only for a function-valued `onAction`; `actionLabel` defaults to Clear filters. Supply a label and handler appropriate to the actual empty condition. No invented navigation. |
+| ErrorState | Named section with `title`, optional `description`, decorative error icon, optional function-valued `onRetry`, and `retryLabel` (default Try again). `retrying` disables the action and exposes button busy state. `announce` defaults false; opt in to an alert only when appropriate, without a second competing announcement. It is not an error boundary and never renders raw exceptions or technical details. |
+| Shared presentation | All accept `className`. EmptyState/ErrorState accept `headingLevel` 2, 3, or 4 (default/fallback 2) to fit the consuming page's hierarchy. Callers own data, recovery, focus after replacement, state transitions, and route access. |
+
+```jsx
+<LoadingState message="Loading results…" />
+<div aria-busy={isLoading}>{/* Consumer-owned content */}</div>
+<ProgressIndicator label="Example progress" value={25} />
+<EmptyState
+  title="No matching results"
+  description="Try clearing your filters."
+  onAction={clearFilters}
+/>
+<ErrorState onRetry={retry} retrying={isRetrying} />
+```
+
+These are design-system extensions using existing MIU red, white/neutral
+surfaces, Inter typography, Card styling, Button focus/disabled behavior, and
+installed Lucide icons. No dedicated loading/empty/error Figma frame was
+confirmed in the prior approved style-guide review (`4:2454`); these components
+are not claimed as exact Figma screen reproductions. Team visual review remains
+necessary. Reduced-motion preferences disable spinner, skeleton, and
+indeterminate-progress CSS animations; labels remain visible and meaningful.
+
+### Demo page handover
+
+`features/public/LoadingDemoPage.jsx` and `features/public/ErrorDemoPage.jsx`
+are content-only page components intended for `/loading-demo` and `/error-demo`
+inside the existing PublicLayout. **Member 1 must register both routes**; neither
+URL is currently implemented by this branch. No application entry point or
+extra HTML preview is added. Scoped page styles live in
+`features/public/states/state-demos.css`.
+
+Both pages explicitly disclose Phase 1 simulation and make no network requests.
+Loading has Start loading, Advance 25%, Complete, and Reset controls, along with
+separately labeled static appearance specimens. Advancing to 100% completes the
+example. Error has Simulate error, working immediate Try again/Reset recovery,
+and an empty example whose Clear filters action reveals one generic example
+item. Reset restores the empty state. Removing a recovery button restores focus
+to a persistent example control. Persistent status messages announce changes;
+the demo does not also enable ErrorState's alert. Static specimens without
+handlers deliberately have no action buttons. There are no artificial delays,
+real backend failures, authentication flows, financial operations, or business
+record fixtures.
+
+### Verification and limitations
+
+On 23 October 2026, 60 tests passed (13 new state tests and 47 existing tests).
+Existing lint and Vite build passed. The default build still mounts the existing
+catalogue; the new modules were exercised through SSR tests and browser imports,
+not by silently registering application routes. New-source Prettier and
+tracked/untracked whitespace checks passed. A separate production build of both
+demo modules also passed using a temporary output directory, without modifying
+the shared Vite configuration.
+
+Headless Chrome checks covered 320, 390, 640, 768, 960, 1024, and 1440px in idle
+and active loading/error states with no horizontal overflow. Mobile/desktop
+screenshots were inspected. Checks exercised Start, advance to 100%, Complete,
+Reset, error recovery, empty recovery, Enter/Space activation, Tab navigation,
+visible keyboard focus, focus restoration, long unbroken text/action labels,
+44px action heights, native progress labels/values in Chrome's accessibility
+tree, and reduced-motion animation suppression. No runtime exceptions, console
+errors, or failed HTTP responses occurred during successful browser checks.
+Measured body text contrast on white was 7.56:1 and primary button text contrast
+was 6.43:1; this is not an exhaustive accessibility audit.
+
+Remaining: Member 1's actual route/layout integration, user visual approval,
+screen-reader announcements, systematic zoom, other browsers, real touch devices,
+and precise Figma geometry. Existing feature screens have not been migrated to
+these primitives; their owners can adopt them without changing data contracts.
+
+```bash
+cd frontend
+node --test --test-concurrency=1 src/components/feedback/states.test.js src/features/public/landing/landing.test.js src/components/navigation/publicShell.test.js src/components/ui/forms.test.js src/components/ui/foundation.test.js src/features/marketplace/marketplace.test.js
+npm.cmd run lint
+npm.cmd run build
+```
+
 ## Related Documents
 
 - [Design System](DESIGN_SYSTEM.md)

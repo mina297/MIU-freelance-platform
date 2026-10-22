@@ -116,6 +116,16 @@ route mapping. See [the public-shell contract](UI_COMPONENTS.md#member-4--public
 for destination keys, design differences, and verified checks. This update does
 not mark any proposed route as implemented.
 
+**23 October 2026 — Member 4 feedback demos:** content-only
+`features/public/LoadingDemoPage.jsx` and `features/public/ErrorDemoPage.jsx`
+are ready for the assigned `/loading-demo` and `/error-demo` paths. **These
+routes are not registered.** Member 1 owns registration inside PublicLayout,
+available navigation destinations, and route integration checks. Both pages use
+local, explicitly labeled Phase 1 demonstrations with working controls for
+loading completion/reset, error retry/reset, and empty recovery. They introduce
+no APIs, guards, mock sessions, or marketplace contract changes. See the
+[state component contract](UI_COMPONENTS.md#member-4--loading-empty-and-error-states).
+
 ### Public Layout
 Landing, catalogues, service/project details, informational pages.
 
