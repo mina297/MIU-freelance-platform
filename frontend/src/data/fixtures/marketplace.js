@@ -19,12 +19,14 @@ export const marketplaceParticipants = Object.freeze({
 export const marketplaceCategories = Object.freeze([
   { id: "web_development", label: "Web Development" },
   { id: "graphic_design", label: "Graphic Design" },
+  { id: "writing", label: "Writing & Content" },
 ]);
 
 export const marketplaceSkills = Object.freeze([
   { id: "react", label: "React" },
   { id: "responsive_design", label: "Responsive Design" },
   { id: "figma", label: "Figma" },
+  { id: "content_writing", label: "Content Writing" },
 ]);
 
 /** @type {import('../contracts.js').Project[]} */
@@ -54,6 +56,27 @@ export const projects = [
     status: PROJECT_STATUS.SELECTED,
     createdAt: "2026-10-10T10:00:00Z",
     updatedAt: "2026-10-16T13:00:00Z",
+  },
+  {
+    id: "project_003", clientId: "client_001", title: "Create a student club brand kit",
+    description: "Design a visual identity, event poster template, and social media graphics.",
+    categoryId: "graphic_design", requiredSkillIds: ["figma"], budgetEGP: 2800,
+    deadline: "2026-12-05", status: PROJECT_STATUS.OPEN,
+    createdAt: "2026-10-19T12:00:00Z", updatedAt: "2026-10-19T12:00:00Z",
+  },
+  {
+    id: "project_004", clientId: "client_001", title: "Write articles for a campus initiative",
+    description: "Research and write four clear articles about student entrepreneurship.",
+    categoryId: "writing", requiredSkillIds: ["content_writing"], budgetEGP: 2200,
+    deadline: "2026-11-25", status: PROJECT_STATUS.OPEN,
+    createdAt: "2026-10-18T10:00:00Z", updatedAt: "2026-10-18T10:00:00Z",
+  },
+  {
+    id: "project_005", clientId: "client_001", title: "Refresh a small business website",
+    description: "Improve the layout and mobile experience of an existing five-page website.",
+    categoryId: "web_development", requiredSkillIds: ["react", "responsive_design"], budgetEGP: 7500,
+    deadline: "2027-01-10", status: PROJECT_STATUS.OPEN,
+    createdAt: "2026-10-17T14:00:00Z", updatedAt: "2026-10-17T14:00:00Z",
   },
 ];
 

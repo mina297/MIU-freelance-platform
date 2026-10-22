@@ -131,6 +131,12 @@ Demonstrate:
 - Mock acceptance
 - Transition to a mock project order
 
+**Current frontend status (22 October 2026):** The projects catalogue has a
+standalone React preview with fictional open-project cards, search, category
+and skill filters, sorting, and an empty state. Quick view expands project
+summary content. Project detail pages, proposal actions, role restrictions,
+and router integration are still pending.
+
 ## 12. Dependencies
 
 - Authentication
