@@ -1,0 +1,2 @@
+# Normalize text in the index and use LF in working trees on every platform.
+* text=auto eol=lf

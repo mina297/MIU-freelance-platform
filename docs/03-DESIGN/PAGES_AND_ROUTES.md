@@ -95,6 +95,15 @@ planned screens.
 
 ## 4. Layout Groups
 
+**23 October 2026 update:** App.jsx registers the public catalogue at `/` and
+`/projects`, the existing student preview at `/student/dashboard`, and a
+not-found fallback. The team requested removal of the demo account toolbar and
+simulated role gate. Development navigation now uses an isolated switcher with
+seven planned dashboards disabled. Set `VITE_ENABLE_DEV_DASHBOARD_SWITCHER=false`
+to hide it without changing routes. Real login and role guards remain pending.
+Dashboard subsections use `?section=`.
+See [Student Dashboard](../06-MODULES/STUDENT_DASHBOARD.md).
+
 ### Public Layout
 Landing, catalogues, service/project details, informational pages.
 

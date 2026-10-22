@@ -59,3 +59,10 @@ Key references:
 - [Testing Strategy](../docs/05-DEVELOPMENT/TESTING_STRATEGY.md)
 
 Do not mark a planned feature as implemented until its behavior has been inspected and verified.
+# Student Dashboard preview
+
+Run `npm run dev` and use **Development: Switch dashboard** at the far left of
+navigation. Only Student Dashboard is implemented; planned dashboards are disabled.
+Set `VITE_ENABLE_DEV_DASHBOARD_SWITCHER=false` to hide the isolated switcher.
+The existing routes remain available without it; no authentication is implemented.
+See [dashboard scope and verification](../docs/06-MODULES/STUDENT_DASHBOARD.md).

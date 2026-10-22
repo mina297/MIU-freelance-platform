@@ -1,0 +1,80 @@
+// Fictional display records transcribed from Figma; separate from Member 2's contracts.
+export const dashboardStudent = {
+  id: "dashboard_student_nour",
+  name: "Nour El-Sayed",
+  course: "Graphic Design • Year 4",
+  rating: 4.9,
+  reviews: 32,
+  completedJobs: 32,
+  earningsEGP: 48000,
+};
+export const applications = [
+  {
+    id: "dash_app_01",
+    title: "Brand identity for the MIU Robotics Club",
+    client: "MIU Robotics Club",
+    price: 7000,
+    status: "Pending",
+    date: "2026-10-10",
+  },
+  {
+    id: "dash_app_02",
+    title: "Social templates for the Entrepreneurship Club",
+    client: "MIU Entrepreneurship Club",
+    price: 4500,
+    status: "Pending",
+    date: "2026-10-09",
+  },
+  {
+    id: "dash_app_03",
+    title: "Poster series for the MIU Theatre Festival",
+    client: "MIU Arts Society",
+    price: 3000,
+    status: "Pending",
+    date: "2026-10-09",
+  },
+  {
+    id: "dash_app_04",
+    title: "Infographics for the campus sustainability report",
+    client: "MIU Sustainability Office",
+    price: 4000,
+    status: "Accepted",
+    date: "2026-10-07",
+  },
+  {
+    id: "dash_app_05",
+    title: "Illustrated campus map for new students",
+    client: "MIU Student Affairs",
+    price: 5500,
+    status: "Accepted",
+    date: "2026-10-06",
+  },
+  {
+    id: "dash_app_06",
+    title: "Packaging design for an alumni coffee brand",
+    client: "Omar Hassan",
+    price: 6000,
+    status: "Rejected",
+    date: "2026-10-04",
+  },
+];
+export const activeJobs = [
+  {
+    id: "dash_job_01",
+    applicationId: "dash_app_04",
+    deadline: "2026-10-24",
+    progress: 60,
+    milestone: "3 of 5 infographics approved",
+    next: "Next: share the remaining two layouts.",
+    sourceType: "project",
+  },
+  {
+    id: "dash_job_02",
+    applicationId: "dash_app_05",
+    deadline: "2026-10-26",
+    progress: 25,
+    milestone: "Campus layout and landmarks drafted",
+    next: "Next: review the first illustrated draft.",
+    sourceType: "project",
+  },
+];
