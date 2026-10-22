@@ -250,6 +250,119 @@ Browser visual/keyboard, zoom, screen-reader, cross-browser, and precise
 Figma geometry checks remain unverified. No SRS requirement is marked complete
 on the strength of these foundation components alone.
 
+## Member 4 — Form controls
+
+Implemented in `frontend/src/components/ui/`: `Input`, `Select`, `Textarea`,
+`Checkbox`, and `RadioGroup`, with shared label/feedback rendering in `Field.jsx`
+and scoped styling in `forms.css`. These extend the shared foundation's visual
+conventions and existing theme tokens without changing the foundation files,
+global CSS, routes, or other members' feature components. Related requirements:
+NFR-02 (accessibility), NFR-03 (responsiveness), and NFR-16 (maintainability).
+
+```jsx
+import Input from "./components/ui/Input.jsx";
+import Select from "./components/ui/Select.jsx";
+import Textarea from "./components/ui/Textarea.jsx";
+import Checkbox from "./components/ui/Checkbox.jsx";
+import RadioGroup from "./components/ui/RadioGroup.jsx";
+
+<Input
+  label="Title"
+  name="title"
+  required
+  value={title}
+  onChange={(event) => setTitle(event.target.value)}
+  helperText="Describe the item briefly."
+  error={errors.title}
+/>
+<Select label="Choice" name="choice" defaultValue="first">
+  <option value="first">First</option>
+  <option value="second">Second</option>
+</Select>
+<Textarea label="Details" name="details" rows={4} />
+<Checkbox label="Include this option" name="include" />
+<RadioGroup
+  label="Choose one"
+  name="example-choice"
+  options={[
+    { value: "first", label: "First" },
+    { value: "second", label: "Second", disabled: true },
+  ]}
+  defaultValue="first"
+/>
+```
+
+These are neutral usage examples, not implemented application forms or new
+business rules. Supply approved labels and messages at the consuming feature.
+
+| API | Contract |
+|---|---|
+| Shared field props | Supply a visible `label`. Optional `helperText`, `error` (message), `required`, `disabled`, and `id`. A required field shows an asterisk and uses native required semantics. IDs are generated with React `useId` when omitted. Caller-supplied IDs must be unique in the document. |
+| Feedback | Helper text and error messages have associated IDs, merged with caller `aria-describedby`. A nonempty `error` sets `aria-invalid` even if the caller supplied false. Otherwise caller `aria-invalid` is preserved. The visible error icon and message avoid relying on color alone. There is no automatic alert/live region; announcement timing and submit/focus management belong to the consuming form. |
+| Input | Native text-like input, `type="text"` by default. Supports email, password, number, search, and native constraints such as `min`, `max`, `step`, and `maxLength`. Use the dedicated Checkbox/RadioGroup for choices. |
+| Select | Native select; provide `option`/`optgroup` children. Supports `value`/`onChange` or `defaultValue`, disabled options, and native `multiple`/`size`. Native option popup presentation and long selected-value display depend on the browser/OS. |
+| Textarea | Native textarea; `rows={4}` by default, vertically resizable. Supports native length constraints. |
+| Checkbox | Native checkbox with a wrapping associated label; supports `checked`/`onChange` or `defaultChecked`. |
+| Native forwarding | Input, Select, Textarea, and Checkbox forward native control attributes, callbacks, React 19 `ref`, and `className` to the control. Do not mix controlled and uncontrolled props. These components do not own values or run application validation. |
+| RadioGroup | Native fieldset/legend with same-name radio inputs. `options` contains unique string `value`, visible `label`, and optional `disabled`. Supports `name`, `value`/`onChange` or `defaultValue`, shared field props, ARIA feedback props, and fieldset `className`. `onChange` receives the native React change event. `id` is a prefix for option/feedback IDs. An omitted `name` defaults to that unique prefix. Whole-group disabling and individual disabled options are supported. The group does not forward arbitrary native input props or refs. |
+| Field | Shared rendering utility used by the controls, not a second input implementation. Its render-function `children` receives the associated `id`, `required`, `disabled`, `aria-describedby`, and `aria-invalid`. Internal `choice` and `group` modes render the checkbox label or fieldset/legend. |
+
+Visual reference: approved Figma form showcase `4:2722`, file
+`4OarPMFlQbiJI1Q1WxblcC`. Confirmed input values: 48px minimum height, 12px
+horizontal padding, 14px text, 8px label gap, white surface, existing neutral
+border, and red focus/error treatment. The rendered specimens have pill corners
+despite their 6px-radius annotation; Input and single-select follow the rendered
+shape. Textarea and multi-select use the annotated 6px radius. Dedicated Select,
+Textarea, Checkbox, and RadioGroup specimens were not confirmed in that frame;
+their native presentation extends these conventions rather than claiming an
+exact Figma match. The error icon reuses the installed Lucide CircleAlert,
+matching the specimen's 14px feedback icon. Search icons and search-specific
+adornments are not part of these generic controls. No new assets or dependencies
+are introduced.
+
+Error text uses the existing darker MIU red for readability; error borders use
+the existing danger token. Default pale borders follow the Figma specimen;
+complete WCAG conformance, including non-text boundary contrast in consuming
+layouts, is not claimed. Keyboard focus uses an additional visible 2px outline.
+Disabled controls use the foundation's neutral surface/text colors and native
+disabled behavior. Labels and feedback wrap, controls shrink within layouts,
+and choice labels provide a minimum 44px clickable height. Logical spacing
+supports inherited direction; no translations are included.
+
+Verification on 23 October 2026:
+
+- All 25 tests passed: 11 form-control tests, six foundation tests, and eight
+  marketplace tests. Coverage includes unique label IDs, feedback associations,
+  native attributes/constraints, controlled callbacks/ref forwarding, native
+  selection, grouped radio semantics, disabled states, and escaped content.
+- ESLint, the default Vite production build, and Prettier checks for all eight
+  new source/test/style files passed. The production application does not mount
+  these controls yet; tests and browser checks load them through Vite separately.
+- Headless Chrome checks at 320, 390, 768, and 1440px found no horizontal overflow
+  with long labels, feedback, and unbroken text. Measured input height was 48px
+  and feedback icon geometry was 14×14px.
+- Browser checks verified keyboard entry and visible focus on Input, native
+  required-input validity, controlled checkbox Space activation, controlled
+  radio arrow-key selection, and all rendered label/description references.
+  No runtime exceptions or console errors occurred during these checks.
+- Browser checks used an in-memory mount in a local browser session; no preview
+  files, application routes, or production screens were added.
+- Screen readers, zoom, real touch devices, other browsers, native Select popup
+  interactions, full keyboard traversal, and precise Figma geometry comparisons
+  remain unverified. Browser execution is not a visual approval by the team.
+  Integration, domain validation, and submit/recovery behavior remain the feature
+  owners' responsibility. No SRS requirement is marked complete by this change.
+
+Run the installed checks without adding packages:
+
+```bash
+cd frontend
+node --test --test-concurrency=1 src/components/ui/forms.test.js src/components/ui/foundation.test.js src/features/marketplace/marketplace.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/components/ui/Field.jsx src/components/ui/Input.jsx src/components/ui/Select.jsx src/components/ui/Textarea.jsx src/components/ui/Checkbox.jsx src/components/ui/RadioGroup.jsx src/components/ui/forms.css src/components/ui/forms.test.js
+```
+
 ## Related Documents
 
 - [Design System](DESIGN_SYSTEM.md)
