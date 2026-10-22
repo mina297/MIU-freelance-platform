@@ -363,6 +363,107 @@ npm.cmd run build
 node node_modules/prettier/bin/prettier.cjs --check src/components/ui/Field.jsx src/components/ui/Input.jsx src/components/ui/Select.jsx src/components/ui/Textarea.jsx src/components/ui/Checkbox.jsx src/components/ui/RadioGroup.jsx src/components/ui/forms.css src/components/ui/forms.test.js
 ```
 
+## Member 4 — Public shell
+
+Implemented visitor presentation components:
+
+- `frontend/src/components/navigation/PublicHeader.jsx`
+- `frontend/src/components/navigation/PublicFooter.jsx`
+- `frontend/src/components/navigation/PublicLink.jsx`
+- `frontend/src/components/navigation/publicShellContent.js` (approved/documented labels)
+- `frontend/src/components/navigation/public-shell.css` (scoped styles)
+- `frontend/src/layouts/PublicLayout.jsx`
+
+`PublicLayout` accepts page `children`, a `destinations` object, and `currentPath`.
+It renders a skip link, header, one focusable main landmark, and footer. Member 1
+can supply an `Outlet` as children when connecting the router. Do not wrap an
+existing page that already owns its header/main/footer, including Member 2's
+current `ProjectsCatalogue`, without coordinating that page's integration.
+Neither the application entry point nor existing feature components are changed.
+
+Header and footer also accept `destinations` and `currentPath` independently.
+Recognized destination keys are `home`, `projects`, `services`, `howItWorks`,
+`about`, `login`, `signup`, `freelancers`, `help`, `contact`, `privacy`, `terms`,
+`safety`, and `communityGuidelines`. Only `home` has a default (`/`). Supply other
+URLs only when their destination is approved and available. Unconfigured entries
+render as plain text, without placeholder `#` links or fake actions; unavailable
+Sign up text does not receive the filled action treatment. Native anchors retain
+normal browser link behavior. Exact `currentPath`/URL matches expose
+`aria-current="page"`. These components do not inspect sessions, register routes,
+or enforce authorization. Member 1 owns route guards, SPA navigation integration,
+and navigation focus after changing pages.
+
+The mobile menu is a nonmodal disclosure built with the existing shared Button.
+It exposes `aria-expanded`/`aria-controls`; collapsed items are hidden. Enter and
+Space operate the button. Escape inside the header closes the menu and restores
+button focus. Selecting a configured link, outside pointer interaction, a
+`currentPath` change, or resizing to desktop closes it. It does not trap focus
+or use application-menu roles. Native navigation links remain keyboard links.
+The shell contains no form fields, so form controls are not inserted artificially.
+
+Design references: desktop header `8:2657`, mobile header `8:2952`, desktop footer
+`8:2927`, and mobile footer `8:3214` in approved file
+`4OarPMFlQbiJI1Q1WxblcC`. Header colors, 1200px desktop content width, 88px desktop
+height, mobile 20px gutters, action styling, footer groups, and footer copy follow
+these frames. The local MIU logo was compared with the Figma asset and is
+byte-identical; it is reused without creating assets. Installed Lucide Menu/X
+provide the menu icon and close-state extension. Existing foundation styles and
+theme values are reused; no global tokens or dependencies change.
+
+Documented adaptations and limits:
+
+- Both marketplace models are required by FR-V01/BR-01. Desktop navigation adds
+  the documented Services and About destinations to Figma's two-link header;
+  mobile's expanded menu includes these and documented public/support pages.
+  This expanded state is an implementation extension: no approved open-menu or
+  intermediate-width frame was confirmed. The desktop breakpoint is 960px.
+- The repository requires preserving the complete logo and original proportions.
+  The components use `object-fit: contain` in the Figma-sized logo slots rather
+  than reproducing Figma's visible cropping. This deliberate difference remains
+  subject to team visual review.
+- The menu button has a 44px target instead of Figma's 40px. Quick links have
+  24px minimum height; the measured mobile header is consequently 101px rather
+  than the frame's 91px. Long footer text wraps rather than clipping. Footer
+  height may grow with accessible link targets or content wrapping.
+- Footer descriptor, copyright notice, and legal labels are copied verbatim from
+  the approved frame. No policy text, verification guarantees, social links,
+  contact details, or legal documents are authored. Safety & Trust and Community
+  Guidelines have no confirmed route mapping and remain text unless the team
+  supplies approved destinations. Figma copy is not evidence of production
+  verification or institutional permission to deploy; Phase 1 disclosures remain
+  the responsibility of the integrating demonstration screens.
+
+Verification on 23 October 2026: 33 tests passed (eight shell, 11 form-control,
+six foundation, eight marketplace); lint, default application build, source
+formatting, and `git diff --check` passed. Shell tests use the installed Node test
+runner and Vite SSR pipeline in `publicShell.test.js`. The default build does not
+mount these new components; the tests and browser checks load them separately.
+
+Headless Chrome checks at 320, 390, 768, 960, 1024, and 1440px found no horizontal
+overflow. Desktop/mobile screenshots were inspected. The local logos loaded,
+and the containment styling preserved their proportions. Checks verified skip-link
+focus/activation, visible link/button focus, Enter/Space opening, Tab traversal
+into the expanded panel, Escape focus restoration, link-selection closure,
+outside-pointer closure, resize closure, and external path-change/back closure.
+A long-text stress check also found no page overflow. No runtime exceptions or
+console errors occurred during the successful checks. Browser navigation used
+in-memory fixture destinations and did not verify real destination screens.
+No preview files or routes were created.
+
+Remaining verification: team visual approval, systematic zoom, real touch
+devices, screen readers, other browsers, exhaustive keyboard traversal, actual
+routed-page integration, and precise Figma geometry. Related requirements are
+FR-V01, FR-V03, FR-V04, NFR-02, NFR-03, and NFR-16; none is marked complete merely
+because the shell exists.
+
+```bash
+cd frontend
+node --test --test-concurrency=1 src/components/navigation/publicShell.test.js src/components/ui/forms.test.js src/components/ui/foundation.test.js src/features/marketplace/marketplace.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/components/navigation/PublicHeader.jsx src/components/navigation/PublicFooter.jsx src/components/navigation/PublicLink.jsx src/components/navigation/publicShellContent.js src/components/navigation/publicShell.test.js src/components/navigation/public-shell.css src/layouts/PublicLayout.jsx
+```
+
 ## Related Documents
 
 - [Design System](DESIGN_SYSTEM.md)

@@ -95,6 +95,17 @@ planned screens.
 
 ## 4. Layout Groups
 
+**23 October 2026 — Member 4 public shell:** reusable `PublicHeader`,
+`PublicFooter`, and `PublicLayout` components now exist. They are not mounted in
+`App.jsx` and register no routes. Destinations are supplied by the integrating
+code; missing destinations remain text. Member 1 must connect available routes
+and session-aware integration. Member 2's catalogue retains its existing
+header/main/footer and must not be wrapped unchanged in a second public shell.
+Safety & Trust and Community Guidelines in the approved footer have no confirmed
+route mapping. See [the public-shell contract](UI_COMPONENTS.md#member-4--public-shell)
+for destination keys, design differences, and verified checks. This update does
+not mark any proposed route as implemented.
+
 ### Public Layout
 Landing, catalogues, service/project details, informational pages.
 
