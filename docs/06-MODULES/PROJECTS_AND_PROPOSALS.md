@@ -132,11 +132,12 @@ Demonstrate:
 - Transition to a mock project order
 
 **Current frontend status (22 October 2026):** The projects catalogue has a
-standalone responsive React preview using the Browse Jobs Figma screen and
-style guide as visual references. It shows fictional open-project cards,
-search, category/budget/skill filters, sorting, active filter chips, an empty
-state, quick-view disclosure, and temporary saved-item state. The mobile
-layout exposes filters through a collapsible panel. Saving is not persistent.
+standalone responsive React preview. Its current visual direction draws on
+the MIU admission-screen reference: centered branding, a warm neutral canvas,
+a category rail, and one crimson-accented listing panel. It shows fictional
+open-project rows, search, category/budget/skill filters, sorting, active
+filter chips, an empty state, brief disclosure, and temporary saved-item state.
+The filters stack on smaller screens. Saving is not persistent.
 Project detail pages, proposal actions, role restrictions, and router
 integration are still pending.
 
