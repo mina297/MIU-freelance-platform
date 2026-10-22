@@ -95,6 +95,16 @@ planned screens.
 
 ## 4. Layout Groups
 
+**23 October 2026 — Member 4 landing/discovery:** `LandingPage.jsx` now provides
+public page content for `PublicLayout`, including hero/search, project and service
+discovery, minimal fictional student examples, and explicitly planned benefits.
+It is not mounted in `App.jsx`; `/` remains the catalogue preview and is not a
+completed routed landing page. Member 1 must connect approved available
+destinations. The How It Works section remains a supplied integration slot;
+its completed branch is not recreated here. Profile enrichment depends on
+Member 5. See [the landing contract](UI_COMPONENTS.md#member-4--landing-page-and-discovery)
+for the data, callback, state, and Figma adaptation details.
+
 **23 October 2026 — Member 4 public shell:** reusable `PublicHeader`,
 `PublicFooter`, and `PublicLayout` components now exist. They are not mounted in
 `App.jsx` and register no routes. Destinations are supplied by the integrating

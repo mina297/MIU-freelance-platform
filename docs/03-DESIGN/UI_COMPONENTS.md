@@ -464,6 +464,144 @@ npm.cmd run build
 node node_modules/prettier/bin/prettier.cjs --check src/components/navigation/PublicHeader.jsx src/components/navigation/PublicFooter.jsx src/components/navigation/PublicLink.jsx src/components/navigation/publicShellContent.js src/components/navigation/publicShell.test.js src/components/navigation/public-shell.css src/layouts/PublicLayout.jsx
 ```
 
+## Member 4 — Landing page and discovery
+
+Implemented page content in `frontend/src/features/public/LandingPage.jsx` and
+focused components under `frontend/src/features/public/landing/`:
+`HeroSection`, `FeaturedOpportunities`, `DiscoveryCard`, `FeaturedStudents`,
+`TrustSection`, and the local `SectionHeading` helper. `discoveryModel.js` adapts
+the existing marketplace selectors read-only; `landing.css` scopes presentation.
+No application entry point, router, shared component, marketplace record,
+contract, catalogue, or profile module is changed.
+
+The page is content for the approved `PublicLayout`, not a second main landmark.
+Member 1 can compose it with the shell when the public route is available:
+
+```jsx
+<PublicLayout destinations={availableDestinations} currentPath="/">
+  <LandingPage
+    destinations={availableDestinations}
+    getProjectHref={getAvailableProjectHref}
+    getServiceHref={getAvailableServiceHref}
+    getStudentHref={getAvailableStudentHref}
+    howItWorks={existingHowItWorksSection}
+  />
+</PublicLayout>
+```
+
+This is a handover example, not registered application routing. Supply only
+approved destinations that actually exist. `App.jsx` continues to show Member 2's
+standalone catalogue. The existing How It Works component must be supplied through
+the `howItWorks` React-node slot, located between hero and discovery. The slot is
+empty by default; that completed branch was not copied, recreated, or cherry-picked.
+Full landing assembly therefore remains dependent on connecting that work.
+
+| LandingPage prop | Behavior |
+|---|---|
+| `data` | Defaults to Member 2's existing `marketplaceData`; accepts the same valid record shape for tests/integration. The page does not mutate it or introduce a new marketplace schema. |
+| `destinations` | Optional `projects`, `services`, `freelancers`, and `postProject` URLs. Missing actions render as plain text via the shell's PublicLink. Member 1 owns protected-action routing, session behavior, and availability of Post a Job. No route/query-string contract is assumed. |
+| `getProjectHref`, `getServiceHref`, `getStudentHref` | Optional `(stableId) => availableURL` callbacks. Absent callbacks produce no fabricated detail/profile links. Actual destination screens and guards remain their owners' work. |
+| `howItWorks` | Optional existing section node; no duplicate implementation or placeholder recreation. |
+| `discoveryState` | `ready` (default), `loading`, or `error`. The latter states disable discovery inputs/actions and hide opportunity cards. These are supplied presentation states; the component performs no fetch and creates no artificial delay. |
+| `onRetry` | Optional retry callback; error recovery shows a real button only when this handler exists. |
+
+Search filters the in-memory project and service examples while typing. Submit
+and Find Work move keyboard focus to the results region without reloading.
+The adapter calls `findProjects`/`findServices` with the shared open/published
+statuses. It also calls their existing skill filters when a query matches a
+shared skill label, deduplicates results by ID, and preserves source order.
+Category chips and the native category select share one category value. Clear
+filters resets both inputs and returns focus to search. Results show totals for
+both models and up to three cards per model, in fixture order; this is not an
+approved ranking/recommendation algorithm. No catalogue workflow is replaced.
+
+Project cards use existing titles, client names, skills, budgets, deadlines, and
+creation dates. They do not invent client ratings, verification badges, applicant
+counts, or relative timestamps. Category replaces Figma's unsupported applicant
+count. Service starting prices are the lowest finite price among the service's
+linked packages, obtained with `getPackagesByService`; missing prices remain
+unavailable, never EGP 0. Amounts and dates use the existing formatters.
+Bookmarks are explicitly temporary landing-local UI state with `aria-pressed`
+and status feedback; they neither persist nor synchronize Member 2's catalogue
+preview. Empty results have working Clear filters recovery.
+
+Student examples use only the existing shared participant IDs/display names.
+Member 5 has no full student-profile data/component in this branch. The section
+therefore says Meet student talent, uses derived initials, and does not render
+ratings, reviews, majors, year groups, verification, invented skill profiles, or
+Figma's unrelated portrait identities. Student profile enhancement and real
+profile navigation require Member 5's data and Member 1's available routes.
+
+Figma references in approved file `4OarPMFlQbiJI1Q1WxblcC`:
+
+- Hero: desktop `8:2667`, mobile `8:2964`.
+- Featured jobs: desktop `8:2732`, mobile `8:3027`.
+- Student-card presentation: desktop `8:2846`, mobile `8:3134`.
+- Benefits: desktop `8:2909`, mobile `8:3196`.
+
+The approved hero headline is Find real work. Build your reputation.; this takes
+precedence over the different example headline in the draft Design System.
+Confirmed typography includes Playfair Display 52px desktop/40px mobile for the
+hero and Inter body text, 32px/28px section headings, 1200px desktop content,
+20px mobile gutters, pale red hero/benefit surfaces, white cards, and neutral
+opportunity backgrounds. Existing Button, Badge, Card, Input, Select, and
+PublicLink components are reused without editing their implementations.
+One Figma-exported 8×8 SVG is added at
+`frontend/src/assets/figma/landing-community-accent.svg`, reused on both sizes.
+Installed Lucide icons provide matching search, chevron, bookmark, and benefit
+artwork. No temporary Figma URLs are used at runtime, and no portrait assets or
+dependencies are added.
+
+Documented adaptations and remaining design decisions:
+
+- Explicit Phase 1 notices qualify the marketing copy. Benefit cards retain the
+  approved design wording but each is labeled Planned; no identity verification,
+  ratings, completed-work history, or payment functionality is represented as live.
+- FR-V01, NFR-01, and BR-01 require both marketplace paths. A service section uses
+  the inspected opportunity-card patterns and real shared service records; no
+  dedicated service landing frame was confirmed. This extension needs team visual
+  review rather than being described as an exact Figma screen.
+- Only Design, Development, and Writing map to available category IDs. The other
+  four approved chips are disabled with an explanatory preview note. No categories
+  or records are invented. The initial category is All, not Figma's selected Design.
+- Labels remain visible and controls/chips/bookmarks have at least 44px targets.
+  Search layout, section height, and card spacing consequently differ from the
+  static frames. The 8px community accent and 24px benefit icons are reused on
+  mobile instead of separate 7px/23px exports. Muted card metadata uses the existing
+  darker secondary-text value for readability. Columns adapt at 700px/1100px;
+  desktop typography/search adapt at the shell's 960px breakpoint.
+- No standalone video or bottom CTA block was confirmed in these landing frames;
+  the hero's Find Work/Post a Job actions provide the inspected CTA presentation.
+  No video, statistics, social proof, legal copy, or extra product claims are invented.
+
+Verification on 23 October 2026: all 47 tests passed, including 14 landing tests
+and 33 existing tests. Lint, default Vite build, formatting of the ten new
+JavaScript/JSX/CSS files, and whitespace checks passed. The default application
+build still mounts the catalogue; SSR tests and the browser load the new landing
+modules separately. Headless Chrome checks at 320, 390, 640, 768, 960, 1024, and
+1440px found no page overflow. Mobile/desktop screenshots were inspected; Playfair
+Display loaded, hero text measured 40px/52px, and the local accent rendered 8×8.
+Browser checks exercised skill search, combined filters, chip/select synchronization,
+native select keyboard operation, Search focus, empty recovery, save/unsave,
+loading/error/retry, associated labels/headings, and long-text wrapping. No runtime
+exceptions or console errors occurred during the successful checks. Browser-only
+fixture destinations were intercepted; actual routed destination screens were not
+verified. No new preview infrastructure or application routes were added.
+
+Remaining verification/dependencies: How It Works assembly, routed integration,
+Member 5's profile contract, approval of the service/data-driven visual adaptations,
+systematic zoom, screen readers, real touch devices, other browsers, exhaustive
+keyboard traversal, and precise Figma geometry. Related requirements: FR-V01,
+FR-V02, NFR-01, NFR-02, NFR-03, NFR-16. None is marked complete by this preview.
+
+```bash
+cd frontend
+node --test --test-concurrency=1 src/features/public/landing/landing.test.js src/components/navigation/publicShell.test.js src/components/ui/forms.test.js src/components/ui/foundation.test.js src/features/marketplace/marketplace.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/features/public/LandingPage.jsx src/features/public/landing/discoveryModel.js src/features/public/landing/SectionHeading.jsx src/features/public/landing/HeroSection.jsx src/features/public/landing/DiscoveryCard.jsx src/features/public/landing/FeaturedOpportunities.jsx src/features/public/landing/FeaturedStudents.jsx src/features/public/landing/TrustSection.jsx src/features/public/landing/landing.css src/features/public/landing/landing.test.js
+```
+
 ## Related Documents
 
 - [Design System](DESIGN_SYSTEM.md)
