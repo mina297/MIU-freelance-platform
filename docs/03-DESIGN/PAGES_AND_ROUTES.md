@@ -90,6 +90,14 @@ Visitors attempting protected routes go to `/login`; authenticated users with th
 
 `AppLayout`, `AuthLayout` and `AdminLayout` follow the recommended directory naming. Public routes reuse the minimal `AppLayout`; public website visuals remain Member 4's work. Verification gating and automatic expiry timing are deferred. No production authorization is claimed.
 
+**22 October 2026 update:** A React Projects Catalogue preview (P-06) now renders
+from `frontend/src/App.jsx`. It shows fictional open projects with working text,
+category, budget, skill, and sort controls, plus active filters, temporary
+saved-item state, a responsive marketplace layout, and an empty state. Member 1's React Router
+configuration is still pending, so `/projects` is not yet registered as a
+distinct application route. Project details and proposal submission remain
+planned screens.
+
 ## 4. Layout Groups
 
 ### Public Layout
