@@ -75,15 +75,20 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
-As inspected on 20 October 2026, the frontend is an initial React/Vite scaffold with a single static `App` component.
+Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with one route registry at `frontend/src/app/routeConfig.js` and one in-memory session provider.
 
-- React Router is installed but is not configured in the application entry point.
-- None of the proposed routes in this document are currently implemented.
-- The visible scaffold contains an MIU Freelance heading and a non-functional **Post a Job** button.
-- No authentication, marketplace, dashboard, committee, AI, verification, payment, or escrow workflow is implemented by the current source.
-- This snapshot records observed code only. It does not change the planned route map or the SRS requirements.
+- Public placeholders: `/`, `/projects`, `/services`.
+- Authentication placeholders: `/login`, `/register`, `/register/role`, `/forgot-password`, `/reset-password`.
+- Student/client placeholders: `/verify`, `/verify/pending`.
+- Role-specific dashboard placeholders: `/student/dashboard`, `/client/dashboard`, `/admin`, and the five committee root routes listed above.
+- Registered-user placeholder: `/notifications`.
+- Routing feedback: `/access-denied`, `/session-expired`, and a catch-all not-found page.
 
-Update this section when route implementation materially changes, and do not mark a route implemented without inspecting and verifying it.
+Only routing, role checks, minimal layout outlets, demo navigation and session controls are implemented. Feature pages are clearly labeled placeholders; forms, dashboards, verification and other feature workflows are not implemented. Remaining proposed routes are not registered yet and show the catch-all page.
+
+Visitors attempting protected routes go to `/login`; authenticated users with the wrong role go to `/access-denied`; explicitly expired sessions go to `/session-expired`. Guards retain the requested URL in router location state (`from`) for later authentication integration. No automatic return flow is implemented yet.
+
+`AppLayout`, `AuthLayout` and `AdminLayout` follow the recommended directory naming. Public routes reuse the minimal `AppLayout`; public website visuals remain Member 4's work. Verification gating and automatic expiry timing are deferred. No production authorization is claimed.
 
 ## 4. Layout Groups
 
