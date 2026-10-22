@@ -131,6 +131,34 @@ Demonstrate:
 - Mock acceptance
 - Transition to a mock project order
 
+**Current frontend status (22 October 2026):** The projects catalogue has a
+standalone responsive React preview. Its current visual direction combines
+MIU branding with a stronger freelancing-marketplace layout: a discovery hero,
+prominent search, category tiles, a filter sidebar, a highlighted opportunity,
+and project cards. A muted page canvas, stronger card borders, and tinted
+budget panels distinguish the white surfaces and their controls.
+It shows fictional open projects, category/budget/skill
+filters, sorting, active filter chips, an empty state, brief disclosure, and
+temporary saved-item state with a saved-only filter. Desktop cards separate
+the brief from budget/deadline actions; inline brief expansion also works on
+mobile. Category tiles use restrained accent colors and a selected checkmark.
+Mobile filters are collapsible. Header links jump to discovery, results, or
+saved results; these are in-page links, not new routes. The latest opportunity
+is highlighted only in the default unfiltered newest-first view. Saving is
+not persistent and updates a screen-reader status message.
+Project detail pages, proposal actions, role restrictions, and router
+integration are still pending.
+
+The discovery preview is organized in `frontend/src/features/projects/`:
+`ProjectsCatalogue.jsx` owns search, filtering, sorting, and temporary save
+state; `catalogueModel.js` holds catalogue options and lookup data;
+`ProjectsHero.jsx`, `CategoryCard.jsx`, `FilterPanel.jsx`, and
+`ProjectCard.jsx` render the feature-specific interface. Member 1 can mount
+`ProjectsCatalogue` at the proposed public `/projects` route when the shared
+router is ready. The current `App.jsx` render remains a standalone preview,
+not a registered route. A real project-details route and proposal action
+remain separate Member 2 work.
+
 ## 12. Dependencies
 
 - Authentication

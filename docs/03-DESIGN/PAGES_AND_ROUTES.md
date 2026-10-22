@@ -85,6 +85,14 @@ As inspected on 20 October 2026, the frontend is an initial React/Vite scaffold 
 
 Update this section when route implementation materially changes, and do not mark a route implemented without inspecting and verifying it.
 
+**22 October 2026 update:** A React Projects Catalogue preview (P-06) now renders
+from `frontend/src/App.jsx`. It shows fictional open projects with working text,
+category, budget, skill, and sort controls, plus active filters, temporary
+saved-item state, a responsive marketplace layout, and an empty state. Member 1's React Router
+configuration is still pending, so `/projects` is not yet registered as a
+distinct application route. Project details and proposal submission remain
+planned screens.
+
 ## 4. Layout Groups
 
 ### Public Layout
