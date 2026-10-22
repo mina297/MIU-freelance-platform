@@ -149,6 +149,16 @@ not persistent and updates a screen-reader status message.
 Project detail pages, proposal actions, role restrictions, and router
 integration are still pending.
 
+The discovery preview is organized in `frontend/src/features/projects/`:
+`ProjectsCatalogue.jsx` owns search, filtering, sorting, and temporary save
+state; `catalogueModel.js` holds catalogue options and lookup data;
+`ProjectsHero.jsx`, `CategoryCard.jsx`, `FilterPanel.jsx`, and
+`ProjectCard.jsx` render the feature-specific interface. Member 1 can mount
+`ProjectsCatalogue` at the proposed public `/projects` route when the shared
+router is ready. The current `App.jsx` render remains a standalone preview,
+not a registered route. A real project-details route and proposal action
+remain separate Member 2 work.
+
 ## 12. Dependencies
 
 - Authentication
