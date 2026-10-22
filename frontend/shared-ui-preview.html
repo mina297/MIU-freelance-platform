@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shared UI — isolated component preview</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23B91C2B'/%3E%3C/svg%3E"
+    />
+    <style>
+      /* Isolated showcase layout; no shared component styles are changed. */
+      body {
+        margin: 0;
+      }
+      #root {
+        min-width: 0;
+      }
+      [data-ui-preview] {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 1152px;
+        min-width: 0;
+        margin-inline: auto;
+        padding: 24px 16px 48px;
+        font-family: var(--font-sans, Inter, sans-serif);
+        color: var(--color-miu-black, #111111);
+        overflow-wrap: anywhere;
+      }
+      [data-ui-preview] * {
+        box-sizing: border-box;
+        min-width: 0;
+      }
+      [data-ui-preview] .miu-card {
+        max-width: 100%;
+      }
+      [data-ui-preview] .miu-button,
+      [data-ui-preview] .miu-badge {
+        max-width: 100%;
+        white-space: normal;
+      }
+      [data-ui-preview] .showcase-label {
+        min-width: 0;
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+      [data-ui-preview] .showcase-state {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      [data-ui-preview] .showcase-states {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+      }
+      [data-ui-preview] .showcase-cards {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 20px;
+      }
+      @media (max-width: 479px) {
+        [data-ui-preview] .miu-card {
+          padding: 20px;
+        }
+      }
+      @media (min-width: 640px) {
+        [data-ui-preview] {
+          padding: 32px;
+        }
+        [data-ui-preview] .showcase-states {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+      @media (min-width: 1024px) {
+        [data-ui-preview] .showcase-cards {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script
+      type="module"
+      src="/src/components/ui/preview/SharedUiPreview.jsx"
+    ></script>
+  </body>
+</html>

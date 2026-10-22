@@ -1,0 +1,3 @@
+/* Compile the isolated entry's utilities explicitly, independent of app usage. */
+@import "../../../index.css";
+@source "./SharedUiPreview.jsx";
