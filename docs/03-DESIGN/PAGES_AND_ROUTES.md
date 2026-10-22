@@ -87,7 +87,8 @@ Update this section when route implementation materially changes, and do not mar
 
 **22 October 2026 update:** A React Projects Catalogue preview (P-06) now renders
 from `frontend/src/App.jsx`. It shows fictional open projects with working text,
-category, skill, and sort controls, plus an empty state. Member 1's React Router
+category, budget, skill, and sort controls, plus active filters, temporary
+saved-item state, responsive filters, and an empty state. Member 1's React Router
 configuration is still pending, so `/projects` is not yet registered as a
 distinct application route. Project details and proposal submission remain
 planned screens.

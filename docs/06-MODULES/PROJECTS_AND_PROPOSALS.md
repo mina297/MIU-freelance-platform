@@ -132,10 +132,13 @@ Demonstrate:
 - Transition to a mock project order
 
 **Current frontend status (22 October 2026):** The projects catalogue has a
-standalone React preview with fictional open-project cards, search, category
-and skill filters, sorting, and an empty state. Quick view expands project
-summary content. Project detail pages, proposal actions, role restrictions,
-and router integration are still pending.
+standalone responsive React preview using the Browse Jobs Figma screen and
+style guide as visual references. It shows fictional open-project cards,
+search, category/budget/skill filters, sorting, active filter chips, an empty
+state, quick-view disclosure, and temporary saved-item state. The mobile
+layout exposes filters through a collapsible panel. Saving is not persistent.
+Project detail pages, proposal actions, role restrictions, and router
+integration are still pending.
 
 ## 12. Dependencies
 
