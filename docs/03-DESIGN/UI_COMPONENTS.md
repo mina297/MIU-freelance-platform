@@ -1,4 +1,3 @@
-
 ---
 title: UI Components
 type: component-catalogue
@@ -16,25 +15,25 @@ Avoid recreating the same buttons, cards, forms, tables, and status components a
 
 ## 2. Foundation Components
 
-| Component | Responsibility |
-|---|---|
-| Button | Primary, secondary, outline, destructive and loading actions |
-| Input | Text, email, password, number and relevant validation states |
-| Textarea | Multiline content |
-| Select | Selection control |
-| Checkbox | Boolean choices |
-| Radio Group | Exclusive choices |
-| Modal/Dialog | Focused decision or confirmation |
-| Alert | Informational and error messages |
-| Toast | Temporary feedback |
-| Badge | Status and metadata labels |
-| Card | Reusable content container |
-| Tabs | Local section navigation |
-| Pagination | Collection navigation |
-| Skeleton | Loading placeholders |
-| Empty State | No available content |
-| Error State | Recoverable errors |
-| Spinner | Operation in progress |
+| Component    | Responsibility                                               |
+| ------------ | ------------------------------------------------------------ |
+| Button       | Primary, secondary, outline, destructive and loading actions |
+| Input        | Text, email, password, number and relevant validation states |
+| Textarea     | Multiline content                                            |
+| Select       | Selection control                                            |
+| Checkbox     | Boolean choices                                              |
+| Radio Group  | Exclusive choices                                            |
+| Modal/Dialog | Focused decision or confirmation                             |
+| Alert        | Informational and error messages                             |
+| Toast        | Temporary feedback                                           |
+| Badge        | Status and metadata labels                                   |
+| Card         | Reusable content container                                   |
+| Tabs         | Local section navigation                                     |
+| Pagination   | Collection navigation                                        |
+| Skeleton     | Loading placeholders                                         |
+| Empty State  | No available content                                         |
+| Error State  | Recoverable errors                                           |
+| Spinner      | Operation in progress                                        |
 
 ## 3. Layout Components
 
@@ -123,6 +122,7 @@ Phase 1 verification and AI outputs must be visibly simulated.
 ## 9. Component API Guidelines
 
 Components should:
+
 - Have descriptive property names.
 - Accept controlled values when appropriate.
 - Expose callbacks rather than own unrelated business state.
@@ -147,31 +147,6 @@ Components should:
 
 The example demonstrates an intended interface, not evidence that the component currently exists.
 
-## 11. States to Support
-
-Relevant components should cover:
-- Default
-- Hover
-- Focus
-- Disabled
-- Loading
-- Error
-- Success
-- Empty
-- Selected
-
-## 12. Acceptance Checklist
-
-- [ ] Matches approved Figma
-- [ ] Reusable without unnecessary duplication
-- [ ] Supports expected variants
-- [ ] Keyboard accessible
-- [ ] Clearly labeled
-- [ ] Responsive
-- [ ] No hidden network side effects
-- [ ] Documented props
-- [ ] Appropriate tests
-
 ## Member 4 — Shared UI foundation
 
 The new components live in `frontend/src/components/ui/` and import their own
@@ -187,15 +162,17 @@ import Badge from "./components/ui/Badge.jsx";
 <Card as="article" aria-labelledby="example-title">
   <h2 id="example-title">Example</h2>
   <Badge variant="info">In progress</Badge>
-  <Button loading={isSaving} onClick={handleSave}>Save draft</Button>
-</Card>
+  <Button loading={isSaving} onClick={handleSave}>
+    Save draft
+  </Button>
+</Card>;
 ```
 
-| Component | Props and behavior |
-|---|---|
-| Button | `variant`: `primary` (default), `secondary` (black), `outline`, `ghost` (neutral Cancel specimen), `destructive`. `type` defaults to `button`; set `submit` explicitly for forms. `disabled` and `loading` block activation; loading preserves the label and exposes `aria-busy`. `children`, `className`, native button attributes, event callbacks, and React 19 `ref` are forwarded. |
-| Card | `as`: `div` (default), `article`, or `section`. `children`, `className`, and native attributes are forwarded. Supply headings/accessible names for sections. It is a container, not an interactive replacement for a link or button. |
-| Badge | `variant`: `neutral` (default), `success`, `info`, `completed`, `warning`, or `danger`. Supply visible text through `children`; variants do not infer statuses, permissions, or business rules. Native span attributes and `className` are forwarded. No automatic live-region role. |
+| Component | Props and behavior                                                                                                                                                                                                                                                                                                                                                                      |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Button    | `variant`: `primary` (default), `secondary` (black), `outline`, `ghost` (neutral Cancel specimen), `destructive`. `type` defaults to `button`; set `submit` explicitly for forms. `disabled` and `loading` block activation; loading preserves the label and exposes `aria-busy`. `children`, `className`, native button attributes, event callbacks, and React 19 `ref` are forwarded. |
+| Card      | `as`: `div` (default), `article`, or `section`. `children`, `className`, and native attributes are forwarded. Supply headings/accessible names for sections. It is a container, not an interactive replacement for a link or button.                                                                                                                                                    |
+| Badge     | `variant`: `neutral` (default), `success`, `info`, `completed`, `warning`, or `danger`. Supply visible text through `children`; variants do not infer statuses, permissions, or business rules. Native span attributes and `className` are forwarded. No automatic live-region role.                                                                                                    |
 
 Unknown variants fall back to the defaults. Consumers may supply decorative
 icons as children, hidden from assistive technology, and must provide an
@@ -295,17 +272,17 @@ import RadioGroup from "./components/ui/RadioGroup.jsx";
 These are neutral usage examples, not implemented application forms or new
 business rules. Supply approved labels and messages at the consuming feature.
 
-| API | Contract |
-|---|---|
-| Shared field props | Supply a visible `label`. Optional `helperText`, `error` (message), `required`, `disabled`, and `id`. A required field shows an asterisk and uses native required semantics. IDs are generated with React `useId` when omitted. Caller-supplied IDs must be unique in the document. |
-| Feedback | Helper text and error messages have associated IDs, merged with caller `aria-describedby`. A nonempty `error` sets `aria-invalid` even if the caller supplied false. Otherwise caller `aria-invalid` is preserved. The visible error icon and message avoid relying on color alone. There is no automatic alert/live region; announcement timing and submit/focus management belong to the consuming form. |
-| Input | Native text-like input, `type="text"` by default. Supports email, password, number, search, and native constraints such as `min`, `max`, `step`, and `maxLength`. Use the dedicated Checkbox/RadioGroup for choices. |
-| Select | Native select; provide `option`/`optgroup` children. Supports `value`/`onChange` or `defaultValue`, disabled options, and native `multiple`/`size`. Native option popup presentation and long selected-value display depend on the browser/OS. |
-| Textarea | Native textarea; `rows={4}` by default, vertically resizable. Supports native length constraints. |
-| Checkbox | Native checkbox with a wrapping associated label; supports `checked`/`onChange` or `defaultChecked`. |
-| Native forwarding | Input, Select, Textarea, and Checkbox forward native control attributes, callbacks, React 19 `ref`, and `className` to the control. Do not mix controlled and uncontrolled props. These components do not own values or run application validation. |
-| RadioGroup | Native fieldset/legend with same-name radio inputs. `options` contains unique string `value`, visible `label`, and optional `disabled`. Supports `name`, `value`/`onChange` or `defaultValue`, shared field props, ARIA feedback props, and fieldset `className`. `onChange` receives the native React change event. `id` is a prefix for option/feedback IDs. An omitted `name` defaults to that unique prefix. Whole-group disabling and individual disabled options are supported. The group does not forward arbitrary native input props or refs. |
-| Field | Shared rendering utility used by the controls, not a second input implementation. Its render-function `children` receives the associated `id`, `required`, `disabled`, `aria-describedby`, and `aria-invalid`. Internal `choice` and `group` modes render the checkbox label or fieldset/legend. |
+| API                | Contract                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Shared field props | Supply a visible `label`. Optional `helperText`, `error` (message), `required`, `disabled`, and `id`. A required field shows an asterisk and uses native required semantics. IDs are generated with React `useId` when omitted. Caller-supplied IDs must be unique in the document.                                                                                                                                                                                                                                                                    |
+| Feedback           | Helper text and error messages have associated IDs, merged with caller `aria-describedby`. A nonempty `error` sets `aria-invalid` even if the caller supplied false. Otherwise caller `aria-invalid` is preserved. The visible error icon and message avoid relying on color alone. There is no automatic alert/live region; announcement timing and submit/focus management belong to the consuming form.                                                                                                                                             |
+| Input              | Native text-like input, `type="text"` by default. Supports email, password, number, search, and native constraints such as `min`, `max`, `step`, and `maxLength`. Use the dedicated Checkbox/RadioGroup for choices.                                                                                                                                                                                                                                                                                                                                   |
+| Select             | Native select; provide `option`/`optgroup` children. Supports `value`/`onChange` or `defaultValue`, disabled options, and native `multiple`/`size`. Native option popup presentation and long selected-value display depend on the browser/OS.                                                                                                                                                                                                                                                                                                         |
+| Textarea           | Native textarea; `rows={4}` by default, vertically resizable. Supports native length constraints.                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Checkbox           | Native checkbox with a wrapping associated label; supports `checked`/`onChange` or `defaultChecked`.                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Native forwarding  | Input, Select, Textarea, and Checkbox forward native control attributes, callbacks, React 19 `ref`, and `className` to the control. Do not mix controlled and uncontrolled props. These components do not own values or run application validation.                                                                                                                                                                                                                                                                                                    |
+| RadioGroup         | Native fieldset/legend with same-name radio inputs. `options` contains unique string `value`, visible `label`, and optional `disabled`. Supports `name`, `value`/`onChange` or `defaultValue`, shared field props, ARIA feedback props, and fieldset `className`. `onChange` receives the native React change event. `id` is a prefix for option/feedback IDs. An omitted `name` defaults to that unique prefix. Whole-group disabling and individual disabled options are supported. The group does not forward arbitrary native input props or refs. |
+| Field              | Shared rendering utility used by the controls, not a second input implementation. Its render-function `children` receives the associated `id`, `required`, `disabled`, `aria-describedby`, and `aria-invalid`. Internal `choice` and `group` modes render the checkbox label or fieldset/legend.                                                                                                                                                                                                                                                       |
 
 Visual reference: approved Figma form showcase `4:2722`, file
 `4OarPMFlQbiJI1Q1WxblcC`. Confirmed input values: 48px minimum height, 12px
@@ -496,14 +473,14 @@ the `howItWorks` React-node slot, located between hero and discovery. The slot i
 empty by default; that completed branch was not copied, recreated, or cherry-picked.
 Full landing assembly therefore remains dependent on connecting that work.
 
-| LandingPage prop | Behavior |
-|---|---|
-| `data` | Defaults to Member 2's existing `marketplaceData`; accepts the same valid record shape for tests/integration. The page does not mutate it or introduce a new marketplace schema. |
-| `destinations` | Optional `projects`, `services`, `freelancers`, and `postProject` URLs. Missing actions render as plain text via the shell's PublicLink. Member 1 owns protected-action routing, session behavior, and availability of Post a Job. No route/query-string contract is assumed. |
-| `getProjectHref`, `getServiceHref`, `getStudentHref` | Optional `(stableId) => availableURL` callbacks. Absent callbacks produce no fabricated detail/profile links. Actual destination screens and guards remain their owners' work. |
-| `howItWorks` | Optional existing section node; no duplicate implementation or placeholder recreation. |
-| `discoveryState` | `ready` (default), `loading`, or `error`. The latter states disable discovery inputs/actions and hide opportunity cards. These are supplied presentation states; the component performs no fetch and creates no artificial delay. |
-| `onRetry` | Optional retry callback; error recovery shows a real button only when this handler exists. |
+| LandingPage prop                                     | Behavior                                                                                                                                                                                                                                                                      |
+| ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `data`                                               | Defaults to Member 2's existing `marketplaceData`; accepts the same valid record shape for tests/integration. The page does not mutate it or introduce a new marketplace schema.                                                                                              |
+| `destinations`                                       | Optional `projects`, `services`, `freelancers`, and `postProject` URLs. Missing actions render as plain text via the shell's PublicLink. Member 1 owns protected-action routing, session behavior, and availability of Post a Job. No route/query-string contract is assumed. |
+| `getProjectHref`, `getServiceHref`, `getStudentHref` | Optional `(stableId) => availableURL` callbacks. Absent callbacks produce no fabricated detail/profile links. Actual destination screens and guards remain their owners' work.                                                                                                |
+| `howItWorks`                                         | Optional existing section node; no duplicate implementation or placeholder recreation.                                                                                                                                                                                        |
+| `discoveryState`                                     | `ready` (default), `loading`, or `error`. The latter states disable discovery inputs/actions and hide opportunity cards. These are supplied presentation states; the component performs no fetch and creates no artificial delay.                                             |
+| `onRetry`                                            | Optional retry callback; error recovery shows a real button only when this handler exists.                                                                                                                                                                                    |
 
 Search filters the in-memory project and service examples while typing. Submit
 and Find Work move keyboard focus to the results region without reloading.
@@ -601,6 +578,32 @@ npm.cmd run lint
 npm.cmd run build
 node node_modules/prettier/bin/prettier.cjs --check src/features/public/LandingPage.jsx src/features/public/landing/discoveryModel.js src/features/public/landing/SectionHeading.jsx src/features/public/landing/HeroSection.jsx src/features/public/landing/DiscoveryCard.jsx src/features/public/landing/FeaturedOpportunities.jsx src/features/public/landing/FeaturedStudents.jsx src/features/public/landing/TrustSection.jsx src/features/public/landing/landing.css src/features/public/landing/landing.test.js
 ```
+
+## 11. States to Support
+
+Relevant components should cover:
+
+- Default
+- Hover
+- Focus
+- Disabled
+- Loading
+- Error
+- Success
+- Empty
+- Selected
+
+## 12. Acceptance Checklist
+
+- [ ] Matches approved Figma
+- [ ] Reusable without unnecessary duplication
+- [ ] Supports expected variants
+- [ ] Keyboard accessible
+- [ ] Clearly labeled
+- [ ] Responsive
+- [ ] No hidden network side effects
+- [ ] Documented props
+- [ ] Appropriate tests
 
 ## Related Documents
 
