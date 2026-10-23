@@ -1,36 +1,35 @@
-import { Link, Outlet } from "react-router-dom";
-import { routeConfig } from "../app/routeConfig.js";
-import SessionControls from "../app/SessionControls.jsx";
-import { getRouteAccess } from "../features/auth/session.js";
+import { Outlet } from "react-router-dom";
+import PublicHeader from "../components/navigation/PublicHeader.jsx";
 import { useAuth } from "../hooks/useAuth.js";
 
-export default function AppLayout({ title = "Application" }) {
-  const { session } = useAuth();
+export default function AppLayout() {
+  const { session, logout } = useAuth();
   return (
-    <div className="mx-auto max-w-5xl p-4 sm:p-8">
-      <a href="#main-content" className="underline">
+    <div className="min-h-screen bg-white">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:inline-block focus:p-3 focus:underline"
+      >
         Skip to content
       </a>
-      <header className="my-4 space-y-3">
-        <Link to="/" className="font-display text-2xl text-miu-black">
-          MIU Freelance
-        </Link>
-        <p>{title} · Phase 1 routing demonstration</p>
-        <nav aria-label="Demo navigation" className="flex flex-wrap gap-3">
-          {routeConfig
-            .filter(
-              (route) =>
-                !route.message && getRouteAccess(session, route) === "allowed",
-            )
-            .map((route) => (
-              <Link className="underline" key={route.path} to={route.path}>
-                {route.title}
-              </Link>
-            ))}
-        </nav>
-      </header>
-      <SessionControls />
-      <main id="main-content" tabIndex={-1}>
+      <PublicHeader />
+      {session.user && (
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-end gap-3 px-5 pt-4 text-sm">
+          <span>{session.user.displayName}</span>
+          <button
+            type="button"
+            className="rounded border px-3 py-2 focus-visible:outline-2 focus-visible:outline-miu-red"
+            onClick={logout}
+          >
+            Log out
+          </button>
+        </div>
+      )}
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="mx-auto max-w-7xl px-5 py-10 sm:px-8"
+      >
         <Outlet />
       </main>
     </div>

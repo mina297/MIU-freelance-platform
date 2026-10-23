@@ -2,7 +2,7 @@
 
 This directory contains the Phase 1 React frontend for the MIU Freelance Platform.
 
-The application has Phase 1 routing, in-memory sessions and mock authentication forms. Student/client registration creates an account usable until refresh. Login supports role dashboards and authorized internal return URLs. Forgot/reset-password are explicitly simulated, without real email or secure tokens; password changes exist only in memory. The existing demo selector preserves access to fixture accounts. Do not use real credentials. See [Authentication — Task 02](../docs/06-MODULES/AUTHENTICATION.md#task-02-mock-authentication) for validation, fixture email conventions and limitations.
+The application has Phase 1 routing, in-memory sessions and mock authentication forms. Student/client registration creates an account usable until refresh. Login supports role dashboards and authorized internal return URLs. Forgot/reset-password are explicitly simulated, without real email or secure tokens; password changes exist only in memory. Public/authentication pages use a clean header instead of temporary route lists and demo session controls. Do not use real credentials. See [Authentication — Task 02](../docs/06-MODULES/AUTHENTICATION.md#task-02-mock-authentication) for validation, fixture email conventions and limitations.
 
 The public `/projects` route still displays the fictional Projects Catalogue preview. Other unimplemented features remain labeled placeholders. See the [current route snapshot](../docs/03-DESIGN/PAGES_AND_ROUTES.md#3-current-implementation-snapshot).
 

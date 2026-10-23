@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
 import AuthForm from "./AuthForm.jsx";
 
 export default function ResetPasswordPage() {
   const { resetPassword } = useAuth();
+  const location = useLocation();
   return (
     <AuthForm
       title="Simulated password reset"
@@ -26,6 +27,12 @@ export default function ResetPasswordPage() {
       ]}
       onSubmit={resetPassword}
     >
+      {location.state?.recoveryRequested && (
+        <p role="status">
+          Simulated recovery request accepted. No email was sent and no secure
+          reset token was created.
+        </p>
+      )}
       <p>
         Demo only: this form checks no secure token or email ownership. Anyone
         in this demo can reset an active in-memory account by email. This is not

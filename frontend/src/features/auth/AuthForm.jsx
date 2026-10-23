@@ -7,6 +7,7 @@ export default function AuthForm({
   initialValues = {},
   submitLabel,
   onSubmit,
+  afterSubmit,
   children,
 }) {
   const id = useId();
@@ -144,6 +145,7 @@ export default function AuthForm({
         >
           {submitting ? "Simulating…" : submitLabel}
         </button>
+        {afterSubmit}
       </form>
       <div className="space-y-2 text-sm [&_a]:underline [&_a]:focus-visible:outline-2">
         {children}

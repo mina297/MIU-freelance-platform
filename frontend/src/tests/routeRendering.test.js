@@ -62,7 +62,10 @@ test("all five authentication routes render labeled forms or role selection", as
     );
     for (const [path, heading] of [
       ["/login", "Log in"],
-      ["/register", "Create a demo account"],
+      ["/register", "Choose your account role"],
+      ["/register?role=student", "Create a student account"],
+      ["/register?role=client", "Create a client account"],
+      ["/register?role=super_admin", "Choose your account role"],
       ["/register/role", "Choose your account role"],
       ["/forgot-password", "Forgot password"],
       ["/reset-password", "Simulated password reset"],
@@ -80,15 +83,32 @@ test("all five authentication routes render labeled forms or role selection", as
       );
       assert.ok(html.includes(heading), path);
       assert.doesNotMatch(html, /routing placeholder only/i);
-      if (path !== "/register/role") {
+      assert.match(html, /Public navigation/);
+      assert.match(html, /href="\/login"[^>]*>Sign In/);
+      assert.match(html, /href="\/register"[^>]*>Sign Up/);
+      assert.doesNotMatch(
+        html,
+        /Simulated session controls|Demo navigation|Phase 1 routing demonstration/,
+      );
+      if (
+        !["/register/role", "/register", "/register?role=super_admin"].includes(
+          path,
+        )
+      ) {
         assert.match(html, /<form/);
         assert.match(html, /<label[^>]+for=/);
         assert.match(html, /Simulated authentication/);
       }
       if (path === "/register") {
-        assert.match(html, /value="student"/);
-        assert.match(html, /value="client"/);
-        assert.doesNotMatch(html, /<option value="super_admin"/);
+        assert.match(html, /href="\/register\?role=student"/);
+        assert.match(html, /href="\/register\?role=client"/);
+        assert.doesNotMatch(html, /<form/);
+      }
+      if (path === "/login") {
+        assert.match(
+          html,
+          /<\/button><p[^>]*><a[^>]*href="\/forgot-password"[^>]*>Forgot Password\?<\/a>/,
+        );
       }
     }
   } finally {

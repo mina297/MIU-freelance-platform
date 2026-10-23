@@ -100,6 +100,8 @@ tests guard both marketplace routes. Proposal submission remains a planned scree
 
 ## 4. Layout Groups
 
+**Public/authentication shell update:** Home, Projects and Services links appear with Sign In (`/login`) and Sign Up (`/register`); developer route lists and session controls are no longer displayed. `/register` starts at Student/Client cards, then opens the corresponding query-selected form. A valid simulated forgot-password request opens `/reset-password`. The landing page at `/` remains pending access to the supplied Figma design and is not yet implemented.
+
 ### Public Layout
 
 Landing, catalogues, service/project details, informational pages.
