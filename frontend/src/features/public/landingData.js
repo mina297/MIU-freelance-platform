@@ -87,6 +87,21 @@ export const landingCategories = [
   "Tutoring",
 ];
 
+export function getStudentShowcase(students) {
+  const ranked = [...students].sort(
+    (a, b) =>
+      Number(b.rating) - Number(a.rating) ||
+      b.reviews - a.reviews ||
+      a.id.localeCompare(b.id),
+  );
+  const featuredStudentId = ranked[0]?.id ?? null;
+  if (ranked.length >= 3) {
+    const featured = ranked.shift();
+    ranked.splice(Math.floor(students.length / 2), 0, featured);
+  }
+  return { orderedStudents: ranked, featuredStudentId };
+}
+
 export const landingCategoryLabels = {
   Development: "Software development",
   Video: "Video editing",

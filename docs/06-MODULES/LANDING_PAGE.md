@@ -33,6 +33,8 @@ The desktop layout retains the centered hero, alternating timeline, three-column
 
 ## Verification
 
+Trust benefit cards lift 6px on hover with an MIU red border and a light shadow. The student showcase derives its featured student from numeric rating, then review count and stable ID; with three results the highest-rated student occupies the middle and is raised 24px on desktop. Fewer results retain a sensible ranked order; single-column mobile removes the elevation. The featured student's View profile button has a rotating red perimeter light, static when motion is paused/reduced. Preview behavior and fictional ratings are unchanged. The shared Sign Up button now uses the existing landing buttons' pill radius, including its focus state.
+
 The same seamless lower-edge treatment applies to all four `OverlapSection` panels: no bottom border and no shadow below the lower edge. Existing surface/backdrop colors are retained; upper/side borders, rounded tops, side/top shadows and entrance motion remain intact. Nested project, profile and timeline cards are unaffected.
 
 The category panel omits its bottom border and clips only the shadow below its lower edge, allowing that edge to merge with the white backdrop below. Its upper/side borders, rounded top, shadow above/along the sides and scroll entrance remain unchanged.

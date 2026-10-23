@@ -7,8 +7,39 @@ import { createServer } from "vite";
 import {
   filterLandingJobs,
   filterLandingStudents,
+  getStudentShowcase,
+  landingStudents,
 } from "../features/public/landingData.js";
 import { getTimelineMotion } from "../features/public/timelineMotion.js";
+
+test("student showcase centers the highest rating without mutating records and handles filtered results", () => {
+  const { orderedStudents, featuredStudentId } =
+    getStudentShowcase(landingStudents);
+  assert.equal(featuredStudentId, "landing-omar");
+  assert.equal(orderedStudents[1].id, featuredStudentId);
+  assert.equal(landingStudents[0].id, "landing-nour");
+  const changed = landingStudents.map((student) => ({
+    ...student,
+    rating: student.id === "landing-nour" ? "5.0" : "4.9",
+  }));
+  assert.equal(
+    getStudentShowcase(changed).orderedStudents[1].id,
+    "landing-nour",
+  );
+  assert.equal(
+    getStudentShowcase([landingStudents[2]]).featuredStudentId,
+    "landing-mariam",
+  );
+  assert.deepEqual(getStudentShowcase([]), {
+    orderedStudents: [],
+    featuredStudentId: null,
+  });
+  assert.equal(
+    getStudentShowcase([landingStudents[0], landingStudents[2]])
+      .featuredStudentId,
+    "landing-mariam",
+  );
+});
 
 test("scroll timeline reveals and highlights each step as its light reaches the node", () => {
   assert.deepEqual(getTimelineMotion([800, 1200, 1600], 1000), {
@@ -186,6 +217,15 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
       /routing placeholder only|figma\.com\/api\/mcp\/asset|\/client\/projects\/new/,
     );
     assert.equal((html.match(/class="landing-avatar"/g) ?? []).length, 3);
+    const studentCards = [
+      ...html.matchAll(
+        /<article class="landing-card landing-student[^"]*"[\s\S]*?<\/article>/g,
+      ),
+    ].map((match) => match[0]);
+    assert.equal(studentCards.length, 3);
+    assert.match(studentCards[1], /landing-student-featured/);
+    assert.match(studentCards[1], /Omar Hassan/);
+    assert.match(studentCards[1], /Highest-rated student in these results/);
   } finally {
     await vite.close();
   }

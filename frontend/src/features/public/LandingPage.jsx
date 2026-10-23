@@ -11,6 +11,7 @@ import { formatEGP } from "../../utils/formatEGP.js";
 import {
   filterLandingJobs,
   filterLandingStudents,
+  getStudentShowcase,
   landingCategories,
 } from "./landingData.js";
 import "./landing.css";
@@ -121,6 +122,7 @@ export default function LandingPage() {
     mode === "hire" ? filters.query : "",
     mode === "hire" ? filters.category : "",
   );
+  const { orderedStudents, featuredStudentId } = getStudentShowcase(students);
   function changeMode(value) {
     if (value === mode) return;
     setMode(value);
@@ -416,10 +418,10 @@ export default function LandingPage() {
               <button onClick={clearFilters}>Clear filters</button>
             </p>
           )}
-          <div className="landing-grid" id="student-cards">
-            {students.map((student) => (
+          <div className="landing-grid landing-student-grid" id="student-cards">
+            {orderedStudents.map((student) => (
               <article
-                className="landing-card landing-student"
+                className={`landing-card landing-student${student.id === featuredStudentId ? " landing-student-featured" : ""}`}
                 key={student.id}
               >
                 <img
@@ -431,6 +433,11 @@ export default function LandingPage() {
                   loading="lazy"
                 />
                 <div>
+                  {student.id === featuredStudentId && (
+                    <span className="sr-only">
+                      Highest-rated student in these results
+                    </span>
+                  )}
                   <h3>{student.name}</h3>
                   <p>{student.study}</p>
                 </div>

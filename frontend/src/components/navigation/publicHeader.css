@@ -123,9 +123,12 @@
 }
 .public-sign-up {
   padding: 12px 24px;
-  border-radius: 10px;
+  border-radius: 9999px;
   background: var(--color-miu-red);
   color: white;
+}
+.public-header .public-sign-up:focus-visible {
+  border-radius: 9999px;
 }
 .public-sign-up:hover {
   background: var(--color-miu-red-dark);
