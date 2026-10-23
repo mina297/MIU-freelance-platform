@@ -30,16 +30,17 @@ Available project scripts:
 npm run dev
 npm run build
 npm run lint
+npm test
 npm run format
 npm run preview
 ```
 
 `npm run format` modifies files under `src`; review the resulting diff before committing it.
 
-Run the marketplace, routing/session contract, and rendered-route regression tests without installing a test dependency:
+Run the marketplace, routing/session contract, and rendered-route regression tests with one command:
 
 ```bash
-node --test src/features/marketplace/marketplace.test.js src/tests/session.test.js src/tests/routeAccess.test.js src/tests/routeRendering.test.js
+npm test
 ```
 
 ## Phase 1 Boundaries
