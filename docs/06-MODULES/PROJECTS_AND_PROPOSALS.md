@@ -146,18 +146,17 @@ Mobile filters are collapsible. Header links jump to discovery, results, or
 saved results; these are in-page links, not new routes. The latest opportunity
 is highlighted only in the default unfiltered newest-first view. Saving is
 not persistent and updates a screen-reader status message.
-Project detail pages, proposal actions, role restrictions, and router
-integration are still pending.
+Project detail pages and proposal actions are still pending. The catalogue is
+public; role restrictions for later project actions are still pending.
 
 The discovery preview is organized in `frontend/src/features/projects/`:
 `ProjectsCatalogue.jsx` owns search, filtering, sorting, and temporary save
 state; `catalogueModel.js` holds catalogue options and lookup data;
 `ProjectsHero.jsx`, `CategoryCard.jsx`, `FilterPanel.jsx`, and
-`ProjectCard.jsx` render the feature-specific interface. Member 1 can mount
-`ProjectsCatalogue` at the proposed public `/projects` route when the shared
-router is ready. The current `App.jsx` render remains a standalone preview,
-not a registered route. A real project-details route and proposal action
-remain separate Member 2 work.
+`ProjectCard.jsx` render the feature-specific interface. As of 23 October 2026,
+the shared router mounts `ProjectsCatalogue` at the public `/projects` route
+using its own full-width page shell. A rendered-route test guards this integration.
+A real project-details route and proposal action remain separate Member 2 work.
 
 ## 12. Dependencies
 

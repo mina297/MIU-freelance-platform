@@ -1,15 +1,21 @@
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "../features/auth/ProtectedRoute.jsx";
+import ProjectsCatalogue from "../features/projects/ProjectsCatalogue.jsx";
 import AppLayout from "../layouts/AppLayout.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
 import AdminLayout from "../layouts/AdminLayout.jsx";
 import { routeConfig } from "./routeConfig.js";
 
 const layouts = {
+  standalone: <Outlet />,
   public: <AppLayout title="Public" />,
   auth: <AuthLayout />,
   app: <AppLayout />,
   admin: <AdminLayout />,
+};
+
+const featurePages = {
+  "/projects": <ProjectsCatalogue />,
 };
 
 export default function AppRouter() {
@@ -25,13 +31,15 @@ export default function AppRouter() {
                 path={route.path}
                 element={
                   <ProtectedRoute route={route}>
-                    <section className="space-y-3">
-                      <h1 className="text-2xl font-bold">{route.title}</h1>
-                      <p>
-                        {route.message ??
-                          "Planned feature — routing placeholder only. This screen does not implement the feature workflow."}
-                      </p>
-                    </section>
+                    {featurePages[route.path] ?? (
+                      <section className="space-y-3">
+                        <h1 className="text-2xl font-bold">{route.title}</h1>
+                        <p>
+                          {route.message ??
+                            "Planned feature — routing placeholder only. This screen does not implement the feature workflow."}
+                        </p>
+                      </section>
+                    )}
                   </ProtectedRoute>
                 }
               />

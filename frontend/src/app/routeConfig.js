@@ -1,10 +1,15 @@
 import { ROLES, PUBLIC_REGISTRATION_ROLES } from "../features/auth/session.js";
 
-// Single routing registry. Feature screens remain labeled placeholders.
+// Single routing registry. Unconnected feature screens remain labeled placeholders.
 // Access metadata describes role-level demo access, not production permissions.
 export const routeConfig = [
   { path: "/", title: "MIU Freelance", layout: "public", access: "public" },
-  { path: "/projects", title: "Projects", layout: "public", access: "public" },
+  {
+    path: "/projects",
+    title: "Projects",
+    layout: "standalone",
+    access: "public",
+  },
   { path: "/services", title: "Services", layout: "public", access: "public" },
   { path: "/login", title: "Login", layout: "auth", access: "public" },
   {

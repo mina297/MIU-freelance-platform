@@ -2,7 +2,7 @@
 
 This directory contains the Phase 1 React frontend for the MIU Freelance Platform.
 
-The application has a Phase 1 routing and in-memory session foundation. A clearly labeled demo account selector demonstrates role-aware navigation, logout, and explicit session expiry. Refresh clears the session. Authentication forms and feature workflows remain planned; registered feature screens are labeled placeholders. See the [current route snapshot](../docs/03-DESIGN/PAGES_AND_ROUTES.md#3-current-implementation-snapshot).
+The application has a Phase 1 routing and in-memory session foundation. The public `/projects` route displays the fictional Projects Catalogue preview. A clearly labeled demo account selector on the other demo routes demonstrates role-aware navigation, logout, and explicit session expiry. Refresh clears the session. Authentication forms and other feature workflows remain planned; their registered screens are labeled placeholders. See the [current route snapshot](../docs/03-DESIGN/PAGES_AND_ROUTES.md#3-current-implementation-snapshot).
 
 ## Technology
 
@@ -36,10 +36,10 @@ npm run preview
 
 `npm run format` modifies files under `src`; review the resulting diff before committing it.
 
-Run the existing marketplace tests and routing/session contract tests without installing a test dependency:
+Run the marketplace, routing/session contract, and rendered-route regression tests without installing a test dependency:
 
 ```bash
-node --test src/features/marketplace/marketplace.test.js src/tests/session.test.js src/tests/routeAccess.test.js
+node --test src/features/marketplace/marketplace.test.js src/tests/session.test.js src/tests/routeAccess.test.js src/tests/routeRendering.test.js
 ```
 
 ## Phase 1 Boundaries

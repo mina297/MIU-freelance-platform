@@ -77,26 +77,24 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with one route registry at `frontend/src/app/routeConfig.js` and one in-memory session provider.
 
-- Public placeholders: `/`, `/projects`, `/services`.
+- Public placeholders: `/`, `/services`.
+- Public marketplace preview: `/projects` renders the Projects Catalogue (P-06).
 - Authentication placeholders: `/login`, `/register`, `/register/role`, `/forgot-password`, `/reset-password`.
 - Student/client placeholders: `/verify`, `/verify/pending`.
 - Role-specific dashboard placeholders: `/student/dashboard`, `/client/dashboard`, `/admin`, and the five committee root routes listed above.
 - Registered-user placeholder: `/notifications`.
 - Routing feedback: `/access-denied`, `/session-expired`, and a catch-all not-found page.
 
-Only routing, role checks, minimal layout outlets, demo navigation and session controls are implemented. Feature pages are clearly labeled placeholders; forms, dashboards, verification and other feature workflows are not implemented. Remaining proposed routes are not registered yet and show the catch-all page.
+Routing, role checks, minimal layout outlets, demo navigation, session controls, and the public projects catalogue are implemented. All other registered feature pages are clearly labeled placeholders; forms, dashboards, verification and other feature workflows are not implemented. Remaining proposed routes are not registered yet and show the catch-all page.
 
 Visitors attempting protected routes go to `/login`; authenticated users with the wrong role go to `/access-denied`; explicitly expired sessions go to `/session-expired`. Guards retain the requested URL in router location state (`from`) for later authentication integration. No automatic return flow is implemented yet.
 
-`AppLayout`, `AuthLayout` and `AdminLayout` follow the recommended directory naming. Public routes reuse the minimal `AppLayout`; public website visuals remain Member 4's work. Verification gating and automatic expiry timing are deferred. No production authorization is claimed.
+`AppLayout`, `AuthLayout` and `AdminLayout` follow the recommended directory naming. Most public routes reuse the minimal `AppLayout`; `/projects` uses its existing full-width catalogue shell through a standalone outlet until shared public website visuals are integrated. Verification gating and automatic expiry timing are deferred. No production authorization is claimed.
 
-**22 October 2026 update:** A React Projects Catalogue preview (P-06) now renders
-from `frontend/src/App.jsx`. It shows fictional open projects with working text,
+**23 October 2026 integration:** A React Projects Catalogue preview (P-06) now renders
+at the public `/projects` route through `frontend/src/app/router.jsx`. It shows fictional open projects with working text,
 category, budget, skill, and sort controls, plus active filters, temporary
-saved-item state, a responsive marketplace layout, and an empty state. Member 1's React Router
-configuration is still pending, so `/projects` is not yet registered as a
-distinct application route. Project details and proposal submission remain
-planned screens.
+saved-item state, a responsive marketplace layout, and an empty state. This route is covered by a rendered-route regression test. Project details and proposal submission remain planned screens.
 
 ## 4. Layout Groups
 
