@@ -95,6 +95,15 @@ planned screens.
 
 ## 4. Layout Groups
 
+**23 October 2026 dashboard update:** The preview router now registers `/`,
+`/projects`, `/student/dashboard`, `/client/dashboard` and a not-found fallback.
+The existing Student Dashboard and temporary dashboard switcher are reused from
+the local student feature branch. Both dashboards are selectable; six other
+dashboards remain disabled. Client sections use `/client/dashboard?section=...`.
+These are fictional frontend previews; authentication/session guards remain a
+Member 1 integration dependency. See [Client Dashboard](../06-MODULES/CLIENT_DASHBOARD.md)
+for behavior, design references, validation and unimplemented destinations.
+
 ### Public Layout
 Landing, catalogues, service/project details, informational pages.
 

@@ -67,6 +67,7 @@ This documentation is intended for:
 | [Payments and Escrow](06-MODULES/PAYMENTS_AND_ESCROW.md) | Financial workflows |
 | [AI Features](06-MODULES/AI_FEATURES.md) | AI-assisted capabilities |
 | [Admin and Committees](06-MODULES/ADMIN_AND_COMMITTEES.md) | Governance workflows |
+| [Client Dashboard](06-MODULES/CLIENT_DASHBOARD.md) | Implemented frontend preview and remaining integration work |
 
 ### 07 — Handover
 

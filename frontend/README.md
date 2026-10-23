@@ -2,7 +2,17 @@
 
 This directory contains the Phase 1 React frontend for the MIU Freelance Platform.
 
-The application is currently an initial scaffold. It renders a static MIU Freelance heading and a non-functional **Post a Job** button. The marketplace routes and workflows described in the project documentation are planned and are not yet implemented here.
+The application provides a Projects Catalogue at `/` and `/projects`, a Student
+Dashboard at `/student/dashboard`, and a Client Dashboard at `/client/dashboard`.
+Use the temporary **Development: Switch dashboard** control to open either
+dashboard. Set `VITE_ENABLE_DEV_DASHBOARD_SWITCHER=false` to hide this control.
+
+The client preview includes jobs, applicant summaries, delivery completion and
+validated reviews with in-memory fictional data. Dependent marketplace, profile,
+support and account workflows show integration notices. Authentication and role
+guards await the shared session module. See the
+[Client Dashboard module](../docs/06-MODULES/CLIENT_DASHBOARD.md) for scope,
+Figma references, test commands and remaining dependencies.
 
 ## Technology
 
