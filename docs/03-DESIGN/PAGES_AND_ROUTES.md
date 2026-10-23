@@ -113,6 +113,37 @@ visual/browser verification remains tracked in the Projects and Proposals module
 
 ## 4. Layout Groups
 
+**23 October 2026 — Member 4 landing/discovery:** `LandingPage.jsx` now provides
+public page content for `PublicLayout`, including hero/search, project and service
+discovery, minimal fictional student examples, and explicitly planned benefits.
+It is not mounted in `App.jsx`; `/` remains the catalogue preview and is not a
+completed routed landing page. Member 1 must connect approved available
+destinations. The How It Works section remains a supplied integration slot;
+its completed branch is not recreated here. Profile enrichment depends on
+Member 5. See [the landing contract](UI_COMPONENTS.md#member-4--landing-page-and-discovery)
+for the data, callback, state, and Figma adaptation details.
+
+**23 October 2026 — Member 4 public shell:** reusable `PublicHeader`,
+`PublicFooter`, and `PublicLayout` components now exist. They are not mounted in
+`App.jsx` and register no routes. Destinations are supplied by the integrating
+code; missing destinations remain text. Member 1 must connect available routes
+and session-aware integration. Member 2's catalogue retains its existing
+header/main/footer and must not be wrapped unchanged in a second public shell.
+Safety & Trust and Community Guidelines in the approved footer have no confirmed
+route mapping. See [the public-shell contract](UI_COMPONENTS.md#member-4--public-shell)
+for destination keys, design differences, and verified checks. This update does
+not mark any proposed route as implemented.
+
+**23 October 2026 — Member 4 feedback demos:** content-only
+`features/public/LoadingDemoPage.jsx` and `features/public/ErrorDemoPage.jsx`
+are ready for the assigned `/loading-demo` and `/error-demo` paths. **These
+routes are not registered.** Member 1 owns registration inside PublicLayout,
+available navigation destinations, and route integration checks. Both pages use
+local, explicitly labeled Phase 1 demonstrations with working controls for
+loading completion/reset, error retry/reset, and empty recovery. They introduce
+no APIs, guards, mock sessions, or marketplace contract changes. See the
+[state component contract](UI_COMPONENTS.md#member-4--loading-empty-and-error-states).
+
 ### Public Layout
 
 Landing, catalogues, service/project details, informational pages.
