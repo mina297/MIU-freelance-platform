@@ -74,6 +74,11 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
+Proposal submission update: the student-only `/projects/:projectId/propose` form
+now validates and stores a simulated proposal in memory for approved students.
+It displays confirmation and prevents duplicate records within the current preview.
+Refreshing clears submitted preview records. Attachments are still pending.
+
 Proposal entry increment: `/projects/:projectId/propose` is a student-only route,
 hidden from global navigation. Open project details link to it. The entry page
 handles missing/closed projects and explains verification requirements; the

@@ -2,6 +2,43 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { routeConfig } from "../app/routeConfig.js";
 import { mockUsers } from "../data/fixtures/users.js";
+import { createProposalStore } from "../features/proposals/proposalStore.js";
+
+test("mock submission revalidates eligibility, preserves identity and prevents duplicate records", () => {
+  let project = { id: "project_test", status: "open" };
+  const store = createProposalStore(() => project);
+  const session = {
+    status: "authenticated",
+    user: mockUsers.find((user) => user.id === "student_002"),
+  };
+  const values = {
+    priceEGP: "900.50",
+    deliveryDays: "3",
+    coverMessage: "  My approach  ",
+  };
+  const first = store.submit(values, project.id, session);
+  assert.equal(first.ok, true);
+  assert.equal(first.proposal.studentId, session.user.id);
+  assert.equal(first.proposal.projectId, project.id);
+  assert.equal(first.proposal.priceEGP, 900.5);
+  assert.equal(first.proposal.coverMessage, "My approach");
+  assert.equal(first.proposal.status, "submitted");
+  const repeated = store.submit(values, project.id, session);
+  assert.equal(repeated.duplicate, true);
+  assert.equal(repeated.proposal.id, first.proposal.id);
+  assert.equal(store.find(project.id, "other_student"), null);
+  assert.equal(
+    store.submit({ ...values, priceEGP: "-1" }, project.id, session).ok,
+    false,
+  );
+  assert.equal(
+    store.submit(values, project.id, { status: "anonymous", user: null }).ok,
+    false,
+  );
+  project = { ...project, status: "closed" };
+  assert.equal(store.submit(values, project.id, session).ok, false);
+  assert.equal(createProposalStore().find(project.id, session.user.id), null);
+});
 import { validateProposal } from "../features/proposals/validateProposal.js";
 
 test("proposal validation checks fields, verified student eligibility and project availability", () => {

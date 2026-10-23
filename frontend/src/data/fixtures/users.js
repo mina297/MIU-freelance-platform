@@ -5,7 +5,12 @@ import { ROLES } from "../../features/auth/session.js";
 export const mockUsers = Object.freeze(
   [
     { id: "student_001", displayName: "Salma Farid", role: ROLES.STUDENT },
-    { id: "student_002", displayName: "Omar Nabil", role: ROLES.STUDENT },
+    {
+      id: "student_002",
+      displayName: "Omar Nabil",
+      role: ROLES.STUDENT,
+      verificationStatus: "approved",
+    },
     { id: "client_001", displayName: "Nile Studio", role: ROLES.CLIENT },
     {
       id: "admin_001",
@@ -41,7 +46,7 @@ export const mockUsers = Object.freeze(
     Object.freeze({
       ...user,
       accountStatus: "active",
-      verificationStatus: "pending",
+      verificationStatus: user.verificationStatus ?? "pending",
     }),
   ),
 );

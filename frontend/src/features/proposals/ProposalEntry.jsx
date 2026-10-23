@@ -39,7 +39,7 @@ export default function ProposalEntry() {
               ? "This project is not accepting proposals."
               : !verified
                 ? "Student verification is required before submitting a proposal. The verification workflow is still planned in this preview."
-                : "Prepare your offer below. Submission is not available in this preview yet."}
+                : "Prepare your offer below and submit a simulated proposal."}
         </p>
         <Link
           to={project ? `/projects/${project.id}` : "/projects"}

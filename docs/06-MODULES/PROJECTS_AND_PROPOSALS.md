@@ -54,6 +54,17 @@ Students can:
 
 ## 5. Proposal Submission
 
+Current Task 3 behavior supersedes the earlier task snapshots below: Submit demo
+proposal rechecks inputs, the current project's open status, and an active verified
+student session. An in-memory store creates a Proposal contract record and returns
+the same record on repeated submissions for that student/project pair. The UI shows
+price, delivery days, and cover message confirmation. Records survive route changes
+but reset on refresh; they do not update the static fixture data or contact clients.
+Attachments remain unsupported (`attachmentIds: []`). Omar Nabil (`student_002`)
+is a fictional approved verification scenario; Salma remains pending. This does not
+implement actual identity verification. Use the existing demo account selector to
+start Omar's session and open an open project's proposal page.
+
 Task 2 adds a Check proposal draft action: positive EGP prices (up to two decimal
 places), positive whole delivery days, and a nonblank cover message are checked.
 Eligibility requires an active authenticated verified student and an open project.

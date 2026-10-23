@@ -2,7 +2,7 @@ import { formatEGP } from "../../utils/formatEGP.js";
 import { formatDate } from "../../utils/formatDate.js";
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth.js";
-import { validateProposal } from "./validateProposal.js";
+import { proposalStore } from "./proposalStore.js";
 
 const inputClass =
   "mt-2 w-full rounded-xl border border-[#ab95a1] bg-[#faf7f9] px-4 py-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red";
@@ -10,18 +10,49 @@ const inputClass =
 export default function ProposalForm({ project }) {
   const { session } = useAuth();
   const [errors, setErrors] = useState({});
-  const [checked, setChecked] = useState(false);
+  const [, setSubmitted] = useState(false);
+  const proposal = proposalStore.find(project.id, session.user?.id);
   function checkDraft(event) {
     event.preventDefault();
     const values = Object.fromEntries(new FormData(event.currentTarget));
-    const nextErrors = validateProposal(values, project, session);
+    const result = proposalStore.submit(values, project.id, session);
+    const nextErrors = result.errors ?? {};
     setErrors(nextErrors);
-    setChecked(true);
+    if (result.ok) setSubmitted(true);
     const field = ["priceEGP", "deliveryDays", "coverMessage"].find(
       (name) => nextErrors[name],
     );
     if (field) event.currentTarget.elements.namedItem(field)?.focus();
   }
+  if (proposal)
+    return (
+      <section
+        role="status"
+        className="mt-8 rounded-2xl border-2 border-[#b5869a] bg-[#f8e7ed] p-7"
+      >
+        <h2 className="text-2xl font-bold">Proposal submitted — simulation</h2>
+        <p className="mt-3">
+          Your demo proposal is recorded. No client was contacted. This record
+          resets on refresh.
+        </p>
+        <dl className="mt-5 space-y-3">
+          <div>
+            <dt className="font-bold">Your price</dt>
+            <dd>{formatEGP(proposal.priceEGP)}</dd>
+          </div>
+          <div>
+            <dt className="font-bold">Delivery time</dt>
+            <dd>{proposal.deliveryDays} days</dd>
+          </div>
+          <div>
+            <dt className="font-bold">Cover message</dt>
+            <dd className="whitespace-pre-wrap break-words">
+              {proposal.coverMessage}
+            </dd>
+          </div>
+        </dl>
+      </section>
+    );
   return (
     <div className="mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
       <form
@@ -30,7 +61,6 @@ export default function ProposalForm({ project }) {
         noValidate
         onChange={() => {
           setErrors({});
-          setChecked(false);
         }}
         aria-label="Proposal draft"
         className="overflow-hidden rounded-2xl border-2 border-[#c9bac1] bg-white"
@@ -119,8 +149,9 @@ export default function ProposalForm({ project }) {
             id="proposal-preview-note"
             className="text-sm leading-6 text-[#694c5b]"
           >
-            Form preview only. Nothing is submitted or saved; leaving this page
-            clears your draft.
+            Simulated submission only. Submitted proposals stay in memory until
+            refresh. Leaving before submitting clears your draft. Attachments
+            are not supported yet.
           </p>
           <div
             id="proposal-feedback"
@@ -130,16 +161,13 @@ export default function ProposalForm({ project }) {
             {Object.entries(errors).map(([key, message]) => (
               <p key={key}>{message}</p>
             ))}
-            {checked && Object.keys(errors).length === 0 && (
-              <p>Your draft passes these checks. Nothing has been submitted.</p>
-            )}
           </div>
           <button
             type="submit"
             aria-describedby="proposal-preview-note"
             className="mt-4 min-h-12 w-full rounded-xl bg-miu-red px-5 font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red sm:w-auto"
           >
-            Check proposal draft
+            Submit demo proposal
           </button>
         </div>
       </form>
