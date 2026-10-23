@@ -38,7 +38,6 @@ export default function RotatingSearchHint({ enabled }) {
 
   return (
     <span className="landing-search-hint" aria-hidden="true">
-      <span className="landing-search-hint-prefix">Try </span>
       <span className="landing-search-example">
         {enabled ? text : examples[0]}
       </span>

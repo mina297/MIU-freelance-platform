@@ -213,11 +213,7 @@ export default function LandingPage() {
               value={query}
               maxLength={120}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder={
-                mode === "hire"
-                  ? "Search students by name or skill"
-                  : "Search by title, skill, or keyword"
-              }
+              placeholder="Search"
             />
           </div>
           <Dropdown
