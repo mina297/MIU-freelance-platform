@@ -99,6 +99,22 @@ The frontend may provide:
 
 Never use real passwords or real identity documents as demo data.
 
+### Task 01 routing/session foundation
+
+Implemented scope (22 October 2026):
+
+- `frontend/src/features/auth/session.js` defines the JSDoc `MockUser`/`MockSession` contracts, role vocabulary, public registration roles, session reducer and route access helper. It is separate from Member 2's marketplace contracts.
+- `AuthProvider` is the sole session source. `useAuth()` exposes `session`, `startDemoSession(userId)`, `logout()` and `expireSession()`. Role access is derived from `session.user.role`; there is no separate role provider.
+- Sessions are memory-only and reset on refresh. Explicit expiry clears the user. No credentials, tokens, storage or automatic expiry timers are involved.
+- Account access uses `active`, `suspended`, `deactivated`; verification status remains separate and does not gate routes in this task. These are demo contracts, not approved production transition policies.
+- Fictional account fixtures preserve marketplace participant IDs and names. Committee fixtures represent provisioned demo accounts, not registration options. Public registration roles are only `student` and `client`.
+- Protected routes check active account status and allowed roles, including distinct access for each committee. Unknown roles and inactive accounts are denied. Ownership checks are deferred until the corresponding feature routes are integrated.
+- Minimal layout outlets, role-filtered demo links and routing feedback are present. Login, registration, reset and verification screens remain placeholders; no complete authentication requirement is claimed.
+
+Role values are `student`, `client`, `super_admin`, `verification_committee`, `marketplace_operations_committee`, `finance_committee`, `support_disputes_committee`, and `ai_quality_committee`. Session states are `anonymous`, `authenticated`, and `expired`, with `user: null` outside an authenticated session. Verification values are `pending`, `approved`, `rejected`, `resubmission_requested`, and `escalated`.
+
+Contract tests live in `frontend/src/tests/session.test.js` and `routeAccess.test.js`. Run them alongside the existing marketplace tests using the command in the frontend README.
+
 ## 9. Production Security Requirements
 
 Future implementation must provide:

@@ -1,6 +1,13 @@
-import ProjectsCatalogue from "./features/projects/ProjectsCatalogue.jsx";
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "./app/router.jsx";
+import AuthProvider from "./contexts/AuthProvider.jsx";
 
-// Temporary preview until Member 1 connects the shared router.
 export default function App() {
-  return <ProjectsCatalogue />;
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <AppRouter />
+      </AuthProvider>
+    </BrowserRouter>
+  );
 }
