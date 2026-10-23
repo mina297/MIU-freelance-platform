@@ -62,11 +62,21 @@ export default function ProposalForm({ project }) {
               {proposal.attachmentIds.length ? (
                 <ul className="mt-2 list-inside list-disc break-words">
                   {proposal.attachmentIds.map((id) => (
-                    <li key={id}>{MOCK_PROPOSAL_ATTACHMENTS.find((sample) => sample.id === id)?.name}</li>
+                    <li key={id}>
+                      {
+                        MOCK_PROPOSAL_ATTACHMENTS.find(
+                          (sample) => sample.id === id,
+                        )?.name
+                      }
+                    </li>
                   ))}
                 </ul>
-              ) : "No sample attachments selected"}
-              <p className="mt-2 text-sm">Fictional metadata only; no files were uploaded.</p>
+              ) : (
+                "No sample attachments selected"
+              )}
+              <p className="mt-2 text-sm">
+                Fictional metadata only; no files were uploaded.
+              </p>
             </dd>
           </div>
         </dl>
@@ -163,7 +173,11 @@ export default function ProposalForm({ project }) {
           </div>
         </div>
         <div className="px-5 pb-7 sm:px-7">
-          <ProposalAttachments selectedIds={attachmentIds} onChange={setAttachmentIds} error={errors.attachmentIds} />
+          <ProposalAttachments
+            selectedIds={attachmentIds}
+            onChange={setAttachmentIds}
+            error={errors.attachmentIds}
+          />
         </div>
         <div className="border-t border-[#c9bac1] bg-[#faf7f9] p-5 sm:p-7">
           <p
@@ -171,8 +185,8 @@ export default function ProposalForm({ project }) {
             className="text-sm leading-6 text-[#694c5b]"
           >
             Simulated submission only. Submitted proposals stay in memory until
-            refresh. Leaving before submitting clears your draft, including sample
-            attachment selections.
+            refresh. Leaving before submitting clears your draft, including
+            sample attachment selections.
           </p>
           <div
             id="proposal-feedback"

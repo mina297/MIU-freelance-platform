@@ -15,6 +15,7 @@ test("mock submission revalidates eligibility, preserves identity and prevents d
     priceEGP: "900.50",
     deliveryDays: "3",
     coverMessage: "  My approach  ",
+    attachmentIds: ["demo_attachment_portfolio"],
   };
   const first = store.submit(values, project.id, session);
   assert.equal(first.ok, true);
@@ -22,6 +23,8 @@ test("mock submission revalidates eligibility, preserves identity and prevents d
   assert.equal(first.proposal.projectId, project.id);
   assert.equal(first.proposal.priceEGP, 900.5);
   assert.equal(first.proposal.coverMessage, "My approach");
+  assert.deepEqual(first.proposal.attachmentIds, ["demo_attachment_portfolio"]);
+  assert.equal(Object.isFrozen(first.proposal.attachmentIds), true);
   assert.equal(first.proposal.status, "submitted");
   const repeated = store.submit(values, project.id, session);
   assert.equal(repeated.duplicate, true);
@@ -30,6 +33,26 @@ test("mock submission revalidates eligibility, preserves identity and prevents d
   assert.equal(
     store.submit({ ...values, priceEGP: "-1" }, project.id, session).ok,
     false,
+  );
+  assert.ok(
+    store.submit(
+      { ...values, attachmentIds: ["unknown_attachment"] },
+      "another_project",
+      session,
+    ).errors.attachmentIds,
+  );
+  assert.ok(
+    store.submit(
+      {
+        ...values,
+        attachmentIds: [
+          "demo_attachment_portfolio",
+          "demo_attachment_portfolio",
+        ],
+      },
+      "another_project",
+      session,
+    ).errors.attachmentIds,
   );
   assert.equal(
     store.submit(values, project.id, { status: "anonymous", user: null }).ok,
@@ -51,6 +74,7 @@ test("proposal validation checks fields, verified student eligibility and projec
     priceEGP: "1200.50",
     deliveryDays: "7",
     coverMessage: "I will build the requested pages.",
+    attachmentIds: ["demo_attachment_plan"],
   };
   assert.deepEqual(validateProposal(values, project, session), {});
   for (const priceEGP of ["", "0", "-5", "Infinity", "12.345"])
@@ -68,6 +92,13 @@ test("proposal validation checks fields, verified student eligibility and projec
   );
   assert.ok(validateProposal(values, null, session).project);
   assert.ok(validateProposal(values, { status: "closed" }, session).project);
+  assert.ok(
+    validateProposal(
+      { ...values, attachmentIds: "not-an-array" },
+      project,
+      session,
+    ).attachmentIds,
+  );
   assert.ok(
     validateProposal(values, project, { status: "anonymous", user: null })
       .eligibility,

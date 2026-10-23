@@ -44,6 +44,10 @@ test("proposal routes render eligible, unverified, missing, closed, and submitte
     const open = renderRoute("project_001");
     assert.match(open, /Prepare your proposal/);
     assert.match(open, /Submit demo proposal/);
+    assert.match(open, /Sample attachments \(optional\)/);
+    assert.match(open, /No real files are uploaded or stored/);
+    assert.match(open, /Sample portfolio\.pdf/);
+    assert.match(open, /Sample project plan\.pdf/);
     for (const id of ["proposal-price", "proposal-days", "proposal-cover"]) {
       assert.ok(open.includes(`for="${id}"`));
       assert.ok(open.includes(`id="${id}"`));
@@ -63,6 +67,7 @@ test("proposal routes render eligible, unverified, missing, closed, and submitte
         priceEGP: "5500",
         deliveryDays: "14",
         coverMessage: "<script>fictional</script>",
+        attachmentIds: ["demo_attachment_plan"],
       },
       "project_001",
       { status: "authenticated", user: student },
@@ -71,6 +76,8 @@ test("proposal routes render eligible, unverified, missing, closed, and submitte
     const submitted = renderRoute("project_001");
     assert.match(submitted, /Proposal submitted/);
     assert.match(submitted, /No client was contacted/);
+    assert.match(submitted, /Sample project plan\.pdf/);
+    assert.match(submitted, /no files were uploaded/i);
     assert.match(submitted, /&lt;script&gt;fictional/);
     assert.doesNotMatch(submitted, /<form/);
     assert.match(

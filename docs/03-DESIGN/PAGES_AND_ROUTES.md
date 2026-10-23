@@ -77,7 +77,8 @@ These supporting routes extend the SRS prototype inventory without changing its 
 Proposal submission update: the student-only `/projects/:projectId/propose` form
 now validates and stores a simulated proposal in memory for approved students.
 It displays confirmation and prevents duplicate records within the current preview.
-Refreshing clears submitted preview records. Attachments are still pending.
+Refreshing clears submitted preview records. Optional attachments use allowlisted
+fictional metadata only; no real file is read, uploaded, downloaded, or stored.
 
 Proposal entry increment: `/projects/:projectId/propose` is a student-only route,
 hidden from global navigation. Open project details link to it. The entry page
@@ -106,7 +107,9 @@ category, budget, skill, and sort controls, plus active filters, temporary
 saved-item state, a responsive marketplace layout, and an empty state. Catalogue
 cards navigate to the public `/projects/:projectId` Project Details preview,
 including a missing-record state and navigation back to `/projects`. Rendered-route
-tests guard both marketplace routes. Proposal submission uses the student-only route described above; attachments and visual/browser verification remain tracked in the Projects and Proposals module.
+tests guard both marketplace routes. Proposal submission uses the student-only route
+described above; its safe mock attachment selection is implemented, while
+visual/browser verification remains tracked in the Projects and Proposals module.
 
 ## 4. Layout Groups
 
