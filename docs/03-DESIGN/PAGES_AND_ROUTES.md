@@ -141,6 +141,18 @@ the detailed planned journeys remain usable without it. See the
 [public information page contract](UI_COMPONENTS.md#member-4--public-about-and-how-it-works-pages)
 for content sources, properties, verification and outstanding integration.
 
+**23 October 2026 — Member 4 policy placeholders:** content-only
+`features/public/TermsPage.jsx` and `features/public/PrivacyPage.jsx` reuse the
+public information page layout. **`/terms` and `/privacy` are not registered.**
+Member 1 owns route registration, PublicLayout composition and supplied
+destinations. Both pages visibly state that they are placeholders awaiting
+team-approved content; no approved legal/policy text was found in the repository.
+They introduce no consent controls or claims about actual privacy practices.
+Final policy text remains blocked on team approval (OD-17 in Known Issues).
+See the [policy placeholder contract](UI_COMPONENTS.md#member-4--terms-and-privacy-placeholders)
+for approval gaps, properties and verification. This update does not mark either
+route or any legal/privacy obligation as complete.
+
 ### Public Layout
 Landing, catalogues, service/project details, informational pages.
 

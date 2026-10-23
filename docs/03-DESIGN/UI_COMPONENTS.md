@@ -1347,6 +1347,97 @@ npm.cmd run build
 node node_modules/prettier/bin/prettier.cjs --check src/features/public/AboutPage.jsx src/features/public/HowItWorksPage.jsx src/features/public/info/PublicInfoPage.jsx src/features/public/info/public-info.css src/features/public/info/publicInfo.test.js
 ```
 
+## Member 4 — Terms and Privacy placeholders
+
+`features/public/TermsPage.jsx` and `PrivacyPage.jsx` reuse the existing
+`info/PublicInfoPage.jsx`, public-info styles and foundation Card. Each is a
+static content component for PublicLayout, with one h1 and an associated
+placeholder heading. Existing public-page components, styles, assets, routes,
+marketplace features and dependencies are unchanged.
+
+### Content status and page contracts
+
+**No approved Terms or Privacy text was found in the repository.** Both pages
+therefore state “Placeholder — awaiting team-approved content” and identify
+themselves as unpublished Phase 1 placeholders. These are approval-status
+notices, not drafted legal documents. They add no usage conditions, consent
+controls, effective dates, fees, refunds, dispute procedures, contact details,
+data inventories, collection/sharing promises, retention periods or deletion
+commitments. The inherited Phase 1 notice remains visible.
+
+| Component | Optional destinations |
+|---|---|
+| `TermsPage({ destinations = {} })` | `privacy`, `about` |
+| `PrivacyPage({ destinations = {} })` | `terms`, `about` |
+
+Only caller-supplied destinations become links through the existing PublicLink.
+Missing destinations remain text. No `#` links, absent route paths, policy
+download links or application integration are fabricated. Member 1 supplies
+PublicLayout and registers `/terms` and `/privacy`. No API, form, acceptance
+record, session, tracking mechanism or data-processing behavior is implemented.
+There is no asynchronous state requiring a new loader or error flow.
+
+The pages reuse the existing Figma-derived public-page foundation described in
+the preceding public information page section. They introduce no new visual
+tokens, geometry, icon exports or claims of matching a dedicated policy-page
+Figma specimen. Their placeholder layout and future final copy need team review.
+Related presentation requirements: NFR-02, NFR-03 and NFR-16. Privacy requirement
+NFR-08 remains a requirement, not an implemented or approved privacy policy.
+
+### Required team approvals before publication
+
+The team must supply the actual text and record its approval, responsible owner,
+applicability/version and publication status. The following are content gaps,
+not proposed clauses or assertions that the platform already has these practices:
+
+- Terms: approved usage/account conditions; project/service obligations; any
+  applicable payment, fee, cancellation, refund and dispute provisions; and
+  confirmed issuer/contact details. Do not infer these from mock workflows.
+- Privacy: a verified inventory of actual data flows and any tracking/storage;
+  approved purposes, recipients/providers, access arrangements and retention/
+  deletion decisions; and confirmed privacy-contact and user-request content.
+  Do not claim collection, cookies, sharing or legal compliance from UI alone.
+- Resolve relevant existing decisions, including identity retention (OD-03),
+  escrow arrangements (OD-05), fees/refunds (OD-06/07) and provider choices.
+  The new OD-17 in Known Issues records the missing public policy content.
+
+Final content must be reviewed against the actual implementation and approved
+project decisions. The placeholders do not satisfy publication readiness or
+demonstrate legal/privacy compliance. No unrelated work is assumed to exist on
+this branch; it starts from the approved `1e4931b` public information pages.
+
+### Verification and remaining dependencies
+
+Seven focused Node/Vite tests verify explicit placeholder status, absence of
+operative clauses/practice claims or consent controls, native destination
+handling, unique heading associations and PublicLayout composition. All 125
+tests passed (7 new, 118 existing). Lint, source Prettier, default Vite build and
+separate export-preserving builds of both new pages passed. Build configuration
+was not edited; the application entry still mounts the existing catalogue.
+
+Chrome checks used the real pages in an in-memory PublicLayout fixture, without
+tracked preview files or route changes. Both pages had one h1/main and no
+horizontal overflow at 320, 390, 640, 767, 768, 960, 1024 and 1440px. Placeholder
+headings were visible and exposed in Chrome's accessibility tree. Tab traversal,
+visible focus, native Enter activation and skip-link focus passed. Links used
+in-document fixture destinations; this does not verify application routing.
+Missing destinations stayed text, link heights were at least 44px, inherited RTL
+fit at 320px, and the pages introduced no animation under reduced motion.
+Mobile Terms and desktop Privacy screenshots were inspected. Successful browser
+checks had no runtime exceptions, console errors or failed HTTP responses.
+
+Remaining: team-approved policy text and visual review, Member 1 route/shell/
+destination integration, screen-reader testing, systematic zoom, cross-browser
+and real-touch checks. No approved translations or legal content are invented.
+
+```bash
+cd frontend
+node --test src/features/public/info/policyPages.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/features/public/TermsPage.jsx src/features/public/PrivacyPage.jsx src/features/public/info/policyPages.test.js
+```
+
 ## Related Documents
 
 - [Design System](DESIGN_SYSTEM.md)
