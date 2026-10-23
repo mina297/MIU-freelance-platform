@@ -1,4 +1,3 @@
-
 ---
 title: UI Components
 type: component-catalogue
@@ -16,25 +15,25 @@ Avoid recreating the same buttons, cards, forms, tables, and status components a
 
 ## 2. Foundation Components
 
-| Component | Responsibility |
-|---|---|
-| Button | Primary, secondary, outline, destructive and loading actions |
-| Input | Text, email, password, number and relevant validation states |
-| Textarea | Multiline content |
-| Select | Selection control |
-| Checkbox | Boolean choices |
-| Radio Group | Exclusive choices |
-| Modal/Dialog | Focused decision or confirmation |
-| Alert | Informational and error messages |
-| Toast | Temporary feedback |
-| Badge | Status and metadata labels |
-| Card | Reusable content container |
-| Tabs | Local section navigation |
-| Pagination | Collection navigation |
-| Skeleton | Loading placeholders |
-| Empty State | No available content |
-| Error State | Recoverable errors |
-| Spinner | Operation in progress |
+| Component    | Responsibility                                               |
+| ------------ | ------------------------------------------------------------ |
+| Button       | Primary, secondary, outline, destructive and loading actions |
+| Input        | Text, email, password, number and relevant validation states |
+| Textarea     | Multiline content                                            |
+| Select       | Selection control                                            |
+| Checkbox     | Boolean choices                                              |
+| Radio Group  | Exclusive choices                                            |
+| Modal/Dialog | Focused decision or confirmation                             |
+| Alert        | Informational and error messages                             |
+| Toast        | Temporary feedback                                           |
+| Badge        | Status and metadata labels                                   |
+| Card         | Reusable content container                                   |
+| Tabs         | Local section navigation                                     |
+| Pagination   | Collection navigation                                        |
+| Skeleton     | Loading placeholders                                         |
+| Empty State  | No available content                                         |
+| Error State  | Recoverable errors                                           |
+| Spinner      | Operation in progress                                        |
 
 ## 3. Layout Components
 
@@ -123,6 +122,7 @@ Phase 1 verification and AI outputs must be visibly simulated.
 ## 9. Component API Guidelines
 
 Components should:
+
 - Have descriptive property names.
 - Accept controlled values when appropriate.
 - Expose callbacks rather than own unrelated business state.
@@ -147,31 +147,6 @@ Components should:
 
 The example demonstrates an intended interface, not evidence that the component currently exists.
 
-## 11. States to Support
-
-Relevant components should cover:
-- Default
-- Hover
-- Focus
-- Disabled
-- Loading
-- Error
-- Success
-- Empty
-- Selected
-
-## 12. Acceptance Checklist
-
-- [ ] Matches approved Figma
-- [ ] Reusable without unnecessary duplication
-- [ ] Supports expected variants
-- [ ] Keyboard accessible
-- [ ] Clearly labeled
-- [ ] Responsive
-- [ ] No hidden network side effects
-- [ ] Documented props
-- [ ] Appropriate tests
-
 ## Member 4 — Shared UI foundation
 
 The new components live in `frontend/src/components/ui/` and import their own
@@ -187,15 +162,17 @@ import Badge from "./components/ui/Badge.jsx";
 <Card as="article" aria-labelledby="example-title">
   <h2 id="example-title">Example</h2>
   <Badge variant="info">In progress</Badge>
-  <Button loading={isSaving} onClick={handleSave}>Save draft</Button>
-</Card>
+  <Button loading={isSaving} onClick={handleSave}>
+    Save draft
+  </Button>
+</Card>;
 ```
 
-| Component | Props and behavior |
-|---|---|
-| Button | `variant`: `primary` (default), `secondary` (black), `outline`, `ghost` (neutral Cancel specimen), `destructive`. `type` defaults to `button`; set `submit` explicitly for forms. `disabled` and `loading` block activation; loading preserves the label and exposes `aria-busy`. `children`, `className`, native button attributes, event callbacks, and React 19 `ref` are forwarded. |
-| Card | `as`: `div` (default), `article`, or `section`. `children`, `className`, and native attributes are forwarded. Supply headings/accessible names for sections. It is a container, not an interactive replacement for a link or button. |
-| Badge | `variant`: `neutral` (default), `success`, `info`, `completed`, `warning`, or `danger`. Supply visible text through `children`; variants do not infer statuses, permissions, or business rules. Native span attributes and `className` are forwarded. No automatic live-region role. |
+| Component | Props and behavior                                                                                                                                                                                                                                                                                                                                                                      |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Button    | `variant`: `primary` (default), `secondary` (black), `outline`, `ghost` (neutral Cancel specimen), `destructive`. `type` defaults to `button`; set `submit` explicitly for forms. `disabled` and `loading` block activation; loading preserves the label and exposes `aria-busy`. `children`, `className`, native button attributes, event callbacks, and React 19 `ref` are forwarded. |
+| Card      | `as`: `div` (default), `article`, or `section`. `children`, `className`, and native attributes are forwarded. Supply headings/accessible names for sections. It is a container, not an interactive replacement for a link or button.                                                                                                                                                    |
+| Badge     | `variant`: `neutral` (default), `success`, `info`, `completed`, `warning`, or `danger`. Supply visible text through `children`; variants do not infer statuses, permissions, or business rules. Native span attributes and `className` are forwarded. No automatic live-region role.                                                                                                    |
 
 Unknown variants fall back to the defaults. Consumers may supply decorative
 icons as children, hidden from assistive technology, and must provide an
@@ -249,6 +226,32 @@ were calculated to exceed 4.5:1 after the scoped contrast adjustments.
 Browser visual/keyboard, zoom, screen-reader, cross-browser, and precise
 Figma geometry checks remain unverified. No SRS requirement is marked complete
 on the strength of these foundation components alone.
+
+## 11. States to Support
+
+Relevant components should cover:
+
+- Default
+- Hover
+- Focus
+- Disabled
+- Loading
+- Error
+- Success
+- Empty
+- Selected
+
+## 12. Acceptance Checklist
+
+- [ ] Matches approved Figma
+- [ ] Reusable without unnecessary duplication
+- [ ] Supports expected variants
+- [ ] Keyboard accessible
+- [ ] Clearly labeled
+- [ ] Responsive
+- [ ] No hidden network side effects
+- [ ] Documented props
+- [ ] Appropriate tests
 
 ## Related Documents
 
