@@ -10,6 +10,12 @@ export const routeConfig = [
     layout: "standalone",
     access: "public",
   },
+  {
+    path: "/projects/:projectId",
+    title: "Project details",
+    layout: "standalone",
+    access: "public",
+  },
   { path: "/services", title: "Services", layout: "public", access: "public" },
   { path: "/login", title: "Login", layout: "auth", access: "public" },
   {

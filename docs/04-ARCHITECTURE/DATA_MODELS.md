@@ -85,6 +85,8 @@ Suggested attributes:
 - `clientId`
 - `title`
 - `description`
+- `scope` (optional detailed project brief in Phase 1 mock records)
+- `deliverables` (optional list of expected outputs)
 - `requiredSkills`
 - `budgetEGP`
 - `deadline`

@@ -24,7 +24,7 @@ import FilterPanel from "./FilterPanel.jsx";
 import ProjectCard from "./ProjectCard.jsx";
 import ProjectsHero from "./ProjectsHero.jsx";
 
-export default function ProjectsCatalogue() {
+export default function ProjectsCatalogue({ onOpenProject }) {
   const [searchDraft, setSearchDraft] = useState("");
   const [query, setQuery] = useState("");
   const [categoryId, setCategoryId] = useState("");
@@ -370,6 +370,7 @@ export default function ProjectsCatalogue() {
                       }
                       saved={savedIds.includes(project.id)}
                       onToggleSaved={toggleSaved}
+                      onOpenProject={onOpenProject}
                     />
                   ))}
                 </div>

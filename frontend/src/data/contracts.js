@@ -17,7 +17,9 @@
  * @property {string} id Stable project ID.
  * @property {string} clientId ID of the client who owns the project.
  * @property {string} title
- * @property {string} description Includes the scope and expected deliverables.
+ * @property {string} description Short public summary of the project.
+ * @property {string} [scope] Detailed work requested by the client.
+ * @property {string[]} [deliverables] Expected outputs. Optional for older mock records.
  * @property {string} categoryId ID of a marketplace category.
  * @property {string[]} requiredSkillIds IDs of relevant skills.
  * @property {number} budgetEGP Client's proposed budget in EGP.
