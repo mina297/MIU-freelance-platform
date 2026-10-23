@@ -253,8 +253,8 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
                     aria-hidden="true"
                   />{" "}
                   {isOpen
-                    ? "Proposal submission is planned for a separate student screen. This preview does not submit an application."
-                    : "This project is not accepting proposals. Proposal submission is not available in this preview."}
+                    ? "Verified students can submit a simulated proposal on the next screen. No client is contacted in this preview."
+                    : "This project is not accepting proposals."}
                 </div>
                 {isOpen && onPropose && (
                   <button

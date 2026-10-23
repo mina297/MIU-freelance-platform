@@ -12,7 +12,7 @@ export default function ProposalForm({ project }) {
   const [errors, setErrors] = useState({});
   const [, setSubmitted] = useState(false);
   const proposal = proposalStore.find(project.id, session.user?.id);
-  function checkDraft(event) {
+  function submitProposal(event) {
     event.preventDefault();
     const values = Object.fromEntries(new FormData(event.currentTarget));
     const result = proposalStore.submit(values, project.id, session);
@@ -56,8 +56,7 @@ export default function ProposalForm({ project }) {
   return (
     <div className="mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
       <form
-        key={project.id}
-        onSubmit={checkDraft}
+        onSubmit={submitProposal}
         noValidate
         onChange={() => {
           setErrors({});

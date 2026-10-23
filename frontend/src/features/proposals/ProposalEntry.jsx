@@ -47,7 +47,12 @@ export default function ProposalEntry() {
         >
           {project ? "Back to project" : "Browse projects"}
         </Link>
-        {isOpen && <ProposalForm project={project} />}
+        {isOpen && (
+          <ProposalForm
+            key={`${project.id}:${session.user?.id}`}
+            project={project}
+          />
+        )}
       </section>
     </main>
   );

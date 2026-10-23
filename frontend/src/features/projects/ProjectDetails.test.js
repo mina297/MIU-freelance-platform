@@ -40,7 +40,8 @@ test("open project shows a distinct scope, deliverables, EGP budget, and preview
   assert.match(html, /6,000/);
   assert.match(html, /EGP/);
   assert.match(html, /Open for proposals/);
-  assert.match(html, /This preview does not submit an application/);
+  assert.match(html, /Verified students can submit a simulated proposal/);
+  assert.match(html, /No client is contacted/);
 });
 
 test("selected project clearly says it is unavailable for proposals", () => {

@@ -54,7 +54,7 @@ Students can:
 
 ## 5. Proposal Submission
 
-Current Task 3 behavior supersedes the earlier task snapshots below: Submit demo
+Current Phase 1 behavior: Submit demo
 proposal rechecks inputs, the current project's open status, and an active verified
 student session. An in-memory store creates a Proposal contract record and returns
 the same record on repeated submissions for that student/project pair. The UI shows
@@ -65,25 +65,31 @@ is a fictional approved verification scenario; Salma remains pending. This does 
 implement actual identity verification. Use the existing demo account selector to
 start Omar's session and open an open project's proposal page.
 
-Task 2 adds a Check proposal draft action: positive EGP prices (up to two decimal
+The form checks positive EGP prices (up to two decimal
 places), positive whole delivery days, and a nonblank cover message are checked.
 Eligibility requires an active authenticated verified student and an open project.
-Feedback identifies invalid fields. This action creates no record. No budget ceiling
-is imposed while the out-of-budget policy remains undecided. Attachments and mock
-submission remain pending. This supersedes the disabled-button Task 1 snapshot below.
+Feedback identifies invalid fields and focuses the first invalid input. No budget
+ceiling is imposed while the out-of-budget policy remains undecided.
 
-Task 1 form design: open-project proposal entry now shows editable EGP price,
+Open-project proposal entry shows editable EGP price,
 delivery days, and cover message fields alongside the project budget and deadline.
-The form is a temporary preview with submission disabled for every account.
-Draft values clear when leaving the page. Validation, attachments, and simulated
-record creation remain future tasks; FR-S05 is not complete.
+Draft values clear when leaving the page or changing project/student identity.
+Attachments remain unfinished; FR-S05 is not complete.
 
 The first P-08 increment registers `/projects/:projectId/propose` for active
 student accounts only. Open project details provide a Submit proposal entry.
 Visitors go through the shared login flow; other roles are denied. Missing and
 non-open projects show recovery states. Pending verification is explained per
-BR-06. This entry screen does not yet implement the form, attachments, or mock
-submission; FR-S05 is not complete.
+BR-06. Verification is rechecked when submitting, not just when opening the route.
+
+### Remaining proposal work
+
+- [ ] Permitted attachment selection, validation, removal, and confirmation using safe fictional files. No real upload or storage is implemented.
+- [ ] Browser interaction checks: invalid-input focus, verified submission, duplicate prevention after returning, pending verification, and session switching.
+- [ ] Desktop/mobile visual and keyboard review, including P-08 screenshot evidence.
+- [ ] Student proposal list/edit/withdraw and client review remain separate workflows, not implemented by this submission screen.
+
+Automated render tests and store/validation tests do not replace the browser checks above.
 
 A proposal contains:
 
@@ -193,7 +199,7 @@ The page distinguishes an open project from one no longer accepting proposals,
 and handles a missing project ID. The catalogue's View project action navigates
 to `/projects/:projectId`, and the details page returns to `/projects`. Returning
 currently resets catalogue filters and saved items because this preview state is
-local and non-persistent. Proposal actions and their role restrictions are still pending.
+local and non-persistent. Open projects link to the student-only proposal preview described above.
 Automated render tests cover open, unavailable, and missing project states.
 The P-07 SRS screenshot is still pending a capture of the actual details screen.
 
@@ -203,7 +209,7 @@ The P-07 SRS screenshot is still pending a capture of the actual details screen.
 - [x] Test open, unavailable, and missing project rendering; validate optional brief fields in fixtures.
 - [ ] Visually review the actual details screen at desktop and mobile widths, including keyboard focus; capture its P-07 SRS screenshot. Deferred by the team on 23 October 2026.
 - [x] Connect `/projects/:projectId` and deep-link/back navigation through Member 1's shared router.
-- [ ] Connect student-only proposal entry when the separate P-08 proposal screen and mock role state exist. The current notice must not be presented as a working submission action.
+- [x] Connect student-only proposal entry with explicit simulated-submission messaging.
 
 The discovery preview is organized in `frontend/src/features/projects/`:
 `ProjectsCatalogue.jsx` owns search, filtering, sorting, and temporary save
@@ -212,8 +218,8 @@ state; `catalogueModel.js` holds catalogue options and lookup data;
 `ProjectCard.jsx` render the feature-specific interface. As of 23 October 2026,
 the shared router mounts `ProjectsCatalogue` at the public `/projects` route
 and `ProjectDetails` at `/projects/:projectId`, using their full-width marketplace
-shells. Rendered-route tests guard this integration. Proposal submission remains
-separate Member 2 work.
+shells. Rendered-route tests guard this integration. The proposal entry is implemented
+as the separate Member 2 feature described in section 5.
 
 ## 12. Dependencies
 
