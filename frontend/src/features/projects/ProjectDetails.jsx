@@ -63,6 +63,9 @@ export default function ProjectDetails({ projectId, onBack }) {
     .slice(0, 2)
     .join("");
   const isOpen = project.status === PROJECT_STATUS.OPEN;
+  const hasDetailedBrief = Boolean(
+    project.scope || project.deliverables?.length,
+  );
 
   return (
     <div className="min-h-screen bg-[#eee9ed] font-sans text-[#292127]">
@@ -145,9 +148,40 @@ export default function ProjectDetails({ projectId, onBack }) {
                   </h2>
                 </div>
               </div>
-              <p className="mt-6 text-base leading-8 text-[#594f54]">
-                {project.description}
-              </p>
+              <div className="mt-6">
+                <h3 className="text-sm font-bold text-[#342a2f]">
+                  Scope of work
+                </h3>
+                <p className="mt-2 text-base leading-8 text-[#594f54]">
+                  {project.scope || project.description}
+                </p>
+              </div>
+              {project.deliverables?.length > 0 && (
+                <div className="mt-7 border-t border-[#d9cbd2] pt-6">
+                  <h3 className="text-sm font-bold text-[#342a2f]">
+                    Expected deliverables
+                  </h3>
+                  <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+                    {project.deliverables.map((deliverable) => (
+                      <li
+                        key={deliverable}
+                        className="flex gap-3 rounded-xl border border-[#dac8d0] bg-[#fbf7f9] p-4 text-sm font-medium leading-6 text-[#554650]"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className="mt-2 size-1.5 shrink-0 rounded-full bg-miu-red"
+                        />
+                        {deliverable}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {!hasDetailedBrief && (
+                <p className="mt-3 text-sm text-[#796a71]">
+                  No additional brief has been provided in this preview.
+                </p>
+              )}
               <div className="mt-7 border-t border-[#d9cbd2] pt-6">
                 <h3 className="text-sm font-bold text-[#342a2f]">
                   Skills needed
@@ -218,8 +252,9 @@ export default function ProjectDetails({ projectId, onBack }) {
                     className="mb-2 text-miu-red"
                     aria-hidden="true"
                   />{" "}
-                  Proposal submission is planned for a separate student screen.
-                  This preview does not submit an application.
+                  {isOpen
+                    ? "Proposal submission is planned for a separate student screen. This preview does not submit an application."
+                    : "This project is not accepting proposals. Proposal submission is not available in this preview."}
                 </div>
                 <button
                   type="button"

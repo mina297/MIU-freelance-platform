@@ -147,11 +147,16 @@ saved results; these are in-page links, not new routes. The latest opportunity
 is highlighted only in the default unfiltered newest-first view. Saving is
 not persistent and updates a screen-reader status message.
 The project details preview (P-07) now shows the selected fictional project's
-description, client, category, required skills, EGP budget, posted date,
-deadline, and open state. It handles a missing project ID. The catalogue's
+summary, detailed scope, expected deliverables, client, category, required
+skills, EGP budget, posted date, deadline, and open state. The detailed fields
+are optional so older mock records can still show their summary as the brief.
+The page distinguishes an open project from one no longer accepting proposals,
+and handles a missing project ID. The catalogue's
 View project action opens this screen in the temporary App preview; returning
 preserves catalogue filters and saved items. Proposal actions, role
 restrictions, and shared router integration are still pending.
+Automated render tests cover open, unavailable, and missing project states.
+The P-07 SRS screenshot is still pending a capture of the actual details screen.
 
 The discovery preview is organized in `frontend/src/features/projects/`:
 `ProjectsCatalogue.jsx` owns search, filtering, sorting, and temporary save
