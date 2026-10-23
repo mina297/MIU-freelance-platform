@@ -48,12 +48,23 @@ export function isActiveUser(user) {
   );
 }
 
+/** Explicit allowlist: credentials and extra account fields never enter sessions. */
+export function toSessionUser(user) {
+  return {
+    id: user.id,
+    displayName: user.displayName,
+    role: user.role,
+    accountStatus: user.accountStatus,
+    verificationStatus: user.verificationStatus,
+  };
+}
+
 /** Demo transitions only. Expiry is explicit; no automatic timing policy. */
 export function sessionReducer(state, action) {
   switch (action.type) {
     case "start":
       return isActiveUser(action.user)
-        ? { status: "authenticated", user: { ...action.user } }
+        ? { status: "authenticated", user: toSessionUser(action.user) }
         : INITIAL_SESSION;
     case "logout":
       return INITIAL_SESSION;

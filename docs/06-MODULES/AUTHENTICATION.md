@@ -115,6 +115,18 @@ Role values are `student`, `client`, `super_admin`, `verification_committee`, `m
 
 Contract tests live in `frontend/src/tests/session.test.js` and `routeAccess.test.js`. Run them alongside the existing marketplace tests using the command in the frontend README.
 
+### Task 02 mock authentication
+
+The five authentication routes now render working frontend demonstrations. Registration collects full name, email, password, confirmation and Student/Client role. It requires a valid email, at least eight password characters including a letter and a number, matching confirmation, and case-insensitive email uniqueness. The mock operation rejects privileged or unknown roles independently of the form controls (FR-V03, FR-S01, FR-C01).
+
+`createMockAuthStore()` in `frontend/src/features/auth/mockAuth.js` creates one private account/password store per `AuthProvider` mount. `useAuth()` additionally exposes `register(values)`, `login(values)`, `forgotPassword(email)` and `resetPassword(values)`, returning `{ ok, errors?, message?, user? }`. There is no second provider or session source. Registration creates an active, pending-verification account and opens login; it does not approve identity or automatically log in. Login opens an authorized internal return URL when supplied, otherwise the account's role dashboard. Failed login clears a previous session. Logout and explicit expiry still clear only the session, so registered accounts remain usable until refresh.
+
+Fixture records and IDs remain unchanged. At runtime each fixture reserves the fictional address `<id>@example.test` (for example `student_001@example.test`) and initially has no password. The existing demo selector remains its normal access path. The explicitly insecure demo reset form can set an in-memory password for an active fixture at that address. Neither registration nor reset provisions committee accounts. Inactive accounts cannot reset passwords or authenticate.
+
+Forgot-password validates syntax and returns a simulated response for both known and unknown emails; no email is sent. Reset-password checks email, the agreed password rules and confirmation, then changes only an existing active in-memory account. **It checks no secure token or email ownership.** This is an intentionally labeled recovery demonstration, not production recovery. Passwords live only in the private mock store; they are not production-hashed, committed as fixtures, logged, placed in sessions, URLs or browser storage. Form password values are cleared after submission. Refresh/provider remount discards new accounts and password changes. Do not use real credentials.
+
+Session records use an explicit field allowlist (`id`, `displayName`, `role`, `accountStatus`, `verificationStatus`). Account activity and verification remain separate; verification gating and automatic expiry timing remain deferred. No backend, notification service or persistent storage is introduced. Tests in `session.test.js` cover validation/account flows and safe navigation; `routeRendering.test.js` covers the five pages and retains the public catalogue regression. Browser interaction, responsive and accessibility verification must be recorded separately from these model/markup tests.
+
 ## 9. Production Security Requirements
 
 Future implementation must provide:

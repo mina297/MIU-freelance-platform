@@ -79,15 +79,15 @@ Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with
 
 - Public placeholders: `/`, `/services`.
 - Public marketplace preview: `/projects` renders the Projects Catalogue (P-06).
-- Authentication placeholders: `/login`, `/register`, `/register/role`, `/forgot-password`, `/reset-password`.
+- Mock authentication forms: `/login`, `/register`, `/register/role`, `/forgot-password`, `/reset-password` (Task 02).
 - Student/client placeholders: `/verify`, `/verify/pending`.
 - Role-specific dashboard placeholders: `/student/dashboard`, `/client/dashboard`, `/admin`, and the five committee root routes listed above.
 - Registered-user placeholder: `/notifications`.
 - Routing feedback: `/access-denied`, `/session-expired`, and a catch-all not-found page.
 
-Routing, role checks, minimal layout outlets, demo navigation, session controls, and the public projects catalogue are implemented. All other registered feature pages are clearly labeled placeholders; forms, dashboards, verification and other feature workflows are not implemented. Remaining proposed routes are not registered yet and show the catch-all page.
+Routing, role checks, minimal layout outlets, demo navigation, session controls, mock authentication forms, and the public projects catalogue are implemented. Other registered feature pages remain labeled placeholders, including dashboards and verification. Remaining proposed routes are not registered yet and show the catch-all page.
 
-Visitors attempting protected routes go to `/login`; authenticated users with the wrong role go to `/access-denied`; explicitly expired sessions go to `/session-expired`. Guards retain the requested URL in router location state (`from`) for later authentication integration. No automatic return flow is implemented yet.
+Visitors attempting protected routes go to `/login`; authenticated users with the wrong role go to `/access-denied`; explicitly expired sessions go to `/session-expired`. Guards retain the requested URL in router location state (`from`). After login, Task 02 returns to that URL only when it is an internal registered route allowed for the user, excluding authentication and routing-feedback pages. Other destinations fall back to the role dashboard. Registration opens login after creating the in-memory account. All recovery messages explicitly describe simulated behavior without secure tokens or email delivery.
 
 `AppLayout`, `AuthLayout` and `AdminLayout` follow the recommended directory naming. Most public routes reuse the minimal `AppLayout`; `/projects` uses its existing full-width catalogue shell through a standalone outlet until shared public website visuals are integrated. Verification gating and automatic expiry timing are deferred. No production authorization is claimed.
 
