@@ -704,6 +704,132 @@ npm.cmd run lint
 npm.cmd run build
 ```
 
+## Member 4 — Modal / Dialog
+
+`frontend/src/components/ui/Modal.jsx` supplies a controlled, reusable native
+`<dialog>`, with scoped styles in `modal.css` and the exact Figma close icon at
+`frontend/src/assets/figma/modal-close.svg`. It reuses Button; it adds no package,
+route, provider, production page, or separate preview infrastructure. Related
+requirements: NFR-02 (accessibility), NFR-03 (responsiveness), and NFR-16
+(separation of concerns). This does not mark any complete SRS workflow delivered.
+
+### Component contract
+
+| Property | Behavior |
+|---|---|
+| `open` | Controlled boolean, default false. Opens through native `showModal()` in an effect; the component never renders a nonmodal `open` attribute. Closed content remains mounted but is hidden by the browser. |
+| `onClose(reason)` | Required function when open. Requests dismissal with `close-button`, `escape`, `backdrop`, or `native-close`. The consumer updates `open`; no business action is inferred. A missing callback while open throws a developer-facing error rather than creating an undismissable dialog. Consumer-driven closure does not emit a second request. |
+| `title`, `description` | Visible title and optional short description, associated with generated unique IDs. Title defaults/falls back to Dialog; supply a meaningful feature title. Description should be brief text; put complex structured content in children. |
+| `children`, `actions` | Consumer-owned body and optional action area. Actions can compose existing Button variants, including disabled/loading. No proposal, payment, committee, or portfolio behavior is embedded. |
+| `initialFocusRef` | Optional stable React ref to an available DOM element inside the dialog. Otherwise the heading receives initial focus. A below-fold target is scrolled into view. Unavailable/outside targets fall back to the heading. |
+| `closeOnBackdrop` | Default false to avoid accidental dismissal. When true, both pointer-down and click must occur outside the panel; a drag beginning inside does not dismiss. Escape and the labeled close button remain available. |
+| `closeLabel` | Accessible close-button label, default Close dialog. The decorative 22px artwork sits within a 44px target. |
+| `headingLevel`, `className` | Heading level 2 (default), 3, or 4, following existing feedback conventions; invalid levels fall back to 2. Additional class is scoped to the dialog. |
+
+```jsx
+<Button onClick={() => setOpen(true)}>Open example</Button>
+<Modal
+  open={open}
+  onClose={() => setOpen(false)}
+  title="Example dialog"
+  description="Brief context for this example."
+  actions={
+    <Button variant="ghost" onClick={() => setOpen(false)}>
+      Close
+    </Button>
+  }
+>
+  <p>Content supplied by the consuming feature.</p>
+</Modal>
+```
+
+Native modal behavior makes background controls inert and renders the dialog in
+the browser top layer without an application portal/provider. Tab/Shift+Tab wrap
+inside the dialog; disabled/hidden controls are skipped and a named radio group
+contributes its checked or first available radio. Use natural DOM tab order and
+keep interactive content inside the dialog. Opening defaults to the heading
+rather than an affirmative action. Reopening resets scroll to the top; long
+content can scroll vertically. Closing or unmounting restores focus to the
+previous element when still available. If the opener is removed, its feature
+owner must choose the next meaningful focus destination.
+
+The component temporarily locks body scrolling and restores the previous inline
+overflow value/priority. A shared count preserves this lock while another modal
+is still open. Cleanup handles React StrictMode and does not duplicate close
+requests. Native `method="dialog"` closure is reported as `native-close` so the
+consumer can synchronize its controlled state. The generic component does not
+authorize actions, validate feature forms, cancel requests, save data, or clear
+consumer-owned input. Those remain the consuming members' responsibilities.
+
+### Figma reference and adaptations
+
+Approved file `4OarPMFlQbiJI1Q1WxblcC`, style-guide specimen `4:2906`:
+384px panel, white surface, 16px radius, 32px padding, 24px section gaps,
+`0 16px 40px rgb(17 17 17 / 10%)` shadow, Inter 24px/700 title with 1.25 line
+height, 14px description with 1.5 line height, 8px title/description gap, and
+12px action gap. The exact exported close SVG remains 22×22; its button target
+is enlarged to 44×44 without enlarging the artwork.
+
+The specimen's proposal copy, fee, delivery, and summary belong to Member 2's
+feature content and are not hardcoded. Its radius/padding/focus specification
+caption is a design annotation, not product copy, and is omitted. Browser-only
+visual checks used the approved specimen text without adding a proposal flow.
+
+No mobile modal frame or backdrop opacity was confirmed in this specimen.
+Responsive adaptations use 16px viewport margins, 20px padding below 480px,
+viewport-bounded height, vertical scrolling, wrapping labels, and wrapping
+actions. Backdrop uses existing MIU black at 40% opacity; this is an implementation
+adaptation requiring team visual review, not a newly confirmed Figma value.
+The dialog has no opening/closing animation, and reused Button motion respects
+reduced-motion preferences. No global tokens or existing components are edited.
+
+### Verification and remaining work
+
+Nine focused Node/Vite SSR tests cover dialog labeling/description associations,
+closed SSR semantics, required close callback, independent IDs, optional slots,
+heading levels, escaped text, local icon, native button semantics, and caller-owned
+actions. Browser checks use actual components imported into a temporary in-memory
+fixture; no application route or tracked preview file is introduced.
+
+Verification on 23 October 2026: all 69 tests passed (9 new and 60 existing).
+Lint, default Vite build, new-source Prettier checks, and tracked/untracked
+whitespace checks passed. Since the default app does not import Modal yet, an
+additional production build with its exports preserved was run to a temporary
+directory and passed; shared Vite configuration was not edited.
+
+```bash
+cd frontend
+node --test --test-concurrency=1 src/components/ui/modal.test.js src/components/feedback/states.test.js src/features/public/landing/landing.test.js src/components/navigation/publicShell.test.js src/components/ui/forms.test.js src/components/ui/foundation.test.js src/features/marketplace/marketplace.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/components/ui/Modal.jsx src/components/ui/modal.css src/components/ui/modal.test.js
+```
+
+Chrome validation covered Tab/Shift+Tab wrapping, visible focus, radio arrow-key
+navigation, hidden/disabled controls, initial heading/custom input focus,
+Escape, close button, default/opt-in backdrop behavior, drag safety, background
+inertness, native closure, controlled closure, and opener focus restoration.
+Initially open StrictMode, unmount cleanup, existing important overflow styles,
+multiple open dialogs, top-dialog-only Escape, and closing dialogs out of order
+were also checked. A real consumer rerender preserved focus. Reopening long
+content reset scroll, and a below-fold initial target scrolled into view.
+
+Normal and long text/action examples were checked at 320, 390, 640, 768, 960,
+1024, and 1440px without horizontal overflow. A 640×360 viewport kept long body
+content scrollable and action controls reachable. The icon loaded locally at
+22×22; buttons met 44px target height. Mobile/desktop screenshots were inspected.
+Chrome's accessibility tree exposed the dialog's title, description, and modal
+state. Reduced-motion checks confirmed no dialog animation and disabled Button
+transitions. Successful browser checks had no runtime exceptions, console errors,
+or failed HTTP responses.
+
+Remaining: team visual approval of responsive/backdrop adaptations, screen-reader
+testing, systematic zoom, real touch devices, other browsers, precise Figma
+geometry, and each consuming feature's integration. Native `showModal()` support
+is required; no polyfill is installed. Third-party portals/iframes inside a dialog
+have not been validated. Members 1–5 retain their routing, marketplace, finance,
+committee, profile, and other feature-specific workflows.
+
 ## Related Documents
 
 - [Design System](DESIGN_SYSTEM.md)
