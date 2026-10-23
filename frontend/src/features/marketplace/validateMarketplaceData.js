@@ -42,6 +42,8 @@ export function validateMarketplaceData(data) {
     if (project.requiredSkillIds.some((id) => !skills.has(id))) errors.push(`${project.id}: unknown skill`);
     if (!positiveAmount(project.budgetEGP)) errors.push(`${project.id}: invalid EGP budget`);
     if (!validProjectStatuses.has(project.status)) errors.push(`${project.id}: invalid status`);
+    if (project.scope !== undefined && (typeof project.scope !== "string" || !project.scope.trim())) errors.push(`${project.id}: invalid scope`);
+    if (project.deliverables !== undefined && (!Array.isArray(project.deliverables) || project.deliverables.some((item) => typeof item !== "string" || !item.trim()))) errors.push(`${project.id}: invalid deliverables`);
   }
 
   for (const proposal of data.proposals) {

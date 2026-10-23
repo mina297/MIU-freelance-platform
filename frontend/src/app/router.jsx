@@ -1,6 +1,14 @@
-import { Outlet, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import {
+  Outlet,
+  Route,
+  Routes,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import ProtectedRoute from "../features/auth/ProtectedRoute.jsx";
 import ProjectsCatalogue from "../features/projects/ProjectsCatalogue.jsx";
+import ProjectDetails from "../features/projects/ProjectDetails.jsx";
 import AppLayout from "../layouts/AppLayout.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
 import AdminLayout from "../layouts/AdminLayout.jsx";
@@ -19,8 +27,35 @@ const layouts = {
   admin: <AdminLayout />,
 };
 
+function ProjectsCatalogueRoute() {
+  const navigate = useNavigate();
+  return (
+    <ProjectsCatalogue
+      onOpenProject={(projectId) => navigate(`/projects/${projectId}`)}
+    />
+  );
+}
+
+function ProjectDetailsRoute() {
+  const navigate = useNavigate();
+  const { projectId } = useParams();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.getElementById("project-details-heading")?.focus();
+  }, [projectId]);
+
+  return (
+    <ProjectDetails
+      projectId={projectId}
+      onBack={() => navigate("/projects")}
+    />
+  );
+}
+
 const featurePages = {
-  "/projects": <ProjectsCatalogue />,
+  "/projects": <ProjectsCatalogueRoute />,
+  "/projects/:projectId": <ProjectDetailsRoute />,
   "/login": <LoginPage />,
   "/register/role": <RoleSelectionPage />,
   "/register": <RegisterPage />,

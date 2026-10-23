@@ -1,4 +1,3 @@
-
 ---
 title: Projects and Proposals Module
 type: module
@@ -19,6 +18,7 @@ Clients publish projects and student freelancers compete through proposals.
 ## 2. Client Project Management
 
 Clients can:
+
 - Create a project
 - Edit a project
 - Preview a project
@@ -30,6 +30,7 @@ Clients can:
 ## 3. Project Information
 
 A project should include:
+
 - Title
 - Description
 - Category/required skills
@@ -43,6 +44,7 @@ Additional fields may be defined during UI review.
 ## 4. Student Discovery
 
 Students can:
+
 - Browse projects
 - Search by text
 - Filter relevant results
@@ -53,6 +55,7 @@ Students can:
 ## 5. Proposal Submission
 
 A proposal contains:
+
 - Proposed price in EGP
 - Delivery time
 - Cover message
@@ -63,6 +66,7 @@ Validation should cover required fields, valid amounts, and applicable project s
 ## 6. Proposal Management
 
 Students can:
+
 - View submitted proposals
 - Check proposal status
 - Edit a proposal while allowed
@@ -71,6 +75,7 @@ Students can:
 ## 7. Client Proposal Review
 
 Clients can:
+
 - View incoming proposals
 - Compare price and delivery time
 - Review the student profile
@@ -103,6 +108,7 @@ Whether the platform blocks proposals outside a client's specified budget or mer
 ## 10. Potential Statuses
 
 Suggested workflow labels:
+
 - Draft
 - Open
 - Under Review
@@ -111,6 +117,7 @@ Suggested workflow labels:
 - Cancelled
 
 Proposal status may include:
+
 - Submitted
 - Shortlisted
 - Accepted
@@ -122,6 +129,7 @@ These exact enums require approval before persistence design.
 ## 11. Phase 1 Expectations
 
 Demonstrate:
+
 - Browse/search/filter
 - Project details
 - Post/edit project
@@ -146,8 +154,25 @@ Mobile filters are collapsible. Header links jump to discovery, results, or
 saved results; these are in-page links, not new routes. The latest opportunity
 is highlighted only in the default unfiltered newest-first view. Saving is
 not persistent and updates a screen-reader status message.
-Project detail pages and proposal actions are still pending. The catalogue is
-public; role restrictions for later project actions are still pending.
+The project details preview (P-07) now shows the selected fictional project's
+summary, detailed scope, expected deliverables, client, category, required
+skills, EGP budget, posted date, deadline, and open state. The detailed fields
+are optional so older mock records can still show their summary as the brief.
+The page distinguishes an open project from one no longer accepting proposals,
+and handles a missing project ID. The catalogue's View project action navigates
+to `/projects/:projectId`, and the details page returns to `/projects`. Returning
+currently resets catalogue filters and saved items because this preview state is
+local and non-persistent. Proposal actions and their role restrictions are still pending.
+Automated render tests cover open, unavailable, and missing project states.
+The P-07 SRS screenshot is still pending a capture of the actual details screen.
+
+### Project Details follow-up (P-07)
+
+- [x] Show distinct fictional scope and deliverables, with a summary fallback for older mock records.
+- [x] Test open, unavailable, and missing project rendering; validate optional brief fields in fixtures.
+- [ ] Visually review the actual details screen at desktop and mobile widths, including keyboard focus; capture its P-07 SRS screenshot. Deferred by the team on 23 October 2026.
+- [x] Connect `/projects/:projectId` and deep-link/back navigation through Member 1's shared router.
+- [ ] Connect student-only proposal entry when the separate P-08 proposal screen and mock role state exist. The current notice must not be presented as a working submission action.
 
 The discovery preview is organized in `frontend/src/features/projects/`:
 `ProjectsCatalogue.jsx` owns search, filtering, sorting, and temporary save
@@ -155,8 +180,9 @@ state; `catalogueModel.js` holds catalogue options and lookup data;
 `ProjectsHero.jsx`, `CategoryCard.jsx`, `FilterPanel.jsx`, and
 `ProjectCard.jsx` render the feature-specific interface. As of 23 October 2026,
 the shared router mounts `ProjectsCatalogue` at the public `/projects` route
-using its own full-width page shell. A rendered-route test guards this integration.
-A real project-details route and proposal action remain separate Member 2 work.
+and `ProjectDetails` at `/projects/:projectId`, using their full-width marketplace
+shells. Rendered-route tests guard this integration. Proposal submission remains
+separate Member 2 work.
 
 ## 12. Dependencies
 

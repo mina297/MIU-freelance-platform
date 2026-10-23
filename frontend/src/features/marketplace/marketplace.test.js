@@ -36,6 +36,21 @@ test("validation reports a proposal linked to a missing project", () => {
   assert.ok(validateMarketplaceData(changed).includes("proposal_001: unknown project"));
 });
 
+test("project detail mock fields reject empty or malformed content", () => {
+  const changed = {
+    ...marketplaceData,
+    projects: marketplaceData.projects.map((project) =>
+      project.id === "project_001"
+        ? { ...project, scope: "  ", deliverables: ["Valid item", ""] }
+        : project,
+    ),
+  };
+  assert.deepEqual(
+    validateMarketplaceData(changed).filter((error) => error.startsWith("project_001:")),
+    ["project_001: invalid scope", "project_001: invalid deliverables"],
+  );
+});
+
 test("EGP formatting rejects invalid amounts", () => {
   assert.match(formatEGP(3200), /3,200/);
   assert.throws(() => formatEGP(Number.NaN), TypeError);
