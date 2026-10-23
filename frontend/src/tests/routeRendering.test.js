@@ -5,6 +5,58 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { MemoryRouter } from "react-router-dom";
 import { createServer } from "vite";
 
+test("Verification direct preview and committee route render the shared dashboard shell", async () => {
+  const vite = await createServer({
+    server: { middlewareMode: true, hmr: false },
+    appType: "custom",
+  });
+  try {
+    const { default: AppRouter } = await vite.ssrLoadModule(
+      "/src/app/router.jsx",
+    );
+    const { AuthContext } = await vite.ssrLoadModule(
+      "/src/contexts/AuthContext.js",
+    );
+    for (const path of [
+      "/Verification",
+      "/verification",
+      "/committee/verification",
+    ]) {
+      const html = renderToStaticMarkup(
+        React.createElement(
+          MemoryRouter,
+          { initialEntries: [path] },
+          React.createElement(
+            AuthContext.Provider,
+            {
+              value: {
+                session: {
+                  status: "authenticated",
+                  user: {
+                    id: "committee_verification_001",
+                    displayName: "Demo Reviewer",
+                    role: "verification_committee",
+                    accountStatus: "active",
+                    verificationStatus: "pending",
+                  },
+                },
+              },
+            },
+            React.createElement(AppRouter),
+          ),
+        ),
+      );
+      assert.match(html, /Verification Dashboard/);
+      assert.match(html, /Verification queues/);
+      assert.match(html, /Verification queue/);
+      assert.match(html, /No real identity verification/);
+      assert.doesNotMatch(html, /routing placeholder only/);
+    }
+  } finally {
+    await vite.close();
+  }
+});
+
 test("proposal routes render eligible, unverified, missing, closed, and submitted states", async () => {
   const vite = await createServer({
     server: { middlewareMode: true, hmr: false },

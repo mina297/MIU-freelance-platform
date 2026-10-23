@@ -126,6 +126,10 @@ Provider and legal approval are required before real identity processing.
 
 ## 10. Dependencies
 
+The committee review frontend is documented in
+[Verification Dashboard](VERIFICATION_DASHBOARD.md). It uses fictional evidence
+placeholders and does not implement camera capture or biometric processing.
+
 - Authentication
 - Roles and permissions
 - Protected evidence handling
