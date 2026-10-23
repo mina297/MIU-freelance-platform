@@ -4,13 +4,14 @@ Implemented at `/`, based on [MIU Freelance desktop, node 8:2656](https://www.fi
 
 Related requirements: P-01, FR-V01–FR-V04, NFR-01–NFR-03 and SR-09. This screen supports public discovery and entry to existing authentication. It does not complete the full marketplace or account requirements.
 
-`frontend/src/features/public/` owns the page, scoped styles and fictional landing-only examples. Assets in `frontend/src/assets/figma/landing/` are downloaded originals from the frame; no temporary Figma URLs are used at runtime. Inter, Playfair Display and brand colors reuse the existing theme. The existing shared public header intentionally retains Home, Projects, Services, Sign In and Sign Up rather than replacing the team's navigation with the frame's links.
+`frontend/src/features/public/` owns the page, scoped styles and fictional landing-only examples. Assets in `frontend/src/assets/figma/landing/` are downloaded originals from the frame; no temporary Figma URLs are used at runtime. Inter, Playfair Display and brand colors reuse the existing theme. The shared public header now uses Upwork-inspired Hire Talent and Find Work dropdowns, How it works, Sign In and Sign Up, with MIU branding retained (23 October 2026).
 
 ## Behavior
 
-- Search matches title, client, description and skills in the three design examples, combined with the selected category. Categories without matching examples show an empty state. Clear filters restores all examples.
+- The Hire/Work segmented toggle switches discovery mode and resets filters. Work searches job title, client, description and skills; Hire searches the fictional students' names, study and skills. Both combine text with the selected category. Search scrolls to the relevant results section; empty results offer recovery. Student category tags are landing-only metadata, not a shared profile contract.
+- All categories opens a styled picker with a selected checkmark. The reusable dropdown supports click, Enter/Space, Tab, outside-click dismissal and Escape with focus restoration. Category selection updates the search input state; Search applies it. Category chips apply filters immediately.
 - Bookmarks are local page state with pressed semantics and a screen-reader status message. They reset on unmount/refresh and are separate from catalogue bookmarks.
-- Find Work and Browse all jobs navigate to `/projects`. Post a Job opens the existing client registration form, not a posting workflow.
+- The navigation's Find Work dropdown links to `/projects`, student registration and How it works. Hire Talent links to landing student previews, `/services` and client registration. The contextual Join to hire/work action follows the toggle's selected role. Posting still starts at client registration; no publishing workflow is introduced.
 - View job and View profile open native modal preview dialogs with close/Escape support and focus restoration. Design examples do not masquerade as shared marketplace records.
 - Footer anchors open the corresponding landing sections. Help, Contact and policy buttons open labeled prototype information, not approved policy documents or a support submission.
 - Services remains available in the shared header and footer; its catalogue remains a placeholder.

@@ -4,7 +4,26 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { MemoryRouter } from "react-router-dom";
 import { createServer } from "vite";
-import { filterLandingJobs } from "../features/public/landingData.js";
+import {
+  filterLandingJobs,
+  filterLandingStudents,
+} from "../features/public/landingData.js";
+
+test("Hire discovery combines student names and skills with categories and empty recovery", () => {
+  assert.equal(filterLandingStudents("", "").length, 3);
+  assert.equal(
+    filterLandingStudents("  REACT  ", "Development")[0].id,
+    "landing-omar",
+  );
+  assert.equal(filterLandingStudents("nour", "Design")[0].id, "landing-nour");
+  assert.equal(
+    filterLandingStudents("Arabic", "Translation")[0].id,
+    "landing-mariam",
+  );
+  assert.equal(filterLandingStudents("React", "Design").length, 0);
+  assert.equal(filterLandingStudents("", "Tutoring").length, 0);
+  assert.equal(filterLandingStudents("unknown keyword", "").length, 0);
+});
 
 test("landing discovery combines trimmed text and category filters with empty recovery", () => {
   assert.equal(filterLandingJobs("", "").length, 3);
@@ -55,6 +74,16 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
       assert.ok(html.includes(`href="${path}"`), path);
     assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
     assert.match(html, /role="search"/);
+    assert.match(html, /aria-label="Choose Hire or Work"/);
+    assert.match(html, /aria-pressed="false">Hire<\/button>/);
+    assert.match(html, /aria-pressed="true">Work<\/button>/);
+    assert.match(html, /All categories/);
+    assert.match(html, /Explore categories/);
+    assert.match(html, /Hire Talent/);
+    assert.match(html, /Find Work/);
+    assert.equal((html.match(/aria-expanded="false"/g) ?? []).length, 3);
+    assert.match(html, /href="\/#student-talent"/);
+    assert.match(html, /href="\/register\?role=student"/);
     assert.match(html, /<label[^>]+for="landing-query"/);
     assert.match(html, /<dialog[^>]+aria-labelledby="preview-title"/);
     assert.doesNotMatch(

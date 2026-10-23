@@ -47,6 +47,7 @@ export const landingJobs = [
 export const landingStudents = [
   {
     id: "landing-nour",
+    categories: ["Design"],
     name: "Nour El-Sayed",
     study: "Graphic Design • Year 4",
     rating: "4.9",
@@ -56,6 +57,7 @@ export const landingStudents = [
   },
   {
     id: "landing-omar",
+    categories: ["Development"],
     name: "Omar Hassan",
     study: "Computer Science • Year 3",
     rating: "5.0",
@@ -65,6 +67,7 @@ export const landingStudents = [
   },
   {
     id: "landing-mariam",
+    categories: ["Writing", "Translation", "Marketing"],
     name: "Mariam Adel",
     study: "Mass Communication • Year 4",
     rating: "4.9",
@@ -90,6 +93,18 @@ export function filterLandingJobs(query, category) {
     (job) =>
       (!category || job.category === category) &&
       [job.title, job.client, job.description, ...job.skills]
+        .join(" ")
+        .toLocaleLowerCase()
+        .includes(term),
+  );
+}
+
+export function filterLandingStudents(query, category) {
+  const term = query.trim().toLocaleLowerCase();
+  return landingStudents.filter(
+    (student) =>
+      (!category || student.categories.includes(category)) &&
+      [student.name, student.study, ...student.skills]
         .join(" ")
         .toLocaleLowerCase()
         .includes(term),

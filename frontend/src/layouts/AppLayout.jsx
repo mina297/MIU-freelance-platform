@@ -1,10 +1,15 @@
+import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import PublicHeader from "../components/navigation/PublicHeader.jsx";
 import { useAuth } from "../hooks/useAuth.js";
 
 export default function AppLayout() {
   const { session, logout } = useAuth();
-  const isLanding = useLocation().pathname === "/";
+  const { pathname, hash, key } = useLocation();
+  const isLanding = pathname === "/";
+  useEffect(() => {
+    if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();
+  }, [pathname, hash, key]);
   return (
     <div className="min-h-screen bg-white">
       <a

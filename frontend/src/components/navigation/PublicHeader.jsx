@@ -1,56 +1,112 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import {
+  ArrowUpRight,
+  BriefcaseBusiness,
+  GraduationCap,
+  Layers,
+  Users,
+} from "lucide-react";
+import Dropdown from "../ui/Dropdown.jsx";
 import miuLogo from "../../assets/figma/miu-anniversary-logo.png";
+import "./publicHeader.css";
+
+const navigation = [
+  {
+    label: "Hire Talent",
+    eyebrow: "Make your next idea happen",
+    links: [
+      {
+        to: "/#student-talent",
+        title: "Explore student talent",
+        description: "Meet skilled students from MIU.",
+        icon: Users,
+      },
+      {
+        to: "/services",
+        title: "Browse services",
+        description: "Discover services for your next project.",
+        icon: Layers,
+      },
+      {
+        to: "/register?role=client",
+        title: "Post a job",
+        description: "Get started with a client account.",
+        icon: BriefcaseBusiness,
+      },
+    ],
+  },
+  {
+    label: "Find Work",
+    eyebrow: "Build a career around your skills",
+    links: [
+      {
+        to: "/projects",
+        title: "Browse projects",
+        description: "Find your next opportunity.",
+        icon: BriefcaseBusiness,
+      },
+      {
+        to: "/register?role=student",
+        title: "Join as a student",
+        description: "Turn your skills into experience.",
+        icon: GraduationCap,
+      },
+      {
+        to: "/#how-it-works",
+        title: "How it works",
+        description: "Your path from first brief to delivery.",
+        icon: Layers,
+      },
+    ],
+  },
+];
 
 export default function PublicHeader() {
   return (
-    <header className="border-b border-gray-200 bg-white">
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-5 px-5 py-4 sm:px-8">
-        <Link
-          to="/"
-          aria-label="MIU Freelance home"
-          className="flex items-center gap-4 rounded focus-visible:outline-2 focus-visible:outline-miu-red"
-        >
-          <img
-            src={miuLogo}
-            alt="Misr International University"
-            className="h-12 w-auto max-w-[150px] object-contain"
-          />
-          <span className="hidden border-l border-gray-200 pl-4 text-sm font-bold sm:inline">
+    <header className="public-header">
+      <div className="public-header-inner">
+        <Link to="/" aria-label="MIU Freelance home" className="public-brand">
+          <img src={miuLogo} alt="Misr International University" />
+          <span>
             Freelance<span className="text-miu-red">.</span>
           </span>
         </Link>
-        <nav
-          aria-label="Public navigation"
-          className="order-3 flex w-full flex-wrap gap-6 text-sm font-medium md:order-none md:w-auto md:flex-1 md:justify-center"
-        >
-          {[
-            ["/", "Home"],
-            ["/projects", "Projects"],
-            ["/services", "Services"],
-          ].map(([to, label]) => (
-            <NavLink
-              key={to}
-              to={to}
-              end
-              className={({ isActive }) =>
-                `rounded py-2 focus-visible:outline-2 focus-visible:outline-miu-red ${isActive ? "text-miu-red" : "text-gray-700 hover:text-miu-red"}`
-              }
-            >
-              {label}
-            </NavLink>
+        <nav aria-label="Public navigation" className="public-navigation">
+          {navigation.map(({ label, eyebrow, links }) => (
+            <Dropdown key={label} label={label} className="public-nav-dropdown">
+              {(close) => (
+                <>
+                  <p className="public-dropdown-eyebrow">{eyebrow}</p>
+                  {links.map(({ to, title, description, icon: ItemIcon }) => (
+                    <Link
+                      key={to}
+                      to={to}
+                      onClick={close}
+                      className="public-dropdown-link"
+                    >
+                      <span className="public-dropdown-icon">
+                        <ItemIcon size={20} aria-hidden="true" />
+                      </span>
+                      <span>
+                        <strong>{title}</strong>
+                        <small>{description}</small>
+                      </span>
+                      <ArrowUpRight size={16} aria-hidden="true" />
+                    </Link>
+                  ))}
+                </>
+              )}
+            </Dropdown>
           ))}
+          <Link to="/#how-it-works" className="public-nav-link">
+            How it works
+          </Link>
         </nav>
-        <div className="ml-auto flex items-center gap-2 text-sm font-semibold">
-          <Link
-            to="/login"
-            className="rounded-lg border border-miu-red px-4 py-2.5 text-miu-red focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
-          >
+        <div className="public-auth-links">
+          <Link to="/login" className="public-sign-in">
             Sign In
           </Link>
-          <Link
-            to="/register"
-            className="rounded-lg bg-miu-red px-4 py-2.5 text-white hover:bg-miu-red-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
-          >
+          <Link to="/register" className="public-sign-up">
             Sign Up
           </Link>
         </div>

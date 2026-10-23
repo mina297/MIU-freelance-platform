@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { Check, Grid2X2 } from "lucide-react";
+import Dropdown from "../../components/ui/Dropdown.jsx";
 import { formatEGP } from "../../utils/formatEGP.js";
 import {
   filterLandingJobs,
+  filterLandingStudents,
   landingCategories,
-  landingStudents,
 } from "./landingData.js";
 import "./landing.css";
 
@@ -96,17 +98,39 @@ function PreviewDialog({ preview, onClose }) {
 }
 
 export default function LandingPage() {
+  const [mode, setMode] = useState("work");
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
   const [filters, setFilters] = useState({ query: "", category: "" });
   const [saved, setSaved] = useState([]);
   const [notice, setNotice] = useState("");
   const [preview, setPreview] = useState(null);
-  const jobs = filterLandingJobs(filters.query, filters.category);
+  const jobs = filterLandingJobs(
+    mode === "work" ? filters.query : "",
+    mode === "work" ? filters.category : "",
+  );
+  const students = filterLandingStudents(
+    mode === "hire" ? filters.query : "",
+    mode === "hire" ? filters.category : "",
+  );
+  function changeMode(value) {
+    if (value === mode) return;
+    setMode(value);
+    setQuery("");
+    setCategory("");
+    setFilters({ query: "", category: "" });
+  }
+  function clearFilters() {
+    setQuery("");
+    setCategory("");
+    setFilters({ query: "", category: "" });
+  }
   function search(event) {
     event.preventDefault();
     setFilters({ query, category });
-    document.getElementById("featured-jobs").scrollIntoView({ block: "start" });
+    document
+      .getElementById(mode === "hire" ? "student-talent" : "featured-jobs")
+      .scrollIntoView({ block: "start" });
   }
   function selectCategory(value) {
     setCategory(value === category ? "" : value);
@@ -140,49 +164,102 @@ export default function LandingPage() {
           Connect with trusted MIU clients, turn your skills into experience,
           and grow a portfolio that opens doors.
         </p>
+        <div
+          className="landing-mode-toggle"
+          role="group"
+          aria-label="Choose Hire or Work"
+        >
+          <span
+            className="landing-mode-indicator"
+            data-mode={mode}
+            aria-hidden="true"
+          />
+          {["hire", "work"].map((value) => (
+            <button
+              key={value}
+              type="button"
+              aria-pressed={mode === value}
+              onClick={() => changeMode(value)}
+            >
+              {value === "hire" ? "Hire" : "Work"}
+            </button>
+          ))}
+        </div>
         <form
           className="landing-search"
           onSubmit={search}
           role="search"
-          aria-label="Search featured demo jobs"
+          aria-label={
+            mode === "hire"
+              ? "Search demo student talent"
+              : "Search featured demo jobs"
+          }
         >
           <Icon name="search" />
           <label className="sr-only" htmlFor="landing-query">
-            Search by title, skill, or keyword
+            {mode === "hire"
+              ? "Search students by name or skill"
+              : "Search by title, skill, or keyword"}
           </label>
           <input
             id="landing-query"
             value={query}
             maxLength={120}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search by title, skill, or keyword"
+            placeholder={
+              mode === "hire"
+                ? "Search students by name or skill"
+                : "Search by title, skill, or keyword"
+            }
           />
-          <div className="landing-category-select">
-            <label className="sr-only" htmlFor="landing-category">
-              Category
-            </label>
-            <select
-              id="landing-category"
-              value={category}
-              onChange={(event) => setCategory(event.target.value)}
-            >
-              <option value="">All categories</option>
-              {landingCategories.map((value) => (
-                <option key={value}>{value}</option>
-              ))}
-            </select>
-            <Icon name="chevron" />
-          </div>
+          <Dropdown
+            className="landing-category-select"
+            label={
+              <>
+                <Grid2X2 size={17} aria-hidden="true" />
+                <span>{category || "All categories"}</span>
+              </>
+            }
+          >
+            {(close) => (
+              <>
+                <p className="landing-category-heading">Explore categories</p>
+                {["", ...landingCategories].map((value) => (
+                  <button
+                    type="button"
+                    key={value}
+                    className="landing-category-option"
+                    aria-pressed={category === value}
+                    onClick={() => {
+                      setCategory(value);
+                      close();
+                    }}
+                  >
+                    <span>{value || "All categories"}</span>
+                    {category === value && (
+                      <Check size={16} aria-hidden="true" />
+                    )}
+                  </button>
+                ))}
+              </>
+            )}
+          </Dropdown>
           <button className="landing-button primary">Search</button>
         </form>
-        <div className="landing-hero-actions">
-          <Link className="landing-button primary" to="/projects">
-            Find Work
+        <p className="landing-mode-caption" aria-live="polite">
+          {mode === "hire"
+            ? "Great ideas start with the right people. "
+            : "Your next opportunity starts here. "}
+          <Link
+            to={
+              mode === "hire"
+                ? "/register?role=client"
+                : "/register?role=student"
+            }
+          >
+            {mode === "hire" ? "Join to hire" : "Join to work"} &rarr;
           </Link>
-          <Link className="landing-button" to="/register?role=client">
-            Post a Job
-          </Link>
-        </div>
+        </p>
         <div
           className="landing-categories"
           aria-label="Featured job categories"
@@ -276,19 +353,10 @@ export default function LandingPage() {
           <p role="status" className="sr-only">
             {notice}
           </p>
-          {(filters.query || filters.category) && (
+          {mode === "work" && (filters.query || filters.category) && (
             <p role="status" className="landing-results">
               {jobs.length} featured demo {jobs.length === 1 ? "job" : "jobs"}{" "}
-              found.{" "}
-              <button
-                onClick={() => {
-                  setQuery("");
-                  setCategory("");
-                  setFilters({ query: "", category: "" });
-                }}
-              >
-                Clear filters
-              </button>
+              found. <button onClick={clearFilters}>Clear filters</button>
             </p>
           )}
           <div className="landing-grid">
@@ -375,8 +443,15 @@ export default function LandingPage() {
             Discover skilled MIU students whose reliable work and thoughtful
             communication earn exceptional reviews.
           </SectionHeading>
+          {mode === "hire" && (filters.query || filters.category) && (
+            <p role="status" className="landing-results">
+              {students.length} demo{" "}
+              {students.length === 1 ? "student" : "students"} found.
+              <button onClick={clearFilters}>Clear filters</button>
+            </p>
+          )}
           <div className="landing-grid" id="student-cards">
-            {landingStudents.map((student) => (
+            {students.map((student) => (
               <article
                 className="landing-card landing-student"
                 key={student.id}
@@ -413,6 +488,15 @@ export default function LandingPage() {
               </article>
             ))}
           </div>
+          {!students.length && (
+            <div className="landing-empty">
+              <h3>No students match your search</h3>
+              <p>Try another skill or category.</p>
+              <button className="landing-button" onClick={clearFilters}>
+                Clear filters
+              </button>
+            </div>
+          )}
         </div>
       </section>
 

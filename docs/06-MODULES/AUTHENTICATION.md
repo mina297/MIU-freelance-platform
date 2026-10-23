@@ -129,7 +129,7 @@ Session records use an explicit field allowlist (`id`, `displayName`, `role`, `a
 
 ### Public navigation and onboarding update
 
-The public/authentication shell now uses a clean shared header with Home, Projects, Services, Sign In (`/login`) and Sign Up (`/register`). Temporary route lists and session controls are not rendered. Signed-in users retain a logout action below the header. The standalone marketplace routes retain their existing presentation.
+The public/authentication shell uses a shared header with Hire Talent and Find Work dropdowns, How it works, Sign In (`/login`) and Sign Up (`/register`). The dropdowns retain project/service discovery and student/client registration links. Temporary route lists and session controls are not rendered. Signed-in users retain a logout action below the header. The standalone marketplace routes retain their existing presentation.
 
 `/register` opens Student/Client role cards. Their links open `/register?role=student` and `/register?role=client`; unknown/privileged role parameters return to selection. The form is bound to the selected public role, while the store retains independent role validation. `/register/role` remains a compatible selection URL. The Forgot Password? link sits directly below the login submit button. A syntactically valid forgot-password submission navigates to `/reset-password`, which explains that no email or secure token was issued. Email and password values are not placed in navigation state. The reset page still validates the existing in-memory account.
 

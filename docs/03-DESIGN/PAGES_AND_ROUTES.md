@@ -74,6 +74,8 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
+**Public navigation update (23 October 2026):** The shared header groups discovery under Hire Talent (landing student previews, `/services`, client registration) and Find Work (`/projects`, student registration, How it works). Landing section links support navigation from authentication screens. The landing Hire/Work toggle selects local demo discovery mode; it does not assign an account role or change access permissions. No new route is introduced.
+
 Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with one route registry at `frontend/src/app/routeConfig.js` and one in-memory session provider.
 
 - Public landing page (P-01): `/`; public placeholder: `/services`.
