@@ -148,7 +148,7 @@ Suggested tracking table:
 
 | Requirement ID | Screen/Module | Test Case | Result |
 |---|---|---|---|
-| FR-S05 | Proposal Form | Valid proposal submission | Not tested |
+| FR-S05 | Proposal Form | Valid simulated submission, eligibility, fields, fictional attachments, duplicate prevention, and confirmation rendering | Automated checks passed 23 October 2026; browser/visual review pending |
 | FR-C09 | Checkout | Simulated funding | Not tested |
 | FR-A04 | Committee Accounts | Create committee account | Not tested |
 | NFR-03 | All pages | Responsive check | Not tested |

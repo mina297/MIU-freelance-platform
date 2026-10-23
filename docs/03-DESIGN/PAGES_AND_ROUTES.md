@@ -74,6 +74,17 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
+Proposal submission update: the student-only `/projects/:projectId/propose` form
+now validates and stores a simulated proposal in memory for approved students.
+It displays confirmation and prevents duplicate records within the current preview.
+Refreshing clears submitted preview records. Optional attachments use allowlisted
+fictional metadata only; no real file is read, uploaded, downloaded, or stored.
+
+Proposal entry increment: `/projects/:projectId/propose` is a student-only route,
+hidden from global navigation. Open project details link to it. The entry page
+handles missing/closed projects and explains verification requirements. Submission
+rechecks verification, project status, and required form values.
+
 Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with one route registry at `frontend/src/app/routeConfig.js` and one in-memory session provider.
 
 - Public placeholders: `/`, `/services`.
@@ -84,7 +95,7 @@ Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with
 - Registered-user placeholder: `/notifications`.
 - Routing feedback: `/access-denied`, `/session-expired`, and a catch-all not-found page.
 
-Routing, role checks, minimal layout outlets, demo navigation, session controls, mock authentication forms, the public projects catalogue, and project details are implemented. All other registered feature pages are clearly labeled placeholders; dashboards, verification, and other feature workflows remain unimplemented. Remaining proposed routes are not registered yet and show the catch-all page.
+Routing, role checks, minimal layout outlets, demo navigation, session controls, mock authentication forms, the public projects catalogue, project details, and simulated proposal submission are implemented. All other registered feature pages are clearly labeled placeholders; dashboards, identity verification, and other feature workflows remain unimplemented. Remaining proposed routes are not registered yet and show the catch-all page.
 
 Visitors attempting protected routes go to `/login`; authenticated users with the wrong role go to `/access-denied`; explicitly expired sessions go to `/session-expired`. Guards retain the requested URL in router location state (`from`). After login, Task 02 returns to that URL only when it is an internal registered route allowed for the user, excluding authentication and routing-feedback pages. Other destinations fall back to the role dashboard. Registration opens login after creating the in-memory account. All recovery messages explicitly describe simulated behavior without secure tokens or email delivery.
 
@@ -96,7 +107,9 @@ category, budget, skill, and sort controls, plus active filters, temporary
 saved-item state, a responsive marketplace layout, and an empty state. Catalogue
 cards navigate to the public `/projects/:projectId` Project Details preview,
 including a missing-record state and navigation back to `/projects`. Rendered-route
-tests guard both marketplace routes. Proposal submission remains a planned screen.
+tests guard both marketplace routes. Proposal submission uses the student-only route
+described above; its safe mock attachment selection is implemented, while
+visual/browser verification remains tracked in the Projects and Proposals module.
 
 ## 4. Layout Groups
 

@@ -18,6 +18,14 @@ export const routeConfig = [
     showInNavigation: false,
   },
   { path: "/services", title: "Services", layout: "public", access: "public" },
+  {
+    path: "/projects/:projectId/propose",
+    title: "Submit proposal",
+    layout: "standalone",
+    access: "roles",
+    roles: [ROLES.STUDENT],
+    showInNavigation: false,
+  },
   { path: "/login", title: "Login", layout: "auth", access: "public" },
   {
     path: "/register",

@@ -9,6 +9,7 @@ import {
 import ProtectedRoute from "../features/auth/ProtectedRoute.jsx";
 import ProjectsCatalogue from "../features/projects/ProjectsCatalogue.jsx";
 import ProjectDetails from "../features/projects/ProjectDetails.jsx";
+import ProposalEntry from "../features/proposals/ProposalEntry.jsx";
 import AppLayout from "../layouts/AppLayout.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
 import AdminLayout from "../layouts/AdminLayout.jsx";
@@ -48,12 +49,14 @@ function ProjectDetailsRoute() {
   return (
     <ProjectDetails
       projectId={projectId}
+      onPropose={() => navigate(`/projects/${projectId}/propose`)}
       onBack={() => navigate("/projects")}
     />
   );
 }
 
 const featurePages = {
+  "/projects/:projectId/propose": <ProposalEntry />,
   "/projects": <ProjectsCatalogueRoute />,
   "/projects/:projectId": <ProjectDetailsRoute />,
   "/login": <LoginPage />,
