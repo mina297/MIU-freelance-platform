@@ -131,6 +131,22 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     ])
       assert.ok(html.includes(`href="${path}"`), path);
     assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
+    assert.equal(
+      (html.match(/class="landing-section landing-overlap-panel/g) ?? [])
+        .length,
+      4,
+    );
+    for (const id of [
+      "how-it-works",
+      "featured-jobs",
+      "student-talent",
+      "trust",
+    ]) {
+      assert.match(
+        html,
+        new RegExp(`<div id="${id}" class="landing-overlap-backdrop`),
+      );
+    }
     assert.match(html, /role="search"/);
     assert.match(html, /aria-label="Choose Hire or Work"/);
     assert.match(html, /aria-pressed="false">Hire<\/button>/);

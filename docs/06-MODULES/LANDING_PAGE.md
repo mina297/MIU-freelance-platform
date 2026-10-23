@@ -33,6 +33,16 @@ The desktop layout retains the centered hero, alternating timeline, three-column
 
 ## Verification
 
+The same seamless lower-edge treatment applies to all four `OverlapSection` panels: no bottom border and no shadow below the lower edge. Existing surface/backdrop colors are retained; upper/side borders, rounded tops, side/top shadows and entrance motion remain intact. Nested project, profile and timeline cards are unaffected.
+
+The category panel omits its bottom border and clips only the shadow below its lower edge, allowing that edge to merge with the white backdrop below. Its upper/side borders, rounded top, shadow above/along the sides and scroll entrance remain unchanged.
+
+How it works, Featured jobs, Student talent and Trust now reuse `OverlapSection` for the category panel's overlapping presentation: full width, at least one viewport tall, 40px upper radii (28px mobile), square lower corners, a 24px overlap (16px mobile), and a 96px upward entrance. Each panel retains its existing surface color/gradient and content behavior; backdrops use existing blush, muted or white surfaces to distinguish the curved edges. IDs, search destinations, bookmarks and modal previews remain unchanged. Reveals replay on re-entry and respect Pause motion, reduced motion and keyboard focus. How it works recalculates line positions after its panel entrance settles. Live browser verification of the combined panel transitions remains pending.
+
+Section anchor IDs live on the stable backdrop wrappers, so search and hash navigation do not measure the panel's temporary entrance transform.
+
+The How it works backdrop is white, matching the category panel's white surface. Its own panel gradient and entrance animation are retained.
+
 The white category panel sits inside a dedicated backdrop using `--color-miu-red-tint`, matching the hero. This highlights its rounded upper corners and the space behind its upward entrance without changing the panel's white surface or other sections.
 
 The category section is presented as a full-page-width white panel with a light border and the existing card shadow. Its minimum height is 100svh on desktop and mobile, with content centered vertically and room to grow on short screens. Upper corners use a 40px radius (28px on mobile); lower corners are square. The panel overlaps the hero slightly and rises 96px over one second on each scroll entry, alongside the existing heading/card reveals. No scaling is applied, so the panel stays full width throughout its entrance. Keyboard focus, paused motion and reduced motion retain a stable visible panel. Colors and the remaining page sections are unchanged.

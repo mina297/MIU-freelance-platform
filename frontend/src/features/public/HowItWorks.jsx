@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { BriefcaseBusiness, Users, Star, ArrowUpRight } from "lucide-react";
 import { getTimelineMotion } from "./timelineMotion.js";
+import OverlapSection from "./OverlapSection.jsx";
 import "./howItWorks.css";
 
 const TRACK_EXTENSION = 56;
@@ -47,7 +48,10 @@ export default function HowItWorks({ motionEnabled }) {
         window.innerHeight,
         TRACK_EXTENSION,
       );
-      root.style.setProperty("--track-start", `${offsets[0] - TRACK_EXTENSION}px`);
+      root.style.setProperty(
+        "--track-start",
+        `${offsets[0] - TRACK_EXTENSION}px`,
+      );
       root.style.setProperty(
         "--track-length",
         `${offsets.at(-1) - offsets[0] + TRACK_EXTENSION * 2}px`,
@@ -68,15 +72,20 @@ export default function HowItWorks({ motionEnabled }) {
     function schedule() {
       if (!frame) frame = window.requestAnimationFrame(update);
     }
+    function panelSettled(event) {
+      if (event.target === container) schedule();
+    }
     update();
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
+    container.addEventListener("transitionend", panelSettled);
     const resize =
       "ResizeObserver" in window ? new ResizeObserver(schedule) : null;
     resize?.observe(container);
     return () => {
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
+      container.removeEventListener("transitionend", panelSettled);
       window.cancelAnimationFrame(frame);
       resize?.disconnect();
       delete root.dataset.motionReady;
@@ -91,11 +100,13 @@ export default function HowItWorks({ motionEnabled }) {
   }, [motionEnabled]);
 
   return (
-    <section
-      ref={section}
-      className="landing-section landing-how"
+    <OverlapSection
+      sectionRef={section}
+      className="landing-how"
       id="how-it-works"
-      aria-labelledby="how-it-works-title"
+      labelledBy="how-it-works-title"
+      motionEnabled={motionEnabled}
+      backdrop="white"
     >
       <div className="landing-container">
         <div className="landing-heading landing-how-heading">
@@ -142,6 +153,6 @@ export default function HowItWorks({ motionEnabled }) {
           </ol>
         </div>
       </div>
-    </section>
+    </OverlapSection>
   );
 }

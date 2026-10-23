@@ -4,6 +4,7 @@ import { Check, Grid2X2, Pause, Play } from "lucide-react";
 import Dropdown from "../../components/ui/Dropdown.jsx";
 import CategoryCarousel from "./CategoryCarousel.jsx";
 import HowItWorks from "./HowItWorks.jsx";
+import OverlapSection from "./OverlapSection.jsx";
 import RotatingSearchHint from "./RotatingSearchHint.jsx";
 import { useReducedMotion } from "./useLandingMotion.js";
 import { formatEGP } from "../../utils/formatEGP.js";
@@ -290,10 +291,12 @@ export default function LandingPage() {
       </div>
       <HowItWorks motionEnabled={motionEnabled} />
 
-      <section
-        className="landing-section landing-muted"
+      <OverlapSection
+        className="landing-muted"
         id="featured-jobs"
-        aria-label="Featured jobs"
+        label="Featured jobs"
+        motionEnabled={motionEnabled}
+        backdrop="white"
       >
         <div className="landing-container">
           <SectionHeading
@@ -385,12 +388,13 @@ export default function LandingPage() {
             </div>
           )}
         </div>
-      </section>
+      </OverlapSection>
 
-      <section
-        className="landing-section"
+      <OverlapSection
         id="student-talent"
-        aria-label="Top-rated students"
+        label="Top-rated students"
+        motionEnabled={motionEnabled}
+        backdrop="muted"
       >
         <div className="landing-container">
           <SectionHeading
@@ -460,12 +464,14 @@ export default function LandingPage() {
             </div>
           )}
         </div>
-      </section>
+      </OverlapSection>
 
-      <section
-        className="landing-section landing-trust"
+      <OverlapSection
+        className="landing-trust"
         id="trust"
-        aria-label="Why MIU Freelance"
+        label="Why MIU Freelance"
+        motionEnabled={motionEnabled}
+        backdrop="white"
       >
         <div className="landing-container">
           <SectionHeading eyebrow="Trust is built in" title="Why MIU Freelance">
@@ -502,7 +508,7 @@ export default function LandingPage() {
             simulated or illustrative in Phase 1.
           </p>
         </div>
-      </section>
+      </OverlapSection>
 
       <footer className="landing-footer">
         <div className="landing-container">
