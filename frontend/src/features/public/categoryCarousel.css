@@ -43,8 +43,8 @@
 }
 .landing-category-card {
   position: relative;
-  flex: 0 0 220px;
-  min-height: 230px;
+  flex: 0 0 260px;
+  min-height: 270px;
   padding: 24px;
   display: flex;
   align-items: center;
@@ -128,8 +128,8 @@
     height: 44px;
   }
   .landing-category-card {
-    flex-basis: 190px;
-    min-height: 210px;
+    flex-basis: 230px;
+    min-height: 250px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

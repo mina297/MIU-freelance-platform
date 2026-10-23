@@ -14,7 +14,7 @@ export function useReducedMotion() {
   );
 }
 
-// Content stays visible until an observer is available; reveal only once.
+// Content stays visible without an observer; replay the entrance on each visit.
 export function useScrollReveal(ref, enabled) {
   useEffect(() => {
     const root = ref.current;
@@ -22,10 +22,7 @@ export function useScrollReveal(ref, enabled) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
+          entry.target.classList.toggle("is-visible", entry.isIntersecting);
         });
       },
       { threshold: 0.15 },
