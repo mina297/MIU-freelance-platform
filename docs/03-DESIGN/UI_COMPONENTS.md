@@ -1438,6 +1438,104 @@ npm.cmd run build
 node node_modules/prettier/bin/prettier.cjs --check src/features/public/TermsPage.jsx src/features/public/PrivacyPage.jsx src/features/public/info/policyPages.test.js
 ```
 
+## Member 4 — Language-switcher interface
+
+`components/navigation/LanguageSwitcher.jsx` composes the existing native Select
+and Field. No language catalogue, translated copy, i18n library, provider,
+header/settings integration, new styles, assets or dependencies are introduced.
+It supplies the independently valid presentation part of FR-V05; actual interface
+translation remains pending. Related quality requirements: NFR-02, NFR-03,
+NFR-15 and NFR-16. This does not mark FR-V05 or localization complete.
+
+### Controlled component contract
+
+| Property | Behavior |
+|---|---|
+| `options = []` | Caller-supplied array of approved `{ value, label, lang?, dir?, disabled? }` choices. Values/labels must be nonempty strings, values unique. Optional `lang` is a nonempty language-tag string; the caller validates its meaning. Optional `dir` is ltr, rtl or auto; optional disabled is boolean. Metadata is placed on native options, not interpreted as an instruction to translate. |
+| `value = ""` | Controlled string identifier. Unknown/empty values show the disabled placeholder instead of silently selecting the first language. A supplied current option remains displayed even if that option becomes disabled. |
+| `onValueChange(nextValue)` | Receives a permitted different value only. Unknown, placeholder, disabled and unchanged choices are ignored. No internal language state, normalization, document change or navigation occurs. |
+| `disabled = false` | Also disabled when no callback exists or no option is enabled. Empty options show only the disabled `emptyLabel`; the component does not invent an available language. |
+| `label`, `placeholder`, `emptyLabel` | Nonempty strings defaulting to Language, Select language, No languages available. These are English control labels, not a translation dictionary. Callers supply approved localized labels as appropriate. |
+| `helperText`, `error`, `aria-describedby` | Forwarded to the existing Select/Field for associated context and validation feedback. No automatic live region or fake error recovery is added. |
+| `id`, `name`, `form`, `ref`, `className` | Forwarded native-control integration props. Omitted IDs use Field's associated generated label. `className` applies to the select alongside the miu-language-switcher class. |
+| `dir`, `lang` | Optional native select presentation attributes; otherwise inherited. These do not change the document, application, label/helper container or another feature. |
+
+Malformed caller option/label contracts fail clearly. No official language list
+or Arabic/English translation is bundled. The empty configuration is a disabled
+control, not simulated production translation.
+
+```jsx
+<LanguageSwitcher
+  options={approvedLanguageOptions}
+  value={activeLanguage}
+  onValueChange={requestLanguageChange}
+  label={approvedLanguageControlLabel}
+  helperText={languageAvailabilityMessage}
+/>
+```
+
+All example variables above belong to the consuming application. Member 1 owns
+the actual language state, approved dictionaries/options, provider contract,
+document lang/dir updates, persistence, route/provider integration and header or
+settings placement. No existing PublicHeader signature is changed. Enable only
+choices whose approved content is actually available; use disabled options or
+an empty list where appropriate. Direction is never inferred from an identifier
+or changed globally when an option is selected. Currency formatting and original
+message content remain untouched. OD-12 remains open.
+
+### Design and native presentation
+
+The inspected approved Figma form reference `4:2722` confirms visible labels,
+48px native-field sizing, neutral surfaces/borders, brand focus and error cues.
+The component reuses the completed Select/Field implementation and its documented
+adaptations rather than rebuilding those controls. No dedicated language-switcher
+specimen was identified in the previously inspected file metadata. Header
+placement, supported languages and full translated layouts still need agreement.
+
+Native keyboard selection, focus and disabled behavior are preserved. The
+component inherits RTL without duplicate controls, flags or direction-specific
+assets. Field labels/helper text wrap and the native select shrinks with its
+container. Native closed selects can visually clip unusually long option text;
+complete strings remain in the DOM. Use concise approved display names and
+provide helpful context where needed. Popup wrapping and mobile picker behavior
+are browser/OS-owned and are not claimed as custom multiline UI.
+
+### Verification and remaining work
+
+Eight focused Node/Vite tests cover labels/feedback associations, controlled
+requests, metadata, disabled/empty/missing-handler states, unknown values,
+caller props, escaped long text, unique IDs and malformed contracts.
+All 133 tests passed (8 new, 125 existing). Lint, source Prettier, normal build
+and a separate export-preserving production build of the unmounted switcher to
+a temporary directory passed. Shared configuration was unchanged.
+
+Chrome checks used synthetic, explicitly labeled option fixtures with lang=und;
+no official translations were fabricated and no tracked preview files were
+added. Tab entry/exit, visible focus, Arrow/Home/End requests, disabled-option
+skipping, ignored callbacks retaining the controlled value, disabled-control
+skipping, unknown-value/error relationships and no accidental form submission
+passed. Selecting the RTL-marked option did not change application lang/dir or
+move focus. Chrome exposed the native combobox with its associated label.
+
+Normal and long label/helper/option cases had no horizontal page overflow at
+320, 390, 640, 768, 960, 1024 and 1440px in LTR/inherited RTL fixtures. Controls
+measured 48px high. Reduced motion introduced no animation; fixture EGP text was
+preserved. Mobile/desktop screenshots were inspected. Successful checks had no
+runtime exceptions, console errors or failed HTTP responses.
+
+Remaining: approved language options/translations, Member 1's state/provider/
+document/header integration, team visual review, actual translated RTL screens,
+screen-reader testing, systematic zoom, cross-browser and real mobile pickers.
+No other member's state contract or feature is changed.
+
+```bash
+cd frontend
+node --test src/components/navigation/languageSwitcher.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/components/navigation/LanguageSwitcher.jsx src/components/navigation/languageSwitcher.test.js
+```
+
 ## Related Documents
 
 - [Design System](DESIGN_SYSTEM.md)

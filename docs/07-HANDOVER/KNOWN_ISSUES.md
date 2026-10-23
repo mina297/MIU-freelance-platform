@@ -58,6 +58,14 @@ These are scope limitations and documentation tasks, not verified software bugs.
 | OD-16 | Academic Deliverables | Confirm whether the complete working React frontend is mandatory for the Phase 1 discussion beyond SRS/prototypes. |
 | OD-17 | Public Policy Content | Supply and approve Terms and Privacy text, responsible owner and publication/version details against actual project practices. Member 4 pages are explicitly labeled placeholders; route integration remains with Member 1. Related unresolved decisions include OD-03 and OD-05–07. |
 
+**23 October 2026 — OD-12 presentation update:** Member 4's controlled
+`components/navigation/LanguageSwitcher.jsx` is implemented using the existing
+Select/Field. It has no built-in languages or translations and changes no
+application state or document direction. Approved options/dictionaries,
+Member 1's provider/state/header integration, and real translated RTL validation
+remain pending. OD-12 is not resolved by this component. See the
+[language-switcher contract](../03-DESIGN/UI_COMPONENTS.md#member-4--language-switcher-interface).
+
 ## 5. Verified Bugs
 
 No verified bug list has been supplied for this documentation baseline.
