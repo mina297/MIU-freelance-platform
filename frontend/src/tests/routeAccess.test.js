@@ -19,6 +19,10 @@ test("route registry has unique paths, valid roles and one public fallback", () 
       ["standalone", "public", "auth", "app", "admin"].includes(route.layout),
     );
     assert.ok(["public", "authenticated", "roles"].includes(route.access));
+    assert.ok(
+      route.showInNavigation === undefined ||
+        typeof route.showInNavigation === "boolean",
+    );
     if (route.access === "roles") {
       assert.ok(route.roles.length > 0);
       assert.ok(
@@ -26,6 +30,16 @@ test("route registry has unique paths, valid roles and one public fallback", () 
       );
     }
   }
+});
+
+test("dynamic project details remain routable but are hidden from global navigation", () => {
+  const projectDetails = routeConfig.find(
+    (route) => route.path === "/projects/:projectId",
+  );
+
+  assert.ok(projectDetails);
+  assert.equal(projectDetails.access, "public");
+  assert.equal(projectDetails.showInNavigation, false);
 });
 
 test("visitors and expired sessions can browse public routes but cannot enter protected routes", () => {

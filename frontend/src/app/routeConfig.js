@@ -15,6 +15,7 @@ export const routeConfig = [
     title: "Project details",
     layout: "standalone",
     access: "public",
+    showInNavigation: false,
   },
   { path: "/services", title: "Services", layout: "public", access: "public" },
   { path: "/login", title: "Login", layout: "auth", access: "public" },
