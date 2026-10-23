@@ -76,7 +76,7 @@ function PreviewDialog({ preview, onClose }) {
           Close preview
         </button>
       </form>
-      <p className="landing-eyebrow">Phase 1 demonstration</p>
+      <p className="landing-eyebrow">Prototype preview</p>
       <h2 id="preview-title">{preview?.title}</h2>
       <p>{preview?.description}</p>
       {preview?.skills && <Chips values={preview.skills} />}
@@ -86,7 +86,7 @@ function PreviewDialog({ preview, onClose }) {
           deadline: {preview.deadline}
         </p>
       )}
-      <p className="landing-demo">
+      <p className="landing-prototype-note">
         Fictional design example. Profiles, applications, contact and policy
         workflows are not available in this preview.
       </p>
@@ -156,7 +156,7 @@ export default function LandingPage() {
     setPreview({
       title,
       description:
-        "This academic frontend demonstrates the planned MIU freelance marketplace. Use fictional information only. Identity checks, reviews, support and financial workflows remain planned.",
+        "Frontend prototype. Use test details. Identity checks, reviews, support and payments are planned.",
     });
 
   return (
@@ -197,9 +197,7 @@ export default function LandingPage() {
           onSubmit={search}
           role="search"
           aria-label={
-            mode === "hire"
-              ? "Search demo student talent"
-              : "Search featured demo jobs"
+            mode === "hire" ? "Search student talent" : "Search featured jobs"
           }
         >
           <Icon name="search" />
@@ -312,17 +310,17 @@ export default function LandingPage() {
             Real briefs from MIU departments, clubs, alumni, and trusted
             community partners.
           </SectionHeading>
-          <p className="landing-demo">
-            Demo content: fictional jobs, dates, ratings and profiles from the
-            design. Saved jobs last until you leave this page.
+          <p className="landing-prototype-note">
+            Prototype content: fictional jobs and profiles from the design.
+            Saved jobs last until you leave this page.
           </p>
           <p role="status" className="sr-only">
             {notice}
           </p>
           {mode === "work" && (filters.query || filters.category) && (
             <p role="status" className="landing-results">
-              {jobs.length} featured demo {jobs.length === 1 ? "job" : "jobs"}{" "}
-              found. <button onClick={clearFilters}>Clear filters</button>
+              {jobs.length} featured {jobs.length === 1 ? "job" : "jobs"} found.{" "}
+              <button onClick={clearFilters}>Clear filters</button>
             </p>
           )}
           <div className="landing-grid">
@@ -411,8 +409,8 @@ export default function LandingPage() {
           </SectionHeading>
           {mode === "hire" && (filters.query || filters.category) && (
             <p role="status" className="landing-results">
-              {students.length} demo{" "}
-              {students.length === 1 ? "student" : "students"} found.
+              {students.length} {students.length === 1 ? "student" : "students"}{" "}
+              found.
               <button onClick={clearFilters}>Clear filters</button>
             </p>
           )}
@@ -501,7 +499,7 @@ export default function LandingPage() {
               </article>
             ))}
           </div>
-          <p className="landing-demo">
+          <p className="landing-prototype-note">
             Planned platform benefits. Identity verification and reviews are
             simulated or illustrative in Phase 1.
           </p>

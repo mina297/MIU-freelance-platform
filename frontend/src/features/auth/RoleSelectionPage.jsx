@@ -29,7 +29,7 @@ export default function RoleSelectionPage() {
         <p>
           Already have an account? <Link to="/login">Sign in</Link>
         </p>
-        <p className="role-selection-demo">Demo registration</p>
+        <p className="role-selection-note">Prototype registration</p>
       </footer>
     </section>
   );

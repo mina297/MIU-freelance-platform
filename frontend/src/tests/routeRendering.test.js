@@ -109,7 +109,7 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
       "Featured jobs",
       "Top-rated students",
       "Why MIU Freelance",
-      "Demo content:",
+      "Prototype content:",
     ])
       assert.ok(html.includes(text), text);
     for (const path of [
@@ -127,6 +127,7 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     assert.match(html, /aria-pressed="true">Work<\/button>/);
     assert.match(html, /All categories/);
     assert.match(html, /Explore categories/);
+    assert.doesNotMatch(html.replace(/<[^>]*>/g, " "), /\bdemo\b/i);
     assert.match(html, /Software development/);
     assert.match(html, /Video editing/);
     assert.match(html, /aria-label="Scroll categories left"/);
@@ -220,14 +221,14 @@ test("all five authentication routes render labeled forms or role selection", as
       "/src/contexts/AuthProvider.jsx",
     );
     for (const [path, heading] of [
-      ["/login", "Log in"],
+      ["/login", "Sign in"],
       ["/register", "Choose your account role"],
-      ["/register?role=student", "Create a student account"],
-      ["/register?role=client", "Create a client account"],
+      ["/register?role=student", "Join as a student"],
+      ["/register?role=client", "Join as a client"],
       ["/register?role=super_admin", "Choose your account role"],
       ["/register/role", "Choose your account role"],
       ["/forgot-password", "Forgot password"],
-      ["/reset-password", "Simulated password reset"],
+      ["/reset-password", "Reset password"],
     ]) {
       const html = renderToStaticMarkup(
         React.createElement(
@@ -241,6 +242,7 @@ test("all five authentication routes render labeled forms or role selection", as
         ),
       );
       assert.ok(html.includes(heading), path);
+      assert.doesNotMatch(html.replace(/<[^>]*>/g, " "), /\bdemo\b/i);
       assert.doesNotMatch(html, /routing placeholder only/i);
       assert.match(html, /Public navigation/);
       assert.match(html, /href="\/login"[^>]*>Sign In/);
@@ -256,7 +258,10 @@ test("all five authentication routes render labeled forms or role selection", as
       ) {
         assert.match(html, /<form/);
         assert.match(html, /<label[^>]+for=/);
-        assert.match(html, /Simulated authentication/);
+        assert.match(html, /Prototype/);
+        assert.match(html, /Resets on refresh/);
+        assert.match(html, /class="auth-input"/);
+        assert.match(html, /required=""/);
       }
       if (path === "/register") {
         assert.match(html, /href="\/register\?role=student"/);

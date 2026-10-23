@@ -32,6 +32,8 @@ The desktop layout retains the centered hero, alternating timeline, three-column
 
 ## Verification
 
+User-facing "demo" wording is replaced with concise prototype or neutral wording (23 October 2026), including result counts and accessible search names. The fictional-content disclosure remains visible; discovery behavior is unchanged.
+
 Automated route tests cover landing sections, registration/catalogue entry links, accessible search/dialog markup, and combined search/category/empty results. Existing authentication, role and marketplace tests remain part of `npm test`.
 
 Scroll progress tests cover sequential step activation, bounds, reverse scrolling and viewport changes. Static markup checks cover the separate category section, scrolling controls, semantic step list and readable motion-free rendering. The new effects still require live browser visual and interaction verification; no browser surface was connected during this update.

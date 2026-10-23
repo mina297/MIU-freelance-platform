@@ -501,12 +501,12 @@
 .landing-trust-point p {
   color: #4b5563;
 }
-.landing .landing-demo {
+.landing .landing-prototype-note {
   color: #59616e;
   font-size: 12px;
   margin: -24px 0 18px;
 }
-.landing-trust .landing-demo {
+.landing-trust .landing-prototype-note {
   margin: 18px 0 0;
 }
 .landing-results {
@@ -691,7 +691,7 @@
   .landing-footer-meta {
     flex-direction: column;
   }
-  .landing .landing-demo {
+  .landing .landing-prototype-note {
     margin-top: 0;
   }
 }

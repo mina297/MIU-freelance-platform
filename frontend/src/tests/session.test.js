@@ -166,6 +166,24 @@ test("forgot-password is simulated and password reset changes only memory", () =
   );
 });
 
+test("account feedback stays concise without demo wording or hiding recovery limits", () => {
+  const store = createMockAuthStore(mockUsers);
+  const responses = [
+    store.login(registration),
+    store.forgotPassword(registration.email),
+    store.resetPassword(registration),
+    store.resetPassword({ ...registration, email: "student_001@example.test" }),
+  ];
+  for (const response of responses)
+    assert.doesNotMatch(JSON.stringify(response), /\bdemo\b/i);
+  assert.match(responses[1].message, /Prototype recovery/);
+  assert.match(responses[1].message, /no email was sent/);
+  assert.match(responses[3].message, /No secure token/);
+  assert.match(responses[3].message, /until refresh/);
+  for (const user of mockUsers)
+    assert.doesNotMatch(user.displayName, /\bdemo\b/i);
+});
+
 test("inactive fixtures cannot log in, reset passwords or start sessions", () => {
   for (const accountStatus of ["suspended", "deactivated"]) {
     const fixture = { ...mockUsers[0], accountStatus };

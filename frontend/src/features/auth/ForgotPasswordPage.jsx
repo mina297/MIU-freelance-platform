@@ -8,7 +8,7 @@ export default function ForgotPasswordPage() {
   return (
     <AuthForm
       title="Forgot password"
-      submitLabel="Simulate recovery request"
+      submitLabel="Continue"
       fields={[
         { name: "email", label: "Email", type: "email", autoComplete: "email" },
       ]}
@@ -19,12 +19,12 @@ export default function ForgotPasswordPage() {
         return result;
       }}
     >
-      <p>No email is sent and no secure recovery token is created.</p>
+      <p>Prototype recovery. No email or reset link is sent.</p>
       <p>
-        <Link to="/reset-password">Open simulated reset form</Link>
+        <Link to="/reset-password">Open reset form</Link>
       </p>
       <p>
-        <Link to="/login">Back to login</Link>
+        <Link to="/login">Back to sign in</Link>
       </p>
     </AuthForm>
   );

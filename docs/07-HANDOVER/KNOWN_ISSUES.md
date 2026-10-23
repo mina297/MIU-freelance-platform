@@ -137,6 +137,10 @@ The shared navigation is intentionally preserved rather than replaced by Figma's
 
 The search typewriter/perimeter light, category card carousel and scroll-driven How it works timeline supersede the corresponding earlier visual checks. Automated scroll calculation and static rendering checks are included; live browser confirmation of scroll timing, depth animation, mobile swipe, focus behavior and reduced-motion switching remains pending because no browser surface was connected for this update. Earlier browser results above apply to the previous presentation only.
 
+### Authentication presentation update — 23 October 2026
+
+Rounded authentication forms and shorter prototype wording pass all 36 automated tests, lint and production build. Rendering checks retain required field labels and prototype/reset disclosures and reject visible "demo" wording. Live browser checks of the updated form spacing, mobile layout and focus appearance remain pending; no connected browser was available in this session.
+
 ## 9. Related Documents
 
 - [Project Scope](../01-PROJECT/PROJECT_SCOPE.md)

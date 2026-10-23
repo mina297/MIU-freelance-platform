@@ -10,8 +10,8 @@ export default function LoginPage() {
   const navigate = useNavigate();
   return (
     <AuthForm
-      title="Log in"
-      submitLabel="Log in to demo"
+      title="Sign in"
+      submitLabel="Sign in"
       afterSubmit={
         <p className="text-sm">
           <Link
@@ -47,14 +47,10 @@ export default function LoginPage() {
       }}
     >
       {location.state?.registered && (
-        <p role="status">Demo account created. Log in before refreshing.</p>
+        <p role="status">Account created. Sign in to continue.</p>
       )}
       <p>
-        Use your in-memory demo account to sign in. Refreshing clears registered
-        accounts and password changes.
-      </p>
-      <p>
-        <Link to="/register">Create a student or client account</Link>
+        New here? <Link to="/register">Create an account</Link>
       </p>
     </AuthForm>
   );

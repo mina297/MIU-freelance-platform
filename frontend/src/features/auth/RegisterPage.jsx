@@ -13,7 +13,7 @@ export default function RegisterPage() {
   return (
     <AuthForm
       key={role}
-      title={`Create a ${role === ROLES.STUDENT ? "student" : "client"} account`}
+      title={`Join as a ${role === ROLES.STUDENT ? "student" : "client"}`}
       submitLabel="Create account"
       initialValues={{
         role: PUBLIC_REGISTRATION_ROLES.includes(role) ? role : "",
@@ -26,7 +26,7 @@ export default function RegisterPage() {
           label: "Password",
           type: "password",
           autoComplete: "new-password",
-          hint: "At least 8 characters, including a letter and a number.",
+          hint: "8+ characters, with a letter and a number.",
         },
         {
           name: "confirmPassword",
@@ -43,14 +43,10 @@ export default function RegisterPage() {
       }}
     >
       <p>
-        Registration does not verify your identity. Verification remains a
-        separate planned flow.
+        <Link to="/register">Change account type</Link>
       </p>
       <p>
-        <Link to="/register">Choose a different role</Link>
-      </p>
-      <p>
-        <Link to="/login">Already have a demo account?</Link>
+        Already a member? <Link to="/login">Sign in</Link>
       </p>
     </AuthForm>
   );
