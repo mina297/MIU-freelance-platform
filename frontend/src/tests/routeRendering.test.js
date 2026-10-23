@@ -4,6 +4,68 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { MemoryRouter } from "react-router-dom";
 import { createServer } from "vite";
+import { filterLandingJobs } from "../features/public/landingData.js";
+
+test("landing discovery combines trimmed text and category filters with empty recovery", () => {
+  assert.equal(filterLandingJobs("", "").length, 3);
+  assert.equal(
+    filterLandingJobs("  REACT  ", "Development")[0].id,
+    "landing-web",
+  );
+  assert.equal(filterLandingJobs("React", "Design").length, 0);
+  assert.equal(filterLandingJobs("", "Tutoring").length, 0);
+  assert.equal(filterLandingJobs("unknown keyword", "").length, 0);
+});
+
+test("landing route renders Figma sections, safe discovery and existing auth navigation", async () => {
+  const vite = await createServer({
+    server: { middlewareMode: true, hmr: false },
+    appType: "custom",
+  });
+  try {
+    const { default: AppRouter } = await vite.ssrLoadModule(
+      "/src/app/router.jsx",
+    );
+    const { default: AuthProvider } = await vite.ssrLoadModule(
+      "/src/contexts/AuthProvider.jsx",
+    );
+    const html = renderToStaticMarkup(
+      React.createElement(
+        MemoryRouter,
+        { initialEntries: ["/"] },
+        React.createElement(AuthProvider, null, React.createElement(AppRouter)),
+      ),
+    );
+    for (const text of [
+      "Find real work. Build your reputation.",
+      "How it works",
+      "Featured jobs",
+      "Top-rated students",
+      "Why MIU Freelance",
+      "Demo content:",
+    ])
+      assert.ok(html.includes(text), text);
+    for (const path of [
+      "/projects",
+      "/services",
+      "/login",
+      "/register",
+      "/register?role=client",
+    ])
+      assert.ok(html.includes(`href="${path}"`), path);
+    assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
+    assert.match(html, /role="search"/);
+    assert.match(html, /<label[^>]+for="landing-query"/);
+    assert.match(html, /<dialog[^>]+aria-labelledby="preview-title"/);
+    assert.doesNotMatch(
+      html,
+      /routing placeholder only|figma\.com\/api\/mcp\/asset|\/client\/projects\/new/,
+    );
+    assert.equal((html.match(/class="landing-avatar"/g) ?? []).length, 3);
+  } finally {
+    await vite.close();
+  }
+});
 
 test("public project routes render marketplace screens, not placeholders", async () => {
   const vite = await createServer({

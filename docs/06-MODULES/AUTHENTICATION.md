@@ -133,7 +133,7 @@ The public/authentication shell now uses a clean shared header with Home, Projec
 
 `/register` opens Student/Client role cards. Their links open `/register?role=student` and `/register?role=client`; unknown/privileged role parameters return to selection. The form is bound to the selected public role, while the store retains independent role validation. `/register/role` remains a compatible selection URL. The Forgot Password? link sits directly below the login submit button. A syntactically valid forgot-password submission navigates to `/reset-password`, which explains that no email or secure token was issued. Email and password values are not placed in navigation state. The reset page still validates the existing in-memory account.
 
-The Figma-based landing page is pending access to the supplied design frame; these navigation/flow changes do not claim to implement the landing design.
+The Figma-based landing page is now rendered at `/` (23 October 2026). It reuses this public header and the existing session/logout behavior without changing authentication. Its Post a Job entry opens `/register?role=client`; it does not bypass role checks or implement project publication. See [Landing Page](LANDING_PAGE.md).
 
 ## 9. Production Security Requirements
 

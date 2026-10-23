@@ -127,7 +127,13 @@ SRS requirement IDs.
 - Keep resolved issues traceable.
 - Avoid recording secrets or private user information.
 
-## 8. Related Documents
+## 8. Landing page verification — 23 October 2026
+
+P-01 now follows Figma “MIU Freelance desktop” (`8:2656`). `npm test` passed all 31 tests; `npm run build` and `npm run lint` passed. Browser checks covered desktop plus embedded 390px/768px responsive previews, hero/search wrapping, timeline and card layouts, local category filtering, no-match search and clear recovery, bookmark pressed state/status, job/profile modal previews, Escape close with focus restoration, and Post a Job navigation to client registration. Downloaded static assets loaded successfully; icon and avatar dimensions matched their design slots. The footer logo plate was corrected to 80×60 with contained original artwork.
+
+The shared navigation is intentionally preserved rather than replaced by Figma's header. Landing jobs/profiles are fictional design examples with historical design dates, separate from the shared catalogue. Services still opens its existing placeholder. Full posting, profiles, support, approved policies, verification and reviews remain future module work. Native mobile-device, full assistive-technology and production accessibility audits remain unperformed.
+
+## 9. Related Documents
 
 - [Project Scope](../01-PROJECT/PROJECT_SCOPE.md)
 - [Development Roadmap](../01-PROJECT/DEVELOPMENT_ROADMAP.md)

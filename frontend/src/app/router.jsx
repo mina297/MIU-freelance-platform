@@ -18,6 +18,7 @@ import RoleSelectionPage from "../features/auth/RoleSelectionPage.jsx";
 import RegisterPage from "../features/auth/RegisterPage.jsx";
 import ForgotPasswordPage from "../features/auth/ForgotPasswordPage.jsx";
 import ResetPasswordPage from "../features/auth/ResetPasswordPage.jsx";
+import LandingPage from "../features/public/LandingPage.jsx";
 
 const layouts = {
   standalone: <Outlet />,
@@ -54,6 +55,7 @@ function ProjectDetailsRoute() {
 }
 
 const featurePages = {
+  "/": <LandingPage />,
   "/projects": <ProjectsCatalogueRoute />,
   "/projects/:projectId": <ProjectDetailsRoute />,
   "/login": <LoginPage />,

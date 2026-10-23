@@ -61,6 +61,7 @@ This documentation is intended for:
 | Document | Purpose |
 |---|---|
 | [Authentication](06-MODULES/AUTHENTICATION.md) | Accounts and sessions |
+| [Landing Page](06-MODULES/LANDING_PAGE.md) | Public discovery and Figma prototype behavior |
 | [Verification](06-MODULES/VERIFICATION.md) | Identity workflow |
 | [Projects and Proposals](06-MODULES/PROJECTS_AND_PROPOSALS.md) | Project marketplace |
 | [Services and Orders](06-MODULES/SERVICES_AND_ORDERS.md) | Service marketplace |

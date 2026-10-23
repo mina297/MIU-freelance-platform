@@ -76,7 +76,7 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with one route registry at `frontend/src/app/routeConfig.js` and one in-memory session provider.
 
-- Public placeholders: `/`, `/services`.
+- Public landing page (P-01): `/`; public placeholder: `/services`.
 - Public marketplace previews: `/projects` renders the Projects Catalogue (P-06), and `/projects/:projectId` renders Project Details (P-07).
 - Mock authentication forms: `/login`, `/register`, `/register/role`, `/forgot-password`, `/reset-password` (Task 02).
 - Student/client placeholders: `/verify`, `/verify/pending`.
@@ -100,7 +100,9 @@ tests guard both marketplace routes. Proposal submission remains a planned scree
 
 ## 4. Layout Groups
 
-**Public/authentication shell update:** Home, Projects and Services links appear with Sign In (`/login`) and Sign Up (`/register`); developer route lists and session controls are no longer displayed. `/register` starts at Student/Client cards, then opens the corresponding query-selected form. A valid simulated forgot-password request opens `/reset-password`. The landing page at `/` remains pending access to the supplied Figma design and is not yet implemented.
+**Public/authentication shell update:** Home, Projects and Services links appear with Sign In (`/login`) and Sign Up (`/register`); developer route lists and session controls are no longer displayed. `/register` starts at Student/Client cards, then opens the corresponding query-selected form. A valid simulated forgot-password request opens `/reset-password`.
+
+**23 October 2026 landing page:** `/` renders the “MIU Freelance desktop” Figma frame (`8:2656`) through `features/public/LandingPage.jsx`. The existing public header, session/logout behavior and authentication flows are preserved; only the home main-content container becomes full width. Hero search/category controls filter the three fictional featured examples locally, with a clear-filters recovery state. Find Work and Browse all jobs open `/projects`; Post a Job opens client registration because project posting is not implemented. Job/profile buttons open labeled native demo dialogs, not new record routes. Footer section links work in-page; Help, Contact and policy buttons explain the current prototype limits. Services remains discoverable through the existing header and footer. No protected action, shared marketplace record or access policy changes.
 
 ### Public Layout
 
