@@ -132,6 +132,10 @@ Before production use, evaluate:
 
 ## 7. Open Decisions
 
+The committee frontend preview is documented in
+[AI & Quality Dashboard](AI_QUALITY_DASHBOARD.md). Its metrics and outputs are
+fictional; no provider integration or approved quality methodology is claimed.
+
 - AI providers and models
 - Matching methodology
 - Supported languages

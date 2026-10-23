@@ -113,6 +113,11 @@ visual/browser verification remains tracked in the Projects and Proposals module
 
 ## 4. Layout Groups
 
+AI & Quality preview: `/AIQuality` is a direct public frontend demonstration with
+fictional records. `/committee/ai-quality` renders the same dashboard with its
+existing AI & Quality role guard. See
+[AI & Quality Dashboard](../06-MODULES/AI_QUALITY_DASHBOARD.md).
+
 **23 October 2026 — Member 4 landing/discovery:** `LandingPage.jsx` now provides
 public page content for `PublicLayout`, including hero/search, project and service
 discovery, minimal fictional student examples, and explicitly planned benefits.

@@ -5,6 +5,54 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { MemoryRouter } from "react-router-dom";
 import { createServer } from "vite";
 
+test("AIQuality preview and protected committee route reuse the complete dashboard", async () => {
+  const vite = await createServer({
+    server: { middlewareMode: true, hmr: false },
+    appType: "custom",
+  });
+  try {
+    const { default: AppRouter } = await vite.ssrLoadModule(
+      "/src/app/router.jsx",
+    );
+    const { AuthContext } = await vite.ssrLoadModule(
+      "/src/contexts/AuthContext.js",
+    );
+    for (const path of ["/AIQuality", "/aiquality", "/committee/ai-quality"]) {
+      const html = renderToStaticMarkup(
+        React.createElement(
+          MemoryRouter,
+          { initialEntries: [path] },
+          React.createElement(
+            AuthContext.Provider,
+            {
+              value: {
+                session: {
+                  status: "authenticated",
+                  user: {
+                    id: "committee_ai_quality_001",
+                    displayName: "Demo AI Quality Reviewer",
+                    role: "ai_quality_committee",
+                    accountStatus: "active",
+                    verificationStatus: "pending",
+                  },
+                },
+              },
+            },
+            React.createElement(AppRouter),
+          ),
+        ),
+      );
+      assert.match(html, /AI &amp; Quality Dashboard/);
+      assert.match(html, /Quality monitoring areas/);
+      assert.match(html, /Evaluation results/);
+      assert.match(html, /No live AI inference/);
+      assert.doesNotMatch(html, /routing placeholder only/);
+    }
+  } finally {
+    await vite.close();
+  }
+});
+
 test("proposal routes render eligible, unverified, missing, closed, and submitted states", async () => {
   const vite = await createServer({
     server: { middlewareMode: true, hmr: false },
