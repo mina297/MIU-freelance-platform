@@ -1,4 +1,3 @@
-
 ---
 title: UI Components
 type: component-catalogue
@@ -16,25 +15,25 @@ Avoid recreating the same buttons, cards, forms, tables, and status components a
 
 ## 2. Foundation Components
 
-| Component | Responsibility |
-|---|---|
-| Button | Primary, secondary, outline, destructive and loading actions |
-| Input | Text, email, password, number and relevant validation states |
-| Textarea | Multiline content |
-| Select | Selection control |
-| Checkbox | Boolean choices |
-| Radio Group | Exclusive choices |
-| Modal/Dialog | Focused decision or confirmation |
-| Alert | Informational and error messages |
-| Toast | Temporary feedback |
-| Badge | Status and metadata labels |
-| Card | Reusable content container |
-| Tabs | Local section navigation |
-| Pagination | Collection navigation |
-| Skeleton | Loading placeholders |
-| Empty State | No available content |
-| Error State | Recoverable errors |
-| Spinner | Operation in progress |
+| Component    | Responsibility                                               |
+| ------------ | ------------------------------------------------------------ |
+| Button       | Primary, secondary, outline, destructive and loading actions |
+| Input        | Text, email, password, number and relevant validation states |
+| Textarea     | Multiline content                                            |
+| Select       | Selection control                                            |
+| Checkbox     | Boolean choices                                              |
+| Radio Group  | Exclusive choices                                            |
+| Modal/Dialog | Focused decision or confirmation                             |
+| Alert        | Informational and error messages                             |
+| Toast        | Temporary feedback                                           |
+| Badge        | Status and metadata labels                                   |
+| Card         | Reusable content container                                   |
+| Tabs         | Local section navigation                                     |
+| Pagination   | Collection navigation                                        |
+| Skeleton     | Loading placeholders                                         |
+| Empty State  | No available content                                         |
+| Error State  | Recoverable errors                                           |
+| Spinner      | Operation in progress                                        |
 
 ## 3. Layout Components
 
@@ -123,6 +122,7 @@ Phase 1 verification and AI outputs must be visibly simulated.
 ## 9. Component API Guidelines
 
 Components should:
+
 - Have descriptive property names.
 - Accept controlled values when appropriate.
 - Expose callbacks rather than own unrelated business state.
@@ -147,31 +147,6 @@ Components should:
 
 The example demonstrates an intended interface, not evidence that the component currently exists.
 
-## 11. States to Support
-
-Relevant components should cover:
-- Default
-- Hover
-- Focus
-- Disabled
-- Loading
-- Error
-- Success
-- Empty
-- Selected
-
-## 12. Acceptance Checklist
-
-- [ ] Matches approved Figma
-- [ ] Reusable without unnecessary duplication
-- [ ] Supports expected variants
-- [ ] Keyboard accessible
-- [ ] Clearly labeled
-- [ ] Responsive
-- [ ] No hidden network side effects
-- [ ] Documented props
-- [ ] Appropriate tests
-
 ## Member 4 — Shared UI foundation
 
 The new components live in `frontend/src/components/ui/` and import their own
@@ -187,15 +162,17 @@ import Badge from "./components/ui/Badge.jsx";
 <Card as="article" aria-labelledby="example-title">
   <h2 id="example-title">Example</h2>
   <Badge variant="info">In progress</Badge>
-  <Button loading={isSaving} onClick={handleSave}>Save draft</Button>
-</Card>
+  <Button loading={isSaving} onClick={handleSave}>
+    Save draft
+  </Button>
+</Card>;
 ```
 
-| Component | Props and behavior |
-|---|---|
-| Button | `variant`: `primary` (default), `secondary` (black), `outline`, `ghost` (neutral Cancel specimen), `destructive`. `type` defaults to `button`; set `submit` explicitly for forms. `disabled` and `loading` block activation; loading preserves the label and exposes `aria-busy`. `children`, `className`, native button attributes, event callbacks, and React 19 `ref` are forwarded. |
-| Card | `as`: `div` (default), `article`, or `section`. `children`, `className`, and native attributes are forwarded. Supply headings/accessible names for sections. It is a container, not an interactive replacement for a link or button. |
-| Badge | `variant`: `neutral` (default), `success`, `info`, `completed`, `warning`, or `danger`. Supply visible text through `children`; variants do not infer statuses, permissions, or business rules. Native span attributes and `className` are forwarded. No automatic live-region role. |
+| Component | Props and behavior                                                                                                                                                                                                                                                                                                                                                                      |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Button    | `variant`: `primary` (default), `secondary` (black), `outline`, `ghost` (neutral Cancel specimen), `destructive`. `type` defaults to `button`; set `submit` explicitly for forms. `disabled` and `loading` block activation; loading preserves the label and exposes `aria-busy`. `children`, `className`, native button attributes, event callbacks, and React 19 `ref` are forwarded. |
+| Card      | `as`: `div` (default), `article`, or `section`. `children`, `className`, and native attributes are forwarded. Supply headings/accessible names for sections. It is a container, not an interactive replacement for a link or button.                                                                                                                                                    |
+| Badge     | `variant`: `neutral` (default), `success`, `info`, `completed`, `warning`, or `danger`. Supply visible text through `children`; variants do not infer statuses, permissions, or business rules. Native span attributes and `className` are forwarded. No automatic live-region role.                                                                                                    |
 
 Unknown variants fall back to the defaults. Consumers may supply decorative
 icons as children, hidden from assistive technology, and must provide an
@@ -295,17 +272,17 @@ import RadioGroup from "./components/ui/RadioGroup.jsx";
 These are neutral usage examples, not implemented application forms or new
 business rules. Supply approved labels and messages at the consuming feature.
 
-| API | Contract |
-|---|---|
-| Shared field props | Supply a visible `label`. Optional `helperText`, `error` (message), `required`, `disabled`, and `id`. A required field shows an asterisk and uses native required semantics. IDs are generated with React `useId` when omitted. Caller-supplied IDs must be unique in the document. |
-| Feedback | Helper text and error messages have associated IDs, merged with caller `aria-describedby`. A nonempty `error` sets `aria-invalid` even if the caller supplied false. Otherwise caller `aria-invalid` is preserved. The visible error icon and message avoid relying on color alone. There is no automatic alert/live region; announcement timing and submit/focus management belong to the consuming form. |
-| Input | Native text-like input, `type="text"` by default. Supports email, password, number, search, and native constraints such as `min`, `max`, `step`, and `maxLength`. Use the dedicated Checkbox/RadioGroup for choices. |
-| Select | Native select; provide `option`/`optgroup` children. Supports `value`/`onChange` or `defaultValue`, disabled options, and native `multiple`/`size`. Native option popup presentation and long selected-value display depend on the browser/OS. |
-| Textarea | Native textarea; `rows={4}` by default, vertically resizable. Supports native length constraints. |
-| Checkbox | Native checkbox with a wrapping associated label; supports `checked`/`onChange` or `defaultChecked`. |
-| Native forwarding | Input, Select, Textarea, and Checkbox forward native control attributes, callbacks, React 19 `ref`, and `className` to the control. Do not mix controlled and uncontrolled props. These components do not own values or run application validation. |
-| RadioGroup | Native fieldset/legend with same-name radio inputs. `options` contains unique string `value`, visible `label`, and optional `disabled`. Supports `name`, `value`/`onChange` or `defaultValue`, shared field props, ARIA feedback props, and fieldset `className`. `onChange` receives the native React change event. `id` is a prefix for option/feedback IDs. An omitted `name` defaults to that unique prefix. Whole-group disabling and individual disabled options are supported. The group does not forward arbitrary native input props or refs. |
-| Field | Shared rendering utility used by the controls, not a second input implementation. Its render-function `children` receives the associated `id`, `required`, `disabled`, `aria-describedby`, and `aria-invalid`. Internal `choice` and `group` modes render the checkbox label or fieldset/legend. |
+| API                | Contract                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Shared field props | Supply a visible `label`. Optional `helperText`, `error` (message), `required`, `disabled`, and `id`. A required field shows an asterisk and uses native required semantics. IDs are generated with React `useId` when omitted. Caller-supplied IDs must be unique in the document.                                                                                                                                                                                                                                                                    |
+| Feedback           | Helper text and error messages have associated IDs, merged with caller `aria-describedby`. A nonempty `error` sets `aria-invalid` even if the caller supplied false. Otherwise caller `aria-invalid` is preserved. The visible error icon and message avoid relying on color alone. There is no automatic alert/live region; announcement timing and submit/focus management belong to the consuming form.                                                                                                                                             |
+| Input              | Native text-like input, `type="text"` by default. Supports email, password, number, search, and native constraints such as `min`, `max`, `step`, and `maxLength`. Use the dedicated Checkbox/RadioGroup for choices.                                                                                                                                                                                                                                                                                                                                   |
+| Select             | Native select; provide `option`/`optgroup` children. Supports `value`/`onChange` or `defaultValue`, disabled options, and native `multiple`/`size`. Native option popup presentation and long selected-value display depend on the browser/OS.                                                                                                                                                                                                                                                                                                         |
+| Textarea           | Native textarea; `rows={4}` by default, vertically resizable. Supports native length constraints.                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Checkbox           | Native checkbox with a wrapping associated label; supports `checked`/`onChange` or `defaultChecked`.                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Native forwarding  | Input, Select, Textarea, and Checkbox forward native control attributes, callbacks, React 19 `ref`, and `className` to the control. Do not mix controlled and uncontrolled props. These components do not own values or run application validation.                                                                                                                                                                                                                                                                                                    |
+| RadioGroup         | Native fieldset/legend with same-name radio inputs. `options` contains unique string `value`, visible `label`, and optional `disabled`. Supports `name`, `value`/`onChange` or `defaultValue`, shared field props, ARIA feedback props, and fieldset `className`. `onChange` receives the native React change event. `id` is a prefix for option/feedback IDs. An omitted `name` defaults to that unique prefix. Whole-group disabling and individual disabled options are supported. The group does not forward arbitrary native input props or refs. |
+| Field              | Shared rendering utility used by the controls, not a second input implementation. Its render-function `children` receives the associated `id`, `required`, `disabled`, `aria-describedby`, and `aria-invalid`. Internal `choice` and `group` modes render the checkbox label or fieldset/legend.                                                                                                                                                                                                                                                       |
 
 Visual reference: approved Figma form showcase `4:2722`, file
 `4OarPMFlQbiJI1Q1WxblcC`. Confirmed input values: 48px minimum height, 12px
@@ -496,14 +473,14 @@ the `howItWorks` React-node slot, located between hero and discovery. The slot i
 empty by default; that completed branch was not copied, recreated, or cherry-picked.
 Full landing assembly therefore remains dependent on connecting that work.
 
-| LandingPage prop | Behavior |
-|---|---|
-| `data` | Defaults to Member 2's existing `marketplaceData`; accepts the same valid record shape for tests/integration. The page does not mutate it or introduce a new marketplace schema. |
-| `destinations` | Optional `projects`, `services`, `freelancers`, and `postProject` URLs. Missing actions render as plain text via the shell's PublicLink. Member 1 owns protected-action routing, session behavior, and availability of Post a Job. No route/query-string contract is assumed. |
-| `getProjectHref`, `getServiceHref`, `getStudentHref` | Optional `(stableId) => availableURL` callbacks. Absent callbacks produce no fabricated detail/profile links. Actual destination screens and guards remain their owners' work. |
-| `howItWorks` | Optional existing section node; no duplicate implementation or placeholder recreation. |
-| `discoveryState` | `ready` (default), `loading`, or `error`. The latter states disable discovery inputs/actions and hide opportunity cards. These are supplied presentation states; the component performs no fetch and creates no artificial delay. |
-| `onRetry` | Optional retry callback; error recovery shows a real button only when this handler exists. |
+| LandingPage prop                                     | Behavior                                                                                                                                                                                                                                                                      |
+| ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `data`                                               | Defaults to Member 2's existing `marketplaceData`; accepts the same valid record shape for tests/integration. The page does not mutate it or introduce a new marketplace schema.                                                                                              |
+| `destinations`                                       | Optional `projects`, `services`, `freelancers`, and `postProject` URLs. Missing actions render as plain text via the shell's PublicLink. Member 1 owns protected-action routing, session behavior, and availability of Post a Job. No route/query-string contract is assumed. |
+| `getProjectHref`, `getServiceHref`, `getStudentHref` | Optional `(stableId) => availableURL` callbacks. Absent callbacks produce no fabricated detail/profile links. Actual destination screens and guards remain their owners' work.                                                                                                |
+| `howItWorks`                                         | Optional existing section node; no duplicate implementation or placeholder recreation.                                                                                                                                                                                        |
+| `discoveryState`                                     | `ready` (default), `loading`, or `error`. The latter states disable discovery inputs/actions and hide opportunity cards. These are supplied presentation states; the component performs no fetch and creates no artificial delay.                                             |
+| `onRetry`                                            | Optional retry callback; error recovery shows a real button only when this handler exists.                                                                                                                                                                                    |
 
 Search filters the in-memory project and service examples while typing. Submit
 and Find Work move keyboard focus to the results region without reloading.
@@ -620,15 +597,15 @@ skeleton loaders, progress indicators, empty states, and recoverable error
 presentation responsibilities. Related quality requirements: NFR-02, NFR-03,
 NFR-16; the demonstration does not mark these SRS requirements complete.
 
-| Component | Contract |
-|---|---|
-| LoadingSpinner | `label` defaults to Loading; standalone `role="status"` exposes this text. Use `decorative` when another message already announces the operation. Artwork is always hidden from assistive technology. |
-| Skeleton | Decorative, noninteractive placeholders hidden from assistive technology. `variant`: `text` (default), `circle`, or `rectangle`. Text `lines` defaults to 3 and is bounded to 1–10. No fake content or focus targets. |
-| ProgressIndicator | Visible `label` associated with native `<progress>` using generated ID or unique supplied `id`. Finite `value` is clamped between 0 and positive finite `max` (default 100). Omitted/nonfinite value means indeterminate, with no fabricated percentage. Invalid max falls back to 100. Updates are not independently live-announced. |
-| LoadingState | `message` defaults to Loading content…; one atomic status message, decorative spinner, and optional skeleton (`showSkeleton`, default true). Keep this announcement outside the consumer's busy content container; set `aria-busy` on that separate container. |
-| EmptyState | Named section with `title`, optional `description`, and decorative icon. Recovery button appears only for a function-valued `onAction`; `actionLabel` defaults to Clear filters. Supply a label and handler appropriate to the actual empty condition. No invented navigation. |
-| ErrorState | Named section with `title`, optional `description`, decorative error icon, optional function-valued `onRetry`, and `retryLabel` (default Try again). `retrying` disables the action and exposes button busy state. `announce` defaults false; opt in to an alert only when appropriate, without a second competing announcement. It is not an error boundary and never renders raw exceptions or technical details. |
-| Shared presentation | All accept `className`. EmptyState/ErrorState accept `headingLevel` 2, 3, or 4 (default/fallback 2) to fit the consuming page's hierarchy. Callers own data, recovery, focus after replacement, state transitions, and route access. |
+| Component           | Contract                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| LoadingSpinner      | `label` defaults to Loading; standalone `role="status"` exposes this text. Use `decorative` when another message already announces the operation. Artwork is always hidden from assistive technology.                                                                                                                                                                                                               |
+| Skeleton            | Decorative, noninteractive placeholders hidden from assistive technology. `variant`: `text` (default), `circle`, or `rectangle`. Text `lines` defaults to 3 and is bounded to 1–10. No fake content or focus targets.                                                                                                                                                                                               |
+| ProgressIndicator   | Visible `label` associated with native `<progress>` using generated ID or unique supplied `id`. Finite `value` is clamped between 0 and positive finite `max` (default 100). Omitted/nonfinite value means indeterminate, with no fabricated percentage. Invalid max falls back to 100. Updates are not independently live-announced.                                                                               |
+| LoadingState        | `message` defaults to Loading content…; one atomic status message, decorative spinner, and optional skeleton (`showSkeleton`, default true). Keep this announcement outside the consumer's busy content container; set `aria-busy` on that separate container.                                                                                                                                                      |
+| EmptyState          | Named section with `title`, optional `description`, and decorative icon. Recovery button appears only for a function-valued `onAction`; `actionLabel` defaults to Clear filters. Supply a label and handler appropriate to the actual empty condition. No invented navigation.                                                                                                                                      |
+| ErrorState          | Named section with `title`, optional `description`, decorative error icon, optional function-valued `onRetry`, and `retryLabel` (default Try again). `retrying` disables the action and exposes button busy state. `announce` defaults false; opt in to an alert only when appropriate, without a second competing announcement. It is not an error boundary and never renders raw exceptions or technical details. |
+| Shared presentation | All accept `className`. EmptyState/ErrorState accept `headingLevel` 2, 3, or 4 (default/fallback 2) to fit the consuming page's hierarchy. Callers own data, recovery, focus after replacement, state transitions, and route access.                                                                                                                                                                                |
 
 ```jsx
 <LoadingState message="Loading results…" />
@@ -715,16 +692,16 @@ requirements: NFR-02 (accessibility), NFR-03 (responsiveness), and NFR-16
 
 ### Component contract
 
-| Property | Behavior |
-|---|---|
-| `open` | Controlled boolean, default false. Opens through native `showModal()` in an effect; the component never renders a nonmodal `open` attribute. Closed content remains mounted but is hidden by the browser. |
-| `onClose(reason)` | Required function when open. Requests dismissal with `close-button`, `escape`, `backdrop`, or `native-close`. The consumer updates `open`; no business action is inferred. A missing callback while open throws a developer-facing error rather than creating an undismissable dialog. Consumer-driven closure does not emit a second request. |
-| `title`, `description` | Visible title and optional short description, associated with generated unique IDs. Title defaults/falls back to Dialog; supply a meaningful feature title. Description should be brief text; put complex structured content in children. |
-| `children`, `actions` | Consumer-owned body and optional action area. Actions can compose existing Button variants, including disabled/loading. No proposal, payment, committee, or portfolio behavior is embedded. |
-| `initialFocusRef` | Optional stable React ref to an available DOM element inside the dialog. Otherwise the heading receives initial focus. A below-fold target is scrolled into view. Unavailable/outside targets fall back to the heading. |
-| `closeOnBackdrop` | Default false to avoid accidental dismissal. When true, both pointer-down and click must occur outside the panel; a drag beginning inside does not dismiss. Escape and the labeled close button remain available. |
-| `closeLabel` | Accessible close-button label, default Close dialog. The decorative 22px artwork sits within a 44px target. |
-| `headingLevel`, `className` | Heading level 2 (default), 3, or 4, following existing feedback conventions; invalid levels fall back to 2. Additional class is scoped to the dialog. |
+| Property                    | Behavior                                                                                                                                                                                                                                                                                                                                       |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `open`                      | Controlled boolean, default false. Opens through native `showModal()` in an effect; the component never renders a nonmodal `open` attribute. Closed content remains mounted but is hidden by the browser.                                                                                                                                      |
+| `onClose(reason)`           | Required function when open. Requests dismissal with `close-button`, `escape`, `backdrop`, or `native-close`. The consumer updates `open`; no business action is inferred. A missing callback while open throws a developer-facing error rather than creating an undismissable dialog. Consumer-driven closure does not emit a second request. |
+| `title`, `description`      | Visible title and optional short description, associated with generated unique IDs. Title defaults/falls back to Dialog; supply a meaningful feature title. Description should be brief text; put complex structured content in children.                                                                                                      |
+| `children`, `actions`       | Consumer-owned body and optional action area. Actions can compose existing Button variants, including disabled/loading. No proposal, payment, committee, or portfolio behavior is embedded.                                                                                                                                                    |
+| `initialFocusRef`           | Optional stable React ref to an available DOM element inside the dialog. Otherwise the heading receives initial focus. A below-fold target is scrolled into view. Unavailable/outside targets fall back to the heading.                                                                                                                        |
+| `closeOnBackdrop`           | Default false to avoid accidental dismissal. When true, both pointer-down and click must occur outside the panel; a drag beginning inside does not dismiss. Escape and the labeled close button remain available.                                                                                                                              |
+| `closeLabel`                | Accessible close-button label, default Close dialog. The decorative 22px artwork sits within a 44px target.                                                                                                                                                                                                                                    |
+| `headingLevel`, `className` | Heading level 2 (default), 3, or 4, following existing feedback conventions; invalid levels fall back to 2. Additional class is scoped to the dialog.                                                                                                                                                                                          |
 
 ```jsx
 <Button onClick={() => setOpen(true)}>Open example</Button>
@@ -841,13 +818,13 @@ This component work does not mark complete marketplace/profile workflows deliver
 
 ### Tabs contract
 
-| Property | Behavior |
-|---|---|
-| `items` | Array of `{ id, label, content, disabled? }`. IDs must be unique nonempty strings; invalid/duplicate IDs throw a clear developer-facing error. Generated instance prefixes and encoded item IDs connect each tab/panel pair without collisions. Empty arrays render nothing. |
+| Property                     | Behavior                                                                                                                                                                                                                                                                                                                          |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `items`                      | Array of `{ id, label, content, disabled? }`. IDs must be unique nonempty strings; invalid/duplicate IDs throw a clear developer-facing error. Generated instance prefixes and encoded item IDs connect each tab/panel pair without collisions. Empty arrays render nothing.                                                      |
 | `value`, `onValueChange(id)` | Controlled selected ID and selection-request callback. No selected-record or section state is owned internally. Missing, unknown, or item-disabled values show no selected panel; the consumer must supply a valid selection rather than relying on silent fallback. Clicking the already selected tab does not request a change. |
-| `label` | Accessible tablist name, default Sections. Use a meaningful distinct label when multiple groups exist. |
-| `disabled` | Disables tab activation; defaults false. Missing callback also disables controls. An otherwise valid selected panel remains visible when the whole control is disabled. |
-| `className` | Optional class on the component root. Styling remains scoped. |
+| `label`                      | Accessible tablist name, default Sections. Use a meaningful distinct label when multiple groups exist.                                                                                                                                                                                                                            |
+| `disabled`                   | Disables tab activation; defaults false. Missing callback also disables controls. An otherwise valid selected panel remains visible when the whole control is disabled.                                                                                                                                                           |
+| `className`                  | Optional class on the component root. Styling remains scoped.                                                                                                                                                                                                                                                                     |
 
 Tabs use **manual activation**: Left/Right move focus with wrapping; Home/End
 move to the first/last available tab. Disabled items are skipped. Enter/Space
@@ -867,13 +844,13 @@ These are local content tabs, not navigation links or route registration.
 
 ### Pagination contract
 
-| Property | Behavior |
-|---|---|
-| `page`, `pageCount` | Controlled 1-based page (default 1) and total page count (default 0). Valid controls require safe integers with `1 <= page <= pageCount`. No clamping or automatic reset changes the consumer's selected page. |
-| `onPageChange(number)` | Emits a requested page number from Previous, Next, or a number button. Does not fetch/slice/sort records, compute page size/totals, change the URL, or own selection state. Current-page activation is a no-op. |
-| `summary` | Optional consumer-supplied summary. No job counts, record ranges, data, or currency claims are invented. Empty/invalid page inputs show only a supplied summary, otherwise render nothing. |
-| `label`, `previousLabel`, `nextLabel`, `getPageLabel(number)` | Accessible names; defaults Pagination, Previous page, Next page, and Page N. Callers can supply approved labels without embedding translations in the component. |
-| `disabled`, `className` | Optional global disabled state and root class. Missing callback disables all actions. Boundary Previous/Next buttons are natively disabled. |
+| Property                                                      | Behavior                                                                                                                                                                                                        |
+| ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `page`, `pageCount`                                           | Controlled 1-based page (default 1) and total page count (default 0). Valid controls require safe integers with `1 <= page <= pageCount`. No clamping or automatic reset changes the consumer's selected page.  |
+| `onPageChange(number)`                                        | Emits a requested page number from Previous, Next, or a number button. Does not fetch/slice/sort records, compute page size/totals, change the URL, or own selection state. Current-page activation is a no-op. |
+| `summary`                                                     | Optional consumer-supplied summary. No job counts, record ranges, data, or currency claims are invented. Empty/invalid page inputs show only a supplied summary, otherwise render nothing.                      |
+| `label`, `previousLabel`, `nextLabel`, `getPageLabel(number)` | Accessible names; defaults Pagination, Previous page, Next page, and Page N. Callers can supply approved labels without embedding translations in the component.                                                |
+| `disabled`, `className`                                       | Optional global disabled state and root class. Missing callback disables all actions. Boundary Previous/Next buttons are natively disabled.                                                                     |
 
 Pagination is a labeled `nav` containing native action buttons, with exactly one
 `aria-current="page"` on valid input. Ellipses are decorative, noninteractive,
@@ -989,17 +966,17 @@ requirements: NFR-02, NFR-03, NFR-16; no complete SRS workflow is marked deliver
 
 ### DataTable contract
 
-| Property | Behavior |
-|---|---|
-| `caption`, `description`, `headingLevel` | Visible title (default Records), optional description, and heading level 2/3/4 (default/fallback 2). A native caption names the table, with unique IDs for the surrounding section, description, and headers. |
-| `columns` | Required nonempty array of `{ id, header, render(row), rowHeader?, sortable?, align?, width? }`. IDs/headers must be nonempty strings, IDs unique, and render a function. At most one row-header column. Header labels and cell rendering remain caller-owned. |
-| `rows`, `getRowId(row)` | Array (default empty), rendered exactly in supplied order. Default getter uses `row.id`. Each ready-state row requires a unique nonempty string or finite numeric ID; numeric/string collisions are rejected. No index-based identity, record mutation, ranking, filtering, or hidden sorting. |
-| `sort`, `onSortChange(request)` | Optional controlled `{ columnId, direction }`, where direction is ascending/descending. Only a matching sortable column exposes `aria-sort`. Native header buttons request `{ columnId, direction }`; the caller must update state and supply reordered rows. A missing callback disables sort buttons. Invalid sort metadata is not presented as active sorting. |
-| `getSortLabel(header, direction)` | Optional accessible request-label function; default Sort HEADER DIRECTION. The visible hint is Sort or the supplied active direction. No automatic record operation occurs. |
-| `toolbar`, `pagination` | Optional caller-owned nodes. Toolbar can compose existing Input/Select/Checkbox/Button controls. Pagination can compose the existing Pagination component or other approved caller presentation. False/null/omitted slots add no wrapper. Pagination is shown only for ready, nonempty rows. |
-| `state` | ready (default), loading, or error. Unknown values throw. Ready with no rows uses EmptyState. Loading/error suppress stale row rendering and pagination. The caller owns transitions, operations, toolbar disabled states, result announcements, and focus recovery when replacing focused content. |
-| Feedback props | `loadingLabel`; `emptyTitle`, `emptyDescription`, `onEmptyAction`, `emptyActionLabel`; `errorMessage`, `onRetry`. Shared feedback provides actions only for real callbacks. Loading status sits outside the busy content container so it is not deferred by `aria-busy`. Never pass raw exceptions or sensitive data as user messages. |
-| Layout props | `className` is on the root. Column `width` supplies an optional CSS width; otherwise fixed table layout distributes widths. `align` sets desktop cell alignment to start/end/center (fallback start). Mobile stacked fields use reading-direction start alignment. |
+| Property                                 | Behavior                                                                                                                                                                                                                                                                                                                                                          |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `caption`, `description`, `headingLevel` | Visible title (default Records), optional description, and heading level 2/3/4 (default/fallback 2). A native caption names the table, with unique IDs for the surrounding section, description, and headers.                                                                                                                                                     |
+| `columns`                                | Required nonempty array of `{ id, header, render(row), rowHeader?, sortable?, align?, width? }`. IDs/headers must be nonempty strings, IDs unique, and render a function. At most one row-header column. Header labels and cell rendering remain caller-owned.                                                                                                    |
+| `rows`, `getRowId(row)`                  | Array (default empty), rendered exactly in supplied order. Default getter uses `row.id`. Each ready-state row requires a unique nonempty string or finite numeric ID; numeric/string collisions are rejected. No index-based identity, record mutation, ranking, filtering, or hidden sorting.                                                                    |
+| `sort`, `onSortChange(request)`          | Optional controlled `{ columnId, direction }`, where direction is ascending/descending. Only a matching sortable column exposes `aria-sort`. Native header buttons request `{ columnId, direction }`; the caller must update state and supply reordered rows. A missing callback disables sort buttons. Invalid sort metadata is not presented as active sorting. |
+| `getSortLabel(header, direction)`        | Optional accessible request-label function; default Sort HEADER DIRECTION. The visible hint is Sort or the supplied active direction. No automatic record operation occurs.                                                                                                                                                                                       |
+| `toolbar`, `pagination`                  | Optional caller-owned nodes. Toolbar can compose existing Input/Select/Checkbox/Button controls. Pagination can compose the existing Pagination component or other approved caller presentation. False/null/omitted slots add no wrapper. Pagination is shown only for ready, nonempty rows.                                                                      |
+| `state`                                  | ready (default), loading, or error. Unknown values throw. Ready with no rows uses EmptyState. Loading/error suppress stale row rendering and pagination. The caller owns transitions, operations, toolbar disabled states, result announcements, and focus recovery when replacing focused content.                                                               |
+| Feedback props                           | `loadingLabel`; `emptyTitle`, `emptyDescription`, `onEmptyAction`, `emptyActionLabel`; `errorMessage`, `onRetry`. Shared feedback provides actions only for real callbacks. Loading status sits outside the busy content container so it is not deferred by `aria-busy`. Never pass raw exceptions or sensitive data as user messages.                            |
+| Layout props                             | `className` is on the root. Column `width` supplies an optional CSS width; otherwise fixed table layout distributes widths. `align` sets desktop cell alignment to start/end/center (fallback start). Mobile stacked fields use reading-direction start alignment.                                                                                                |
 
 The desktop table uses native table/caption/column/row-header semantics.
 Explicit roles and `headers` relationships preserve these semantics when CSS
@@ -1013,13 +990,13 @@ visits its native controls without invented arrow-key cell navigation.
 
 ### StatCard contract
 
-| Property | Behavior |
-|---|---|
+| Property                        | Behavior                                                                                                                                                                                                                                                                                                        |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `label`, `value`, `description` | Named section with a native definition-list label/value and optional context. Label defaults to Statistic. Value is a caller-formatted nonempty string or finite number. Zero is preserved; absent, blank, boolean, object, or nonfinite values show `missingLabel` (default Unavailable), never invented zero. |
-| `icon` | Optional caller-supplied, decorative, noninteractive node hidden from assistive technology. No dashboard-specific default icon is inferred. Pass approved artwork at its natural size; the inspected metric icons are 18px. |
-| `state` | ready (default), loading, or error. Loading replaces stale values with a Skeleton and a separate LoadingState message outside the busy value. Error replaces stale values with Unavailable and compact inline feedback. Unknown states throw. |
-| Feedback props | `loadingLabel`, `missingLabel`, `errorMessage`, `onRetry`, `retryLabel`. Error retry exists only for a supplied function. No request, timer, automatic alert, or business-state transition is introduced. |
-| `className` | Optional root class. Grid placement, card grouping, metrics, time periods, trends, formatting, currency and operations remain caller-owned. EGP values must use the project's existing formatter in the consuming feature. |
+| `icon`                          | Optional caller-supplied, decorative, noninteractive node hidden from assistive technology. No dashboard-specific default icon is inferred. Pass approved artwork at its natural size; the inspected metric icons are 18px.                                                                                     |
+| `state`                         | ready (default), loading, or error. Loading replaces stale values with a Skeleton and a separate LoadingState message outside the busy value. Error replaces stale values with Unavailable and compact inline feedback. Unknown states throw.                                                                   |
+| Feedback props                  | `loadingLabel`, `missingLabel`, `errorMessage`, `onRetry`, `retryLabel`. Error retry exists only for a supplied function. No request, timer, automatic alert, or business-state transition is introduced.                                                                                                       |
+| `className`                     | Optional root class. Grid placement, card grouping, metrics, time periods, trends, formatting, currency and operations remain caller-owned. EGP values must use the project's existing formatter in the consuming feature.                                                                                      |
 
 Example composition (all records, configuration, state, and callbacks below
 belong to the consuming feature):
@@ -1120,15 +1097,15 @@ does not implement the P-29 notifications workflow or notification delivery.
 
 ### Component contract
 
-| Property | Behavior |
-|---|---|
-| `message` | Required nonempty string, rendered as escaped text. The consuming feature supplies accurate, safe feedback and identifies simulated outcomes where needed. Never pass raw exceptions, sensitive data or unconfirmed product claims. |
-| `description` | Optional string with additional context. Blank/absent descriptions add no paragraph. |
-| `variant` | info (default), success, warning, error or loading. Explicit visible labels prevent color-only status meaning. Unknown variants fall back to info. Loading composes a decorative spinner, not another live region. |
-| `statusLabel` | Optional nonempty string replacing Information, Success, Warning, Error or Loading. Consumers can supply approved translated labels without embedding unofficial translations in this component. |
-| `announcement` | polite (default) gives one atomic status region; assertive explicitly opts into an alert; off omits live-region attributes for use with a single external announcer. Unknown values fall back to polite. Error styling does not automatically interrupt assistive technology. |
-| `onDismiss`, `dismissLabel` | A real callback enables the native, non-submitting dismissal button. Its accessible name defaults to Dismiss notification and must be nonempty when supplied. The callback requests dismissal; ignoring it leaves the toast visible. No callback means no dismissal control. |
-| `className` | Optional class on the root Card. Container placement and stacking remain caller-owned. |
+| Property                    | Behavior                                                                                                                                                                                                                                                                      |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `message`                   | Required nonempty string, rendered as escaped text. The consuming feature supplies accurate, safe feedback and identifies simulated outcomes where needed. Never pass raw exceptions, sensitive data or unconfirmed product claims.                                           |
+| `description`               | Optional string with additional context. Blank/absent descriptions add no paragraph.                                                                                                                                                                                          |
+| `variant`                   | info (default), success, warning, error or loading. Explicit visible labels prevent color-only status meaning. Unknown variants fall back to info. Loading composes a decorative spinner, not another live region.                                                            |
+| `statusLabel`               | Optional nonempty string replacing Information, Success, Warning, Error or Loading. Consumers can supply approved translated labels without embedding unofficial translations in this component.                                                                              |
+| `announcement`              | polite (default) gives one atomic status region; assertive explicitly opts into an alert; off omits live-region attributes for use with a single external announcer. Unknown values fall back to polite. Error styling does not automatically interrupt assistive technology. |
+| `onDismiss`, `dismissLabel` | A real callback enables the native, non-submitting dismissal button. Its accessible name defaults to Dismiss notification and must be nonempty when supplied. The callback requests dismissal; ignoring it leaves the toast visible. No callback means no dismissal control.  |
+| `className`                 | Optional class on the root Card. Container placement and stacking remain caller-owned.                                                                                                                                                                                        |
 
 Invalid message/description/status-label/dismiss-label types fail clearly as
 developer configuration errors instead of silently showing raw objects or
@@ -1257,12 +1234,12 @@ Editorial and visual review of the assembled public pages remains required.
 
 ### Page contracts and composition
 
-| Component/property | Behavior |
-|---|---|
-| `AboutPage({ destinations = {} })` | One h1, project purpose, project/proposal explanation, service/package explanation and related public destinations. |
-| `HowItWorksPage({ destinations = {}, howItWorks = null })` | One h1, two native ordered journey lists and related public destinations. Optional `howItWorks` is a supplied React node, rendered once between the introduction and detailed journeys. |
-| `destinations` | About consumes `howItWorks`, `projects`, `services`; How It Works consumes `projects`, `services`, `about`. Only supplied destinations become native links. Missing destinations remain text through PublicLink, never guessed routes or placeholder `#` links. |
-| Shared internal presentation | Provides the page title, introduction, Phase 1 notice, content grid and named exploration navigation. It does not add another main, header, footer, provider or route. |
+| Component/property                                         | Behavior                                                                                                                                                                                                                                                        |
+| ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `AboutPage({ destinations = {} })`                         | One h1, project purpose, project/proposal explanation, service/package explanation and related public destinations.                                                                                                                                             |
+| `HowItWorksPage({ destinations = {}, howItWorks = null })` | One h1, two native ordered journey lists and related public destinations. Optional `howItWorks` is a supplied React node, rendered once between the introduction and detailed journeys.                                                                         |
+| `destinations`                                             | About consumes `howItWorks`, `projects`, `services`; How It Works consumes `projects`, `services`, `about`. Only supplied destinations become native links. Missing destinations remain text through PublicLink, never guessed routes or placeholder `#` links. |
+| Shared internal presentation                               | Provides the page title, introduction, Phase 1 notice, content grid and named exploration navigation. It does not add another main, header, footer, provider or route.                                                                                          |
 
 Member 1 supplies PublicLayout and registers `/about` and `/how-it-works`.
 These page components do not register either path or replace the existing App.
@@ -1346,6 +1323,32 @@ npm.cmd run lint
 npm.cmd run build
 node node_modules/prettier/bin/prettier.cjs --check src/features/public/AboutPage.jsx src/features/public/HowItWorksPage.jsx src/features/public/info/PublicInfoPage.jsx src/features/public/info/public-info.css src/features/public/info/publicInfo.test.js
 ```
+
+## 11. States to Support
+
+Relevant components should cover:
+
+- Default
+- Hover
+- Focus
+- Disabled
+- Loading
+- Error
+- Success
+- Empty
+- Selected
+
+## 12. Acceptance Checklist
+
+- [ ] Matches approved Figma
+- [ ] Reusable without unnecessary duplication
+- [ ] Supports expected variants
+- [ ] Keyboard accessible
+- [ ] Clearly labeled
+- [ ] Responsive
+- [ ] No hidden network side effects
+- [ ] Documented props
+- [ ] Appropriate tests
 
 ## Related Documents
 
