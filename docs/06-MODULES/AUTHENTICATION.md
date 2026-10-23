@@ -135,6 +135,10 @@ The public/authentication shell now uses a clean shared header with Home, Projec
 
 The Figma-based landing page is now rendered at `/` (23 October 2026). It reuses this public header and the existing session/logout behavior without changing authentication. Its Post a Job entry opens `/register?role=client`; it does not bypass role checks or implement project publication. See [Landing Page](LANDING_PAGE.md).
 
+### Registration role card presentation
+
+The `/register` and `/register/role` selection screens use concise copy and centered Student/Client cards with soft shadows (23 October 2026). Cards sit beside each other above 480px and stack on smaller screens. Each card has a rotating red perimeter light on hover or keyboard focus, a visible focus outline, and a static effect when reduced motion is requested. A short demo label preserves Phase 1 transparency. Role links and registration validation retain the existing FR-V03, FR-S01 and FR-C01 behavior; no session or route contracts change.
+
 ## 9. Production Security Requirements
 
 Future implementation must provide:

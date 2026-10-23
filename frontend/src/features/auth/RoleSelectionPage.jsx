@@ -1,38 +1,36 @@
 import { Link } from "react-router-dom";
 import { PUBLIC_REGISTRATION_ROLES, ROLES } from "./session.js";
+import "./roleSelection.css";
 
 export default function RoleSelectionPage() {
   return (
-    <section className="mx-auto max-w-3xl space-y-6 rounded-xl border border-gray-200 bg-white p-6 sm:p-8">
-      <h1 className="text-2xl font-bold">Choose your account role</h1>
-      <p>
-        Simulated registration is available for students and clients only.
-        Committee accounts are provisioned by the Super Admin.
-      </p>
-      <div className="grid gap-5 sm:grid-cols-2">
+    <section className="role-selection" aria-labelledby="role-selection-title">
+      <header>
+        <p className="role-selection-eyebrow">Join MIU Freelance</p>
+        <h1 id="role-selection-title">Choose your account role</h1>
+      </header>
+      <div className="role-selection-cards">
         {PUBLIC_REGISTRATION_ROLES.map((role) => (
           <Link
             key={role}
             to={`/register?role=${role}`}
-            className="space-y-3 rounded-xl border border-gray-300 p-6 transition-colors hover:border-miu-red hover:bg-miu-red-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+            className="registration-role-card"
           >
-            <h2 className="text-xl font-semibold">
-              {role === ROLES.STUDENT ? "Student" : "Client"}
-            </h2>
-            <p className="text-sm text-gray-700">
+            <h2>{role === ROLES.STUDENT ? "Student" : "Client"}</h2>
+            <p>
               {role === ROLES.STUDENT
-                ? "Offer your skills, submit proposals, and publish freelance services."
-                : "Post projects, discover student talent, and order services."}
+                ? "Find work. Share your skills."
+                : "Hire talent. Bring ideas to life."}
             </p>
-            <span className="block font-medium text-miu-red">
-              Continue as {role === ROLES.STUDENT ? "Student" : "Client"} →
-            </span>
           </Link>
         ))}
       </div>
-      <Link to="/login" className="underline">
-        Back to login
-      </Link>
+      <footer className="role-selection-footer">
+        <p>
+          Already have an account? <Link to="/login">Sign in</Link>
+        </p>
+        <p className="role-selection-demo">Demo registration</p>
+      </footer>
     </section>
   );
 }

@@ -1,0 +1,149 @@
+@property --role-glow-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.role-selection {
+  min-height: calc(100svh - 170px);
+  max-width: 760px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding-block: 24px;
+  text-align: center;
+}
+.role-selection-eyebrow {
+  margin-bottom: 12px;
+  color: var(--color-miu-red);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.role-selection h1 {
+  color: var(--color-miu-black);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+}
+.role-selection-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  width: 100%;
+  max-width: 660px;
+}
+.registration-role-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 270px;
+  padding: 28px 20px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 24px;
+  background: white;
+  box-shadow:
+    0 16px 40px -16px rgb(17 17 17 / 20%),
+    0 4px 12px rgb(17 17 17 / 4%);
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+/* The mask keeps the rotating light on the card's perimeter. */
+.registration-role-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  padding: 2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--role-glow-angle),
+    transparent 0% 65%,
+    var(--color-miu-red-light) 76%,
+    var(--color-miu-red) 88%,
+    var(--color-miu-red-light) 94%,
+    transparent 100%
+  );
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+}
+.registration-role-card:hover,
+.registration-role-card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 44px -16px rgb(185 28 43 / 22%),
+    0 0 24px rgb(185 28 43 / 10%);
+}
+.registration-role-card:hover::before,
+.registration-role-card:focus-visible::before {
+  opacity: 1;
+  animation: role-glow-orbit 2.8s linear infinite;
+}
+.registration-role-card:focus-visible {
+  outline: 2px solid var(--color-miu-red);
+  outline-offset: 6px;
+}
+.registration-role-card h2 {
+  color: var(--color-miu-black);
+  font-size: 28px;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+}
+.registration-role-card p,
+.role-selection-footer {
+  color: var(--color-gray-600);
+  font-size: 14px;
+}
+.role-selection-footer a {
+  color: var(--color-miu-red);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.role-selection-demo {
+  margin-top: 12px;
+  color: var(--color-gray-500);
+  font-size: 12px;
+}
+@keyframes role-glow-orbit {
+  to {
+    --role-glow-angle: 360deg;
+  }
+}
+@media (max-width: 480px) {
+  .role-selection {
+    gap: 28px;
+  }
+  .role-selection-cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .registration-role-card {
+    min-height: 190px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .registration-role-card {
+    transition: none;
+  }
+  .registration-role-card:hover,
+  .registration-role-card:focus-visible {
+    transform: none;
+  }
+  .registration-role-card:hover::before,
+  .registration-role-card:focus-visible::before {
+    animation: none;
+  }
+}
