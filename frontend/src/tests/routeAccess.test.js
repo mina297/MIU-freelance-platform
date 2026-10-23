@@ -42,6 +42,20 @@ test("dynamic project details remain routable but are hidden from global navigat
   assert.equal(projectDetails.showInNavigation, false);
 });
 
+test("proposal entry admits only active students and stays out of navigation", () => {
+  const route = routeConfig.find((item) => item.path === "/projects/:projectId/propose");
+  assert.ok(route);
+  assert.equal(route.showInNavigation, false);
+  assert.equal(getRouteAccess(INITIAL_SESSION, route), "login");
+  assert.equal(getRouteAccess({ status: "expired", user: null }, route), "expired");
+  for (const user of mockUsers) {
+    assert.equal(
+      getRouteAccess({ status: "authenticated", user }, route),
+      user.role === ROLES.STUDENT ? "allowed" : "denied",
+    );
+  }
+});
+
 test("visitors and expired sessions can browse public routes but cannot enter protected routes", () => {
   for (const route of routeConfig) {
     const isPublic = route.access === "public";

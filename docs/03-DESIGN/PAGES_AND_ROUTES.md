@@ -74,6 +74,11 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
+Proposal entry increment: `/projects/:projectId/propose` is a student-only route,
+hidden from global navigation. Open project details link to it. The entry page
+handles missing/closed projects and explains verification requirements; the
+proposal form and submission are still planned.
+
 Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with one route registry at `frontend/src/app/routeConfig.js` and one in-memory session provider.
 
 - Public placeholders: `/`, `/services`.

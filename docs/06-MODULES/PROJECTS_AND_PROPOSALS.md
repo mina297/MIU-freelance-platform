@@ -54,6 +54,13 @@ Students can:
 
 ## 5. Proposal Submission
 
+The first P-08 increment registers `/projects/:projectId/propose` for active
+student accounts only. Open project details provide a Submit proposal entry.
+Visitors go through the shared login flow; other roles are denied. Missing and
+non-open projects show recovery states. Pending verification is explained per
+BR-06. This entry screen does not yet implement the form, attachments, or mock
+submission; FR-S05 is not complete.
+
 A proposal contains:
 
 - Proposed price in EGP
