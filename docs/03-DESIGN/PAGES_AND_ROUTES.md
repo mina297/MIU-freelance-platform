@@ -98,6 +98,12 @@ saved-item state, a responsive marketplace layout, and an empty state. This rout
 
 ## 4. Layout Groups
 
+**Super Admin preview:** `/admin` now renders the Platform Control Center under
+the existing Super Admin guard. Sections use query parameters and the existing
+mock-session controls provide access. All five committee links switch explicitly
+to their corresponding demo session; committee workflows remain placeholders.
+See [Super Admin Dashboard](../06-MODULES/SUPER_ADMIN_DASHBOARD.md).
+
 ### Public Layout
 Landing, catalogues, service/project details, informational pages.
 
