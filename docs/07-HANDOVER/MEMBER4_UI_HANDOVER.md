@@ -147,6 +147,30 @@ not simulated into existence. Edge and the earlier Chrome checks both use
 Chromium; this does not provide Firefox/WebKit coverage. No manual browser,
 screen-reader, real-touch or full WCAG AA audit is claimed.
 
+### Follow-up: existing section slot compatibility
+
+On 23 October 2026, a temporary Vite SSR loader read the original
+`HowItWorksSection.jsx`, its CSS and six SVG imports directly from Git commit
+`753d9f1`, without copying files or combining branch histories. It composed
+the actual section through the `howItWorks` slot in both `LandingPage` and
+`HowItWorksPage`, inside `PublicLayout` from the handover stack.
+
+Both compositions passed: one section instance, three original steps, six
+decorative images, an associated section heading, one main landmark and one
+h1. Landing placement preceded discovery, and omitting the slot rendered no
+section. All **22 existing landing/public-info tests** also passed:
+
+```powershell
+cd frontend
+node --test --test-concurrency=1 src/features/public/landing/landing.test.js src/features/public/info/publicInfo.test.js
+```
+
+This verifies server-rendered component contracts only. No source, route,
+provider or application integration changed. Integrated browser layout,
+deep-link behavior and accessibility acceptance remain pending; the temporary
+loader is not a committed regression suite. A full test/lint/build rerun was
+not needed for this documentation-only follow-up.
+
 ### Genuinely outstanding acceptance work
 
 | Check                                                                         | Current status / prerequisite                                                                              |
@@ -208,5 +232,6 @@ After the team approves and integrates the necessary work:
    status without marking unrelated SRS workflows complete.
 
 This handover branch changes documentation only. Its new verification consists
-of the focused Edge checks above, local documentation-file reference checks and
-Git whitespace checks. There were no reproduced source defects requiring changes.
+of the focused Edge checks, follow-up SSR compositions and focused tests above,
+local documentation-file reference checks and Git whitespace checks. There were
+no reproduced source defects requiring changes.
