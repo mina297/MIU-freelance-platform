@@ -56,6 +56,7 @@ These are scope limitations and documentation tasks, not verified software bugs.
 | OD-14 | Hosting | Approve deployment provider and environment. |
 | OD-15 | Permissions | Finalize fine-grained committee authorization rules. |
 | OD-16 | Academic Deliverables | Confirm whether the complete working React frontend is mandatory for the Phase 1 discussion beyond SRS/prototypes. |
+| OD-17 | Public Policy Content | Supply and approve Terms and Privacy text, responsible owner and publication/version details against actual project practices. Member 4 pages are explicitly labeled placeholders; route integration remains with Member 1. Related unresolved decisions include OD-03 and OD-05–07. |
 
 ## 5. Verified Bugs
 

@@ -119,6 +119,217 @@ All prices use the shared EGP formatter.
 
 Phase 1 verification and AI outputs must be visibly simulated.
 
+## Member 4 — Public About and How It Works pages
+
+`features/public/AboutPage.jsx` and `HowItWorksPage.jsx` provide static,
+content-only public pages. They share the internal `info/PublicInfoPage.jsx`
+presentation and scoped `info/public-info.css`, composing the existing Card,
+Badge and PublicLink components. There are no new dependencies, assets, data
+records, forms, operations, global tokens or application integrations.
+
+### Content and requirement boundaries
+
+- About explains the academic project's purpose and both marketplace models,
+  based on `PROJECT_OVERVIEW.md` sections 1–4 and `PROJECT_SCOPE.md` sections 2/4.
+- How It Works explains the planned project/proposal and service/package paths,
+  based on `USER_FLOWS.md` sections 4–6 and the Projects/Proposals and
+  Services/Orders module documents. It preserves EGP-only pricing, participant
+  roles, permitted extras, delivery review and revision requests without
+  inventing fees, eligibility thresholds, revision limits or completion rules.
+- Both show a Phase 1 notice distinguishing planned workflows and simulated
+  authentication, verification, AI, payment and escrow from live operations.
+- This is explanatory content supporting FR-V01 and the documented marketplace
+  journeys, not an implementation of those workflows. Relevant quality
+  requirements are NFR-01, NFR-02, NFR-03 and NFR-16. No SRS workflow is marked
+  complete merely because these pages exist.
+
+The copy is derived from the documented baseline. It is not an official
+university statement, approved legal content, or evidence of production service.
+Editorial and visual review of the assembled public pages remains required.
+
+### Page contracts and composition
+
+| Component/property                                         | Behavior                                                                                                                                                                                                                                                        |
+| ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `AboutPage({ destinations = {} })`                         | One h1, project purpose, project/proposal explanation, service/package explanation and related public destinations.                                                                                                                                             |
+| `HowItWorksPage({ destinations = {}, howItWorks = null })` | One h1, two native ordered journey lists and related public destinations. Optional `howItWorks` is a supplied React node, rendered once between the introduction and detailed journeys.                                                                         |
+| `destinations`                                             | About consumes `howItWorks`, `projects`, `services`; How It Works consumes `projects`, `services`, `about`. Only supplied destinations become native links. Missing destinations remain text through PublicLink, never guessed routes or placeholder `#` links. |
+| Shared internal presentation                               | Provides the page title, introduction, Phase 1 notice, content grid and named exploration navigation. It does not add another main, header, footer, provider or route.                                                                                          |
+
+Member 1 supplies PublicLayout and registers `/about` and `/how-it-works`.
+These page components do not register either path or replace the existing App.
+Static explanatory content has no fetch, session or loading/error state machine.
+Members 2/3/5 retain all marketplace, order, financial and profile workflows.
+
+The completed `HowItWorksSection` remains on the separately approved
+`feat/m4-how-it-works-section` branch at `753d9f1`, outside this component stack.
+It is not copied, recreated, imported from an absent path or cherry-picked.
+Once the team integrates that dependency, Member 1 can compose it directly:
+
+```jsx
+<PublicLayout destinations={availableDestinations} currentPath={currentPath}>
+  <HowItWorksPage
+    destinations={availableDestinations}
+    howItWorks={<HowItWorksSection />}
+  />
+</PublicLayout>
+```
+
+The existing section keeps its own heading, markup, assets and styling. The
+new page adds the distinct detailed two-marketplace explanation rather than
+duplicating the landing timeline. Without a supplied section, the explanation
+still renders; no replacement timeline or placeholder is fabricated. Actual
+composition with the separate completed section remains an integration check.
+
+### Approved references and explicit design gaps
+
+The approved Figma file `4OarPMFlQbiJI1Q1WxblcC` was accessible during this work.
+Current page metadata contains no dedicated public About or full How It Works
+page specimen. Profile About frames (`58:14879`, `58:15011`, `58:16011`,
+`58:16142`) are Member 5's profile views, not designs for the public About page.
+The landing How It Works frames (`8:2703`, `8:3000`) remain the visual reference
+for the separately completed section, not a reason to rebuild it here.
+
+The high-fidelity style-guide heading reference `4:2497` confirms Inter, 32px
+bold headings with 1.2 line height, 16px supporting text with 1.55 line height,
+MIU crimson and neutral secondary text. The pages reuse that typography, the
+existing public-page tinted introduction/notice treatment and foundation Cards.
+The 1200px content area with 20px side padding, 48px/32px desktop/mobile spacing,
+two-to-one-column change at 768px, and 32px/20px Card padding are adaptations of
+existing conventions, not confirmed geometry for missing full-page designs.
+Page links retain underlines, 44px minimum height and visible keyboard focus.
+Only specifically named new classes are styled; the supplied section's
+headings/cards are not restyled by blanket descendant selectors.
+
+### Verification and remaining integration
+
+Eight focused Node/Vite tests cover page landmarks, academic/two-marketplace
+content, Phase 1 disclosures, caller-owned destinations, missing-link behavior,
+unique heading associations, section composition exactly once, and PublicLayout
+composition. All 118 tests passed (8 new, 110 existing). Lint, source Prettier,
+default build and separate export-preserving builds of both unmounted pages
+passed. No shared build configuration was edited.
+
+Chrome checks used the real pages inside the existing PublicLayout in an
+in-memory fixture, with no tracked preview entry or route changes. Both pages
+had one h1/main, matching heading references, accessible exploration navigation,
+and no horizontal overflow at 320, 390, 640, 767, 768, 960, 1024 and 1440px.
+Tab navigation, visible focus, native Enter link activation and the existing
+skip link passed. Fixture links targeted in-document test destinations, not
+registered application routes. Missing destinations stayed noninteractive.
+The supplied-section boundary rendered once and accepted long text with inherited
+RTL without overflow. This does not verify the separate section's actual CSS.
+Reduced motion introduced no page animation. Journey decimal markers were
+explicitly restored after Tailwind's reset hid them; their final rendered style
+and layout were rechecked. Final mobile About and desktop How It Works
+screenshots were inspected. Successful checks had no runtime exceptions,
+console errors or failed HTTP responses.
+
+Remaining dependencies: Member 1 route/shell/destination integration, team
+integration of the separate section, full-page design/editorial approval,
+screen-reader testing, systematic zoom, cross-browser and real-touch checks.
+No approved translations, legal copy, measured student outcomes, verification
+claims or marketplace functionality are introduced.
+
+```bash
+cd frontend
+node --test --test-concurrency=1 src/features/public/info/publicInfo.test.js src/components/ui/toast.test.js src/components/ui/dataDisplay.test.js src/components/ui/navigationControls.test.js src/components/ui/modal.test.js src/components/feedback/states.test.js src/features/public/landing/landing.test.js src/components/navigation/publicShell.test.js src/components/ui/forms.test.js src/components/ui/foundation.test.js src/features/marketplace/marketplace.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/features/public/AboutPage.jsx src/features/public/HowItWorksPage.jsx src/features/public/info/PublicInfoPage.jsx src/features/public/info/public-info.css src/features/public/info/publicInfo.test.js
+```
+
+## Member 4 — Terms and Privacy placeholders
+
+`features/public/TermsPage.jsx` and `PrivacyPage.jsx` reuse the existing
+`info/PublicInfoPage.jsx`, public-info styles and foundation Card. Each is a
+static content component for PublicLayout, with one h1 and an associated
+placeholder heading. Existing public-page components, styles, assets, routes,
+marketplace features and dependencies are unchanged.
+
+### Content status and page contracts
+
+**No approved Terms or Privacy text was found in the repository.** Both pages
+therefore state “Placeholder — awaiting team-approved content” and identify
+themselves as unpublished Phase 1 placeholders. These are approval-status
+notices, not drafted legal documents. They add no usage conditions, consent
+controls, effective dates, fees, refunds, dispute procedures, contact details,
+data inventories, collection/sharing promises, retention periods or deletion
+commitments. The inherited Phase 1 notice remains visible.
+
+| Component                            | Optional destinations |
+| ------------------------------------ | --------------------- |
+| `TermsPage({ destinations = {} })`   | `privacy`, `about`    |
+| `PrivacyPage({ destinations = {} })` | `terms`, `about`      |
+
+Only caller-supplied destinations become links through the existing PublicLink.
+Missing destinations remain text. No `#` links, absent route paths, policy
+download links or application integration are fabricated. Member 1 supplies
+PublicLayout and registers `/terms` and `/privacy`. No API, form, acceptance
+record, session, tracking mechanism or data-processing behavior is implemented.
+There is no asynchronous state requiring a new loader or error flow.
+
+The pages reuse the existing Figma-derived public-page foundation described in
+the preceding public information page section. They introduce no new visual
+tokens, geometry, icon exports or claims of matching a dedicated policy-page
+Figma specimen. Their placeholder layout and future final copy need team review.
+Related presentation requirements: NFR-02, NFR-03 and NFR-16. Privacy requirement
+NFR-08 remains a requirement, not an implemented or approved privacy policy.
+
+### Required team approvals before publication
+
+The team must supply the actual text and record its approval, responsible owner,
+applicability/version and publication status. The following are content gaps,
+not proposed clauses or assertions that the platform already has these practices:
+
+- Terms: approved usage/account conditions; project/service obligations; any
+  applicable payment, fee, cancellation, refund and dispute provisions; and
+  confirmed issuer/contact details. Do not infer these from mock workflows.
+- Privacy: a verified inventory of actual data flows and any tracking/storage;
+  approved purposes, recipients/providers, access arrangements and retention/
+  deletion decisions; and confirmed privacy-contact and user-request content.
+  Do not claim collection, cookies, sharing or legal compliance from UI alone.
+- Resolve relevant existing decisions, including identity retention (OD-03),
+  escrow arrangements (OD-05), fees/refunds (OD-06/07) and provider choices.
+  The new OD-17 in Known Issues records the missing public policy content.
+
+Final content must be reviewed against the actual implementation and approved
+project decisions. The placeholders do not satisfy publication readiness or
+demonstrate legal/privacy compliance. No unrelated work is assumed to exist on
+this branch; it starts from the approved `1e4931b` public information pages.
+
+### Verification and remaining dependencies
+
+Seven focused Node/Vite tests verify explicit placeholder status, absence of
+operative clauses/practice claims or consent controls, native destination
+handling, unique heading associations and PublicLayout composition. All 125
+tests passed (7 new, 118 existing). Lint, source Prettier, default Vite build and
+separate export-preserving builds of both new pages passed. Build configuration
+was not edited; the application entry still mounts the existing catalogue.
+
+Chrome checks used the real pages in an in-memory PublicLayout fixture, without
+tracked preview files or route changes. Both pages had one h1/main and no
+horizontal overflow at 320, 390, 640, 767, 768, 960, 1024 and 1440px. Placeholder
+headings were visible and exposed in Chrome's accessibility tree. Tab traversal,
+visible focus, native Enter activation and skip-link focus passed. Links used
+in-document fixture destinations; this does not verify application routing.
+Missing destinations stayed text, link heights were at least 44px, inherited RTL
+fit at 320px, and the pages introduced no animation under reduced motion.
+Mobile Terms and desktop Privacy screenshots were inspected. Successful browser
+checks had no runtime exceptions, console errors or failed HTTP responses.
+
+Remaining: team-approved policy text and visual review, Member 1 route/shell/
+destination integration, screen-reader testing, systematic zoom, cross-browser
+and real-touch checks. No approved translations or legal content are invented.
+
+```bash
+cd frontend
+node --test src/features/public/info/policyPages.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/features/public/TermsPage.jsx src/features/public/PrivacyPage.jsx src/features/public/info/policyPages.test.js
+```
+
 ## 9. Component API Guidelines
 
 Components should:
