@@ -34,10 +34,11 @@ merged into that target, but remains absent from this branch's source tree.
 All 13 open Member 4 PRs were inspected and target `main`. Documentation-only
 conflict preparation relocates each branch's existing Member 4 catalogue entries
 away from the target's How It Works insertion point, retaining all content.
-Temporary three-way file comparisons do not merge or integrate branches. Local
-documentation commits have not been pushed, so remote PR mergeability must not
-be inferred from those checks. Routing, providers and page composition stay with
-Member 1; no application integration is performed here.
+Temporary three-way file comparisons do not merge or integrate branches. These
+documentation checks alone do not establish remote PR mergeability; GitHub must
+recompute it against each actual target after publication. Routing, providers
+and page composition stay with Member 1; no application integration is performed
+here.
 
 ## 2. Available work and branch provenance
 
