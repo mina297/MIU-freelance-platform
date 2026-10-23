@@ -87,12 +87,26 @@ export const landingCategories = [
   "Tutoring",
 ];
 
+export const landingCategoryLabels = {
+  Development: "Software development",
+  Video: "Video editing",
+  Writing: "Content writing",
+  Marketing: "Digital marketing",
+};
+
 export function filterLandingJobs(query, category) {
   const term = query.trim().toLocaleLowerCase();
   return landingJobs.filter(
     (job) =>
       (!category || job.category === category) &&
-      [job.title, job.client, job.description, ...job.skills]
+      [
+        job.title,
+        job.client,
+        job.description,
+        job.category,
+        landingCategoryLabels[job.category] || "",
+        ...job.skills,
+      ]
         .join(" ")
         .toLocaleLowerCase()
         .includes(term),
@@ -104,7 +118,15 @@ export function filterLandingStudents(query, category) {
   return landingStudents.filter(
     (student) =>
       (!category || student.categories.includes(category)) &&
-      [student.name, student.study, ...student.skills]
+      [
+        student.name,
+        student.study,
+        ...student.skills,
+        ...student.categories,
+        ...student.categories.map(
+          (value) => landingCategoryLabels[value] || "",
+        ),
+      ]
         .join(" ")
         .toLocaleLowerCase()
         .includes(term),

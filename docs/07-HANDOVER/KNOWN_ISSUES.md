@@ -133,6 +133,10 @@ P-01 now follows Figma “MIU Freelance desktop” (`8:2656`). `npm test` passed
 
 The shared navigation is intentionally preserved rather than replaced by Figma's header. Landing jobs/profiles are fictional design examples with historical design dates, separate from the shared catalogue. Services still opens its existing placeholder. Full posting, profiles, support, approved policies, verification and reviews remain future module work. Native mobile-device, full assistive-technology and production accessibility audits remain unperformed.
 
+### Subsequent landing motion update — 23 October 2026
+
+The search typewriter/perimeter light, category card carousel and scroll-driven How it works timeline supersede the corresponding earlier visual checks. Automated scroll calculation and static rendering checks are included; live browser confirmation of scroll timing, depth animation, mobile swipe, focus behavior and reduced-motion switching remains pending because no browser surface was connected for this update. Earlier browser results above apply to the previous presentation only.
+
 ## 9. Related Documents
 
 - [Project Scope](../01-PROJECT/PROJECT_SCOPE.md)

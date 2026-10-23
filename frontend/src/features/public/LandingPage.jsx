@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Check, Grid2X2 } from "lucide-react";
+import { Check, Grid2X2, Pause, Play } from "lucide-react";
 import Dropdown from "../../components/ui/Dropdown.jsx";
+import CategoryCarousel from "./CategoryCarousel.jsx";
+import HowItWorks from "./HowItWorks.jsx";
+import RotatingSearchHint from "./RotatingSearchHint.jsx";
+import { useReducedMotion } from "./useLandingMotion.js";
 import { formatEGP } from "../../utils/formatEGP.js";
 import {
   filterLandingJobs,
@@ -98,6 +102,9 @@ function PreviewDialog({ preview, onClose }) {
 }
 
 export default function LandingPage() {
+  const reducedMotion = useReducedMotion();
+  const [motionPaused, setMotionPaused] = useState(false);
+  const motionEnabled = !reducedMotion && !motionPaused;
   const [mode, setMode] = useState("work");
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
@@ -153,7 +160,7 @@ export default function LandingPage() {
     });
 
   return (
-    <div className="landing">
+    <div className="landing" data-motion={motionEnabled ? "on" : "off"}>
       <section className="landing-hero" aria-labelledby="landing-title">
         <div className="landing-community">
           <Icon name="accent" />
@@ -201,17 +208,20 @@ export default function LandingPage() {
               ? "Search students by name or skill"
               : "Search by title, skill, or keyword"}
           </label>
-          <input
-            id="landing-query"
-            value={query}
-            maxLength={120}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder={
-              mode === "hire"
-                ? "Search students by name or skill"
-                : "Search by title, skill, or keyword"
-            }
-          />
+          <div className={`landing-search-input ${query ? "has-value" : ""}`}>
+            <RotatingSearchHint enabled={motionEnabled && !query} />
+            <input
+              id="landing-query"
+              value={query}
+              maxLength={120}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder={
+                mode === "hire"
+                  ? "Search students by name or skill"
+                  : "Search by title, skill, or keyword"
+              }
+            />
+          </div>
           <Dropdown
             className="landing-category-select"
             label={
@@ -260,73 +270,29 @@ export default function LandingPage() {
             {mode === "hire" ? "Join to hire" : "Join to work"} &rarr;
           </Link>
         </p>
-        <div
-          className="landing-categories"
-          aria-label="Featured job categories"
-        >
-          {landingCategories.map((value) => (
-            <button
-              key={value}
-              aria-pressed={category === value}
-              onClick={() => selectCategory(value)}
-            >
-              {value}
-            </button>
-          ))}
-        </div>
+        {!reducedMotion && (
+          <button
+            type="button"
+            className="landing-motion-control"
+            aria-pressed={motionPaused}
+            onClick={() => setMotionPaused(!motionPaused)}
+          >
+            {motionPaused ? (
+              <Play size={13} aria-hidden="true" />
+            ) : (
+              <Pause size={13} aria-hidden="true" />
+            )}
+            {motionPaused ? "Resume motion" : "Pause motion"}
+          </button>
+        )}
       </section>
 
-      <section
-        className="landing-section"
-        id="how-it-works"
-        aria-label="How it works"
-      >
-        <div className="landing-container">
-          <SectionHeading
-            eyebrow="A simple path to great work"
-            title="How it works"
-            action={
-              <span className="landing-aside">THREE STEPS • ONE COMMUNITY</span>
-            }
-          >
-            Clear steps, campus accountability, and mutual reviews keep every
-            project focused and trustworthy.
-          </SectionHeading>
-          <ol className="landing-timeline">
-            {[
-              [
-                "briefcase",
-                "Post a job",
-                "Describe the scope, budget, and timeline so the right students can find your opportunity.",
-              ],
-              [
-                "users",
-                "Apply and get chosen",
-                "Students share relevant work and a focused proposal; clients choose with confidence.",
-              ],
-              [
-                "star",
-                "Review each other",
-                "Close the project with useful feedback that strengthens both profiles and the community.",
-              ],
-            ].map(([icon, title, description], index) => (
-              <li key={title}>
-                <article className="landing-step">
-                  <div className="landing-step-top">
-                    <span className="landing-icon-plate">
-                      <Icon name={icon} />
-                    </span>
-                    <span>0{index + 1}</span>
-                  </div>
-                  <h3>{title}</h3>
-                  <p>{description}</p>
-                </article>
-                <span className="landing-step-number">0{index + 1}</span>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+      <CategoryCarousel
+        category={category}
+        onSelect={selectCategory}
+        motionEnabled={motionEnabled}
+      />
+      <HowItWorks motionEnabled={motionEnabled} />
 
       <section
         className="landing-section landing-muted"

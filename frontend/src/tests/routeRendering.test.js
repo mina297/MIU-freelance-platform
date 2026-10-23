@@ -8,6 +8,38 @@ import {
   filterLandingJobs,
   filterLandingStudents,
 } from "../features/public/landingData.js";
+import { getTimelineMotion } from "../features/public/timelineMotion.js";
+
+test("scroll timeline reveals and highlights each step as its light reaches the node", () => {
+  assert.deepEqual(getTimelineMotion([800, 1200, 1600], 1000), {
+    progress: 0,
+    activeIndex: -1,
+    revealed: [false, false, false],
+  });
+  const first = getTimelineMotion([600, 1000, 1400], 1000);
+  assert.equal(first.progress, 0.1);
+  assert.equal(first.activeIndex, 0);
+  assert.deepEqual(first.revealed, [true, false, false]);
+  const second = getTimelineMotion([200, 600, 1000], 1000);
+  assert.equal(second.progress, 0.6);
+  assert.equal(second.activeIndex, 1);
+  assert.deepEqual(second.revealed, [true, true, false]);
+  assert.deepEqual(getTimelineMotion([-500, -100, 300], 1000), {
+    progress: 1,
+    activeIndex: 2,
+    revealed: [true, true, true],
+  });
+});
+
+test("timeline supports reverse scrolling, viewport changes and collapsed layouts", () => {
+  assert.ok(
+    getTimelineMotion([0, 400, 800], 1000).progress >
+      getTimelineMotion([300, 700, 1100], 1000).progress,
+  );
+  assert.equal(getTimelineMotion([300, 700, 1100], 500).activeIndex, 0);
+  assert.equal(getTimelineMotion([300, 700, 1100], 1200).activeIndex, 1);
+  assert.equal(getTimelineMotion([100, 100, 100], 1000).progress, 0);
+});
 
 test("Hire discovery combines student names and skills with categories and empty recovery", () => {
   assert.equal(filterLandingStudents("", "").length, 3);
@@ -34,6 +66,22 @@ test("landing discovery combines trimmed text and category filters with empty re
   assert.equal(filterLandingJobs("React", "Design").length, 0);
   assert.equal(filterLandingJobs("", "Tutoring").length, 0);
   assert.equal(filterLandingJobs("unknown keyword", "").length, 0);
+});
+
+test("search example names resolve to their existing job and talent categories", () => {
+  assert.equal(
+    filterLandingJobs("Software development", "")[0].id,
+    "landing-web",
+  );
+  assert.equal(
+    filterLandingStudents("Software development", "")[0].id,
+    "landing-omar",
+  );
+  assert.equal(
+    filterLandingStudents("Content writing", "")[0].id,
+    "landing-mariam",
+  );
+  assert.equal(filterLandingJobs("Video editing", "").length, 0);
 });
 
 test("landing route renders Figma sections, safe discovery and existing auth navigation", async () => {
@@ -79,6 +127,26 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     assert.match(html, /aria-pressed="true">Work<\/button>/);
     assert.match(html, /All categories/);
     assert.match(html, /Explore categories/);
+    assert.match(html, /Software development/);
+    assert.match(html, /Video editing/);
+    assert.match(html, /aria-label="Scroll categories left"/);
+    assert.match(html, /aria-label="Scroll categories right"/);
+    assert.match(html, /id="landing-category-track"[^>]*tabindex="0"/);
+    assert.equal(
+      (html.match(/class="landing-category-card"/g) ?? []).length,
+      7,
+    );
+    assert.equal((html.match(/class="landing-step-number"/g) ?? []).length, 3);
+    assert.match(html, /<ol class="landing-timeline-list">/);
+    assert.doesNotMatch(html, /data-motion-ready="true"/);
+    const hero = html.match(
+      /<section class="landing-hero"[\s\S]*?<\/section>/,
+    )[0];
+    assert.doesNotMatch(hero, /landing-category-card/);
+    assert.ok(html.indexOf('id="categories-title"') > html.indexOf(hero));
+    assert.ok(
+      html.indexOf('id="categories-title"') < html.indexOf('id="how-it-works"'),
+    );
     assert.match(html, /Hire Talent/);
     assert.match(html, /Find Work/);
     assert.equal((html.match(/aria-expanded="false"/g) ?? []).length, 3);
