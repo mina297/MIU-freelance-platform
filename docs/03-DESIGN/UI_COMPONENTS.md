@@ -1109,6 +1109,124 @@ npm.cmd run build
 node node_modules/prettier/bin/prettier.cjs --check src/components/ui/DataTable.jsx src/components/ui/StatCard.jsx src/components/ui/data-display.css src/components/ui/dataDisplay.test.js
 ```
 
+## Member 4 — Toast feedback visuals
+
+`frontend/src/components/ui/Toast.jsx` provides reusable feedback presentation,
+with scoped `toast.css` and focused `toast.test.js`. It composes the existing
+Card, Badge, Button and decorative LoadingSpinner, and reuses the existing
+`assets/figma/modal-close.svg` without duplicating or resizing the artwork.
+Related quality requirements: NFR-02, NFR-03 and NFR-16. This visual component
+does not implement the P-29 notifications workflow or notification delivery.
+
+### Component contract
+
+| Property | Behavior |
+|---|---|
+| `message` | Required nonempty string, rendered as escaped text. The consuming feature supplies accurate, safe feedback and identifies simulated outcomes where needed. Never pass raw exceptions, sensitive data or unconfirmed product claims. |
+| `description` | Optional string with additional context. Blank/absent descriptions add no paragraph. |
+| `variant` | info (default), success, warning, error or loading. Explicit visible labels prevent color-only status meaning. Unknown variants fall back to info. Loading composes a decorative spinner, not another live region. |
+| `statusLabel` | Optional nonempty string replacing Information, Success, Warning, Error or Loading. Consumers can supply approved translated labels without embedding unofficial translations in this component. |
+| `announcement` | polite (default) gives one atomic status region; assertive explicitly opts into an alert; off omits live-region attributes for use with a single external announcer. Unknown values fall back to polite. Error styling does not automatically interrupt assistive technology. |
+| `onDismiss`, `dismissLabel` | A real callback enables the native, non-submitting dismissal button. Its accessible name defaults to Dismiss notification and must be nonempty when supplied. The callback requests dismissal; ignoring it leaves the toast visible. No callback means no dismissal control. |
+| `className` | Optional class on the root Card. Container placement and stacking remain caller-owned. |
+
+Invalid message/description/status-label/dismiss-label types fail clearly as
+developer configuration errors instead of silently showing raw objects or
+unlabeled controls. Text and values are not translated, reformatted or inferred.
+
+```jsx
+<Toast
+  message={feedback.message}
+  description={feedback.description}
+  variant={feedback.variant}
+  onDismiss={dismissFeedback}
+/>
+```
+
+The caller owns `feedback`, dismissal, lifetime and state transitions. This
+component has no global notification store, queue, provider, automatic timeout,
+network request, persistence, route registration or default business message.
+It does not steal focus, trap Tab, register global Escape behavior, or remove
+itself. The dismissal button sits outside the live message so its label is not
+reannounced as feedback. Loading does not mark the message busy or disable
+dismissal. There is no entry/exit animation; reused controls respect reduced motion.
+
+### Design references and adaptations
+
+The approved Figma file `4OarPMFlQbiJI1Q1WxblcC` is accessible. Its current page
+metadata contains no dedicated toast frame or desktop/mobile toast arrangement.
+The inspected high-fidelity style-guide reference `4:2681` confirms the existing
+Inter typography, neutral surfaces/borders, supporting text and action styles.
+Existing Card and Badge styling and the already exported modal close artwork
+are reused rather than creating a new color palette or status-icon collection.
+
+The compact layout (16px padding, 12px content/control gap, 8px text spacing,
+14px message/context text, maximum 420px width) is an implementation adaptation
+of the existing foundation and documented spacing scale. It is **not an exact
+approved toast specimen**. Text wraps, width follows its container, and logical
+layout supports inherited RTL. The close artwork retains its natural 22×22
+size within a 44×44 target. Dedicated toast geometry, positioning, animation and
+visual approval remain team decisions; no new global tokens or assets are added.
+
+### Integration ownership
+
+Member 1 owns notifications, application providers and application integration.
+The installed `react-hot-toast` dependency is unchanged. Member 1 can render this
+component through its custom renderer, supplying message strings, mapping
+library types to the documented variants, honoring the library's visibility
+state and passing a real dismissal callback. The provider is not mounted here.
+Avoid a second enclosing live region; use `announcement="off"` when a centralized
+announcer already owns the message. Screen-reader checks must verify initial
+mount announcements as well as updates; DOM roles alone do not prove delivery.
+
+Consumers own timing, keyboard discovery and focus recovery when a focused
+dismiss control unmounts. Do not time out actionable feedback while it is focused;
+provide an untimed presentation or appropriate pause behavior. Critical errors
+and recovery instructions must also remain available in the relevant feature,
+not only in a transient toast. Members 2/3/5 retain all marketplace, dashboard,
+profile, record and business-action behavior. No feature screens are migrated.
+
+### Verification and remaining work
+
+On 23 October 2026, all 110 tests passed (8 new and 102 existing). Lint, default
+Vite build and new-source Prettier checks passed. An additional export-preserving
+production build of Toast into a temporary directory passed because the default
+application does not import Toast yet. Shared configuration was not changed.
+
+Focused tests cover variants/fallbacks, explicit status labels, announcement
+modes, a single loading status, decorative artwork, native non-submitting
+dismissal, callback ownership, escaped long text, optional content and invalid
+caller input.
+
+Chrome validation used real components in an in-memory fixture; no tracked
+preview infrastructure was added. Tab navigation, visible focus, Enter/Space
+dismissal, ignored dismissal requests, caller-applied removal/focus recovery,
+loading-to-success updates, no focus stealing, and no accidental form submission
+passed. Escape did not introduce a global dismissal shortcut. All variants and
+the no-dismiss-callback case were exercised. Chrome exposed the status and named
+dismiss button in its accessibility tree. Assertive and external-announcer modes
+had the expected DOM attributes, and reduced motion stopped the reused spinner
+and Button transitions.
+
+Normal and long unbroken message/status/context examples had no horizontal
+overflow at 320, 390, 640, 768, 960, 1024 and 1440px, including inherited RTL.
+The existing close image loaded at 22×22; the dismissal target measured 44×44.
+390px and 1440px screenshots were inspected. Successful browser checks had no
+runtime exceptions, console errors or failed HTTP responses.
+
+Remaining: team visual approval, Member 1 provider/lifetime/placement integration,
+real screen-reader announcements, systematic zoom, cross-browser and real-touch
+testing. RTL layout checks do not imply approved translations. No notification
+workflow or SRS requirement is marked complete merely by this visual component.
+
+```bash
+cd frontend
+node --test --test-concurrency=1 src/components/ui/toast.test.js src/components/ui/dataDisplay.test.js src/components/ui/navigationControls.test.js src/components/ui/modal.test.js src/components/feedback/states.test.js src/features/public/landing/landing.test.js src/components/navigation/publicShell.test.js src/components/ui/forms.test.js src/components/ui/foundation.test.js src/features/marketplace/marketplace.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/components/ui/Toast.jsx src/components/ui/toast.css src/components/ui/toast.test.js
+```
+
 ## Related Documents
 
 - [Design System](DESIGN_SYSTEM.md)
