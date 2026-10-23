@@ -46,6 +46,7 @@ export default function CategoryCarousel({
       ref={root}
       className="landing-section landing-category-section"
       aria-labelledby="categories-title"
+      data-reveal
     >
       <div className="landing-container">
         <div

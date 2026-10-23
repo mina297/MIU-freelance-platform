@@ -281,11 +281,13 @@ export default function LandingPage() {
         )}
       </section>
 
-      <CategoryCarousel
-        category={category}
-        onSelect={selectCategory}
-        motionEnabled={motionEnabled}
-      />
+      <div className="landing-category-backdrop">
+        <CategoryCarousel
+          category={category}
+          onSelect={selectCategory}
+          motionEnabled={motionEnabled}
+        />
+      </div>
       <HowItWorks motionEnabled={motionEnabled} />
 
       <section

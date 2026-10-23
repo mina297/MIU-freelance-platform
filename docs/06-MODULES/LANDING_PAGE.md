@@ -33,6 +33,10 @@ The desktop layout retains the centered hero, alternating timeline, three-column
 
 ## Verification
 
+The white category panel sits inside a dedicated backdrop using `--color-miu-red-tint`, matching the hero. This highlights its rounded upper corners and the space behind its upward entrance without changing the panel's white surface or other sections.
+
+The category section is presented as a full-page-width white panel with a light border and the existing card shadow. Its minimum height is 100svh on desktop and mobile, with content centered vertically and room to grow on short screens. Upper corners use a 40px radius (28px on mobile); lower corners are square. The panel overlaps the hero slightly and rises 96px over one second on each scroll entry, alongside the existing heading/card reveals. No scaling is applied, so the panel stays full width throughout its entrance. Keyboard focus, paused motion and reduced motion retain a stable visible panel. Colors and the remaining page sections are unchanged.
+
 The category section heading uses its own `landing-category-section-heading` class to avoid inheriting the category dropdown's uppercase and muted text styles. "Explore your next direction." displays in the existing MIU black with normal sentence casing; its scroll reveal is retained.
 
 The category section's "Explore your next direction" heading and arrow controls use the same 800ms fade/upward entrance as the How it works heading. The existing observer replays the entrance on each visit. Keyboard focus keeps controls visible, while paused/reduced motion displays the heading immediately.

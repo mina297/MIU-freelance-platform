@@ -28,6 +28,7 @@ export function useScrollReveal(ref, enabled) {
       { threshold: 0.15 },
     );
     root.dataset.revealReady = "true";
+    if (root.matches("[data-reveal]")) observer.observe(root);
     root
       .querySelectorAll("[data-reveal]")
       .forEach((node) => observer.observe(node));
