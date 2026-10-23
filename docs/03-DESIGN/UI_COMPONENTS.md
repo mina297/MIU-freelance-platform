@@ -978,6 +978,137 @@ team visual approval, screen-reader testing, systematic zoom, other browsers,
 real touch devices, and precise Figma geometry. No existing catalogue/profile
 screen is migrated, and no route is registered.
 
+## Member 4 — DataTable and StatCard
+
+`frontend/src/components/ui/DataTable.jsx` and `StatCard.jsx` provide reusable
+data presentation, with scoped `data-display.css` and focused
+`dataDisplay.test.js`. They reuse Card, Button, Skeleton, LoadingState,
+EmptyState, and ErrorState. No existing feature, FilterPanel, shared data model,
+route, global token, dependency, or preview entry is changed. Related quality
+requirements: NFR-02, NFR-03, NFR-16; no complete SRS workflow is marked delivered.
+
+### DataTable contract
+
+| Property | Behavior |
+|---|---|
+| `caption`, `description`, `headingLevel` | Visible title (default Records), optional description, and heading level 2/3/4 (default/fallback 2). A native caption names the table, with unique IDs for the surrounding section, description, and headers. |
+| `columns` | Required nonempty array of `{ id, header, render(row), rowHeader?, sortable?, align?, width? }`. IDs/headers must be nonempty strings, IDs unique, and render a function. At most one row-header column. Header labels and cell rendering remain caller-owned. |
+| `rows`, `getRowId(row)` | Array (default empty), rendered exactly in supplied order. Default getter uses `row.id`. Each ready-state row requires a unique nonempty string or finite numeric ID; numeric/string collisions are rejected. No index-based identity, record mutation, ranking, filtering, or hidden sorting. |
+| `sort`, `onSortChange(request)` | Optional controlled `{ columnId, direction }`, where direction is ascending/descending. Only a matching sortable column exposes `aria-sort`. Native header buttons request `{ columnId, direction }`; the caller must update state and supply reordered rows. A missing callback disables sort buttons. Invalid sort metadata is not presented as active sorting. |
+| `getSortLabel(header, direction)` | Optional accessible request-label function; default Sort HEADER DIRECTION. The visible hint is Sort or the supplied active direction. No automatic record operation occurs. |
+| `toolbar`, `pagination` | Optional caller-owned nodes. Toolbar can compose existing Input/Select/Checkbox/Button controls. Pagination can compose the existing Pagination component or other approved caller presentation. False/null/omitted slots add no wrapper. Pagination is shown only for ready, nonempty rows. |
+| `state` | ready (default), loading, or error. Unknown values throw. Ready with no rows uses EmptyState. Loading/error suppress stale row rendering and pagination. The caller owns transitions, operations, toolbar disabled states, result announcements, and focus recovery when replacing focused content. |
+| Feedback props | `loadingLabel`; `emptyTitle`, `emptyDescription`, `onEmptyAction`, `emptyActionLabel`; `errorMessage`, `onRetry`. Shared feedback provides actions only for real callbacks. Loading status sits outside the busy content container so it is not deferred by `aria-busy`. Never pass raw exceptions or sensitive data as user messages. |
+| Layout props | `className` is on the root. Column `width` supplies an optional CSS width; otherwise fixed table layout distributes widths. `align` sets desktop cell alignment to start/end/center (fallback start). Mobile stacked fields use reading-direction start alignment. |
+
+The desktop table uses native table/caption/column/row-header semantics.
+Explicit roles and `headers` relationships preserve these semantics when CSS
+reflows mobile rows into records. Mobile field labels are decorative copies of
+the real column headers and are hidden from assistive technology. There is only
+one set of row controls: no duplicated desktop/mobile interactive markup.
+Non-sortable mobile column headers are visually hidden, not removed from the
+accessibility tree; optional sort buttons remain visible and keyboard reachable
+above the records. This is a native table, not a spreadsheet/ARIA grid: Tab
+visits its native controls without invented arrow-key cell navigation.
+
+### StatCard contract
+
+| Property | Behavior |
+|---|---|
+| `label`, `value`, `description` | Named section with a native definition-list label/value and optional context. Label defaults to Statistic. Value is a caller-formatted nonempty string or finite number. Zero is preserved; absent, blank, boolean, object, or nonfinite values show `missingLabel` (default Unavailable), never invented zero. |
+| `icon` | Optional caller-supplied, decorative, noninteractive node hidden from assistive technology. No dashboard-specific default icon is inferred. Pass approved artwork at its natural size; the inspected metric icons are 18px. |
+| `state` | ready (default), loading, or error. Loading replaces stale values with a Skeleton and a separate LoadingState message outside the busy value. Error replaces stale values with Unavailable and compact inline feedback. Unknown states throw. |
+| Feedback props | `loadingLabel`, `missingLabel`, `errorMessage`, `onRetry`, `retryLabel`. Error retry exists only for a supplied function. No request, timer, automatic alert, or business-state transition is introduced. |
+| `className` | Optional root class. Grid placement, card grouping, metrics, time periods, trends, formatting, currency and operations remain caller-owned. EGP values must use the project's existing formatter in the consuming feature. |
+
+Example composition (all records, configuration, state, and callbacks below
+belong to the consuming feature):
+
+```jsx
+<StatCard label={metricLabel} value={formattedMetric} description={metricContext} />
+<DataTable
+  caption={tableTitle}
+  columns={columns}
+  rows={visibleRows}
+  state={tableState}
+  sort={sort}
+  onSortChange={handleSortRequest}
+  toolbar={<Input label="Search examples" value={query} onChange={handleQueryChange} />}
+  pagination={<Pagination page={page} pageCount={pageCount} onPageChange={handlePageRequest} />}
+  onRetry={retry}
+/>
+```
+
+### Approved design references and adaptations
+
+Approved Figma file `4OarPMFlQbiJI1Q1WxblcC` was inspected directly:
+desktop metric cards `71:11508`, mobile `71:11674`; desktop My Jobs table
+`71:11534`, mobile records `71:11701`. Confirmed values include white surfaces,
+10px corners, neutral borders, `0 4px 16px rgb(17 17 17 / 3%)` shadow,
+20px/16px metric padding, 32px/28px bold metric values, 14px/12px metric labels,
+12px descriptions, 20px/18px table titles, neutral table headers, 24px desktop
+and 16px mobile table spacing, and 88px desktop rows as a minimum content target.
+
+Generic mobile records preserve supplied column order and show labeled fields;
+they do not reproduce the domain-specific status/applicant/deadline arrangement.
+The generic breakpoint is 768px, text can wrap, and rows can grow. Optional
+sorting controls, loading/error presentations, and a slot composing the completed
+Pagination component are reusable extensions rather than the exact static
+table footer or an approved sorting workflow. Visual review remains required.
+
+The Figma records, fees, counts, status badges, metric meaning, icons, and action
+menus are caller content, not defaults. No proposal/client dashboard or dummy
+ellipsis menu is recreated. No new static assets are required by these generic
+components; caller-supplied icons/actions remain dynamic. No university users,
+verification claims, metric values, or transaction behavior are invented.
+
+### Verification and remaining work
+
+On 23 October 2026, 102 tests passed (18 new and 84 existing). Lint, normal Vite
+build, new-source Prettier and tracked/untracked whitespace checks passed.
+Separate export-preserving builds of both new modules to a temporary directory
+also passed, since the default app still mounts the existing catalogue.
+Shared build configuration was not edited.
+
+Focused tests cover native captions and header associations, independent IDs,
+stable custom row IDs, developer input validation, preserved order/zero values,
+controlled sort metadata, optional/false slots, filter/Pagination composition,
+hidden stale data, loading status outside busy regions, empty/error recovery,
+metric definitions/missing values, escaped text, and caller-owned decoration.
+
+Chrome checks used actual components in an in-memory fixture, without tracked
+preview infrastructure. Keyboard Tab traversal, visible focus, native Select,
+Enter/Space sort/action/page requests, caller-applied sorting/filtering, ignored
+sort requests, recovery callbacks, and no accidental form submissions passed.
+Original records were unchanged. Header targets and table/column/row/cell roles
+remained available in Chrome's mobile accessibility tree, including tables with
+and without sort controls. Ready/loading/error/empty transitions hid stale data;
+metric zero and unavailable values remained distinct.
+
+Normal, long-text, and inherited-RTL examples had no horizontal overflow at
+320, 390, 640, 767, 768, 960, 1024, and 1440px. Mobile/desktop screenshots were
+inspected, including the final mobile reading-direction alignment. Sort/action
+buttons met 44px targets. A caller-provided decoration rendered at 18×18.
+Reduced motion suppressed existing skeleton/spinner animations; status messages
+were outside busy containers. Secondary text contrast on white measured 7.56:1.
+Successful browser checks had no runtime exceptions, console errors, or failed
+HTTP responses. This is not a complete assistive-technology audit.
+
+Remaining: Members 2/3/5 supply their column contracts, records, metric definitions,
+actions and filter/sort/page logic; Member 1 retains routing/provider integration.
+Consumers own focus management when controls unmount and result announcements.
+Team visual approval, screen-reader testing, systematic zoom, other browsers,
+real touch devices, and precise Figma geometry remain unverified. The existing
+FilterPanel and all other feature implementations are preserved.
+
+```bash
+cd frontend
+node --test --test-concurrency=1 src/components/ui/dataDisplay.test.js src/components/ui/navigationControls.test.js src/components/ui/modal.test.js src/components/feedback/states.test.js src/features/public/landing/landing.test.js src/components/navigation/publicShell.test.js src/components/ui/forms.test.js src/components/ui/foundation.test.js src/features/marketplace/marketplace.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/components/ui/DataTable.jsx src/components/ui/StatCard.jsx src/components/ui/data-display.css src/components/ui/dataDisplay.test.js
+```
+
 ## Related Documents
 
 - [Design System](DESIGN_SYSTEM.md)
