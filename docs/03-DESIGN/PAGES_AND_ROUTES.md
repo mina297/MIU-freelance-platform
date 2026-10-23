@@ -126,6 +126,21 @@ loading completion/reset, error retry/reset, and empty recovery. They introduce
 no APIs, guards, mock sessions, or marketplace contract changes. See the
 [state component contract](UI_COMPONENTS.md#member-4--loading-empty-and-error-states).
 
+**23 October 2026 — Member 4 public information pages:** content-only
+`features/public/AboutPage.jsx` and `features/public/HowItWorksPage.jsx` now
+provide the assigned project introduction and planned project/service journey
+explanations. **`/about` and `/how-it-works` are not registered.** Member 1 owns
+their PublicLayout composition, route registration and available destinations.
+No App, router, authentication, marketplace or profile implementation changes.
+Both pages identify Phase 1 limitations; their copy derives from the documented
+project baseline and their full-page layouts still require team approval because
+dedicated public page specimens are absent from the current Figma file.
+HowItWorksPage accepts the separately completed section through the optional
+`howItWorks` React-node slot. That dependency is not copied or cherry-picked;
+the detailed planned journeys remain usable without it. See the
+[public information page contract](UI_COMPONENTS.md#member-4--public-about-and-how-it-works-pages)
+for content sources, properties, verification and outstanding integration.
+
 ### Public Layout
 Landing, catalogues, service/project details, informational pages.
 
