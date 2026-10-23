@@ -105,6 +105,104 @@ All prices use the shared EGP formatter.
 - ReportedContentCard
 - EvidenceViewer
 
+## Member 4 — Language-switcher interface
+
+`components/navigation/LanguageSwitcher.jsx` composes the existing native Select
+and Field. No language catalogue, translated copy, i18n library, provider,
+header/settings integration, new styles, assets or dependencies are introduced.
+It supplies the independently valid presentation part of FR-V05; actual interface
+translation remains pending. Related quality requirements: NFR-02, NFR-03,
+NFR-15 and NFR-16. This does not mark FR-V05 or localization complete.
+
+### Controlled component contract
+
+| Property                                  | Behavior                                                                                                                                                                                                                                                                                                                                                                                  |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `options = []`                            | Caller-supplied array of approved `{ value, label, lang?, dir?, disabled? }` choices. Values/labels must be nonempty strings, values unique. Optional `lang` is a nonempty language-tag string; the caller validates its meaning. Optional `dir` is ltr, rtl or auto; optional disabled is boolean. Metadata is placed on native options, not interpreted as an instruction to translate. |
+| `value = ""`                              | Controlled string identifier. Unknown/empty values show the disabled placeholder instead of silently selecting the first language. A supplied current option remains displayed even if that option becomes disabled.                                                                                                                                                                      |
+| `onValueChange(nextValue)`                | Receives a permitted different value only. Unknown, placeholder, disabled and unchanged choices are ignored. No internal language state, normalization, document change or navigation occurs.                                                                                                                                                                                             |
+| `disabled = false`                        | Also disabled when no callback exists or no option is enabled. Empty options show only the disabled `emptyLabel`; the component does not invent an available language.                                                                                                                                                                                                                    |
+| `label`, `placeholder`, `emptyLabel`      | Nonempty strings defaulting to Language, Select language, No languages available. These are English control labels, not a translation dictionary. Callers supply approved localized labels as appropriate.                                                                                                                                                                                |
+| `helperText`, `error`, `aria-describedby` | Forwarded to the existing Select/Field for associated context and validation feedback. No automatic live region or fake error recovery is added.                                                                                                                                                                                                                                          |
+| `id`, `name`, `form`, `ref`, `className`  | Forwarded native-control integration props. Omitted IDs use Field's associated generated label. `className` applies to the select alongside the miu-language-switcher class.                                                                                                                                                                                                              |
+| `dir`, `lang`                             | Optional native select presentation attributes; otherwise inherited. These do not change the document, application, label/helper container or another feature.                                                                                                                                                                                                                            |
+
+Malformed caller option/label contracts fail clearly. No official language list
+or Arabic/English translation is bundled. The empty configuration is a disabled
+control, not simulated production translation.
+
+```jsx
+<LanguageSwitcher
+  options={approvedLanguageOptions}
+  value={activeLanguage}
+  onValueChange={requestLanguageChange}
+  label={approvedLanguageControlLabel}
+  helperText={languageAvailabilityMessage}
+/>
+```
+
+All example variables above belong to the consuming application. Member 1 owns
+the actual language state, approved dictionaries/options, provider contract,
+document lang/dir updates, persistence, route/provider integration and header or
+settings placement. No existing PublicHeader signature is changed. Enable only
+choices whose approved content is actually available; use disabled options or
+an empty list where appropriate. Direction is never inferred from an identifier
+or changed globally when an option is selected. Currency formatting and original
+message content remain untouched. OD-12 remains open.
+
+### Design and native presentation
+
+The inspected approved Figma form reference `4:2722` confirms visible labels,
+48px native-field sizing, neutral surfaces/borders, brand focus and error cues.
+The component reuses the completed Select/Field implementation and its documented
+adaptations rather than rebuilding those controls. No dedicated language-switcher
+specimen was identified in the previously inspected file metadata. Header
+placement, supported languages and full translated layouts still need agreement.
+
+Native keyboard selection, focus and disabled behavior are preserved. The
+component inherits RTL without duplicate controls, flags or direction-specific
+assets. Field labels/helper text wrap and the native select shrinks with its
+container. Native closed selects can visually clip unusually long option text;
+complete strings remain in the DOM. Use concise approved display names and
+provide helpful context where needed. Popup wrapping and mobile picker behavior
+are browser/OS-owned and are not claimed as custom multiline UI.
+
+### Verification and remaining work
+
+Eight focused Node/Vite tests cover labels/feedback associations, controlled
+requests, metadata, disabled/empty/missing-handler states, unknown values,
+caller props, escaped long text, unique IDs and malformed contracts.
+All 133 tests passed (8 new, 125 existing). Lint, source Prettier, normal build
+and a separate export-preserving production build of the unmounted switcher to
+a temporary directory passed. Shared configuration was unchanged.
+
+Chrome checks used synthetic, explicitly labeled option fixtures with lang=und;
+no official translations were fabricated and no tracked preview files were
+added. Tab entry/exit, visible focus, Arrow/Home/End requests, disabled-option
+skipping, ignored callbacks retaining the controlled value, disabled-control
+skipping, unknown-value/error relationships and no accidental form submission
+passed. Selecting the RTL-marked option did not change application lang/dir or
+move focus. Chrome exposed the native combobox with its associated label.
+
+Normal and long label/helper/option cases had no horizontal page overflow at
+320, 390, 640, 768, 960, 1024 and 1440px in LTR/inherited RTL fixtures. Controls
+measured 48px high. Reduced motion introduced no animation; fixture EGP text was
+preserved. Mobile/desktop screenshots were inspected. Successful checks had no
+runtime exceptions, console errors or failed HTTP responses.
+
+Remaining: approved language options/translations, Member 1's state/provider/
+document/header integration, team visual review, actual translated RTL screens,
+screen-reader testing, systematic zoom, cross-browser and real mobile pickers.
+No other member's state contract or feature is changed.
+
+```bash
+cd frontend
+node --test src/components/navigation/languageSwitcher.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/components/navigation/LanguageSwitcher.jsx src/components/navigation/languageSwitcher.test.js
+```
+
 ## 8. AI and Verification Components
 
 - VerificationStepper
@@ -118,6 +216,217 @@ All prices use the shared EGP formatter.
 - QualityFeedbackCard
 
 Phase 1 verification and AI outputs must be visibly simulated.
+
+## Member 4 — Public About and How It Works pages
+
+`features/public/AboutPage.jsx` and `HowItWorksPage.jsx` provide static,
+content-only public pages. They share the internal `info/PublicInfoPage.jsx`
+presentation and scoped `info/public-info.css`, composing the existing Card,
+Badge and PublicLink components. There are no new dependencies, assets, data
+records, forms, operations, global tokens or application integrations.
+
+### Content and requirement boundaries
+
+- About explains the academic project's purpose and both marketplace models,
+  based on `PROJECT_OVERVIEW.md` sections 1–4 and `PROJECT_SCOPE.md` sections 2/4.
+- How It Works explains the planned project/proposal and service/package paths,
+  based on `USER_FLOWS.md` sections 4–6 and the Projects/Proposals and
+  Services/Orders module documents. It preserves EGP-only pricing, participant
+  roles, permitted extras, delivery review and revision requests without
+  inventing fees, eligibility thresholds, revision limits or completion rules.
+- Both show a Phase 1 notice distinguishing planned workflows and simulated
+  authentication, verification, AI, payment and escrow from live operations.
+- This is explanatory content supporting FR-V01 and the documented marketplace
+  journeys, not an implementation of those workflows. Relevant quality
+  requirements are NFR-01, NFR-02, NFR-03 and NFR-16. No SRS workflow is marked
+  complete merely because these pages exist.
+
+The copy is derived from the documented baseline. It is not an official
+university statement, approved legal content, or evidence of production service.
+Editorial and visual review of the assembled public pages remains required.
+
+### Page contracts and composition
+
+| Component/property                                         | Behavior                                                                                                                                                                                                                                                        |
+| ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `AboutPage({ destinations = {} })`                         | One h1, project purpose, project/proposal explanation, service/package explanation and related public destinations.                                                                                                                                             |
+| `HowItWorksPage({ destinations = {}, howItWorks = null })` | One h1, two native ordered journey lists and related public destinations. Optional `howItWorks` is a supplied React node, rendered once between the introduction and detailed journeys.                                                                         |
+| `destinations`                                             | About consumes `howItWorks`, `projects`, `services`; How It Works consumes `projects`, `services`, `about`. Only supplied destinations become native links. Missing destinations remain text through PublicLink, never guessed routes or placeholder `#` links. |
+| Shared internal presentation                               | Provides the page title, introduction, Phase 1 notice, content grid and named exploration navigation. It does not add another main, header, footer, provider or route.                                                                                          |
+
+Member 1 supplies PublicLayout and registers `/about` and `/how-it-works`.
+These page components do not register either path or replace the existing App.
+Static explanatory content has no fetch, session or loading/error state machine.
+Members 2/3/5 retain all marketplace, order, financial and profile workflows.
+
+The completed `HowItWorksSection` remains on the separately approved
+`feat/m4-how-it-works-section` branch at `753d9f1`, outside this component stack.
+It is not copied, recreated, imported from an absent path or cherry-picked.
+Once the team integrates that dependency, Member 1 can compose it directly:
+
+```jsx
+<PublicLayout destinations={availableDestinations} currentPath={currentPath}>
+  <HowItWorksPage
+    destinations={availableDestinations}
+    howItWorks={<HowItWorksSection />}
+  />
+</PublicLayout>
+```
+
+The existing section keeps its own heading, markup, assets and styling. The
+new page adds the distinct detailed two-marketplace explanation rather than
+duplicating the landing timeline. Without a supplied section, the explanation
+still renders; no replacement timeline or placeholder is fabricated. Actual
+composition with the separate completed section remains an integration check.
+
+### Approved references and explicit design gaps
+
+The approved Figma file `4OarPMFlQbiJI1Q1WxblcC` was accessible during this work.
+Current page metadata contains no dedicated public About or full How It Works
+page specimen. Profile About frames (`58:14879`, `58:15011`, `58:16011`,
+`58:16142`) are Member 5's profile views, not designs for the public About page.
+The landing How It Works frames (`8:2703`, `8:3000`) remain the visual reference
+for the separately completed section, not a reason to rebuild it here.
+
+The high-fidelity style-guide heading reference `4:2497` confirms Inter, 32px
+bold headings with 1.2 line height, 16px supporting text with 1.55 line height,
+MIU crimson and neutral secondary text. The pages reuse that typography, the
+existing public-page tinted introduction/notice treatment and foundation Cards.
+The 1200px content area with 20px side padding, 48px/32px desktop/mobile spacing,
+two-to-one-column change at 768px, and 32px/20px Card padding are adaptations of
+existing conventions, not confirmed geometry for missing full-page designs.
+Page links retain underlines, 44px minimum height and visible keyboard focus.
+Only specifically named new classes are styled; the supplied section's
+headings/cards are not restyled by blanket descendant selectors.
+
+### Verification and remaining integration
+
+Eight focused Node/Vite tests cover page landmarks, academic/two-marketplace
+content, Phase 1 disclosures, caller-owned destinations, missing-link behavior,
+unique heading associations, section composition exactly once, and PublicLayout
+composition. All 118 tests passed (8 new, 110 existing). Lint, source Prettier,
+default build and separate export-preserving builds of both unmounted pages
+passed. No shared build configuration was edited.
+
+Chrome checks used the real pages inside the existing PublicLayout in an
+in-memory fixture, with no tracked preview entry or route changes. Both pages
+had one h1/main, matching heading references, accessible exploration navigation,
+and no horizontal overflow at 320, 390, 640, 767, 768, 960, 1024 and 1440px.
+Tab navigation, visible focus, native Enter link activation and the existing
+skip link passed. Fixture links targeted in-document test destinations, not
+registered application routes. Missing destinations stayed noninteractive.
+The supplied-section boundary rendered once and accepted long text with inherited
+RTL without overflow. This does not verify the separate section's actual CSS.
+Reduced motion introduced no page animation. Journey decimal markers were
+explicitly restored after Tailwind's reset hid them; their final rendered style
+and layout were rechecked. Final mobile About and desktop How It Works
+screenshots were inspected. Successful checks had no runtime exceptions,
+console errors or failed HTTP responses.
+
+Remaining dependencies: Member 1 route/shell/destination integration, team
+integration of the separate section, full-page design/editorial approval,
+screen-reader testing, systematic zoom, cross-browser and real-touch checks.
+No approved translations, legal copy, measured student outcomes, verification
+claims or marketplace functionality are introduced.
+
+```bash
+cd frontend
+node --test --test-concurrency=1 src/features/public/info/publicInfo.test.js src/components/ui/toast.test.js src/components/ui/dataDisplay.test.js src/components/ui/navigationControls.test.js src/components/ui/modal.test.js src/components/feedback/states.test.js src/features/public/landing/landing.test.js src/components/navigation/publicShell.test.js src/components/ui/forms.test.js src/components/ui/foundation.test.js src/features/marketplace/marketplace.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/features/public/AboutPage.jsx src/features/public/HowItWorksPage.jsx src/features/public/info/PublicInfoPage.jsx src/features/public/info/public-info.css src/features/public/info/publicInfo.test.js
+```
+
+## Member 4 — Terms and Privacy placeholders
+
+`features/public/TermsPage.jsx` and `PrivacyPage.jsx` reuse the existing
+`info/PublicInfoPage.jsx`, public-info styles and foundation Card. Each is a
+static content component for PublicLayout, with one h1 and an associated
+placeholder heading. Existing public-page components, styles, assets, routes,
+marketplace features and dependencies are unchanged.
+
+### Content status and page contracts
+
+**No approved Terms or Privacy text was found in the repository.** Both pages
+therefore state “Placeholder — awaiting team-approved content” and identify
+themselves as unpublished Phase 1 placeholders. These are approval-status
+notices, not drafted legal documents. They add no usage conditions, consent
+controls, effective dates, fees, refunds, dispute procedures, contact details,
+data inventories, collection/sharing promises, retention periods or deletion
+commitments. The inherited Phase 1 notice remains visible.
+
+| Component                            | Optional destinations |
+| ------------------------------------ | --------------------- |
+| `TermsPage({ destinations = {} })`   | `privacy`, `about`    |
+| `PrivacyPage({ destinations = {} })` | `terms`, `about`      |
+
+Only caller-supplied destinations become links through the existing PublicLink.
+Missing destinations remain text. No `#` links, absent route paths, policy
+download links or application integration are fabricated. Member 1 supplies
+PublicLayout and registers `/terms` and `/privacy`. No API, form, acceptance
+record, session, tracking mechanism or data-processing behavior is implemented.
+There is no asynchronous state requiring a new loader or error flow.
+
+The pages reuse the existing Figma-derived public-page foundation described in
+the preceding public information page section. They introduce no new visual
+tokens, geometry, icon exports or claims of matching a dedicated policy-page
+Figma specimen. Their placeholder layout and future final copy need team review.
+Related presentation requirements: NFR-02, NFR-03 and NFR-16. Privacy requirement
+NFR-08 remains a requirement, not an implemented or approved privacy policy.
+
+### Required team approvals before publication
+
+The team must supply the actual text and record its approval, responsible owner,
+applicability/version and publication status. The following are content gaps,
+not proposed clauses or assertions that the platform already has these practices:
+
+- Terms: approved usage/account conditions; project/service obligations; any
+  applicable payment, fee, cancellation, refund and dispute provisions; and
+  confirmed issuer/contact details. Do not infer these from mock workflows.
+- Privacy: a verified inventory of actual data flows and any tracking/storage;
+  approved purposes, recipients/providers, access arrangements and retention/
+  deletion decisions; and confirmed privacy-contact and user-request content.
+  Do not claim collection, cookies, sharing or legal compliance from UI alone.
+- Resolve relevant existing decisions, including identity retention (OD-03),
+  escrow arrangements (OD-05), fees/refunds (OD-06/07) and provider choices.
+  The new OD-17 in Known Issues records the missing public policy content.
+
+Final content must be reviewed against the actual implementation and approved
+project decisions. The placeholders do not satisfy publication readiness or
+demonstrate legal/privacy compliance. No unrelated work is assumed to exist on
+this branch; it starts from the approved `1e4931b` public information pages.
+
+### Verification and remaining dependencies
+
+Seven focused Node/Vite tests verify explicit placeholder status, absence of
+operative clauses/practice claims or consent controls, native destination
+handling, unique heading associations and PublicLayout composition. All 125
+tests passed (7 new, 118 existing). Lint, source Prettier, default Vite build and
+separate export-preserving builds of both new pages passed. Build configuration
+was not edited; the application entry still mounts the existing catalogue.
+
+Chrome checks used the real pages in an in-memory PublicLayout fixture, without
+tracked preview files or route changes. Both pages had one h1/main and no
+horizontal overflow at 320, 390, 640, 767, 768, 960, 1024 and 1440px. Placeholder
+headings were visible and exposed in Chrome's accessibility tree. Tab traversal,
+visible focus, native Enter activation and skip-link focus passed. Links used
+in-document fixture destinations; this does not verify application routing.
+Missing destinations stayed text, link heights were at least 44px, inherited RTL
+fit at 320px, and the pages introduced no animation under reduced motion.
+Mobile Terms and desktop Privacy screenshots were inspected. Successful browser
+checks had no runtime exceptions, console errors or failed HTTP responses.
+
+Remaining: team-approved policy text and visual review, Member 1 route/shell/
+destination integration, screen-reader testing, systematic zoom, cross-browser
+and real-touch checks. No approved translations or legal content are invented.
+
+```bash
+cd frontend
+node --test src/features/public/info/policyPages.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/features/public/TermsPage.jsx src/features/public/PrivacyPage.jsx src/features/public/info/policyPages.test.js
+```
 
 ## 9. Component API Guidelines
 
@@ -1204,315 +1513,6 @@ npm.cmd run build
 node node_modules/prettier/bin/prettier.cjs --check src/components/ui/Toast.jsx src/components/ui/toast.css src/components/ui/toast.test.js
 ```
 
-## Member 4 — Public About and How It Works pages
-
-`features/public/AboutPage.jsx` and `HowItWorksPage.jsx` provide static,
-content-only public pages. They share the internal `info/PublicInfoPage.jsx`
-presentation and scoped `info/public-info.css`, composing the existing Card,
-Badge and PublicLink components. There are no new dependencies, assets, data
-records, forms, operations, global tokens or application integrations.
-
-### Content and requirement boundaries
-
-- About explains the academic project's purpose and both marketplace models,
-  based on `PROJECT_OVERVIEW.md` sections 1–4 and `PROJECT_SCOPE.md` sections 2/4.
-- How It Works explains the planned project/proposal and service/package paths,
-  based on `USER_FLOWS.md` sections 4–6 and the Projects/Proposals and
-  Services/Orders module documents. It preserves EGP-only pricing, participant
-  roles, permitted extras, delivery review and revision requests without
-  inventing fees, eligibility thresholds, revision limits or completion rules.
-- Both show a Phase 1 notice distinguishing planned workflows and simulated
-  authentication, verification, AI, payment and escrow from live operations.
-- This is explanatory content supporting FR-V01 and the documented marketplace
-  journeys, not an implementation of those workflows. Relevant quality
-  requirements are NFR-01, NFR-02, NFR-03 and NFR-16. No SRS workflow is marked
-  complete merely because these pages exist.
-
-The copy is derived from the documented baseline. It is not an official
-university statement, approved legal content, or evidence of production service.
-Editorial and visual review of the assembled public pages remains required.
-
-### Page contracts and composition
-
-| Component/property                                         | Behavior                                                                                                                                                                                                                                                        |
-| ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `AboutPage({ destinations = {} })`                         | One h1, project purpose, project/proposal explanation, service/package explanation and related public destinations.                                                                                                                                             |
-| `HowItWorksPage({ destinations = {}, howItWorks = null })` | One h1, two native ordered journey lists and related public destinations. Optional `howItWorks` is a supplied React node, rendered once between the introduction and detailed journeys.                                                                         |
-| `destinations`                                             | About consumes `howItWorks`, `projects`, `services`; How It Works consumes `projects`, `services`, `about`. Only supplied destinations become native links. Missing destinations remain text through PublicLink, never guessed routes or placeholder `#` links. |
-| Shared internal presentation                               | Provides the page title, introduction, Phase 1 notice, content grid and named exploration navigation. It does not add another main, header, footer, provider or route.                                                                                          |
-
-Member 1 supplies PublicLayout and registers `/about` and `/how-it-works`.
-These page components do not register either path or replace the existing App.
-Static explanatory content has no fetch, session or loading/error state machine.
-Members 2/3/5 retain all marketplace, order, financial and profile workflows.
-
-The completed `HowItWorksSection` remains on the separately approved
-`feat/m4-how-it-works-section` branch at `753d9f1`, outside this component stack.
-It is not copied, recreated, imported from an absent path or cherry-picked.
-Once the team integrates that dependency, Member 1 can compose it directly:
-
-```jsx
-<PublicLayout destinations={availableDestinations} currentPath={currentPath}>
-  <HowItWorksPage
-    destinations={availableDestinations}
-    howItWorks={<HowItWorksSection />}
-  />
-</PublicLayout>
-```
-
-The existing section keeps its own heading, markup, assets and styling. The
-new page adds the distinct detailed two-marketplace explanation rather than
-duplicating the landing timeline. Without a supplied section, the explanation
-still renders; no replacement timeline or placeholder is fabricated. Actual
-composition with the separate completed section remains an integration check.
-
-### Approved references and explicit design gaps
-
-The approved Figma file `4OarPMFlQbiJI1Q1WxblcC` was accessible during this work.
-Current page metadata contains no dedicated public About or full How It Works
-page specimen. Profile About frames (`58:14879`, `58:15011`, `58:16011`,
-`58:16142`) are Member 5's profile views, not designs for the public About page.
-The landing How It Works frames (`8:2703`, `8:3000`) remain the visual reference
-for the separately completed section, not a reason to rebuild it here.
-
-The high-fidelity style-guide heading reference `4:2497` confirms Inter, 32px
-bold headings with 1.2 line height, 16px supporting text with 1.55 line height,
-MIU crimson and neutral secondary text. The pages reuse that typography, the
-existing public-page tinted introduction/notice treatment and foundation Cards.
-The 1200px content area with 20px side padding, 48px/32px desktop/mobile spacing,
-two-to-one-column change at 768px, and 32px/20px Card padding are adaptations of
-existing conventions, not confirmed geometry for missing full-page designs.
-Page links retain underlines, 44px minimum height and visible keyboard focus.
-Only specifically named new classes are styled; the supplied section's
-headings/cards are not restyled by blanket descendant selectors.
-
-### Verification and remaining integration
-
-Eight focused Node/Vite tests cover page landmarks, academic/two-marketplace
-content, Phase 1 disclosures, caller-owned destinations, missing-link behavior,
-unique heading associations, section composition exactly once, and PublicLayout
-composition. All 118 tests passed (8 new, 110 existing). Lint, source Prettier,
-default build and separate export-preserving builds of both unmounted pages
-passed. No shared build configuration was edited.
-
-Chrome checks used the real pages inside the existing PublicLayout in an
-in-memory fixture, with no tracked preview entry or route changes. Both pages
-had one h1/main, matching heading references, accessible exploration navigation,
-and no horizontal overflow at 320, 390, 640, 767, 768, 960, 1024 and 1440px.
-Tab navigation, visible focus, native Enter link activation and the existing
-skip link passed. Fixture links targeted in-document test destinations, not
-registered application routes. Missing destinations stayed noninteractive.
-The supplied-section boundary rendered once and accepted long text with inherited
-RTL without overflow. This does not verify the separate section's actual CSS.
-Reduced motion introduced no page animation. Journey decimal markers were
-explicitly restored after Tailwind's reset hid them; their final rendered style
-and layout were rechecked. Final mobile About and desktop How It Works
-screenshots were inspected. Successful checks had no runtime exceptions,
-console errors or failed HTTP responses.
-
-Remaining dependencies: Member 1 route/shell/destination integration, team
-integration of the separate section, full-page design/editorial approval,
-screen-reader testing, systematic zoom, cross-browser and real-touch checks.
-No approved translations, legal copy, measured student outcomes, verification
-claims or marketplace functionality are introduced.
-
-```bash
-cd frontend
-node --test --test-concurrency=1 src/features/public/info/publicInfo.test.js src/components/ui/toast.test.js src/components/ui/dataDisplay.test.js src/components/ui/navigationControls.test.js src/components/ui/modal.test.js src/components/feedback/states.test.js src/features/public/landing/landing.test.js src/components/navigation/publicShell.test.js src/components/ui/forms.test.js src/components/ui/foundation.test.js src/features/marketplace/marketplace.test.js
-npm.cmd run lint
-npm.cmd run build
-node node_modules/prettier/bin/prettier.cjs --check src/features/public/AboutPage.jsx src/features/public/HowItWorksPage.jsx src/features/public/info/PublicInfoPage.jsx src/features/public/info/public-info.css src/features/public/info/publicInfo.test.js
-```
-
-## Member 4 — Terms and Privacy placeholders
-
-`features/public/TermsPage.jsx` and `PrivacyPage.jsx` reuse the existing
-`info/PublicInfoPage.jsx`, public-info styles and foundation Card. Each is a
-static content component for PublicLayout, with one h1 and an associated
-placeholder heading. Existing public-page components, styles, assets, routes,
-marketplace features and dependencies are unchanged.
-
-### Content status and page contracts
-
-**No approved Terms or Privacy text was found in the repository.** Both pages
-therefore state “Placeholder — awaiting team-approved content” and identify
-themselves as unpublished Phase 1 placeholders. These are approval-status
-notices, not drafted legal documents. They add no usage conditions, consent
-controls, effective dates, fees, refunds, dispute procedures, contact details,
-data inventories, collection/sharing promises, retention periods or deletion
-commitments. The inherited Phase 1 notice remains visible.
-
-| Component                            | Optional destinations |
-| ------------------------------------ | --------------------- |
-| `TermsPage({ destinations = {} })`   | `privacy`, `about`    |
-| `PrivacyPage({ destinations = {} })` | `terms`, `about`      |
-
-Only caller-supplied destinations become links through the existing PublicLink.
-Missing destinations remain text. No `#` links, absent route paths, policy
-download links or application integration are fabricated. Member 1 supplies
-PublicLayout and registers `/terms` and `/privacy`. No API, form, acceptance
-record, session, tracking mechanism or data-processing behavior is implemented.
-There is no asynchronous state requiring a new loader or error flow.
-
-The pages reuse the existing Figma-derived public-page foundation described in
-the preceding public information page section. They introduce no new visual
-tokens, geometry, icon exports or claims of matching a dedicated policy-page
-Figma specimen. Their placeholder layout and future final copy need team review.
-Related presentation requirements: NFR-02, NFR-03 and NFR-16. Privacy requirement
-NFR-08 remains a requirement, not an implemented or approved privacy policy.
-
-### Required team approvals before publication
-
-The team must supply the actual text and record its approval, responsible owner,
-applicability/version and publication status. The following are content gaps,
-not proposed clauses or assertions that the platform already has these practices:
-
-- Terms: approved usage/account conditions; project/service obligations; any
-  applicable payment, fee, cancellation, refund and dispute provisions; and
-  confirmed issuer/contact details. Do not infer these from mock workflows.
-- Privacy: a verified inventory of actual data flows and any tracking/storage;
-  approved purposes, recipients/providers, access arrangements and retention/
-  deletion decisions; and confirmed privacy-contact and user-request content.
-  Do not claim collection, cookies, sharing or legal compliance from UI alone.
-- Resolve relevant existing decisions, including identity retention (OD-03),
-  escrow arrangements (OD-05), fees/refunds (OD-06/07) and provider choices.
-  The new OD-17 in Known Issues records the missing public policy content.
-
-Final content must be reviewed against the actual implementation and approved
-project decisions. The placeholders do not satisfy publication readiness or
-demonstrate legal/privacy compliance. No unrelated work is assumed to exist on
-this branch; it starts from the approved `1e4931b` public information pages.
-
-### Verification and remaining dependencies
-
-Seven focused Node/Vite tests verify explicit placeholder status, absence of
-operative clauses/practice claims or consent controls, native destination
-handling, unique heading associations and PublicLayout composition. All 125
-tests passed (7 new, 118 existing). Lint, source Prettier, default Vite build and
-separate export-preserving builds of both new pages passed. Build configuration
-was not edited; the application entry still mounts the existing catalogue.
-
-Chrome checks used the real pages in an in-memory PublicLayout fixture, without
-tracked preview files or route changes. Both pages had one h1/main and no
-horizontal overflow at 320, 390, 640, 767, 768, 960, 1024 and 1440px. Placeholder
-headings were visible and exposed in Chrome's accessibility tree. Tab traversal,
-visible focus, native Enter activation and skip-link focus passed. Links used
-in-document fixture destinations; this does not verify application routing.
-Missing destinations stayed text, link heights were at least 44px, inherited RTL
-fit at 320px, and the pages introduced no animation under reduced motion.
-Mobile Terms and desktop Privacy screenshots were inspected. Successful browser
-checks had no runtime exceptions, console errors or failed HTTP responses.
-
-Remaining: team-approved policy text and visual review, Member 1 route/shell/
-destination integration, screen-reader testing, systematic zoom, cross-browser
-and real-touch checks. No approved translations or legal content are invented.
-
-```bash
-cd frontend
-node --test src/features/public/info/policyPages.test.js
-npm.cmd run lint
-npm.cmd run build
-node node_modules/prettier/bin/prettier.cjs --check src/features/public/TermsPage.jsx src/features/public/PrivacyPage.jsx src/features/public/info/policyPages.test.js
-```
-
-## Member 4 — Language-switcher interface
-
-`components/navigation/LanguageSwitcher.jsx` composes the existing native Select
-and Field. No language catalogue, translated copy, i18n library, provider,
-header/settings integration, new styles, assets or dependencies are introduced.
-It supplies the independently valid presentation part of FR-V05; actual interface
-translation remains pending. Related quality requirements: NFR-02, NFR-03,
-NFR-15 and NFR-16. This does not mark FR-V05 or localization complete.
-
-### Controlled component contract
-
-| Property                                  | Behavior                                                                                                                                                                                                                                                                                                                                                                                  |
-| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `options = []`                            | Caller-supplied array of approved `{ value, label, lang?, dir?, disabled? }` choices. Values/labels must be nonempty strings, values unique. Optional `lang` is a nonempty language-tag string; the caller validates its meaning. Optional `dir` is ltr, rtl or auto; optional disabled is boolean. Metadata is placed on native options, not interpreted as an instruction to translate. |
-| `value = ""`                              | Controlled string identifier. Unknown/empty values show the disabled placeholder instead of silently selecting the first language. A supplied current option remains displayed even if that option becomes disabled.                                                                                                                                                                      |
-| `onValueChange(nextValue)`                | Receives a permitted different value only. Unknown, placeholder, disabled and unchanged choices are ignored. No internal language state, normalization, document change or navigation occurs.                                                                                                                                                                                             |
-| `disabled = false`                        | Also disabled when no callback exists or no option is enabled. Empty options show only the disabled `emptyLabel`; the component does not invent an available language.                                                                                                                                                                                                                    |
-| `label`, `placeholder`, `emptyLabel`      | Nonempty strings defaulting to Language, Select language, No languages available. These are English control labels, not a translation dictionary. Callers supply approved localized labels as appropriate.                                                                                                                                                                                |
-| `helperText`, `error`, `aria-describedby` | Forwarded to the existing Select/Field for associated context and validation feedback. No automatic live region or fake error recovery is added.                                                                                                                                                                                                                                          |
-| `id`, `name`, `form`, `ref`, `className`  | Forwarded native-control integration props. Omitted IDs use Field's associated generated label. `className` applies to the select alongside the miu-language-switcher class.                                                                                                                                                                                                              |
-| `dir`, `lang`                             | Optional native select presentation attributes; otherwise inherited. These do not change the document, application, label/helper container or another feature.                                                                                                                                                                                                                            |
-
-Malformed caller option/label contracts fail clearly. No official language list
-or Arabic/English translation is bundled. The empty configuration is a disabled
-control, not simulated production translation.
-
-```jsx
-<LanguageSwitcher
-  options={approvedLanguageOptions}
-  value={activeLanguage}
-  onValueChange={requestLanguageChange}
-  label={approvedLanguageControlLabel}
-  helperText={languageAvailabilityMessage}
-/>
-```
-
-All example variables above belong to the consuming application. Member 1 owns
-the actual language state, approved dictionaries/options, provider contract,
-document lang/dir updates, persistence, route/provider integration and header or
-settings placement. No existing PublicHeader signature is changed. Enable only
-choices whose approved content is actually available; use disabled options or
-an empty list where appropriate. Direction is never inferred from an identifier
-or changed globally when an option is selected. Currency formatting and original
-message content remain untouched. OD-12 remains open.
-
-### Design and native presentation
-
-The inspected approved Figma form reference `4:2722` confirms visible labels,
-48px native-field sizing, neutral surfaces/borders, brand focus and error cues.
-The component reuses the completed Select/Field implementation and its documented
-adaptations rather than rebuilding those controls. No dedicated language-switcher
-specimen was identified in the previously inspected file metadata. Header
-placement, supported languages and full translated layouts still need agreement.
-
-Native keyboard selection, focus and disabled behavior are preserved. The
-component inherits RTL without duplicate controls, flags or direction-specific
-assets. Field labels/helper text wrap and the native select shrinks with its
-container. Native closed selects can visually clip unusually long option text;
-complete strings remain in the DOM. Use concise approved display names and
-provide helpful context where needed. Popup wrapping and mobile picker behavior
-are browser/OS-owned and are not claimed as custom multiline UI.
-
-### Verification and remaining work
-
-Eight focused Node/Vite tests cover labels/feedback associations, controlled
-requests, metadata, disabled/empty/missing-handler states, unknown values,
-caller props, escaped long text, unique IDs and malformed contracts.
-All 133 tests passed (8 new, 125 existing). Lint, source Prettier, normal build
-and a separate export-preserving production build of the unmounted switcher to
-a temporary directory passed. Shared configuration was unchanged.
-
-Chrome checks used synthetic, explicitly labeled option fixtures with lang=und;
-no official translations were fabricated and no tracked preview files were
-added. Tab entry/exit, visible focus, Arrow/Home/End requests, disabled-option
-skipping, ignored callbacks retaining the controlled value, disabled-control
-skipping, unknown-value/error relationships and no accidental form submission
-passed. Selecting the RTL-marked option did not change application lang/dir or
-move focus. Chrome exposed the native combobox with its associated label.
-
-Normal and long label/helper/option cases had no horizontal page overflow at
-320, 390, 640, 768, 960, 1024 and 1440px in LTR/inherited RTL fixtures. Controls
-measured 48px high. Reduced motion introduced no animation; fixture EGP text was
-preserved. Mobile/desktop screenshots were inspected. Successful checks had no
-runtime exceptions, console errors or failed HTTP responses.
-
-Remaining: approved language options/translations, Member 1's state/provider/
-document/header integration, team visual review, actual translated RTL screens,
-screen-reader testing, systematic zoom, cross-browser and real mobile pickers.
-No other member's state contract or feature is changed.
-
-```bash
-cd frontend
-node --test src/components/navigation/languageSwitcher.test.js
-npm.cmd run lint
-npm.cmd run build
-node node_modules/prettier/bin/prettier.cjs --check src/components/navigation/LanguageSwitcher.jsx src/components/navigation/languageSwitcher.test.js
-```
-
 ## 11. States to Support
 
 Relevant components should cover:
@@ -1538,6 +1538,68 @@ Relevant components should cover:
 - [ ] No hidden network side effects
 - [ ] Documented props
 - [ ] Appropriate tests
+
+## Member 4 — HowItWorksSection
+
+`frontend/src/features/public/components/HowItWorksSection.jsx` is a static,
+English landing-page section with no required props. Import it inside the
+future landing page, below that page's primary heading. It uses `useId` to
+associate its section heading, and an ordered list preserves the step order.
+It does not submit jobs/proposals or create reviews.
+
+Visual references: Figma desktop section `8:2703` and mobile section `8:3000`
+in file `4OarPMFlQbiJI1Q1WxblcC`. The three descriptions are copied from those
+approved frames. Existing brand/font tokens are reused; neutral colors are
+scoped locally rather than changing shared global CSS.
+
+The six original SVG exports were compared: desktop icons have 22px geometry,
+mobile icons have 21px geometry, and both retain a 1.7px stroke. They therefore
+remain separate unmodified assets, rendered at their original dimensions.
+
+Desktop uses alternating cards and a decorative timeline. Below 1200px, cards
+are stacked; this breakpoint is an implementation choice because no tablet
+frame is supplied. At 1440px the section has 120px horizontal/72px vertical
+padding; at 390px it has 20px horizontal/56px vertical padding. Static content
+does not need simulated loading, error, or empty states.
+
+### Isolated development preview
+
+With the existing dependencies installed, run from `frontend/`:
+
+```bash
+npm run dev
+```
+
+Open `/how-it-works-preview.html` on the URL printed by Vite. That HTML entry
+imports `src/features/public/preview/HowItWorksPreview.jsx` directly, so no
+application routing, `App.jsx`, or shared Vite configuration is changed.
+Vite's default production build targets `index.html`; this development preview
+is not included in that default build. It is not the `/how-it-works` route.
+
+Related requirements: P-01 (partial landing presentation), NFR-02 and NFR-03.
+This section alone does not satisfy NFR-01's two-marketplace discovery goal.
+Service-flow copy and the full information page remain separate work.
+
+Verification status (22 October 2026): dependencies were successfully installed
+with `npm.cmd ci` using the existing lockfile. The eight existing Node
+marketplace tests, `npm.cmd run lint`, `npm.cmd run build`, and
+`git diff --check` passed. The marketplace tests do not test this section.
+Local SVG dimensions/strokes and preview import paths were checked. The Vite
+development server served the preview HTML and entry module with HTTP 200,
+and the project owner approved the initial visual preview. The successful
+default production build covers the application, not this isolated preview.
+
+The owner approved changing only the section-local summary text color from
+Figma's `#8D929A` to `#707780` for accessibility. Against the section's white
+background (`#FFFFFF`), its calculated WCAG contrast ratio is 4.53:1, meeting
+the 4.5:1 AA threshold for normal text. Global tokens and other components are
+unaffected. This calculated color check is not a full accessibility audit.
+
+Systematic responsive and breakpoint checks, zoom/text-resizing checks,
+screen-reader checks, cross-browser checks, and precise Figma geometry
+comparisons remain unverified. Initial visual approval does not establish
+that these checks passed. On PowerShell systems blocking `npm.ps1`, use
+`npm.cmd run dev`.
 
 ## Related Documents
 
