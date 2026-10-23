@@ -54,6 +54,12 @@ Students can:
 
 ## 5. Proposal Submission
 
+Task 1 form design: open-project proposal entry now shows editable EGP price,
+delivery days, and cover message fields alongside the project budget and deadline.
+The form is a temporary preview with submission disabled for every account.
+Draft values clear when leaving the page. Validation, attachments, and simulated
+record creation remain future tasks; FR-S05 is not complete.
+
 The first P-08 increment registers `/projects/:projectId/propose` for active
 student accounts only. Open project details provide a Submit proposal entry.
 Visitors go through the shared login flow; other roles are denied. Missing and
