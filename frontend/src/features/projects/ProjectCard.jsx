@@ -20,6 +20,7 @@ export default function ProjectCard({
   featured,
   saved,
   onToggleSaved,
+  onOpenProject,
 }) {
   const [expanded, setExpanded] = useState(false);
   const clientName = clientNames.get(project.clientId) ?? "Demo client";
@@ -132,12 +133,20 @@ export default function ProjectCard({
             </span>
             <button
               type="button"
-              aria-expanded={expanded}
-              aria-controls={`brief-${project.id}`}
-              onClick={() => setExpanded((value) => !value)}
+              aria-expanded={onOpenProject ? undefined : expanded}
+              aria-controls={onOpenProject ? undefined : `brief-${project.id}`}
+              onClick={() =>
+                onOpenProject
+                  ? onOpenProject(project.id)
+                  : setExpanded((value) => !value)
+              }
               className={`flex min-h-11 w-full items-center justify-center gap-2 rounded-lg px-3 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red ${featured ? "bg-miu-red text-white hover:bg-miu-red-dark" : "border border-[#b5869a] bg-white text-[#703647] hover:border-miu-red hover:bg-[#fff3f5]"}`}
             >
-              {expanded ? "Close brief" : "View brief"}
+              {onOpenProject
+                ? "View project"
+                : expanded
+                  ? "Close brief"
+                  : "View brief"}
               <ArrowRight
                 size={15}
                 aria-hidden="true"
@@ -147,7 +156,7 @@ export default function ProjectCard({
           </div>
         </div>
       </div>
-      {expanded && (
+      {!onOpenProject && expanded && (
         <div
           id={`brief-${project.id}`}
           className="border-t border-[#d0b8c3] bg-[#f7edf2] p-5 text-sm leading-6 text-[#60525a] sm:p-6"

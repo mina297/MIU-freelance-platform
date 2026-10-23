@@ -90,8 +90,10 @@ from `frontend/src/App.jsx`. It shows fictional open projects with working text,
 category, budget, skill, and sort controls, plus active filters, temporary
 saved-item state, a responsive marketplace layout, and an empty state. Member 1's React Router
 configuration is still pending, so `/projects` is not yet registered as a
-distinct application route. Project details and proposal submission remain
-planned screens.
+distinct application route. The Project Details preview (P-07) is now
+reachable from catalogue cards through temporary App state. Its proposed
+`/projects/:projectId` path is not registered yet. Proposal submission
+remains a planned screen.
 
 ## 4. Layout Groups
 
