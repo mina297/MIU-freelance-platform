@@ -119,6 +119,217 @@ All prices use the shared EGP formatter.
 
 Phase 1 verification and AI outputs must be visibly simulated.
 
+## Member 4 — Public About and How It Works pages
+
+`features/public/AboutPage.jsx` and `HowItWorksPage.jsx` provide static,
+content-only public pages. They share the internal `info/PublicInfoPage.jsx`
+presentation and scoped `info/public-info.css`, composing the existing Card,
+Badge and PublicLink components. There are no new dependencies, assets, data
+records, forms, operations, global tokens or application integrations.
+
+### Content and requirement boundaries
+
+- About explains the academic project's purpose and both marketplace models,
+  based on `PROJECT_OVERVIEW.md` sections 1–4 and `PROJECT_SCOPE.md` sections 2/4.
+- How It Works explains the planned project/proposal and service/package paths,
+  based on `USER_FLOWS.md` sections 4–6 and the Projects/Proposals and
+  Services/Orders module documents. It preserves EGP-only pricing, participant
+  roles, permitted extras, delivery review and revision requests without
+  inventing fees, eligibility thresholds, revision limits or completion rules.
+- Both show a Phase 1 notice distinguishing planned workflows and simulated
+  authentication, verification, AI, payment and escrow from live operations.
+- This is explanatory content supporting FR-V01 and the documented marketplace
+  journeys, not an implementation of those workflows. Relevant quality
+  requirements are NFR-01, NFR-02, NFR-03 and NFR-16. No SRS workflow is marked
+  complete merely because these pages exist.
+
+The copy is derived from the documented baseline. It is not an official
+university statement, approved legal content, or evidence of production service.
+Editorial and visual review of the assembled public pages remains required.
+
+### Page contracts and composition
+
+| Component/property                                         | Behavior                                                                                                                                                                                                                                                        |
+| ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `AboutPage({ destinations = {} })`                         | One h1, project purpose, project/proposal explanation, service/package explanation and related public destinations.                                                                                                                                             |
+| `HowItWorksPage({ destinations = {}, howItWorks = null })` | One h1, two native ordered journey lists and related public destinations. Optional `howItWorks` is a supplied React node, rendered once between the introduction and detailed journeys.                                                                         |
+| `destinations`                                             | About consumes `howItWorks`, `projects`, `services`; How It Works consumes `projects`, `services`, `about`. Only supplied destinations become native links. Missing destinations remain text through PublicLink, never guessed routes or placeholder `#` links. |
+| Shared internal presentation                               | Provides the page title, introduction, Phase 1 notice, content grid and named exploration navigation. It does not add another main, header, footer, provider or route.                                                                                          |
+
+Member 1 supplies PublicLayout and registers `/about` and `/how-it-works`.
+These page components do not register either path or replace the existing App.
+Static explanatory content has no fetch, session or loading/error state machine.
+Members 2/3/5 retain all marketplace, order, financial and profile workflows.
+
+The completed `HowItWorksSection` remains on the separately approved
+`feat/m4-how-it-works-section` branch at `753d9f1`, outside this component stack.
+It is not copied, recreated, imported from an absent path or cherry-picked.
+Once the team integrates that dependency, Member 1 can compose it directly:
+
+```jsx
+<PublicLayout destinations={availableDestinations} currentPath={currentPath}>
+  <HowItWorksPage
+    destinations={availableDestinations}
+    howItWorks={<HowItWorksSection />}
+  />
+</PublicLayout>
+```
+
+The existing section keeps its own heading, markup, assets and styling. The
+new page adds the distinct detailed two-marketplace explanation rather than
+duplicating the landing timeline. Without a supplied section, the explanation
+still renders; no replacement timeline or placeholder is fabricated. Actual
+composition with the separate completed section remains an integration check.
+
+### Approved references and explicit design gaps
+
+The approved Figma file `4OarPMFlQbiJI1Q1WxblcC` was accessible during this work.
+Current page metadata contains no dedicated public About or full How It Works
+page specimen. Profile About frames (`58:14879`, `58:15011`, `58:16011`,
+`58:16142`) are Member 5's profile views, not designs for the public About page.
+The landing How It Works frames (`8:2703`, `8:3000`) remain the visual reference
+for the separately completed section, not a reason to rebuild it here.
+
+The high-fidelity style-guide heading reference `4:2497` confirms Inter, 32px
+bold headings with 1.2 line height, 16px supporting text with 1.55 line height,
+MIU crimson and neutral secondary text. The pages reuse that typography, the
+existing public-page tinted introduction/notice treatment and foundation Cards.
+The 1200px content area with 20px side padding, 48px/32px desktop/mobile spacing,
+two-to-one-column change at 768px, and 32px/20px Card padding are adaptations of
+existing conventions, not confirmed geometry for missing full-page designs.
+Page links retain underlines, 44px minimum height and visible keyboard focus.
+Only specifically named new classes are styled; the supplied section's
+headings/cards are not restyled by blanket descendant selectors.
+
+### Verification and remaining integration
+
+Eight focused Node/Vite tests cover page landmarks, academic/two-marketplace
+content, Phase 1 disclosures, caller-owned destinations, missing-link behavior,
+unique heading associations, section composition exactly once, and PublicLayout
+composition. All 118 tests passed (8 new, 110 existing). Lint, source Prettier,
+default build and separate export-preserving builds of both unmounted pages
+passed. No shared build configuration was edited.
+
+Chrome checks used the real pages inside the existing PublicLayout in an
+in-memory fixture, with no tracked preview entry or route changes. Both pages
+had one h1/main, matching heading references, accessible exploration navigation,
+and no horizontal overflow at 320, 390, 640, 767, 768, 960, 1024 and 1440px.
+Tab navigation, visible focus, native Enter link activation and the existing
+skip link passed. Fixture links targeted in-document test destinations, not
+registered application routes. Missing destinations stayed noninteractive.
+The supplied-section boundary rendered once and accepted long text with inherited
+RTL without overflow. This does not verify the separate section's actual CSS.
+Reduced motion introduced no page animation. Journey decimal markers were
+explicitly restored after Tailwind's reset hid them; their final rendered style
+and layout were rechecked. Final mobile About and desktop How It Works
+screenshots were inspected. Successful checks had no runtime exceptions,
+console errors or failed HTTP responses.
+
+Remaining dependencies: Member 1 route/shell/destination integration, team
+integration of the separate section, full-page design/editorial approval,
+screen-reader testing, systematic zoom, cross-browser and real-touch checks.
+No approved translations, legal copy, measured student outcomes, verification
+claims or marketplace functionality are introduced.
+
+```bash
+cd frontend
+node --test --test-concurrency=1 src/features/public/info/publicInfo.test.js src/components/ui/toast.test.js src/components/ui/dataDisplay.test.js src/components/ui/navigationControls.test.js src/components/ui/modal.test.js src/components/feedback/states.test.js src/features/public/landing/landing.test.js src/components/navigation/publicShell.test.js src/components/ui/forms.test.js src/components/ui/foundation.test.js src/features/marketplace/marketplace.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/features/public/AboutPage.jsx src/features/public/HowItWorksPage.jsx src/features/public/info/PublicInfoPage.jsx src/features/public/info/public-info.css src/features/public/info/publicInfo.test.js
+```
+
+## Member 4 — Terms and Privacy placeholders
+
+`features/public/TermsPage.jsx` and `PrivacyPage.jsx` reuse the existing
+`info/PublicInfoPage.jsx`, public-info styles and foundation Card. Each is a
+static content component for PublicLayout, with one h1 and an associated
+placeholder heading. Existing public-page components, styles, assets, routes,
+marketplace features and dependencies are unchanged.
+
+### Content status and page contracts
+
+**No approved Terms or Privacy text was found in the repository.** Both pages
+therefore state “Placeholder — awaiting team-approved content” and identify
+themselves as unpublished Phase 1 placeholders. These are approval-status
+notices, not drafted legal documents. They add no usage conditions, consent
+controls, effective dates, fees, refunds, dispute procedures, contact details,
+data inventories, collection/sharing promises, retention periods or deletion
+commitments. The inherited Phase 1 notice remains visible.
+
+| Component                            | Optional destinations |
+| ------------------------------------ | --------------------- |
+| `TermsPage({ destinations = {} })`   | `privacy`, `about`    |
+| `PrivacyPage({ destinations = {} })` | `terms`, `about`      |
+
+Only caller-supplied destinations become links through the existing PublicLink.
+Missing destinations remain text. No `#` links, absent route paths, policy
+download links or application integration are fabricated. Member 1 supplies
+PublicLayout and registers `/terms` and `/privacy`. No API, form, acceptance
+record, session, tracking mechanism or data-processing behavior is implemented.
+There is no asynchronous state requiring a new loader or error flow.
+
+The pages reuse the existing Figma-derived public-page foundation described in
+the preceding public information page section. They introduce no new visual
+tokens, geometry, icon exports or claims of matching a dedicated policy-page
+Figma specimen. Their placeholder layout and future final copy need team review.
+Related presentation requirements: NFR-02, NFR-03 and NFR-16. Privacy requirement
+NFR-08 remains a requirement, not an implemented or approved privacy policy.
+
+### Required team approvals before publication
+
+The team must supply the actual text and record its approval, responsible owner,
+applicability/version and publication status. The following are content gaps,
+not proposed clauses or assertions that the platform already has these practices:
+
+- Terms: approved usage/account conditions; project/service obligations; any
+  applicable payment, fee, cancellation, refund and dispute provisions; and
+  confirmed issuer/contact details. Do not infer these from mock workflows.
+- Privacy: a verified inventory of actual data flows and any tracking/storage;
+  approved purposes, recipients/providers, access arrangements and retention/
+  deletion decisions; and confirmed privacy-contact and user-request content.
+  Do not claim collection, cookies, sharing or legal compliance from UI alone.
+- Resolve relevant existing decisions, including identity retention (OD-03),
+  escrow arrangements (OD-05), fees/refunds (OD-06/07) and provider choices.
+  The new OD-17 in Known Issues records the missing public policy content.
+
+Final content must be reviewed against the actual implementation and approved
+project decisions. The placeholders do not satisfy publication readiness or
+demonstrate legal/privacy compliance. No unrelated work is assumed to exist on
+this branch; it starts from the approved `1e4931b` public information pages.
+
+### Verification and remaining dependencies
+
+Seven focused Node/Vite tests verify explicit placeholder status, absence of
+operative clauses/practice claims or consent controls, native destination
+handling, unique heading associations and PublicLayout composition. All 125
+tests passed (7 new, 118 existing). Lint, source Prettier, default Vite build and
+separate export-preserving builds of both new pages passed. Build configuration
+was not edited; the application entry still mounts the existing catalogue.
+
+Chrome checks used the real pages in an in-memory PublicLayout fixture, without
+tracked preview files or route changes. Both pages had one h1/main and no
+horizontal overflow at 320, 390, 640, 767, 768, 960, 1024 and 1440px. Placeholder
+headings were visible and exposed in Chrome's accessibility tree. Tab traversal,
+visible focus, native Enter activation and skip-link focus passed. Links used
+in-document fixture destinations; this does not verify application routing.
+Missing destinations stayed text, link heights were at least 44px, inherited RTL
+fit at 320px, and the pages introduced no animation under reduced motion.
+Mobile Terms and desktop Privacy screenshots were inspected. Successful browser
+checks had no runtime exceptions, console errors or failed HTTP responses.
+
+Remaining: team-approved policy text and visual review, Member 1 route/shell/
+destination integration, screen-reader testing, systematic zoom, cross-browser
+and real-touch checks. No approved translations or legal content are invented.
+
+```bash
+cd frontend
+node --test src/features/public/info/policyPages.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/features/public/TermsPage.jsx src/features/public/PrivacyPage.jsx src/features/public/info/policyPages.test.js
+```
+
 ## 9. Component API Guidelines
 
 Components should:
@@ -807,6 +1018,403 @@ is required; no polyfill is installed. Third-party portals/iframes inside a dial
 have not been validated. Members 1–5 retain their routing, marketplace, finance,
 committee, profile, and other feature-specific workflows.
 
+## Member 4 — Tabs and Pagination
+
+Reusable `frontend/src/components/ui/Tabs.jsx` and `Pagination.jsx` share scoped
+`navigation-controls.css`. `paginationModel.js` builds a bounded display window
+of page numbers; it does not handle records or data contracts. Both components
+reuse Button. No existing component, route, feature screen, global token, package,
+or preview entry is changed. Related requirements: NFR-02, NFR-03, NFR-16.
+This component work does not mark complete marketplace/profile workflows delivered.
+
+### Tabs contract
+
+| Property                     | Behavior                                                                                                                                                                                                                                                                                                                          |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `items`                      | Array of `{ id, label, content, disabled? }`. IDs must be unique nonempty strings; invalid/duplicate IDs throw a clear developer-facing error. Generated instance prefixes and encoded item IDs connect each tab/panel pair without collisions. Empty arrays render nothing.                                                      |
+| `value`, `onValueChange(id)` | Controlled selected ID and selection-request callback. No selected-record or section state is owned internally. Missing, unknown, or item-disabled values show no selected panel; the consumer must supply a valid selection rather than relying on silent fallback. Clicking the already selected tab does not request a change. |
+| `label`                      | Accessible tablist name, default Sections. Use a meaningful distinct label when multiple groups exist.                                                                                                                                                                                                                            |
+| `disabled`                   | Disables tab activation; defaults false. Missing callback also disables controls. An otherwise valid selected panel remains visible when the whole control is disabled.                                                                                                                                                           |
+| `className`                  | Optional class on the component root. Styling remains scoped.                                                                                                                                                                                                                                                                     |
+
+Tabs use **manual activation**: Left/Right move focus with wrapping; Home/End
+move to the first/last available tab. Disabled items are skipped. Enter/Space
+or pointer activation requests a selection. Arrow/focus movement alone never
+changes content, triggers requests, or changes the supplied value. A roving
+tab stop lets Tab/Shift+Tab leave the strip without visiting every tab; reentry
+targets the selected (or first available) tab. Inherited RTL direction reverses
+Left/Right appropriately without introducing translations or a language switcher.
+
+Each native button has `role="tab"`, `aria-selected`, and `aria-controls`.
+Panels have `role="tabpanel"`, reciprocal `aria-labelledby`, and a keyboard entry
+point. Inactive panels use native `hidden` and remain mounted, preserving local
+input state. The component only tracks keyboard focus internally. The consumer
+owns content, asynchronous loading/error states, active-section decisions,
+available items, and focus recovery when dynamically removing a focused item.
+These are local content tabs, not navigation links or route registration.
+
+### Pagination contract
+
+| Property                                                      | Behavior                                                                                                                                                                                                        |
+| ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `page`, `pageCount`                                           | Controlled 1-based page (default 1) and total page count (default 0). Valid controls require safe integers with `1 <= page <= pageCount`. No clamping or automatic reset changes the consumer's selected page.  |
+| `onPageChange(number)`                                        | Emits a requested page number from Previous, Next, or a number button. Does not fetch/slice/sort records, compute page size/totals, change the URL, or own selection state. Current-page activation is a no-op. |
+| `summary`                                                     | Optional consumer-supplied summary. No job counts, record ranges, data, or currency claims are invented. Empty/invalid page inputs show only a supplied summary, otherwise render nothing.                      |
+| `label`, `previousLabel`, `nextLabel`, `getPageLabel(number)` | Accessible names; defaults Pagination, Previous page, Next page, and Page N. Callers can supply approved labels without embedding translations in the component.                                                |
+| `disabled`, `className`                                       | Optional global disabled state and root class. Missing callback disables all actions. Boundary Previous/Next buttons are natively disabled.                                                                     |
+
+Pagination is a labeled `nav` containing native action buttons, with exactly one
+`aria-current="page"` on valid input. Ellipses are decorative, noninteractive,
+and not tab stops. Numbers use stable keys and the window remains bounded even
+for a very large supplied page count. First/last and current neighboring pages
+are exposed; gaps do not imply omitted data is loaded. Consumers own result
+announcements, busy/error presentation, filter resets, result focus management,
+records, page-count calculation, and actual navigation. No live region is added
+to either component, avoiding competing feature announcements.
+
+```jsx
+<Tabs
+  label="Example sections"
+  value={section}
+  onValueChange={setSection}
+  items={[
+    { id: "overview", label: "Overview", content: overviewContent },
+    { id: "details", label: "Details", content: detailsContent },
+  ]}
+/>
+<Pagination
+  label="Example results pages"
+  page={page}
+  pageCount={totalPages}
+  onPageChange={setPage}
+  summary={resultSummary}
+/>
+```
+
+In this example, the consuming feature supplies `section`, `page`, their update
+functions, content, `totalPages`, and `resultSummary`. Members 1, 2, 3, and 5 keep
+their routing, marketplace, dashboard, and profile workflows respectively.
+
+### Figma references and adaptations
+
+Approved file `4OarPMFlQbiJI1Q1WxblcC` was inspected directly:
+
+- Tabs: desktop profile strip `58:14912`, mobile `58:15046`. Confirmed neutral
+  bottom rule, selected red 3px pill border, red selected text, 32px desktop gap,
+  Inter 15px desktop/12px mobile, and 500/600 inactive/selected weights.
+- Pagination: desktop catalogue `20:11140`, mobile `20:11566`. Confirmed red
+  selected page, white neutral-border buttons, circular controls, 14px semibold
+  numbers, 12px secondary summary, 16px summary/control gap, and 8px/6px
+  desktop/mobile control gaps. Initial number pattern is 1, 2, 3, …, 16.
+- Both exact 16px arrow exports are stored in `assets/figma/pagination-previous.svg`
+  and `pagination-next.svg`, reused across desktop/mobile. The muted previous
+  artwork is used at the initial boundary. Enabled Previous reuses the dark Next
+  artwork rotated to avoid presenting the disabled-color icon as an enabled
+  action. Inherited RTL mirrors direction; no duplicate SVG assets are created.
+
+Accessibility adaptations: minimum 44×44 button targets replace Figma's 36px
+active-tab height and 40px page controls. Labels can wrap, strips/controls wrap
+at narrow widths, and focus outlines remain visible. Tab panels have a 24px gap
+using the existing spacing scale; the inspected strip does not specify panel
+content. Responsive typography/layout changes at 640px. No extra animation is
+introduced; inherited Button transitions respect reduced motion. These size,
+wrapping, dynamic-state, and enabled-arrow adaptations require team visual
+review rather than being described as exact Figma geometry.
+
+### Verification and remaining work
+
+Fifteen focused Node/Vite tests cover tab/panel relationships, independent IDs,
+controlled/disabled/empty/invalid states, escaped labels, native button semantics,
+page-window boundaries and bounded output, labels, and decorative local icons.
+
+Verification on 23 October 2026: all 84 tests passed (15 new and 69 existing).
+Lint, default Vite build, new-source Prettier, and tracked/untracked whitespace
+checks passed. Since the default app does not import these components yet,
+separate export-preserving production builds of Tabs/Pagination were also run
+to a temporary directory and passed, without editing shared configuration.
+
+```bash
+cd frontend
+node --test --test-concurrency=1 src/components/ui/navigationControls.test.js src/components/ui/modal.test.js src/components/feedback/states.test.js src/features/public/landing/landing.test.js src/components/navigation/publicShell.test.js src/components/ui/forms.test.js src/components/ui/foundation.test.js src/features/marketplace/marketplace.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/components/ui/Tabs.jsx src/components/ui/Pagination.jsx src/components/ui/paginationModel.js src/components/ui/navigation-controls.css src/components/ui/navigationControls.test.js
+```
+
+Chrome checks used real components imported into an in-memory fixture, with no
+tracked preview infrastructure. Checks passed for arrow/Home/End navigation,
+disabled skipping, wraparound, Enter/Space activation, Tab/Shift+Tab exit and
+reentry, visible focus, panel/input traversal, and preserved hidden-panel edits.
+Ignoring callbacks left selected tab/page unchanged, confirming controlled
+behavior. Previous/Next and numeric actions emitted requests, boundary controls
+were disabled, current-page activation was a no-op, and no action submitted the
+fixture form. Inherited RTL keyboard direction was exercised without claiming
+approved translated content.
+
+Normal, long-label/summary, RTL, and very-large-page-count cases had no horizontal
+overflow at 320, 390, 640, 768, 960, 1024, and 1440px. Buttons met 44px targets,
+and both local arrow slots loaded/rendered at 16×16. Desktop/mobile screenshots
+were inspected. Chrome's accessibility tree exposed the tablist, selected tab,
+active named panel, and pagination navigation. Reduced motion suppressed Button
+transitions; panels had no animation. Measured selected-tab contrast on the
+inspected neutral surface was 6.06:1; current-page text contrast was 6.43:1.
+Successful browser checks had no runtime exceptions, console errors, or failed
+HTTP responses. This is not an exhaustive accessibility audit.
+
+Remaining: consuming-feature integration and result focus/announcements,
+team visual approval, screen-reader testing, systematic zoom, other browsers,
+real touch devices, and precise Figma geometry. No existing catalogue/profile
+screen is migrated, and no route is registered.
+
+## Member 4 — DataTable and StatCard
+
+`frontend/src/components/ui/DataTable.jsx` and `StatCard.jsx` provide reusable
+data presentation, with scoped `data-display.css` and focused
+`dataDisplay.test.js`. They reuse Card, Button, Skeleton, LoadingState,
+EmptyState, and ErrorState. No existing feature, FilterPanel, shared data model,
+route, global token, dependency, or preview entry is changed. Related quality
+requirements: NFR-02, NFR-03, NFR-16; no complete SRS workflow is marked delivered.
+
+### DataTable contract
+
+| Property                                 | Behavior                                                                                                                                                                                                                                                                                                                                                          |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `caption`, `description`, `headingLevel` | Visible title (default Records), optional description, and heading level 2/3/4 (default/fallback 2). A native caption names the table, with unique IDs for the surrounding section, description, and headers.                                                                                                                                                     |
+| `columns`                                | Required nonempty array of `{ id, header, render(row), rowHeader?, sortable?, align?, width? }`. IDs/headers must be nonempty strings, IDs unique, and render a function. At most one row-header column. Header labels and cell rendering remain caller-owned.                                                                                                    |
+| `rows`, `getRowId(row)`                  | Array (default empty), rendered exactly in supplied order. Default getter uses `row.id`. Each ready-state row requires a unique nonempty string or finite numeric ID; numeric/string collisions are rejected. No index-based identity, record mutation, ranking, filtering, or hidden sorting.                                                                    |
+| `sort`, `onSortChange(request)`          | Optional controlled `{ columnId, direction }`, where direction is ascending/descending. Only a matching sortable column exposes `aria-sort`. Native header buttons request `{ columnId, direction }`; the caller must update state and supply reordered rows. A missing callback disables sort buttons. Invalid sort metadata is not presented as active sorting. |
+| `getSortLabel(header, direction)`        | Optional accessible request-label function; default Sort HEADER DIRECTION. The visible hint is Sort or the supplied active direction. No automatic record operation occurs.                                                                                                                                                                                       |
+| `toolbar`, `pagination`                  | Optional caller-owned nodes. Toolbar can compose existing Input/Select/Checkbox/Button controls. Pagination can compose the existing Pagination component or other approved caller presentation. False/null/omitted slots add no wrapper. Pagination is shown only for ready, nonempty rows.                                                                      |
+| `state`                                  | ready (default), loading, or error. Unknown values throw. Ready with no rows uses EmptyState. Loading/error suppress stale row rendering and pagination. The caller owns transitions, operations, toolbar disabled states, result announcements, and focus recovery when replacing focused content.                                                               |
+| Feedback props                           | `loadingLabel`; `emptyTitle`, `emptyDescription`, `onEmptyAction`, `emptyActionLabel`; `errorMessage`, `onRetry`. Shared feedback provides actions only for real callbacks. Loading status sits outside the busy content container so it is not deferred by `aria-busy`. Never pass raw exceptions or sensitive data as user messages.                            |
+| Layout props                             | `className` is on the root. Column `width` supplies an optional CSS width; otherwise fixed table layout distributes widths. `align` sets desktop cell alignment to start/end/center (fallback start). Mobile stacked fields use reading-direction start alignment.                                                                                                |
+
+The desktop table uses native table/caption/column/row-header semantics.
+Explicit roles and `headers` relationships preserve these semantics when CSS
+reflows mobile rows into records. Mobile field labels are decorative copies of
+the real column headers and are hidden from assistive technology. There is only
+one set of row controls: no duplicated desktop/mobile interactive markup.
+Non-sortable mobile column headers are visually hidden, not removed from the
+accessibility tree; optional sort buttons remain visible and keyboard reachable
+above the records. This is a native table, not a spreadsheet/ARIA grid: Tab
+visits its native controls without invented arrow-key cell navigation.
+
+### StatCard contract
+
+| Property                        | Behavior                                                                                                                                                                                                                                                                                                        |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `label`, `value`, `description` | Named section with a native definition-list label/value and optional context. Label defaults to Statistic. Value is a caller-formatted nonempty string or finite number. Zero is preserved; absent, blank, boolean, object, or nonfinite values show `missingLabel` (default Unavailable), never invented zero. |
+| `icon`                          | Optional caller-supplied, decorative, noninteractive node hidden from assistive technology. No dashboard-specific default icon is inferred. Pass approved artwork at its natural size; the inspected metric icons are 18px.                                                                                     |
+| `state`                         | ready (default), loading, or error. Loading replaces stale values with a Skeleton and a separate LoadingState message outside the busy value. Error replaces stale values with Unavailable and compact inline feedback. Unknown states throw.                                                                   |
+| Feedback props                  | `loadingLabel`, `missingLabel`, `errorMessage`, `onRetry`, `retryLabel`. Error retry exists only for a supplied function. No request, timer, automatic alert, or business-state transition is introduced.                                                                                                       |
+| `className`                     | Optional root class. Grid placement, card grouping, metrics, time periods, trends, formatting, currency and operations remain caller-owned. EGP values must use the project's existing formatter in the consuming feature.                                                                                      |
+
+Example composition (all records, configuration, state, and callbacks below
+belong to the consuming feature):
+
+```jsx
+<StatCard label={metricLabel} value={formattedMetric} description={metricContext} />
+<DataTable
+  caption={tableTitle}
+  columns={columns}
+  rows={visibleRows}
+  state={tableState}
+  sort={sort}
+  onSortChange={handleSortRequest}
+  toolbar={<Input label="Search examples" value={query} onChange={handleQueryChange} />}
+  pagination={<Pagination page={page} pageCount={pageCount} onPageChange={handlePageRequest} />}
+  onRetry={retry}
+/>
+```
+
+### Approved design references and adaptations
+
+Approved Figma file `4OarPMFlQbiJI1Q1WxblcC` was inspected directly:
+desktop metric cards `71:11508`, mobile `71:11674`; desktop My Jobs table
+`71:11534`, mobile records `71:11701`. Confirmed values include white surfaces,
+10px corners, neutral borders, `0 4px 16px rgb(17 17 17 / 3%)` shadow,
+20px/16px metric padding, 32px/28px bold metric values, 14px/12px metric labels,
+12px descriptions, 20px/18px table titles, neutral table headers, 24px desktop
+and 16px mobile table spacing, and 88px desktop rows as a minimum content target.
+
+Generic mobile records preserve supplied column order and show labeled fields;
+they do not reproduce the domain-specific status/applicant/deadline arrangement.
+The generic breakpoint is 768px, text can wrap, and rows can grow. Optional
+sorting controls, loading/error presentations, and a slot composing the completed
+Pagination component are reusable extensions rather than the exact static
+table footer or an approved sorting workflow. Visual review remains required.
+
+The Figma records, fees, counts, status badges, metric meaning, icons, and action
+menus are caller content, not defaults. No proposal/client dashboard or dummy
+ellipsis menu is recreated. No new static assets are required by these generic
+components; caller-supplied icons/actions remain dynamic. No university users,
+verification claims, metric values, or transaction behavior are invented.
+
+### Verification and remaining work
+
+On 23 October 2026, 102 tests passed (18 new and 84 existing). Lint, normal Vite
+build, new-source Prettier and tracked/untracked whitespace checks passed.
+Separate export-preserving builds of both new modules to a temporary directory
+also passed, since the default app still mounts the existing catalogue.
+Shared build configuration was not edited.
+
+Focused tests cover native captions and header associations, independent IDs,
+stable custom row IDs, developer input validation, preserved order/zero values,
+controlled sort metadata, optional/false slots, filter/Pagination composition,
+hidden stale data, loading status outside busy regions, empty/error recovery,
+metric definitions/missing values, escaped text, and caller-owned decoration.
+
+Chrome checks used actual components in an in-memory fixture, without tracked
+preview infrastructure. Keyboard Tab traversal, visible focus, native Select,
+Enter/Space sort/action/page requests, caller-applied sorting/filtering, ignored
+sort requests, recovery callbacks, and no accidental form submissions passed.
+Original records were unchanged. Header targets and table/column/row/cell roles
+remained available in Chrome's mobile accessibility tree, including tables with
+and without sort controls. Ready/loading/error/empty transitions hid stale data;
+metric zero and unavailable values remained distinct.
+
+Normal, long-text, and inherited-RTL examples had no horizontal overflow at
+320, 390, 640, 767, 768, 960, 1024, and 1440px. Mobile/desktop screenshots were
+inspected, including the final mobile reading-direction alignment. Sort/action
+buttons met 44px targets. A caller-provided decoration rendered at 18×18.
+Reduced motion suppressed existing skeleton/spinner animations; status messages
+were outside busy containers. Secondary text contrast on white measured 7.56:1.
+Successful browser checks had no runtime exceptions, console errors, or failed
+HTTP responses. This is not a complete assistive-technology audit.
+
+Remaining: Members 2/3/5 supply their column contracts, records, metric definitions,
+actions and filter/sort/page logic; Member 1 retains routing/provider integration.
+Consumers own focus management when controls unmount and result announcements.
+Team visual approval, screen-reader testing, systematic zoom, other browsers,
+real touch devices, and precise Figma geometry remain unverified. The existing
+FilterPanel and all other feature implementations are preserved.
+
+```bash
+cd frontend
+node --test --test-concurrency=1 src/components/ui/dataDisplay.test.js src/components/ui/navigationControls.test.js src/components/ui/modal.test.js src/components/feedback/states.test.js src/features/public/landing/landing.test.js src/components/navigation/publicShell.test.js src/components/ui/forms.test.js src/components/ui/foundation.test.js src/features/marketplace/marketplace.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/components/ui/DataTable.jsx src/components/ui/StatCard.jsx src/components/ui/data-display.css src/components/ui/dataDisplay.test.js
+```
+
+## Member 4 — Toast feedback visuals
+
+`frontend/src/components/ui/Toast.jsx` provides reusable feedback presentation,
+with scoped `toast.css` and focused `toast.test.js`. It composes the existing
+Card, Badge, Button and decorative LoadingSpinner, and reuses the existing
+`assets/figma/modal-close.svg` without duplicating or resizing the artwork.
+Related quality requirements: NFR-02, NFR-03 and NFR-16. This visual component
+does not implement the P-29 notifications workflow or notification delivery.
+
+### Component contract
+
+| Property                    | Behavior                                                                                                                                                                                                                                                                      |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `message`                   | Required nonempty string, rendered as escaped text. The consuming feature supplies accurate, safe feedback and identifies simulated outcomes where needed. Never pass raw exceptions, sensitive data or unconfirmed product claims.                                           |
+| `description`               | Optional string with additional context. Blank/absent descriptions add no paragraph.                                                                                                                                                                                          |
+| `variant`                   | info (default), success, warning, error or loading. Explicit visible labels prevent color-only status meaning. Unknown variants fall back to info. Loading composes a decorative spinner, not another live region.                                                            |
+| `statusLabel`               | Optional nonempty string replacing Information, Success, Warning, Error or Loading. Consumers can supply approved translated labels without embedding unofficial translations in this component.                                                                              |
+| `announcement`              | polite (default) gives one atomic status region; assertive explicitly opts into an alert; off omits live-region attributes for use with a single external announcer. Unknown values fall back to polite. Error styling does not automatically interrupt assistive technology. |
+| `onDismiss`, `dismissLabel` | A real callback enables the native, non-submitting dismissal button. Its accessible name defaults to Dismiss notification and must be nonempty when supplied. The callback requests dismissal; ignoring it leaves the toast visible. No callback means no dismissal control.  |
+| `className`                 | Optional class on the root Card. Container placement and stacking remain caller-owned.                                                                                                                                                                                        |
+
+Invalid message/description/status-label/dismiss-label types fail clearly as
+developer configuration errors instead of silently showing raw objects or
+unlabeled controls. Text and values are not translated, reformatted or inferred.
+
+```jsx
+<Toast
+  message={feedback.message}
+  description={feedback.description}
+  variant={feedback.variant}
+  onDismiss={dismissFeedback}
+/>
+```
+
+The caller owns `feedback`, dismissal, lifetime and state transitions. This
+component has no global notification store, queue, provider, automatic timeout,
+network request, persistence, route registration or default business message.
+It does not steal focus, trap Tab, register global Escape behavior, or remove
+itself. The dismissal button sits outside the live message so its label is not
+reannounced as feedback. Loading does not mark the message busy or disable
+dismissal. There is no entry/exit animation; reused controls respect reduced motion.
+
+### Design references and adaptations
+
+The approved Figma file `4OarPMFlQbiJI1Q1WxblcC` is accessible. Its current page
+metadata contains no dedicated toast frame or desktop/mobile toast arrangement.
+The inspected high-fidelity style-guide reference `4:2681` confirms the existing
+Inter typography, neutral surfaces/borders, supporting text and action styles.
+Existing Card and Badge styling and the already exported modal close artwork
+are reused rather than creating a new color palette or status-icon collection.
+
+The compact layout (16px padding, 12px content/control gap, 8px text spacing,
+14px message/context text, maximum 420px width) is an implementation adaptation
+of the existing foundation and documented spacing scale. It is **not an exact
+approved toast specimen**. Text wraps, width follows its container, and logical
+layout supports inherited RTL. The close artwork retains its natural 22×22
+size within a 44×44 target. Dedicated toast geometry, positioning, animation and
+visual approval remain team decisions; no new global tokens or assets are added.
+
+### Integration ownership
+
+Member 1 owns notifications, application providers and application integration.
+The installed `react-hot-toast` dependency is unchanged. Member 1 can render this
+component through its custom renderer, supplying message strings, mapping
+library types to the documented variants, honoring the library's visibility
+state and passing a real dismissal callback. The provider is not mounted here.
+Avoid a second enclosing live region; use `announcement="off"` when a centralized
+announcer already owns the message. Screen-reader checks must verify initial
+mount announcements as well as updates; DOM roles alone do not prove delivery.
+
+Consumers own timing, keyboard discovery and focus recovery when a focused
+dismiss control unmounts. Do not time out actionable feedback while it is focused;
+provide an untimed presentation or appropriate pause behavior. Critical errors
+and recovery instructions must also remain available in the relevant feature,
+not only in a transient toast. Members 2/3/5 retain all marketplace, dashboard,
+profile, record and business-action behavior. No feature screens are migrated.
+
+### Verification and remaining work
+
+On 23 October 2026, all 110 tests passed (8 new and 102 existing). Lint, default
+Vite build and new-source Prettier checks passed. An additional export-preserving
+production build of Toast into a temporary directory passed because the default
+application does not import Toast yet. Shared configuration was not changed.
+
+Focused tests cover variants/fallbacks, explicit status labels, announcement
+modes, a single loading status, decorative artwork, native non-submitting
+dismissal, callback ownership, escaped long text, optional content and invalid
+caller input.
+
+Chrome validation used real components in an in-memory fixture; no tracked
+preview infrastructure was added. Tab navigation, visible focus, Enter/Space
+dismissal, ignored dismissal requests, caller-applied removal/focus recovery,
+loading-to-success updates, no focus stealing, and no accidental form submission
+passed. Escape did not introduce a global dismissal shortcut. All variants and
+the no-dismiss-callback case were exercised. Chrome exposed the status and named
+dismiss button in its accessibility tree. Assertive and external-announcer modes
+had the expected DOM attributes, and reduced motion stopped the reused spinner
+and Button transitions.
+
+Normal and long unbroken message/status/context examples had no horizontal
+overflow at 320, 390, 640, 768, 960, 1024 and 1440px, including inherited RTL.
+The existing close image loaded at 22×22; the dismissal target measured 44×44.
+390px and 1440px screenshots were inspected. Successful browser checks had no
+runtime exceptions, console errors or failed HTTP responses.
+
+Remaining: team visual approval, Member 1 provider/lifetime/placement integration,
+real screen-reader announcements, systematic zoom, cross-browser and real-touch
+testing. RTL layout checks do not imply approved translations. No notification
+workflow or SRS requirement is marked complete merely by this visual component.
+
+```bash
+cd frontend
+node --test --test-concurrency=1 src/components/ui/toast.test.js src/components/ui/dataDisplay.test.js src/components/ui/navigationControls.test.js src/components/ui/modal.test.js src/components/feedback/states.test.js src/features/public/landing/landing.test.js src/components/navigation/publicShell.test.js src/components/ui/forms.test.js src/components/ui/foundation.test.js src/features/marketplace/marketplace.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/components/ui/Toast.jsx src/components/ui/toast.css src/components/ui/toast.test.js
+```
+
 ## 11. States to Support
 
 Relevant components should cover:
@@ -832,6 +1440,68 @@ Relevant components should cover:
 - [ ] No hidden network side effects
 - [ ] Documented props
 - [ ] Appropriate tests
+
+## Member 4 — HowItWorksSection
+
+`frontend/src/features/public/components/HowItWorksSection.jsx` is a static,
+English landing-page section with no required props. Import it inside the
+future landing page, below that page's primary heading. It uses `useId` to
+associate its section heading, and an ordered list preserves the step order.
+It does not submit jobs/proposals or create reviews.
+
+Visual references: Figma desktop section `8:2703` and mobile section `8:3000`
+in file `4OarPMFlQbiJI1Q1WxblcC`. The three descriptions are copied from those
+approved frames. Existing brand/font tokens are reused; neutral colors are
+scoped locally rather than changing shared global CSS.
+
+The six original SVG exports were compared: desktop icons have 22px geometry,
+mobile icons have 21px geometry, and both retain a 1.7px stroke. They therefore
+remain separate unmodified assets, rendered at their original dimensions.
+
+Desktop uses alternating cards and a decorative timeline. Below 1200px, cards
+are stacked; this breakpoint is an implementation choice because no tablet
+frame is supplied. At 1440px the section has 120px horizontal/72px vertical
+padding; at 390px it has 20px horizontal/56px vertical padding. Static content
+does not need simulated loading, error, or empty states.
+
+### Isolated development preview
+
+With the existing dependencies installed, run from `frontend/`:
+
+```bash
+npm run dev
+```
+
+Open `/how-it-works-preview.html` on the URL printed by Vite. That HTML entry
+imports `src/features/public/preview/HowItWorksPreview.jsx` directly, so no
+application routing, `App.jsx`, or shared Vite configuration is changed.
+Vite's default production build targets `index.html`; this development preview
+is not included in that default build. It is not the `/how-it-works` route.
+
+Related requirements: P-01 (partial landing presentation), NFR-02 and NFR-03.
+This section alone does not satisfy NFR-01's two-marketplace discovery goal.
+Service-flow copy and the full information page remain separate work.
+
+Verification status (22 October 2026): dependencies were successfully installed
+with `npm.cmd ci` using the existing lockfile. The eight existing Node
+marketplace tests, `npm.cmd run lint`, `npm.cmd run build`, and
+`git diff --check` passed. The marketplace tests do not test this section.
+Local SVG dimensions/strokes and preview import paths were checked. The Vite
+development server served the preview HTML and entry module with HTTP 200,
+and the project owner approved the initial visual preview. The successful
+default production build covers the application, not this isolated preview.
+
+The owner approved changing only the section-local summary text color from
+Figma's `#8D929A` to `#707780` for accessibility. Against the section's white
+background (`#FFFFFF`), its calculated WCAG contrast ratio is 4.53:1, meeting
+the 4.5:1 AA threshold for normal text. Global tokens and other components are
+unaffected. This calculated color check is not a full accessibility audit.
+
+Systematic responsive and breakpoint checks, zoom/text-resizing checks,
+screen-reader checks, cross-browser checks, and precise Figma geometry
+comparisons remain unverified. Initial visual approval does not establish
+that these checks passed. On PowerShell systems blocking `npm.ps1`, use
+`npm.cmd run dev`.
 
 ## Related Documents
 
