@@ -158,6 +158,14 @@ restrictions, and shared router integration are still pending.
 Automated render tests cover open, unavailable, and missing project states.
 The P-07 SRS screenshot is still pending a capture of the actual details screen.
 
+### Project Details follow-up (P-07)
+
+- [x] Show distinct fictional scope and deliverables, with a summary fallback for older mock records.
+- [x] Test open, unavailable, and missing project rendering; validate optional brief fields in fixtures.
+- [ ] Visually review the actual details screen at desktop and mobile widths, including keyboard focus; capture its P-07 SRS screenshot. Deferred by the team on 23 October 2026.
+- [ ] Connect `/projects/:projectId` and deep-link/back navigation when Member 1's shared router is available. Current App-state navigation is only a preview.
+- [ ] Connect student-only proposal entry when the separate P-08 proposal screen and mock role state exist. The current notice must not be presented as a working submission action.
+
 The discovery preview is organized in `frontend/src/features/projects/`:
 `ProjectsCatalogue.jsx` owns search, filtering, sorting, and temporary save
 state; `catalogueModel.js` holds catalogue options and lookup data;
