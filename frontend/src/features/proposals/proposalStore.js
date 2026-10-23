@@ -24,7 +24,7 @@ export function createProposalStore(findProject = getProjectById) {
         priceEGP: Number(values.priceEGP),
         deliveryDays: Number(values.deliveryDays),
         coverMessage: values.coverMessage.trim(),
-        attachmentIds: Object.freeze([]),
+        attachmentIds: Object.freeze([...(values.attachmentIds ?? [])]),
         status: PROPOSAL_STATUS.SUBMITTED,
         submittedAt: timestamp,
         updatedAt: timestamp,

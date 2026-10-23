@@ -1,5 +1,6 @@
 import { isActiveUser, ROLES } from "../auth/session.js";
 import { PROJECT_STATUS } from "../marketplace/constants.js";
+import { validateAttachmentIds } from "./mockAttachments.js";
 
 export function validateProposal(values, project, session) {
   const errors = {};
@@ -30,5 +31,7 @@ export function validateProposal(values, project, session) {
     errors.deliveryDays = "Enter a whole number of days greater than zero.";
   if (!String(values.coverMessage ?? "").trim())
     errors.coverMessage = "Write a cover message explaining your approach.";
+  const attachmentError = validateAttachmentIds(values.attachmentIds);
+  if (attachmentError) errors.attachmentIds = attachmentError;
   return errors;
 }

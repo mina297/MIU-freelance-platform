@@ -3,6 +3,8 @@ import { formatDate } from "../../utils/formatDate.js";
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth.js";
 import { proposalStore } from "./proposalStore.js";
+import ProposalAttachments from "./ProposalAttachments.jsx";
+import { MOCK_PROPOSAL_ATTACHMENTS } from "./mockAttachments.js";
 
 const inputClass =
   "mt-2 w-full rounded-xl border border-[#ab95a1] bg-[#faf7f9] px-4 py-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red";
@@ -10,11 +12,13 @@ const inputClass =
 export default function ProposalForm({ project }) {
   const { session } = useAuth();
   const [errors, setErrors] = useState({});
+  const [attachmentIds, setAttachmentIds] = useState([]);
   const [, setSubmitted] = useState(false);
   const proposal = proposalStore.find(project.id, session.user?.id);
   function submitProposal(event) {
     event.preventDefault();
     const values = Object.fromEntries(new FormData(event.currentTarget));
+    values.attachmentIds = attachmentIds;
     const result = proposalStore.submit(values, project.id, session);
     const nextErrors = result.errors ?? {};
     setErrors(nextErrors);
@@ -23,6 +27,8 @@ export default function ProposalForm({ project }) {
       (name) => nextErrors[name],
     );
     if (field) event.currentTarget.elements.namedItem(field)?.focus();
+    else if (nextErrors.attachmentIds)
+      event.currentTarget.querySelector('input[name="attachmentIds"]')?.focus();
   }
   if (proposal)
     return (
@@ -48,6 +54,19 @@ export default function ProposalForm({ project }) {
             <dt className="font-bold">Cover message</dt>
             <dd className="whitespace-pre-wrap break-words">
               {proposal.coverMessage}
+            </dd>
+          </div>
+          <div>
+            <dt className="font-bold">Sample attachments</dt>
+            <dd>
+              {proposal.attachmentIds.length ? (
+                <ul className="mt-2 list-inside list-disc break-words">
+                  {proposal.attachmentIds.map((id) => (
+                    <li key={id}>{MOCK_PROPOSAL_ATTACHMENTS.find((sample) => sample.id === id)?.name}</li>
+                  ))}
+                </ul>
+              ) : "No sample attachments selected"}
+              <p className="mt-2 text-sm">Fictional metadata only; no files were uploaded.</p>
             </dd>
           </div>
         </dl>
@@ -143,14 +162,17 @@ export default function ProposalForm({ project }) {
             </p>
           </div>
         </div>
+        <div className="px-5 pb-7 sm:px-7">
+          <ProposalAttachments selectedIds={attachmentIds} onChange={setAttachmentIds} error={errors.attachmentIds} />
+        </div>
         <div className="border-t border-[#c9bac1] bg-[#faf7f9] p-5 sm:p-7">
           <p
             id="proposal-preview-note"
             className="text-sm leading-6 text-[#694c5b]"
           >
             Simulated submission only. Submitted proposals stay in memory until
-            refresh. Leaving before submitting clears your draft. Attachments
-            are not supported yet.
+            refresh. Leaving before submitting clears your draft, including sample
+            attachment selections.
           </p>
           <div
             id="proposal-feedback"
