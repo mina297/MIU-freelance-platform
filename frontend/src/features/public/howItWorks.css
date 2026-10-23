@@ -35,8 +35,8 @@
   position: absolute;
   pointer-events: none;
   left: calc(50% - 1px);
-  top: var(--track-start, 54px);
-  height: var(--track-length, calc(100% - 108px));
+  top: var(--track-start, 110px);
+  height: var(--track-length, calc(100% - 220px));
   width: 2px;
   background: #f0dce0;
   transition: opacity 450ms ease;

@@ -4,8 +4,6 @@ import { getTimelineMotion } from "./timelineMotion.js";
 import OverlapSection from "./OverlapSection.jsx";
 import "./howItWorks.css";
 
-const TRACK_EXTENSION = 56;
-
 const steps = [
   {
     icon: BriefcaseBusiness,
@@ -36,25 +34,28 @@ export default function HowItWorks({ motionEnabled }) {
   useEffect(() => {
     const root = timeline.current;
     const container = section.current;
-    if (!motionEnabled || !root || !container) return;
+    if (!root || !container) return;
     const rows = [...root.querySelectorAll("li")];
+    const badges = rows.map((row) => row.querySelector(".landing-step-number"));
     let frame = 0;
     function update() {
       frame = 0;
       const top = root.getBoundingClientRect().top;
-      const offsets = rows.map((row) => row.offsetTop + row.offsetHeight / 2);
+      const offsets = rows.map(
+        (row, index) =>
+          row.offsetTop +
+          badges[index].offsetTop +
+          badges[index].offsetHeight / 2,
+      );
+      root.style.setProperty("--track-start", `${offsets[0]}px`);
+      root.style.setProperty(
+        "--track-length",
+        `${offsets.at(-1) - offsets[0]}px`,
+      );
+      if (!motionEnabled) return;
       const { progress, activeIndex, revealed } = getTimelineMotion(
         offsets.map((offset) => top + offset),
         window.innerHeight,
-        TRACK_EXTENSION,
-      );
-      root.style.setProperty(
-        "--track-start",
-        `${offsets[0] - TRACK_EXTENSION}px`,
-      );
-      root.style.setProperty(
-        "--track-length",
-        `${offsets.at(-1) - offsets[0] + TRACK_EXTENSION * 2}px`,
       );
       root.style.setProperty("--timeline-progress", progress);
       root.dataset.motionReady = "true";
@@ -76,7 +77,8 @@ export default function HowItWorks({ motionEnabled }) {
       if (event.target === container) schedule();
     }
     update();
-    window.addEventListener("scroll", schedule, { passive: true });
+    if (motionEnabled)
+      window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
     container.addEventListener("transitionend", panelSettled);
     const resize =
