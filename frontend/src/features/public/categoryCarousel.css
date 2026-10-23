@@ -2,6 +2,20 @@
   background: #fff;
   overflow: hidden;
 }
+.landing-category-section #categories-title {
+  color: var(--color-miu-black);
+  text-transform: none;
+}
+.landing-category-section .landing-category-section-heading {
+  transition:
+    opacity 800ms ease,
+    transform 800ms ease;
+}
+.landing-category-section[data-reveal-ready="true"]
+  .landing-category-section-heading:not(.is-visible):not(:focus-within) {
+  opacity: 0;
+  transform: translateY(24px);
+}
 .landing-carousel-controls {
   display: flex;
   gap: 10px;
@@ -133,9 +147,15 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .landing-category-section .landing-category-section-heading,
   .landing-category-card,
   .landing-carousel-controls button {
     transition: none;
+  }
+  .landing-category-section[data-reveal-ready="true"]
+    .landing-category-section-heading:not(.is-visible) {
+    opacity: 1;
+    transform: none;
   }
   .landing-category-section[data-reveal-ready="true"]
     .landing-category-card:not(.is-visible) {

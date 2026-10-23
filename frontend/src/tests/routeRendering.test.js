@@ -41,6 +41,16 @@ test("timeline supports reverse scrolling, viewport changes and collapsed layout
   assert.equal(getTimelineMotion([100, 100, 100], 1000).progress, 0);
 });
 
+test("extended timeline draws before the first node and finishes beyond the last", () => {
+  const beforeFirst = getTimelineMotion([700, 1100, 1500], 1000, 32);
+  assert.equal(beforeFirst.progress, 12 / 864);
+  assert.equal(beforeFirst.activeIndex, -1);
+  const firstNode = getTimelineMotion([680, 1080, 1480], 1000, 32);
+  assert.equal(firstNode.progress, 32 / 864);
+  assert.equal(firstNode.activeIndex, 0);
+  assert.equal(getTimelineMotion([-152, 248, 648], 1000, 32).progress, 1);
+});
+
 test("Hire discovery combines student names and skills with categories and empty recovery", () => {
   assert.equal(filterLandingStudents("", "").length, 3);
   assert.equal(

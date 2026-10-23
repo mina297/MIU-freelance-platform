@@ -3,7 +3,15 @@
   overflow: clip;
 }
 .landing-how .landing-how-heading {
-  margin-bottom: 64px;
+  margin-bottom: 48px;
+  transition:
+    opacity 800ms ease,
+    transform 800ms ease;
+}
+.landing-how[data-how-ready="true"]:not([data-heading-visible="true"])
+  .landing-how-heading {
+  opacity: 0;
+  transform: translateY(24px);
 }
 .landing-how-caption {
   display: flex;
@@ -19,7 +27,7 @@
 }
 .landing-timeline-list {
   display: grid;
-  gap: 90px;
+  gap: 48px;
   list-style: none;
   padding: 0;
 }
@@ -27,10 +35,18 @@
   position: absolute;
   pointer-events: none;
   left: calc(50% - 1px);
-  top: var(--track-start, 135px);
-  height: var(--track-length, calc(100% - 270px));
+  top: var(--track-start, 54px);
+  height: var(--track-length, calc(100% - 108px));
   width: 2px;
   background: #f0dce0;
+  transition: opacity 450ms ease;
+}
+.landing-timeline[data-motion-ready="true"] .landing-timeline-track {
+  background: transparent;
+}
+.landing-timeline[data-motion-ready="true"]:not([data-track-started="true"])
+  .landing-timeline-track {
+  opacity: 0;
 }
 .landing-timeline-fill {
   position: absolute;
@@ -59,19 +75,19 @@
   grid-template-columns: 1fr 64px 1fr;
   gap: 32px;
   align-items: center;
-  min-height: 270px;
+  min-height: 220px;
   perspective: 700px;
 }
 .landing-step {
   position: relative;
   grid-column: 1;
   grid-row: 1;
-  padding: 32px;
+  padding: 24px;
   border: 1px solid #e9e4e5;
   border-radius: 24px;
   background: white;
   display: grid;
-  gap: 18px;
+  gap: 12px;
   box-shadow: 0 18px 50px -24px #36111a25;
   transition:
     opacity 650ms ease,
@@ -136,12 +152,23 @@
   width: 64px;
   height: 2px;
   background: #f0dce0;
+  transform-origin: right center;
+  transition:
+    opacity 650ms ease,
+    transform 650ms ease;
+}
+.landing-timeline[data-motion-ready="true"]
+  li:not([data-revealed="true"])
+  .landing-step-connector {
+  opacity: 0;
+  transform: scaleX(0);
 }
 .landing-timeline li:nth-of-type(even) .landing-step {
   grid-column: 3;
 }
 .landing-timeline li:nth-of-type(even) .landing-step-connector {
   left: 50%;
+  transform-origin: left center;
 }
 .landing-timeline[data-motion-ready="true"]
   li:not([data-revealed="true"])
@@ -190,27 +217,27 @@
     display: none;
   }
   .landing-how .landing-how-heading {
-    margin-bottom: 40px;
+    margin-bottom: 32px;
   }
   .landing-timeline-list {
-    gap: 54px;
+    gap: 32px;
   }
   .landing-timeline li {
     grid-template-columns: 56px minmax(0, 1fr);
     gap: 20px;
-    min-height: 260px;
+    min-height: 220px;
   }
   .landing-step,
   .landing-timeline li:nth-of-type(even) .landing-step {
     grid-column: 2;
-    padding: 24px;
+    padding: 20px;
   }
   .landing .landing-step h3 {
     font-size: 22px;
   }
   .landing-step-top {
-    align-items: start;
-    flex-direction: column;
+    align-items: center;
+    flex-direction: row;
     gap: 10px;
   }
   .landing-step-number {
@@ -227,12 +254,21 @@
   .landing-timeline li:nth-of-type(even) .landing-step-connector {
     left: 28px;
     width: 48px;
+    transform-origin: left center;
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .landing-how .landing-how-heading,
+  .landing-timeline-track,
+  .landing-step-connector,
   .landing-step,
   .landing-step-number {
     transition: none;
+  }
+  .landing-how[data-how-ready="true"]:not([data-heading-visible="true"])
+    .landing-how-heading {
+    opacity: 1;
+    transform: none;
   }
   .landing-timeline[data-motion-ready="true"]
     li:not([data-revealed="true"])

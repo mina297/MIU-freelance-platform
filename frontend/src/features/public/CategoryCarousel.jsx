@@ -48,7 +48,10 @@ export default function CategoryCarousel({
       aria-labelledby="categories-title"
     >
       <div className="landing-container">
-        <div className="landing-heading">
+        <div
+          className="landing-heading landing-category-section-heading"
+          data-reveal
+        >
           <div>
             <p className="landing-eyebrow">A world of possibilities</p>
             <h2 id="categories-title">Explore your next direction.</h2>

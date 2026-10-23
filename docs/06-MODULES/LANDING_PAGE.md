@@ -28,10 +28,18 @@ The desktop layout retains the centered hero, alternating timeline, three-column
 - The search surface has a rotating red perimeter light and softer shadows. Its category menu remains unobstructed.
 - The query input uses the short placeholder "Search" and a neutral keyboard-focus underline instead of a red input outline. Rotating examples use the same muted gray as the placeholder, without the "Try" prefix. The surrounding search surface keeps its perimeter animation.
 - Categories occupy their own section immediately after the hero. Seven horizontally scrollable cards place the name at the top and a related Lucide icon at the center. Arrow buttons, native touch/trackpad scrolling and keyboard focus support navigation. IntersectionObserver replays the left-to-right stagger whenever cards leave and re-enter view, including when returning to the section without refreshing. Reduced-motion and paused-motion modes keep content visible. Category identifiers and search behavior are unchanged.
-- How it works uses three alternating cards, red gradient number badges with red shadows, and perspective/depth entrance motion. A requestAnimationFrame-throttled scroll measurement fills the middle line and moves its light toward each node. Each card reveals when reached, then its red border orbits while it is the active step. Revealed cards stay readable on reverse scrolling; the active light follows current scroll position. ResizeObserver recalculates positions as layout changes.
+- How it works uses three alternating cards, red gradient number badges with red shadows, and perspective/depth entrance motion. A requestAnimationFrame-throttled scroll measurement fills the middle line and moves its light toward each node. Each card reveals when reached, then its red border orbits while it is the active step. Card reveals follow their scroll thresholds in both directions; the active light follows current scroll position. ResizeObserver recalculates positions as layout changes.
 - The Pause motion control stops automatic effects and presents readable static content. System reduced-motion preferences do the same automatically, with a static search example and all cards/steps visible. Without observers, category content stays visible. Timers, observers and listeners clean up on unmount.
 
 ## Verification
+
+The category section heading uses its own `landing-category-section-heading` class to avoid inheriting the category dropdown's uppercase and muted text styles. "Explore your next direction." displays in the existing MIU black with normal sentence casing; its scroll reveal is retained.
+
+The category section's "Explore your next direction" heading and arrow controls use the same 800ms fade/upward entrance as the How it works heading. The existing observer replays the entrance on each visit. Keyboard focus keeps controls visible, while paused/reduced motion displays the heading immediately.
+
+How it works reveals its heading, cards, number badges and connectors progressively as the section is reached. The center line extends 56px beyond each end node and draws only to the current scroll position, rather than showing its full rail ahead of time. Reveals reset when scrolling back above their thresholds and replay on return. Pause motion and reduced-motion modes show all content immediately. Measurements continue to follow actual responsive card positions.
+
+How it works uses more compact cards: 24px desktop padding (20px on mobile), 12px internal gaps, and 220px minimum timeline rows that grow with content. The vertical gap between steps is 48px on desktop and 32px on mobile. The scroll-driven line continues to measure actual step centers after layout changes.
 
 Category cards measure 260px wide with a 270px minimum height on desktop, and 230px wide with a 250px minimum height below 700px. This modest size increase retains the existing carousel navigation, spacing and visual styling.
 

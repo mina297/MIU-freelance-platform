@@ -3,6 +3,8 @@ import { BriefcaseBusiness, Users, Star, ArrowUpRight } from "lucide-react";
 import { getTimelineMotion } from "./timelineMotion.js";
 import "./howItWorks.css";
 
+const TRACK_EXTENSION = 56;
+
 const steps = [
   {
     icon: BriefcaseBusiness,
@@ -28,10 +30,12 @@ const steps = [
 ];
 
 export default function HowItWorks({ motionEnabled }) {
+  const section = useRef(null);
   const timeline = useRef(null);
   useEffect(() => {
     const root = timeline.current;
-    if (!motionEnabled || !root) return;
+    const container = section.current;
+    if (!motionEnabled || !root || !container) return;
     const rows = [...root.querySelectorAll("li")];
     let frame = 0;
     function update() {
@@ -41,16 +45,22 @@ export default function HowItWorks({ motionEnabled }) {
       const { progress, activeIndex, revealed } = getTimelineMotion(
         offsets.map((offset) => top + offset),
         window.innerHeight,
+        TRACK_EXTENSION,
       );
-      root.style.setProperty("--track-start", `${offsets[0]}px`);
+      root.style.setProperty("--track-start", `${offsets[0] - TRACK_EXTENSION}px`);
       root.style.setProperty(
         "--track-length",
-        `${offsets.at(-1) - offsets[0]}px`,
+        `${offsets.at(-1) - offsets[0] + TRACK_EXTENSION * 2}px`,
       );
       root.style.setProperty("--timeline-progress", progress);
       root.dataset.motionReady = "true";
+      root.dataset.trackStarted = String(progress > 0);
+      container.dataset.howReady = "true";
+      container.dataset.headingVisible = String(
+        container.getBoundingClientRect().top < window.innerHeight * 0.82,
+      );
       rows.forEach((row, index) => {
-        if (revealed[index]) row.dataset.revealed = "true";
+        row.dataset.revealed = String(revealed[index]);
         row.dataset.active = String(index === activeIndex);
         row.dataset.passed = String(index < activeIndex);
       });
@@ -63,13 +73,16 @@ export default function HowItWorks({ motionEnabled }) {
     window.addEventListener("resize", schedule);
     const resize =
       "ResizeObserver" in window ? new ResizeObserver(schedule) : null;
-    resize?.observe(root);
+    resize?.observe(container);
     return () => {
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
       window.cancelAnimationFrame(frame);
       resize?.disconnect();
       delete root.dataset.motionReady;
+      delete root.dataset.trackStarted;
+      delete container.dataset.howReady;
+      delete container.dataset.headingVisible;
       rows.forEach((row) => {
         delete row.dataset.active;
         delete row.dataset.passed;
@@ -79,6 +92,7 @@ export default function HowItWorks({ motionEnabled }) {
 
   return (
     <section
+      ref={section}
       className="landing-section landing-how"
       id="how-it-works"
       aria-labelledby="how-it-works-title"
