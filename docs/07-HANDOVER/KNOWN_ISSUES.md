@@ -1,4 +1,3 @@
-
 ---
 title: Known Issues and Open Decisions
 type: handover
@@ -24,6 +23,7 @@ Do not confuse a planned feature with a software defect.
 
 ## 3. Current Known Limitations
 
+<!-- prettier-ignore -->
 | ID | Category | Description | Status |
 |---|---|---|---|
 | KL-01 | Known Limitation | Phase 1 authentication is planned as simulated frontend behavior. | Expected |
@@ -38,25 +38,44 @@ These are scope limitations and documentation tasks, not verified software bugs.
 
 ## 4. Open Decisions
 
-| ID | Topic | Decision Needed |
-|---|---|---|
-| OD-01 | Identity Provider | Select approved identity-verification service. |
-| OD-02 | MIU Affiliation | Define how university membership will be validated. |
-| OD-03 | Identity Retention | Approve storage and deletion policy. |
-| OD-04 | Payment Provider | Select payment/sandbox integration. |
-| OD-05 | Escrow | Confirm legally appropriate custody and settlement model. |
-| OD-06 | Platform Fees | Define commission/fee structure. |
-| OD-07 | Refund Authority | Define approval thresholds and escalation rules. |
-| OD-08 | Proposal Budget | Decide warning versus rejection for out-of-budget proposals. |
-| OD-09 | Service Packages | Finalize package limits and pricing constraints. |
-| OD-10 | Revisions | Define revision limits and deadlines. |
-| OD-11 | AI Services | Select matching, chatbot, and moderation services. |
-| OD-12 | Translation | Select language/translation implementation. |
-| OD-13 | Branding | Confirm permitted university branding and logo usage. |
-| OD-14 | Hosting | Approve deployment provider and environment. |
-| OD-15 | Permissions | Finalize fine-grained committee authorization rules. |
-| OD-16 | Academic Deliverables | Confirm whether the complete working React frontend is mandatory for the Phase 1 discussion beyond SRS/prototypes. |
+| ID    | Topic                 | Decision Needed                                                                                                                                                                                                                                                                      |
+| ----- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| OD-01 | Identity Provider     | Select approved identity-verification service.                                                                                                                                                                                                                                       |
+| OD-02 | MIU Affiliation       | Define how university membership will be validated.                                                                                                                                                                                                                                  |
+| OD-03 | Identity Retention    | Approve storage and deletion policy.                                                                                                                                                                                                                                                 |
+| OD-04 | Payment Provider      | Select payment/sandbox integration.                                                                                                                                                                                                                                                  |
+| OD-05 | Escrow                | Confirm legally appropriate custody and settlement model.                                                                                                                                                                                                                            |
+| OD-06 | Platform Fees         | Define commission/fee structure.                                                                                                                                                                                                                                                     |
+| OD-07 | Refund Authority      | Define approval thresholds and escalation rules.                                                                                                                                                                                                                                     |
+| OD-08 | Proposal Budget       | Decide warning versus rejection for out-of-budget proposals.                                                                                                                                                                                                                         |
+| OD-09 | Service Packages      | Finalize package limits and pricing constraints.                                                                                                                                                                                                                                     |
+| OD-10 | Revisions             | Define revision limits and deadlines.                                                                                                                                                                                                                                                |
+| OD-11 | AI Services           | Select matching, chatbot, and moderation services.                                                                                                                                                                                                                                   |
+| OD-12 | Translation           | Select language/translation implementation.                                                                                                                                                                                                                                          |
+| OD-13 | Branding              | Confirm permitted university branding and logo usage.                                                                                                                                                                                                                                |
+| OD-14 | Hosting               | Approve deployment provider and environment.                                                                                                                                                                                                                                         |
+| OD-15 | Permissions           | Finalize fine-grained committee authorization rules.                                                                                                                                                                                                                                 |
+| OD-16 | Academic Deliverables | Confirm whether the complete working React frontend is mandatory for the Phase 1 discussion beyond SRS/prototypes.                                                                                                                                                                   |
 | OD-17 | Public Policy Content | Supply and approve Terms and Privacy text, responsible owner and publication/version details against actual project practices. Member 4 pages are explicitly labeled placeholders; route integration remains with Member 1. Related unresolved decisions include OD-03 and OD-05–07. |
+
+**23 October 2026 — OD-12 presentation update:** Member 4's controlled
+`components/navigation/LanguageSwitcher.jsx` is implemented using the existing
+Select/Field. It has no built-in languages or translations and changes no
+application state or document direction. Approved options/dictionaries,
+Member 1's provider/state/header integration, and real translated RTL validation
+remain pending. OD-12 is not resolved by this component. See the
+[language-switcher contract](../03-DESIGN/UI_COMPONENTS.md#member-4--language-switcher-interface).
+
+**23 October 2026 - repository comparison:** KL-07 records the earlier Task 01
+snapshot. At fetched target `origin/main` (`b542108`), App mounts Member 1's
+BrowserRouter, AuthProvider and AppRouter. Public projects/details and simulated
+proposal submission plus mock authentication forms are implemented there; `/`
+and `/services` remain placeholders. The How It Works section (`753d9f1`) is
+already included in that target. This Member 4 branch still has the historical
+catalogue-only App; no target source or routing is integrated by these
+documentation edits. Public-page composition, language/provider integration,
+approved policy text and final manual acceptance remain pending. See the
+[Member 4 UI Handover](MEMBER4_UI_HANDOVER.md) for the baseline distinction.
 
 ## 5. Verified Bugs
 
@@ -75,22 +94,28 @@ Add issues only after reproducing them.
 **Environment:** Relevant environment
 
 #### Steps to Reproduce
+
 1. Step one
 2. Step two
 
 #### Expected Result
+
 Describe expected behavior.
 
 #### Actual Result
+
 Describe observed behavior.
 
 #### Related Requirements
+
 SRS requirement IDs.
 
 #### Proposed Resolution
+
 Suggested action.
 
 #### Verification
+
 Not yet verified.
 ```
 
@@ -104,18 +129,23 @@ Not yet verified.
 **Decision Owner:** To be assigned
 
 #### Context
+
 Why is the decision needed?
 
 #### Options
+
 List alternatives.
 
 #### Decision
+
 Record the approved choice.
 
 #### Consequences
+
 Explain affected features and documents.
 
 #### Related Requirements
+
 SRS requirement IDs.
 ```
 
