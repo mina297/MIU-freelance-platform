@@ -830,6 +830,154 @@ is required; no polyfill is installed. Third-party portals/iframes inside a dial
 have not been validated. Members 1–5 retain their routing, marketplace, finance,
 committee, profile, and other feature-specific workflows.
 
+## Member 4 — Tabs and Pagination
+
+Reusable `frontend/src/components/ui/Tabs.jsx` and `Pagination.jsx` share scoped
+`navigation-controls.css`. `paginationModel.js` builds a bounded display window
+of page numbers; it does not handle records or data contracts. Both components
+reuse Button. No existing component, route, feature screen, global token, package,
+or preview entry is changed. Related requirements: NFR-02, NFR-03, NFR-16.
+This component work does not mark complete marketplace/profile workflows delivered.
+
+### Tabs contract
+
+| Property | Behavior |
+|---|---|
+| `items` | Array of `{ id, label, content, disabled? }`. IDs must be unique nonempty strings; invalid/duplicate IDs throw a clear developer-facing error. Generated instance prefixes and encoded item IDs connect each tab/panel pair without collisions. Empty arrays render nothing. |
+| `value`, `onValueChange(id)` | Controlled selected ID and selection-request callback. No selected-record or section state is owned internally. Missing, unknown, or item-disabled values show no selected panel; the consumer must supply a valid selection rather than relying on silent fallback. Clicking the already selected tab does not request a change. |
+| `label` | Accessible tablist name, default Sections. Use a meaningful distinct label when multiple groups exist. |
+| `disabled` | Disables tab activation; defaults false. Missing callback also disables controls. An otherwise valid selected panel remains visible when the whole control is disabled. |
+| `className` | Optional class on the component root. Styling remains scoped. |
+
+Tabs use **manual activation**: Left/Right move focus with wrapping; Home/End
+move to the first/last available tab. Disabled items are skipped. Enter/Space
+or pointer activation requests a selection. Arrow/focus movement alone never
+changes content, triggers requests, or changes the supplied value. A roving
+tab stop lets Tab/Shift+Tab leave the strip without visiting every tab; reentry
+targets the selected (or first available) tab. Inherited RTL direction reverses
+Left/Right appropriately without introducing translations or a language switcher.
+
+Each native button has `role="tab"`, `aria-selected`, and `aria-controls`.
+Panels have `role="tabpanel"`, reciprocal `aria-labelledby`, and a keyboard entry
+point. Inactive panels use native `hidden` and remain mounted, preserving local
+input state. The component only tracks keyboard focus internally. The consumer
+owns content, asynchronous loading/error states, active-section decisions,
+available items, and focus recovery when dynamically removing a focused item.
+These are local content tabs, not navigation links or route registration.
+
+### Pagination contract
+
+| Property | Behavior |
+|---|---|
+| `page`, `pageCount` | Controlled 1-based page (default 1) and total page count (default 0). Valid controls require safe integers with `1 <= page <= pageCount`. No clamping or automatic reset changes the consumer's selected page. |
+| `onPageChange(number)` | Emits a requested page number from Previous, Next, or a number button. Does not fetch/slice/sort records, compute page size/totals, change the URL, or own selection state. Current-page activation is a no-op. |
+| `summary` | Optional consumer-supplied summary. No job counts, record ranges, data, or currency claims are invented. Empty/invalid page inputs show only a supplied summary, otherwise render nothing. |
+| `label`, `previousLabel`, `nextLabel`, `getPageLabel(number)` | Accessible names; defaults Pagination, Previous page, Next page, and Page N. Callers can supply approved labels without embedding translations in the component. |
+| `disabled`, `className` | Optional global disabled state and root class. Missing callback disables all actions. Boundary Previous/Next buttons are natively disabled. |
+
+Pagination is a labeled `nav` containing native action buttons, with exactly one
+`aria-current="page"` on valid input. Ellipses are decorative, noninteractive,
+and not tab stops. Numbers use stable keys and the window remains bounded even
+for a very large supplied page count. First/last and current neighboring pages
+are exposed; gaps do not imply omitted data is loaded. Consumers own result
+announcements, busy/error presentation, filter resets, result focus management,
+records, page-count calculation, and actual navigation. No live region is added
+to either component, avoiding competing feature announcements.
+
+```jsx
+<Tabs
+  label="Example sections"
+  value={section}
+  onValueChange={setSection}
+  items={[
+    { id: "overview", label: "Overview", content: overviewContent },
+    { id: "details", label: "Details", content: detailsContent },
+  ]}
+/>
+<Pagination
+  label="Example results pages"
+  page={page}
+  pageCount={totalPages}
+  onPageChange={setPage}
+  summary={resultSummary}
+/>
+```
+
+In this example, the consuming feature supplies `section`, `page`, their update
+functions, content, `totalPages`, and `resultSummary`. Members 1, 2, 3, and 5 keep
+their routing, marketplace, dashboard, and profile workflows respectively.
+
+### Figma references and adaptations
+
+Approved file `4OarPMFlQbiJI1Q1WxblcC` was inspected directly:
+
+- Tabs: desktop profile strip `58:14912`, mobile `58:15046`. Confirmed neutral
+  bottom rule, selected red 3px pill border, red selected text, 32px desktop gap,
+  Inter 15px desktop/12px mobile, and 500/600 inactive/selected weights.
+- Pagination: desktop catalogue `20:11140`, mobile `20:11566`. Confirmed red
+  selected page, white neutral-border buttons, circular controls, 14px semibold
+  numbers, 12px secondary summary, 16px summary/control gap, and 8px/6px
+  desktop/mobile control gaps. Initial number pattern is 1, 2, 3, …, 16.
+- Both exact 16px arrow exports are stored in `assets/figma/pagination-previous.svg`
+  and `pagination-next.svg`, reused across desktop/mobile. The muted previous
+  artwork is used at the initial boundary. Enabled Previous reuses the dark Next
+  artwork rotated to avoid presenting the disabled-color icon as an enabled
+  action. Inherited RTL mirrors direction; no duplicate SVG assets are created.
+
+Accessibility adaptations: minimum 44×44 button targets replace Figma's 36px
+active-tab height and 40px page controls. Labels can wrap, strips/controls wrap
+at narrow widths, and focus outlines remain visible. Tab panels have a 24px gap
+using the existing spacing scale; the inspected strip does not specify panel
+content. Responsive typography/layout changes at 640px. No extra animation is
+introduced; inherited Button transitions respect reduced motion. These size,
+wrapping, dynamic-state, and enabled-arrow adaptations require team visual
+review rather than being described as exact Figma geometry.
+
+### Verification and remaining work
+
+Fifteen focused Node/Vite tests cover tab/panel relationships, independent IDs,
+controlled/disabled/empty/invalid states, escaped labels, native button semantics,
+page-window boundaries and bounded output, labels, and decorative local icons.
+
+Verification on 23 October 2026: all 84 tests passed (15 new and 69 existing).
+Lint, default Vite build, new-source Prettier, and tracked/untracked whitespace
+checks passed. Since the default app does not import these components yet,
+separate export-preserving production builds of Tabs/Pagination were also run
+to a temporary directory and passed, without editing shared configuration.
+
+```bash
+cd frontend
+node --test --test-concurrency=1 src/components/ui/navigationControls.test.js src/components/ui/modal.test.js src/components/feedback/states.test.js src/features/public/landing/landing.test.js src/components/navigation/publicShell.test.js src/components/ui/forms.test.js src/components/ui/foundation.test.js src/features/marketplace/marketplace.test.js
+npm.cmd run lint
+npm.cmd run build
+node node_modules/prettier/bin/prettier.cjs --check src/components/ui/Tabs.jsx src/components/ui/Pagination.jsx src/components/ui/paginationModel.js src/components/ui/navigation-controls.css src/components/ui/navigationControls.test.js
+```
+
+Chrome checks used real components imported into an in-memory fixture, with no
+tracked preview infrastructure. Checks passed for arrow/Home/End navigation,
+disabled skipping, wraparound, Enter/Space activation, Tab/Shift+Tab exit and
+reentry, visible focus, panel/input traversal, and preserved hidden-panel edits.
+Ignoring callbacks left selected tab/page unchanged, confirming controlled
+behavior. Previous/Next and numeric actions emitted requests, boundary controls
+were disabled, current-page activation was a no-op, and no action submitted the
+fixture form. Inherited RTL keyboard direction was exercised without claiming
+approved translated content.
+
+Normal, long-label/summary, RTL, and very-large-page-count cases had no horizontal
+overflow at 320, 390, 640, 768, 960, 1024, and 1440px. Buttons met 44px targets,
+and both local arrow slots loaded/rendered at 16×16. Desktop/mobile screenshots
+were inspected. Chrome's accessibility tree exposed the tablist, selected tab,
+active named panel, and pagination navigation. Reduced motion suppressed Button
+transitions; panels had no animation. Measured selected-tab contrast on the
+inspected neutral surface was 6.06:1; current-page text contrast was 6.43:1.
+Successful browser checks had no runtime exceptions, console errors, or failed
+HTTP responses. This is not an exhaustive accessibility audit.
+
+Remaining: consuming-feature integration and result focus/announcements,
+team visual approval, screen-reader testing, systematic zoom, other browsers,
+real touch devices, and precise Figma geometry. No existing catalogue/profile
+screen is migrated, and no route is registered.
+
 ## Related Documents
 
 - [Design System](DESIGN_SYSTEM.md)
