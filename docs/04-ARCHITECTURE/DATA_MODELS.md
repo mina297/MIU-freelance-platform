@@ -61,6 +61,8 @@ Suggested attributes:
 
 Production credentials must not be represented as plain-text password fields.
 
+Task 02 keeps credential-free user/session records and a separate private in-memory password map in `features/auth/mockAuth.js`. Registered demo accounts add a normalized email to account metadata only. Runtime fixture emails reserve `<id>@example.test`; fixture source records remain unchanged. New account IDs use a collision-checked `registered_` sequence scoped to the provider's lifetime. Refresh removes registered accounts and password changes. This frontend-only demonstration does not define production credential storage. See [Authentication — Task 02](../06-MODULES/AUTHENTICATION.md#task-02-mock-authentication).
+
 Task 01 adds the Phase 1 `MockUser` and `MockSession` JSDoc contracts in `frontend/src/features/auth/session.js`, with fictional accounts in `frontend/src/data/fixtures/users.js`. Existing marketplace participant IDs are preserved. Account activity and verification status are separate; the session is memory-only. See [Authentication — Task 01](../06-MODULES/AUTHENTICATION.md#task-01-routingsession-foundation) for the vocabulary and provider interface. This does not change Member 2's marketplace contracts or define a production user schema.
 
 ## 4. Profile

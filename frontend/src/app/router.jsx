@@ -13,6 +13,11 @@ import AppLayout from "../layouts/AppLayout.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
 import AdminLayout from "../layouts/AdminLayout.jsx";
 import { routeConfig } from "./routeConfig.js";
+import LoginPage from "../features/auth/LoginPage.jsx";
+import RoleSelectionPage from "../features/auth/RoleSelectionPage.jsx";
+import RegisterPage from "../features/auth/RegisterPage.jsx";
+import ForgotPasswordPage from "../features/auth/ForgotPasswordPage.jsx";
+import ResetPasswordPage from "../features/auth/ResetPasswordPage.jsx";
 
 const layouts = {
   standalone: <Outlet />,
@@ -51,6 +56,11 @@ function ProjectDetailsRoute() {
 const featurePages = {
   "/projects": <ProjectsCatalogueRoute />,
   "/projects/:projectId": <ProjectDetailsRoute />,
+  "/login": <LoginPage />,
+  "/register/role": <RoleSelectionPage />,
+  "/register": <RegisterPage />,
+  "/forgot-password": <ForgotPasswordPage />,
+  "/reset-password": <ResetPasswordPage />,
 };
 
 export default function AppRouter() {
