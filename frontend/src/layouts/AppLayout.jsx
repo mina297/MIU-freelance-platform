@@ -20,7 +20,9 @@ export default function AppLayout({ title = "Application" }) {
           {routeConfig
             .filter(
               (route) =>
-                !route.message && getRouteAccess(session, route) === "allowed",
+                route.showInNavigation !== false &&
+                !route.message &&
+                getRouteAccess(session, route) === "allowed",
             )
             .map((route) => (
               <Link className="underline" key={route.path} to={route.path}>

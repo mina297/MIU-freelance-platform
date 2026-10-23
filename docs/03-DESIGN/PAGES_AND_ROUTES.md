@@ -128,6 +128,7 @@ Super Admin and five committees, with role-aware navigation.
 - Users should receive clear access-denied messages.
 - Order detail pages require authorization to the related order.
 - Deep links should work during a frontend demo.
+- Dynamic record routes such as `/projects/:projectId` are opened from their related records and are not shown as literal global-navigation links.
 - Navigation labels should align with the approved design.
 
 ## 6. Prototype Tracking
