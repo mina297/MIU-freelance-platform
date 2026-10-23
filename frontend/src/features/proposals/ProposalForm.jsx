@@ -1,15 +1,37 @@
 import { formatEGP } from "../../utils/formatEGP.js";
 import { formatDate } from "../../utils/formatDate.js";
+import { useState } from "react";
+import { useAuth } from "../../hooks/useAuth.js";
+import { validateProposal } from "./validateProposal.js";
 
 const inputClass =
   "mt-2 w-full rounded-xl border border-[#ab95a1] bg-[#faf7f9] px-4 py-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red";
 
 export default function ProposalForm({ project }) {
+  const { session } = useAuth();
+  const [errors, setErrors] = useState({});
+  const [checked, setChecked] = useState(false);
+  function checkDraft(event) {
+    event.preventDefault();
+    const values = Object.fromEntries(new FormData(event.currentTarget));
+    const nextErrors = validateProposal(values, project, session);
+    setErrors(nextErrors);
+    setChecked(true);
+    const field = ["priceEGP", "deliveryDays", "coverMessage"].find(
+      (name) => nextErrors[name],
+    );
+    if (field) event.currentTarget.elements.namedItem(field)?.focus();
+  }
   return (
     <div className="mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
       <form
         key={project.id}
-        onSubmit={(event) => event.preventDefault()}
+        onSubmit={checkDraft}
+        noValidate
+        onChange={() => {
+          setErrors({});
+          setChecked(false);
+        }}
         aria-label="Proposal draft"
         className="overflow-hidden rounded-2xl border-2 border-[#c9bac1] bg-white"
       >
@@ -38,7 +60,8 @@ export default function ProposalForm({ project }) {
                 inputMode="decimal"
                 placeholder="e.g. 5500"
                 className={inputClass}
-                aria-describedby="proposal-price-help"
+                aria-invalid={Boolean(errors.priceEGP)}
+                aria-describedby="proposal-price-help proposal-feedback"
               />
               <p
                 id="proposal-price-help"
@@ -58,7 +81,8 @@ export default function ProposalForm({ project }) {
                 inputMode="numeric"
                 placeholder="e.g. 14"
                 className={inputClass}
-                aria-describedby="proposal-days-help"
+                aria-invalid={Boolean(errors.deliveryDays)}
+                aria-describedby="proposal-days-help proposal-feedback"
               />
               <p
                 id="proposal-days-help"
@@ -78,7 +102,8 @@ export default function ProposalForm({ project }) {
               rows={8}
               placeholder="Introduce yourself, describe your approach, and explain what you will deliver…"
               className={`${inputClass} min-h-48 resize-y`}
-              aria-describedby="proposal-cover-help"
+              aria-invalid={Boolean(errors.coverMessage)}
+              aria-describedby="proposal-cover-help proposal-feedback"
             />
             <p
               id="proposal-cover-help"
@@ -97,13 +122,24 @@ export default function ProposalForm({ project }) {
             Form preview only. Nothing is submitted or saved; leaving this page
             clears your draft.
           </p>
+          <div
+            id="proposal-feedback"
+            role="status"
+            className="mt-4 text-sm leading-6 text-[#9b2035]"
+          >
+            {Object.entries(errors).map(([key, message]) => (
+              <p key={key}>{message}</p>
+            ))}
+            {checked && Object.keys(errors).length === 0 && (
+              <p>Your draft passes these checks. Nothing has been submitted.</p>
+            )}
+          </div>
           <button
             type="submit"
-            disabled
             aria-describedby="proposal-preview-note"
-            className="mt-4 min-h-12 w-full cursor-not-allowed rounded-xl bg-[#e5d5dc] px-5 font-bold text-[#68515c] sm:w-auto"
+            className="mt-4 min-h-12 w-full rounded-xl bg-miu-red px-5 font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red sm:w-auto"
           >
-            Submission coming next
+            Check proposal draft
           </button>
         </div>
       </form>

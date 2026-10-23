@@ -2,6 +2,51 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { routeConfig } from "../app/routeConfig.js";
 import { mockUsers } from "../data/fixtures/users.js";
+import { validateProposal } from "../features/proposals/validateProposal.js";
+
+test("proposal validation checks fields, verified student eligibility and project availability", () => {
+  const session = {
+    status: "authenticated",
+    user: { ...mockUsers[0], role: "student", verificationStatus: "approved" },
+  };
+  const project = { status: "open" };
+  const values = {
+    priceEGP: "1200.50",
+    deliveryDays: "7",
+    coverMessage: "I will build the requested pages.",
+  };
+  assert.deepEqual(validateProposal(values, project, session), {});
+  for (const priceEGP of ["", "0", "-5", "Infinity", "12.345"])
+    assert.ok(
+      validateProposal({ ...values, priceEGP }, project, session).priceEGP,
+    );
+  for (const deliveryDays of ["", "0", "1.5", "-1"])
+    assert.ok(
+      validateProposal({ ...values, deliveryDays }, project, session)
+        .deliveryDays,
+    );
+  assert.ok(
+    validateProposal({ ...values, coverMessage: "  " }, project, session)
+      .coverMessage,
+  );
+  assert.ok(validateProposal(values, null, session).project);
+  assert.ok(validateProposal(values, { status: "closed" }, session).project);
+  assert.ok(
+    validateProposal(values, project, { status: "anonymous", user: null })
+      .eligibility,
+  );
+  for (const change of [
+    { role: "client" },
+    { accountStatus: "suspended" },
+    { verificationStatus: "pending" },
+  ])
+    assert.ok(
+      validateProposal(values, project, {
+        ...session,
+        user: { ...session.user, ...change },
+      }).eligibility,
+    );
+});
 import {
   getRouteAccess,
   INITIAL_SESSION,
@@ -43,11 +88,16 @@ test("dynamic project details remain routable but are hidden from global navigat
 });
 
 test("proposal entry admits only active students and stays out of navigation", () => {
-  const route = routeConfig.find((item) => item.path === "/projects/:projectId/propose");
+  const route = routeConfig.find(
+    (item) => item.path === "/projects/:projectId/propose",
+  );
   assert.ok(route);
   assert.equal(route.showInNavigation, false);
   assert.equal(getRouteAccess(INITIAL_SESSION, route), "login");
-  assert.equal(getRouteAccess({ status: "expired", user: null }, route), "expired");
+  assert.equal(
+    getRouteAccess({ status: "expired", user: null }, route),
+    "expired",
+  );
   for (const user of mockUsers) {
     assert.equal(
       getRouteAccess({ status: "authenticated", user }, route),

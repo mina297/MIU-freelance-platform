@@ -54,6 +54,13 @@ Students can:
 
 ## 5. Proposal Submission
 
+Task 2 adds a Check proposal draft action: positive EGP prices (up to two decimal
+places), positive whole delivery days, and a nonblank cover message are checked.
+Eligibility requires an active authenticated verified student and an open project.
+Feedback identifies invalid fields. This action creates no record. No budget ceiling
+is imposed while the out-of-budget policy remains undecided. Attachments and mock
+submission remain pending. This supersedes the disabled-button Task 1 snapshot below.
+
 Task 1 form design: open-project proposal entry now shows editable EGP price,
 delivery days, and cover message fields alongside the project budget and deadline.
 The form is a temporary preview with submission disabled for every account.
