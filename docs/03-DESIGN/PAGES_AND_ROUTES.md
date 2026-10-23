@@ -1,4 +1,3 @@
-
 ---
 title: Pages and Routes
 type: navigation-specification
@@ -16,100 +15,109 @@ Map the 29 SRS prototype entries to proposed frontend routes.
 
 ## 1. SRS Prototype Mapping
 
-| ID | Page | Proposed Route(s) | Access |
-|---|---|---|---|
-| P-01 | Landing | `/` | Public |
-| P-02 | Registration and Role Selection | `/register`, `/register/role` | Public |
-| P-03 | Login | `/login` | Public |
-| P-04 | Forgot and Reset Password | `/forgot-password`, `/reset-password` | Public |
-| P-05 | Identity Verification | `/verify`, `/verify/pending` | Student/Client |
-| P-06 | Projects Catalogue | `/projects` | Public |
-| P-07 | Project Details | `/projects/:projectId` | Public |
-| P-08 | Submit/Edit Proposal | `/projects/:projectId/propose`, `/student/proposals` | Student |
-| P-09 | Services Catalogue | `/services` | Public |
-| P-10 | Service Details and Packages | `/services/:serviceId` | Public |
-| P-11 | Student Dashboard | `/student/dashboard` | Student |
-| P-12 | Student Profile and Portfolio | `/students/:studentId`, `/profile/edit` | Student/Public view |
-| P-13 | Service Editor | `/student/services/new`, `/student/services/:serviceId/edit` | Student |
-| P-14 | Student Proposals and Orders | `/student/proposals`, `/student/orders` | Student |
-| P-15 | Client Dashboard | `/client/dashboard` | Client |
-| P-16 | Post/Edit Project | `/client/projects/new`, `/client/projects/:projectId/edit` | Client |
-| P-17 | Proposal Comparison | `/client/projects/:projectId/proposals` | Client |
-| P-18 | Checkout and Escrow | `/checkout/:orderId`, `/escrow/:orderId` | Client/Authorized order user |
-| P-19 | Order Workspace | `/orders/:orderId` | Authorized participants |
-| P-20 | Messages, Chatbot, Translation | `/messages`, global assistant | Registered user |
-| P-21 | Support and Dispute Form | `/support/contact`, `/disputes/new` | Registered user |
-| P-22 | Super Admin Dashboard | `/admin` | Super Admin |
-| P-23 | Committee Accounts | `/admin/committee-accounts` | Super Admin |
-| P-24 | Verification Committee | `/committee/verification` | Verification |
-| P-25 | Marketplace Operations | `/committee/marketplace` | Marketplace Ops |
-| P-26 | Finance Committee | `/committee/finance` | Finance |
-| P-27 | Support and Disputes | `/committee/support` | Support |
-| P-28 | AI and Quality | `/committee/ai-quality` | AI & Quality |
-| P-29 | Notifications and Settings | `/notifications`, `/settings` | Registered user |
+| ID   | Page                            | Proposed Route(s)                                            | Access                       |
+| ---- | ------------------------------- | ------------------------------------------------------------ | ---------------------------- |
+| P-01 | Landing                         | `/`                                                          | Public                       |
+| P-02 | Registration and Role Selection | `/register`, `/register/role`                                | Public                       |
+| P-03 | Login                           | `/login`                                                     | Public                       |
+| P-04 | Forgot and Reset Password       | `/forgot-password`, `/reset-password`                        | Public                       |
+| P-05 | Identity Verification           | `/verify`, `/verify/pending`                                 | Student/Client               |
+| P-06 | Projects Catalogue              | `/projects`                                                  | Public                       |
+| P-07 | Project Details                 | `/projects/:projectId`                                       | Public                       |
+| P-08 | Submit/Edit Proposal            | `/projects/:projectId/propose`, `/student/proposals`         | Student                      |
+| P-09 | Services Catalogue              | `/services`                                                  | Public                       |
+| P-10 | Service Details and Packages    | `/services/:serviceId`                                       | Public                       |
+| P-11 | Student Dashboard               | `/student/dashboard`                                         | Student                      |
+| P-12 | Student Profile and Portfolio   | `/students/:studentId`, `/profile/edit`                      | Student/Public view          |
+| P-13 | Service Editor                  | `/student/services/new`, `/student/services/:serviceId/edit` | Student                      |
+| P-14 | Student Proposals and Orders    | `/student/proposals`, `/student/orders`                      | Student                      |
+| P-15 | Client Dashboard                | `/client/dashboard`                                          | Client                       |
+| P-16 | Post/Edit Project               | `/client/projects/new`, `/client/projects/:projectId/edit`   | Client                       |
+| P-17 | Proposal Comparison             | `/client/projects/:projectId/proposals`                      | Client                       |
+| P-18 | Checkout and Escrow             | `/checkout/:orderId`, `/escrow/:orderId`                     | Client/Authorized order user |
+| P-19 | Order Workspace                 | `/orders/:orderId`                                           | Authorized participants      |
+| P-20 | Messages, Chatbot, Translation  | `/messages`, global assistant                                | Registered user              |
+| P-21 | Support and Dispute Form        | `/support/contact`, `/disputes/new`                          | Registered user              |
+| P-22 | Super Admin Dashboard           | `/admin`                                                     | Super Admin                  |
+| P-23 | Committee Accounts              | `/admin/committee-accounts`                                  | Super Admin                  |
+| P-24 | Verification Committee          | `/committee/verification`                                    | Verification                 |
+| P-25 | Marketplace Operations          | `/committee/marketplace`                                     | Marketplace Ops              |
+| P-26 | Finance Committee               | `/committee/finance`                                         | Finance                      |
+| P-27 | Support and Disputes            | `/committee/support`                                         | Support                      |
+| P-28 | AI and Quality                  | `/committee/ai-quality`                                      | AI & Quality                 |
+| P-29 | Notifications and Settings      | `/notifications`, `/settings`                                | Registered user              |
 
 ## 2. Supporting Routes
 
 Additional proposed routes may include:
 
-| Route | Purpose |
-|---|---|
-| `/about` | Project introduction |
-| `/how-it-works` | Marketplace explanation |
-| `/help` | Help Center |
-| `/help/:articleSlug` | Help article |
-| `/terms` | Terms |
-| `/privacy` | Privacy |
-| `/freelancers` | Freelancer discovery |
-| `/recommendations` | AI-assisted suggestions |
-| `/student/services` | Manage service listings |
-| `/client/projects` | Manage client projects |
-| `/client/orders` | Client order history |
-| `/wallet/transactions` | Transaction history |
-| `/admin/roles` | Administrative permission management |
-| `/access-denied` | Authorization error |
-| `/session-expired` | Session recovery |
-| `*` | Not-found route |
+| Route                  | Purpose                              |
+| ---------------------- | ------------------------------------ |
+| `/about`               | Project introduction                 |
+| `/how-it-works`        | Marketplace explanation              |
+| `/help`                | Help Center                          |
+| `/help/:articleSlug`   | Help article                         |
+| `/terms`               | Terms                                |
+| `/privacy`             | Privacy                              |
+| `/freelancers`         | Freelancer discovery                 |
+| `/recommendations`     | AI-assisted suggestions              |
+| `/student/services`    | Manage service listings              |
+| `/client/projects`     | Manage client projects               |
+| `/client/orders`       | Client order history                 |
+| `/wallet/transactions` | Transaction history                  |
+| `/admin/roles`         | Administrative permission management |
+| `/access-denied`       | Authorization error                  |
+| `/session-expired`     | Session recovery                     |
+| `*`                    | Not-found route                      |
 
 These supporting routes extend the SRS prototype inventory without changing its numbering.
 
 ## 3. Current Implementation Snapshot
 
-As inspected on 20 October 2026, the frontend is an initial React/Vite scaffold with a single static `App` component.
+Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with one route registry at `frontend/src/app/routeConfig.js` and one in-memory session provider.
 
-- React Router is installed but is not configured in the application entry point.
-- None of the proposed routes in this document are currently implemented.
-- The visible scaffold contains an MIU Freelance heading and a non-functional **Post a Job** button.
-- No authentication, marketplace, dashboard, committee, AI, verification, payment, or escrow workflow is implemented by the current source.
-- This snapshot records observed code only. It does not change the planned route map or the SRS requirements.
+- Public placeholders: `/`, `/services`.
+- Public marketplace previews: `/projects` renders the Projects Catalogue (P-06), and `/projects/:projectId` renders Project Details (P-07).
+- Authentication placeholders: `/login`, `/register`, `/register/role`, `/forgot-password`, `/reset-password`.
+- Student/client placeholders: `/verify`, `/verify/pending`.
+- Role-specific dashboard placeholders: `/student/dashboard`, `/client/dashboard`, `/admin`, and the five committee root routes listed above.
+- Registered-user placeholder: `/notifications`.
+- Routing feedback: `/access-denied`, `/session-expired`, and a catch-all not-found page.
 
-Update this section when route implementation materially changes, and do not mark a route implemented without inspecting and verifying it.
+Routing, role checks, minimal layout outlets, demo navigation, session controls, the public projects catalogue, and project details are implemented. All other registered feature pages are clearly labeled placeholders; forms, dashboards, verification and other feature workflows are not implemented. Remaining proposed routes are not registered yet and show the catch-all page.
 
-**22 October 2026 update:** A React Projects Catalogue preview (P-06) now renders
-from `frontend/src/App.jsx`. It shows fictional open projects with working text,
+Visitors attempting protected routes go to `/login`; authenticated users with the wrong role go to `/access-denied`; explicitly expired sessions go to `/session-expired`. Guards retain the requested URL in router location state (`from`) for later authentication integration. No automatic return flow is implemented yet.
+
+`AppLayout`, `AuthLayout` and `AdminLayout` follow the recommended directory naming. Most public routes reuse the minimal `AppLayout`; `/projects` and `/projects/:projectId` use their existing full-width marketplace shells through a standalone outlet until shared public website visuals are integrated. Verification gating and automatic expiry timing are deferred. No production authorization is claimed.
+
+**23 October 2026 integration:** A React Projects Catalogue preview (P-06) now renders
+at the public `/projects` route through `frontend/src/app/router.jsx`. It shows fictional open projects with working text,
 category, budget, skill, and sort controls, plus active filters, temporary
-saved-item state, a responsive marketplace layout, and an empty state. Member 1's React Router
-configuration is still pending, so `/projects` is not yet registered as a
-distinct application route. The Project Details preview (P-07) is now
-reachable from catalogue cards through temporary App state. Its proposed
-`/projects/:projectId` path is not registered yet. Proposal submission
-remains a planned screen.
+saved-item state, a responsive marketplace layout, and an empty state. Catalogue
+cards navigate to the public `/projects/:projectId` Project Details preview,
+including a missing-record state and navigation back to `/projects`. Rendered-route
+tests guard both marketplace routes. Proposal submission remains a planned screen.
 
 ## 4. Layout Groups
 
 ### Public Layout
+
 Landing, catalogues, service/project details, informational pages.
 
 ### Authentication Layout
+
 Registration, login, password reset, onboarding.
 
 ### Student Layout
+
 Student dashboard, proposals, services, orders, profile settings.
 
 ### Client Layout
+
 Client dashboard, project management, proposals, checkout, orders.
 
 ### Administrative Layout
+
 Super Admin and five committees, with role-aware navigation.
 
 ## 5. Navigation Rules
@@ -125,6 +133,7 @@ Super Admin and five committees, with role-aware navigation.
 ## 6. Prototype Tracking
 
 Each SRS prototype should eventually have:
+
 - Screenshot or Figma frame
 - Primary role
 - Main actions
@@ -136,6 +145,7 @@ Each SRS prototype should eventually have:
 ## 7. Route Change Process
 
 Before changing a shared path:
+
 1. Identify linked pages and navigation actions.
 2. Notify affected module owners.
 3. Update route configuration.

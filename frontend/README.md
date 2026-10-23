@@ -2,7 +2,7 @@
 
 This directory contains the Phase 1 React frontend for the MIU Freelance Platform.
 
-The application is currently an initial scaffold. It renders a static MIU Freelance heading and a non-functional **Post a Job** button. The marketplace routes and workflows described in the project documentation are planned and are not yet implemented here.
+The application has a Phase 1 routing and in-memory session foundation. The public `/projects` route displays the fictional Projects Catalogue preview. A clearly labeled demo account selector on the other demo routes demonstrates role-aware navigation, logout, and explicit session expiry. Refresh clears the session. Authentication forms and other feature workflows remain planned; their registered screens are labeled placeholders. See the [current route snapshot](../docs/03-DESIGN/PAGES_AND_ROUTES.md#3-current-implementation-snapshot).
 
 ## Technology
 
@@ -30,11 +30,18 @@ Available project scripts:
 npm run dev
 npm run build
 npm run lint
+npm test
 npm run format
 npm run preview
 ```
 
 `npm run format` modifies files under `src`; review the resulting diff before committing it.
+
+Run the marketplace, routing/session contract, and rendered-route regression tests with one command:
+
+```bash
+npm test
+```
 
 ## Phase 1 Boundaries
 

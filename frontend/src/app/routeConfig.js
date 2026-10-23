@@ -1,0 +1,143 @@
+import { ROLES, PUBLIC_REGISTRATION_ROLES } from "../features/auth/session.js";
+
+// Single routing registry. Unconnected feature screens remain labeled placeholders.
+// Access metadata describes role-level demo access, not production permissions.
+export const routeConfig = [
+  { path: "/", title: "MIU Freelance", layout: "public", access: "public" },
+  {
+    path: "/projects",
+    title: "Projects",
+    layout: "standalone",
+    access: "public",
+  },
+  {
+    path: "/projects/:projectId",
+    title: "Project details",
+    layout: "standalone",
+    access: "public",
+  },
+  { path: "/services", title: "Services", layout: "public", access: "public" },
+  { path: "/login", title: "Login", layout: "auth", access: "public" },
+  {
+    path: "/register",
+    title: "Registration",
+    layout: "auth",
+    access: "public",
+  },
+  {
+    path: "/register/role",
+    title: "Student or client registration",
+    layout: "auth",
+    access: "public",
+  },
+  {
+    path: "/forgot-password",
+    title: "Forgot password",
+    layout: "auth",
+    access: "public",
+  },
+  {
+    path: "/reset-password",
+    title: "Reset password",
+    layout: "auth",
+    access: "public",
+  },
+  {
+    path: "/verify",
+    title: "Identity verification",
+    layout: "app",
+    access: "roles",
+    roles: PUBLIC_REGISTRATION_ROLES,
+  },
+  {
+    path: "/verify/pending",
+    title: "Verification status",
+    layout: "app",
+    access: "roles",
+    roles: PUBLIC_REGISTRATION_ROLES,
+  },
+  {
+    path: "/student/dashboard",
+    title: "Student dashboard",
+    layout: "app",
+    access: "roles",
+    roles: [ROLES.STUDENT],
+  },
+  {
+    path: "/client/dashboard",
+    title: "Client dashboard",
+    layout: "app",
+    access: "roles",
+    roles: [ROLES.CLIENT],
+  },
+  {
+    path: "/admin",
+    title: "Super Admin dashboard",
+    layout: "admin",
+    access: "roles",
+    roles: [ROLES.SUPER_ADMIN],
+  },
+  {
+    path: "/committee/verification",
+    title: "Verification Committee",
+    layout: "admin",
+    access: "roles",
+    roles: [ROLES.VERIFICATION],
+  },
+  {
+    path: "/committee/marketplace",
+    title: "Marketplace Operations Committee",
+    layout: "admin",
+    access: "roles",
+    roles: [ROLES.MARKETPLACE],
+  },
+  {
+    path: "/committee/finance",
+    title: "Finance Committee",
+    layout: "admin",
+    access: "roles",
+    roles: [ROLES.FINANCE],
+  },
+  {
+    path: "/committee/support",
+    title: "Support and Disputes Committee",
+    layout: "admin",
+    access: "roles",
+    roles: [ROLES.SUPPORT],
+  },
+  {
+    path: "/committee/ai-quality",
+    title: "AI and Quality Committee",
+    layout: "admin",
+    access: "roles",
+    roles: [ROLES.AI_QUALITY],
+  },
+  {
+    path: "/notifications",
+    title: "Notifications",
+    layout: "app",
+    access: "authenticated",
+  },
+  {
+    path: "/access-denied",
+    title: "Access denied",
+    layout: "public",
+    access: "public",
+    message: "This account cannot access the requested page.",
+  },
+  {
+    path: "/session-expired",
+    title: "Session expired",
+    layout: "public",
+    access: "public",
+    message:
+      "The demo session was explicitly expired. Select a demo account to start again.",
+  },
+  {
+    path: "*",
+    title: "Page not found",
+    layout: "public",
+    access: "public",
+    message: "This URL is not registered in the current routing foundation.",
+  },
+];
