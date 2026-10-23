@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { landingCategories, landingCategoryLabels } from "./landingData.js";
 import { useScrollReveal } from "./useLandingMotion.js";
+import useCategoryEdgeScroll from "./useCategoryEdgeScroll.js";
 import "./categoryCarousel.css";
 
 const categoryIcons = {
@@ -32,6 +33,7 @@ export default function CategoryCarousel({
   const root = useRef(null);
   const track = useRef(null);
   useScrollReveal(root, motionEnabled);
+  useCategoryEdgeScroll(track, motionEnabled);
   function scroll(direction) {
     track.current.scrollBy({
       left: direction * track.current.clientWidth * 0.75,
