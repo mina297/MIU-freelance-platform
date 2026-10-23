@@ -1,6 +1,6 @@
 # Member 4 — Public Website and UI Handover
 
-**Snapshot:** 23 October 2026, source baseline `b22f35f`.
+**Historical source snapshot:** 23 October 2026, baseline `b22f35f`.
 **Owner:** Member 4 — public pages, shared UI presentation and visual consistency.
 **Status:** independently implementable UI is available; application integration,
 approved content and final acceptance remain pending. This document does not
@@ -21,11 +21,32 @@ A Vite fallback showing the catalogue at an arbitrary URL does not prove that
 URL is implemented. No routing, providers, application language state, marketplace
 logic or other member's screen is changed by this handover branch.
 
+### Current target comparison — 23 October 2026
+
+The snapshot above describes this branch's source, not the newer fetched target
+`origin/main` at `b542108`. That target already contains Member 1's BrowserRouter,
+AuthProvider, AppRouter, mock authentication forms and role/session checks, plus
+Member 2's project catalogue/details and simulated proposal submission. Its `/`
+and `/services` screens remain placeholders; Member 4's public pages are not
+connected there. The existing How It Works section (`753d9f1`, PR #4) is already
+merged into that target, but remains absent from this branch's source tree.
+
+All 13 open Member 4 PRs were inspected and target `main`. Documentation-only
+conflict preparation relocates each branch's existing Member 4 catalogue entries
+away from the target's How It Works insertion point, retaining all content.
+Temporary three-way file comparisons do not merge or integrate branches. Local
+documentation commits have not been pushed, so remote PR mergeability must not
+be inferred from those checks. Routing, providers and page composition stay with
+Member 1; no application integration is performed here.
+
 ## 2. Available work and branch provenance
 
-Local source branch tips were verified at handover. Their normal pushes were
-verified in the preceding work. Upstream refs do not establish PR review, merge
-approval or publication readiness; those statuses were not independently checked.
+The table records the original implementation commits, not subsequent local
+documentation-fix tips. Those implementation tips were verified at handover;
+their normal pushes were verified in the preceding work. The original handover
+did not independently check PR review, merge approval or publication readiness.
+The current target comparison above records the later PR inspection; it does not
+claim team acceptance or publication readiness.
 
 | Feature branch                 | Source commit | Delivered scope                                                                            |
 | ------------------------------ | ------------- | ------------------------------------------------------------------------------------------ |
@@ -43,8 +64,11 @@ approval or publication readiness; those statuses were not independently checked
 | `feat/m4-policy-pages`         | `f2aef5a`     | Explicitly unapproved Terms and Privacy placeholders.                                      |
 | `feat/m4-language-switcher`    | `b22f35f`     | Controlled native language selector; no built-in languages/translations.                   |
 
-The foundation-through-language branches form a dependent stack. Review a
-feature against its preceding approved feature branch to isolate its changes.
+The foundation-through-language implementation commits form the original
+dependent stack. Use the listed implementation commits for feature-only
+comparisons; the actual open PR targets are `main`, not the preceding feature
+branch. Subsequent documentation fixes are independent commits on each existing
+branch and do not integrate those branches with one another.
 The How It Works section has separate ancestry: do not assume its JSX, CSS,
 assets or isolated preview entry are present on this branch. Do not recreate,
 copy or cherry-pick it as an incidental integration fix. The team must approve
@@ -72,19 +96,19 @@ on an approved design/content input, not a reason to fabricate a video section.
 
 ## 4. Integration ownership and readiness
 
-| Dependency                    | Owner and required action                                                                                                                                                                                                   |
-| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Public routes                 | Member 1 registers `/`, `/about`, `/how-it-works`, `/terms`, `/privacy`, `/loading-demo`, `/error-demo` with the right content/layout. None is registered by Member 4's components.                                         |
-| Navigation                    | Member 1 supplies available destinations/current path. Missing destinations generally remain text; do not replace them with fake links. Confirm Safety & Trust and Community Guidelines mapping before adding destinations. |
-| Catalogue layout              | Member 1 coordinates with Member 2 before wrapping the current catalogue, which already has its own header/main/footer. Avoid duplicate landmarks and shells.                                                               |
-| Existing How It Works section | Team-approved integration of the separate branch, then Member 1 supplies its React node to LandingPage/HowItWorksPage. No replacement timeline is created.                                                                  |
-| Marketplace content           | Member 2 retains data, selectors, catalogue/filters, business actions and routing destinations. Category expansion needs an agreed contract.                                                                                |
-| Student content               | Member 5 supplies approved profile content/links. Current landing identities are minimal fictional fixture participants, not invented ratings, verification or completed-work claims.                                       |
-| Dashboards/data display       | Members 2/3/5 supply records, columns, metrics, formatting, sort/filter/page logic and business actions.                                                                                                                    |
-| Notifications                 | Member 1 owns the notification provider/state and lifetime. Toast is only the renderer; avoid duplicate live regions and timing out focused feedback.                                                                       |
-| Language and RTL              | Member 1 owns language state/provider, approved dictionaries/options, document lang/dir and placement. LanguageSwitcher emits requests only. OD-12 remains open.                                                            |
-| Policy content                | Team supplies and approves final Terms/Privacy and publication details. OD-17 remains open; placeholders are not published legal documents.                                                                                 |
-| Visual approval               | Team reviews explicit Figma adaptations and missing full-page/toast/language/policy specimens. Do not relabel adaptations as exact approved geometry.                                                                       |
+| Dependency                    | Owner and required action                                                                                                                                                                                                                       |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Public routes                 | Member 1 composes LandingPage at the target's existing `/` placeholder and registers `/about`, `/how-it-works`, `/terms`, `/privacy`, `/loading-demo`, `/error-demo` with the right layout. No routes are registered by Member 4's components.  |
+| Navigation                    | Member 1 supplies available destinations/current path. Missing destinations generally remain text; do not replace them with fake links. Confirm Safety & Trust and Community Guidelines mapping before adding destinations.                     |
+| Catalogue layout              | Member 1 coordinates with Member 2 before wrapping the current catalogue, which already has its own header/main/footer. Avoid duplicate landmarks and shells.                                                                                   |
+| Existing How It Works section | Already merged into fetched `origin/main` at `b542108`, but absent from this local source stack. Member 1 still supplies its node to LandingPage/HowItWorksPage once the components are available together. No replacement timeline is created. |
+| Marketplace content           | Member 2 retains data, selectors, catalogue/filters, business actions and routing destinations. Category expansion needs an agreed contract.                                                                                                    |
+| Student content               | Member 5 supplies approved profile content/links. Current landing identities are minimal fictional fixture participants, not invented ratings, verification or completed-work claims.                                                           |
+| Dashboards/data display       | Members 2/3/5 supply records, columns, metrics, formatting, sort/filter/page logic and business actions.                                                                                                                                        |
+| Notifications                 | Member 1 owns the notification provider/state and lifetime. Toast is only the renderer; avoid duplicate live regions and timing out focused feedback.                                                                                           |
+| Language and RTL              | Member 1 owns language state/provider, approved dictionaries/options, document lang/dir and placement. LanguageSwitcher emits requests only. OD-12 remains open.                                                                                |
+| Policy content                | Team supplies and approves final Terms/Privacy and publication details. OD-17 remains open; placeholders are not published legal documents.                                                                                                     |
+| Visual approval               | Team reviews explicit Figma adaptations and missing full-page/toast/language/policy specimens. Do not relabel adaptations as exact approved geometry.                                                                                           |
 
 Phase 1 remains a frontend demonstration. No live authentication, identity
 processing, production AI, payments or escrow is claimed. EGP is the only
@@ -176,7 +200,7 @@ not needed for this documentation-only follow-up.
 | Check                                                                         | Current status / prerequisite                                                                              |
 | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | Registered routes, deep-link refresh, current navigation and one public shell | Pending Member 1 integration; verify actual headings/content, not just Vite fallback responses.            |
-| Existing section composed with landing/full guide                             | Pending approved integration of the separate How It Works branch.                                          |
+| Existing section composed with landing/full guide                             | Section already merged into the target; actual page composition remains Member 1's integration work.       |
 | Real language switch, document lang/dir and translated layouts                | Blocked on approved translations and Member 1's contract/provider (OD-12).                                 |
 | Terms/Privacy publication                                                     | Blocked on team-approved text and applicable decisions (OD-17); retain explicit placeholder status.        |
 | Screen-reader announcements, reading order, errors and dialog semantics       | Unverified with an actual screen reader; AX/keyboard checks are not a substitute.                          |
@@ -210,7 +234,8 @@ npm.cmd run dev -- --host 127.0.0.1
 ```
 
 Use the URL Vite prints. `/shared-ui-preview.html` is the existing isolated
-foundation showcase; `/` currently shows the catalogue. The separate section's
+foundation showcase; `/` shows the catalogue on this local source stack, while
+the newer target's `/` remains a routing placeholder. The separate section's
 `/how-it-works-preview.html` exists on its own branch, not this stack. Public page
 source files do not imply working `/about`, `/privacy` or other registered URLs.
 

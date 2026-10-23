@@ -23,15 +23,16 @@ Do not confuse a planned feature with a software defect.
 
 ## 3. Current Known Limitations
 
-| ID    | Category          | Description                                                                                                                                                                                                                                                                                                                                                                  | Status              |
-| ----- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
-| KL-01 | Known Limitation  | Phase 1 authentication is planned as simulated frontend behavior.                                                                                                                                                                                                                                                                                                            | Expected            |
-| KL-02 | Known Limitation  | Real face/ID verification is outside Phase 1.                                                                                                                                                                                                                                                                                                                                | Expected            |
-| KL-03 | Known Limitation  | AI interactions use planned/mock behavior during Phase 1.                                                                                                                                                                                                                                                                                                                    | Expected            |
-| KL-04 | Known Limitation  | Real online payments and escrow are outside Phase 1.                                                                                                                                                                                                                                                                                                                         | Expected            |
-| KL-05 | Known Limitation  | Capacitor mobile packaging is a later-phase goal.                                                                                                                                                                                                                                                                                                                            | Expected            |
-| KL-06 | Documentation Gap | SRS prototype screenshot placeholders need completed interface captures.                                                                                                                                                                                                                                                                                                     | Pending             |
-| KL-07 | Known Limitation  | On Member 4's stacked branches (source baseline b22f35f), App mounts Member 2's ProjectsCatalogue preview. Public pages and shared UI exist, but Member 1's route/provider integration remains pending; the separately branched How It Works section is not in this stack. See [Member 4 UI Handover](MEMBER4_UI_HANDOVER.md) for the verified snapshot and acceptance gaps. | Integration pending |
+<!-- prettier-ignore -->
+| ID | Category | Description | Status |
+|---|---|---|---|
+| KL-01 | Known Limitation | Phase 1 authentication is planned as simulated frontend behavior. | Expected |
+| KL-02 | Known Limitation | Real face/ID verification is outside Phase 1. | Expected |
+| KL-03 | Known Limitation | AI interactions use planned/mock behavior during Phase 1. | Expected |
+| KL-04 | Known Limitation | Real online payments and escrow are outside Phase 1. | Expected |
+| KL-05 | Known Limitation | Capacitor mobile packaging is a later-phase goal. | Expected |
+| KL-06 | Documentation Gap | SRS prototype screenshot placeholders need completed interface captures. | Pending |
+| KL-07 | Known Limitation | Task 01 adds routing, role checks and in-memory demo sessions. `/projects` renders the public catalogue; other registered feature screens remain labeled placeholders, and other proposed routes and feature workflows are not implemented. See the current snapshot in Pages and Routes. | Expected |
 
 These are scope limitations and documentation tasks, not verified software bugs.
 
@@ -64,6 +65,17 @@ application state or document direction. Approved options/dictionaries,
 Member 1's provider/state/header integration, and real translated RTL validation
 remain pending. OD-12 is not resolved by this component. See the
 [language-switcher contract](../03-DESIGN/UI_COMPONENTS.md#member-4--language-switcher-interface).
+
+**23 October 2026 - repository comparison:** KL-07 records the earlier Task 01
+snapshot. At fetched target `origin/main` (`b542108`), App mounts Member 1's
+BrowserRouter, AuthProvider and AppRouter. Public projects/details and simulated
+proposal submission plus mock authentication forms are implemented there; `/`
+and `/services` remain placeholders. The How It Works section (`753d9f1`) is
+already included in that target. This Member 4 branch still has the historical
+catalogue-only App; no target source or routing is integrated by these
+documentation edits. Public-page composition, language/provider integration,
+approved policy text and final manual acceptance remain pending. See the
+[Member 4 UI Handover](MEMBER4_UI_HANDOVER.md) for the baseline distinction.
 
 ## 5. Verified Bugs
 
