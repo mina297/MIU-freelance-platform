@@ -247,6 +247,10 @@ test("loading and error presentations do not expose stale opportunity cards or p
   const loading = render({ discoveryState: "loading" });
   assert.match(loading, /aria-busy="true"/);
   assert.match(loading, /Loading opportunities/);
+  assert.match(
+    loading,
+    /role="status" aria-atomic="true">Loading opportunities[^<]*<\/p><div[^>]*aria-busy="true"/,
+  );
   assert.match(loading, /disabled=""/);
   assert.doesNotMatch(loading, /Build a responsive event website|href="#/);
   const error = render({ discoveryState: "error", onRetry: () => {} });

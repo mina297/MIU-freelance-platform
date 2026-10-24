@@ -673,10 +673,14 @@ Recognized destination keys are `home`, `projects`, `services`, `howItWorks`,
 `safety`, and `communityGuidelines`. Only `home` has a default (`/`). Supply other
 URLs only when their destination is approved and available. Unconfigured entries
 render as plain text, without placeholder `#` links or fake actions; unavailable
-Sign up text does not receive the filled action treatment. Native anchors retain
-normal browser link behavior. Exact `currentPath`/URL matches expose
+Sign up text does not receive the filled action treatment. Inside React Router,
+`PublicLink` uses router navigation for internal page paths, including the header
+and footer home logos, preserving in-memory sessions and proposal records. Outside
+a router it renders ordinary anchors so isolated previews still work. Hash-only
+anchors, external URLs, downloads, non-self targets, and `reloadDocument={true}`
+retain native navigation. Exact `currentPath`/URL matches expose
 `aria-current="page"`. These components do not inspect sessions, register routes,
-or enforce authorization. Member 1 owns route guards, SPA navigation integration,
+or enforce authorization. Member 1 owns route guards, page registration/composition,
 and navigation focus after changing pages.
 
 The mobile menu is a nonmodal disclosure built with the existing shared Button.
@@ -793,6 +797,8 @@ Full landing assembly therefore remains dependent on connecting that work.
 
 Search filters the in-memory project and service examples while typing. Submit
 and Find Work move keyboard focus to the results region without reloading.
+The atomic result/loading status is a sibling before the busy results region,
+so loading announcements are not deferred by that region's `aria-busy` state.
 The adapter calls `findProjects`/`findServices` with the shared open/published
 statuses. It also calls their existing skill filters when a query matches a
 shared skill label, deduplicates results by ID, and preserves source order.

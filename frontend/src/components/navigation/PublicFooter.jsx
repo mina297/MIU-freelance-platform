@@ -9,7 +9,7 @@ export default function PublicFooter({ destinations = {}, currentPath }) {
       <div className="miu-public-footer__inner">
         <div className="miu-public-footer__main">
           <div className="miu-public-footer__brand">
-            <a
+            <PublicLink
               className="miu-public-footer__logo"
               href={destinations.home ?? "/"}
               aria-label="MIU Freelance home"
@@ -20,7 +20,7 @@ export default function PublicFooter({ destinations = {}, currentPath }) {
                 width="400"
                 height="200"
               />
-            </a>
+            </PublicLink>
             <div>
               <p className="miu-public-footer__product">MIU Freelance</p>
               <p className="miu-public-footer__descriptor">

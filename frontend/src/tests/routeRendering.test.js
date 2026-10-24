@@ -91,7 +91,7 @@ test("proposal routes render eligible, unverified, missing, closed, and submitte
 
 test("public project routes render marketplace screens, not placeholders", async () => {
   const vite = await createServer({
-    server: { middlewareMode: true },
+    server: { middlewareMode: true, hmr: false },
     appType: "custom",
   });
 

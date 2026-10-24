@@ -16,6 +16,12 @@ Production backend and integration testing will be expanded during later develop
 
 ## 2. Testing Levels
 
+From `frontend/`, run `npm.cmd test` to discover all Node test files recursively,
+including shared UI and public-page tests. Tests run sequentially to avoid
+competing Vite test servers; middleware-only test servers disable HMR. New test
+files do not require a package-script update. Use `npm.cmd run lint` and
+`npm.cmd run build` for the remaining automated checks.
+
 ### Component Testing
 Test reusable controls, validation states, and common UI behavior.
 

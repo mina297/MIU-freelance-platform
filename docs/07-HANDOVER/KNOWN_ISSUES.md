@@ -79,9 +79,18 @@ approved policy text and final manual acceptance remain pending. See the
 
 ## 5. Verified Bugs
 
-No verified bug list has been supplied for this documentation baseline.
+### 24 October 2026 — merged UI review corrections
 
-Add issues only after reproducing them.
+| ID | Issue | Resolution |
+|---|---|---|
+| VB-01 | The explicit `npm test` file list omitted shared UI/public-page tests. | Fixed: automatic Node test discovery; 161 tests passed through `npm.cmd test`. |
+| VB-02 | Landing's loading status was nested inside its `aria-busy` region, which could defer the announcement. | Fixed: the atomic live status is a preceding sibling. Structural regression coverage passed; actual screen-reader behavior remains unverified. |
+| VB-03 | Shared public links and home logos used document navigation for internal paths, clearing in-memory state when adopted inside the router. | Fixed: router-aware links for internal paths, with native behavior retained outside a router and for anchors/external/download/explicit-reload links. Router/basename rendering tests passed; browser interaction acceptance remains pending. |
+
+Middleware-only Vite test servers disable HMR and the normal suite runs sequentially
+to avoid competing test-server WebSocket listeners. Lint and the production build
+passed. These corrections do not register public routes, supply translations, or
+approve policy content; those known dependencies remain open.
 
 ### Bug Record Template
 

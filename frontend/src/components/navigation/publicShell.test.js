@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { createServer } from "vite";
+import { MemoryRouter } from "react-router-dom";
 
 let server;
 let PublicHeader;
@@ -89,12 +90,54 @@ test("links retain native semantics and only mark the exact current destination"
     render(PublicLink, { href: "/projects", currentPath: "/services" }, "Jobs"),
     /aria-current/,
   );
-  const onClick = () => {};
-  assert.equal(
-    PublicLink({ href: "/projects", onClick }).props.onClick,
-    onClick,
+  assert.match(render(PublicLink, {}, "Unavailable"), /^<span/);
+});
+
+test("internal links use the active router and basename, including shell logos", () => {
+  const routed = (element) =>
+    renderToStaticMarkup(
+      createElement(
+        MemoryRouter,
+        { basename: "/preview", initialEntries: ["/preview/"] },
+        element,
+      ),
+    );
+  const markup = routed(
+    createElement(PublicLink, { href: "/projects" }, "Projects"),
   );
-  assert.equal(PublicLink({ onClick }).type, "span");
+  assert.match(markup, /href="\/preview\/projects"/);
+  assert.match(markup, /data-discover="true"/);
+  const shell = routed(
+    createElement(
+      PublicLayout,
+      { destinations: { projects: "/projects" } },
+      "Content",
+    ),
+  );
+  assert.equal([...shell.matchAll(/href="\/preview\/?"/g)].length, 2);
+  assert.ok(shell.includes('href="/preview/projects"'));
+});
+
+test("anchors, external links, downloads and explicit reloads retain native navigation", () => {
+  for (const props of [
+    { href: "#discovery" },
+    { href: "https://example.com/projects" },
+    { href: "//example.com/projects" },
+    { href: "mailto:demo@example.com" },
+    { href: "/sample.pdf", download: "sample.pdf" },
+    { href: "/projects", target: "_blank", rel: "noopener" },
+    { href: "/projects", reloadDocument: true },
+  ]) {
+    const markup = renderToStaticMarkup(
+      createElement(
+        MemoryRouter,
+        null,
+        createElement(PublicLink, props, "Destination"),
+      ),
+    );
+    assert.ok(markup.includes(`href="${props.href}"`));
+    assert.doesNotMatch(markup, /data-discover|reloadDocument|reloaddocument/);
+  }
 });
 
 test("header renders the visitor navigation without protected account workflows", () => {
@@ -112,7 +155,10 @@ test("header renders the visitor navigation without protected account workflows"
   ]) {
     assert.ok(markup.includes(`href="${path}"`));
   }
-  assert.match(markup, /href="\/services"[^>]*aria-current="page"/);
+  assert.match(
+    markup,
+    /<a(?=[^>]*href="\/services")(?=[^>]*aria-current="page")[^>]*>/,
+  );
   assert.match(markup, /Browse Jobs/);
   assert.match(markup, /How it Works/);
   assert.doesNotMatch(markup, /committee|logout|dashboard|client\/projects/i);

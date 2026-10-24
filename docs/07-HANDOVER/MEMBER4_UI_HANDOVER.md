@@ -8,6 +8,16 @@ declare the whole assignment, any routed workflow or an SRS requirement complete
 
 ## 1. Start here
 
+**24 October 2026 correction:** the merged main's shared `PublicLink` and home
+logos now use React Router for internal page paths when mounted inside a router.
+Standalone previews and native-only destinations still use anchors. Landing's
+live loading/result status now sits outside the busy results region. `npm.cmd test`
+automatically discovers the full suite (161 passing tests at this correction),
+with sequential execution and HMR disabled in middleware-only test servers. Lint
+and build passed. The historical snapshots and browser evidence below have not
+been relabeled as current acceptance; route composition, language integration,
+policy approval, and manual browser/screen-reader checks remain pending.
+
 - [Component contracts and per-feature verification](../03-DESIGN/UI_COMPONENTS.md)
 - [Route inventory and ownership](../03-DESIGN/PAGES_AND_ROUTES.md)
 - [Work distribution and QA checklist](../05-DEVELOPMENT/PHASE1_WORK_DISTRIBUTION.md)

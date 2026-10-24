@@ -11,7 +11,7 @@ let ProjectDetails;
 before(async () => {
   vite = await createServer({
     root: fileURLToPath(new URL("../../../", import.meta.url)),
-    server: { middlewareMode: true },
+    server: { middlewareMode: true, hmr: false },
     appType: "custom",
     logLevel: "silent",
   });

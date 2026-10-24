@@ -106,6 +106,13 @@ export default function LandingPage({
         serviceAnchor={`#${serviceId}`}
       />
       {howItWorks}
+      <p className="m4-landing__result-count" role="status" aria-atomic="true">
+        {ready
+          ? `${projects.length} ${projects.length === 1 ? "project" : "projects"} and ${services.length} ${services.length === 1 ? "service" : "services"} found. Up to three of each are shown.`
+          : discoveryState === "loading"
+            ? "Loading opportunities…"
+            : "Discovery is unavailable in this preview."}
+      </p>
       <div
         id={resultsId}
         className="m4-landing__results"
@@ -115,13 +122,6 @@ export default function LandingPage({
         aria-label="Project and service discovery"
         aria-busy={discoveryState === "loading" || undefined}
       >
-        <p className="m4-landing__result-count" role="status">
-          {ready
-            ? `${projects.length} ${projects.length === 1 ? "project" : "projects"} and ${services.length} ${services.length === 1 ? "service" : "services"} found. Up to three of each are shown.`
-            : discoveryState === "loading"
-              ? "Loading opportunities…"
-              : "Discovery is unavailable in this preview."}
-        </p>
         {ready ? (
           <>
             <FeaturedOpportunities

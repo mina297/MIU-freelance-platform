@@ -12,7 +12,7 @@ let Badge;
 before(async () => {
   // Use the installed JSX/CSS pipeline without adding a DOM-test dependency.
   server = await createServer({
-    server: { middlewareMode: true },
+    server: { middlewareMode: true, hmr: false },
     appType: "custom",
   });
   ({ default: Button } = await server.ssrLoadModule(

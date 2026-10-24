@@ -72,7 +72,7 @@ export default function PublicHeader({ destinations = {}, currentPath }) {
       }}
     >
       <div className="miu-public-header__inner">
-        <a
+        <PublicLink
           className="miu-public-brand"
           href={destinations.home ?? "/"}
           ref={homeRef}
@@ -84,7 +84,7 @@ export default function PublicHeader({ destinations = {}, currentPath }) {
             width="400"
             height="200"
           />
-        </a>
+        </PublicLink>
         <nav
           className="miu-public-header__desktop-nav"
           aria-label="Public navigation"
