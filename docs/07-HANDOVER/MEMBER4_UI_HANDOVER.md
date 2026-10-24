@@ -1,5 +1,12 @@
 # Member 4 — Public Website and UI Handover
 
+**24 October integration note:** The original Member 4 homepage and its
+`features/public/landing/` files/tests have been retired in favor of Member 1's
+replacement. Historical landing commands below describe the original handover,
+not the current suite. Public information pages, shared shell/UI and their tests
+remain available. `/m4-pages-preview.html` now defaults to About. Run `npm test`
+inside `frontend` for the current automated checks.
+
 **Historical source snapshot:** 23 October 2026, baseline `b22f35f`.
 **Owner:** Member 4 — public pages, shared UI presentation and visual consistency.
 **Status:** independently implementable UI is available; application integration,

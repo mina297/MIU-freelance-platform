@@ -25,8 +25,7 @@ body:has(.marketplace-preview) {
 
 .marketplace-preview .miu-button,
 .marketplace-preview .miu-control,
-.marketplace-preview .miu-public-signup,
-.marketplace-preview .m4-landing__action {
+.marketplace-preview .miu-public-signup {
   border-radius: 12px;
   font-weight: 600;
 }
@@ -45,11 +44,9 @@ body:has(.marketplace-preview) {
 .marketplace-preview .miu-public-footer { background: #351923; --public-footer-muted: #d6c1cb; }
 .marketplace-preview .miu-public-footer__meta { border-color: #76505f; }
 
-.marketplace-preview .m4-landing,
 .marketplace-preview .m4-public-info,
 .marketplace-preview .miu-public-layout { background: #eee9ed; }
 
-.marketplace-preview .m4-landing__hero,
 .marketplace-preview .m4-public-info__header,
 .marketplace-preview[data-ui-preview] > header {
   background:
@@ -61,7 +58,6 @@ body:has(.marketplace-preview) {
   border-bottom: 1px solid #9b647a;
 }
 
-.marketplace-preview .m4-landing__hero h1,
 .marketplace-preview .m4-public-info__intro h1,
 .marketplace-preview[data-ui-preview] > header h1 {
   font-size: clamp(36px, 5.2vw, 72px);
@@ -74,28 +70,18 @@ body:has(.marketplace-preview) {
   font-family: var(--font-display, Georgia, serif);
 }
 
-.marketplace-preview .m4-landing__hero-copy > p,
 .marketplace-preview .m4-public-info__intro > p:not(.m4-public-info__notice) {
   color: #f1dce5;
   font-size: 18px;
   line-height: 1.8;
 }
 
-.marketplace-preview .m4-public-info__notice,
-.marketplace-preview .m4-landing__notice {
+.marketplace-preview .m4-public-info__notice {
   border: 1px solid #c195a8;
   border-inline-start: 4px solid #b91c2b;
   border-radius: 12px;
   color: #59434e;
   background: #fff8fb;
-}
-
-.marketplace-preview .m4-landing__search {
-  border: 2px solid #b9879f;
-  border-radius: 20px;
-  padding: 22px;
-  color: #30252c;
-  box-shadow: 0 20px 48px #210b2329;
 }
 
 .marketplace-preview .m4-public-info__body { gap: 32px; padding-block: 48px 72px; }
@@ -140,6 +126,5 @@ body:has(.marketplace-preview) {
   .marketplace-preview[data-ui-preview] { padding: 16px; }
   .marketplace-preview__toolbar { padding: 18px; gap: 16px; }
   .marketplace-preview__toolbar .miu-field { flex-basis: 100%; }
-  .marketplace-preview .m4-landing__search { padding: 16px; }
   .marketplace-preview .m4-how-it-works__card { padding: 22px; }
 }

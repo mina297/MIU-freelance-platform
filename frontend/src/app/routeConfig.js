@@ -206,8 +206,7 @@ export const routeConfig = [
     title: "Session expired",
     layout: "public",
     access: "public",
-    message:
-      "The demo session was explicitly expired. Select a demo account to start again.",
+    message: "Your session has expired. Sign in to continue.",
   },
   {
     path: "*",

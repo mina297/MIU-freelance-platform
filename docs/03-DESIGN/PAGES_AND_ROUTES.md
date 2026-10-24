@@ -82,6 +82,10 @@ uncommitted project; edits also require approved demo verification. Missing,
 other-owner and non-editable records have recovery/read-only states. Saved updates
 are shared with client review and reset on refresh. Browser acceptance remains pending.
 
+**Homepage navigation update (24 October 2026):** LandingHeader groups discovery under Hire Talent (landing student previews, `/services`, client registration) and Find Work (`/projects`, student registration, How it works). It is used by the homepage and authentication screens; other public pages retain the shared PublicHeader. The landing Hire/Work toggle selects local prototype discovery mode; it does not assign an account role or change access permissions. No new route is introduced.
+
+Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with one route registry at `frontend/src/app/routeConfig.js` and one in-memory session provider.
+
 **Client proposal review:** `/client/projects/:projectId/proposals` now renders a
 client-only, ownership-checked marketplace review screen, linked from My projects.
 P-17 currently covers incoming offers, search/status filters, sorting, comparison
@@ -109,10 +113,12 @@ projects) actions. Any linked project order or accepted proposal blocks both.
 Closed/cancelled details remain directly accessible but cannot receive proposals
 or appear in open discovery. No additional routes are introduced.
 
-**24 October 2026 public integration:** `/` now renders LandingPage inside the
-shared PublicLayout. `/about`, `/how-it-works`, `/terms`, `/privacy`,
+**24 October 2026 public integration:** `/` renders Member 1's replacement
+LandingPage with LandingHeader and its page-owned footer. The retired Member 4
+homepage is removed. Other public pages retain the shared PublicLayout.
+`/about`, `/how-it-works`, `/terms`, `/privacy`,
 `/loading-demo`, and `/error-demo` are registered public pages. The existing
-HowItWorksSection is composed once on both the landing and full guide pages.
+HowItWorksSection remains on the full guide page; the homepage uses Member 1's timeline.
 Terms and Privacy still explicitly show unapproved-content placeholders.
 Only implemented destinations are passed to the public navigation and landing
 actions; service/profile detail actions remain unavailable. Public route changes
@@ -172,6 +178,10 @@ described above; its safe mock attachment selection is implemented, while
 visual/browser verification remains tracked in the Projects and Proposals module.
 
 ## 4. Layout Groups
+
+**Public/authentication shell update:** Authentication pages use the new LandingHeader without developer route lists or session controls. Public pages retain collapsed demo session controls for integration testing. `/register` starts at Student/Client cards, then opens the corresponding query-selected form. A valid simulated forgot-password request opens `/reset-password`.
+
+**23 October 2026 landing page:** `/` renders the “MIU Freelance desktop” Figma frame (`8:2656`) through `features/public/LandingPage.jsx`. The existing public header, session/logout behavior and authentication flows are preserved; only the home main-content container becomes full width. Hero search/category controls filter the three fictional featured examples locally, with a clear-filters recovery state. Find Work and Browse all jobs open `/projects`; Post a Job opens client registration because project posting is not implemented. Job/profile buttons open labeled native demo dialogs, not new record routes. Footer section links work in-page; Help, Contact and policy buttons explain the current prototype limits. Services remains discoverable through the existing header and footer. No protected action, shared marketplace record or access policy changes.
 
 The 23 October delivery notes below describe the original isolated component
 handover. Their pending route-registration statements are superseded by section 3's

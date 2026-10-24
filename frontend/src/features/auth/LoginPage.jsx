@@ -10,8 +10,18 @@ export default function LoginPage() {
   const navigate = useNavigate();
   return (
     <AuthForm
-      title="Log in"
-      submitLabel="Log in to demo"
+      title="Sign in"
+      submitLabel="Sign in"
+      afterSubmit={
+        <p className="text-sm">
+          <Link
+            className="underline focus-visible:outline-2"
+            to="/forgot-password"
+          >
+            Forgot Password?
+          </Link>
+        </p>
+      }
       fields={[
         {
           name: "email",
@@ -37,17 +47,10 @@ export default function LoginPage() {
       }}
     >
       {location.state?.registered && (
-        <p role="status">Demo account created. Log in before refreshing.</p>
+        <p role="status">Account created. Sign in to continue.</p>
       )}
       <p>
-        Registered accounts can log in here. Existing fixture accounts remain
-        available in the simulated session selector above.
-      </p>
-      <p>
-        <Link to="/register/role">Create a student or client account</Link>
-      </p>
-      <p>
-        <Link to="/forgot-password">Forgot password?</Link>
+        New here? <Link to="/register">Create an account</Link>
       </p>
     </AuthForm>
   );

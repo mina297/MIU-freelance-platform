@@ -56,7 +56,7 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
     );
   }
 
-  const clientName = clientNames.get(project.clientId) ?? "Demo client";
+  const clientName = clientNames.get(project.clientId) ?? "Client";
   const initials = clientName
     .split(" ")
     .map((part) => part[0])
@@ -294,9 +294,7 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
                 </span>
                 <div>
                   <p className="font-bold">{clientName}</p>
-                  <p className="text-xs text-[#7e6c75]">
-                    Fictional demo client
-                  </p>
+                  <p className="text-xs text-[#7e6c75]">Fictional client</p>
                 </div>
               </div>
             </div>
