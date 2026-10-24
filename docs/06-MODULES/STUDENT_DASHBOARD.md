@@ -1,9 +1,8 @@
 # Student Dashboard — Phase 1 frontend
 
-Route: `/student/dashboard` (P-11), directly available as a frontend preview.
-The old demo account toolbar and simulated role gate were removed per the team's
-navigation request. No authentication is implemented. Real role guards await login
-integration. The catalogue remains at `/` and `/projects`.
+Route: `/student/dashboard` (P-11), connected through the shared router with the
+student role guard and memory-only mock sessions. The landing page is at `/`;
+the marketplace catalogue is at `/projects`. Real authentication remains out of scope.
 
 `frontend/src/components/navigation/DevDashboardSwitcher.jsx` provides isolated
 development navigation with separate CSS and no session or dashboard state.
@@ -73,3 +72,9 @@ client integration verification is documented in [Client Dashboard](CLIENT_DASHB
 Browser script accepts a path to a Puppeteer-compatible module and optional
 Chrome executable as arguments. Browser tooling was reused from the local
 environment; no runtime or development dependencies were added.
+
+
+24 October 2026 routing integration: `/student/dashboard` now maps to the existing
+`StudentDashboard` in the shared router content outlet. The shared navbar, layout
+and student role guard are preserved. Mock sessions remain memory-only: refresh
+requires signing in again before returning to the dashboard.

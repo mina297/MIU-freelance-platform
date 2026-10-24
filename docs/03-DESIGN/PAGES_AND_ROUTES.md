@@ -365,3 +365,9 @@ M5 review fixes (24 October 2026) connect public `/students/:studentId`, `/clien
 - [SRS](../01-PROJECT/SRS.md)
 - [User Roles](../02-REQUIREMENTS/USER_ROLES_AND_PERMISSIONS.md)
 - [Frontend Architecture](../04-ARCHITECTURE/FRONTEND_ARCHITECTURE.md)
+
+
+24 October 2026 routing integration: `/student/dashboard` now maps to the existing
+`StudentDashboard` in the shared router content outlet. The shared navbar, layout
+and student role guard are preserved. Mock sessions remain memory-only: refresh
+requires signing in again before returning to the dashboard.
