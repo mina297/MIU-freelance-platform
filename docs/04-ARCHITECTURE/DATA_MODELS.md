@@ -8,6 +8,18 @@ tags: [MIU, data-models, database]
 
 # MIU Freelance Platform — Data Models
 
+### Simulated order delivery records (24 October 2026)
+
+Optional immutable `Order.deliveries` stores submission ID, handover text, fictional
+sample IDs, submittedBy/submittedName/submittedAt and submitted/revision_requested/
+accepted status. A reviewed delivery may carry revision text/actor/time or acceptance
+actor/time. Resubmissions append rather than overwrite earlier handovers. Optional
+`deliveryEvents` joins workspace activity. orderStore submitDelivery/requestRevision/
+acceptDelivery methods guard current actors, lifecycle and latest delivery IDs,
+using in-memory retry keys. Acceptance sets completedAt and completed status only;
+agreed amounts, source/participant IDs and serviceTerms remain unchanged. These
+records are not file storage, payment events or production audit/authentication.
+
 ### Phase 1 order collaboration state (24 October 2026)
 
 `orderWorkspaceStore` stores per-order immutable requirements (text, sample IDs,

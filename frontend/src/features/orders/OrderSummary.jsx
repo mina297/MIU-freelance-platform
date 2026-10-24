@@ -79,7 +79,7 @@ export default function OrderSummary() {
           <p>
             No payment has been processed, no escrow funded and no delivery
             timer started by creating this order. Use the workspace below for
-            notes and messages. Checkout and delivery actions remain separate.
+            notes, messages and delivery review. Checkout remains separate.
           </p>
           <dl className="project-create__facts">
             <div>
@@ -99,7 +99,12 @@ export default function OrderSummary() {
             {order.deliveryDays && (
               <div>
                 <dt>Agreed delivery estimate</dt>
-                <dd>{order.deliveryDays} days; work has not started</dd>
+                <dd>
+                  {order.deliveryDays} days
+                  {order.status === "awaiting_payment"
+                    ? "; work has not started"
+                    : " (agreed estimate; no deadline inferred)"}
+                </dd>
               </div>
             )}
           </dl>

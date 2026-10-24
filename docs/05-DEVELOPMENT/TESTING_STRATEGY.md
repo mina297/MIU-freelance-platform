@@ -28,6 +28,13 @@ Test reusable controls, validation states, and common UI behavior.
 ### Feature Testing
 Test marketplace, profiles, authentication, dashboard, and administration interactions.
 
+Delivery model/store/render checks cover both source lifecycles, verified assigned
+student submission, client revision/acceptance, stale review rejection, wrong-role/
+foreign/inactive denial, awaiting-payment blocking, text/sample validation,
+immutable handover history, idempotent confirmations, completed workspace locking,
+list/status/timeline updates and unchanged agreed terms. Native dialog/keyboard/
+mobile/screen-reader/visual checks remain deferred rather than passed.
+
 Workspace model/store/render tests cover both order sources, active participant
 reads/writes, foreign-role denial, requirements permissions and stale versions,
 safe attachment allowlists, text limits/escaping, idempotent message sends,

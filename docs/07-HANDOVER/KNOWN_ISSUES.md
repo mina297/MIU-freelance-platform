@@ -7,6 +7,21 @@ tags: [MIU, issues, decisions]
 
 # MIU Freelance Platform — Known Issues and Open Decisions
 
+## Order delivery increment — 24 October 2026
+
+Automated verification: all 230 tests, ESLint and production build passed. The
+local order URL responds HTTP 200; actual dialog/keyboard/mobile acceptance is
+still deferred. No browser interaction or screen-reader verification is claimed.
+
+Submission, revision requests, resubmission and confirmed acceptance/completion
+are implemented for eligible existing orders, with role/verification/current-status
+and latest-delivery checks plus retry prevention. Awaiting-payment/funded orders
+cannot start delivery here; activation/payment remains a separate integration.
+Completion releases no money or escrow. Samples are metadata only. Automatic
+completion, revision limits/deadlines, dispute settlement and review integration
+remain undecided or separate work. Browser/dialog-focus/mobile/keyboard/visual
+acceptance remains deferred; the documented bundle-size warning is outstanding.
+
 ## Order workspace increment — 24 October 2026
 
 Automated verification: all 223 tests, ESLint and production build passed. The

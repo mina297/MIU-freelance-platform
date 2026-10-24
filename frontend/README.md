@@ -23,6 +23,14 @@ existing standalone layout. Approved translations are pending; the interface is 
 
 ## Technology
 
+### Delivery and revisions
+
+Open `/orders/order_001` as Omar Nabil and choose Delivery & revisions to submit
+fictional work. Switch to Nile Studio to request changes or accept the latest
+delivery. Revised work is a new submission; completion updates the lists and
+locks workspace writes. Awaiting-payment orders cannot start delivery here. No
+real file, funding, escrow release, notification or deadline is created.
+
 ### Order workspace
 
 Open an owned `/orders/:orderId`, e.g. `/orders/order_001` as Nile Studio or Omar
