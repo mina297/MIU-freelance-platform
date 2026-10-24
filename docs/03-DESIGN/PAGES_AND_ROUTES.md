@@ -78,8 +78,11 @@ These supporting routes extend the SRS prototype inventory without changing its 
 client-only, ownership-checked marketplace review screen, linked from My projects.
 P-17 currently covers incoming offers, search/status filters, sorting, comparison
 of two or three proposals, and simulated shortlist toggles. Closed/selected/cancelled
-project reviews are read-only. Profile navigation, acceptance/rejection and order
-creation remain pending. Missing and other-client records show a generic recovery
+project reviews are read-only. Confirmed accept/reject is available for submitted
+or shortlisted offers on open projects. Acceptance selects the project and links
+one demo order awaiting payment. `/orders/:orderId` renders a project-only summary
+for its client and selected student; service-order/full-workspace views and profile
+navigation remain pending. Missing and other-client records show a generic recovery
 state without proposal details. State changes reset to fixtures on refresh.
 
 **24 October 2026 project creation:** P-16 creation is available at

@@ -18,6 +18,9 @@ import Select from "../../components/ui/Select.jsx";
 import Checkbox from "../../components/ui/Checkbox.jsx";
 import Button from "../../components/ui/Button.jsx";
 import ProposalComparison from "./ProposalComparison.jsx";
+import ProposalDecisionActions from "./ProposalDecisionActions.jsx";
+import { orderStore } from "../orders/orderStore.js";
+import { clientEligibility } from "../projects/projectCreation.js";
 import "../projects/project-create.css";
 import "./client-proposals.css";
 
@@ -32,6 +35,17 @@ function ReviewWorkspace({ project, proposals }) {
   const [notice, setNotice] = useState("");
   const [error, setError] = useState("");
   const heading = useRef(null);
+  const orders = useSyncExternalStore(
+    orderStore.subscribe,
+    orderStore.getSnapshot,
+    orderStore.getSnapshot,
+  );
+  const linkedOrder = orders.find(
+    (order) =>
+      order.sourceType === "project" &&
+      order.sourceId === project.id &&
+      order.clientId === session.user.id,
+  );
   const resultsHeading = useRef(null);
   const restoreResultsFocus = useRef(false);
   useEffect(() => {
@@ -117,8 +131,9 @@ function ReviewWorkspace({ project, proposals }) {
       </section>
       <div className="project-create__container client-proposals__body">
         <p className="client-proposals__disclosure">
-          Fictional proposals and simulated shortlisting. Records reset on
-          refresh. This screen does not hire students or create orders.
+          Fictional proposals and simulated decisions. Accepting an offer
+          creates a demo order awaiting payment. No real hiring, notification,
+          payment or escrow funding occurs. Changes reset on refresh.
         </p>
         <p role="status" className="client-proposals__notice">
           {notice}
@@ -126,6 +141,24 @@ function ReviewWorkspace({ project, proposals }) {
         {error && (
           <p role="alert" className="project-create__alert">
             {error}
+          </p>
+        )}
+        {linkedOrder && (
+          <div className="project-create__panel project-create__brief">
+            <h2 className="text-xl font-bold">Project order linked</h2>
+            <p className="mt-3">
+              A fictional order is linked to this project. Open its summary to
+              review the agreed terms.
+            </p>
+            <div className="project-create__success-links">
+              <Link to={`/orders/${linkedOrder.id}`}>View demo order</Link>
+            </div>
+          </div>
+        )}
+        {project.status === "open" && clientEligibility(session, true) && (
+          <p className="project-create__alert">
+            An approved demo client session is required to accept an offer. You
+            can still review, shortlist or reject proposals.
           </p>
         )}
         {project.status !== "open" && (
@@ -324,6 +357,20 @@ function ReviewWorkspace({ project, proposals }) {
                           ? "Remove shortlist"
                           : "Shortlist"}
                       </Button>
+                      <ProposalDecisionActions
+                        proposal={proposal}
+                        project={project}
+                        session={session}
+                        onResult={(result) => {
+                          restoreResultsFocus.current = true;
+                          setError("");
+                          setNotice(
+                            result.proposal.status === "accepted"
+                              ? "Proposal accepted — simulation. One demo order awaits payment; no money moved."
+                              : "Proposal rejected — simulation. No notification sent.",
+                          );
+                        }}
+                      />
                     </div>
                   </article>
                 );

@@ -2,6 +2,8 @@ import { formatEGP } from "../../utils/formatEGP.js";
 import { formatDate } from "../../utils/formatDate.js";
 import { useState, useSyncExternalStore } from "react";
 import { proposalLabel } from "./clientProposalModel.js";
+import { Link } from "react-router-dom";
+import { orderStore } from "../orders/orderStore.js";
 import { useAuth } from "../../hooks/useAuth.js";
 import { proposalStore } from "./proposalStore.js";
 import ProposalAttachments from "./ProposalAttachments.jsx";
@@ -20,6 +22,18 @@ export default function ProposalForm({ project }) {
     proposalStore.getSnapshot,
   );
   const proposal = proposalStore.find(project.id, session.user?.id);
+  const orders = useSyncExternalStore(
+    orderStore.subscribe,
+    orderStore.getSnapshot,
+    orderStore.getSnapshot,
+  );
+  const order =
+    proposal &&
+    orders.find(
+      (record) =>
+        record.proposalId === proposal.id &&
+        record.studentId === session.user?.id,
+    );
   function submitProposal(event) {
     event.preventDefault();
     const values = Object.fromEntries(new FormData(event.currentTarget));
@@ -49,6 +63,19 @@ export default function ProposalForm({ project }) {
           resets on refresh.
         </p>
         <dl className="mt-5 space-y-3">
+          {order && (
+            <div>
+              <dt className="font-bold">Project order</dt>
+              <dd>
+                <Link
+                  className="inline-flex min-h-11 items-center text-miu-red underline"
+                  to={`/orders/${order.id}`}
+                >
+                  View demo order
+                </Link>
+              </dd>
+            </div>
+          )}
           <div>
             <dt className="font-bold">Your price</dt>
             <dd>{formatEGP(proposal.priceEGP)}</dd>

@@ -181,6 +181,12 @@
   color: #685963;
   margin-bottom: 10px;
 }
+.client-proposals__decisions {
+  display: grid;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid #d2b9c6;
+}
 .client-proposals__attachments {
   margin-top: 20px;
   font-size: 13px;

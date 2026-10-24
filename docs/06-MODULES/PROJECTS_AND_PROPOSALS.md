@@ -94,9 +94,10 @@ changes, or financial transactions occur. Dismissing the dialog changes nothing.
 The confirmation initially focuses Keep project unchanged; successful actions
 announce the result and provide a focus target when the initiating button disappears.
 
-Commitment checks currently read fixture orders and accepted fixture proposals.
-The store accepts a live commitment provider for later order/acceptance integration;
-Member 2/3 must connect future shared stores before those workflows become active.
+Commitment checks now read live orderStore snapshots and accepted fixture proposals.
+Every new demo acceptance creates a linked order, so those commitments also block
+close/cancel actions. The injectable commitment provider remains available for future
+financial or alternative acceptance integrations.
 Automated checks cover transitions, ownership, stale commitment checks, proposal
 gating, details/discovery changes, and a catalogue with no remaining open projects.
 Browser confirmation, focus restoration, keyboard and responsive checks remain pending.
@@ -216,12 +217,44 @@ current open-project status and submitted/shortlisted proposal status. Changes
 retain offer data and original submission time. Accepted/rejected/withdrawn records
 cannot be shortlisted. Repeated identical requests do not create another update.
 
-No notification or order is created; refresh restores fixture state. Public/static
+Shortlisting creates no notification or order; refresh restores fixture state. Public/static
 fixture query helpers are not the review state provider: review screens consume
-proposalStore snapshots. Acceptance, rejection, order creation, and live commitment
-integration remain subsequent work. Automated store/model/rendered-route tests
+proposalStore snapshots. Acceptance/rejection and a project-order handoff are now
+implemented below. Automated store/model/rendered-route tests
 cover this increment; browser, keyboard, focus and responsive visual checks remain
 pending because no browser connection is available.
+
+### Acceptance, rejection and order handoff (FR-C05; FR-C11 / FR-S08 demonstration)
+
+Accept offer and Reject offer use the shared confirmation dialog. Dismissing the
+dialog changes nothing; Keep proposal unchanged receives initial focus. Confirmation
+rechecks active client ownership and current project/proposal status. Only submitted
+or shortlisted proposals on open projects can receive a new decision. Acceptance
+requires an approved demo client, matching the conservative publishing restriction
+while the MIU/external-client distinction is unavailable.
+
+Acceptance marks the offer accepted, marks its project selected, and creates one
+immutable order with `awaiting_payment` status. It copies the proposal's price and
+delivery-day estimate, not the project budget. Repeated acceptance returns the same
+order; an existing project order/commitment blocks another selection. Rejection
+changes only that proposal and creates no order. Other proposals retain their statuses;
+automatic rejection, reopening and decision reversal are not implemented.
+
+Selected projects leave open discovery, cannot receive proposals or be edited, and
+cannot be closed/cancelled through the uncommitted-project demo actions. Live order
+snapshots now support those commitment checks. An existing student proposal remains
+viewable after project selection/closure, including its current status and linked order.
+
+`/orders/:orderId` currently provides a project-order summary restricted to the
+order's client and selected student. It links back to the brief/review page and shows
+copied terms, order reference and state. This is an initial handoff, not the full
+collaboration workspace. No payment, escrow funding, notification or delivery-start
+event occurs. Refresh restores fixture records and discards demo changes.
+
+Remaining: FR-C06 profile navigation; browser confirmation/focus/mobile checks;
+full order workspace, checkout/escrow and later delivery workflows. The automated
+tests cover decisions, failed handoffs, duplicate acceptance, participant access,
+student feedback, discovery state and committed-project safeguards.
 
 Clients can:
 

@@ -16,6 +16,17 @@ These models are derived from SRS features but are not a finalized database sche
 
 ## 2. Core Entities
 
+**Current demo acceptance/order linkage:** proposalStore delegates acceptance to
+projectStore, which rechecks owned open-project eligibility and creates a linked
+order in orderStore before selecting the project. The proposal is then marked
+accepted. A project can have one order in this demo; repeated acceptance of the
+same proposal returns that order. Other proposals are not automatically rejected.
+Order records retain project/proposal IDs and participant IDs and copy the agreed
+price plus optional `deliveryDays` estimate. `awaiting_payment` does not mean any
+payment or delivery-start event occurred. Default order selectors use live snapshots;
+all changes are immutable and memory-only. Production transactions/persistence are
+not implemented by this synchronous frontend workflow.
+
 **Current Phase 1 project draft representation:** private in-memory drafts are
 separate from public `Project` records. Each draft has `id`, `clientId`,
 `status: "draft"`, `createdAt`, `updatedAt`, and `values`. `values` allowlists

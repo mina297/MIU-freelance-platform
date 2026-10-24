@@ -25,8 +25,10 @@ Do not confuse a planned feature with a software defect.
 
 **Client proposal review:** incoming proposal review, filtering, sorting, up-to-three
 comparison and reversible shortlisting are implemented in the demo. Student profile
-navigation (FR-C06), accept/reject, order creation, and live commitment integration
-are pending. New submissions and shortlist changes share proposalStore snapshots;
+navigation (FR-C06) and full order/checkout workflows remain pending. Confirmed
+accept/reject and a participant-protected project-order summary are implemented.
+Acceptance creates one demo order awaiting payment and selects its project;
+live orders feed commitment safeguards. New submissions and decisions share proposalStore snapshots;
 existing fixture-only query helpers are not reactive review adapters. Browser
 interaction, comparison selection/keyboard checks, and mobile/desktop visual
 acceptance remain unverified. Refresh restores the proposal fixtures.
@@ -38,8 +40,8 @@ resumes drafts or edits open briefs. Saved records reset on refresh; unsaved
 form values reset on leaving or account switching. Confirmed close/cancel actions
 are available for uncommitted owned projects; any linked project order or accepted
 proposal blocks both actions. Funded/committed cancellation remains undecided.
-Reopening and non-open editing are unavailable. Future order/acceptance stores must
-supply live commitments to projectStore (currently fixture-backed).
+Reopening and non-open editing are unavailable. The live orderStore now feeds
+projectStore's commitment checks; future financial stores must preserve that integration.
 The session contract lacks MIU/external
 client origin, so publishing currently requires approved verification for all demo
 clients. Nile Studio is the approved fictional test case. Browser interaction,
