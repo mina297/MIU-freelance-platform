@@ -49,7 +49,7 @@ export const routeConfig = [
   },
   {
     path: "/orders/:orderId",
-    title: "Project order summary",
+    title: "Order summary",
     layout: "standalone",
     access: "roles",
     roles: [ROLES.CLIENT, ROLES.STUDENT],
@@ -85,6 +85,14 @@ export const routeConfig = [
     showInNavigation: false,
   },
   { path: "/services", title: "Services", layout: "public", access: "public" },
+  {
+    path: "/services/:serviceId/order",
+    title: "Configure service order",
+    layout: "standalone",
+    access: "roles",
+    roles: [ROLES.CLIENT],
+    showInNavigation: false,
+  },
   {
     path: "/student/services",
     title: "My services",

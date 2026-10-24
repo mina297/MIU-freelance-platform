@@ -112,8 +112,13 @@ export default function ServiceDetails({
                 </a>
               )}
               <small>
-                Preview only. Ordering and checkout are not connected.
+                Configure a simulated order. No real payment or escrow.
               </small>
+              {starting && (
+                <Link to={`/services/${service.id}/order`}>
+                  Configure demo order
+                </Link>
+              )}
             </aside>
           </div>
         </div>
@@ -187,7 +192,7 @@ export default function ServiceDetails({
               <p className="services-eyebrow">ROOM FOR A LITTLE MORE</p>
               <h2 id="service-extras-title">Optional extras</h2>
             </div>
-            <p>Information only — selection comes with ordering.</p>
+            <p>Select extras in the demo ordering form.</p>
           </div>
           {extras.length ? (
             <div className="service-details__extras">

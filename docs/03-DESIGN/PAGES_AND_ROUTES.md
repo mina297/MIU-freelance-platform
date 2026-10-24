@@ -74,6 +74,13 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
+**Service ordering (24 October 2026):** `/services/:serviceId/order` is an active
+client-only standalone configurator, hidden from generic navigation and linked
+from public service details. It validates package/extras, quotes EGP/delivery,
+confirms current terms and creates one awaiting-payment demo order per request.
+`/orders/:orderId` now supports participant-only service summaries as well as the
+existing project handoff. No payment/escrow or full workspace is implemented here.
+
 **Student service management (24 October 2026):** student-only standalone routes
 `/student/services`, `/student/services/new`, `/student/services/:serviceId/edit`
 cover owned listings, validated private previews, complete drafts, package/extra

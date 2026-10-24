@@ -110,8 +110,9 @@ place them last. A native disclosure previews that starting package's scope.
 The catalogue uses no invented ratings, verified badges or profile links.
 
 Service details are now connected through `/services/:serviceId` as described
-below. Student publishing/management is described in section 2. Profiles, package selection and ordering remain separate
-increments; no checkout actions are fabricated. New fictional records preserve
+below. Student publishing/management is described in section 2 and simulated
+package selection/ordering in section 6. Profiles and checkout remain separate
+increments; no payment actions are fabricated. New fictional records preserve
 existing service/order IDs and totals.
 Loading/error props are presentation states for future adapters, not a real fetch.
 Browser keyboard/mobile/visual acceptance and P-09 captures remain pending.
@@ -153,6 +154,42 @@ Keyboard/table-scroll, mobile visual acceptance and P-10 screenshot capture rema
 
 ## 6. Two Order Sources
 
+### Current simulated service ordering — 24 October 2026 (FR-C08/C09; P-10/P-18 handoff)
+
+Client-only `/services/:serviceId/order` is linked from available public service
+details. An active, approved demo client chooses one current package and unique
+allowlisted extras. Requiring all demo clients to be approved is conservative while
+the MIU/external-client-origin contract remains unresolved. Students/visitors cannot
+place orders; paused/draft/missing services and invalid/missing terms are blocked.
+
+A pure quote sums money in integer EGP cents and adds whole package/extra days,
+rejecting invalid precision, negative values, duplicate/foreign extras and unsafe
+totals. Delivery is an estimate, not a started deadline. The review dialog lists
+current scope, amounts and extras; cancel creates nothing. Reset selection offers
+recovery when a live package/extra disappears. Final confirmation reads serviceStore
+again and rejects changed price/scope/extra terms until the client reviews them.
+
+`orderStore.createFromService(serviceId, selection, session, submissionId,
+readServices)` validates against the supplied live snapshot getter. A request token
+is scoped to its client; identical confirmation retries return one existing order,
+while different terms cannot reuse that token. Independent new order forms can
+intentionally order the same service again. Request keys are in-memory demo
+idempotency identifiers, not authentication credentials or production guarantees.
+
+Creation records one immutable service Order with package/extra IDs, combined EGP
+amount, combined delivery days and `serviceTerms` snapshots of scope/deliverables
+and line-item amounts. Status starts at `awaiting_payment`; the service stays
+published. No payment, escrow funding, notification or delivery-start event occurs.
+Live orders immediately feed the existing listing-edit/removal commitment guard.
+
+`/orders/:orderId` now supports both source types through OrderSummary, preserving
+the existing project view. Only the owning client or assigned student can see a
+service summary. New orders show copied terms; older fixtures without a historical
+snapshot show agreed totals and explain that historical package terms are absent,
+rather than substituting current listing terms. Full order lists/workspace and
+Member 3 checkout/payment/escrow UI remain separate increments. Refresh resets all
+runtime orders and selections. Browser acceptance remains deferred by the team lead.
+
 Orders may originate from:
 
 ### Project Order
@@ -164,9 +201,10 @@ EGP price and delivery-day estimate, and starts at `awaiting_payment`. The share
 `orderStore` exposes observable snapshots; the default order selectors include new
 records alongside fixtures. Duplicate acceptance returns the same order.
 
-`/orders/:orderId` is currently a read-only project-order handoff for its client
-and selected student. Missing, unrelated, and service-order IDs show an unavailable
-state. Full collaboration and service-order views remain later work. No payment,
+`/orders/:orderId` preserves the read-only project-order handoff for its client
+and selected student and now supports the service summary described above.
+Missing/unrelated orders show an unavailable state. Full collaboration remains
+later work. No payment,
 escrow funding, notifications or delivery-start event is implemented by acceptance.
 Member 3's future financial screens can consume `orderStore.getSnapshot()` and
 `orderStore.subscribe`; all demo changes clear on refresh.

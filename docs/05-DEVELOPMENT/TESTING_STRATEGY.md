@@ -28,6 +28,13 @@ Test reusable controls, validation states, and common UI behavior.
 ### Feature Testing
 Test marketplace, profiles, authentication, dashboard, and administration interactions.
 
+Service ordering tests cover approved client access, current published services,
+package/extra membership, duplicate extras, integer-cent totals, safe delivery
+arithmetic, stale price/scope/removal rejection, request idempotency, immutable
+terms, participant-only summaries and immediate listing commitment guards. Project
+order behavior remains in regression coverage. These do not verify actual native
+dialog focus/keyboard behavior or replace deferred browser acceptance.
+
 Student service-management model/store/route checks cover owned-only access,
 field/package/extra validation, immutable snapshots, duplicate creation prevention,
 private drafts, verification gates, lifecycle transitions, linked-order safeguards,

@@ -23,6 +23,15 @@ existing standalone layout. Approved translations are pending; the interface is 
 
 ## Technology
 
+### Simulated service ordering
+
+From a public service page choose Configure demo order, or open
+`/services/service_001/order` in Nile Studio's approved client demo session.
+Choose a package/extras, review totals and confirm to create one service order
+awaiting payment. `/orders/:orderId` shows saved terms only to its participants.
+No payment, funding, notification or delivery start occurs. Refresh clears demo
+orders; full checkout and collaboration remain future work.
+
 ### Student service management
 
 Open `/student/services` or `/student/services/new` in a student demo session.
@@ -36,8 +45,9 @@ remain memory-only and reset on refresh. Manual browser review is still pending.
 
 Open `/services` for published fictional services, search, category/skill/price
 filters, sorting and starting-package previews. The catalogue shares the public
-layout and uses EGP only. Profiles, publishing and ordering remain separate
-increments. Filters are local page state and reset on leaving/reload.
+layout and uses EGP only. Student publication and simulated client ordering are
+now connected as described above. Profiles and payment processing remain future
+work. Filters are local page state and reset on leaving/reload.
 Catalogue cards now open `/services/:serviceId` for service description, provider
 summary, read-only package comparison and optional-extra information. Unpublished
 and missing services show recovery. No checkout action is available yet.

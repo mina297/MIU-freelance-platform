@@ -8,6 +8,18 @@ tags: [MIU, data-models, database]
 
 # MIU Freelance Platform — Data Models
 
+### Service-order confirmation snapshot (24 October 2026)
+
+Service orders retain source/participant/package/extra IDs, agreedAmountEGP and
+optional deliveryDays. New simulated orders also carry immutable `serviceTerms`:
+service title/description, package name/scope/deliverables/price/days and selected
+extra title/scope/price/days snapshots. Older fixture orders may omit those terms;
+never substitute current listing text as historical terms. No payment credentials
+or real personal files are stored. `createFromService` reads current service data
+through an injected getter (avoiding an orderStore/serviceStore import cycle),
+checks a reviewed-terms revision and uses client-scoped in-memory request keys for
+idempotency. Revision strings are consistency checks, not secure authorization.
+
 ### Phase 1 service-management state adapter (24 October 2026)
 
 `features/services/serviceStore.js` maintains immutable Service, ServicePackage and
