@@ -1,0 +1,121 @@
+/* Figma 4:2906. Dialog state and ::backdrop do not change global styles. */
+.miu-modal {
+  box-sizing: border-box;
+  width: calc(100% - 32px);
+  max-width: 384px;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 32px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 0;
+  border-radius: 16px;
+  background: #fff;
+  color: var(--color-miu-black, #111111);
+  font-family: var(--font-sans, "Inter", sans-serif);
+  box-shadow: 0 16px 40px rgb(17 17 17 / 10%);
+  overflow-wrap: anywhere;
+}
+
+.miu-modal[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.miu-modal::backdrop {
+  /* No backdrop opacity is specified by the isolated Figma specimen. */
+  background: rgb(17 17 17 / 40%);
+}
+
+.miu-modal__header {
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.miu-modal__title-group {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  max-width: 260px;
+}
+
+.miu-modal__title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.miu-modal__title:focus-visible {
+  outline: 2px solid var(--color-miu-red, #b91c2b);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.miu-modal__description {
+  margin: 0;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.miu-modal .miu-modal__close {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  margin-block-start: -11px;
+  margin-inline-end: -11px;
+  padding: 0;
+  border-color: transparent;
+  background: transparent;
+}
+
+.miu-modal .miu-modal__close:hover {
+  border-color: transparent;
+  background: #f1f1f3;
+}
+
+.miu-modal__close img {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.miu-modal__body {
+  flex: 0 0 auto;
+  min-width: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.miu-modal__actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-width: 0;
+}
+
+.miu-modal__actions > * {
+  flex: 1 1 120px;
+  min-width: 0;
+}
+
+@media (max-width: 479px) {
+  .miu-modal {
+    padding: 20px;
+  }
+}
+
+/* The dialog itself has no motion; reused Button motion also respects this. */
+@media (prefers-reduced-motion: reduce) {
+  .miu-modal,
+  .miu-modal::backdrop {
+    animation: none;
+    transition: none;
+  }
+}

@@ -14,6 +14,8 @@ Build a maintainable, responsive React application that supports the Phase 1 moc
 
 ## 2. Selected Frontend Direction
 
+The production build separates `node_modules` into a vendor chunk using the installed Vite/Rolldown `build.rolldownOptions.output.codeSplitting.groups` API. The application chunk stays separate for caching; this does not provide route-level lazy loading or reduce total initial JavaScript. See the [M2 integration report](../07-HANDOVER/M2_MARKETPLACE_INTEGRATION_2026-10-24.md).
+
 - React with JavaScript
 - Vite
 - React Router

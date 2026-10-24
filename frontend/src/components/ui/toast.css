@@ -1,0 +1,63 @@
+/* Compact adaptation of the existing Figma foundation; no dedicated toast frame. */
+.miu-toast.miu-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  max-width: 420px;
+  padding: 16px;
+  pointer-events: auto;
+}
+
+.miu-toast__content {
+  display: grid;
+  flex: 1 1 0;
+  gap: 8px;
+  min-width: 0;
+}
+
+.miu-toast__status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.miu-toast__message,
+.miu-toast__description {
+  min-width: 0;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.miu-toast__message {
+  font-weight: 600;
+}
+
+.miu-toast__description {
+  color: #4b5563;
+}
+
+.miu-toast .miu-toast__dismiss {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  padding: 0;
+  border-color: transparent;
+  background: transparent;
+}
+
+.miu-toast .miu-toast__dismiss:hover {
+  border-color: transparent;
+  background: #f1f1f3;
+}
+
+.miu-toast__dismiss img {
+  display: block;
+  flex: 0 0 auto;
+}
+
+/* No entry/exit motion. Reused Button and LoadingSpinner respect reduced motion. */

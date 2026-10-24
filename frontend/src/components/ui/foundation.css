@@ -1,0 +1,183 @@
+/* Neutral values are from Figma 4:2680 / 4:2847; no global tokens are changed. */
+:where(.miu-button, .miu-card, .miu-badge) {
+  --ui-white: #fff;
+  --ui-border: #e5e7eb;
+  --ui-muted-surface: #f1f1f3;
+  --ui-secondary-text: #4b5563;
+
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+}
+
+.miu-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 10px 16px;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: center;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.miu-button--primary {
+  border-color: var(--color-miu-red, #b91c2b);
+  background: var(--color-miu-red, #b91c2b);
+  color: var(--ui-white);
+}
+
+.miu-button--primary:hover:not(:disabled) {
+  border-color: var(--color-miu-red-dark, #8f1420);
+  background: var(--color-miu-red-dark, #8f1420);
+}
+
+.miu-button--secondary {
+  border-color: var(--color-miu-black, #111111);
+  background: var(--color-miu-black, #111111);
+  color: var(--ui-white);
+}
+
+.miu-button--secondary:hover:not(:disabled) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.miu-button--outline {
+  border-color: var(--color-miu-red, #b91c2b);
+  background: var(--ui-white);
+  color: var(--color-miu-red, #b91c2b);
+}
+
+.miu-button--outline:hover:not(:disabled) {
+  background: var(--color-miu-red-tint, #fdf2f3);
+}
+
+.miu-button--ghost {
+  border-color: var(--ui-border);
+  background: var(--ui-muted-surface);
+  color: var(--color-miu-black, #111111);
+}
+
+.miu-button--ghost:hover:not(:disabled) {
+  border-color: var(--ui-secondary-text);
+}
+
+.miu-button--destructive {
+  border-color: var(--color-danger, #dc2626);
+  background: var(--color-danger, #dc2626);
+  color: var(--ui-white);
+}
+
+.miu-button--destructive:hover:not(:disabled) {
+  border-color: var(--color-miu-red-dark, #8f1420);
+  background: var(--color-miu-red-dark, #8f1420);
+}
+
+.miu-button:focus-visible {
+  outline: 2px solid var(--color-miu-red, #b91c2b);
+  outline-offset: 3px;
+}
+
+.miu-button:disabled {
+  border-color: var(--ui-border);
+  background: var(--ui-muted-surface);
+  color: var(--ui-secondary-text);
+  cursor: not-allowed;
+}
+
+.miu-button[aria-busy="true"] {
+  cursor: progress;
+}
+
+.miu-button__spinner {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 2px solid currentColor;
+  border-inline-end-color: transparent;
+  border-radius: 50%;
+  animation: miu-button-spin 800ms linear infinite;
+}
+
+@keyframes miu-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.miu-card {
+  min-width: 0;
+  padding: 32px;
+  border: 1px solid var(--ui-border);
+  border-radius: 10px;
+  background: var(--ui-white);
+  color: var(--color-miu-black, #111111);
+  box-shadow: 0 8px 24px rgb(17 17 17 / 5%);
+  overflow-wrap: anywhere;
+}
+
+.miu-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 28px;
+  max-width: 100%;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  vertical-align: middle;
+  overflow-wrap: anywhere;
+}
+
+.miu-badge--neutral {
+  background: var(--ui-muted-surface);
+  color: var(--ui-secondary-text);
+}
+
+.miu-badge--success {
+  background: #eaf6ed;
+  color: var(--color-miu-black, #111111);
+}
+
+.miu-badge--info {
+  background: #eaf1fe;
+  color: var(--color-info, #2563eb);
+}
+
+.miu-badge--completed {
+  background: var(--ui-border);
+  color: #374151;
+}
+
+.miu-badge--warning {
+  background: #fef3e6;
+  color: var(--color-miu-black, #111111);
+}
+
+.miu-badge--danger {
+  background: #fdebec;
+  color: var(--color-miu-red, #b91c2b);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .miu-button {
+    transition: none;
+  }
+
+  .miu-button__spinner {
+    animation: none;
+  }
+}

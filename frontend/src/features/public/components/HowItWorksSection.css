@@ -1,0 +1,236 @@
+.m4-how-it-works {
+  --hiw-surface: #f8f8f9;
+  --hiw-border: #e5e7eb;
+  --hiw-text-secondary: #4b5563;
+  --hiw-text-muted: #707780;
+
+  padding: 56px 20px;
+  background: #fff;
+  color: var(--color-miu-black);
+  font-family: var(--font-sans);
+}
+
+.m4-how-it-works__content {
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+.m4-how-it-works p,
+.m4-how-it-works h2,
+.m4-how-it-works h3 {
+  margin: 0;
+}
+
+.m4-how-it-works__heading-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  max-width: 720px;
+}
+
+.m4-how-it-works__eyebrow {
+  color: var(--color-miu-red);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.m4-how-it-works h2 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.m4-how-it-works__introduction {
+  color: var(--hiw-text-secondary);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.m4-how-it-works__summary {
+  display: none;
+}
+
+.m4-how-it-works__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.m4-how-it-works__step {
+  min-width: 0;
+}
+
+.m4-how-it-works__card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--hiw-border);
+  border-radius: 10px;
+  background: var(--hiw-surface);
+  overflow-wrap: anywhere;
+}
+
+.m4-how-it-works__card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.m4-how-it-works__icon-plate {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--color-miu-red-light);
+}
+
+.m4-how-it-works__icon-desktop {
+  display: none;
+}
+
+.m4-how-it-works__number {
+  color: var(--color-miu-red);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.m4-how-it-works h3 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.m4-how-it-works__description {
+  color: var(--hiw-text-secondary);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.m4-how-it-works__timeline-number {
+  display: none;
+}
+
+/* No tablet frame exists: retain the readable stacked layout below 1200px. */
+@media (min-width: 1200px) {
+  .m4-how-it-works {
+    padding: 72px clamp(40px, calc((100vw - 1200px) / 2), 120px);
+  }
+
+  .m4-how-it-works__heading-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .m4-how-it-works__heading-copy {
+    gap: 10px;
+  }
+
+  .m4-how-it-works__eyebrow,
+  .m4-how-it-works__number {
+    font-size: 12px;
+  }
+
+  .m4-how-it-works h2 {
+    font-size: 32px;
+  }
+
+  .m4-how-it-works__introduction {
+    font-size: 16px;
+  }
+
+  .m4-how-it-works__summary {
+    display: block;
+    flex-shrink: 0;
+    color: var(--hiw-text-muted);
+    font-size: 12px;
+    line-height: normal;
+  }
+
+  .m4-how-it-works__steps {
+    gap: 72px;
+    margin-top: 44px;
+  }
+
+  .m4-how-it-works__step {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1fr);
+    column-gap: 24px;
+    align-items: center;
+  }
+
+  .m4-how-it-works__card {
+    grid-column: 1;
+    grid-row: 1;
+    gap: 18px;
+    padding: 28px;
+  }
+
+  .m4-how-it-works__step:nth-child(even) .m4-how-it-works__card {
+    grid-column: 3;
+  }
+
+  .m4-how-it-works__icon-plate {
+    width: 48px;
+    height: 48px;
+  }
+
+  .m4-how-it-works__icon-desktop {
+    display: block;
+  }
+
+  .m4-how-it-works__icon-mobile {
+    display: none;
+  }
+
+  .m4-how-it-works__timeline-number {
+    z-index: 1;
+    display: grid;
+    grid-column: 2;
+    grid-row: 1;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--color-miu-red);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  .m4-how-it-works__step::before {
+    position: absolute;
+    top: 50%;
+    left: calc(50% - 48px);
+    width: 24px;
+    height: 2px;
+    background: var(--color-miu-red-light);
+    content: "";
+  }
+
+  .m4-how-it-works__step:nth-child(even)::before {
+    left: calc(50% + 24px);
+  }
+
+  .m4-how-it-works__step:not(:last-child)::after {
+    position: absolute;
+    top: 50%;
+    bottom: calc(-72px - 50%);
+    left: calc(50% - 1px);
+    width: 2px;
+    background: var(--color-miu-red-light);
+    content: "";
+  }
+}

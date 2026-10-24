@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
+import { mergeProjects, projectStore } from "./projectStore.js";
 import {
   ArrowRight,
   Bookmark,
@@ -16,7 +17,7 @@ import {
   categories,
   categoryNames,
   matchesBudget,
-  openProjects,
+  openProjects as fixtureOpenProjects,
   skillNames,
 } from "./catalogueModel.js";
 import CategoryCard from "./CategoryCard.jsx";
@@ -24,7 +25,19 @@ import FilterPanel from "./FilterPanel.jsx";
 import ProjectCard from "./ProjectCard.jsx";
 import ProjectsHero from "./ProjectsHero.jsx";
 
-export default function ProjectsCatalogue() {
+export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
+  const demoProjects = useSyncExternalStore(
+    projectStore.subscribe,
+    projectStore.getSnapshot,
+    projectStore.getSnapshot,
+  );
+  const openProjects = useMemo(
+    () =>
+      mergeProjects(fixtureOpenProjects, demoProjects).filter(
+        (project) => project.status === PROJECT_STATUS.OPEN,
+      ),
+    [demoProjects],
+  );
   const [searchDraft, setSearchDraft] = useState("");
   const [query, setQuery] = useState("");
   const [categoryId, setCategoryId] = useState("");
@@ -37,12 +50,15 @@ export default function ProjectsCatalogue() {
   const [saveNotice, setSaveNotice] = useState("");
 
   const results = useMemo(() => {
-    const matches = findProjects({
-      query,
-      categoryId,
-      skillId,
-      status: PROJECT_STATUS.OPEN,
-    });
+    const matches = findProjects(
+      {
+        query,
+        categoryId,
+        skillId,
+        status: PROJECT_STATUS.OPEN,
+      },
+      { projects: openProjects },
+    );
     return matches
       .filter((project) => matchesBudget(project.budgetEGP, budget))
       .filter((project) => !savedOnly || savedIds.includes(project.id))
@@ -51,7 +67,16 @@ export default function ProjectsCatalogue() {
         if (sort === "budget_high") return b.budgetEGP - a.budgetEGP;
         return b.createdAt.localeCompare(a.createdAt);
       });
-  }, [query, categoryId, skillId, budget, sort, savedOnly, savedIds]);
+  }, [
+    query,
+    categoryId,
+    skillId,
+    budget,
+    sort,
+    savedOnly,
+    savedIds,
+    openProjects,
+  ]);
 
   function clearFilters() {
     setSearchDraft("");
@@ -165,13 +190,23 @@ export default function ProjectsCatalogue() {
               </span>
             </a>
           </nav>
-          <span className="inline-flex items-center gap-2 rounded-full bg-[#fdf2f3] px-3 py-1.5 text-xs font-semibold text-[#a52234]">
-            <span
-              className="size-1.5 rounded-full bg-miu-red"
-              aria-hidden="true"
-            />{" "}
-            Phase 1 preview
-          </span>
+          {onCreateProject ? (
+            <button
+              type="button"
+              onClick={onCreateProject}
+              className="min-h-11 shrink-0 rounded-lg border border-miu-red bg-miu-red px-4 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+            >
+              Post a project
+            </button>
+          ) : (
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#fdf2f3] px-3 py-1.5 text-xs font-semibold text-[#a52234]">
+              <span
+                className="size-1.5 rounded-full bg-miu-red"
+                aria-hidden="true"
+              />{" "}
+              Phase 1 preview
+            </span>
+          )}
         </div>
       </header>
 
@@ -370,6 +405,7 @@ export default function ProjectsCatalogue() {
                       }
                       saved={savedIds.includes(project.id)}
                       onToggleSaved={toggleSaved}
+                      onOpenProject={onOpenProject}
                     />
                   ))}
                 </div>
@@ -379,20 +415,26 @@ export default function ProjectsCatalogue() {
                     <Search size={28} aria-hidden="true" />
                   </span>
                   <h3 className="mt-5 text-xl font-bold">
-                    No matching projects
+                    {openProjects.length
+                      ? "No matching projects"
+                      : "No open projects right now"}
                   </h3>
                   <p className="mt-2 text-sm text-[#7d7379]">
-                    {savedOnly
-                      ? "Save a project or turn off the saved filter to see more."
-                      : "Try another keyword or adjust your filters."}
+                    {!openProjects.length
+                      ? "All current projects are unavailable for new proposals. Check back for new opportunities."
+                      : savedOnly
+                        ? "Save a project or turn off the saved filter to see more."
+                        : "Try another keyword or adjust your filters."}
                   </p>
-                  <button
-                    type="button"
-                    onClick={clearFilters}
-                    className="mt-6 inline-flex items-center gap-2 rounded-xl bg-miu-red px-5 py-3 text-sm font-semibold text-white hover:bg-miu-red-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
-                  >
-                    <RotateCcw size={16} aria-hidden="true" /> Clear filters
-                  </button>
+                  {openProjects.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={clearFilters}
+                      className="mt-6 inline-flex items-center gap-2 rounded-xl bg-miu-red px-5 py-3 text-sm font-semibold text-white hover:bg-miu-red-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+                    >
+                      <RotateCcw size={16} aria-hidden="true" /> Clear filters
+                    </button>
+                  )}
                 </div>
               )}
               <p className="mt-5 text-xs leading-5 text-[#968c91]">
