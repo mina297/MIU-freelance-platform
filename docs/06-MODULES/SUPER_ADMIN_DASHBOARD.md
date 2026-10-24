@@ -7,6 +7,11 @@ The existing `/admin` route remains protected by the Super Admin mock-session
 guard, and existing committee/session switching is unchanged. Both routes show
 fictional in-memory records only; neither provides production admin access.
 
+The current shared application root contains no development dashboard-switcher
+bar. `/SuperAdmin` uses the standalone layout, so its existing account header
+starts at the top without an extra header or spacer. Committee/session switching
+remains available through the existing controls; no additional switcher is needed.
+
 Frontend demonstration of P-22 at `/admin`, protected by the existing Super Admin
 mock-session guard. Reviewed FR-A02–FR-A09, BR-02, BR-04, BR-05, BR-10 and BR-12.
 This screen demonstrates portions of requirements, not completed production workflows.
@@ -62,6 +67,9 @@ suspension, review decisions, scoped permissions, audit history, empty/error/ret
 states, all five committee demo destinations, and no page overflow at 1440, 1024,
 768, 390 and 320px. Desktop/mobile screenshots were visually inspected. The script
 accepts a Puppeteer module path and Chrome executable path; it expects Vite on
-127.0.0.1:5180 and stores screenshots in the OS temporary directory. No browser
+localhost:5173 by default (an optional fourth argument overrides the base URL)
+and stores screenshots in the OS temporary directory. It also verifies direct
+`/SuperAdmin` access and refresh, absence of a development bar or top spacer,
+and the existing layout across five screen widths. No browser
 dependency is added to the application. These checks do not certify production
 security or full accessibility conformance.

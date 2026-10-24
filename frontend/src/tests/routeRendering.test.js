@@ -38,6 +38,9 @@ test("SuperAdmin preview renders its full shell on direct and case-variant URLs"
       assert.match(html, /Super Admin sections/);
       assert.match(html, /Financial overview/);
       assert.doesNotMatch(html, /routing placeholder only/);
+      assert.doesNotMatch(html, /Development:\s*Switch dashboard/);
+      assert.doesNotMatch(html, /dev-dashboard-navigation/);
+      assert.doesNotMatch(html, /Simulated session controls/);
     }
   } finally {
     await vite.close();
