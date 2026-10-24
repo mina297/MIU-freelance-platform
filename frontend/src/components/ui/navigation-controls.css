@@ -1,0 +1,158 @@
+/* Profile tabs 58:14912/58:15046; pagination 20:11140/20:11566. */
+:where(.miu-tabs, .miu-pagination) {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  font-family: var(--font-sans, "Inter", sans-serif);
+  color: var(--color-miu-black, #111111);
+  overflow-wrap: anywhere;
+}
+
+.miu-tabs__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 32px;
+  min-height: 52px;
+  border-block-end: 1px solid #e5e7eb;
+  padding-block: 4px;
+}
+
+.miu-tabs .miu-tabs__tab {
+  flex: 0 1 auto;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 4px;
+  border: 3px solid transparent;
+  background: transparent;
+  color: #4b5563;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.miu-tabs .miu-tabs__tab[aria-selected="true"] {
+  border-color: var(--color-miu-red, #b91c2b);
+  color: var(--color-miu-red, #b91c2b);
+  font-weight: 600;
+}
+
+.miu-tabs .miu-tabs__tab:hover:not(:disabled) {
+  background: var(--color-miu-red-tint, #fdf2f3);
+}
+
+.miu-tabs .miu-tabs__tab:disabled {
+  background: #f1f1f3;
+  color: #4b5563;
+}
+
+.miu-tabs__panel {
+  min-width: 0;
+  margin-block-start: 24px;
+}
+
+.miu-tabs__panel[hidden] {
+  display: none;
+}
+
+.miu-tabs__panel:focus-visible {
+  outline: 2px solid var(--color-miu-red, #b91c2b);
+  outline-offset: 3px;
+}
+
+.miu-pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding-block: 12px 8px;
+}
+
+.miu-pagination__summary {
+  max-width: 100%;
+  margin: 0;
+  color: #4b5563;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.miu-pagination__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.miu-pagination__list > li {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.miu-pagination .miu-pagination__button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px;
+  border-color: #e5e7eb;
+  background: #fff;
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.miu-pagination .miu-pagination__button[aria-current="page"] {
+  border-color: var(--color-miu-red, #b91c2b);
+  background: var(--color-miu-red, #b91c2b);
+  color: #fff;
+}
+
+.miu-pagination .miu-pagination__button:disabled {
+  background: #f1f1f3;
+  color: #4b5563;
+}
+
+.miu-pagination__button img {
+  display: block;
+  flex: 0 0 auto;
+}
+
+/* Enabled previous reuses the dark next artwork in the opposite direction. */
+.miu-pagination__previous,
+.miu-pagination:dir(rtl) .miu-pagination__button img {
+  transform: rotate(180deg);
+}
+
+.miu-pagination:dir(rtl) .miu-pagination__previous {
+  transform: none;
+}
+
+.miu-pagination__gap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: #4b5563;
+  font-size: 14px;
+}
+
+@media (max-width: 639px) {
+  .miu-tabs__list {
+    justify-content: space-between;
+    gap: 8px 12px;
+  }
+
+  .miu-tabs .miu-tabs__tab {
+    font-size: 12px;
+  }
+
+  .miu-pagination__list {
+    gap: 6px;
+  }
+}

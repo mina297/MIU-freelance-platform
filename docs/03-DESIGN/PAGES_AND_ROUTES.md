@@ -74,11 +74,70 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
-**Public navigation update (23 October 2026):** The shared header groups discovery under Hire Talent (landing student previews, `/services`, client registration) and Find Work (`/projects`, student registration, How it works). Landing section links support navigation from authentication screens. The landing Hire/Work toggle selects local demo discovery mode; it does not assign an account role or change access permissions. No new route is introduced.
+**Homepage navigation update (24 October 2026):** LandingHeader groups discovery under Hire Talent (landing student previews, `/services`, client registration) and Find Work (`/projects`, student registration, How it works). It is used by the homepage and authentication screens; other public pages retain the shared PublicHeader. The landing Hire/Work toggle selects local prototype discovery mode; it does not assign an account role or change access permissions. No new route is introduced.
 
 Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with one route registry at `frontend/src/app/routeConfig.js` and one in-memory session provider.
 
-- Public landing page (P-01): `/`; public placeholder: `/services`.
+**Client proposal review:** `/client/projects/:projectId/proposals` now renders a
+client-only, ownership-checked marketplace review screen, linked from My projects.
+P-17 currently covers incoming offers, search/status filters, sorting, comparison
+of two or three proposals, and simulated shortlist toggles. Closed/selected/cancelled
+project reviews are read-only. Confirmed accept/reject is available for submitted
+or shortlisted offers on open projects. Acceptance selects the project and links
+one demo order awaiting payment. `/orders/:orderId` renders a project-only summary
+for its client and selected student; service-order/full-workspace views and profile
+navigation remain pending. Missing and other-client records show a generic recovery
+state without proposal details. State changes reset to fixtures on refresh.
+
+**24 October 2026 project creation:** P-16 creation is available at
+`/client/projects/new`, using a standalone marketplace shell and the active-client
+guard. Post a project in the catalogue opens the form; visitors use the existing
+login return flow. Valid briefs can be previewed, edited before publication, and
+published to the in-memory demo catalogue. Publish requires an approved client
+demo session; the MIU/external-client distinction is pending. Editing previously
+published projects at `/client/projects/:projectId/edit` is available for owned
+open projects. Owned private drafts can be resumed there too. `/client/projects`
+lists the current client's projects and drafts, with empty and unavailable states.
+Incomplete drafts can be saved without appearing publicly; all saved changes reset
+on refresh. Selected, closed and cancelled project edits remain unavailable.
+My projects offers confirmed Close (open projects) and Cancel (open/closed
+projects) actions. Any linked project order or accepted proposal blocks both.
+Closed/cancelled details remain directly accessible but cannot receive proposals
+or appear in open discovery. No additional routes are introduced.
+
+**24 October 2026 public integration:** `/` renders Member 1's replacement
+LandingPage with LandingHeader and its page-owned footer. The retired Member 4
+homepage is removed. Other public pages retain the shared PublicLayout.
+`/about`, `/how-it-works`, `/terms`, `/privacy`,
+`/loading-demo`, and `/error-demo` are registered public pages. The existing
+HowItWorksSection remains on the full guide page; the homepage uses Member 1's timeline.
+Terms and Privacy still explicitly show unapproved-content placeholders.
+Only implemented destinations are passed to the public navigation and landing
+actions; service/profile detail actions remain unavailable. Public route changes
+update the title, scroll position, and focusable main landmark. Signed-in active
+accounts see a role-specific My workspace link. The shared in-memory AuthProvider
+is preserved across navigation; demo session controls remain in a collapsed panel
+below public content. Project catalogue/details and proposal routes keep their
+standalone shells to avoid nested landmarks. Authentication/admin layouts and role
+guards remain unchanged. Language integration awaits the approved text offered by
+the team; English remains the current interface.
+
+Proposal submission update: the student-only `/projects/:projectId/propose` form
+now validates and stores a simulated proposal in memory for approved students.
+It displays confirmation and prevents duplicate records within the current preview.
+Refreshing clears submitted preview records. Optional attachments use allowlisted
+fictional metadata only; no real file is read, uploaded, downloaded, or stored.
+
+Proposal entry increment: `/projects/:projectId/propose` is a student-only route,
+hidden from global navigation. Open project details link to it. The entry page
+handles missing/closed projects and explains verification requirements. Submission
+rechecks verification, project status, and required form values.
+
+Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with one route registry at `frontend/src/app/routeConfig.js` and one in-memory session provider.
+
+- Public website: `/`, `/about`, `/how-it-works`, `/terms`, `/privacy`.
+- Public feedback demos: `/loading-demo`, `/error-demo` (not global-navigation entries).
+- Public placeholder: `/services`.
 - Public marketplace previews: `/projects` renders the Projects Catalogue (P-06), and `/projects/:projectId` renders Project Details (P-07).
 - Mock authentication forms: `/login`, `/register`, `/register/role`, `/forgot-password`, `/reset-password` (Task 02).
 - Student/client placeholders: `/verify`, `/verify/pending`.
@@ -86,11 +145,19 @@ Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with
 - Registered-user placeholder: `/notifications`.
 - Routing feedback: `/access-denied`, `/session-expired`, and a catch-all not-found page.
 
-Routing, role checks, minimal layout outlets, demo navigation, session controls, mock authentication forms, the public projects catalogue, and project details are implemented. All other registered feature pages are clearly labeled placeholders; dashboards, verification, and other feature workflows remain unimplemented. Remaining proposed routes are not registered yet and show the catch-all page.
+Routing, role checks, layouts, demo sessions, mock authentication, public website
+pages/feedback demos, the projects catalogue/details, and simulated proposal
+submission are implemented. Terms/Privacy content remains explicitly pending.
+Other registered feature pages remain labelled placeholders, including dashboards,
+identity verification and services. Remaining proposed routes show the catch-all page.
 
 Visitors attempting protected routes go to `/login`; authenticated users with the wrong role go to `/access-denied`; explicitly expired sessions go to `/session-expired`. Guards retain the requested URL in router location state (`from`). After login, Task 02 returns to that URL only when it is an internal registered route allowed for the user, excluding authentication and routing-feedback pages. Other destinations fall back to the role dashboard. Registration opens login after creating the in-memory account. All recovery messages explicitly describe simulated behavior without secure tokens or email delivery.
 
-`AppLayout`, `AuthLayout` and `AdminLayout` follow the recommended directory naming. Most public routes reuse the minimal `AppLayout`; `/projects` and `/projects/:projectId` use their existing full-width marketplace shells through a standalone outlet until shared public website visuals are integrated. Verification gating and automatic expiry timing are deferred. No production authorization is claimed.
+`PublicWebsite` adapts the shared PublicLayout to the router, available destinations,
+and mock session. `AppLayout`, `AuthLayout` and `AdminLayout` retain their existing
+roles. `/projects` and `/projects/:projectId` use their existing full-width marketplace
+shells through a standalone outlet. Verification gating remains action-specific;
+automatic expiry timing is deferred. No production authorization is claimed.
 
 **23 October 2026 integration:** A React Projects Catalogue preview (P-06) now renders
 at the public `/projects` route through `frontend/src/app/router.jsx`. It shows fictional open projects with working text,
@@ -98,13 +165,78 @@ category, budget, skill, and sort controls, plus active filters, temporary
 saved-item state, a responsive marketplace layout, and an empty state. Catalogue
 cards navigate to the public `/projects/:projectId` Project Details preview,
 including a missing-record state and navigation back to `/projects`. Rendered-route
-tests guard both marketplace routes. Proposal submission remains a planned screen.
+tests guard both marketplace routes. Proposal submission uses the student-only route
+described above; its safe mock attachment selection is implemented, while
+visual/browser verification remains tracked in the Projects and Proposals module.
 
 ## 4. Layout Groups
 
-**Public/authentication shell update:** Home, Projects and Services links appear with Sign In (`/login`) and Sign Up (`/register`); developer route lists and session controls are no longer displayed. `/register` starts at Student/Client cards, then opens the corresponding query-selected form. A valid simulated forgot-password request opens `/reset-password`.
+**Public/authentication shell update:** Authentication pages use the new LandingHeader without developer route lists or session controls. Public pages retain collapsed demo session controls for integration testing. `/register` starts at Student/Client cards, then opens the corresponding query-selected form. A valid simulated forgot-password request opens `/reset-password`.
 
 **23 October 2026 landing page:** `/` renders the “MIU Freelance desktop” Figma frame (`8:2656`) through `features/public/LandingPage.jsx`. The existing public header, session/logout behavior and authentication flows are preserved; only the home main-content container becomes full width. Hero search/category controls filter the three fictional featured examples locally, with a clear-filters recovery state. Find Work and Browse all jobs open `/projects`; Post a Job opens client registration because project posting is not implemented. Job/profile buttons open labeled native demo dialogs, not new record routes. Footer section links work in-page; Help, Contact and policy buttons explain the current prototype limits. Services remains discoverable through the existing header and footer. No protected action, shared marketplace record or access policy changes.
+
+The 23 October delivery notes below describe the original isolated component
+handover. Their pending route-registration statements are superseded by section 3's
+24 October integration; remaining translation, policy-content and manual acceptance
+dependencies still apply.
+
+**23 October 2026 — Member 4 landing/discovery:** `LandingPage.jsx` now provides
+public page content for `PublicLayout`, including hero/search, project and service
+discovery, minimal fictional student examples, and explicitly planned benefits.
+It is not mounted in `App.jsx`; `/` remains the catalogue preview and is not a
+completed routed landing page. Member 1 must connect approved available
+destinations. The How It Works section remains a supplied integration slot;
+its completed branch is not recreated here. Profile enrichment depends on
+Member 5. See [the landing contract](UI_COMPONENTS.md#member-4--landing-page-and-discovery)
+for the data, callback, state, and Figma adaptation details.
+
+**23 October 2026 — Member 4 public shell:** reusable `PublicHeader`,
+`PublicFooter`, and `PublicLayout` components now exist. They are not mounted in
+`App.jsx` and register no routes. Destinations are supplied by the integrating
+code; missing destinations remain text. Member 1 must connect available routes
+and session-aware integration. Member 2's catalogue retains its existing
+header/main/footer and must not be wrapped unchanged in a second public shell.
+Safety & Trust and Community Guidelines in the approved footer have no confirmed
+route mapping. See [the public-shell contract](UI_COMPONENTS.md#member-4--public-shell)
+for destination keys, design differences, and verified checks. This update does
+not mark any proposed route as implemented.
+
+**23 October 2026 — Member 4 feedback demos:** content-only
+`features/public/LoadingDemoPage.jsx` and `features/public/ErrorDemoPage.jsx`
+are ready for the assigned `/loading-demo` and `/error-demo` paths. **These
+routes are not registered.** Member 1 owns registration inside PublicLayout,
+available navigation destinations, and route integration checks. Both pages use
+local, explicitly labeled Phase 1 demonstrations with working controls for
+loading completion/reset, error retry/reset, and empty recovery. They introduce
+no APIs, guards, mock sessions, or marketplace contract changes. See the
+[state component contract](UI_COMPONENTS.md#member-4--loading-empty-and-error-states).
+
+**23 October 2026 — Member 4 public information pages:** content-only
+`features/public/AboutPage.jsx` and `features/public/HowItWorksPage.jsx` now
+provide the assigned project introduction and planned project/service journey
+explanations. **`/about` and `/how-it-works` are not registered.** Member 1 owns
+their PublicLayout composition, route registration and available destinations.
+No App, router, authentication, marketplace or profile implementation changes.
+Both pages identify Phase 1 limitations; their copy derives from the documented
+project baseline and their full-page layouts still require team approval because
+dedicated public page specimens are absent from the current Figma file.
+HowItWorksPage accepts the separately completed section through the optional
+`howItWorks` React-node slot. That dependency is not copied or cherry-picked;
+the detailed planned journeys remain usable without it. See the
+[public information page contract](UI_COMPONENTS.md#member-4--public-about-and-how-it-works-pages)
+for content sources, properties, verification and outstanding integration.
+
+**23 October 2026 — Member 4 policy placeholders:** content-only
+`features/public/TermsPage.jsx` and `features/public/PrivacyPage.jsx` reuse the
+public information page layout. **`/terms` and `/privacy` are not registered.**
+Member 1 owns route registration, PublicLayout composition and supplied
+destinations. Both pages visibly state that they are placeholders awaiting
+team-approved content; no approved legal/policy text was found in the repository.
+They introduce no consent controls or claims about actual privacy practices.
+Final policy text remains blocked on team approval (OD-17 in Known Issues).
+See the [policy placeholder contract](UI_COMPONENTS.md#member-4--terms-and-privacy-placeholders)
+for approval gaps, properties and verification. This update does not mark either
+route or any legal/privacy obligation as complete.
 
 ### Public Layout
 
@@ -134,6 +266,7 @@ Super Admin and five committees, with role-aware navigation.
 - Users should receive clear access-denied messages.
 - Order detail pages require authorization to the related order.
 - Deep links should work during a frontend demo.
+- Dynamic record routes such as `/projects/:projectId` are opened from their related records and are not shown as literal global-navigation links.
 - Navigation labels should align with the approved design.
 
 ## 6. Prototype Tracking

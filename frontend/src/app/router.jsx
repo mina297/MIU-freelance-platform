@@ -9,6 +9,11 @@ import {
 import ProtectedRoute from "../features/auth/ProtectedRoute.jsx";
 import ProjectsCatalogue from "../features/projects/ProjectsCatalogue.jsx";
 import ProjectDetails from "../features/projects/ProjectDetails.jsx";
+import ProjectCreate from "../features/projects/ProjectCreate.jsx";
+import ClientProjects from "../features/projects/ClientProjects.jsx";
+import ProposalEntry from "../features/proposals/ProposalEntry.jsx";
+import ClientProposals from "../features/proposals/ClientProposals.jsx";
+import ProjectOrderSummary from "../features/orders/ProjectOrderSummary.jsx";
 import AppLayout from "../layouts/AppLayout.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
 import AdminLayout from "../layouts/AdminLayout.jsx";
@@ -18,11 +23,20 @@ import RoleSelectionPage from "../features/auth/RoleSelectionPage.jsx";
 import RegisterPage from "../features/auth/RegisterPage.jsx";
 import ForgotPasswordPage from "../features/auth/ForgotPasswordPage.jsx";
 import ResetPasswordPage from "../features/auth/ResetPasswordPage.jsx";
+import PublicWebsite from "./PublicWebsite.jsx";
+import { publicDestinations } from "./publicDestinations.js";
 import LandingPage from "../features/public/LandingPage.jsx";
+import AboutPage from "../features/public/AboutPage.jsx";
+import HowItWorksPage from "../features/public/HowItWorksPage.jsx";
+import HowItWorksSection from "../features/public/components/HowItWorksSection.jsx";
+import TermsPage from "../features/public/TermsPage.jsx";
+import PrivacyPage from "../features/public/PrivacyPage.jsx";
+import LoadingDemoPage from "../features/public/LoadingDemoPage.jsx";
+import ErrorDemoPage from "../features/public/ErrorDemoPage.jsx";
 
 const layouts = {
   standalone: <Outlet />,
-  public: <AppLayout title="Public" />,
+  public: <PublicWebsite />,
   auth: <AuthLayout />,
   app: <AppLayout />,
   admin: <AdminLayout />,
@@ -33,6 +47,7 @@ function ProjectsCatalogueRoute() {
   return (
     <ProjectsCatalogue
       onOpenProject={(projectId) => navigate(`/projects/${projectId}`)}
+      onCreateProject={() => navigate("/client/projects/new")}
     />
   );
 }
@@ -49,6 +64,7 @@ function ProjectDetailsRoute() {
   return (
     <ProjectDetails
       projectId={projectId}
+      onPropose={() => navigate(`/projects/${projectId}/propose`)}
       onBack={() => navigate("/projects")}
     />
   );
@@ -56,7 +72,24 @@ function ProjectDetailsRoute() {
 
 const featurePages = {
   "/": <LandingPage />,
+  "/about": <AboutPage destinations={publicDestinations} />,
+  "/how-it-works": (
+    <HowItWorksPage
+      destinations={publicDestinations}
+      howItWorks={<HowItWorksSection />}
+    />
+  ),
+  "/terms": <TermsPage destinations={publicDestinations} />,
+  "/privacy": <PrivacyPage destinations={publicDestinations} />,
+  "/loading-demo": <LoadingDemoPage />,
+  "/error-demo": <ErrorDemoPage />,
+  "/projects/:projectId/propose": <ProposalEntry />,
   "/projects": <ProjectsCatalogueRoute />,
+  "/client/projects/new": <ProjectCreate />,
+  "/client/projects": <ClientProjects />,
+  "/client/projects/:projectId/proposals": <ClientProposals />,
+  "/orders/:orderId": <ProjectOrderSummary />,
+  "/client/projects/:projectId/edit": <ProjectCreate />,
   "/projects/:projectId": <ProjectDetailsRoute />,
   "/login": <LoginPage />,
   "/register/role": <RoleSelectionPage />,

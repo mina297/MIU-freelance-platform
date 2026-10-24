@@ -16,6 +16,12 @@ Production backend and integration testing will be expanded during later develop
 
 ## 2. Testing Levels
 
+From `frontend/`, run `npm.cmd test` to discover all Node test files recursively,
+including shared UI and public-page tests. Tests run sequentially to avoid
+competing Vite test servers; middleware-only test servers disable HMR. New test
+files do not require a package-script update. Use `npm.cmd run lint` and
+`npm.cmd run build` for the remaining automated checks.
+
 ### Component Testing
 Test reusable controls, validation states, and common UI behavior.
 
@@ -148,7 +154,7 @@ Suggested tracking table:
 
 | Requirement ID | Screen/Module | Test Case | Result |
 |---|---|---|---|
-| FR-S05 | Proposal Form | Valid proposal submission | Not tested |
+| FR-S05 | Proposal Form | Valid simulated submission, eligibility, fields, fictional attachments, duplicate prevention, and confirmation rendering | Automated checks passed 23 October 2026; browser/visual review pending |
 | FR-C09 | Checkout | Simulated funding | Not tested |
 | FR-A04 | Committee Accounts | Create committee account | Not tested |
 | NFR-03 | All pages | Responsive check | Not tested |

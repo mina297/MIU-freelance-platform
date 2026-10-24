@@ -26,7 +26,7 @@ function BackButton({ onBack }) {
   );
 }
 
-export default function ProjectDetails({ projectId, onBack }) {
+export default function ProjectDetails({ projectId, onBack, onPropose }) {
   const project = getProjectById(projectId);
 
   if (!project) {
@@ -103,7 +103,13 @@ export default function ProjectDetails({ projectId, onBack }) {
               <span
                 className={`rounded-full px-3 py-1.5 text-xs font-semibold ${isOpen ? "bg-[#ddf5e4] text-[#206b40]" : "bg-white/15 text-white"}`}
               >
-                {isOpen ? "Open for proposals" : "Not accepting proposals"}
+                {isOpen
+                  ? "Open for proposals"
+                  : project.status === PROJECT_STATUS.CLOSED
+                    ? "Closed — not accepting proposals"
+                    : project.status === PROJECT_STATUS.CANCELLED
+                      ? "Cancelled — not accepting proposals"
+                      : "Not accepting proposals"}
               </span>
             </div>
             <h1
@@ -253,9 +259,18 @@ export default function ProjectDetails({ projectId, onBack }) {
                     aria-hidden="true"
                   />{" "}
                   {isOpen
-                    ? "Proposal submission is planned for a separate student screen. This preview does not submit an application."
-                    : "This project is not accepting proposals. Proposal submission is not available in this preview."}
+                    ? "Verified students can submit a simulated proposal on the next screen. No client is contacted in this preview."
+                    : "This project is not accepting proposals."}
                 </div>
+                {isOpen && onPropose && (
+                  <button
+                    type="button"
+                    onClick={onPropose}
+                    className="mt-5 flex min-h-12 w-full items-center justify-center rounded-xl bg-miu-red px-4 text-sm font-bold text-white hover:bg-miu-red-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+                  >
+                    Submit proposal
+                  </button>
+                )}
                 <button
                   type="button"
                   onClick={onBack}

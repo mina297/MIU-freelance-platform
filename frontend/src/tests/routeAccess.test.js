@@ -2,6 +2,119 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { routeConfig } from "../app/routeConfig.js";
 import { mockUsers } from "../data/fixtures/users.js";
+import { createProposalStore } from "../features/proposals/proposalStore.js";
+
+test("mock submission revalidates eligibility, preserves identity and prevents duplicate records", () => {
+  let project = { id: "project_test", status: "open" };
+  const store = createProposalStore(() => project);
+  const session = {
+    status: "authenticated",
+    user: mockUsers.find((user) => user.id === "student_002"),
+  };
+  const values = {
+    priceEGP: "900.50",
+    deliveryDays: "3",
+    coverMessage: "  My approach  ",
+    attachmentIds: ["demo_attachment_portfolio"],
+  };
+  const first = store.submit(values, project.id, session);
+  assert.equal(first.ok, true);
+  assert.equal(first.proposal.studentId, session.user.id);
+  assert.equal(first.proposal.projectId, project.id);
+  assert.equal(first.proposal.priceEGP, 900.5);
+  assert.equal(first.proposal.coverMessage, "My approach");
+  assert.deepEqual(first.proposal.attachmentIds, ["demo_attachment_portfolio"]);
+  assert.equal(Object.isFrozen(first.proposal.attachmentIds), true);
+  assert.equal(first.proposal.status, "submitted");
+  const repeated = store.submit(values, project.id, session);
+  assert.equal(repeated.duplicate, true);
+  assert.equal(repeated.proposal.id, first.proposal.id);
+  assert.equal(store.find(project.id, "other_student"), null);
+  assert.equal(
+    store.submit({ ...values, priceEGP: "-1" }, project.id, session).ok,
+    false,
+  );
+  assert.ok(
+    store.submit(
+      { ...values, attachmentIds: ["unknown_attachment"] },
+      "another_project",
+      session,
+    ).errors.attachmentIds,
+  );
+  assert.ok(
+    store.submit(
+      {
+        ...values,
+        attachmentIds: [
+          "demo_attachment_portfolio",
+          "demo_attachment_portfolio",
+        ],
+      },
+      "another_project",
+      session,
+    ).errors.attachmentIds,
+  );
+  assert.equal(
+    store.submit(values, project.id, { status: "anonymous", user: null }).ok,
+    false,
+  );
+  project = { ...project, status: "closed" };
+  assert.equal(store.submit(values, project.id, session).ok, false);
+  assert.equal(createProposalStore().find(project.id, session.user.id), null);
+});
+import { validateProposal } from "../features/proposals/validateProposal.js";
+
+test("proposal validation checks fields, verified student eligibility and project availability", () => {
+  const session = {
+    status: "authenticated",
+    user: { ...mockUsers[0], role: "student", verificationStatus: "approved" },
+  };
+  const project = { status: "open" };
+  const values = {
+    priceEGP: "1200.50",
+    deliveryDays: "7",
+    coverMessage: "I will build the requested pages.",
+    attachmentIds: ["demo_attachment_plan"],
+  };
+  assert.deepEqual(validateProposal(values, project, session), {});
+  for (const priceEGP of ["", "0", "-5", "Infinity", "12.345"])
+    assert.ok(
+      validateProposal({ ...values, priceEGP }, project, session).priceEGP,
+    );
+  for (const deliveryDays of ["", "0", "1.5", "-1"])
+    assert.ok(
+      validateProposal({ ...values, deliveryDays }, project, session)
+        .deliveryDays,
+    );
+  assert.ok(
+    validateProposal({ ...values, coverMessage: "  " }, project, session)
+      .coverMessage,
+  );
+  assert.ok(validateProposal(values, null, session).project);
+  assert.ok(validateProposal(values, { status: "closed" }, session).project);
+  assert.ok(
+    validateProposal(
+      { ...values, attachmentIds: "not-an-array" },
+      project,
+      session,
+    ).attachmentIds,
+  );
+  assert.ok(
+    validateProposal(values, project, { status: "anonymous", user: null })
+      .eligibility,
+  );
+  for (const change of [
+    { role: "client" },
+    { accountStatus: "suspended" },
+    { verificationStatus: "pending" },
+  ])
+    assert.ok(
+      validateProposal(values, project, {
+        ...session,
+        user: { ...session.user, ...change },
+      }).eligibility,
+    );
+});
 import {
   getRouteAccess,
   INITIAL_SESSION,
@@ -19,12 +132,45 @@ test("route registry has unique paths, valid roles and one public fallback", () 
       ["standalone", "public", "auth", "app", "admin"].includes(route.layout),
     );
     assert.ok(["public", "authenticated", "roles"].includes(route.access));
+    assert.ok(
+      route.showInNavigation === undefined ||
+        typeof route.showInNavigation === "boolean",
+    );
     if (route.access === "roles") {
       assert.ok(route.roles.length > 0);
       assert.ok(
         route.roles.every((role) => Object.values(ROLES).includes(role)),
       );
     }
+  }
+});
+
+test("dynamic project details remain routable but are hidden from global navigation", () => {
+  const projectDetails = routeConfig.find(
+    (route) => route.path === "/projects/:projectId",
+  );
+
+  assert.ok(projectDetails);
+  assert.equal(projectDetails.access, "public");
+  assert.equal(projectDetails.showInNavigation, false);
+});
+
+test("proposal entry admits only active students and stays out of navigation", () => {
+  const route = routeConfig.find(
+    (item) => item.path === "/projects/:projectId/propose",
+  );
+  assert.ok(route);
+  assert.equal(route.showInNavigation, false);
+  assert.equal(getRouteAccess(INITIAL_SESSION, route), "login");
+  assert.equal(
+    getRouteAccess({ status: "expired", user: null }, route),
+    "expired",
+  );
+  for (const user of mockUsers) {
+    assert.equal(
+      getRouteAccess({ status: "authenticated", user }, route),
+      user.role === ROLES.STUDENT ? "allowed" : "denied",
+    );
   }
 });
 

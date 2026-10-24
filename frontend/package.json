@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "test": "node --test src/features/marketplace/marketplace.test.js src/features/projects/ProjectDetails.test.js src/tests/session.test.js src/tests/routeAccess.test.js src/tests/routeRendering.test.js",
+    "test": "node --test --test-concurrency=1",
     "preview": "vite preview",
     "format": "prettier --write src"
   },

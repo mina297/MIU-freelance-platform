@@ -1,115 +1,144 @@
-import { Link } from "react-router-dom";
-import {
-  ArrowUpRight,
-  BriefcaseBusiness,
-  GraduationCap,
-  Layers,
-  Users,
-} from "lucide-react";
-import Dropdown from "../ui/Dropdown.jsx";
+import { useEffect, useId, useRef, useState } from "react";
+import { Menu, X } from "lucide-react";
 import miuLogo from "../../assets/figma/miu-anniversary-logo.png";
-import "./publicHeader.css";
+import Button from "../ui/Button.jsx";
+import PublicLink from "./PublicLink.jsx";
+import {
+  DESKTOP_LINKS,
+  MENU_LINKS,
+  PRIMARY_LINKS,
+} from "./publicShellContent.js";
+import "./public-shell.css";
 
-const navigation = [
-  {
-    label: "Hire Talent",
-    eyebrow: "Make your next idea happen",
-    links: [
-      {
-        to: "/#student-talent",
-        title: "Explore student talent",
-        description: "Meet skilled students from MIU.",
-        icon: Users,
-      },
-      {
-        to: "/services",
-        title: "Browse services",
-        description: "Discover services for your next project.",
-        icon: Layers,
-      },
-      {
-        to: "/register?role=client",
-        title: "Post a job",
-        description: "Get started with a client account.",
-        icon: BriefcaseBusiness,
-      },
-    ],
-  },
-  {
-    label: "Find Work",
-    eyebrow: "Build a career around your skills",
-    links: [
-      {
-        to: "/projects",
-        title: "Browse projects",
-        description: "Find your next opportunity.",
-        icon: BriefcaseBusiness,
-      },
-      {
-        to: "/register?role=student",
-        title: "Join as a student",
-        description: "Turn your skills into experience.",
-        icon: GraduationCap,
-      },
-      {
-        to: "/#how-it-works",
-        title: "How it works",
-        description: "Your path from first brief to delivery.",
-        icon: Layers,
-      },
-    ],
-  },
-];
+/** Visitor presentation only; routing and session policy belong to Member 1. */
+export default function PublicHeader({
+  destinations = {},
+  currentPath,
+  accountAction,
+}) {
+  const [menu, setMenu] = useState({ open: false, path: currentPath });
+  const menuOpen = menu.open && menu.path === currentPath;
+  const panelId = useId();
+  const headerRef = useRef(null);
+  const toggleRef = useRef(null);
+  const homeRef = useRef(null);
+  const closeMenu = () => setMenu({ open: false, path: currentPath });
 
-export default function PublicHeader() {
+  // Discard old disclosure state on navigation, including a later back visit.
+  if (menu.path !== currentPath) {
+    setMenu({ open: false, path: currentPath });
+  }
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const header = headerRef.current;
+    const desktop = window.matchMedia("(min-width: 960px)");
+    function onOutsidePointer(event) {
+      if (!header.contains(event.target)) {
+        setMenu({ open: false, path: currentPath });
+      }
+    }
+    function onResize(event) {
+      if (!event.matches) return;
+      if (header.contains(document.activeElement)) homeRef.current?.focus();
+      setMenu({ open: false, path: currentPath });
+    }
+    document.addEventListener("pointerdown", onOutsidePointer);
+    desktop.addEventListener("change", onResize);
+    return () => {
+      document.removeEventListener("pointerdown", onOutsidePointer);
+      desktop.removeEventListener("change", onResize);
+    };
+  }, [menuOpen, currentPath]);
+
+  const renderLink = ({ key, label }, className = "") => (
+    <PublicLink
+      key={key}
+      href={destinations[key]}
+      currentPath={currentPath}
+      className={className}
+      onClick={closeMenu}
+    >
+      {label}
+    </PublicLink>
+  );
+
   return (
-    <header className="public-header">
-      <div className="public-header-inner">
-        <Link to="/" aria-label="MIU Freelance home" className="public-brand">
-          <img src={miuLogo} alt="Misr International University" />
-          <span>
-            Freelance<span className="text-miu-red">.</span>
-          </span>
-        </Link>
-        <nav aria-label="Public navigation" className="public-navigation">
-          {navigation.map(({ label, eyebrow, links }) => (
-            <Dropdown key={label} label={label} className="public-nav-dropdown">
-              {(close) => (
-                <>
-                  <p className="public-dropdown-eyebrow">{eyebrow}</p>
-                  {links.map(({ to, title, description, icon: ItemIcon }) => (
-                    <Link
-                      key={to}
-                      to={to}
-                      onClick={close}
-                      className="public-dropdown-link"
-                    >
-                      <span className="public-dropdown-icon">
-                        <ItemIcon size={20} aria-hidden="true" />
-                      </span>
-                      <span>
-                        <strong>{title}</strong>
-                        <small>{description}</small>
-                      </span>
-                      <ArrowUpRight size={16} aria-hidden="true" />
-                    </Link>
-                  ))}
-                </>
-              )}
-            </Dropdown>
-          ))}
-          <Link to="/#how-it-works" className="public-nav-link">
-            How it works
-          </Link>
+    <header
+      className="miu-public-header"
+      ref={headerRef}
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && menuOpen) {
+          event.preventDefault();
+          closeMenu();
+          toggleRef.current?.focus();
+        }
+      }}
+    >
+      <div className="miu-public-header__inner">
+        <PublicLink
+          className="miu-public-brand"
+          href={destinations.home ?? "/"}
+          ref={homeRef}
+          aria-label="MIU Freelance home"
+        >
+          <img
+            src={miuLogo}
+            alt="Misr International University"
+            width="400"
+            height="200"
+          />
+        </PublicLink>
+        <nav
+          className="miu-public-header__desktop-nav"
+          aria-label="Public navigation"
+        >
+          {DESKTOP_LINKS.map((link) => renderLink(link))}
         </nav>
-        <div className="public-auth-links">
-          <Link to="/login" className="public-sign-in">
-            Sign In
-          </Link>
-          <Link to="/register" className="public-sign-up">
-            Sign Up
-          </Link>
+        <div className="miu-public-header__actions">
+          {accountAction ?? (
+            <>
+              {renderLink(
+                { key: "login", label: "Log in" },
+                "miu-public-header__desktop-login",
+              )}
+              {renderLink(
+                { key: "signup", label: "Sign up" },
+                "miu-public-signup",
+              )}
+            </>
+          )}
+          <Button
+            variant="ghost"
+            className="miu-public-header__toggle"
+            ref={toggleRef}
+            aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+            aria-expanded={menuOpen}
+            aria-controls={panelId}
+            onClick={() => setMenu({ open: !menuOpen, path: currentPath })}
+          >
+            {menuOpen ? (
+              <X size={20} aria-hidden="true" />
+            ) : (
+              <Menu size={20} aria-hidden="true" />
+            )}
+          </Button>
         </div>
+        <nav
+          className="miu-public-header__quick-links"
+          aria-label="Public navigation shortcuts"
+        >
+          {PRIMARY_LINKS.map((link) => renderLink(link))}
+          {!accountAction && renderLink({ key: "login", label: "Log in" })}
+        </nav>
+        <nav
+          id={panelId}
+          className="miu-public-header__menu"
+          aria-label="More public navigation"
+          hidden={!menuOpen}
+        >
+          {MENU_LINKS.map((link) => renderLink(link))}
+        </nav>
       </div>
     </header>
   );

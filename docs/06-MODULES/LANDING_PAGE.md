@@ -8,6 +8,21 @@ Related requirements: P-01, FR-V01–FR-V04, NFR-01–NFR-03 and SR-09. This scr
 
 ## Behavior
 
+### Integration with main — 24 October 2026
+
+- Member 1's landing page replaces the unwanted Member 4 homepage at `/`.
+- `LandingHeader` preserves the new navigation design without replacing the
+  shared `PublicHeader` used by the remaining public pages and isolated previews.
+- `PublicWebsite` renders one homepage header, main landmark and page-owned footer;
+  other public routes retain `PublicLayout`. Signed-in users keep My workspace.
+- Existing project creation, proposal submission/review, order summaries and role
+  guards from main are preserved. Demo session controls remain collapsed below
+  public content. Homepage examples remain fictional and separate from live mock
+  marketplace stores; they are not links to real project/profile records.
+- The retired `features/public/landing/` implementation and its obsolete tests
+  are removed. Member 4's page preview now starts at About, not the old homepage.
+- No commit or production authentication/payment behavior is introduced.
+
 - The Hire/Work segmented toggle switches discovery mode and resets filters. Work searches job title, client, description and skills; Hire searches the fictional students' names, study and skills. Both combine text with the selected category. Search scrolls to the relevant results section; empty results offer recovery. Student category tags are landing-only metadata, not a shared profile contract.
 - All categories opens a styled picker with a selected checkmark. The reusable dropdown supports click, Enter/Space, Tab, outside-click dismissal and Escape with focus restoration. Category selection updates the search input state; Search applies it. Category cards apply filters immediately.
 - Bookmarks are local page state with pressed semantics and a screen-reader status message. They reset on unmount/refresh and are separate from catalogue bookmarks.

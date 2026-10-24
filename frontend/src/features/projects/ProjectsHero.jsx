@@ -48,47 +48,52 @@ export default function ProjectsHero({ project }) {
             </span>
           </div>
         </div>
-        <div className="relative hidden h-[350px] lg:block" aria-hidden="true">
-          <div className="absolute right-0 top-6 xl:right-7 h-[250px] w-[330px] rotate-[8deg] rounded-3xl border border-white/20 bg-white/10 shadow-2xl backdrop-blur-sm" />
-          <div className="absolute right-3 top-2 xl:right-10 h-[268px] w-[345px] -rotate-[7deg] rounded-3xl border border-white/20 bg-[#f7dce1]/20 shadow-2xl backdrop-blur-sm" />
-          <div className="absolute right-5 top-6 w-[min(355px,100%)] xl:right-16 rounded-3xl border border-[#f1dfe1] bg-white p-6 text-[#251f22] shadow-[0_28px_65px_rgba(18,8,12,0.35)]">
-            <div className="flex items-center justify-between">
-              <span className="rounded-full bg-[#fcecef] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-miu-red">
-                Project brief
-              </span>
-              <BriefcaseBusiness size={20} className="text-[#b23a4c]" />
-            </div>
-            <h2 className="mt-5 text-[21px] font-bold leading-snug tracking-[-0.03em]">
-              {project.title}
-            </h2>
-            <p className="mt-3 text-sm leading-6 text-[#72686d]">
-              {project.description}
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {project.requiredSkillIds.map((id) => (
-                <span
-                  key={id}
-                  className="rounded-lg bg-[#f6f1f0] px-2.5 py-1.5 text-xs text-[#655a60]"
-                >
-                  {skillNames.get(id)}
+        {project && (
+          <div
+            className="relative hidden h-[350px] lg:block"
+            aria-hidden="true"
+          >
+            <div className="absolute right-0 top-6 xl:right-7 h-[250px] w-[330px] rotate-[8deg] rounded-3xl border border-white/20 bg-white/10 shadow-2xl backdrop-blur-sm" />
+            <div className="absolute right-3 top-2 xl:right-10 h-[268px] w-[345px] -rotate-[7deg] rounded-3xl border border-white/20 bg-[#f7dce1]/20 shadow-2xl backdrop-blur-sm" />
+            <div className="absolute right-5 top-6 w-[min(355px,100%)] xl:right-16 rounded-3xl border border-[#f1dfe1] bg-white p-6 text-[#251f22] shadow-[0_28px_65px_rgba(18,8,12,0.35)]">
+              <div className="flex items-center justify-between">
+                <span className="rounded-full bg-[#fcecef] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-miu-red">
+                  Project brief
                 </span>
-              ))}
-            </div>
-            <div className="mt-6 flex items-end justify-between border-t border-[#f0e8e9] pt-4">
-              <div>
-                <span className="block text-[11px] uppercase tracking-wider text-[#a0969a]">
-                  Project budget
-                </span>
-                <strong className="mt-1 block text-xl">
-                  {formatEGP(project.budgetEGP)}
-                </strong>
+                <BriefcaseBusiness size={20} className="text-[#b23a4c]" />
               </div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#927681]">
-                Sample brief
-              </span>
+              <h2 className="mt-5 text-[21px] font-bold leading-snug tracking-[-0.03em]">
+                {project.title}
+              </h2>
+              <p className="mt-3 text-sm leading-6 text-[#72686d]">
+                {project.description}
+              </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {project.requiredSkillIds.map((id) => (
+                  <span
+                    key={id}
+                    className="rounded-lg bg-[#f6f1f0] px-2.5 py-1.5 text-xs text-[#655a60]"
+                  >
+                    {skillNames.get(id)}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-6 flex items-end justify-between border-t border-[#f0e8e9] pt-4">
+                <div>
+                  <span className="block text-[11px] uppercase tracking-wider text-[#a0969a]">
+                    Project budget
+                  </span>
+                  <strong className="mt-1 block text-xl">
+                    {formatEGP(project.budgetEGP)}
+                  </strong>
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#927681]">
+                  Sample brief
+                </span>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
