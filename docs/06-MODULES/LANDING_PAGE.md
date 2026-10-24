@@ -50,6 +50,28 @@ The desktop layout retains the centered hero, alternating timeline, three-column
 
 ## Verification
 
+### Marketplace visual polish — 24 October 2026
+
+The follow-up creative pass adds static, decorative skill notes on wide screens,
+direct project/service catalogue entry cards below the hero search, section
+heading accents, and a closing invitation linking to student/client registration.
+The original section sequence and discovery interactions remain in place. These
+additions use scoped CSS and existing Lucide icons, without new dependencies or
+invented platform statistics. Entry cards stack on narrow screens; hover movement
+respects both Pause motion and the system reduced-motion preference. Route tests
+check both catalogue destinations and both registration entry links.
+
+At Mina's request, the homepage retains its centered hero, section order,
+overlapping panels, category carousel, timeline, search, previews and motion
+controls while adopting the marketplace's burgundy/plum accents. The headline
+combines bold sans-serif with an italic display line; warm blush surfaces,
+clear mauve borders, outlined skill chips, tinted budget panels, portrait rings
+and a burgundy footer give cards and sections stronger separation. Changes are
+scoped to the landing page; shared navigation and marketplace behavior remain
+unchanged. Existing responsive and reduced-motion rules are retained. Live
+browser/mobile visual verification remains pending because no browser surface
+is connected to this session.
+
 Trust benefit cards lift 6px on hover with an MIU red border and a light shadow. The student showcase derives its featured student from numeric rating, then review count and stable ID; with three results the highest-rated student occupies the middle and is raised 24px on desktop. Fewer results retain a sensible ranked order; single-column mobile removes the elevation. The featured student's View profile button has a rotating red perimeter light, static when motion is paused/reduced. Preview behavior and fictional ratings are unchanged. The shared Sign Up button now uses the existing landing buttons' pill radius, including its focus state.
 
 The same seamless lower-edge treatment applies to all four `OverlapSection` panels: no bottom border and no shadow below the lower edge. Existing surface/backdrop colors are retained; upper/side borders, rounded tops, side/top shadows and entrance motion remain intact. Nested project, profile and timeline cards are unaffected.

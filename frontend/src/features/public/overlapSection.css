@@ -7,7 +7,7 @@
   background: white;
 }
 .landing-overlap-backdrop-muted {
-  background: #f8f8f9;
+  background: var(--landing-muted);
 }
 
 :where(.landing-overlap-panel) {
@@ -21,7 +21,7 @@
   display: flex;
   align-items: center;
   margin: -24px auto 0;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--landing-border);
   border-bottom: 0;
   border-radius: 40px 40px 0 0;
   box-shadow: 0 8px 24px #1111110d;

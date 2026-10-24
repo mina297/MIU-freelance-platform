@@ -1,6 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Check, Grid2X2, Pause, Play } from "lucide-react";
+import {
+  ArrowUpRight,
+  BriefcaseBusiness,
+  Check,
+  Code2,
+  Grid2X2,
+  Layers3,
+  Palette,
+  Pause,
+  Play,
+  Sparkles,
+} from "lucide-react";
 import Dropdown from "../../components/ui/Dropdown.jsx";
 import CategoryCarousel from "./CategoryCarousel.jsx";
 import HowItWorks from "./HowItWorks.jsx";
@@ -15,6 +26,7 @@ import {
   landingCategories,
 } from "./landingData.js";
 import "./landing.css";
+import "./landingEditorial.css";
 
 const assets = import.meta.glob("../../assets/figma/landing/*", {
   eager: true,
@@ -165,11 +177,24 @@ export default function LandingPage() {
   return (
     <div className="landing" data-motion={motionEnabled ? "on" : "off"}>
       <section className="landing-hero" aria-labelledby="landing-title">
+        <div className="landing-creative-notes" aria-hidden="true">
+          <span className="landing-note landing-note-code">
+            <Code2 size={22} />
+            Build something useful.<small>Development &amp; technology</small>
+          </span>
+          <span className="landing-note landing-note-design">
+            <Palette size={22} />
+            Make ideas stand out.<small>Design &amp; creativity</small>
+          </span>
+          <Sparkles className="landing-hero-spark" size={34} strokeWidth={1} />
+        </div>
         <div className="landing-community">
           <Icon name="accent" />
           Built for the MIU community
         </div>
-        <h1 id="landing-title">Find real work. Build your reputation.</h1>
+        <h1 id="landing-title">
+          Find real work. <em>Build your reputation.</em>
+        </h1>
         <p className="landing-intro">
           Connect with trusted MIU clients, turn your skills into experience,
           and grow a portfolio that opens doors.
@@ -282,6 +307,44 @@ export default function LandingPage() {
             {motionPaused ? "Resume motion" : "Pause motion"}
           </button>
         )}
+        <nav className="landing-pathways" aria-label="Choose your marketplace">
+          <Link
+            className="landing-pathway landing-pathway-projects"
+            to="/projects"
+          >
+            <span className="landing-pathway-icon">
+              <BriefcaseBusiness size={24} aria-hidden="true" />
+            </span>
+            <span className="landing-pathway-copy">
+              <small>For your next challenge</small>
+              <strong>Find a project worth building.</strong>
+              <span>Explore briefs, budgets and opportunities.</span>
+            </span>
+            <ArrowUpRight
+              className="landing-pathway-arrow"
+              size={24}
+              aria-hidden="true"
+            />
+          </Link>
+          <Link
+            className="landing-pathway landing-pathway-services"
+            to="/services"
+          >
+            <span className="landing-pathway-icon">
+              <Layers3 size={24} aria-hidden="true" />
+            </span>
+            <span className="landing-pathway-copy">
+              <small>For your next big idea</small>
+              <strong>Find the skills to bring it to life.</strong>
+              <span>Discover services, packages and student talent.</span>
+            </span>
+            <ArrowUpRight
+              className="landing-pathway-arrow"
+              size={24}
+              aria-hidden="true"
+            />
+          </Link>
+        </nav>
       </section>
 
       <div className="landing-category-backdrop">
@@ -517,6 +580,37 @@ export default function LandingPage() {
         </div>
       </OverlapSection>
 
+      <section
+        className="landing-invitation"
+        aria-labelledby="landing-invitation-title"
+      >
+        <div className="landing-container landing-invitation-inner">
+          <div>
+            <p className="landing-eyebrow">Your next chapter</p>
+            <h2 id="landing-invitation-title">
+              A little ambition.
+              <br />
+              <em>A world of possibility.</em>
+            </h2>
+            <p>
+              Bring your skills. Bring your ideas. Start with one meaningful
+              collaboration.
+            </p>
+          </div>
+          <div className="landing-invitation-actions">
+            <Link
+              className="landing-button primary"
+              to="/register?role=student"
+            >
+              Join as a student <ArrowUpRight size={18} aria-hidden="true" />
+            </Link>
+            <Link className="landing-button" to="/register?role=client">
+              Join as a client <ArrowUpRight size={18} aria-hidden="true" />
+            </Link>
+            <span>Two ways to begin. One MIU community.</span>
+          </div>
+        </div>
+      </section>
       <footer className="landing-footer">
         <div className="landing-container">
           <div className="landing-footer-main">

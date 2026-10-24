@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   margin: -24px auto 0;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--landing-border);
   border-bottom: 0;
   border-radius: 40px 40px 0 0;
   background: #fff;
@@ -52,7 +52,7 @@
   place-items: center;
   width: 44px;
   height: 44px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--landing-border);
   border-radius: 50%;
   background: white;
   color: #27272a;
@@ -89,9 +89,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #e9e9ed;
+  border: 1px solid var(--landing-border);
   border-radius: 22px;
-  background: linear-gradient(145deg, #fff, #faf8f8);
+  background:
+    radial-gradient(circle at 100% 0%, transparent 0 35px, #ead4de66 36px 54px, transparent 55px),
+    linear-gradient(145deg, #fff, #faf4f7);
   color: #27272a;
   box-shadow: 0 8px 24px #11111105;
   scroll-snap-align: start;
@@ -125,7 +127,7 @@
   position: absolute;
   bottom: 20px;
   right: 22px;
-  color: #a1a1aa;
+  color: #82596d;
 }
 .landing-category-card:hover,
 .landing-category-card[aria-pressed="true"] {

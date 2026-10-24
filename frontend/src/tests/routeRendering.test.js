@@ -152,7 +152,7 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
       "Why MIU Freelance",
       "Prototype content:",
     ])
-      assert.ok(html.includes(text), text);
+      assert.ok(html.replace(/<[^>]*>/g, "").includes(text), text);
     for (const path of [
       "/projects",
       "/services",
@@ -162,6 +162,14 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     ])
       assert.ok(html.includes(`href="${path}"`), path);
     assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
+    const pathways = html.match(/<nav class="landing-pathways"[\s\S]*?<\/nav>/)?.[0];
+    assert.ok(pathways, "Homepage offers both marketplace entry paths");
+    assert.match(pathways, /href="\/projects"/);
+    assert.match(pathways, /href="\/services"/);
+    const invitation = html.match(/<section class="landing-invitation"[\s\S]*?<\/section>/)?.[0];
+    assert.ok(invitation, "Homepage ends with role-specific registration links");
+    assert.match(invitation, /href="\/register\?role=student"/);
+    assert.match(invitation, /href="\/register\?role=client"/);
     assert.equal(
       (html.match(/class="landing-section landing-overlap-panel/g) ?? [])
         .length,
@@ -271,7 +279,7 @@ test("public website routes render real pages in one shell with safe destination
       ["/error-demo", "Empty and error states"],
     ]) {
       const html = renderRoute(path);
-      assert.ok(html.includes(text), path);
+      assert.ok(html.replace(/<[^>]*>/g, "").includes(text), path);
       assert.equal((html.match(/<main\b/g) ?? []).length, 1, path);
       assert.equal((html.match(/<footer\b/g) ?? []).length, 1, path);
       assert.equal((html.match(/<h1\b/g) ?? []).length, 1, path);
