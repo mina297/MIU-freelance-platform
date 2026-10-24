@@ -7,6 +7,24 @@ tags: [MIU, issues, decisions]
 
 # MIU Freelance Platform — Known Issues and Open Decisions
 
+## Student service management increment — 24 October 2026
+
+Automated verification: all 203 tests, ESLint and the production build passed.
+The local `/student/services` route responds HTTP 200; this is not interactive
+browser evidence. Changes remain subject to the final deferred acceptance pass.
+
+Owned service management, package/extra editing, private preview, complete draft
+saving and confirmed publish/pause/remove actions are implemented in frontend
+memory. Verification gates publication/public edits. Any linked service order
+conservatively blocks editing/removal; pause preserves all order terms. This is a
+demo safeguard, not an approved final cancellation/historical-pricing policy.
+Partial draft persistence, portfolio editing, service ordering and checkout remain
+unimplemented. Public catalogue/details consume live serviceStore snapshots and
+hide unpublished listings. Manual browser, mobile, keyboard, dialog focus and
+visual review are explicitly deferred at Mina's request until his feature work is
+finished; automated checks must not be presented as completing those checks.
+The previously documented >500 kB JavaScript bundle warning remains outstanding.
+
 ## Service detail increment — 24 October 2026
 
 Public published-service details and package/extra comparison are now connected

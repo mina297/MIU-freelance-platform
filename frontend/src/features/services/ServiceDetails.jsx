@@ -7,7 +7,7 @@ import {
   Plus,
   Clock3,
 } from "lucide-react";
-import { marketplaceData } from "../../data/fixtures/marketplace.js";
+import { useServiceData } from "./useServiceData.js";
 import { formatEGP } from "../../utils/formatEGP.js";
 import Card from "../../components/ui/Card.jsx";
 import LoadingState from "../../components/feedback/LoadingState.jsx";
@@ -19,10 +19,11 @@ import "./service-details.css";
 
 export default function ServiceDetails({
   serviceId,
-  data = marketplaceData,
+  data: suppliedData,
   state = "ready",
   onRetry,
 }) {
+  const data = useServiceData(suppliedData);
   const params = useParams();
   if (state === "loading")
     return (

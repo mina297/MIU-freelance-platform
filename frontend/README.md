@@ -23,6 +23,15 @@ existing standalone layout. Approved translations are pending; the interface is 
 
 ## Technology
 
+### Student service management
+
+Open `/student/services` or `/student/services/new` in a student demo session.
+Define complete packages/extras, preview privately, save a draft and publish from
+My services with approved student verification. Owned uncommitted listings can be
+edited/removed; published listings can be paused. Linked service orders block
+editing/removal to protect terms. Changes update public service views live but
+remain memory-only and reset on refresh. Manual browser review is still pending.
+
 ### Services catalogue
 
 Open `/services` for published fictional services, search, category/skill/price

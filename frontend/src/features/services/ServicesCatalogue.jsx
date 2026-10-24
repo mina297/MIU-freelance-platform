@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Layers3, Search, SlidersHorizontal } from "lucide-react";
-import { marketplaceData } from "../../data/fixtures/marketplace.js";
+import { useServiceData } from "./useServiceData.js";
 import Button from "../../components/ui/Button.jsx";
 import Input from "../../components/ui/Input.jsx";
 import Select from "../../components/ui/Select.jsx";
@@ -17,10 +17,11 @@ import {
 import "./services-catalogue.css";
 
 export default function ServicesCatalogue({
-  data = marketplaceData,
+  data: suppliedData,
   state = "ready",
   onRetry,
 }) {
+  const data = useServiceData(suppliedData);
   const [filters, setFilters] = useState({ ...EMPTY_SERVICE_FILTERS });
   const [draft, setDraft] = useState("");
   const [filtersOpen, setFiltersOpen] = useState(false);
