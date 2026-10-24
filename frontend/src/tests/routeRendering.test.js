@@ -5,6 +5,82 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { MemoryRouter } from "react-router-dom";
 import { createServer } from "vite";
 
+test("public website routes render real pages in one shell with safe destinations", async () => {
+  const vite = await createServer({
+    server: { middlewareMode: true, hmr: false },
+    appType: "custom",
+  });
+  try {
+    const { default: AppRouter } = await vite.ssrLoadModule(
+      "/src/app/router.jsx",
+    );
+    const { default: AuthProvider } = await vite.ssrLoadModule(
+      "/src/contexts/AuthProvider.jsx",
+    );
+    const { AuthContext } = await vite.ssrLoadModule(
+      "/src/contexts/AuthContext.js",
+    );
+    const renderRoute = (path, provider = AuthProvider, value) =>
+      renderToStaticMarkup(
+        React.createElement(
+          MemoryRouter,
+          { initialEntries: [path] },
+          React.createElement(
+            provider,
+            value ? { value } : null,
+            React.createElement(AppRouter),
+          ),
+        ),
+      );
+    for (const [path, text] of [
+      ["/", "Find real work. Build your reputation."],
+      ["/about", "From university learning to practical experience"],
+      ["/how-it-works", "Planned service journey"],
+      ["/terms", "not published Terms of Use"],
+      ["/privacy", "not a published Privacy Policy"],
+      ["/loading-demo", "Interactive loading example"],
+      ["/error-demo", "Empty and error states"],
+    ]) {
+      const html = renderRoute(path);
+      assert.ok(html.includes(text), path);
+      assert.equal((html.match(/<main\b/g) ?? []).length, 1, path);
+      assert.equal((html.match(/<footer\b/g) ?? []).length, 1, path);
+      assert.equal((html.match(/<h1\b/g) ?? []).length, 1, path);
+      assert.match(html, /miu-public-header/);
+      assert.match(html, /Demo session controls/);
+      assert.doesNotMatch(
+        html,
+        /routing placeholder only|href="\/(?:freelancers|help|support\/contact|services\/service_)/,
+      );
+      if (path === "/" || path === "/how-it-works")
+        assert.equal(
+          (html.match(/<section class="m4-how-it-works"/g) ?? []).length,
+          1,
+        );
+    }
+    const home = renderRoute("/");
+    assert.match(home, /href="\/projects\/project_001"/);
+    const loggedIn = renderRoute("/", AuthContext.Provider, {
+      session: {
+        status: "authenticated",
+        user: {
+          id: "student_002",
+          displayName: "Omar Nabil",
+          role: "student",
+          accountStatus: "active",
+          verificationStatus: "approved",
+        },
+      },
+    });
+    assert.match(loggedIn, /href="\/student\/dashboard"/);
+    assert.match(loggedIn, /My workspace/);
+    assert.doesNotMatch(loggedIn, />Log in<|>Sign up</);
+    assert.match(renderRoute("/missing-public-page"), /Page not found/);
+  } finally {
+    await vite.close();
+  }
+});
+
 test("proposal routes render eligible, unverified, missing, closed, and submitted states", async () => {
   const vite = await createServer({
     server: { middlewareMode: true, hmr: false },

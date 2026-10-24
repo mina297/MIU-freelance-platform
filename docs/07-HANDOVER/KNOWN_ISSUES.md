@@ -23,6 +23,16 @@ Do not confuse a planned feature with a software defect.
 
 ## 3. Current Known Limitations
 
+**24 October 2026 public integration:** the landing, About, full How It Works,
+Terms/Privacy placeholders, and loading/error demos now have registered routes
+using one shared public shell. Public navigation is session-aware and reuses the
+existing AuthProvider; project/proposal layouts and guards are preserved. All 162
+tests, lint and build passed. Approved translations and policy text are awaited
+from the team. Browser checks could not start because the connected Windows
+sandbox helper failed; keyboard, visual and actual screen-reader acceptance
+remain unverified. Historical route-pending notes below are superseded by this
+update and the current Pages and Routes snapshot.
+
 <!-- prettier-ignore -->
 | ID | Category | Description | Status |
 |---|---|---|---|

@@ -6,6 +6,14 @@ The application has Phase 1 routing, in-memory sessions and mock authentication 
 
 The public `/projects` route still displays the fictional Projects Catalogue preview. Other unimplemented features remain labeled placeholders. See the [current route snapshot](../docs/03-DESIGN/PAGES_AND_ROUTES.md#3-current-implementation-snapshot).
 
+The home route `/` now renders the public landing page. `/about`, `/how-it-works`,
+`/terms`, `/privacy`, `/loading-demo`, and `/error-demo` use the shared public shell.
+Terms and Privacy remain clearly labelled placeholders pending approved content.
+Expand **Phase 1 demo session controls** below public content to select a fictional
+account. Signed-in users get a **My workspace** header link. Internal links preserve
+the in-memory session; refreshing still clears it. Project/proposal pages keep their
+existing standalone layout. Approved translations are pending; the interface is English.
+
 ## Technology
 
 - React with JavaScript
@@ -39,7 +47,7 @@ npm run preview
 
 `npm run format` modifies files under `src`; review the resulting diff before committing it.
 
-Run the marketplace, routing/session contract, and rendered-route regression tests with one command:
+Run all shared UI, public-page, marketplace, session, and route regression tests:
 
 ```bash
 npm test

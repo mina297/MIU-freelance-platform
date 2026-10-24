@@ -3,14 +3,23 @@ import PublicHeader from "../components/navigation/PublicHeader.jsx";
 import PublicFooter from "../components/navigation/PublicFooter.jsx";
 
 /** Supply page content (or a router Outlet); this component registers no routes. */
-export default function PublicLayout({ children, destinations, currentPath }) {
+export default function PublicLayout({
+  children,
+  destinations,
+  currentPath,
+  accountAction,
+}) {
   const mainId = useId();
   return (
     <div className="miu-public-layout">
       <a className="miu-public-skip-link" href={`#${mainId}`}>
         Skip to main content
       </a>
-      <PublicHeader destinations={destinations} currentPath={currentPath} />
+      <PublicHeader
+        destinations={destinations}
+        currentPath={currentPath}
+        accountAction={accountAction}
+      />
       <main className="miu-public-main" id={mainId} tabIndex={-1}>
         {children}
       </main>

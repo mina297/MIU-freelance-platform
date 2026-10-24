@@ -661,6 +661,9 @@ Implemented visitor presentation components:
 - `frontend/src/layouts/PublicLayout.jsx`
 
 `PublicLayout` accepts page `children`, a `destinations` object, and `currentPath`.
+It also accepts an optional `accountAction` node, forwarded to PublicHeader to
+replace visitor login/signup actions. The routed PublicWebsite supplies an active
+account's My workspace link without adding session logic to the shared header.
 It renders a skip link, header, one focusable main landmark, and footer. Member 1
 can supply an `Outlet` as children when connecting the router. Do not wrap an
 existing page that already owns its header/main/footer, including Member 2's
@@ -755,6 +758,10 @@ node node_modules/prettier/bin/prettier.cjs --check src/components/navigation/Pu
 ```
 
 ## Member 4 — Landing page and discovery
+
+**24 October 2026 integration:** the main router now composes this page at `/`
+with PublicLayout and the existing HowItWorksSection. The isolated-delivery notes
+below remain historical; current routes are documented in PAGES_AND_ROUTES.md.
 
 Implemented page content in `frontend/src/features/public/LandingPage.jsx` and
 focused components under `frontend/src/features/public/landing/`:

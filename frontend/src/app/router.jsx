@@ -19,10 +19,20 @@ import RoleSelectionPage from "../features/auth/RoleSelectionPage.jsx";
 import RegisterPage from "../features/auth/RegisterPage.jsx";
 import ForgotPasswordPage from "../features/auth/ForgotPasswordPage.jsx";
 import ResetPasswordPage from "../features/auth/ResetPasswordPage.jsx";
+import PublicWebsite from "./PublicWebsite.jsx";
+import { publicDestinations } from "./publicDestinations.js";
+import LandingPage from "../features/public/LandingPage.jsx";
+import AboutPage from "../features/public/AboutPage.jsx";
+import HowItWorksPage from "../features/public/HowItWorksPage.jsx";
+import HowItWorksSection from "../features/public/components/HowItWorksSection.jsx";
+import TermsPage from "../features/public/TermsPage.jsx";
+import PrivacyPage from "../features/public/PrivacyPage.jsx";
+import LoadingDemoPage from "../features/public/LoadingDemoPage.jsx";
+import ErrorDemoPage from "../features/public/ErrorDemoPage.jsx";
 
 const layouts = {
   standalone: <Outlet />,
-  public: <AppLayout title="Public" />,
+  public: <PublicWebsite />,
   auth: <AuthLayout />,
   app: <AppLayout />,
   admin: <AdminLayout />,
@@ -56,6 +66,24 @@ function ProjectDetailsRoute() {
 }
 
 const featurePages = {
+  "/": (
+    <LandingPage
+      destinations={publicDestinations}
+      getProjectHref={(id) => `/projects/${id}`}
+      howItWorks={<HowItWorksSection />}
+    />
+  ),
+  "/about": <AboutPage destinations={publicDestinations} />,
+  "/how-it-works": (
+    <HowItWorksPage
+      destinations={publicDestinations}
+      howItWorks={<HowItWorksSection />}
+    />
+  ),
+  "/terms": <TermsPage destinations={publicDestinations} />,
+  "/privacy": <PrivacyPage destinations={publicDestinations} />,
+  "/loading-demo": <LoadingDemoPage />,
+  "/error-demo": <ErrorDemoPage />,
   "/projects/:projectId/propose": <ProposalEntry />,
   "/projects": <ProjectsCatalogueRoute />,
   "/projects/:projectId": <ProjectDetailsRoute />,

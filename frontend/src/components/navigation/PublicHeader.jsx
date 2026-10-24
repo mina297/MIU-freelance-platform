@@ -11,7 +11,11 @@ import {
 import "./public-shell.css";
 
 /** Visitor presentation only; routing and session policy belong to Member 1. */
-export default function PublicHeader({ destinations = {}, currentPath }) {
+export default function PublicHeader({
+  destinations = {},
+  currentPath,
+  accountAction,
+}) {
   const [menu, setMenu] = useState({ open: false, path: currentPath });
   const menuOpen = menu.open && menu.path === currentPath;
   const panelId = useId();
@@ -92,11 +96,18 @@ export default function PublicHeader({ destinations = {}, currentPath }) {
           {DESKTOP_LINKS.map((link) => renderLink(link))}
         </nav>
         <div className="miu-public-header__actions">
-          {renderLink(
-            { key: "login", label: "Log in" },
-            "miu-public-header__desktop-login",
+          {accountAction ?? (
+            <>
+              {renderLink(
+                { key: "login", label: "Log in" },
+                "miu-public-header__desktop-login",
+              )}
+              {renderLink(
+                { key: "signup", label: "Sign up" },
+                "miu-public-signup",
+              )}
+            </>
           )}
-          {renderLink({ key: "signup", label: "Sign up" }, "miu-public-signup")}
           <Button
             variant="ghost"
             className="miu-public-header__toggle"
@@ -118,7 +129,7 @@ export default function PublicHeader({ destinations = {}, currentPath }) {
           aria-label="Public navigation shortcuts"
         >
           {PRIMARY_LINKS.map((link) => renderLink(link))}
-          {renderLink({ key: "login", label: "Log in" })}
+          {!accountAction && renderLink({ key: "login", label: "Log in" })}
         </nav>
         <nav
           id={panelId}

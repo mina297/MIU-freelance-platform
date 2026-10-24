@@ -4,6 +4,20 @@ import { ROLES, PUBLIC_REGISTRATION_ROLES } from "../features/auth/session.js";
 // Access metadata describes role-level demo access, not production permissions.
 export const routeConfig = [
   { path: "/", title: "MIU Freelance", layout: "public", access: "public" },
+  ...[
+    ["/about", "About MIU Freelance"],
+    ["/how-it-works", "How it works"],
+    ["/terms", "Terms"],
+    ["/privacy", "Privacy"],
+    ["/loading-demo", "Loading states"],
+    ["/error-demo", "Error states"],
+  ].map(([path, title]) => ({
+    path,
+    title,
+    layout: "public",
+    access: "public",
+    showInNavigation: !path.endsWith("-demo"),
+  })),
   {
     path: "/projects",
     title: "Projects",

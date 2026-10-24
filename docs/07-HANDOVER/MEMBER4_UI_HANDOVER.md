@@ -8,6 +8,16 @@ declare the whole assignment, any routed workflow or an SRS requirement complete
 
 ## 1. Start here
 
+**24 October 2026 route integration:** the current application now mounts the
+landing, About, How It Works, Terms/Privacy placeholders and feedback demos through
+`app/PublicWebsite.jsx`, using the existing PublicLayout. Both landing and full
+guide compose the existing HowItWorksSection. Available links and mock-session
+workspace navigation are wired without wrapping the marketplace's standalone
+shells. English remains active while the team supplies approved translations;
+policy content also awaits that supplied text. Earlier route-pending snapshots
+below are historical. Current route rendering/access tests cover the integration;
+browser and screen-reader acceptance remain unverified.
+
 **24 October 2026 correction:** the merged main's shared `PublicLink` and home
 logos now use React Router for internal page paths when mounted inside a router.
 Standalone previews and native-only destinations still use anchors. Landing's

@@ -74,6 +74,21 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
+**24 October 2026 public integration:** `/` now renders LandingPage inside the
+shared PublicLayout. `/about`, `/how-it-works`, `/terms`, `/privacy`,
+`/loading-demo`, and `/error-demo` are registered public pages. The existing
+HowItWorksSection is composed once on both the landing and full guide pages.
+Terms and Privacy still explicitly show unapproved-content placeholders.
+Only implemented destinations are passed to the public navigation and landing
+actions; service/profile detail actions remain unavailable. Public route changes
+update the title, scroll position, and focusable main landmark. Signed-in active
+accounts see a role-specific My workspace link. The shared in-memory AuthProvider
+is preserved across navigation; demo session controls remain in a collapsed panel
+below public content. Project catalogue/details and proposal routes keep their
+standalone shells to avoid nested landmarks. Authentication/admin layouts and role
+guards remain unchanged. Language integration awaits the approved text offered by
+the team; English remains the current interface.
+
 Proposal submission update: the student-only `/projects/:projectId/propose` form
 now validates and stores a simulated proposal in memory for approved students.
 It displays confirmation and prevents duplicate records within the current preview.
@@ -87,7 +102,9 @@ rechecks verification, project status, and required form values.
 
 Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with one route registry at `frontend/src/app/routeConfig.js` and one in-memory session provider.
 
-- Public placeholders: `/`, `/services`.
+- Public website: `/`, `/about`, `/how-it-works`, `/terms`, `/privacy`.
+- Public feedback demos: `/loading-demo`, `/error-demo` (not global-navigation entries).
+- Public placeholder: `/services`.
 - Public marketplace previews: `/projects` renders the Projects Catalogue (P-06), and `/projects/:projectId` renders Project Details (P-07).
 - Mock authentication forms: `/login`, `/register`, `/register/role`, `/forgot-password`, `/reset-password` (Task 02).
 - Student/client placeholders: `/verify`, `/verify/pending`.
@@ -95,11 +112,19 @@ Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with
 - Registered-user placeholder: `/notifications`.
 - Routing feedback: `/access-denied`, `/session-expired`, and a catch-all not-found page.
 
-Routing, role checks, minimal layout outlets, demo navigation, session controls, mock authentication forms, the public projects catalogue, project details, and simulated proposal submission are implemented. All other registered feature pages are clearly labeled placeholders; dashboards, identity verification, and other feature workflows remain unimplemented. Remaining proposed routes are not registered yet and show the catch-all page.
+Routing, role checks, layouts, demo sessions, mock authentication, public website
+pages/feedback demos, the projects catalogue/details, and simulated proposal
+submission are implemented. Terms/Privacy content remains explicitly pending.
+Other registered feature pages remain labelled placeholders, including dashboards,
+identity verification and services. Remaining proposed routes show the catch-all page.
 
 Visitors attempting protected routes go to `/login`; authenticated users with the wrong role go to `/access-denied`; explicitly expired sessions go to `/session-expired`. Guards retain the requested URL in router location state (`from`). After login, Task 02 returns to that URL only when it is an internal registered route allowed for the user, excluding authentication and routing-feedback pages. Other destinations fall back to the role dashboard. Registration opens login after creating the in-memory account. All recovery messages explicitly describe simulated behavior without secure tokens or email delivery.
 
-`AppLayout`, `AuthLayout` and `AdminLayout` follow the recommended directory naming. Most public routes reuse the minimal `AppLayout`; `/projects` and `/projects/:projectId` use their existing full-width marketplace shells through a standalone outlet until shared public website visuals are integrated. Verification gating and automatic expiry timing are deferred. No production authorization is claimed.
+`PublicWebsite` adapts the shared PublicLayout to the router, available destinations,
+and mock session. `AppLayout`, `AuthLayout` and `AdminLayout` retain their existing
+roles. `/projects` and `/projects/:projectId` use their existing full-width marketplace
+shells through a standalone outlet. Verification gating remains action-specific;
+automatic expiry timing is deferred. No production authorization is claimed.
 
 **23 October 2026 integration:** A React Projects Catalogue preview (P-06) now renders
 at the public `/projects` route through `frontend/src/app/router.jsx`. It shows fictional open projects with working text,
@@ -112,6 +137,11 @@ described above; its safe mock attachment selection is implemented, while
 visual/browser verification remains tracked in the Projects and Proposals module.
 
 ## 4. Layout Groups
+
+The 23 October delivery notes below describe the original isolated component
+handover. Their pending route-registration statements are superseded by section 3's
+24 October integration; remaining translation, policy-content and manual acceptance
+dependencies still apply.
 
 **23 October 2026 — Member 4 landing/discovery:** `LandingPage.jsx` now provides
 public page content for `PublicLayout`, including hero/search, project and service
