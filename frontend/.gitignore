@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# DEVELOPMENT-ONLY Member 5 independent preview (do not commit)
+student-profile-preview.html
+src/student-profile-preview-main.jsx
+member5-preview.html
+src/member5-preview-main.jsx
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

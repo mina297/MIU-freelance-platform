@@ -18,6 +18,15 @@ import StudentProposalEdit from "../features/proposals/StudentProposalEdit.jsx";
 import OrderSummary from "../features/orders/OrderSummary.jsx";
 import OrdersList from "../features/orders/OrdersList.jsx";
 import FreelancersCatalogue from "../features/freelancers/FreelancersCatalogue.jsx";
+import {
+  StudentProfileRoute,
+  ClientProfileRoute,
+  ProfileEditRoute,
+  NewReviewRoute,
+  HelpCenterRoute,
+  HelpArticleRoute,
+} from "../features/profiles/Member5Routes.jsx";
+import SupportContactPage from "../features/help/SupportContactPage.jsx";
 import Recommendations from "../features/recommendations/Recommendations.jsx";
 import ServicesCatalogue from "../features/services/ServicesCatalogue.jsx";
 import ServiceDetails from "../features/services/ServiceDetails.jsx";
@@ -81,6 +90,13 @@ function ProjectDetailsRoute() {
 }
 
 const featurePages = {
+  "/students/:studentId": <StudentProfileRoute />,
+  "/clients/:clientId": <ClientProfileRoute />,
+  "/profile/edit": <ProfileEditRoute />,
+  "/reviews/new": <NewReviewRoute />,
+  "/help": <HelpCenterRoute />,
+  "/help/:articleSlug": <HelpArticleRoute />,
+  "/support/contact": <SupportContactPage />,
   "/": <LandingPage />,
   "/freelancers": <FreelancersCatalogue />,
   "/recommendations": <Recommendations />,

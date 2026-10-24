@@ -48,7 +48,7 @@ test("public directory has one shell, safe service links and honest loading/erro
       assert.ok(route.includes(`href="/services/${id}"`));
     assert.doesNotMatch(
       route,
-      /href="\/students\/|href="\/services\/service_004|routing placeholder only|Create a student event poster/,
+      /href="\/services\/service_004|routing placeholder only|Create a student event poster/,
     );
     const render = (props) =>
       renderToStaticMarkup(

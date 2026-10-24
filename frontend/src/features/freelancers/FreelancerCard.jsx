@@ -19,6 +19,12 @@ export default function FreelancerCard({ person }) {
         <div>
           <p className="services-eyebrow">STUDENT SERVICE PROVIDER</p>
           <h3>{person.displayName}</h3>
+          <Link
+            to={`/students/${person.id}`}
+            className="text-sm text-miu-red underline"
+          >
+            View student profile
+          </Link>
           <p>
             {person.services.length} matching published{" "}
             {person.services.length === 1 ? "service" : "services"}
@@ -65,8 +71,9 @@ export default function FreelancerCard({ person }) {
         </ul>
       </div>
       <p className="freelancer-card__note">
-        Full profile, reviews, availability and hourly rates are not connected.
-        Service skills are not verified qualifications.
+        Review the linked profile for declared details. Service skills are not
+        verified qualifications, and package starting prices are not hourly
+        rates.
       </p>
     </Card>
   );

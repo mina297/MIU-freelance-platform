@@ -285,7 +285,7 @@ test("public website routes render real pages in one shell with safe destination
       );
       assert.doesNotMatch(
         html,
-        /routing placeholder only|href="\/(?:help|support\/contact|services\/service_)/,
+        /routing placeholder only|href="\/services\/service_/,
       );
       if (path === "/how-it-works")
         assert.equal(
@@ -311,24 +311,34 @@ test("public website routes render real pages in one shell with safe destination
     assert.match(loggedIn, /href="\/student\/dashboard"/);
     assert.match(loggedIn, /My workspace/);
     assert.match(loggedIn, /Sign out/);
-    assert.doesNotMatch(loggedIn, /Simulated session controls|Phase 1 demo session controls/);
+    assert.doesNotMatch(
+      loggedIn,
+      /Simulated session controls|Phase 1 demo session controls/,
+    );
     assert.doesNotMatch(loggedIn, />Log in<|>Sign up</);
     for (const role of ["student", "client"]) {
-      const dashboard = renderRoute(`/${role}/dashboard`, AuthContext.Provider, {
-        session: {
-          status: "authenticated",
-          user: {
-            id: `registered_${role}`,
-            displayName: "New account",
-            role,
-            accountStatus: "active",
-            verificationStatus: "pending",
+      const dashboard = renderRoute(
+        `/${role}/dashboard`,
+        AuthContext.Provider,
+        {
+          session: {
+            status: "authenticated",
+            user: {
+              id: `registered_${role}`,
+              displayName: "New account",
+              role,
+              accountStatus: "active",
+              verificationStatus: "pending",
+            },
           },
         },
-      });
+      );
       assert.match(dashboard, /My workspace/);
       assert.match(dashboard, /Sign out/);
-      assert.doesNotMatch(dashboard, /Simulated session controls|Demo navigation|Phase 1 routing demonstration/);
+      assert.doesNotMatch(
+        dashboard,
+        /Simulated session controls|Demo navigation|Phase 1 routing demonstration/,
+      );
     }
     assert.match(renderRoute("/missing-public-page"), /Page not found/);
   } finally {
