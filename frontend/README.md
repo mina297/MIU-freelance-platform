@@ -153,4 +153,6 @@ Do not mark a planned feature as implemented until its behavior has been inspect
 
 ## Freelancer discovery
 
+The related `/recommendations` page lets visitors explicitly choose skills/category for explained, simulated project/service/provider matches. It uses live in-memory public listing data and offers local Helpful/Not relevant feedback. No real AI or profile inference is performed. See [AI Features](../docs/06-MODULES/AI_FEATURES.md).
+
 Open `/freelancers` to browse fictional published-service providers. Search and filters apply to the same service; package starting prices are EGP, not hourly rates. Directory data follows service publish/pause changes in memory. Full profile links await Member 5 integration. Run `npm.cmd test`, `npm.cmd run lint` and `npm.cmd run build` from this directory; manual acceptance remains deferred. See `../docs/06-MODULES/FREELANCER_DISCOVERY.md`.

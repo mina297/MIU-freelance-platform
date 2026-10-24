@@ -17,6 +17,7 @@ export const MENU_LINKS = [
   ...PRIMARY_LINKS,
   { key: "services", label: "Services" },
   { key: "freelancers", label: "Find Talent" },
+  { key: "recommendations", label: "Skills Matching" },
   { key: "about", label: "About" },
   { key: "help", label: "Help Center" },
   { key: "contact", label: "Contact Us" },
@@ -30,6 +31,7 @@ export const FOOTER_GROUPS = [
     links: [
       PRIMARY_LINKS[0],
       { key: "freelancers", label: "Find Talent" },
+      { key: "recommendations", label: "Skills Matching" },
       PRIMARY_LINKS[1],
     ],
   },

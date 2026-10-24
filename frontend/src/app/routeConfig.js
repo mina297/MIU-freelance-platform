@@ -5,6 +5,12 @@ import { ROLES, PUBLIC_REGISTRATION_ROLES } from "../features/auth/session.js";
 export const routeConfig = [
   { path: "/", title: "MIU Freelance", layout: "public", access: "public" },
   {
+    path: "/recommendations",
+    title: "Simulated skills matching",
+    layout: "public",
+    access: "public",
+  },
+  {
     path: "/freelancers",
     title: "Find student talent",
     layout: "public",

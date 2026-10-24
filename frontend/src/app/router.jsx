@@ -18,6 +18,7 @@ import StudentProposalEdit from "../features/proposals/StudentProposalEdit.jsx";
 import OrderSummary from "../features/orders/OrderSummary.jsx";
 import OrdersList from "../features/orders/OrdersList.jsx";
 import FreelancersCatalogue from "../features/freelancers/FreelancersCatalogue.jsx";
+import Recommendations from "../features/recommendations/Recommendations.jsx";
 import ServicesCatalogue from "../features/services/ServicesCatalogue.jsx";
 import ServiceDetails from "../features/services/ServiceDetails.jsx";
 import StudentServices from "../features/services/StudentServices.jsx";
@@ -82,6 +83,7 @@ function ProjectDetailsRoute() {
 const featurePages = {
   "/": <LandingPage />,
   "/freelancers": <FreelancersCatalogue />,
+  "/recommendations": <Recommendations />,
   "/services": <ServicesCatalogue />,
   "/services/:serviceId": <ServiceDetails />,
   "/services/:serviceId/order": <ServiceOrder />,
