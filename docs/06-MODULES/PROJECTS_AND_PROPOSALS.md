@@ -166,7 +166,7 @@ BR-06. Verification is rechecked when submitting, not just when opening the rout
 - [x] Add permitted attachment selection, validation, removal, and confirmation using safe fictional metadata. No real upload or storage is implemented.
 - [ ] Browser interaction checks: invalid-input focus, verified submission, duplicate prevention after returning, pending verification, and session switching.
 - [ ] Desktop/mobile visual and keyboard review, including P-08 screenshot evidence.
-- [ ] Student proposal list/edit/withdraw remain separate workflows. Client review is now demonstrated as described in section 7.
+- [x] Demonstrate the student-owned proposal list/edit/withdraw workflow (section 6). Browser acceptance remains pending. Client review is described in section 7.
 
 Automated render tests and store/validation tests do not replace the browser checks above.
 
@@ -180,6 +180,46 @@ A proposal contains:
 Validation should cover required fields, valid amounts, and applicable project state.
 
 ## 6. Proposal Management
+
+### Current student workflow (FR-S06; P-08 / P-14)
+
+`/student/proposals` is protected for active student sessions and displays only
+the signed-in student's offers. It includes project/message search, status filters,
+recent-update ordering, current offer terms and accepted-project order links.
+The proposal-entry page links to this list. Other students' records do not appear
+in searches, counts or empty states.
+
+`/student/proposals/:proposalId/edit` reopens an owned eligible offer with its
+price, delivery days, cover message and permitted fictional attachment selections.
+Saving rechecks the session, current ownership/project/proposal state, verification,
+offer-field validation and linked commitments. Updates preserve
+ID, project/student references, original submission time and the current proposal
+status, including shortlist status. Client review and comparison use the same
+observable record. Positive EGP amounts use up to two decimals and safe numeric
+precision; delivery days are positive safe integers. Cover messages must be text,
+and attachments remain allowlisted metadata only.
+
+The current demo allows edits/withdrawals only for submitted or shortlisted offers
+on open projects with no linked project order or accepted proposal. Editing requires
+approved student verification; active pending students may still withdraw an owned
+eligible offer. This is a conservative demo boundary, not a final resolution of the
+open production edit-cutoff policy. Accepted, rejected, withdrawn, committed and
+non-open-project offers are read-only. Missing/other-owner edit URLs show a generic
+recovery message without exposing offer details.
+
+Withdrawal uses the shared confirmation dialog, initially focusing Keep proposal
+unchanged. Confirmation rechecks current eligibility, marks the same record withdrawn,
+and retains its original terms/submission time. Client shortlisting and acceptance
+then reject that record. No notification or order is created. Undo/resubmission are
+not supported; submission for the same student/project pair returns its existing
+record rather than silently restoring a withdrawn offer.
+
+All changes are immutable and memory-only. Refresh restores fixtures; unsaved edits
+clear on leaving or account/proposal changes. Automated model/store/rendered-route
+checks cover ownership, valid/invalid edits, shared client/student updates, withdrawal
+and commitment restrictions. Browser confirmation, focus, keyboard, account-switching,
+mobile and desktop visual checks remain pending. No SRS requirement is marked
+production-complete by these demonstration screens.
 
 Students can:
 

@@ -18,7 +18,8 @@ export function validateProposal(values, project, session) {
   if (
     !/^\d+(\.\d{1,2})?$/.test(price) ||
     !Number.isFinite(Number(price)) ||
-    Number(price) <= 0
+    Number(price) <= 0 ||
+    Number(price) > Number.MAX_SAFE_INTEGER / 100
   )
     errors.priceEGP =
       "Enter a positive EGP price with at most two decimal places.";
@@ -29,7 +30,7 @@ export function validateProposal(values, project, session) {
     Number(days) < 1
   )
     errors.deliveryDays = "Enter a whole number of days greater than zero.";
-  if (!String(values.coverMessage ?? "").trim())
+  if (typeof values.coverMessage !== "string" || !values.coverMessage.trim())
     errors.coverMessage = "Write a cover message explaining your approach.";
   const attachmentError = validateAttachmentIds(values.attachmentIds);
   if (attachmentError) errors.attachmentIds = attachmentError;

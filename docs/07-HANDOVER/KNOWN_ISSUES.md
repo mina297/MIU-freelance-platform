@@ -23,6 +23,14 @@ Do not confuse a planned feature with a software defect.
 
 ## 3. Current Known Limitations
 
+**Student proposal management:** owned list, eligible editing and confirmed
+withdrawal are demonstrated at `/student/proposals` and its `/:proposalId/edit`
+route. The exact production edit cutoff remains undecided. The demo permits changes
+only to submitted/shortlisted offers on open, uncommitted projects; editing requires
+approved verification. Pending active students may withdraw an eligible own offer.
+Undo/resubmission and persistent storage are not implemented. Browser focus,
+confirmation, keyboard, responsive and account-switching acceptance remain pending.
+
 The current Member 2 review status, manual acceptance steps and suggested PR text
 are recorded in [Client proposals handover checklist](MEMBER2_CLIENT_PROPOSALS_REVIEW.md).
 

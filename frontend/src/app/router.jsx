@@ -13,6 +13,8 @@ import ProjectCreate from "../features/projects/ProjectCreate.jsx";
 import ClientProjects from "../features/projects/ClientProjects.jsx";
 import ProposalEntry from "../features/proposals/ProposalEntry.jsx";
 import ClientProposals from "../features/proposals/ClientProposals.jsx";
+import StudentProposals from "../features/proposals/StudentProposals.jsx";
+import StudentProposalEdit from "../features/proposals/StudentProposalEdit.jsx";
 import ProjectOrderSummary from "../features/orders/ProjectOrderSummary.jsx";
 import AppLayout from "../layouts/AppLayout.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
@@ -90,6 +92,8 @@ const featurePages = {
   "/loading-demo": <LoadingDemoPage />,
   "/error-demo": <ErrorDemoPage />,
   "/projects/:projectId/propose": <ProposalEntry />,
+  "/student/proposals": <StudentProposals />,
+  "/student/proposals/:proposalId/edit": <StudentProposalEdit />,
   "/projects": <ProjectsCatalogueRoute />,
   "/client/projects/new": <ProjectCreate />,
   "/client/projects": <ClientProjects />,

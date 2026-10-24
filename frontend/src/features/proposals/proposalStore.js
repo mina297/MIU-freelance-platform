@@ -4,11 +4,15 @@ import { PROPOSAL_STATUS } from "../marketplace/constants.js";
 import { proposals as fixtureProposals } from "../../data/fixtures/marketplace.js";
 import { clientEligibility } from "../projects/projectCreation.js";
 import { projectStore } from "../projects/projectStore.js";
+import { orderStore } from "../orders/orderStore.js";
+import { studentProposalError } from "./studentProposalModel.js";
+import { isActiveUser, ROLES } from "../auth/session.js";
 
 export function createProposalStore(
   findProject = getProjectById,
   seed = [],
   acceptProposal = null,
+  getOrders = () => orderStore.getSnapshot(),
 ) {
   const records = new Map();
   const keyFor = (projectId, studentId) =>
@@ -27,8 +31,70 @@ export function createProposalStore(
     snapshot = Object.freeze([...records.values()]);
     listeners.forEach((listener) => listener());
   };
+  const studentError = (proposalId, session, action) => {
+    const proposal = snapshot.find(({ id }) => id === proposalId);
+    const project = proposal && findProject(proposal.projectId);
+    const committed =
+      proposal &&
+      (getOrders().some(
+        (order) =>
+          order.sourceType === "project" &&
+          order.sourceId === proposal.projectId,
+      ) ||
+        snapshot.some(
+          (record) =>
+            record.projectId === proposal.projectId &&
+            record.status === PROPOSAL_STATUS.ACCEPTED,
+        ));
+    return studentProposalError(proposal, project, session, action, committed);
+  };
   return {
     getSnapshot: () => snapshot,
+    studentActionError: studentError,
+    findOwned(proposalId, session) {
+      const proposal = snapshot.find(({ id }) => id === proposalId);
+      return session?.status === "authenticated" &&
+        isActiveUser(session.user) &&
+        session.user.role === ROLES.STUDENT &&
+        proposal?.studentId === session.user.id
+        ? proposal
+        : null;
+    },
+    edit(proposalId, values, session) {
+      const access = studentError(proposalId, session, "edit");
+      if (access) return { ok: false, errors: { form: access } };
+      const proposal = snapshot.find(({ id }) => id === proposalId);
+      const errors = validateProposal(
+        values,
+        findProject(proposal.projectId),
+        session,
+      );
+      if (Object.keys(errors).length) return { ok: false, errors };
+      const next = Object.freeze({
+        ...proposal,
+        priceEGP: Number(values.priceEGP),
+        deliveryDays: Number(values.deliveryDays),
+        coverMessage: values.coverMessage.trim(),
+        attachmentIds: Object.freeze([...(values.attachmentIds ?? [])]),
+        updatedAt: new Date().toISOString(),
+      });
+      records.set(keyFor(proposal.projectId, proposal.studentId), next);
+      notify();
+      return { ok: true, proposal: next };
+    },
+    withdraw(proposalId, session) {
+      const access = studentError(proposalId, session, "withdraw");
+      if (access) return { ok: false, error: access };
+      const proposal = snapshot.find(({ id }) => id === proposalId);
+      const next = Object.freeze({
+        ...proposal,
+        status: PROPOSAL_STATUS.WITHDRAWN,
+        updatedAt: new Date().toISOString(),
+      });
+      records.set(keyFor(proposal.projectId, proposal.studentId), next);
+      notify();
+      return { ok: true, proposal: next };
+    },
     decide(proposalId, session, decision) {
       const access = clientEligibility(session, decision === "accept");
       if (access) return { ok: false, error: access };

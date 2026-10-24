@@ -74,6 +74,14 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
+**Student proposal management:** `/student/proposals` now renders an owned-only
+student list with search/status filters and accepted demo-order links (P-14).
+`/student/proposals/:proposalId/edit` provides P-08 editing for eligible offers.
+The list offers confirmed withdrawal. Submitted/shortlisted offers require an open,
+uncommitted project; edits also require approved demo verification. Missing,
+other-owner and non-editable records have recovery/read-only states. Saved updates
+are shared with client review and reset on refresh. Browser acceptance remains pending.
+
 **Client proposal review:** `/client/projects/:projectId/proposals` now renders a
 client-only, ownership-checked marketplace review screen, linked from My projects.
 P-17 currently covers incoming offers, search/status filters, sorting, comparison
