@@ -74,6 +74,14 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
+**Student proposal management:** `/student/proposals` now renders an owned-only
+student list with search/status filters and accepted demo-order links (P-14).
+`/student/proposals/:proposalId/edit` provides P-08 editing for eligible offers.
+The list offers confirmed withdrawal. Submitted/shortlisted offers require an open,
+uncommitted project; edits also require approved demo verification. Missing,
+other-owner and non-editable records have recovery/read-only states. Saved updates
+are shared with client review and reset on refresh. Browser acceptance remains pending.
+
 **Homepage navigation update (24 October 2026):** LandingHeader groups discovery under Hire Talent (landing student previews, `/services`, client registration) and Find Work (`/projects`, student registration, How it works). It is used by the homepage and authentication screens; other public pages retain the shared PublicHeader. The landing Hire/Work toggle selects local prototype discovery mode; it does not assign an account role or change access permissions. No new route is introduced.
 
 Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with one route registry at `frontend/src/app/routeConfig.js` and one in-memory session provider.

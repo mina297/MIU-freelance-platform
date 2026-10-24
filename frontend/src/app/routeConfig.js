@@ -56,6 +56,21 @@ export const routeConfig = [
     showInNavigation: false,
   },
   {
+    path: "/student/proposals",
+    title: "My proposals",
+    layout: "standalone",
+    access: "roles",
+    roles: [ROLES.STUDENT],
+  },
+  {
+    path: "/student/proposals/:proposalId/edit",
+    title: "Edit proposal",
+    layout: "standalone",
+    access: "roles",
+    roles: [ROLES.STUDENT],
+    showInNavigation: false,
+  },
+  {
     path: "/client/projects/new",
     title: "Create project",
     layout: "standalone",

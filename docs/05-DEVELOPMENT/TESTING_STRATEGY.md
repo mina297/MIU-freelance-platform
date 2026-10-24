@@ -51,6 +51,7 @@ Verify keyboard, focus, labels, and relevant assistive technology behavior.
 | Project posting | Client creates a project |
 | Proposal submission | Student submits a proposal |
 | Proposal comparison | Client reviews/selects a proposal |
+| Student proposal management | Student lists only owned offers, edits eligible terms, withdraws with confirmation and sees client/order updates |
 | Service publishing | Student creates a service package |
 | Service ordering | Client selects and orders a service |
 | Delivery | Student submits work |

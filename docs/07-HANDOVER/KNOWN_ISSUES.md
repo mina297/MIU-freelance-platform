@@ -7,6 +7,18 @@ tags: [MIU, issues, decisions]
 
 # MIU Freelance Platform — Known Issues and Open Decisions
 
+## Student proposals integration verification — 24 October 2026
+
+Local main `7f536c8` was integrated into `feat/m2-student-proposals` without
+replacing Member 1's new homepage or the existing public/authentication layouts.
+Both student list/edit routes and the current client proposal/order flows remain
+connected. The route documentation conflict was resolved by retaining both notes.
+All 188 automated tests, ESLint and the production build passed on the combined
+working tree. The earlier 193-test result applied before retired homepage tests
+were removed; it is not the integrated test count. Browser, keyboard, responsive
+visual and dialog-focus acceptance checks remain pending. This verification does
+not by itself mean the branch has been committed, pushed or merged into main.
+
 ## Homepage replacement integration — 24 October 2026
 
 Member 1's new homepage replaces the retired Member 4 landing implementation.
@@ -32,6 +44,14 @@ Do not confuse a planned feature with a software defect.
 - **Documentation Gap:** Information requiring completion
 
 ## 3. Current Known Limitations
+
+**Student proposal management:** owned list, eligible editing and confirmed
+withdrawal are demonstrated at `/student/proposals` and its `/:proposalId/edit`
+route. The exact production edit cutoff remains undecided. The demo permits changes
+only to submitted/shortlisted offers on open, uncommitted projects; editing requires
+approved verification. Pending active students may withdraw an eligible own offer.
+Undo/resubmission and persistent storage are not implemented. Browser focus,
+confirmation, keyboard, responsive and account-switching acceptance remain pending.
 
 The current Member 2 review status, manual acceptance steps and suggested PR text
 are recorded in [Client proposals handover checklist](MEMBER2_CLIENT_PROPOSALS_REVIEW.md).
