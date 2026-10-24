@@ -234,6 +234,10 @@ Before the Phase 1 discussion:
 
 ## Related Documents
 
+### Member 2 integration review — 24 October 2026
+
+`frontend/src/tests/marketplaceIntegration.test.js` covers the default-store project-to-proposal-to-order and service-to-order handoffs through rendered routes, including discovery updates, copied terms, duplicate protection, privacy and unpaid delivery guards. `marketplaceContrast.test.js` checks disclosure text and hero-focus colors mathematically. See the [M2 integration report](../07-HANDOVER/M2_MARKETPLACE_INTEGRATION_2026-10-24.md) for scope, fixes, routes and unrun browser/mobile/keyboard/screen-reader acceptance. Static SSR results do not substitute for those checks.
+
 - [SRS](../01-PROJECT/SRS.md)
 - [User Flows](../02-REQUIREMENTS/USER_FLOWS.md)
 - [Pages and Routes](../03-DESIGN/PAGES_AND_ROUTES.md)
