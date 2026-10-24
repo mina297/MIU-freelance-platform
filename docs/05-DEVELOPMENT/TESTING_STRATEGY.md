@@ -28,6 +28,13 @@ Test reusable controls, validation states, and common UI behavior.
 ### Feature Testing
 Test marketplace, profiles, authentication, dashboard, and administration interactions.
 
+Student service-management model/store/route checks cover owned-only access,
+field/package/extra validation, immutable snapshots, duplicate creation prevention,
+private drafts, verification gates, lifecycle transitions, linked-order safeguards,
+ID allowlisting and live catalogue/detail updates. Complete drafts are required;
+incomplete form persistence is not implemented. Browser/keyboard/dialog-focus and
+responsive visual checks remain deferred, not passed, per the team lead's request.
+
 Service catalogue model/render tests cover published-only visibility, combined
 filters, non-overlapping price boundaries, consistent starting-package price and
 delivery, missing-price sorting, stable source order, public-shell landmarks,

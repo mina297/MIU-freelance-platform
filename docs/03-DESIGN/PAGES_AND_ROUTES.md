@@ -74,6 +74,13 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
+**Student service management (24 October 2026):** student-only standalone routes
+`/student/services`, `/student/services/new`, `/student/services/:serviceId/edit`
+cover owned listings, validated private previews, complete drafts, package/extra
+editing, verified publishing, pausing and uncommitted removal. Dynamic/new routes
+are hidden from generic navigation. Public discovery/details observe serviceStore;
+private/unpublished content remains hidden. Ordering/checkout are later work.
+
 **Service details (24 October 2026):** public `/services/:serviceId` now provides
 P-10 description/provider summary, read-only package comparison, extras information
 and unavailable/loading/error states. Catalogue links open real service IDs; the

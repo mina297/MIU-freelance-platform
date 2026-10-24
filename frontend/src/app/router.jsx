@@ -18,6 +18,8 @@ import StudentProposalEdit from "../features/proposals/StudentProposalEdit.jsx";
 import ProjectOrderSummary from "../features/orders/ProjectOrderSummary.jsx";
 import ServicesCatalogue from "../features/services/ServicesCatalogue.jsx";
 import ServiceDetails from "../features/services/ServiceDetails.jsx";
+import StudentServices from "../features/services/StudentServices.jsx";
+import ServiceForm from "../features/services/ServiceForm.jsx";
 import AppLayout from "../layouts/AppLayout.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
 import AdminLayout from "../layouts/AdminLayout.jsx";
@@ -78,6 +80,9 @@ const featurePages = {
   "/": <LandingPage />,
   "/services": <ServicesCatalogue />,
   "/services/:serviceId": <ServiceDetails />,
+  "/student/services": <StudentServices />,
+  "/student/services/new": <ServiceForm />,
+  "/student/services/:serviceId/edit": <ServiceForm />,
   "/about": <AboutPage destinations={publicDestinations} />,
   "/how-it-works": (
     <HowItWorksPage

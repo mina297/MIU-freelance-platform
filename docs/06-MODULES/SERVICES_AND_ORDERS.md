@@ -18,6 +18,43 @@ The service marketplace is inspired by Khamsat.
 
 ## 2. Student Services
 
+### Current student management demonstration — 24 October 2026 (FR-S07; P-13)
+
+Student-only `/student/services`, `/student/services/new` and
+`/student/services/:serviceId/edit` provide an owned listing workspace and a
+validated form with editable package/extra rows. Students define package names,
+scope, newline-delimited deliverables, positive EGP prices and positive whole-day
+delivery estimates. Extras permit non-negative EGP amounts and whole added days.
+Category/skill IDs must come from the shared lists. Amount precision and text
+lengths are bounded for safe demo input; no fixed package-count/tier policy is added.
+
+The form validates before a private preview and saving. At least one complete
+package is required even for saved drafts; incomplete drafts are not persisted.
+Saving a new service creates a private draft. Editing preserves its draft,
+published or paused status. Unsaved form values clear on leaving/account switching.
+Publishing, pausing and removal use confirmation dialogs; cancel changes nothing.
+Active students may draft/preview/save and pause eligible listings, but approved
+verification is required to publish or edit a published listing. Every store
+mutation rechecks current ownership, activity, status and linked orders.
+
+As a conservative demo safeguard while historical pricing/cancellation rules are
+unresolved, any linked service order blocks editing/removal. Pause remains allowed
+and does not cancel/reprice existing orders. Removal is session-only, with no undo;
+it removes an uncommitted listing and its packages/extras. Refresh restores fixtures.
+Re-publishing a paused service requires approved verification and valid saved terms.
+Package/extra IDs belonging to the same listing are retained; foreign IDs cannot be
+reassigned. No real upload, portfolio edit, review, verification or financial action
+is performed. Existing portfolio references are preserved unchanged.
+
+`serviceStore` exposes immutable data snapshots and subscriptions. Catalogue,
+public details and default service selectors use those same live records. Drafts
+and paused services are excluded from public views; new publications/edits and
+pauses/removals update the public UI without a refresh. Explicit fixture injection
+remains available for tests/previews. Runtime registrations contribute only a safe
+public ID/display-name adapter, not credentials or invented profile facts.
+All changes reset on refresh. Manual browser/keyboard/responsive/focus acceptance
+is deferred at Mina's request until the remaining Member 2 implementation is done.
+
 Students can:
 - Create a service
 - Edit service information
@@ -73,7 +110,7 @@ place them last. A native disclosure previews that starting package's scope.
 The catalogue uses no invented ratings, verified badges or profile links.
 
 Service details are now connected through `/services/:serviceId` as described
-below. Profiles, publishing, package selection and ordering remain separate
+below. Student publishing/management is described in section 2. Profiles, package selection and ordering remain separate
 increments; no checkout actions are fabricated. New fictional records preserve
 existing service/order IDs and totals.
 Loading/error props are presentation states for future adapters, not a real fetch.

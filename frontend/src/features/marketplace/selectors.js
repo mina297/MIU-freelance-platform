@@ -1,6 +1,7 @@
 import { marketplaceData } from "../../data/fixtures/marketplace.js";
 import { mergeProjects, projectStore } from "../projects/projectStore.js";
 import { orderStore } from "../orders/orderStore.js";
+import { serviceStore } from "../services/serviceStore.js";
 
 const currentData = () => ({ ...marketplaceData, projects: mergeProjects(marketplaceData.projects, projectStore.getSnapshot()) });
 
@@ -8,7 +9,7 @@ const currentData = () => ({ ...marketplaceData, projects: mergeProjects(marketp
 export const getProjectById = (id, data = currentData()) =>
   data.projects.find((project) => project.id === id) ?? null;
 
-export const getServiceById = (id, data = marketplaceData) =>
+export const getServiceById = (id, data = serviceStore.getSnapshot()) =>
   data.services.find((service) => service.id === id) ?? null;
 
 export const getOrderById = (id, data = { orders: orderStore.getSnapshot() }) =>
@@ -23,13 +24,13 @@ export const getProposalsByProject = (projectId, data = marketplaceData) =>
 export const getProposalsByStudent = (studentId, data = marketplaceData) =>
   data.proposals.filter((proposal) => proposal.studentId === studentId);
 
-export const getServicesByStudent = (studentId, data = marketplaceData) =>
+export const getServicesByStudent = (studentId, data = serviceStore.getSnapshot()) =>
   data.services.filter((service) => service.studentId === studentId);
 
-export const getPackagesByService = (serviceId, data = marketplaceData) =>
+export const getPackagesByService = (serviceId, data = serviceStore.getSnapshot()) =>
   data.servicePackages.filter((servicePackage) => servicePackage.serviceId === serviceId);
 
-export const getExtrasByService = (serviceId, data = marketplaceData) =>
+export const getExtrasByService = (serviceId, data = serviceStore.getSnapshot()) =>
   data.serviceExtras.filter((extra) => extra.serviceId === serviceId);
 
 export const getOrdersByClient = (clientId, data = { orders: orderStore.getSnapshot() }) =>
@@ -56,7 +57,7 @@ export function findProjects({ query = "", categoryId, skillId, status } = {}, d
 }
 
 /** Filter service listings using the same search terms and filter semantics. */
-export function findServices({ query = "", categoryId, skillId, status } = {}, data = marketplaceData) {
+export function findServices({ query = "", categoryId, skillId, status } = {}, data = serviceStore.getSnapshot()) {
   return data.services.filter(
     (service) =>
       includesQuery(service, query) &&

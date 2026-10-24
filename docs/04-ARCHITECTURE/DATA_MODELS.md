@@ -8,6 +8,19 @@ tags: [MIU, data-models, database]
 
 # MIU Freelance Platform — Data Models
 
+### Phase 1 service-management state adapter (24 October 2026)
+
+`features/services/serviceStore.js` maintains immutable Service, ServicePackage and
+ServiceExtra snapshots with `getSnapshot()` / `subscribe()`. `save(values, session,
+existingId, submissionId)` validates and updates owned terms or creates one private
+draft per creation token; `transition(id, session, action)` rechecks publish/pause/
+remove eligibility. Default service selectors and reactive public/owner screens
+use this adapter; explicit data arguments remain supported. IDs, ownership and
+created timestamps cannot be overwritten through form fields. Linked order terms
+are protected by blocking editing/removal, while pause preserves related records.
+Runtime student adapters expose only ID/displayName. This is memory-only demo state,
+not a database, authenticated API or persistent session. Existing contracts remain.
+
 ## 1. Purpose
 
 Describe the conceptual records required by the platform.
