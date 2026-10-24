@@ -359,6 +359,8 @@ Rounded authentication forms and shorter prototype wording pass all 36 automated
 
 ### Freelancer discovery profile dependency — 24 October 2026
 
+The skills-matching page at `/recommendations` is a deterministic Phase 1 demonstration. Feedback remains local, and no AI model, trained personalization or production escalation endpoint is connected. End-to-end browser interaction and accessibility checks remain deferred along with the marketplace integration review. Member 5 profile identity alignment and Member 3 financial integration remain separate dependencies.
+
 The public directory is based on published service providers. Full profile links remain deferred: cached Member 5 profile fixtures use different names for canonical `student_001`/`student_002` IDs. Reconcile identities before connecting profiles, reviews or availability. See [Freelancer Discovery](../06-MODULES/FREELANCER_DISCOVERY.md). Manual browser/mobile/keyboard/screen-reader acceptance remains deferred; the existing production bundle-size warning remains open.
 
 - [Project Scope](../01-PROJECT/PROJECT_SCOPE.md)

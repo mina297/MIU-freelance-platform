@@ -349,6 +349,8 @@ Before changing a shared path:
 
 ### Freelancer directory implementation
 
+`/recommendations` is also connected to the public shell, navigation menu and marketplace footer. It supports explicit skills/category choices for simulated project, service and provider suggestions, with reasons, local feedback and unrestricted catalogue browsing. It requires no authenticated session because it uses only public listings. See [AI Features](../06-MODULES/AI_FEATURES.md#phase-1-skills-matching-demonstration--24-october-2026).
+
 `/freelancers` is connected to the public shell and navigation. It browses providers of published services with search, category, skill and EGP starting-price filters. Cards link to registered `/services/:serviceId` pages. Full student-profile links await Member 5 identity reconciliation; this route does not complete FR-C06. See [Freelancer Discovery](../06-MODULES/FREELANCER_DISCOVERY.md).
 
 - [SRS](../01-PROJECT/SRS.md)

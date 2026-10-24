@@ -4,6 +4,7 @@ export const publicDestinations = Object.freeze({
   projects: "/projects",
   services: "/services",
   freelancers: "/freelancers",
+  recommendations: "/recommendations",
   howItWorks: "/how-it-works",
   about: "/about",
   login: "/login",
