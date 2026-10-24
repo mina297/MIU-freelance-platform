@@ -73,3 +73,9 @@ history, open/close dialogs with keyboard, test all preview states, verify disab
 Browser script accepts a path to a Puppeteer-compatible module and optional
 Chrome executable as arguments. Browser tooling was reused from the local
 environment; no runtime or development dependencies were added.
+
+
+24 October 2026 routing integration: `/student/dashboard` now maps to the existing
+`StudentDashboard` in the shared router content outlet. The shared navbar, layout
+and student role guard are preserved. Mock sessions remain memory-only: refresh
+requires signing in again before returning to the dashboard.
