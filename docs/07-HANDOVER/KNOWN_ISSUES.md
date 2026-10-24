@@ -23,6 +23,14 @@ Do not confuse a planned feature with a software defect.
 
 ## 3. Current Known Limitations
 
+**Client proposal review:** incoming proposal review, filtering, sorting, up-to-three
+comparison and reversible shortlisting are implemented in the demo. Student profile
+navigation (FR-C06), accept/reject, order creation, and live commitment integration
+are pending. New submissions and shortlist changes share proposalStore snapshots;
+existing fixture-only query helpers are not reactive review adapters. Browser
+interaction, comparison selection/keyboard checks, and mobile/desktop visual
+acceptance remain unverified. Refresh restores the proposal fixtures.
+
 **Project creation (24 October 2026):** `/client/projects/new` is a simulated
 create/preview/publish flow with private saved drafts and owned-open-project editing.
 `/client/projects` provides the client's list; `/client/projects/:projectId/edit`

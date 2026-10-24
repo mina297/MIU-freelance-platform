@@ -12,6 +12,7 @@ import ProjectDetails from "../features/projects/ProjectDetails.jsx";
 import ProjectCreate from "../features/projects/ProjectCreate.jsx";
 import ClientProjects from "../features/projects/ClientProjects.jsx";
 import ProposalEntry from "../features/proposals/ProposalEntry.jsx";
+import ClientProposals from "../features/proposals/ClientProposals.jsx";
 import AppLayout from "../layouts/AppLayout.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
 import AdminLayout from "../layouts/AdminLayout.jsx";
@@ -91,6 +92,7 @@ const featurePages = {
   "/projects": <ProjectsCatalogueRoute />,
   "/client/projects/new": <ProjectCreate />,
   "/client/projects": <ClientProjects />,
+  "/client/projects/:projectId/proposals": <ClientProposals />,
   "/client/projects/:projectId/edit": <ProjectCreate />,
   "/projects/:projectId": <ProjectDetailsRoute />,
   "/login": <LoginPage />,

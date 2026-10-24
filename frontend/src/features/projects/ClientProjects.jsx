@@ -105,6 +105,11 @@ export default function ClientProjects() {
                     </Link>
                   )}
                   {!draft && (
+                    <Link to={`/client/projects/${record.id}/proposals`}>
+                      Review proposals
+                    </Link>
+                  )}
+                  {!draft && (
                     <Link to={`/projects/${record.id}`}>View project</Link>
                   )}
                 </div>

@@ -74,6 +74,14 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
+**Client proposal review:** `/client/projects/:projectId/proposals` now renders a
+client-only, ownership-checked marketplace review screen, linked from My projects.
+P-17 currently covers incoming offers, search/status filters, sorting, comparison
+of two or three proposals, and simulated shortlist toggles. Closed/selected/cancelled
+project reviews are read-only. Profile navigation, acceptance/rejection and order
+creation remain pending. Missing and other-client records show a generic recovery
+state without proposal details. State changes reset to fixtures on refresh.
+
 **24 October 2026 project creation:** P-16 creation is available at
 `/client/projects/new`, using a standalone marketplace shell and the active-client
 guard. Post a project in the catalogue opens the form; visitors use the existing

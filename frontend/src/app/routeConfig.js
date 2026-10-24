@@ -40,6 +40,14 @@ export const routeConfig = [
     showInNavigation: false,
   },
   {
+    path: "/client/projects/:projectId/proposals",
+    title: "Review proposals",
+    layout: "standalone",
+    access: "roles",
+    roles: [ROLES.CLIENT],
+    showInNavigation: false,
+  },
+  {
     path: "/client/projects/new",
     title: "Create project",
     layout: "standalone",

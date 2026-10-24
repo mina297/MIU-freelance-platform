@@ -165,7 +165,7 @@ BR-06. Verification is rechecked when submitting, not just when opening the rout
 - [x] Add permitted attachment selection, validation, removal, and confirmation using safe fictional metadata. No real upload or storage is implemented.
 - [ ] Browser interaction checks: invalid-input focus, verified submission, duplicate prevention after returning, pending verification, and session switching.
 - [ ] Desktop/mobile visual and keyboard review, including P-08 screenshot evidence.
-- [ ] Student proposal list/edit/withdraw and client review remain separate workflows, not implemented by this submission screen.
+- [ ] Student proposal list/edit/withdraw remain separate workflows. Client review is now demonstrated as described in section 7.
 
 Automated render tests and store/validation tests do not replace the browser checks above.
 
@@ -188,6 +188,40 @@ Students can:
 - Withdraw a proposal while allowed
 
 ## 7. Client Proposal Review
+
+### Current review increment (FR-C05; P-17)
+
+The client-only `/client/projects/:projectId/proposals` route is linked from
+My projects. It verifies current ownership before displaying any project or proposal
+data. Unknown/other-client projects use the same generic recovery message. Owned
+projects with no proposals show an empty state. Non-open projects remain readable
+but cannot be shortlisted.
+
+The marketplace-styled page displays student names where supplied, EGP price,
+delivery days, submission date, cover message, status and fictional attachment
+metadata. It supports name/message search, status filters, deterministic sorting
+by newest, lowest price or shortest delivery, and side-by-side comparison of two
+or three selected proposals. Comparison selection survives filtering, but resets
+on project/account changes or leaving the page. The three-column cap is a display
+constraint, not a marketplace eligibility rule. Unknown student IDs have an explicit
+fallback label; profiles/ratings are not fabricated. FR-C06 profile navigation is
+still pending the profile module's registered route.
+
+The shared proposalStore now initializes from copied fictional proposal fixtures,
+exposes immutable observable snapshots, and includes new student submissions.
+Seeded records participate in duplicate prevention. Shortlist/Remove shortlist
+updates the same proposal seen by the student confirmation screen; current demo
+status is visible there. Every mutation rechecks active client role, ownership,
+current open-project status and submitted/shortlisted proposal status. Changes
+retain offer data and original submission time. Accepted/rejected/withdrawn records
+cannot be shortlisted. Repeated identical requests do not create another update.
+
+No notification or order is created; refresh restores fixture state. Public/static
+fixture query helpers are not the review state provider: review screens consume
+proposalStore snapshots. Acceptance, rejection, order creation, and live commitment
+integration remain subsequent work. Automated store/model/rendered-route tests
+cover this increment; browser, keyboard, focus and responsive visual checks remain
+pending because no browser connection is available.
 
 Clients can:
 
