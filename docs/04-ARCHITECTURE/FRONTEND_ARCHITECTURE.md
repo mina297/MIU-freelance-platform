@@ -101,6 +101,12 @@ Production permissions must be enforced by the backend.
 
 ## 6. State Management
 
+The Phase 1 chatbot mounts once in `src/App.jsx`, beside `AppRouter` under the
+existing `AuthProvider`. `features/chatbot/` owns its memory-only conversation,
+reply model and scoped styles; it reuses the existing session contract and UI
+components without adding a context or layout. Account/session transitions clear
+chatbot state before rendering. See [AI Features](../06-MODULES/AI_FEATURES.md).
+
 ### Local Component State
 Use for:
 - Form input
