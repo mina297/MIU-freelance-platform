@@ -160,6 +160,10 @@ Demonstrate:
 
 ## 14. Open Decisions
 
+The implemented committee frontend preview is documented in
+[Support & Disputes Dashboard](SUPPORT_DISPUTES_DASHBOARD.md). It uses fictional
+cases, evidence placeholders and local case notes; financial decisions are escalated.
+
 - Final financial approval thresholds
 - Escalation deadlines
 - Committee membership limits

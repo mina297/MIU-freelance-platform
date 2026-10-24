@@ -113,6 +113,10 @@ visual/browser verification remains tracked in the Projects and Proposals module
 
 ## 4. Layout Groups
 
+Support & Disputes preview: `/SupportDisputes` directly renders the complete fictional
+dashboard. `/committee/support` reuses it with its existing committee role guard.
+See [Support & Disputes Dashboard](../06-MODULES/SUPPORT_DISPUTES_DASHBOARD.md).
+
 **23 October 2026 — Member 4 landing/discovery:** `LandingPage.jsx` now provides
 public page content for `PublicLayout`, including hero/search, project and service
 discovery, minimal fictional student examples, and explicitly planned benefits.

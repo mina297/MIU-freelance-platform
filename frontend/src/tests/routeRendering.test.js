@@ -5,6 +5,58 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { MemoryRouter } from "react-router-dom";
 import { createServer } from "vite";
 
+test("SupportDisputes preview and committee route reuse the complete support dashboard", async () => {
+  const vite = await createServer({
+    server: { middlewareMode: true, hmr: false },
+    appType: "custom",
+  });
+  try {
+    const { default: AppRouter } = await vite.ssrLoadModule(
+      "/src/app/router.jsx",
+    );
+    const { AuthContext } = await vite.ssrLoadModule(
+      "/src/contexts/AuthContext.js",
+    );
+    for (const path of [
+      "/SupportDisputes",
+      "/supportdisputes",
+      "/committee/support",
+    ]) {
+      const html = renderToStaticMarkup(
+        React.createElement(
+          MemoryRouter,
+          { initialEntries: [path] },
+          React.createElement(
+            AuthContext.Provider,
+            {
+              value: {
+                session: {
+                  status: "authenticated",
+                  user: {
+                    id: "committee_support_001",
+                    displayName: "Demo Support Reviewer",
+                    role: "support_disputes_committee",
+                    accountStatus: "active",
+                    verificationStatus: "pending",
+                  },
+                },
+              },
+            },
+            React.createElement(AppRouter),
+          ),
+        ),
+      );
+      assert.match(html, /Support &amp; Disputes Dashboard/);
+      assert.match(html, /Support case queues/);
+      assert.match(html, /Support case queue/);
+      assert.match(html, /No messages, uploads, payment actions/);
+      assert.doesNotMatch(html, /routing placeholder only/);
+    }
+  } finally {
+    await vite.close();
+  }
+});
+
 test("proposal routes render eligible, unverified, missing, closed, and submitted states", async () => {
   const vite = await createServer({
     server: { middlewareMode: true, hmr: false },

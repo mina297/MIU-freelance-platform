@@ -19,6 +19,7 @@ import RoleSelectionPage from "../features/auth/RoleSelectionPage.jsx";
 import RegisterPage from "../features/auth/RegisterPage.jsx";
 import ForgotPasswordPage from "../features/auth/ForgotPasswordPage.jsx";
 import ResetPasswordPage from "../features/auth/ResetPasswordPage.jsx";
+import SupportDisputesDashboard from "../features/support-disputes/SupportDisputesDashboard.jsx";
 
 const layouts = {
   standalone: <Outlet />,
@@ -56,6 +57,8 @@ function ProjectDetailsRoute() {
 }
 
 const featurePages = {
+  "/SupportDisputes": <SupportDisputesDashboard />,
+  "/committee/support": <SupportDisputesDashboard />,
   "/projects/:projectId/propose": <ProposalEntry />,
   "/projects": <ProjectsCatalogueRoute />,
   "/projects/:projectId": <ProjectDetailsRoute />,
