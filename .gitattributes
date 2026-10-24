@@ -1,0 +1,60 @@
+# Cross-platform default. Overrides core.autocrlf without changing user settings.
+* text=auto eol=lf
+
+# Source, documentation and configuration are always LF.
+.gitattributes text eol=lf
+.gitignore text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.mjs text eol=lf
+*.cjs text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.json text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.html text eol=lf
+*.htm text eol=lf
+*.xml text eol=lf
+*.svg text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.sh text eol=lf
+*.ps1 text eol=lf
+*.psm1 text eol=lf
+*.psd1 text eol=lf
+
+# Windows command scripts require CRLF in the working tree (LF in the index).
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary assets must never undergo newline conversion.
+*.png binary !eol
+*.jpg binary !eol
+*.jpeg binary !eol
+*.gif binary !eol
+*.webp binary !eol
+*.avif binary !eol
+*.ico binary !eol
+*.bmp binary !eol
+*.pdf binary !eol
+*.woff binary !eol
+*.woff2 binary !eol
+*.ttf binary !eol
+*.otf binary !eol
+*.eot binary !eol
+*.mp3 binary !eol
+*.mp4 binary !eol
+*.wav binary !eol
+*.webm binary !eol
+*.zip binary !eol
+*.7z binary !eol
+*.gz binary !eol
+*.br binary !eol
+*.exe binary !eol
+*.dll binary !eol
+
+*.node binary !eol

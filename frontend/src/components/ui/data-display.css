@@ -1,0 +1,309 @@
+/* Figma client overview: 71:11508/71:11534, mobile 71:11674/71:11701. */
+.miu-data-table.miu-card,
+.miu-stat-card.miu-card {
+  max-width: 100%;
+  box-shadow: 0 4px 16px rgb(17 17 17 / 3%);
+}
+
+.miu-data-display-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.miu-data-table.miu-card {
+  padding: 0;
+}
+
+.miu-data-table__intro {
+  display: grid;
+  gap: 4px;
+  padding: 24px;
+}
+
+.miu-data-table__intro :is(h2, h3, h4) {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.miu-data-table__intro p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.miu-data-table__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  padding: 0 24px 24px;
+}
+
+.miu-data-table__toolbar > * {
+  flex: 1 1 180px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.miu-data-table__table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.miu-data-table__table th,
+.miu-data-table__table td {
+  min-width: 0;
+  text-align: start;
+  vertical-align: middle;
+  overflow-wrap: anywhere;
+}
+
+.miu-data-table__head th {
+  height: 44px;
+  padding: 12px 24px;
+  background: #f8f8f9;
+  color: #4b5563;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.miu-data-table__head .miu-data-table__sortable-header {
+  padding-block: 0;
+}
+
+.miu-data-table .miu-data-table__sort {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #4b5563;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: start;
+}
+
+.miu-data-table__sort-hint {
+  font-weight: 400;
+}
+
+.miu-data-table__cell {
+  height: 88px;
+  padding: 16px 24px;
+  border-block-start: 1px solid #e5e7eb;
+  color: #4b5563;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.miu-data-table__cell--row-header {
+  color: var(--color-miu-black, #111111);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.miu-data-table__cell[data-align="end"] {
+  text-align: end;
+}
+.miu-data-table__cell[data-align="center"] {
+  text-align: center;
+}
+.miu-data-table__value {
+  min-width: 0;
+}
+.miu-data-table__mobile-label {
+  display: none;
+}
+
+.miu-data-table__feedback {
+  padding: 24px;
+}
+.miu-data-table .miu-data-table__feedback-card {
+  padding: 24px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.miu-data-table__footer {
+  padding: 16px;
+  border-block-start: 1px solid #e5e7eb;
+}
+
+.miu-stat-card.miu-card {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 20px;
+}
+
+.miu-stat-card dl {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+.miu-stat-card__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.miu-stat-card__heading > span:first-child {
+  min-width: 0;
+}
+.miu-stat-card__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  color: var(--color-miu-red, #b91c2b);
+}
+
+.miu-stat-card__value {
+  min-width: 0;
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.miu-stat-card__value--unavailable {
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.miu-stat-card__description,
+.miu-stat-card__error p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.miu-stat-card__error {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+}
+.miu-stat-card__error p {
+  color: var(--color-miu-red, #b91c2b);
+}
+
+@media (max-width: 767px) {
+  .miu-data-table__intro,
+  .miu-data-table__feedback,
+  .miu-data-table .miu-data-table__feedback-card {
+    padding: 16px;
+  }
+  .miu-data-table__intro :is(h2, h3, h4) {
+    font-size: 18px;
+  }
+  .miu-data-table__toolbar {
+    padding: 0 16px 16px;
+  }
+
+  .miu-data-table__table,
+  .miu-data-table__table tbody {
+    display: block;
+  }
+
+  .miu-data-table__table colgroup {
+    display: none;
+  }
+  .miu-data-table__head {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .miu-data-table__head--sortable {
+    position: static;
+    display: block;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    background: #f8f8f9;
+  }
+  .miu-data-table__head--sortable > tr {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 8px 16px;
+  }
+  .miu-data-table__head--sortable th:not(.miu-data-table__sortable-header) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .miu-data-table__head--sortable .miu-data-table__sortable-header {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    padding: 0;
+  }
+  .miu-data-table__table tbody > tr {
+    display: grid;
+    gap: 12px;
+    padding: 16px;
+    border-block-start: 1px solid #e5e7eb;
+  }
+  .miu-data-table__cell {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    padding: 0;
+    border: 0;
+  }
+  .miu-data-table__cell[data-align] {
+    text-align: start;
+  }
+  .miu-data-table__mobile-label {
+    display: block;
+    margin-block-end: 4px;
+    color: #4b5563;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .miu-data-table__cell--row-header .miu-data-table__mobile-label {
+    display: none;
+  }
+
+  .miu-stat-card.miu-card {
+    padding: 16px;
+  }
+  .miu-stat-card__heading {
+    font-size: 12px;
+  }
+  .miu-stat-card__value {
+    font-size: 28px;
+  }
+  .miu-stat-card__value--unavailable {
+    font-size: 14px;
+  }
+}

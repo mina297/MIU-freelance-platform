@@ -14,6 +14,8 @@ Build a maintainable, responsive React application that supports the Phase 1 moc
 
 ## 2. Selected Frontend Direction
 
+The production build separates `node_modules` into a vendor chunk using the installed Vite/Rolldown `build.rolldownOptions.output.codeSplitting.groups` API. The application chunk stays separate for caching; this does not provide route-level lazy loading or reduce total initial JavaScript. See the [M2 integration report](../07-HANDOVER/M2_MARKETPLACE_INTEGRATION_2026-10-24.md).
+
 - React with JavaScript
 - Vite
 - React Router
@@ -98,6 +100,12 @@ Route access checks in Phase 1 simulate intended authorization.
 Production permissions must be enforced by the backend.
 
 ## 6. State Management
+
+The Phase 1 chatbot mounts once in `src/App.jsx`, beside `AppRouter` under the
+existing `AuthProvider`. `features/chatbot/` owns its memory-only conversation,
+reply model and scoped styles; it reuses the existing session contract and UI
+components without adding a context or layout. Account/session transitions clear
+chatbot state before rendering. See [AI Features](../06-MODULES/AI_FEATURES.md).
 
 ### Local Component State
 Use for:

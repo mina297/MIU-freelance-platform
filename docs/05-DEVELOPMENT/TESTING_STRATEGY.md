@@ -16,11 +16,72 @@ Production backend and integration testing will be expanded during later develop
 
 ## 2. Testing Levels
 
+From `frontend/`, run `npm.cmd test` to discover all Node test files recursively,
+including shared UI and public-page tests. Tests run sequentially to avoid
+competing Vite test servers; middleware-only test servers disable HMR. New test
+files do not require a package-script update. Use `npm.cmd run lint` and
+`npm.cmd run build` for the remaining automated checks.
+
 ### Component Testing
+
+Chatbot feature-local tests cover canned topic matching/priority and fallback,
+blank and 500-character input boundaries, immutable message history, logout/expiry/
+account-switch cleanup, active-role visibility, safe text rendering and one global
+App widget across public/auth/application/admin/standalone routes. Tests use the
+existing Node model tests and Vite SSR conventions. Browser open/minimize/reopen,
+route persistence, focus/Escape, live announcements and mobile/zoom checks must be
+recorded separately; static markup and state tests are not browser acceptance.
 Test reusable controls, validation states, and common UI behavior.
 
 ### Feature Testing
 Test marketplace, profiles, authentication, dashboard, and administration interactions.
+
+Delivery model/store/render checks cover both source lifecycles, verified assigned
+student submission, client revision/acceptance, stale review rejection, wrong-role/
+foreign/inactive denial, awaiting-payment blocking, text/sample validation,
+immutable handover history, idempotent confirmations, completed workspace locking,
+list/status/timeline updates and unchanged agreed terms. Native dialog/keyboard/
+mobile/screen-reader/visual checks remain deferred rather than passed.
+
+Workspace model/store/render tests cover both order sources, active participant
+reads/writes, foreign-role denial, requirements permissions and stale versions,
+safe attachment allowlists, text limits/escaping, idempotent message sends,
+terminal-state rejection, per-order isolation, immutable snapshots, equal-time
+activity ordering and unchanged order terms/status. Native tab/focus/keyboard,
+screen-reader/mobile and visual checks remain deferred, not passed.
+
+Order-list model/render checks cover ownership before joins/aggregation, wrong-role
+and inactive/expired denial, pending-owner access, combined search/status/source,
+stable sorts, immutable source order, safe EGP summation, missing metadata, saved
+service titles, live service-order insertion, role-specific detail return links
+and suppression of stale cards/counts in loading/error views. Browser checks are
+deferred separately; automated rendering is not keyboard/visual acceptance.
+
+Service ordering tests cover approved client access, current published services,
+package/extra membership, duplicate extras, integer-cent totals, safe delivery
+arithmetic, stale price/scope/removal rejection, request idempotency, immutable
+terms, participant-only summaries and immediate listing commitment guards. Project
+order behavior remains in regression coverage. These do not verify actual native
+dialog focus/keyboard behavior or replace deferred browser acceptance.
+
+Student service-management model/store/route checks cover owned-only access,
+field/package/extra validation, immutable snapshots, duplicate creation prevention,
+private drafts, verification gates, lifecycle transitions, linked-order safeguards,
+ID allowlisting and live catalogue/detail updates. Complete drafts are required;
+incomplete form persistence is not implemented. Browser/keyboard/dialog-focus and
+responsive visual checks remain deferred, not passed, per the team lead's request.
+
+Service catalogue model/render tests cover published-only visibility, combined
+filters, non-overlapping price boundaries, consistent starting-package price and
+delivery, missing-price sorting, stable source order, public-shell landmarks,
+escaped content and loading/error/empty presentations. Browser interactions,
+mobile filter disclosure and visual acceptance remain separate manual checks.
+
+Service-detail model/render tests cover public published-only lookup, matching
+packages/extras, catalogue/detail starting-price consistency, unavailable records,
+missing package/provider metadata, unique comparison header/cell associations,
+loading/error suppression, escaping, hidden dynamic navigation and unchanged
+order snapshots. Live table-scroll, keyboard and mobile review remain pending.
 
 ### Integration Testing
 Verify that modules work together through shared mock data and routing.
@@ -45,6 +106,7 @@ Verify keyboard, focus, labels, and relevant assistive technology behavior.
 | Project posting | Client creates a project |
 | Proposal submission | Student submits a proposal |
 | Proposal comparison | Client reviews/selects a proposal |
+| Student proposal management | Student lists only owned offers, edits eligible terms, withdraws with confirmation and sees client/order updates |
 | Service publishing | Student creates a service package |
 | Service ordering | Client selects and orders a service |
 | Delivery | Student submits work |
@@ -148,7 +210,7 @@ Suggested tracking table:
 
 | Requirement ID | Screen/Module | Test Case | Result |
 |---|---|---|---|
-| FR-S05 | Proposal Form | Valid proposal submission | Not tested |
+| FR-S05 | Proposal Form | Valid simulated submission, eligibility, fields, fictional attachments, duplicate prevention, and confirmation rendering | Automated checks passed 23 October 2026; browser/visual review pending |
 | FR-C09 | Checkout | Simulated funding | Not tested |
 | FR-A04 | Committee Accounts | Create committee account | Not tested |
 | NFR-03 | All pages | Responsive check | Not tested |
@@ -179,6 +241,10 @@ Before the Phase 1 discussion:
 - Prepare fallback screenshots if necessary.
 
 ## Related Documents
+
+### Member 2 integration review — 24 October 2026
+
+`frontend/src/tests/marketplaceIntegration.test.js` covers the default-store project-to-proposal-to-order and service-to-order handoffs through rendered routes, including discovery updates, copied terms, duplicate protection, privacy and unpaid delivery guards. `marketplaceContrast.test.js` checks disclosure text and hero-focus colors mathematically. See the [M2 integration report](../07-HANDOVER/M2_MARKETPLACE_INTEGRATION_2026-10-24.md) for scope, fixes, routes and unrun browser/mobile/keyboard/screen-reader acceptance. Static SSR results do not substitute for those checks.
 
 - [SRS](../01-PROJECT/SRS.md)
 - [User Flows](../02-REQUIREMENTS/USER_FLOWS.md)

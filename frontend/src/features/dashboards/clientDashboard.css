@@ -1,0 +1,429 @@
+.client-dashboard .cd-red {
+  color: var(--color-miu-red);
+  font-weight: 600;
+}
+.client-dashboard .cd-nav-count {
+  margin-left: auto;
+  color: var(--color-miu-red);
+  font-size: 12px;
+}
+.cd-initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #fbe0e3;
+  background: #fdf2f3;
+  color: #b91c2b;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  font-weight: 600;
+}
+.cd-mobile-account {
+  display: none;
+}
+.client-dashboard .sd-brand > img {
+  object-fit: cover;
+}
+.cd-job-context {
+  display: none;
+}
+.cd-announcement:empty {
+  display: none;
+}
+.cd-announcement {
+  padding: 12px 16px;
+  background: #eaf6ed;
+  color: #1e7536;
+  border-radius: 8px;
+}
+.cd-table-head,
+.cd-job-row {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) 120px 180px 140px 32px;
+  gap: 24px;
+  padding: 16px 24px;
+  align-items: center;
+}
+.cd-table-head {
+  background: #f8f8f9;
+  color: #4b5563;
+  font-size: 11px;
+}
+.cd-job-row {
+  min-height: 88px;
+  border-top: 1px solid #e5e7eb;
+  color: #4b5563;
+  font-size: 13px;
+}
+.cd-job-title h3 {
+  font-weight: 600;
+  color: #111;
+  font-size: 14px;
+}
+.cd-job-row small {
+  display: block;
+  font-size: 12px;
+  margin-top: 4px;
+}
+.cd-job-applicants b {
+  color: #111;
+  font-weight: 600;
+}
+.cd-job-row .cd-mobile-label {
+  display: none;
+}
+.cd-open,
+.cd-completed {
+  background: #eaf6ed;
+  color: #1e7536;
+}
+.cd-in-progress {
+  background: #eff6ff;
+  color: #2563eb;
+}
+.cd-table-footer {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid #e5e7eb;
+  font-size: 12px;
+  color: #4b5563;
+}
+.cd-table-footer span:last-child {
+  color: #b91c2b;
+}
+.cd-active {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.cd-project-overview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.cd-project-overview h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+.cd-project-overview p {
+  font-size: 13px;
+  color: #4b5563;
+  margin-top: 8px;
+}
+.cd-person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.cd-person b {
+  font-weight: 600;
+}
+.cd-person small {
+  display: block;
+  font-size: 12px;
+  color: #4b5563;
+  margin-top: 4px;
+}
+.cd-project-overview .cd-initials {
+  width: 44px;
+  height: 44px;
+  border: 0;
+}
+.cd-active dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.cd-active dt {
+  font-size: 12px;
+  color: #4b5563;
+}
+.cd-active dd {
+  margin-top: 4px;
+  font-weight: 600;
+}
+.cd-active .sd-progress strong {
+  color: #111;
+  font-weight: 600;
+}
+.cd-approval {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: #fdf2f3;
+  padding: 16px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+.cd-approval b {
+  font-weight: 600;
+}
+.cd-approval p {
+  color: #4b5563;
+  font-size: 12px;
+  margin-top: 4px;
+}
+.cd-review-reminder {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  gap: 16px;
+}
+.cd-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 16px;
+}
+.cd-filters input,
+.cd-filters select {
+  display: block;
+  background: #fff;
+  padding: 10px 12px;
+  border: 1px solid #9ca3af;
+  border-radius: 8px;
+  max-width: 100%;
+}
+.cd-applicant-job {
+  padding: 16px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+.cd-applicant-job .sd-button {
+  margin-top: 12px;
+}
+.cd-dialog {
+  width: calc(100% - 40px);
+  max-width: 560px;
+  padding: 32px;
+  border-radius: 16px;
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+}
+.cd-dialog-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.cd-dialog-heading h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+.cd-dialog-heading button {
+  min-width: 32px;
+  min-height: 32px;
+  display: grid;
+  place-items: center;
+}
+.cd-dialog::backdrop {
+  background: #1116;
+}
+.cd-dialog button:focus-visible,
+.cd-dialog textarea:focus-visible,
+.cd-stars label:has(input:focus-visible) {
+  outline: 3px solid #2563eb;
+  outline-offset: 3px;
+}
+.cd-dialog button {
+  cursor: pointer;
+}
+.cd-dialog .cd-reviewed-project {
+  background: #f8f8f9;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.cd-reviewed-project img {
+  border-radius: 50%;
+  object-fit: cover;
+}
+.cd-reviewed-project > b {
+  font-size: 14px;
+  font-weight: 600;
+}
+.cd-dialog small {
+  font-size: 12px;
+  color: #4b5563;
+}
+.cd-review-dialog form {
+  margin-top: 24px;
+}
+.cd-review-dialog {
+  margin: 176px auto auto;
+  max-height: calc(100dvh - 196px);
+}
+.cd-stars {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+}
+.cd-stars label {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff7e6;
+  color: #f5b301;
+  font-size: 32px;
+  cursor: pointer;
+}
+.cd-stars input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.cd-review-dialog legend,
+.cd-review-dialog form > label {
+  font-weight: 600;
+}
+.cd-review-dialog form > label {
+  display: block;
+  margin-top: 24px;
+}
+.cd-review-dialog textarea {
+  width: 100%;
+  min-height: 124px;
+  border: 1px solid #e5e7eb;
+  border-radius: 40px;
+  padding: 12px 32px;
+  margin: 8px 0;
+  resize: vertical;
+}
+.cd-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+.client-dashboard button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+@media (max-width: 1350px) {
+  .cd-table-head,
+  .cd-job-row {
+    grid-template-columns: minmax(150px, 1fr) 100px 135px 100px 32px;
+    gap: 12px;
+  }
+}
+@media (max-width: 1099px) {
+  .cd-mobile-account {
+    display: inline-flex;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 760px) {
+  .client-dashboard h2 {
+    font-size: 18px;
+  }
+  .cd-table-head {
+    display: none;
+  }
+  .cd-job-row {
+    position: relative;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 16px;
+    padding: 16px;
+  }
+  .cd-job-title {
+    grid-column: 1/-1;
+    padding-right: 44px;
+  }
+  .cd-job-title small {
+    display: none;
+  }
+  .cd-job-status {
+    grid-column: 1/-1;
+  }
+  .cd-job-row .cd-mobile-label {
+    display: block;
+    margin: 0 0 4px;
+  }
+  .cd-job-row .sd-more {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+  .cd-job-applicants > small:last-child {
+    display: none;
+  }
+  .cd-job-deadline time {
+    color: #111;
+    font-weight: 600;
+  }
+  .cd-job-context {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    grid-column: 1/-1;
+    font-size: 11px;
+    color: #4b5563;
+  }
+  .client-dashboard .sd-menu {
+    display: grid;
+    place-items: center;
+    top: 14px;
+    min-height: 44px;
+  }
+  .cd-project-overview,
+  .cd-approval,
+  .cd-review-reminder {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cd-active,
+  .cd-review-reminder {
+    padding: 20px;
+  }
+  .cd-approval .sd-button,
+  .cd-review-reminder .sd-button {
+    width: 100%;
+  }
+  .cd-dialog {
+    padding: 20px;
+  }
+  .cd-dialog-heading h2 {
+    font-size: 24px;
+  }
+  .cd-review-dialog {
+    margin: 96px auto auto;
+    max-height: calc(100dvh - 116px);
+  }
+  .cd-stars label {
+    width: 40px;
+  }
+  .cd-review-dialog textarea {
+    padding: 12px 39px;
+    border-radius: 64px;
+    min-height: 128px;
+  }
+}
+@media (max-height: 800px) {
+  .cd-review-dialog {
+    margin-top: 20px;
+    max-height: calc(100dvh - 40px);
+  }
+}

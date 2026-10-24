@@ -40,6 +40,13 @@ Financial screens may display:
 
 ## 4. Planned Checkout Flow
 
+**Current service-order handoff:** `/services/:serviceId/order` confirms package
+and extra terms and creates one in-memory `awaiting_payment` Order. Its
+participant-only `/orders/:orderId` summary explicitly states no money was
+collected, escrow funded or delivery started. This is an order-creation handoff,
+not Member 3's checkout/payment simulation or provider integration. No fees or
+financial status changes are invented by this increment.
+
 1. Client selects a proposal or service package.
 2. System presents order summary.
 3. System calculates and displays the EGP amount.
@@ -130,6 +137,15 @@ Provide:
 - Finance Committee dashboard
 
 Use fictional transaction references.
+
+The `/Checkout` entry and client-only `/checkout/:orderId` implement the service
+checkout demonstration described in [Checkout and Payment UI](CHECKOUT_PAYMENT_UI.md).
+The current frontend task funds an initial 50%, records it as held in mock escrow,
+and leaves 50% unpaid. Successful demo payments update a shared in-memory client
+service-status overlay and transaction history at `/client/dashboard` and
+`/client/payments`. The service stays In Progress, not completed. No real card
+credentials, money movement, automatic release or remaining-balance charge exists.
+Approved production fees and financial authorities remain open decisions.
 
 ## 11. Open Decisions
 
