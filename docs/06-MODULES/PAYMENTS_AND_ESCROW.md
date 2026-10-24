@@ -133,6 +133,10 @@ Use fictional transaction references.
 
 ## 11. Open Decisions
 
+The current committee frontend is documented in
+[Finance Dashboard](FINANCE_DASHBOARD.md). It uses a fictional reconciled ledger
+and local review notes; no real payments, approvals or escrow releases are performed.
+
 - Payment provider
 - Commission structure
 - Escrow custody arrangement

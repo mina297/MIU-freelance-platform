@@ -5,6 +5,54 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { MemoryRouter } from "react-router-dom";
 import { createServer } from "vite";
 
+test("Finance direct preview and protected committee route render the same complete dashboard", async () => {
+  const vite = await createServer({
+    server: { middlewareMode: true, hmr: false },
+    appType: "custom",
+  });
+  try {
+    const { default: AppRouter } = await vite.ssrLoadModule(
+      "/src/app/router.jsx",
+    );
+    const { AuthContext } = await vite.ssrLoadModule(
+      "/src/contexts/AuthContext.js",
+    );
+    for (const path of ["/Finance", "/finance", "/committee/finance"]) {
+      const html = renderToStaticMarkup(
+        React.createElement(
+          MemoryRouter,
+          { initialEntries: [path] },
+          React.createElement(
+            AuthContext.Provider,
+            {
+              value: {
+                session: {
+                  status: "authenticated",
+                  user: {
+                    id: "committee_finance_001",
+                    displayName: "Demo Finance Reviewer",
+                    role: "finance_committee",
+                    accountStatus: "active",
+                    verificationStatus: "pending",
+                  },
+                },
+              },
+            },
+            React.createElement(AppRouter),
+          ),
+        ),
+      );
+      assert.match(html, /Finance Dashboard/);
+      assert.match(html, /Finance sections/);
+      assert.match(html, /Transaction history/);
+      assert.match(html, /No payment provider/);
+      assert.doesNotMatch(html, /routing placeholder only/);
+    }
+  } finally {
+    await vite.close();
+  }
+});
+
 test("proposal routes render eligible, unverified, missing, closed, and submitted states", async () => {
   const vite = await createServer({
     server: { middlewareMode: true, hmr: false },

@@ -113,6 +113,11 @@ visual/browser verification remains tracked in the Projects and Proposals module
 
 ## 4. Layout Groups
 
+Finance preview: `/Finance` directly renders the complete fictional dashboard.
+`/committee/finance` uses the same component with its existing Finance Committee
+role guard. Other registered paths remain unchanged. See
+[Finance Dashboard](../06-MODULES/FINANCE_DASHBOARD.md).
+
 **23 October 2026 — Member 4 landing/discovery:** `LandingPage.jsx` now provides
 public page content for `PublicLayout`, including hero/search, project and service
 discovery, minimal fictional student examples, and explicitly planned benefits.
