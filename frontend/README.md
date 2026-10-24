@@ -23,6 +23,16 @@ existing standalone layout. Approved translations are pending; the interface is 
 
 ## Technology
 
+### Order workspace
+
+Open an owned `/orders/:orderId`, e.g. `/orders/order_001` as Nile Studio or Omar
+Nabil. Both project/service views include Requirements, Messages and Progress &
+activity tabs. Clients can save versioned coordination notes; participants exchange
+fictional messages and fixed sample attachment IDs. No real files/notifications,
+payments, delivery actions, percentages or deadlines are created. Completed and
+cancelled orders are read-only; all workspace data resets on refresh. Manual
+browser/tab/focus/mobile acceptance remains deferred.
+
 ### Student and client order lists
 
 Open `/student/orders` or `/client/orders` in the matching fictional account.

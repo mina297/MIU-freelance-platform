@@ -74,6 +74,12 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
+**Order workspace (24 October 2026):** `/orders/:orderId` preserves both source
+summaries and now includes participant-only Requirements, Messages and Progress &
+activity tabs. Client notes are versioned, conversation attachments are fictional
+allowlisted metadata, and the log records real demo actions only. No new route,
+payment, status mutation, delivery submission or milestone workflow is introduced.
+
 **Order lists (24 October 2026):** `/client/orders` and `/student/orders` now
 render owned-only live project/service order lists, with search/status/source
 filters, deterministic sorting, non-financial EGP value summaries and recovery

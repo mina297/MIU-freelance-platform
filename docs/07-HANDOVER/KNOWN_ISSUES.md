@@ -7,6 +7,23 @@ tags: [MIU, issues, decisions]
 
 # MIU Freelance Platform — Known Issues and Open Decisions
 
+## Order workspace increment — 24 October 2026
+
+Automated verification: all 223 tests, ESLint and production build passed. The
+local order URL responds HTTP 200; browser interaction acceptance is still
+deferred and must not be inferred from that response or static render tests.
+
+Both order views now include shared participant-only requirements, messages and
+recorded activity. Live authorization/state checks, versioned client notes and
+message retry guards are implemented. Sample attachments have no real files,
+uploads/downloads or notifications. Requirements are coordination notes only;
+status/price/scope/funding/deadlines are not changed. Terminal orders retain history
+but disallow writes; delivered/disputed notes are also read-only in this demo.
+Delivery/revisions/completion, milestone management and financial flows remain
+separate increments. The timeline does not infer payment history or percentages.
+Manual browser/keyboard/tab/focus, responsive, screen-reader and visual acceptance
+remain deferred at Mina's request. The bundle-size warning remains outstanding.
+
 ## Order lists increment — 24 October 2026
 
 Automated verification: all 216 tests, ESLint and production build passed. The

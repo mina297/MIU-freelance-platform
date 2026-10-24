@@ -4,6 +4,7 @@ import { useAuth } from "../../hooks/useAuth.js";
 import { useServiceData } from "../services/useServiceData.js";
 import { orderStore } from "./orderStore.js";
 import ProjectOrderSummary from "./ProjectOrderSummary.jsx";
+import OrderCollaboration from "./OrderCollaboration.jsx";
 import { formatEGP } from "../../utils/formatEGP.js";
 import "../projects/project-create.css";
 import "../services/service-order.css";
@@ -77,8 +78,8 @@ export default function OrderSummary() {
           </h2>
           <p>
             No payment has been processed, no escrow funded and no delivery
-            timer started by creating this order. Checkout, payment simulation
-            and the full order workspace remain separate workflows.
+            timer started by creating this order. Use the workspace below for
+            notes and messages. Checkout and delivery actions remain separate.
           </p>
           <dl className="project-create__facts">
             <div>
@@ -144,6 +145,7 @@ export default function OrderSummary() {
             <Link to="/services">Browse services</Link>
           </div>
         </section>
+        <OrderCollaboration order={order} />
       </div>
     </main>
   );
