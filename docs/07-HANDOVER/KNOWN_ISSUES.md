@@ -23,6 +23,9 @@ Do not confuse a planned feature with a software defect.
 
 ## 3. Current Known Limitations
 
+The current Member 2 review status, manual acceptance steps and suggested PR text
+are recorded in [Client proposals handover checklist](MEMBER2_CLIENT_PROPOSALS_REVIEW.md).
+
 **Client proposal review:** incoming proposal review, filtering, sorting, up-to-three
 comparison and reversible shortlisting are implemented in the demo. Student profile
 navigation (FR-C06) and full order/checkout workflows remain pending. Confirmed
