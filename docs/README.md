@@ -1,4 +1,3 @@
-
 # MIU Freelance Platform — Documentation Hub
 
 Welcome to the central documentation directory for the MIU Freelance Platform.
@@ -14,53 +13,54 @@ This documentation is intended for:
 
 ### 01 — Project
 
-| Document | Purpose |
-|---|---|
-| [Project Overview](01-PROJECT/PROJECT_OVERVIEW.md) | Vision, objectives, and project description |
-| [SRS](01-PROJECT/SRS.md) | Requirements baseline, Version 1.1 |
-| [Project Scope](01-PROJECT/PROJECT_SCOPE.md) | In-scope, out-of-scope, and future work |
-| [Development Roadmap](01-PROJECT/DEVELOPMENT_ROADMAP.md) | Project phases and milestones |
+| Document                                                 | Purpose                                     |
+| -------------------------------------------------------- | ------------------------------------------- |
+| [Project Overview](01-PROJECT/PROJECT_OVERVIEW.md)       | Vision, objectives, and project description |
+| [SRS](01-PROJECT/SRS.md)                                 | Requirements baseline, Version 1.1          |
+| [Project Scope](01-PROJECT/PROJECT_SCOPE.md)             | In-scope, out-of-scope, and future work     |
+| [Development Roadmap](01-PROJECT/DEVELOPMENT_ROADMAP.md) | Project phases and milestones               |
 
 ### 02 — Requirements
 
-| Document | Purpose |
-|---|---|
-| [Features](02-REQUIREMENTS/FEATURES.md) | Functional capability catalogue |
-| [Roles and Permissions](02-REQUIREMENTS/USER_ROLES_AND_PERMISSIONS.md) | Access and authorization rules |
-| [User Flows](02-REQUIREMENTS/USER_FLOWS.md) | End-to-end journeys |
-| [Business Rules](02-REQUIREMENTS/BUSINESS_RULES.md) | Marketplace and administrative rules |
+| Document                                                               | Purpose                              |
+| ---------------------------------------------------------------------- | ------------------------------------ |
+| [Features](02-REQUIREMENTS/FEATURES.md)                                | Functional capability catalogue      |
+| [Roles and Permissions](02-REQUIREMENTS/USER_ROLES_AND_PERMISSIONS.md) | Access and authorization rules       |
+| [User Flows](02-REQUIREMENTS/USER_FLOWS.md)                            | End-to-end journeys                  |
+| [Business Rules](02-REQUIREMENTS/BUSINESS_RULES.md)                    | Marketplace and administrative rules |
 
 ### 03 — Design
 
-| Document | Purpose |
-|---|---|
-| [Design System](03-DESIGN/DESIGN_SYSTEM.md) | Visual design conventions and tokens |
-| [Pages and Routes](03-DESIGN/PAGES_AND_ROUTES.md) | Screen inventory and navigation |
-| [UI Components](03-DESIGN/UI_COMPONENTS.md) | Reusable interface component catalogue |
+| Document                                          | Purpose                                |
+| ------------------------------------------------- | -------------------------------------- |
+| [Design System](03-DESIGN/DESIGN_SYSTEM.md)       | Visual design conventions and tokens   |
+| [Pages and Routes](03-DESIGN/PAGES_AND_ROUTES.md) | Screen inventory and navigation        |
+| [UI Components](03-DESIGN/UI_COMPONENTS.md)       | Reusable interface component catalogue |
 
 ### 04 — Architecture
 
-| Document | Purpose |
-|---|---|
-| [System Architecture](04-ARCHITECTURE/SYSTEM_ARCHITECTURE.md) | Overall planned technical structure |
-| [Frontend Architecture](04-ARCHITECTURE/FRONTEND_ARCHITECTURE.md) | React architecture and state |
-| [Data Models](04-ARCHITECTURE/DATA_MODELS.md) | Conceptual entities and relationships |
-| [API Contracts](04-ARCHITECTURE/API_CONTRACTS.md) | Proposed future API conventions |
+| Document                                                          | Purpose                               |
+| ----------------------------------------------------------------- | ------------------------------------- |
+| [System Architecture](04-ARCHITECTURE/SYSTEM_ARCHITECTURE.md)     | Overall planned technical structure   |
+| [Frontend Architecture](04-ARCHITECTURE/FRONTEND_ARCHITECTURE.md) | React architecture and state          |
+| [Data Models](04-ARCHITECTURE/DATA_MODELS.md)                     | Conceptual entities and relationships |
+| [API Contracts](04-ARCHITECTURE/API_CONTRACTS.md)                 | Proposed future API conventions       |
 
 ### 05 — Development
 
-| Document | Purpose |
-|---|---|
-| [Work Distribution](05-DEVELOPMENT/PHASE1_WORK_DISTRIBUTION.md) | Member 1–5 responsibilities |
-| [Coding Standards](05-DEVELOPMENT/CODING_STANDARDS.md) | Code quality rules |
-| [Git Workflow](05-DEVELOPMENT/GIT_WORKFLOW.md) | Collaboration and pull requests |
-| [Testing Strategy](05-DEVELOPMENT/TESTING_STRATEGY.md) | QA and test expectations |
+| Document                                                        | Purpose                         |
+| --------------------------------------------------------------- | ------------------------------- |
+| [Work Distribution](05-DEVELOPMENT/PHASE1_WORK_DISTRIBUTION.md) | Member 1–5 responsibilities     |
+| [Coding Standards](05-DEVELOPMENT/CODING_STANDARDS.md)          | Code quality rules              |
+| [Git Workflow](05-DEVELOPMENT/GIT_WORKFLOW.md)                  | Collaboration and pull requests |
+| [Testing Strategy](05-DEVELOPMENT/TESTING_STRATEGY.md)          | QA and test expectations        |
 
 ### 06 — Modules
 
 | Document | Purpose |
 |---|---|
 | [Authentication](06-MODULES/AUTHENTICATION.md) | Accounts and sessions |
+| [Landing Page](06-MODULES/LANDING_PAGE.md) | Public discovery and Figma prototype behavior |
 | [Verification](06-MODULES/VERIFICATION.md) | Identity workflow |
 | [Projects and Proposals](06-MODULES/PROJECTS_AND_PROPOSALS.md) | Project marketplace |
 | [Services and Orders](06-MODULES/SERVICES_AND_ORDERS.md) | Service marketplace |
@@ -71,11 +71,12 @@ This documentation is intended for:
 
 ### 07 — Handover
 
-| Document | Purpose |
-|---|---|
-| [Deployment Guide](07-HANDOVER/DEPLOYMENT_GUIDE.md) | Deployment preparation and procedures awaiting verification |
-| [Maintenance Guide](07-HANDOVER/MAINTENANCE_GUIDE.md) | Long-term development guidance |
-| [Known Issues](07-HANDOVER/KNOWN_ISSUES.md) | Open questions, issues, and limitations |
+| Document                                                   | Purpose                                                                                |
+| ---------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| [Deployment Guide](07-HANDOVER/DEPLOYMENT_GUIDE.md)        | Deployment preparation and procedures awaiting verification                            |
+| [Maintenance Guide](07-HANDOVER/MAINTENANCE_GUIDE.md)      | Long-term development guidance                                                         |
+| [Known Issues](07-HANDOVER/KNOWN_ISSUES.md)                | Open questions, issues, and limitations                                                |
+| [Member 4 UI Handover](07-HANDOVER/MEMBER4_UI_HANDOVER.md) | Public/shared UI inventory, integration owners, verified checks and pending acceptance |
 
 ## Recommended Reading Order
 
@@ -112,17 +113,19 @@ Start with the SRS, scope, prototype inventory, and development roadmap.
 
 ## Document Status Terms
 
-| Status | Meaning |
-|---|---|
-| Approved | Confirmed by the relevant project authority |
-| Baseline | Current reference for ongoing work |
-| Draft | Proposed and subject to review |
-| Planned | Intended but not yet implemented |
-| Simulated | Demonstrated through mock frontend behavior |
+| Status      | Meaning                                         |
+| ----------- | ----------------------------------------------- |
+| Approved    | Confirmed by the relevant project authority     |
+| Baseline    | Current reference for ongoing work              |
+| Draft       | Proposed and subject to review                  |
+| Planned     | Intended but not yet implemented                |
+| Simulated   | Demonstrated through mock frontend behavior     |
 | Implemented | Exists in the application and has been verified |
-| Blocked | Requires a decision, dependency, or approval |
+| Blocked     | Requires a decision, dependency, or approval    |
 
 ## Current Baseline
+
+Member 2's Phase 1 [Freelancer Discovery](06-MODULES/FREELANCER_DISCOVERY.md) documents the published-service provider directory and its profile integration dependency.
 
 - **Project:** MIU Freelance Platform
 - **Requirements:** SRS v1.1, October 2026
