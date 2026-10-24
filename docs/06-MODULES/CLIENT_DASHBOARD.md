@@ -5,6 +5,11 @@ Implemented as a fictional, in-memory React preview at `/client/dashboard`
 Dashboard. No authentication or real role enforcement is claimed; the existing
 Student Dashboard branch explicitly defers session guards to Member 1.
 
+The shared temporary switcher is a compact bottom-right MIU-red badge/dropdown,
+using the existing preview badge's typography, padding and pill shape. Its menu
+opens upward and retains navigation, Escape and outside-click behavior. It
+occupies no header space on any page. The environment flag below still hides it.
+
 ## Requirements and design references
 
 Reviewed FR-C03–FR-C07, FR-C11–FR-C14, FR-C17, BR-01, BR-02, BR-09–BR-11,

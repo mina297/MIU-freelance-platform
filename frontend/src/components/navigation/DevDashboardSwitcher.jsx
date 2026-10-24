@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { ChevronDown } from "lucide-react";
 import "./DevDashboardSwitcher.css";
 
 const dashboards = [
@@ -42,7 +43,11 @@ export default function DevDashboardSwitcher() {
           }
         }}
       >
-        <summary>Development: Switch dashboard</summary>
+        <summary>
+          <span className="dev-dashboard-dot" aria-hidden="true" />
+          Switch dashboard
+          <ChevronDown size={14} aria-hidden="true" />
+        </summary>
         <ul aria-label="Dashboards">
           {dashboards.map(({ label, path }) => (
             <li key={label}>
