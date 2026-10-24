@@ -75,6 +75,19 @@ Orders may originate from:
 ### Project Order
 Created after a client accepts a student proposal.
 
+The current frontend demo creates an immutable project Order at simulated proposal
+acceptance. It preserves project/proposal and participant IDs, copies the agreed
+EGP price and delivery-day estimate, and starts at `awaiting_payment`. The shared
+`orderStore` exposes observable snapshots; the default order selectors include new
+records alongside fixtures. Duplicate acceptance returns the same order.
+
+`/orders/:orderId` is currently a read-only project-order handoff for its client
+and selected student. Missing, unrelated, and service-order IDs show an unavailable
+state. Full collaboration and service-order views remain later work. No payment,
+escrow funding, notifications or delivery-start event is implemented by acceptance.
+Member 3's future financial screens can consume `orderStore.getSnapshot()` and
+`orderStore.subscribe`; all demo changes clear on refresh.
+
 ### Service Order
 Created after a client selects a service package and places an order.
 

@@ -9,6 +9,7 @@ import { PROJECT_STATUS } from "../marketplace/constants.js";
 import { projects as fixtureProjects } from "../../data/fixtures/marketplace.js";
 import { marketplaceData } from "../../data/fixtures/marketplace.js";
 import { projectTransitionError } from "./projectLifecycle.js";
+import { orderStore } from "../orders/orderStore.js";
 
 export const mergeProjects = (base, changes) => [
   ...new Map(
@@ -18,8 +19,12 @@ export const mergeProjects = (base, changes) => [
 
 export function createProjectStore(
   seed = [],
-  getCommitments = () => marketplaceData,
+  getCommitments = null,
+  orders = orderStore,
 ) {
+  const commitments =
+    getCommitments ??
+    (() => ({ ...marketplaceData, orders: orders.getSnapshot() }));
   let records = Object.freeze([]);
   let drafts = Object.freeze([]);
   let workspace = Object.freeze([...seed]);
@@ -66,13 +71,72 @@ export function createProjectStore(
     getSnapshot: () => records,
     getWorkspaceSnapshot: () => workspace,
     findOwned: owned,
+    acceptProposal(proposal, session) {
+      const access = clientEligibility(session, true);
+      if (access) return { ok: false, error: access };
+      const previous = proposal && owned(proposal.projectId, session);
+      if (!previous)
+        return {
+          ok: false,
+          error:
+            "This project is unavailable or does not belong to your account.",
+        };
+      const existing = orders
+        .getSnapshot()
+        .find(
+          (order) =>
+            order.sourceType === "project" && order.sourceId === previous.id,
+        );
+      if (existing)
+        return existing.proposalId === proposal.id &&
+          existing.clientId === session.user.id &&
+          previous.status === PROJECT_STATUS.SELECTED
+          ? { ok: true, order: existing, duplicate: true }
+          : {
+              ok: false,
+              error:
+                "This project already has a commitment. A second acceptance is unavailable.",
+            };
+      if (
+        previous.status !== PROJECT_STATUS.OPEN ||
+        !["submitted", "shortlisted"].includes(proposal.status)
+      )
+        return {
+          ok: false,
+          error:
+            "Only submitted or shortlisted proposals on an open project can be accepted.",
+        };
+      if (
+        commitments().proposals.some(
+          (record) =>
+            record.projectId === previous.id && record.status === "accepted",
+        ) ||
+        commitments().orders.some(
+          (order) =>
+            order.sourceType === "project" && order.sourceId === previous.id,
+        )
+      )
+        return {
+          ok: false,
+          error:
+            "This project already has a commitment. A second acceptance is unavailable.",
+        };
+      const result = orders.createFromProposal(previous, proposal, session);
+      if (!result.ok) return result;
+      const selected = Object.freeze({
+        ...previous,
+        status: PROJECT_STATUS.SELECTED,
+        updatedAt: new Date().toISOString(),
+      });
+      records = Object.freeze([
+        ...records.filter((record) => record.id !== selected.id),
+        selected,
+      ]);
+      notify();
+      return { ok: true, order: result.order, duplicate: result.duplicate };
+    },
     transitionError(id, session, action) {
-      return projectTransitionError(
-        find(id),
-        session,
-        action,
-        getCommitments(),
-      );
+      return projectTransitionError(find(id), session, action, commitments());
     },
     transition(id, session, action) {
       const previous = find(id);
@@ -80,7 +144,7 @@ export function createProjectStore(
         previous,
         session,
         action,
-        getCommitments(),
+        commitments(),
       );
       if (error) return failure(error);
       const project = Object.freeze({

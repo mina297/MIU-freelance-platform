@@ -106,6 +106,7 @@
  * @property {string} clientId ID of the client participant.
  * @property {string} studentId ID of the student participant.
  * @property {number} agreedAmountEGP Agreed order amount in EGP, distinct from project budget.
+ * @property {number} [deliveryDays] Agreed project delivery estimate copied at acceptance; does not start a work timer.
  * @property {string} status Proposed order workflow status.
  * @property {string} createdAt ISO 8601 date-time.
  * @property {string|null} completedAt ISO 8601 date-time, or null until completion.

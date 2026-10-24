@@ -1,5 +1,6 @@
 import { marketplaceData } from "../../data/fixtures/marketplace.js";
 import { mergeProjects, projectStore } from "../projects/projectStore.js";
+import { orderStore } from "../orders/orderStore.js";
 
 const currentData = () => ({ ...marketplaceData, projects: mergeProjects(marketplaceData.projects, projectStore.getSnapshot()) });
 
@@ -10,7 +11,7 @@ export const getProjectById = (id, data = currentData()) =>
 export const getServiceById = (id, data = marketplaceData) =>
   data.services.find((service) => service.id === id) ?? null;
 
-export const getOrderById = (id, data = marketplaceData) =>
+export const getOrderById = (id, data = { orders: orderStore.getSnapshot() }) =>
   data.orders.find((order) => order.id === id) ?? null;
 
 export const getProjectsByClient = (clientId, data = currentData()) =>
@@ -31,10 +32,10 @@ export const getPackagesByService = (serviceId, data = marketplaceData) =>
 export const getExtrasByService = (serviceId, data = marketplaceData) =>
   data.serviceExtras.filter((extra) => extra.serviceId === serviceId);
 
-export const getOrdersByClient = (clientId, data = marketplaceData) =>
+export const getOrdersByClient = (clientId, data = { orders: orderStore.getSnapshot() }) =>
   data.orders.filter((order) => order.clientId === clientId);
 
-export const getOrdersByStudent = (studentId, data = marketplaceData) =>
+export const getOrdersByStudent = (studentId, data = { orders: orderStore.getSnapshot() }) =>
   data.orders.filter((order) => order.studentId === studentId);
 
 const includesQuery = (record, query) =>
