@@ -7,6 +7,7 @@ import {
   useParams,
 } from "react-router-dom";
 import ProtectedRoute from "../features/auth/ProtectedRoute.jsx";
+import ClientDashboard from "../features/dashboards/ClientDashboard.jsx";
 import ProjectsCatalogue from "../features/projects/ProjectsCatalogue.jsx";
 import ProjectDetails from "../features/projects/ProjectDetails.jsx";
 import ProjectCreate from "../features/projects/ProjectCreate.jsx";
@@ -90,6 +91,7 @@ function ProjectDetailsRoute() {
 }
 
 const featurePages = {
+  "/client/dashboard": <ClientDashboard />,
   "/students/:studentId": <StudentProfileRoute />,
   "/clients/:clientId": <ClientProfileRoute />,
   "/profile/edit": <ProfileEditRoute />,

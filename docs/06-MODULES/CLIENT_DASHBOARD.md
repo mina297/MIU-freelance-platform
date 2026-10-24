@@ -1,5 +1,13 @@
 # Client Dashboard — Phase 1 frontend
 
+## 24 October 2026 routing integration
+
+The shared router now renders the existing `ClientDashboard` at `/client/dashboard`
+inside the current app content outlet. Main's navbar, layout and client role guard
+are preserved. This supersedes the standalone preview routing described below.
+Mock sessions remain memory-only; refreshing requires signing in again before
+returning to the dashboard. No authentication persistence is added.
+
 Implemented as a fictional, in-memory React preview at `/client/dashboard`
 (P-15). Accessible from the temporary development switcher beside the Student
 Dashboard. No authentication or real role enforcement is claimed; the existing
