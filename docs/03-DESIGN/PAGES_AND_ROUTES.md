@@ -74,6 +74,12 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
+**Order lists (24 October 2026):** `/client/orders` and `/student/orders` now
+render owned-only live project/service order lists, with search/status/source
+filters, deterministic sorting, non-financial EGP value summaries and recovery
+states. Role guards and participant-only detail access remain. Summary pages link
+back to the role-specific list. Full order collaboration is not implemented yet.
+
 **Service ordering (24 October 2026):** `/services/:serviceId/order` is an active
 client-only standalone configurator, hidden from generic navigation and linked
 from public service details. It validates package/extras, quotes EGP/delivery,

@@ -216,6 +216,30 @@ Both should use a shared order management model.
 
 ## 7. Shared Order Workspace
 
+### Role-specific order lists — 24 October 2026 (FR-S08/S09; FR-C11; P-14/P-19 entry)
+
+`/student/orders` and `/client/orders` are active-role standalone routes. The shared
+OrdersList uses orderStore snapshots, so project-acceptance and service-confirmation
+orders appear immediately without duplicating data. Ownership is checked before
+joins, queries, filters, sorting, counts or amounts. Account/role switching remounts
+local filters; pending verification does not hide existing owned orders.
+
+Search combines order reference, title, counterpart name and saved package name.
+Status/source filters combine with search; newest/oldest/agreed-amount sorts are
+deterministic, with reset and useful empty/loading/error presentations. Cards link
+to the participant-protected `/orders/:orderId` summary, and both order-source
+summary pages now link back to the correct role's order list. Missing counterpart
+or listing metadata uses explicit fallbacks without fabricated profile claims.
+Service snapshot titles are preferred; legacy fixture titles are labelled as
+current listing text, not historical scope. No public profile links are invented.
+
+Metrics show all owned-order count, awaiting-payment count and agreed order value
+across all statuses, independent of filters. Integer-cent summation rejects unsafe
+or invalid aggregates as unavailable; these amounts are not spending, earnings,
+paid balances or escrow holdings. No list/filter action mutates an order. Full
+workspace, delivery and financial status flows remain later work. Manual keyboard,
+mobile/visual and screen-reader acceptance remains deferred at Mina's request.
+
 An order workspace includes:
 - Order participants
 - Requirements

@@ -7,6 +7,22 @@ tags: [MIU, issues, decisions]
 
 # MIU Freelance Platform — Known Issues and Open Decisions
 
+## Order lists increment — 24 October 2026
+
+Automated verification: all 216 tests, ESLint and production build passed. The
+focused live-insertion test also passed for both project acceptance and service
+confirmation. Both local list URLs respond HTTP 200; interactive acceptance is
+still deferred and must not be inferred from document delivery.
+
+Student/client order lists are connected to live orderStore snapshots with
+ownership-first filtering and metrics, safe title/counterpart fallbacks and links
+to protected summaries. Agreed-value metrics include all own orders/all statuses;
+they are not spending, earnings, payment or escrow values. Existing orders remain
+viewable for pending verification. No list action changes order status. Workspace,
+delivery and payment/escrow interactions remain future work. Manual browser,
+keyboard, mobile/visual and screen-reader checks remain explicitly deferred.
+The previously documented JavaScript bundle-size warning remains outstanding.
+
 ## Service ordering increment — 24 October 2026
 
 Automated verification: all 211 tests, ESLint and production build passed for the
