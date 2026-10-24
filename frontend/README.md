@@ -23,6 +23,13 @@ existing standalone layout. Approved translations are pending; the interface is 
 
 ## Technology
 
+### Services catalogue
+
+Open `/services` for published fictional services, search, category/skill/price
+filters, sorting and starting-package previews. The catalogue shares the public
+layout and uses EGP only. Full service details, profiles, publishing and ordering
+are not connected yet. Filters are local page state and reset on leaving/reload.
+
 - React with JavaScript
 - Vite
 - Tailwind CSS v4

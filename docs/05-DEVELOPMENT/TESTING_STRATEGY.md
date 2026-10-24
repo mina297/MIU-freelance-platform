@@ -28,6 +28,12 @@ Test reusable controls, validation states, and common UI behavior.
 ### Feature Testing
 Test marketplace, profiles, authentication, dashboard, and administration interactions.
 
+Service catalogue model/render tests cover published-only visibility, combined
+filters, non-overlapping price boundaries, consistent starting-package price and
+delivery, missing-price sorting, stable source order, public-shell landmarks,
+escaped content and loading/error/empty presentations. Browser interactions,
+mobile filter disclosure and visual acceptance remain separate manual checks.
+
 ### Integration Testing
 Verify that modules work together through shared mock data and routing.
 
