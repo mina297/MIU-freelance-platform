@@ -184,7 +184,10 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     assert.match(html, /aria-pressed="true">Work<\/button>/);
     assert.match(html, /All categories/);
     assert.match(html, /Explore categories/);
-    assert.match(html, /Phase 1 demo session controls/);
+    assert.doesNotMatch(
+      html,
+      /Phase 1 demo session controls|Simulated session controls|Demo navigation/,
+    );
     assert.match(html, /Software development/);
     assert.match(html, /Video editing/);
     assert.match(html, /aria-label="Scroll categories left"/);
@@ -276,7 +279,10 @@ test("public website routes render real pages in one shell with safe destination
         html,
         path === "/" ? /class="public-header"/ : /miu-public-header/,
       );
-      assert.match(html, /Phase 1 demo session controls/);
+      assert.doesNotMatch(
+        html,
+        /Phase 1 demo session controls|Simulated session controls|Demo navigation/,
+      );
       assert.doesNotMatch(
         html,
         /routing placeholder only|href="\/(?:freelancers|help|support\/contact|services\/service_)/,
@@ -304,7 +310,26 @@ test("public website routes render real pages in one shell with safe destination
     });
     assert.match(loggedIn, /href="\/student\/dashboard"/);
     assert.match(loggedIn, /My workspace/);
+    assert.match(loggedIn, /Sign out/);
+    assert.doesNotMatch(loggedIn, /Simulated session controls|Phase 1 demo session controls/);
     assert.doesNotMatch(loggedIn, />Log in<|>Sign up</);
+    for (const role of ["student", "client"]) {
+      const dashboard = renderRoute(`/${role}/dashboard`, AuthContext.Provider, {
+        session: {
+          status: "authenticated",
+          user: {
+            id: `registered_${role}`,
+            displayName: "New account",
+            role,
+            accountStatus: "active",
+            verificationStatus: "pending",
+          },
+        },
+      });
+      assert.match(dashboard, /My workspace/);
+      assert.match(dashboard, /Sign out/);
+      assert.doesNotMatch(dashboard, /Simulated session controls|Demo navigation|Phase 1 routing demonstration/);
+    }
     assert.match(renderRoute("/missing-public-page"), /Page not found/);
   } finally {
     await vite.close();

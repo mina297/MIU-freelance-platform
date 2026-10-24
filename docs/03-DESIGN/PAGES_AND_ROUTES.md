@@ -336,6 +336,8 @@ Each SRS prototype should eventually have:
 
 ## 7. Route Change Process
 
+Authentication navigation (24 October 2026): successful registration starts the new account's session and opens `/`; successful login also opens `/` rather than a role dashboard or stored return URL. My workspace remains a separate role-aware navigation action. Public/application shells omit demo session controls and route inventories; protected route permissions are unchanged.
+
 Before changing a shared path:
 
 1. Identify linked pages and navigation actions.

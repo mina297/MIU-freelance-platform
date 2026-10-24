@@ -37,8 +37,7 @@ export default function RegisterPage() {
       ]}
       onSubmit={(values) => {
         const result = register({ ...values, role });
-        if (result.ok)
-          navigate("/login", { replace: true, state: { registered: true } });
+        if (result.ok) navigate("/", { replace: true });
         return result;
       }}
     >

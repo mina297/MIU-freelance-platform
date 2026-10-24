@@ -8,6 +8,8 @@ Related requirements: P-01, FR-V01–FR-V04, NFR-01–NFR-03 and SR-09. This scr
 
 ## Behavior
 
+- Authentication return update (24 October 2026): successful registration opens a session immediately and successful registration/login returns to `/`. Active sessions show My workspace and Sign out in the header. The session demo disclosure and test-account selector are removed from the public page; fictional marketplace content remains disclosed.
+
 ### Integration with main — 24 October 2026
 
 - Member 1's landing page replaces the unwanted Member 4 homepage at `/`.
