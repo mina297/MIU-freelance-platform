@@ -72,7 +72,8 @@ export const MEMBER5_PROFILE_ROUTES = [
     path: "/profile/edit",
     elementExport: "ProfileEditPage",
     access: "Authenticated owner (demo: pass profileId + role props)",
-    notes: "Simulated persistence via sessionStorage. Does not touch AuthProvider.",
+    notes:
+      "Simulated persistence via sessionStorage. Does not touch AuthProvider.",
   },
 ];
 

@@ -42,11 +42,10 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
     }
 
     setStatus("submitting");
-    window.setTimeout(() => {
+    try {
       const attachments = files.map((file) => ({
         id: file.id,
         name: file.name,
-        previewUrl: file.previewUrl,
         sizeLabel: file.sizeLabel || "",
       }));
 
@@ -76,7 +75,12 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
       setSubmittedTicket(ticket);
       setStatus("success");
       onSuccess?.(ticket);
-    }, 350);
+    } catch {
+      setErrors({
+        form: "Could not save this simulated request. Browser storage may be full or unavailable. Your inputs are still here; retry when storage is available.",
+      });
+      setStatus("error");
+    }
   }
 
   if (status === "success" && submittedTicket) {
@@ -111,6 +115,15 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
       onSubmit={handleSubmit}
       noValidate
     >
+      <p className="text-sm">
+        Use fictional information and sample files only. Image previews stay in
+        memory; saved tickets contain attachment names, not file contents.
+      </p>
+      {errors.form && (
+        <p role="alert" className="text-sm text-danger">
+          {errors.form}
+        </p>
+      )}
       <div>
         <p className="text-xs font-semibold uppercase tracking-wide text-miu-red">
           Simulated Phase 1 workflow
@@ -124,11 +137,27 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
         </p>
       </div>
 
-      <Field label="Full name" id="support-name" value={name} error={errors.name} onChange={setName} />
-      <Field label="Email" id="support-email" type="email" value={email} error={errors.email} onChange={setEmail} />
+      <Field
+        label="Full name"
+        id="support-name"
+        value={name}
+        error={errors.name}
+        onChange={setName}
+      />
+      <Field
+        label="Email"
+        id="support-email"
+        type="email"
+        value={email}
+        error={errors.email}
+        onChange={setEmail}
+      />
 
       <div className="space-y-2">
-        <label htmlFor="support-topic" className="text-sm font-semibold text-miu-black">
+        <label
+          htmlFor="support-topic"
+          className="text-sm font-semibold text-miu-black"
+        >
           Topic
         </label>
         <select
@@ -151,7 +180,13 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
         ) : null}
       </div>
 
-      <Field label="Subject" id="support-subject" value={subject} error={errors.subject} onChange={setSubject} />
+      <Field
+        label="Subject"
+        id="support-subject"
+        value={subject}
+        error={errors.subject}
+        onChange={setSubject}
+      />
       <Field
         label="Related order / project ID (optional)"
         id="support-ref"
@@ -160,7 +195,10 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
       />
 
       <div className="space-y-2">
-        <label htmlFor="support-message" className="text-sm font-semibold text-miu-black">
+        <label
+          htmlFor="support-message"
+          className="text-sm font-semibold text-miu-black"
+        >
           Message
         </label>
         <textarea

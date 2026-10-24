@@ -1,140 +1,47 @@
-# Member 5 — Profiles, Reviews & Support Integration Notes
+# Member 5 — Profiles, Reviews and Support integration
 
-## Shared presentation components
+Updated 24 October 2026. This branch includes an uncommitted merge from main plus review fixes; Mina owns the commit, push and PR merge.
 
-| Export | Use |
-|---|---|
-| `UserSummaryCard` | Compact photo/name/headline/rating for dashboards & tickets (not the full profile header) |
-| `TicketDetails` | Read-only support ticket view (id, subject, category, description, status, evidence, requester) |
-| `EvidenceGallery` / `EvidenceAttachmentPreview` | Evidence chips; omit `onRemove` for read-only |
-| `LeaveReviewModal` | Member 3 client dashboard review CTA |
+## Registered routes
 
-## Ownership
+- Public: `/students/:studentId`, `/clients/:clientId`, `/help`, `/help/:articleSlug`, `/support/contact`.
+- Active student/client owner: `/profile/edit`. The route derives profile ID and role from the current session. Page and storage mutations also check ownership; visitor/owner props cannot grant access.
+- Active client: `/reviews/new`. Optional `orderId` and `studentId` query parameters preselect/filter candidates; they do not authorize a review.
 
-Member 5 owns Profiles, Reviews & Support. This deliverable includes:
+Pages use Member 1/4's existing public shell. Proposals, comparison headings, services and provider cards link to the student profile. Completed order summaries link to the review page. The review success action opens the student's Reviews tab.
 
-- Mock fixtures under `src/data/fixtures/` (profiles, portfolio, reviews, help)
-- `src/features/profiles/`
-- `src/features/reviews/`
-- `src/features/help/`
+## Identity contract
 
-This feature does **not** register routes or modify `App.jsx` / `main.jsx` / AuthProvider.
+Canonical `student_001` is Salma Farid, `student_002` is Omar Nabil and `client_001` is Nile Studio. These public names match marketplace fixtures; Salma's pending demo verification does not display an approved badge. Canonical profiles start without invented historical reviews, portfolio items, qualifications or completed jobs.
 
-## Layout and branding (do not duplicate)
+Earlier Figma samples remain separately addressable as `m5_sample_student_nour`, `m5_sample_student_karim`, `m5_sample_client_robotics` and `m5_sample_client_startup`. Their historical orders use `m5_sample_order_*`. They do not collide with marketplace IDs or authorize new reviews. Their content remains fictional design data.
 
-Member 5 pages are **page content only**. They intentionally omit:
+Newly registered accounts without a profile record receive the profile-not-found state. A shared account/profile creation contract remains future integration; no arbitrary account data or private order history is published to fill gaps.
 
-- MIU Freelance logo
-- Global site header / public navigation
-- App sidebar
-- Site footer
+## Reviews
 
-| Chrome element | Owner | Expected layout (when available) |
-|---|---|---|
-| Shared application layouts (`PublicLayout`, `AppLayout`, …) | **Member 1** | `src/layouts/` |
-| Public header, logo, footer, shared nav visuals | **Member 4** | `PublicHeader`, `PublicFooter`, `components/navigation/` |
-| Role-aware authenticated chrome / sidebar | **Member 1** (+ Member 3 dashboard shells) | `AppLayout` / dashboard layouts |
-| Profile identity card (`ProfileHeader`) | **Member 5** | Feature content — not site chrome |
+`features/reviews/reviewStore.js` observes the existing live order store, requires an active owning client and `completed` project/service order, and rechecks eligibility on submission. It rejects foreign IDs, mismatched students, active/unpaid/disputed orders, non-integer ratings and duplicate reviews. The store derives author/target IDs itself and freezes saved records. Multiple open forms cannot inflate ratings.
 
-Member 1 should wrap Member 5 page exports in the shared layout. Do not recreate branding inside Member 5 production components.
+Reviews are memory-only and reset on refresh, just like marketplace orders. Old sessionStorage review submissions are ignored. Profiles subscribe to review updates and calculate their rating summaries from applicable fixture samples plus live submitted reviews. Historical sample orders are not review candidates.
 
-## Routes for Member 1
+`ReviewForm`, `NewReviewPage` and `LeaveReviewModal` use the current AuthContext. Legacy `defaultClientId` props do not impersonate a client. A consumer must provide AuthProvider. The client-to-student review direction (FR-C14) is implemented; student-to-client reviews (FR-S13) remain outside this fix.
 
-| Path | Export | Access |
-|---|---|---|
-| `/students/:studentId` | `StudentProfilePage` | Public / owner via `viewerMode` |
-| `/clients/:clientId` | `ClientProfilePage` | Public / owner via `viewerMode` |
-| `/profile/edit` | `ProfileEditPage` | Owner (pass `profileId` + `role`) |
-| `/reviews/new` | `NewReviewPage` | Client demo |
-| `/help` | `HelpCenterPage` | Public |
-| `/help/:articleSlug` | `HelpArticlePage` | Public |
-| `/support/contact` | `SupportContactPage` | Public |
+## Profile and portfolio editing
 
-Example:
+Profile edits and portfolio overrides remain explicitly simulated sessionStorage data. They survive reload until the tab session is cleared, unlike the memory-only order/review stores. Only the active owning session can write. Profile edits allowlist editable fields; they cannot change role, verification status or rating history.
 
-```jsx
-import { StudentProfilePage, ClientProfilePage, ProfileEditPage } from "../features/profiles";
-import { NewReviewPage } from "../features/reviews";
-import { HelpCenterPage, HelpArticlePage, SupportContactPage } from "../features/help";
-```
+Storage writes are handled by the forms, with recoverable errors instead of a stuck saving/submitting state. Inputs remain available on failure. Use fictional photos only; image previews may be too large for browser storage, so choose a smaller image if saving fails.
 
-## Leave a Review — Member 3 (client dashboard)
+Shared Modal handles review, portfolio preview, add/edit and delete dialogs, including focus management, Escape and scroll locking. Profile tabs support Left/Right and Home/End keys. Live browser and assistive-technology acceptance is still pending.
 
-Reusable modal (same component, two export names). The shared `ReviewForm` shows the selected student’s photo/initials, name, academic headline, project title, and Completed status (no hardcoded Nour/Karim).
+## Help and support
 
-```jsx
-import { LeaveReviewModal, ReviewForm, validateReviewForm } from "../features/reviews";
+Help categories/search/articles/FAQs are local fictional content. Support submission stores a simulated ticket in sessionStorage; no email, committee assignment or dispute decision is triggered. Saved evidence contains metadata only, not image data URLs or file contents. Inputs are retained if storage is blocked/full. Do not use real identity evidence, credentials or personal information.
 
-function ClientDashboardOrders() {
-  const [open, setOpen] = useState(false);
-  return (
-    <>
-      <button type="button" onClick={() => setOpen(true)}>
-        Leave a review
-      </button>
-      <LeaveReviewModal
-        open={open}
-        onClose={() => setOpen(false)}
-        defaultClientId="client_001"
-        defaultStudentId="student_001" // optional filter
-        defaultOrderId="order_005" // optional pre-select
-        onSuccess={(review) => {
-          // refresh dashboard lists if needed (do not navigate away yet)
-        }}
-        onViewReview={(review) => {
-          // navigate to `/students/${review.targetStudentId}` Reviews tab
-        }}
-      />
-    </>
-  );
-}
-```
+Member 3 remains responsible for committee assignment and disputes. Financial funding/activation stays separate; this feature does not move unpaid orders into delivery.
 
-- `/reviews/new` (`NewReviewPage`) stays available for Member 1 routing and reuses the same `ReviewForm` + `validateReviewForm`.
-- After submit, the form shows a success confirmation with **View review** and **Close** — it does not jump straight to the empty state.
-- Eligibility: fictional `completedOrders` with `hasReview: false`, minus session-submitted order IDs (one review per completed order).
-- Demo eligible orders: `order_005` (Nour / client_001), `order_008` (Karim / client_001).
-- Development-only “Reset demo reviews” lives only in the gitignored preview shell.
+## Verification
 
-## Simulated Phase 1 persistence
+Run `npm.cmd test`, `npm.cmd run lint` and `npm.cmd run build` from frontend. New regressions cover identity alignment, route guards, owner-only writes, storage failure propagation, live completion eligibility, duplicate submissions and escaped public review content. The historical profile render smoke script remains available explicitly at `src/features/profiles/__tests__/renderStudentProfile.smoke.mjs`.
 
-| Feature | Storage key |
-|---|---|
-| Profile edits | `miu-m5-profile-edits-v1` (sessionStorage) |
-| Portfolio overrides (per studentId) | `miu-m5-portfolio-overrides-v1` |
-| Review submissions | `miu-m5-review-submissions-v1` |
-| Support tickets | `miu-m5-support-submissions-v1` |
-
-Portfolio add/edit/delete controls appear only when `viewerMode="owner"`. Visitors see the public gallery only.
-
-Submitted reviews appear on the student profile list and update the displayed rating summary (fixture totals + new ratings).
-
-## Independent DEVELOPMENT-ONLY preview
-
-Temporary files (gitignored — do not commit):
-
-- `frontend/student-profile-preview.html`
-- `frontend/src/student-profile-preview-main.jsx`
-
-```bash
-cd frontend
-npx vite --open /student-profile-preview.html
-```
-
-Local URL: `http://127.0.0.1:5173/student-profile-preview.html` (or the port Vite prints)
-
-Preview chrome is temporary navigation only — not the shared MIU header/logo.
-
-## Demo IDs
-
-- Students: `student_001` (Nour), `student_002` (Karim)
-- Clients: `client_001`, `client_002`
-- Eligible review order without existing review: `order_005`
-
-## Still requires other members
-
-- Real messaging / Contact → Member messaging module
-- Auth-gated edit routes → Member 1 AuthProvider
-- Permanent router, header, logo, footer → Member 1 layouts + Member 4 public chrome
-- Client dashboard “Leave a review” CTA wiring → Member 3 imports `LeaveReviewModal`
-- Committee ticket assignment / disputes → Member 3
+Automated/static rendering checks do not establish mobile layout, browser interaction, modal focus behavior or screen-reader acceptance. Those remain unrun unless separately recorded.

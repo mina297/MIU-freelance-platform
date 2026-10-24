@@ -160,10 +160,17 @@ export default function ServiceDetails({
               {student?.displayName ?? "Student information unavailable"}
             </h2>
             <p>Student service provider</p>
+            {student && (
+              <Link
+                to={`/students/${student.id}`}
+                className="text-miu-red underline"
+              >
+                View student profile
+              </Link>
+            )}
             <p>
-              Full profile, reviews, availability and verification information
-              are not connected here. No ratings or verification claims are
-              inferred.
+              Open the profile for declared details and demo reviews. Service
+              tags do not certify qualifications, verification or availability.
             </p>
           </Card>
         </div>

@@ -70,7 +70,9 @@ export default function ReviewSubjectSummary({ student, order }) {
 }
 
 function formatCompletedDate(isoDate) {
-  const date = new Date(`${isoDate}T00:00:00`);
+  const date = new Date(
+    isoDate.length === 10 ? `${isoDate}T00:00:00` : isoDate,
+  );
   if (Number.isNaN(date.getTime())) return isoDate;
   return date.toLocaleDateString("en-GB", {
     day: "numeric",

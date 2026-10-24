@@ -13,7 +13,10 @@ import {
 
 describe("formatLanguagesLabel", () => {
   it("joins two languages with an ampersand", () => {
-    assert.equal(formatLanguagesLabel(["Arabic", "English"]), "Arabic & English");
+    assert.equal(
+      formatLanguagesLabel(["Arabic", "English"]),
+      "Arabic & English",
+    );
   });
 
   it("handles empty input", () => {
@@ -89,6 +92,9 @@ describe("mergeSubmittedIntoRatingSummary", () => {
     );
     assert.equal(next.count, 33);
     assert.equal(next.average, 4.9);
-    assert.equal(next.distribution.find((entry) => entry.stars === 5)?.count, 30);
+    assert.equal(
+      next.distribution.find((entry) => entry.stars === 5)?.count,
+      30,
+    );
   });
 });

@@ -1,4 +1,7 @@
-import { getHelpArticleBySlug, helpCategories } from "../../data/fixtures/help.js";
+import {
+  getHelpArticleBySlug,
+  helpCategories,
+} from "../../data/fixtures/help.js";
 
 /**
  * Help article detail.
@@ -20,8 +23,13 @@ export default function HelpArticlePage({
   if (!article) {
     return (
       <div className="w-full bg-[#f8f8f9] px-5 py-8 md:px-[120px]">
-        <div className="rounded-[10px] border border-[#e5e7eb] bg-white p-8 text-center" role="alert">
-          <h1 className="text-xl font-semibold text-miu-black">Article not found</h1>
+        <div
+          className="rounded-[10px] border border-[#e5e7eb] bg-white p-8 text-center"
+          role="alert"
+        >
+          <h1 className="text-xl font-semibold text-miu-black">
+            Article not found
+          </h1>
           <p className="mt-2 text-sm text-[#4b5563]">
             No help article matches{" "}
             <span className="font-medium">{articleSlug}</span>.

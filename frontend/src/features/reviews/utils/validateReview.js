@@ -14,7 +14,11 @@ export function validateReviewForm(values) {
     errors.orderId = "Select a completed order you are eligible to review.";
   }
 
-  if (!Number.isFinite(values.rating) || values.rating < 1 || values.rating > 5) {
+  if (
+    !Number.isInteger(values.rating) ||
+    values.rating < 1 ||
+    values.rating > 5
+  ) {
     errors.rating = "Choose a rating from 1 to 5 stars.";
   }
 

@@ -1,8 +1,5 @@
 import { BadgeCheck } from "lucide-react";
-import {
-  getRatingAriaLabel,
-  getStarDisplay,
-} from "../utils/ratingDisplay.js";
+import { getRatingAriaLabel, getStarDisplay } from "../utils/ratingDisplay.js";
 import SafeImage from "./SafeImage.jsx";
 
 /** Compact user card for lists and tickets (not the full profile header). */

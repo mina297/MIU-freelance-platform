@@ -28,14 +28,20 @@ export function getStudentProfileById(studentId) {
   const overrides =
     typeof window !== "undefined" ? getProfileEdit(studentId) : null;
   const profile = overrides
-    ? { ...base, ...overrides, id: base.id, role: "student" }
+    ? {
+        ...base,
+        ...overrides,
+        id: base.id,
+        role: "student",
+        verified: base.verified,
+        ratingSummary: base.ratingSummary,
+      }
     : base;
 
   const fixtureReviews = getReviewsForStudent(studentId);
-  const submitted =
-    typeof window !== "undefined"
-      ? loadSubmittedReviews().filter((r) => r.targetStudentId === studentId)
-      : [];
+  const submitted = loadSubmittedReviews().filter(
+    (r) => r.targetStudentId === studentId,
+  );
   const reviews = [...submitted, ...fixtureReviews];
 
   return {

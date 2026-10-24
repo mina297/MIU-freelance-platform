@@ -20,7 +20,10 @@ export function validateSupportForm(values) {
     errors.email = "Enter a valid email address.";
   }
 
-  if (!values.topic) errors.topic = "Choose a support topic.";
+  if (
+    !["account", "payments", "orders", "safety", "other"].includes(values.topic)
+  )
+    errors.topic = "Choose a support topic.";
 
   if (!values.subject.trim() || values.subject.trim().length < 5) {
     errors.subject = "Subject must be at least 5 characters.";
@@ -30,5 +33,14 @@ export function validateSupportForm(values) {
     errors.message = "Describe the issue in at least 30 characters.";
   }
 
+  for (const [key, limit] of [
+    ["name", 120],
+    ["email", 254],
+    ["subject", 160],
+    ["message", 5000],
+  ]) {
+    if (values[key]?.length > limit)
+      errors[key] = `Use ${limit} characters or fewer.`;
+  }
   return errors;
 }

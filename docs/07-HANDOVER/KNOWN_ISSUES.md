@@ -357,6 +357,10 @@ Rounded authentication forms and shorter prototype wording pass all 36 automated
 
 ## 9. Related Documents
 
+### M5 integration correction — 24 October 2026
+
+The M5 branch now includes uncommitted integration fixes: canonical Salma/Omar/Nile identities, isolated historical sample IDs, live completed-order review eligibility, duplicate protection, owner-only profile/portfolio writes, recoverable storage errors and shared accessible dialogs. Public profiles/help and protected edit/review routes are connected. This supersedes the earlier profile-ID/link blocker below. Reviews are memory-only; profile/portfolio/support data remains explicitly simulated sessionStorage data. Browser/mobile/screen-reader acceptance, runtime account-to-profile provisioning, student-to-client reviews and Member 3 finance/support workflows remain pending. See `frontend/src/features/profiles/MEMBER5_INTEGRATION.md`.
+
 ### Freelancer discovery profile dependency — 24 October 2026
 
 The skills-matching page at `/recommendations` is a deterministic Phase 1 demonstration. Feedback remains local, and no AI model, trained personalization or production escalation endpoint is connected. End-to-end browser interaction and accessibility checks remain deferred along with the marketplace integration review. Member 5 profile identity alignment and Member 3 financial integration remain separate dependencies.

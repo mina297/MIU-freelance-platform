@@ -1,4 +1,7 @@
 import { BadgeCheck } from "lucide-react";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext.js";
+import { ownsProfile } from "./utils/profileOwnership.js";
 import ProfileBreadcrumb from "./components/ProfileBreadcrumb.jsx";
 import {
   ProfileLoadingState,
@@ -32,7 +35,9 @@ export default function ClientProfilePage({
   simulateDelay = true,
 }) {
   const { status, data } = useClientProfile(clientId, { simulateDelay });
-  const isOwner = viewerMode === "owner";
+  const auth = useContext(AuthContext);
+  const isOwner =
+    viewerMode === "owner" && ownsProfile(auth?.session, clientId, "client");
 
   if (status === "loading") {
     return (
@@ -91,7 +96,10 @@ export default function ClientProfilePage({
                 {profile.displayName}
               </h1>
               {profile.verified ? (
-                <BadgeCheck className="size-[22px] text-miu-red" aria-label="Verified" />
+                <BadgeCheck
+                  className="size-[22px] text-miu-red"
+                  aria-label="Verified"
+                />
               ) : null}
             </div>
             <p className="text-base font-medium text-miu-black">
@@ -115,16 +123,21 @@ export default function ClientProfilePage({
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-xl font-semibold text-miu-black">Project history</h2>
+          <h2 className="text-xl font-semibold text-miu-black">
+            Project history
+          </h2>
           {projectHistory.length === 0 ? (
             <ProfileEmptyState message="No completed projects linked to this client yet." />
           ) : (
             <ul className="overflow-hidden rounded-[10px] border border-[#e5e7eb] bg-white shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)]">
               {projectHistory.map((project, index) => {
-                const dateLabel = new Date(project.completedAt).toLocaleDateString(
-                  "en-GB",
-                  { day: "numeric", month: "short", year: "numeric" },
-                );
+                const dateLabel = new Date(
+                  project.completedAt,
+                ).toLocaleDateString("en-GB", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                });
                 return (
                   <li
                     key={project.id}
@@ -133,7 +146,9 @@ export default function ClientProfilePage({
                     }`}
                   >
                     <div>
-                      <p className="font-semibold text-miu-black">{project.title}</p>
+                      <p className="font-semibold text-miu-black">
+                        {project.title}
+                      </p>
                       <p className="mt-1 text-sm text-[#4b5563]">
                         {project.category} · {dateLabel} · with{" "}
                         {onViewStudent ? (

@@ -78,6 +78,18 @@ export default function ProjectOrderSummary() {
             notes, messages and delivery review. Checkout remains separate.
           </p>
           <dl className="project-create__facts">
+            {order.status === "completed" && session.user.role === "client" && (
+              <div>
+                <dt>Client feedback</dt>
+                <dd>
+                  <Link
+                    to={`/reviews/new?orderId=${encodeURIComponent(order.id)}`}
+                  >
+                    Review completed order
+                  </Link>
+                </dd>
+              </div>
+            )}
             <div>
               <dt>Agreed amount</dt>
               <dd className="text-xl font-bold">

@@ -87,7 +87,7 @@ export default function PortfolioItemForm({
     }
 
     setStatus("saving");
-    window.setTimeout(() => {
+    {
       const tools = form.toolsText
         .split(",")
         .map((t) => t.trim())
@@ -115,13 +115,12 @@ export default function PortfolioItemForm({
         tools,
         imageSrc: form.imageSrc || null,
         imageCleared: !form.imageSrc,
-        imageAlt:
-          form.imageAlt.trim() || `Preview for ${form.title.trim()}`,
+        imageAlt: form.imageAlt.trim() || `Preview for ${form.title.trim()}`,
         simulated: true,
       };
       onSave(item);
       setStatus("idle");
-    }, 250);
+    }
   }
 
   return (
@@ -152,7 +151,10 @@ export default function PortfolioItemForm({
       />
 
       <div className="space-y-2">
-        <label htmlFor="pf-category" className="text-sm font-semibold text-miu-black">
+        <label
+          htmlFor="pf-category"
+          className="text-sm font-semibold text-miu-black"
+        >
           Category
         </label>
         <select
@@ -224,7 +226,10 @@ export default function PortfolioItemForm({
           }
           update("imageSrc", next.previewUrl || "");
           if (!form.imageAlt.trim()) {
-            update("imageAlt", form.title.trim() || next.name || "Portfolio preview");
+            update(
+              "imageAlt",
+              form.title.trim() || next.name || "Portfolio preview",
+            );
           }
           setErrors((prev) => {
             const copy = { ...prev };

@@ -47,7 +47,9 @@ export default function FileUploadField({
 
     for (const file of incoming) {
       if (next.length >= maxFiles) {
-        setLocalError(`You can attach up to ${maxFiles} file${maxFiles === 1 ? "" : "s"}.`);
+        setLocalError(
+          `You can attach up to ${maxFiles} file${maxFiles === 1 ? "" : "s"}.`,
+        );
         break;
       }
       const allowPdf = String(accept).includes("pdf");
@@ -62,7 +64,9 @@ export default function FileUploadField({
         continue;
       }
       if (file.size > maxBytes) {
-        setLocalError(`Each file must be under ${Math.round(maxBytes / 1_000_000)} MB.`);
+        setLocalError(
+          `Each file must be under ${Math.round(maxBytes / 1_000_000)} MB.`,
+        );
         continue;
       }
 
@@ -106,7 +110,10 @@ export default function FileUploadField({
   return (
     <div className="space-y-3">
       <div className="flex items-baseline justify-between gap-2">
-        <label htmlFor={resolvedId} className="text-sm font-semibold text-miu-black">
+        <label
+          htmlFor={resolvedId}
+          className="text-sm font-semibold text-miu-black"
+        >
           {label}
         </label>
         {hint ? <span className="text-xs text-[#4b5563]">{hint}</span> : null}
@@ -184,7 +191,9 @@ export default function FileUploadField({
                 {file.name}
               </p>
               {file.sizeLabel ? (
-                <p className="px-2 pb-1 text-[10px] text-[#9ca3af]">{file.sizeLabel}</p>
+                <p className="px-2 pb-1 text-[10px] text-[#9ca3af]">
+                  {file.sizeLabel}
+                </p>
               ) : null}
               <button
                 type="button"

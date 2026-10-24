@@ -1,4 +1,5 @@
 import { PROFILE_TABS } from "../constants.js";
+import { useRef } from "react";
 
 /**
  * Interactive profile section tabs.
@@ -14,6 +15,27 @@ export default function ProfileTabs({
   tabs = PROFILE_TABS,
   onTabSelect,
 }) {
+  const buttons = useRef(new Map());
+  function moveFocus(event, id) {
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    const enabled = tabs.filter((tab) => tab.implemented !== false);
+    const index = enabled.findIndex((tab) => tab.id === id);
+    let target;
+    if (event.key === "Home") target = 0;
+    else if (event.key === "End") target = enabled.length - 1;
+    else if (["ArrowLeft", "ArrowRight"].includes(event.key)) {
+      const direction =
+        getComputedStyle(event.currentTarget).direction === "rtl" ? -1 : 1;
+      target =
+        (index +
+          (event.key === "ArrowRight" ? direction : -direction) +
+          enabled.length) %
+        enabled.length;
+    } else return;
+    event.preventDefault();
+    buttons.current.get(enabled[target].id)?.focus();
+    onTabSelect?.(enabled[target].id);
+  }
   return (
     <div
       role="tablist"
@@ -27,6 +49,11 @@ export default function ProfileTabs({
         return (
           <button
             key={tab.id}
+            ref={(node) => {
+              if (node) buttons.current.set(tab.id, node);
+              else buttons.current.delete(tab.id);
+            }}
+            onKeyDown={(event) => moveFocus(event, tab.id)}
             type="button"
             role="tab"
             id={`profile-tab-${tab.id}`}

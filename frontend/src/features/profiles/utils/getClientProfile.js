@@ -24,16 +24,27 @@ export function getClientProfileById(clientId) {
   const base = clientProfiles.find((profile) => profile.id === clientId);
   if (!base) return null;
 
-  const overrides = typeof window !== "undefined" ? readEditOverrides(clientId) : null;
-  const profile = overrides ? { ...base, ...overrides, id: base.id, role: "client" } : base;
+  const overrides =
+    typeof window !== "undefined" ? readEditOverrides(clientId) : null;
+  const profile = overrides
+    ? {
+        ...base,
+        ...overrides,
+        id: base.id,
+        role: "client",
+        verified: base.verified,
+      }
+    : base;
 
-  const projectHistory = getCompletedProjectsForClient(clientId).map((project) => {
-    const student = studentProfiles.find((s) => s.id === project.studentId);
-    return {
-      ...project,
-      studentName: student?.displayName ?? "Student freelancer",
-    };
-  });
+  const projectHistory = getCompletedProjectsForClient(clientId).map(
+    (project) => {
+      const student = studentProfiles.find((s) => s.id === project.studentId);
+      return {
+        ...project,
+        studentName: student?.displayName ?? "Student freelancer",
+      };
+    },
+  );
 
   return { profile, projectHistory };
 }

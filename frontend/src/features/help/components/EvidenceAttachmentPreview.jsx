@@ -28,7 +28,9 @@ export default function EvidenceAttachmentPreview({ files = [], onRemove }) {
             {file.name}
           </div>
           {file.sizeLabel ? (
-            <p className="px-2 pb-1 text-[10px] text-[#9ca3af]">{file.sizeLabel}</p>
+            <p className="px-2 pb-1 text-[10px] text-[#9ca3af]">
+              {file.sizeLabel}
+            </p>
           ) : null}
           {editable ? (
             <button

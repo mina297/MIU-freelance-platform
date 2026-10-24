@@ -30,7 +30,7 @@ try {
 
   const readyHtml = renderToString(
     React.createElement(StudentProfilePage, {
-      studentId: "student_001",
+      studentId: "m5_sample_student_nour",
       simulateDelay: false,
     }),
   );
@@ -53,7 +53,10 @@ try {
     ["contains skill chip", readyHtml.includes("Branding")],
     ["contains At a glance", readyHtml.includes("At a glance")],
     ["contains Links", readyHtml.includes("github.com/nour-design-demo")],
-    ["contains community card", readyHtml.includes("Part of the MIU community")],
+    [
+      "contains community card",
+      readyHtml.includes("Part of the MIU community"),
+    ],
     ["contains Contact CTA", readyHtml.includes("Contact")],
     ["not-found state works", notFoundHtml.includes("Profile not found")],
   ];

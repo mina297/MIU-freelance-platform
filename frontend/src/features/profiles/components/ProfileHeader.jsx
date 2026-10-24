@@ -1,8 +1,5 @@
 import { BadgeCheck, MessageCircle } from "lucide-react";
-import {
-  getRatingAriaLabel,
-  getStarDisplay,
-} from "../utils/ratingDisplay.js";
+import { getRatingAriaLabel, getStarDisplay } from "../utils/ratingDisplay.js";
 import SafeImage from "./SafeImage.jsx";
 
 /** Public profile header with photo, name, rating, and bio. */
@@ -11,7 +8,9 @@ export default function ProfileHeader({
   onContact,
   contactLabel = "Contact",
 }) {
-  const { filled, empty, label } = getStarDisplay(profile.ratingSummary.average);
+  const { filled, empty, label } = getStarDisplay(
+    profile.ratingSummary.average,
+  );
   const initials = profile.displayName
     .split(" ")
     .filter(Boolean)
@@ -25,8 +24,7 @@ export default function ProfileHeader({
         <SafeImage
           src={profile.profileImage}
           alt={
-            profile.profileImageAlt ||
-            `Profile photo of ${profile.displayName}`
+            profile.profileImageAlt || `Profile photo of ${profile.displayName}`
           }
           className="size-full object-cover"
           width={132}

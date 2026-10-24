@@ -3,11 +3,15 @@ import {
   getPortfolioItemsForStudent,
 } from "../../../data/fixtures/portfolio.js";
 import { PORTFOLIO_OVERRIDES_STORAGE_KEY } from "../constants.js";
+import { ownsProfile } from "./profileOwnership.js";
 
 function readAll() {
   try {
     const raw = window.sessionStorage.getItem(PORTFOLIO_OVERRIDES_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : {};
+    const value = raw ? JSON.parse(raw) : {};
+    return value && typeof value === "object" && !Array.isArray(value)
+      ? value
+      : {};
   } catch {
     return {};
   }
@@ -51,7 +55,9 @@ export function getResolvedPortfolioItems(studentId) {
  * @param {string} studentId
  * @param {object[]} items
  */
-export function savePortfolioItemsForStudent(studentId, items) {
+export function savePortfolioItemsForStudent(studentId, items, session) {
+  if (!ownsProfile(session, studentId, "student"))
+    throw new Error("Only the active student owner can change this portfolio.");
   const all = readAll();
   all[studentId] = items;
   writeAll(all);
@@ -62,23 +68,25 @@ export function savePortfolioItemsForStudent(studentId, items) {
  * @param {string} studentId
  * @param {object} item
  */
-export function upsertPortfolioItem(studentId, item) {
+export function upsertPortfolioItem(studentId, item, session) {
+  if (!item || item.studentId !== studentId || typeof item.id !== "string")
+    throw new Error("Portfolio item must belong to this student.");
   const current = getResolvedPortfolioItems(studentId);
   const index = current.findIndex((entry) => entry.id === item.id);
   const next =
     index >= 0
       ? current.map((entry, i) => (i === index ? item : entry))
       : [item, ...current];
-  return savePortfolioItemsForStudent(studentId, next);
+  return savePortfolioItemsForStudent(studentId, next, session);
 }
 
 /**
  * @param {string} studentId
  * @param {string} itemId
  */
-export function deletePortfolioItem(studentId, itemId) {
+export function deletePortfolioItem(studentId, itemId, session) {
   const next = getResolvedPortfolioItems(studentId).filter(
     (entry) => entry.id !== itemId,
   );
-  return savePortfolioItemsForStudent(studentId, next);
+  return savePortfolioItemsForStudent(studentId, next, session);
 }

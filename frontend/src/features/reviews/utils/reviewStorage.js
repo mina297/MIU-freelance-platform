@@ -1,23 +1,17 @@
-import { REVIEW_SUBMISSIONS_STORAGE_KEY } from "../../profiles/constants.js";
+import { reviewStore } from "../reviewStore.js";
 
-export function loadSubmittedReviews() {
-  try {
-    const raw = window.sessionStorage.getItem(REVIEW_SUBMISSIONS_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
-}
-
-/**
- * @param {object} review
- */
-export function saveSubmittedReview(review) {
-  const all = loadSubmittedReviews();
-  all.unshift(review);
-  window.sessionStorage.setItem(
-    REVIEW_SUBMISSIONS_STORAGE_KEY,
-    JSON.stringify(all),
+// Persisted legacy review data is deliberately ignored.
+export const loadSubmittedReviews = reviewStore.getSnapshot;
+export function saveSubmittedReview(review, session) {
+  const result = reviewStore.submit(
+    {
+      orderId: review.relatedOrderId,
+      rating: review.rating,
+      body: review.body,
+    },
+    session,
+    review.targetStudentId,
   );
-  return review;
+  if (!result.ok) throw new Error(Object.values(result.errors).join(" "));
+  return result.review;
 }

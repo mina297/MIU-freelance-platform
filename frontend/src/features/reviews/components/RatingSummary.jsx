@@ -1,4 +1,7 @@
-import { getRatingAriaLabel, getStarDisplay } from "../../profiles/utils/ratingDisplay.js";
+import {
+  getRatingAriaLabel,
+  getStarDisplay,
+} from "../../profiles/utils/ratingDisplay.js";
 
 /**
  * @param {{
@@ -39,7 +42,9 @@ export default function RatingSummary({ ratingSummary }) {
             const widthPct = Math.round((entry.count / maxBar) * 100);
             return (
               <li key={stars} className="flex items-center gap-3 text-sm">
-                <span className="w-12 shrink-0 text-[#4b5563]">{stars} star</span>
+                <span className="w-12 shrink-0 text-[#4b5563]">
+                  {stars} star
+                </span>
                 <div className="h-2 flex-1 overflow-hidden rounded-full bg-[#f1f1f3]">
                   <div
                     className="h-full rounded-full bg-star"

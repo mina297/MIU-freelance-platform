@@ -34,7 +34,11 @@ export function useClientProfile(clientId, options = {}) {
   const isLoading = simulateDelay && loadedId !== clientId;
 
   if (isLoading) {
-    return { status: "loading", data: null, refresh: () => setTick((n) => n + 1) };
+    return {
+      status: "loading",
+      data: null,
+      refresh: () => setTick((n) => n + 1),
+    };
   }
 
   // tick forces re-read after simulated edits
@@ -42,7 +46,11 @@ export function useClientProfile(clientId, options = {}) {
 
   const result = getClientProfileById(clientId);
   if (!result) {
-    return { status: "not_found", data: null, refresh: () => setTick((n) => n + 1) };
+    return {
+      status: "not_found",
+      data: null,
+      refresh: () => setTick((n) => n + 1),
+    };
   }
 
   return {

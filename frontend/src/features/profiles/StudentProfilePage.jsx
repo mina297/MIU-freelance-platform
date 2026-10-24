@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useContext, useState, useSyncExternalStore } from "react";
+import { AuthContext } from "../../contexts/AuthContext.js";
+import { ownsProfile } from "./utils/profileOwnership.js";
+import { reviewClientAllowed, reviewStore } from "../reviews/reviewStore.js";
 import ReviewFormModal from "../reviews/components/ReviewFormModal.jsx";
 import AboutSection from "./components/AboutSection.jsx";
 import AtAGlanceCard from "./components/AtAGlanceCard.jsx";
@@ -28,6 +31,12 @@ export default function StudentProfilePage({
   onLeaveReview,
   simulateDelay = true,
 }) {
+  const auth = useContext(AuthContext);
+  useSyncExternalStore(
+    reviewStore.subscribe,
+    reviewStore.getSnapshot,
+    reviewStore.getSnapshot,
+  );
   const [activeTabId, setActiveTabId] = useState(initialTabId || "about");
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
   const [reviewRefreshKey, setReviewRefreshKey] = useState(0);
@@ -35,7 +44,8 @@ export default function StudentProfilePage({
     simulateDelay,
     refreshKey: reviewRefreshKey,
   });
-  const isOwner = viewerMode === "owner";
+  const isOwner =
+    viewerMode === "owner" && ownsProfile(auth?.session, studentId, "student");
 
   if (status === "loading") {
     return (
@@ -84,12 +94,12 @@ export default function StudentProfilePage({
           onContact={
             isOwner
               ? undefined
-              : onContact ??
+              : (onContact ??
                 (() => {
                   window.alert(
                     "Contact is a mock integration callback. Messaging is owned by other modules.",
                   );
-                })
+                }))
           }
           contactLabel={isOwner ? "Owner view" : "Contact"}
         />
@@ -157,7 +167,11 @@ export default function StudentProfilePage({
               ratingSummary={profile.ratingSummary}
               reviews={reviews}
               isOwner={isOwner}
-              onLeaveReview={isOwner ? undefined : handleLeaveReview}
+              onLeaveReview={
+                !isOwner && reviewClientAllowed(auth?.session)
+                  ? handleLeaveReview
+                  : undefined
+              }
             />
           </div>
         ) : null}
@@ -179,7 +193,6 @@ export default function StudentProfilePage({
       <ReviewFormModal
         open={reviewModalOpen}
         onClose={() => setReviewModalOpen(false)}
-        defaultClientId="client_001"
         defaultStudentId={studentId}
         onSuccess={() => setReviewRefreshKey((key) => key + 1)}
         onViewReview={() => {

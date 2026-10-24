@@ -10,9 +10,7 @@ export default function StudentProfilePreview({
     <div className="min-h-screen bg-[#f8f8f9]">
       <div className="border-b border-[#e5e7eb] bg-white px-5 py-3 text-sm text-[#4b5563] md:px-[120px]">
         <p>
-          <span className="font-semibold text-miu-black">
-            Member 5 preview
-          </span>
+          <span className="font-semibold text-miu-black">Member 5 preview</span>
           {" — "}
           Student profile (not wired into the main router)
         </p>

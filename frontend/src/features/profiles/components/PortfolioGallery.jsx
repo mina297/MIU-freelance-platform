@@ -60,8 +60,12 @@ export default function PortfolioGallery({
               <p className="text-[11px] font-semibold uppercase tracking-wide text-miu-red">
                 {item.monthLabel}
               </p>
-              <h3 className="text-base font-semibold text-miu-black">{item.title}</h3>
-              <p className="line-clamp-2 text-sm text-[#4b5563]">{item.summary}</p>
+              <h3 className="text-base font-semibold text-miu-black">
+                {item.title}
+              </h3>
+              <p className="line-clamp-2 text-sm text-[#4b5563]">
+                {item.summary}
+              </p>
             </div>
           </button>
 

@@ -18,8 +18,14 @@ export default function StarRatingInput({
 }) {
   return (
     <fieldset className="space-y-2" disabled={disabled}>
-      <legend className="text-sm font-semibold text-miu-black">Your rating</legend>
-      <div className="flex items-center gap-1" role="radiogroup" aria-label="Star rating">
+      <legend className="text-sm font-semibold text-miu-black">
+        Your rating
+      </legend>
+      <div
+        className="flex items-center gap-1"
+        role="radiogroup"
+        aria-label="Star rating"
+      >
         {[1, 2, 3, 4, 5].map((star) => {
           const selected = value >= star;
           return (

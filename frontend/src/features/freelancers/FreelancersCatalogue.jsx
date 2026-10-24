@@ -105,8 +105,9 @@ export default function FreelancersCatalogue({
         <p className="services-disclosure">
           Fictional Phase 1 discovery based only on published services. Skills
           are service tags, not verified qualifications. Prices are package
-          starting prices, not hourly rates. Full profile links and availability
-          await profile integration.
+          starting prices, not hourly rates. Linked profile details are
+          fictional declarations and do not certify qualifications or
+          availability.
         </p>
         <section
           className="freelancers-filters"

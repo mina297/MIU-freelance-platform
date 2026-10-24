@@ -62,7 +62,7 @@ test("public service details render one shell, related packages/extras and safe 
     assert.match(html, /href="\/services"/);
     assert.doesNotMatch(
       html,
-      /href="\/checkout|href="\/students|Buy now|Order now|routing placeholder/,
+      /href="\/checkout|Buy now|Order now|routing placeholder/,
     );
     const config = routeConfig.find(
       ({ path }) => path === "/services/:serviceId",

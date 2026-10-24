@@ -10,7 +10,7 @@ import eventDashboard from "../../assets/profiles/portfolio/event-dashboard.svg"
 export const portfolioItems = [
   {
     id: "portfolio_001",
-    studentId: "student_001",
+    studentId: "m5_sample_student_nour",
     title: "Robotics Club · Visual identity",
     category: "Branding",
     completedAt: "2026-09-01",
@@ -25,7 +25,7 @@ export const portfolioItems = [
   },
   {
     id: "portfolio_002",
-    studentId: "student_001",
+    studentId: "m5_sample_student_nour",
     title: "Startup Showcase · Social campaign",
     category: "Digital Design",
     completedAt: "2026-08-01",
@@ -40,7 +40,7 @@ export const portfolioItems = [
   },
   {
     id: "portfolio_003",
-    studentId: "student_001",
+    studentId: "m5_sample_student_nour",
     title: "Theatre Festival · Poster series",
     category: "Illustration",
     completedAt: "2026-07-01",
@@ -55,7 +55,7 @@ export const portfolioItems = [
   },
   {
     id: "portfolio_004",
-    studentId: "student_001",
+    studentId: "m5_sample_student_nour",
     title: "Independent coffee · Packaging",
     category: "Packaging",
     completedAt: "2026-06-01",
@@ -70,7 +70,7 @@ export const portfolioItems = [
   },
   {
     id: "portfolio_005",
-    studentId: "student_002",
+    studentId: "m5_sample_student_karim",
     title: "Robotics Club · Landing section",
     category: "Web Development",
     completedAt: "2026-05-01",
@@ -85,7 +85,7 @@ export const portfolioItems = [
   },
   {
     id: "portfolio_006",
-    studentId: "student_002",
+    studentId: "m5_sample_student_karim",
     title: "Campus events · Ops dashboard",
     category: "UI Design",
     completedAt: "2026-04-12",

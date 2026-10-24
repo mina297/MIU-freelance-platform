@@ -18,7 +18,8 @@ describe("validatePortfolioItem", () => {
     const errors = validatePortfolioItem({
       title: "Club landing section",
       category: "Web Development",
-      summary: "A responsive landing section with clear CTAs for club recruitment.",
+      summary:
+        "A responsive landing section with clear CTAs for club recruitment.",
       monthLabel: "MAY 2026",
     });
     assert.deepEqual(errors, {});

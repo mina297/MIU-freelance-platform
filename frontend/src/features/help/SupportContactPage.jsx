@@ -22,6 +22,7 @@ export default function SupportContactPage({ onBack, onSuccess }) {
             ← Back to Help Center
           </button>
         ) : null}
+        <h1 className="text-2xl font-bold">Contact support</h1>
         <SupportRequestForm onCancel={onBack} onSuccess={onSuccess} />
       </div>
     </div>

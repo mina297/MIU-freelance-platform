@@ -4,7 +4,11 @@ import { validateReviewForm } from "../utils/validateReview.js";
 
 describe("validateReviewForm", () => {
   it("requires order, rating, and sufficient body text", () => {
-    const errors = validateReviewForm({ rating: 0, body: "short", orderId: "" });
+    const errors = validateReviewForm({
+      rating: 0,
+      body: "short",
+      orderId: "",
+    });
     assert.ok(errors.orderId);
     assert.ok(errors.rating);
     assert.ok(errors.body);

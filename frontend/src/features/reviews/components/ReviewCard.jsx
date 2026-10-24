@@ -53,7 +53,9 @@ export default function ReviewCard({ review }) {
             ) : null}
           </div>
           {review.reviewerOrganization ? (
-            <p className="text-sm text-[#4b5563]">{review.reviewerOrganization}</p>
+            <p className="text-sm text-[#4b5563]">
+              {review.reviewerOrganization}
+            </p>
           ) : null}
           <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
             <span className="text-star" aria-hidden="true">
@@ -66,7 +68,9 @@ export default function ReviewCard({ review }) {
         </div>
       </div>
 
-      <p className="mt-4 text-[15px] leading-relaxed text-[#4b5563]">{review.body}</p>
+      <p className="mt-4 text-[15px] leading-relaxed text-[#4b5563]">
+        {review.body}
+      </p>
 
       {review.jobLabel ? (
         <p className="mt-3 text-sm font-medium text-miu-black">

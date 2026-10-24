@@ -4,9 +4,7 @@
  */
 export default function SkillsDisplay({ skills = [], className = "" }) {
   if (!skills.length) {
-    return (
-      <p className="text-[13px] text-[#4b5563]">No skills listed yet.</p>
-    );
+    return <p className="text-[13px] text-[#4b5563]">No skills listed yet.</p>;
   }
 
   return (

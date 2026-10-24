@@ -3,16 +3,18 @@
  * Stable IDs for cross-module references. Fictional identities only.
  */
 
+import { marketplaceParticipants } from "./marketplace.js";
+import { mockUsers } from "./users.js";
 import nourAvatar from "../../assets/profiles/nour-elsayed.png";
 
 export const STUDENT_PROFILE_IDS = {
-  NOUR: "student_001",
-  KARIM: "student_002",
+  NOUR: "m5_sample_student_nour",
+  KARIM: "m5_sample_student_karim",
 };
 
 export const CLIENT_PROFILE_IDS = {
-  ROBOTICS_CLUB: "client_001",
-  STARTUP_LAB: "client_002",
+  ROBOTICS_CLUB: "m5_sample_client_robotics",
+  STARTUP_LAB: "m5_sample_client_startup",
 };
 
 /** @typedef {'student' | 'client'} ProfileRole */
@@ -246,3 +248,62 @@ export const clientProfiles = [
     projectHistoryIds: ["completed_002"],
   },
 ];
+
+// Historical design examples use isolated IDs; canonical accounts have no invented history.
+for (const [index, person] of marketplaceParticipants.students.entries()) {
+  const template = studentProfiles[index];
+  studentProfiles.push({
+    ...template,
+    id: person.id,
+    displayName: person.displayName,
+    firstName: person.displayName.split(" ")[0],
+    profileImage: "",
+    headline: "Student freelancer",
+    fieldOfStudy: "",
+    yearLabel: "",
+    skills: [],
+    languages: [],
+    rateEGP: null,
+    availability: "Not specified",
+    profileImageAlt: `Placeholder for ${person.displayName}`,
+    links: [],
+    shortBio:
+      "Fictional student freelancer. Profile details are editable in this Phase 1 preview.",
+    aboutParagraphs: [
+      "A fictional marketplace participant. No historical qualifications or reviews are inferred.",
+    ],
+    verified:
+      mockUsers.find(({ id }) => id === person.id)?.verificationStatus ===
+      "approved",
+    communityNote:
+      "Fictional Phase 1 account. Verification badges reflect demo account status only.",
+    ratingSummary: {
+      average: 0,
+      count: 0,
+      distribution: [5, 4, 3, 2, 1].map((stars) => ({ stars, count: 0 })),
+    },
+    completedJobsCount: 0,
+    completedProjectIds: [],
+    portfolioItemIds: [],
+  });
+}
+for (const person of marketplaceParticipants.clients) {
+  clientProfiles.push({
+    ...clientProfiles[0],
+    id: person.id,
+    displayName: person.displayName,
+    organizationName: person.displayName,
+    headline: "Fictional marketplace client",
+    shortBio: "Fictional client profile for the Phase 1 marketplace.",
+    aboutParagraphs: [
+      "Client profile details can be edited by the owning account.",
+    ],
+    profileImage: "",
+    profileImageAlt: `Placeholder for ${person.displayName}`,
+    verified:
+      mockUsers.find(({ id }) => id === person.id)?.verificationStatus ===
+      "approved",
+    links: [],
+    projectHistoryIds: [],
+  });
+}

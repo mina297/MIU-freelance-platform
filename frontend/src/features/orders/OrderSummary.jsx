@@ -144,6 +144,11 @@ export default function OrderSummary() {
             </p>
           )}
           <div className="project-create__success-links">
+            {order.status === "completed" && session.user.role === "client" && (
+              <Link to={`/reviews/new?orderId=${encodeURIComponent(order.id)}`}>
+                Review completed order
+              </Link>
+            )}
             <Link to={`/services/${order.sourceId}`}>
               View current service listing
             </Link>

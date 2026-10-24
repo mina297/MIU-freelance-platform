@@ -57,7 +57,9 @@ export default function LinksCard({ links = [] }) {
                       Demo example · not a live external link
                     </p>
                   ) : null}
-                  {!resolved.isSafe && !resolved.isDemoOnly && resolved.display ? (
+                  {!resolved.isSafe &&
+                  !resolved.isDemoOnly &&
+                  resolved.display ? (
                     <p className="mt-0.5 text-[11px] text-[#4b5563]">
                       Incomplete URL · open disabled
                     </p>
@@ -82,7 +84,10 @@ export default function LinksCard({ links = [] }) {
                     {content}
                   </a>
                 ) : (
-                  <div className={`${rowClass} cursor-default`} aria-disabled="true">
+                  <div
+                    className={`${rowClass} cursor-default`}
+                    aria-disabled="true"
+                  >
                     {content}
                   </div>
                 )}

@@ -3,7 +3,8 @@ import { SUPPORT_SUBMISSIONS_STORAGE_KEY } from "../../profiles/constants.js";
 export function loadSupportSubmissions() {
   try {
     const raw = window.sessionStorage.getItem(SUPPORT_SUBMISSIONS_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const value = raw ? JSON.parse(raw) : [];
+    return Array.isArray(value) ? value : [];
   } catch {
     return [];
   }

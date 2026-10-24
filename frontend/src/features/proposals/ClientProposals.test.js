@@ -125,7 +125,11 @@ test("client review protects ownership and includes live submissions, shortlist 
       .getSnapshot()
       .filter((proposal) => proposal.projectId === "project_001");
     const comparison = renderToStaticMarkup(
-      React.createElement(Comparison, { proposals: selected }),
+      React.createElement(
+        MemoryRouter,
+        null,
+        React.createElement(Comparison, { proposals: selected }),
+      ),
     );
     assert.match(comparison, /Selected proposal comparison/);
     assert.match(comparison, /scope="col"/);

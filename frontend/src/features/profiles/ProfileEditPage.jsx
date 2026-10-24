@@ -1,4 +1,6 @@
 import { useMemo, useState } from "react";
+import { useAuth } from "../../hooks/useAuth.js";
+import { ownsProfile } from "./utils/profileOwnership.js";
 import {
   clientProfiles,
   studentProfiles,
@@ -10,6 +12,25 @@ import {
 import FileUploadField from "./components/FileUploadField.jsx";
 import { getProfileEdit, saveProfileEdit } from "./utils/profileEditStorage.js";
 import { resolveExternalLink } from "./utils/safeExternalUrl.js";
+
+export default function ProfileEditPage(props) {
+  const { session } = useAuth();
+  const role = props.role ?? session.user?.role;
+  const profileId = props.profileId ?? session.user?.id;
+  if (!ownsProfile(session, profileId, role))
+    return (
+      <p role="alert">Only the active profile owner can edit this profile.</p>
+    );
+  return (
+    <ProfileEditor
+      {...props}
+      key={`${profileId}:${role}`}
+      profileId={profileId}
+      role={role}
+      session={session}
+    />
+  );
+}
 
 function buildLinkRecord(id, type, label, raw) {
   const resolved = resolveExternalLink(raw);
@@ -68,7 +89,8 @@ function buildInitialForm(profile) {
 function validateEditForm(form, role) {
   /** @type {Record<string, string>} */
   const errors = {};
-  if (!form.displayName.trim()) errors.displayName = "Display name is required.";
+  if (!form.displayName.trim())
+    errors.displayName = "Display name is required.";
   if (!form.shortBio.trim() || form.shortBio.trim().length < 20) {
     errors.shortBio = "Write a short bio of at least 20 characters.";
   }
@@ -77,7 +99,12 @@ function validateEditForm(form, role) {
     if (!form.availability.trim()) {
       errors.availability = "Availability is required for student profiles.";
     }
-    if (form.rateEGP !== "" && !Number.isFinite(Number(form.rateEGP))) {
+    if (
+      form.rateEGP !== "" &&
+      (!/^\d+(\.\d{1,2})?$/.test(form.rateEGP) ||
+        Number(form.rateEGP) <= 0 ||
+        Number(form.rateEGP) > Number.MAX_SAFE_INTEGER / 100)
+    ) {
       errors.rateEGP = "Rate must be a number in EGP.";
     }
   }
@@ -101,15 +128,18 @@ function validateEditForm(form, role) {
  *   onSaved?: (profileId: string) => void,
  * }} props
  */
-export default function ProfileEditPage({
+function ProfileEditor({
   profileId,
   role = "student",
   onCancel,
   onSaved,
+  session,
 }) {
   const resolvedId =
     profileId ||
-    (role === "client" ? DEFAULT_CLIENT_PROFILE_ID : DEFAULT_STUDENT_PROFILE_ID);
+    (role === "client"
+      ? DEFAULT_CLIENT_PROFILE_ID
+      : DEFAULT_STUDENT_PROFILE_ID);
 
   const baseProfile = useMemo(() => {
     const list = role === "client" ? clientProfiles : studentProfiles;
@@ -131,8 +161,13 @@ export default function ProfileEditPage({
   if (!baseProfile || !form) {
     return (
       <div className="w-full bg-[#f8f8f9] px-5 py-8 md:px-[120px]">
-        <div className="rounded-[10px] border border-[#e5e7eb] bg-white p-8 text-center" role="alert">
-          <h1 className="text-xl font-semibold text-miu-black">Profile not found</h1>
+        <div
+          className="rounded-[10px] border border-[#e5e7eb] bg-white p-8 text-center"
+          role="alert"
+        >
+          <h1 className="text-xl font-semibold text-miu-black">
+            Profile not found
+          </h1>
           <p className="mt-2 text-sm text-[#4b5563]">
             Cannot edit <span className="font-medium">{resolvedId}</span>.
           </p>
@@ -165,7 +200,7 @@ export default function ProfileEditPage({
     }
 
     setStatus("saving");
-    window.setTimeout(() => {
+    try {
       const skills = form.skillsText
         .split(",")
         .map((s) => s.trim())
@@ -219,28 +254,34 @@ export default function ProfileEditPage({
         aboutParagraphs,
         location: form.location.trim(),
         links,
-        profileImage: form.profileImage || photoPreview || baseProfile.profileImage,
+        profileImage:
+          form.profileImage || photoPreview || baseProfile.profileImage,
         profileImageAlt: `Profile photo of ${form.displayName.trim()}`,
       };
 
       if (role === "student") {
-        patch.firstName = form.displayName.trim().split(" ")[0] || form.displayName.trim();
+        patch.firstName =
+          form.displayName.trim().split(" ")[0] || form.displayName.trim();
         patch.skills = skills.length ? skills : baseProfile.skills;
         patch.availability = form.availability.trim();
         patch.languages = languages;
-        patch.rateEGP =
-          form.rateEGP === "" ? null : Number(form.rateEGP);
+        patch.rateEGP = form.rateEGP === "" ? null : Number(form.rateEGP);
       } else {
         patch.organizationName = form.organizationName.trim();
       }
 
-      saveProfileEdit(resolvedId, patch);
+      saveProfileEdit(resolvedId, patch, session);
       setStatus("success");
       setMessage(
         "Profile saved in this browser session only (Phase 1 simulated persistence).",
       );
       onSaved?.(resolvedId);
-    }, 300);
+    } catch {
+      setStatus("error");
+      setMessage(
+        "Could not save profile changes. Browser storage may be full or unavailable. Your changes are still here; try a smaller image or retry.",
+      );
+    }
   }
 
   return (
@@ -250,10 +291,13 @@ export default function ProfileEditPage({
           <p className="text-xs font-semibold uppercase tracking-wide text-miu-red">
             Simulated Phase 1 workflow
           </p>
-          <h1 className="mt-1 text-2xl font-bold text-miu-black">Edit profile</h1>
+          <h1 className="mt-1 text-2xl font-bold text-miu-black">
+            Edit profile
+          </h1>
           <p className="mt-1 text-sm text-[#4b5563]">
-            Editing {role} profile <span className="font-medium">{resolvedId}</span>.
-            Changes stay in sessionStorage until the tab is cleared.
+            Editing {role} profile{" "}
+            <span className="font-medium">{resolvedId}</span>. Changes stay in
+            sessionStorage until the tab is cleared.
           </p>
         </div>
 
@@ -421,7 +465,8 @@ export default function ProfileEditPage({
           />
           <p className="text-xs text-[#4b5563]">
             Safe http(s) links open in a new tab. Domains ending in{" "}
-            <span className="font-medium">.example</span> are treated as demo-only.
+            <span className="font-medium">.example</span> are treated as
+            demo-only.
           </p>
 
           {message ? (

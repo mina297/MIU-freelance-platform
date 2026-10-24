@@ -28,7 +28,9 @@ export function ProfileNotFoundState({ studentId }) {
       className="rounded-[10px] border border-[#e5e7eb] bg-white p-8 text-center shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)]"
       role="alert"
     >
-      <h2 className="text-xl font-semibold text-miu-black">Profile not found</h2>
+      <h2 className="text-xl font-semibold text-miu-black">
+        Profile not found
+      </h2>
       <p className="mt-3 text-sm leading-relaxed text-[#4b5563]">
         No student profile matches
         {studentId ? (

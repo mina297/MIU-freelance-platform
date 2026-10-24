@@ -9,7 +9,11 @@ import SkillsDisplay from "./SkillsDisplay.jsx";
  *   skills: string[],
  * }} props
  */
-export default function AboutSection({ firstName, paragraphs = [], skills = [] }) {
+export default function AboutSection({
+  firstName,
+  paragraphs = [],
+  skills = [],
+}) {
   return (
     <section
       className="flex w-full flex-col gap-5 overflow-hidden rounded-[10px] border border-[#e5e7eb] bg-white p-6 shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)] sm:p-8"

@@ -4,7 +4,9 @@
  * @returns {{ filled: number, empty: number, label: string }}
  */
 export function getStarDisplay(average) {
-  const safeAverage = Number.isFinite(average) ? Math.max(0, Math.min(5, average)) : 0;
+  const safeAverage = Number.isFinite(average)
+    ? Math.max(0, Math.min(5, average))
+    : 0;
   const filled = Math.round(safeAverage);
   return {
     filled,
@@ -57,7 +59,10 @@ export function buildRatingSummary(reviewList = []) {
  * @param {{ average?: number, count?: number, distribution?: { stars: number, count: number }[] } | null | undefined} baseSummary
  * @param {Array<{ rating?: number }>} submittedReviews
  */
-export function mergeSubmittedIntoRatingSummary(baseSummary, submittedReviews = []) {
+export function mergeSubmittedIntoRatingSummary(
+  baseSummary,
+  submittedReviews = [],
+) {
   if (!submittedReviews.length) {
     return (
       baseSummary ?? {
@@ -79,13 +84,15 @@ export function mergeSubmittedIntoRatingSummary(baseSummary, submittedReviews = 
   }
 
   const count = baseCount + added.length;
-  const total = baseAverage * baseCount + added.reduce((sum, rating) => sum + rating, 0);
+  const total =
+    baseAverage * baseCount + added.reduce((sum, rating) => sum + rating, 0);
   const average = Math.round((total / count) * 10) / 10;
 
   const distributionMap = new Map(
-    (baseSummary?.distribution ?? [5, 4, 3, 2, 1].map((stars) => ({ stars, count: 0 }))).map(
-      (entry) => [entry.stars, entry.count],
-    ),
+    (
+      baseSummary?.distribution ??
+      [5, 4, 3, 2, 1].map((stars) => ({ stars, count: 0 }))
+    ).map((entry) => [entry.stars, entry.count]),
   );
   for (const rating of added) {
     distributionMap.set(rating, (distributionMap.get(rating) || 0) + 1);
