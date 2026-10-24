@@ -102,6 +102,20 @@ Do not send real identity documents to unapproved AI services.
 
 ## 4. Transparency Rules
 
+### Phase 1 skills-matching demonstration — 24 October 2026
+
+`/recommendations` is a public, opt-in demonstration for FR-S04 and FR-C07. Visitors choose projects, services or student service providers, plus skills and/or a category. No choices are inferred from the current account. Until a choice is made, the screen gives guidance rather than presenting invented personalized results.
+
+The local deterministic model counts unique selected skill tags shared by each listing. Category is a strict filter; if skills are selected, at least one must overlap. Only open projects and published services are considered. Results sort by shared selected-skill count, then title/name and stable ID. Category-only matches are alphabetical. No confidence percentage, qualification score or success probability is displayed; price does not affect ranking. Each card explains its matched tags/category and identifies partial overlap.
+
+Providers are matched through their best single published service, with that service's description, price and registered detail link. Tags across unrelated services are not combined. Full profiles, availability and reputation remain dependent on Member 5 identity alignment, as documented in [Freelancer Discovery](FREELANCER_DISCOVERY.md). These results do not certify skills or complete FR-C06.
+
+The page observes the existing in-memory project and service stores. Closing/accepting a project or pausing a service removes it from eligible results. Refresh clears demo state. The model reads public listing fields and public provider identity only; it does not use identity evidence, credentials, private profiles, messages, order history or review data.
+
+Helpful/Not relevant buttons record reversible card-local feedback only. The interface explicitly states that feedback is not sent or used for training; it resets on changed matching inputs/results or navigation. No production feedback service, committee escalation endpoint or learning model is claimed. Visitors can browse all catalogues independently, inspect original listings and make their own decisions. Suggestions never apply, order, pay, enforce access or modify marketplace records.
+
+Shared form, card and feedback-state components support labeled choices and loading/error/empty presentations. Automated model tests cover visibility, overlap reasons, sorting, same-service provider matching, invalid preferences, missing prices and live project lifecycle data. Static rendering checks cover routing, one public shell, disclosure, escaping, result-card reasons and recovery states. Interactive browser, mobile, keyboard and screen-reader acceptance remains deferred at Mina's request. Production matching methodology, fairness assessment and human escalation remain planned; this demonstration does not establish production compliance with NFR-11/NFR-12.
+
 - Label AI-assisted information.
 - Explain when results are simulated.
 - Provide feedback options.

@@ -1,0 +1,202 @@
+.order-list__body {
+  display: grid;
+  gap: 28px;
+  padding-block: 28px 64px;
+}
+.order-list__disclosure {
+  color: #735a69;
+  font-size: 13px;
+  line-height: 1.85;
+}
+.order-list__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.order-list .miu-stat-card {
+  border: 1.5px solid #c9b4c1;
+  border-radius: 16px;
+  background: #fff;
+}
+.order-list .miu-stat-card__value {
+  color: #7f2946;
+}
+.order-list__filters {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr)) auto;
+  align-items: end;
+  gap: 18px;
+  padding: 24px;
+}
+.order-list__results-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+.order-list__results-heading h2 {
+  font-size: 30px;
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  margin-block: 6px;
+}
+.order-list__results-heading p[role] {
+  color: #796572;
+  font-size: 13px;
+}
+.order-list__results-heading > .miu-field {
+  width: 270px;
+}
+.order-list__cards {
+  display: grid;
+  gap: 20px;
+}
+.order-list .order-list__card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 245px;
+  padding: 0;
+  border: 1.5px solid #c9b4c1;
+  border-radius: 18px;
+  background: #fff;
+  overflow: hidden;
+}
+.order-list__card-main {
+  padding: 28px;
+  min-width: 0;
+}
+.order-list__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-size: 11px;
+  color: #875a70;
+}
+.order-list__meta > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+.order-list__status {
+  border: 1px solid #d8b8c9;
+  border-radius: 24px;
+  padding: 5px 12px;
+  background: #faf0f5;
+  color: #8c3353;
+  font-weight: 600;
+}
+.order-list__card h3 {
+  font-size: 24px;
+  font-weight: 750;
+  line-height: 1.4;
+  letter-spacing: -0.035em;
+  overflow-wrap: anywhere;
+}
+.order-list__card h3 a:hover {
+  color: #ac2b4c;
+}
+.order-list__card-main > p {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #735a69;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+.order-list__card-main .order-list__note {
+  font-size: 11px;
+  color: #8c7181;
+}
+.order-list__reference {
+  font-size: 11px !important;
+}
+.order-list__card-terms {
+  padding: 28px;
+  border-left: 1px solid #d6bdcb;
+  background: #f4e9f0;
+}
+.order-list__card-terms dl {
+  display: grid;
+  gap: 18px;
+}
+.order-list__card-terms dt {
+  color: #796572;
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+.order-list__card-terms dd {
+  font-size: 14px;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+.order-list__card-terms dl > div:first-child dd {
+  font-size: 24px;
+  letter-spacing: -0.03em;
+}
+.order-list__card-terms > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 44px;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 10px 16px;
+  background: #b91c2b;
+  color: #fff;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.order-list__browse {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.order-list__browse a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: #a52d4b;
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: underline;
+}
+.order-list a:focus-visible {
+  outline: 2px solid #b91c2b;
+  outline-offset: 4px;
+}
+.order-list__recovery {
+  padding-block: 64px;
+  display: grid;
+  gap: 20px;
+}
+.order-list__recovery h1 {
+  font-size: 30px;
+  font-weight: 750;
+}
+@media (max-width: 1000px) {
+  .order-list__filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 700px) {
+  .order-list__stats,
+  .order-list__filters,
+  .order-list .order-list__card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .order-list__card-terms {
+    border-left: 0;
+    border-top: 1px solid #d6bdcb;
+  }
+  .order-list__results-heading > .miu-field {
+    width: 100%;
+  }
+}
