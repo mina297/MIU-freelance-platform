@@ -4,6 +4,7 @@ import "./SharedUiPreview.css";
 import Button from "../Button.jsx";
 import Card from "../Card.jsx";
 import Badge from "../Badge.jsx";
+import SharedUiExamples from "./SharedUiExamples.jsx";
 
 const BUTTON_VARIANTS = [
   "primary",
@@ -41,7 +42,38 @@ export default function SharedUiPreview() {
         </p>
       </header>
 
-      <section aria-labelledby="buttons-heading" className="space-y-4">
+      <nav
+        aria-label="Member 4 preview directory"
+        className="flex flex-wrap gap-4 rounded-xl border p-4"
+      >
+        <a className="underline" href="/m4-pages-preview.html">
+          All public page designs
+        </a>
+        <a className="underline" href="/how-it-works-preview.html">
+          Original How It Works section
+        </a>
+        {[
+          "buttons",
+          "badges",
+          "cards",
+          "forms",
+          "modal",
+          "tabs",
+          "data",
+          "toasts",
+          "feedback",
+        ].map((section) => (
+          <a className="underline" key={section} href={`#${section}`}>
+            {section}
+          </a>
+        ))}
+      </nav>
+
+      <section
+        id="buttons"
+        aria-labelledby="buttons-heading"
+        className="space-y-4"
+      >
         <h2 id="buttons-heading" className="text-2xl font-bold">
           Buttons
         </h2>
@@ -141,7 +173,11 @@ export default function SharedUiPreview() {
         </p>
       </section>
 
-      <section aria-labelledby="badges-heading" className="space-y-4">
+      <section
+        id="badges"
+        aria-labelledby="badges-heading"
+        className="space-y-4"
+      >
         <h2 id="badges-heading" className="text-2xl font-bold">
           Badges
         </h2>
@@ -162,7 +198,7 @@ export default function SharedUiPreview() {
         </Card>
       </section>
 
-      <section aria-labelledby="cards-heading" className="space-y-4">
+      <section id="cards" aria-labelledby="cards-heading" className="space-y-4">
         <h2 id="cards-heading" className="text-2xl font-bold">
           Cards
         </h2>
@@ -228,6 +264,7 @@ export default function SharedUiPreview() {
           </div>
         </Card>
       </section>
+      <SharedUiExamples />
     </main>
   );
 }

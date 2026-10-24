@@ -27,6 +27,18 @@ Installed dependencies do not imply that their planned integrations are complete
 
 ## Local Development
 
+### Member 4 isolated previews
+
+While the development server is running, open `/m4-pages-preview.html` to browse
+Member 4's original landing, public shell, About, How It Works, policy placeholders,
+and feedback-demo pages. The page picker is independent of Member 1's temporary
+home page. `/shared-ui-preview.html` contains the shared buttons/cards/badges,
+forms, language-selector appearance, modal, tabs, pagination, table/statistics,
+toasts, and loading/progress/empty/error examples. `/how-it-works-preview.html`
+preserves the original section preview. All three entries are development previews
+and are excluded from the normal application build. Preview actions use only
+fictional local UI state; translations and approved policy content remain pending.
+
 From this directory:
 
 ```bash
