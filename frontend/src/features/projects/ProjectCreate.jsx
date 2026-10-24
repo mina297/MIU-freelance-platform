@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { Link, useParams } from "react-router-dom";
 import {
   ArrowLeft,
   ArrowRight,
@@ -20,7 +20,7 @@ import {
 import { formatEGP } from "../../utils/formatEGP.js";
 import { formatDate } from "../../utils/formatDate.js";
 import {
-  EMPTY_PROJECT,
+  projectFormValues,
   clientEligibility,
   localDate,
   normalizeProject,
@@ -69,12 +69,14 @@ function ProjectBrief({ values }) {
   );
 }
 
-function ProjectCreateForm() {
+function ProjectCreateForm({ record }) {
   const { session } = useAuth();
-  const [values, setValues] = useState(() => ({
-    ...EMPTY_PROJECT,
-    requiredSkillIds: [],
-  }));
+  const [values, setValues] = useState(() => projectFormValues(record));
+  const [isPublished] = useState(record?.status === "open");
+  const [savedId, setSavedId] = useState(
+    record?.status === "draft" ? record.id : null,
+  );
+  const [notice, setNotice] = useState("");
   const [step, setStep] = useState("edit");
   const [errors, setErrors] = useState({});
   const [published, setPublished] = useState(null);
@@ -96,8 +98,10 @@ function ProjectCreateForm() {
       form.current?.querySelector('input[name="requiredSkillIds"]')?.focus();
     else if (first) form.current?.elements.namedItem(first)?.focus();
   }, [step, errors]);
-  const setField = (name, value) =>
+  const setField = (name, value) => {
+    setNotice("");
     setValues((current) => ({ ...current, [name]: value }));
+  };
   const fields = (name, label, extra = {}) => ({
     id: `project-${name}`,
     name,
@@ -123,7 +127,10 @@ function ProjectCreateForm() {
     if (!Object.keys(nextErrors).length) setStep("preview");
   }
   function publish() {
-    const result = projectStore.publish(values, session, submissionId);
+    const result =
+      record || savedId
+        ? projectStore.update(values, session, record?.id ?? savedId)
+        : projectStore.publish(values, session, submissionId);
     if (result.ok) {
       setPublished(result.project);
       setStep("success");
@@ -131,6 +138,21 @@ function ProjectCreateForm() {
       setStep("edit");
       report(result.errors);
     }
+  }
+  function saveDraft() {
+    const result = projectStore.saveDraft(
+      values,
+      session,
+      submissionId,
+      savedId,
+    );
+    if (result.ok) {
+      setSavedId(result.project.id);
+      setErrors({});
+      setNotice(
+        "Draft saved for this demo session. You can reopen it from My projects. Refreshing clears it.",
+      );
+    } else report(result.errors);
   }
   const verificationIssue = clientEligibility(session, true);
   return (
@@ -142,6 +164,7 @@ function ProjectCreateForm() {
         <Link to="/projects">
           <ArrowLeft size={16} aria-hidden="true" /> Back to marketplace
         </Link>
+        <Link to="/client/projects">My projects</Link>
         <span>Phase 1 preview</span>
       </header>
       <main>
@@ -154,6 +177,12 @@ function ProjectCreateForm() {
                   Your next idea.
                   <br />
                   <em>Ready to discover.</em>
+                </>
+              ) : isPublished ? (
+                <>
+                  Refine your project.
+                  <br />
+                  <em>Keep the vision clear.</em>
                 </>
               ) : (
                 <>
@@ -177,7 +206,7 @@ function ProjectCreateForm() {
             {[
               ["edit", "Write your brief"],
               ["preview", "Review the details"],
-              ["success", "Publish demo"],
+              ["success", isPublished ? "Save changes" : "Publish demo"],
             ].map(([id, title], index) => (
               <li key={id} aria-current={step === id ? "step" : undefined}>
                 <span>
@@ -206,16 +235,21 @@ function ProjectCreateForm() {
                   </p>
                   <h2>
                     {step === "edit"
-                      ? "Tell us what you’re building"
+                      ? isPublished
+                        ? "Update your project brief"
+                        : "Tell us what you’re building"
                       : step === "preview"
                         ? "One last look before publishing"
-                        : "Published — simulation"}
+                        : isPublished
+                          ? "Changes saved — simulation"
+                          : "Published — simulation"}
                   </h2>
                 </div>
               </div>
               {step === "edit" ? (
                 <form ref={form} noValidate onSubmit={preview}>
                   <div className="project-create__fields">
+                    <p role="status">{notice}</p>
                     {Object.keys(errors).length > 0 && (
                       <p role="alert" className="project-create__alert">
                         {errors.session ??
@@ -318,7 +352,11 @@ function ProjectCreateForm() {
                     </div>
                   </div>
                   <div className="project-create__actions">
-                    <span>Review everything before you publish.</span>
+                    {!isPublished && (
+                      <Button variant="outline" onClick={saveDraft}>
+                        Save draft
+                      </Button>
+                    )}
                     <Button type="submit">
                       Preview project{" "}
                       <ArrowRight size={17} aria-hidden="true" />
@@ -342,7 +380,9 @@ function ProjectCreateForm() {
                       onClick={publish}
                       disabled={Boolean(verificationIssue)}
                     >
-                      Publish demo project{" "}
+                      {isPublished
+                        ? "Save demo changes"
+                        : "Publish demo project"}{" "}
                       <ArrowRight size={17} aria-hidden="true" />
                     </Button>
                   </div>
@@ -361,6 +401,7 @@ function ProjectCreateForm() {
                       <ArrowRight size={17} aria-hidden="true" />
                     </Link>
                     <Link to="/projects">Browse projects</Link>
+                    <Link to="/client/projects">My projects</Link>
                   </div>
                 </div>
               )}
@@ -390,8 +431,9 @@ function ProjectCreateForm() {
                 <strong>A safe space to try it</strong>
                 <p>
                   This is a simulated frontend workflow. Use fictional
-                  information. Form inputs clear when you leave; published demo
-                  projects remain until refresh.
+                  information. Save a draft to reopen it later. Saved drafts and
+                  published changes remain in memory until refresh. Unsaved
+                  changes clear when you leave.
                 </p>
                 {verificationIssue && (
                   <p>
@@ -410,5 +452,37 @@ function ProjectCreateForm() {
 
 export default function ProjectCreate() {
   const { session } = useAuth();
-  return <ProjectCreateForm key={session.user?.id ?? "anonymous"} />;
+  const { projectId } = useParams();
+  useSyncExternalStore(
+    projectStore.subscribe,
+    projectStore.getWorkspaceSnapshot,
+    projectStore.getWorkspaceSnapshot,
+  );
+  const record = projectId ? projectStore.findOwned(projectId, session) : null;
+  if (projectId && (!record || !["draft", "open"].includes(record.status)))
+    return (
+      <main className="project-create">
+        <div className="project-create__container project-create__brief">
+          <h1 className="text-3xl font-bold">
+            Project unavailable for editing
+          </h1>
+          <p className="mt-4">
+            You can edit only your own drafts and open projects. This project
+            may be unavailable or no longer editable.
+          </p>
+          <Link
+            className="mt-6 inline-flex min-h-11 items-center text-miu-red underline"
+            to="/client/projects"
+          >
+            Return to My projects
+          </Link>
+        </div>
+      </main>
+    );
+  return (
+    <ProjectCreateForm
+      key={`${session.user?.id ?? "anonymous"}:${projectId ?? "new"}`}
+      record={record}
+    />
+  );
 }

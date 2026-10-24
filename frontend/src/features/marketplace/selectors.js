@@ -1,7 +1,7 @@
 import { marketplaceData } from "../../data/fixtures/marketplace.js";
-import { projectStore } from "../projects/projectStore.js";
+import { mergeProjects, projectStore } from "../projects/projectStore.js";
 
-const currentData = () => ({ ...marketplaceData, projects: [...marketplaceData.projects, ...projectStore.getSnapshot()] });
+const currentData = () => ({ ...marketplaceData, projects: mergeProjects(marketplaceData.projects, projectStore.getSnapshot()) });
 
 // Optional data arguments let tests and later state providers reuse the same queries.
 export const getProjectById = (id, data = currentData()) =>

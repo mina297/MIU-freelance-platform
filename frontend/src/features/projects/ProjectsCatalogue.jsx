@@ -1,5 +1,5 @@
 import { useMemo, useState, useSyncExternalStore } from "react";
-import { projectStore } from "./projectStore.js";
+import { mergeProjects, projectStore } from "./projectStore.js";
 import {
   ArrowRight,
   Bookmark,
@@ -32,12 +32,10 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
     projectStore.getSnapshot,
   );
   const openProjects = useMemo(
-    () => [
-      ...fixtureOpenProjects,
-      ...demoProjects.filter(
+    () =>
+      mergeProjects(fixtureOpenProjects, demoProjects).filter(
         (project) => project.status === PROJECT_STATUS.OPEN,
       ),
-    ],
     [demoProjects],
   );
   const [searchDraft, setSearchDraft] = useState("");

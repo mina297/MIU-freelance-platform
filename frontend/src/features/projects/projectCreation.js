@@ -95,3 +95,53 @@ export function normalizeProject(values) {
     deadline: values.deadline,
   };
 }
+
+/** Partial drafts are private form values, not public Project records. */
+export function validateProjectDraft(values) {
+  const errors = {};
+  for (const [name, limit] of [
+    ["title", 120],
+    ["description", 2000],
+    ["scope", 5000],
+    ["deliverables", 3000],
+    ["categoryId", 100],
+    ["budgetEGP", 100],
+    ["deadline", 100],
+  ]) {
+    if (typeof values[name] !== "string" || values[name].length > limit)
+      errors[name] = `Use text of ${limit} characters or fewer.`;
+  }
+  if (
+    values.categoryId &&
+    !marketplaceCategories.some(({ id }) => id === values.categoryId)
+  )
+    errors.categoryId = "Choose a listed category.";
+  if (
+    !Array.isArray(values.requiredSkillIds) ||
+    new Set(values.requiredSkillIds).size !== values.requiredSkillIds.length ||
+    values.requiredSkillIds.some(
+      (id) => !marketplaceSkills.some((skill) => skill.id === id),
+    )
+  )
+    errors.requiredSkillIds = "Choose listed skills without duplicates.";
+  return errors;
+}
+
+export function projectFormValues(record) {
+  if (!record) return { ...EMPTY_PROJECT, requiredSkillIds: [] };
+  if (record.status === "draft")
+    return {
+      ...record.values,
+      requiredSkillIds: [...record.values.requiredSkillIds],
+    };
+  return {
+    title: record.title,
+    description: record.description,
+    scope: record.scope ?? record.description,
+    deliverables: (record.deliverables ?? []).join("\n"),
+    categoryId: record.categoryId,
+    requiredSkillIds: [...record.requiredSkillIds],
+    budgetEGP: String(record.budgetEGP),
+    deadline: record.deadline,
+  };
+}

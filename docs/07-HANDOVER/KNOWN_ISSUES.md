@@ -24,9 +24,11 @@ Do not confuse a planned feature with a software defect.
 ## 3. Current Known Limitations
 
 **Project creation (24 October 2026):** `/client/projects/new` is a simulated
-create/preview/publish flow. Published demo projects reset on refresh; unpublished
-form values reset on leaving or account switching. Published editing, saved drafts,
-and client project management are pending. The session contract lacks MIU/external
+create/preview/publish flow with private saved drafts and owned-open-project editing.
+`/client/projects` provides the client's list; `/client/projects/:projectId/edit`
+resumes drafts or edits open briefs. Saved records reset on refresh; unsaved
+form values reset on leaving or account switching. Closing/cancellation remain
+pending, and non-open published projects cannot be edited. The session contract lacks MIU/external
 client origin, so publishing currently requires approved verification for all demo
 clients. Nile Studio is the approved fictional test case. Browser interaction,
 keyboard, and mobile/desktop visual acceptance for this new screen remain pending.

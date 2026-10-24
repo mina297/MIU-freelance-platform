@@ -96,6 +96,70 @@ test("creation route renders the client form, guards other sessions, and exposes
     );
     assert.match(render("/projects"), /Route creation demo/);
     assert.match(render("/projects"), /Post a project/);
+    assert.match(render("/client/projects"), /Route creation demo/);
+    assert.match(render("/client/projects"), /Edit project/);
+    const partial = {
+      title: "Private route draft",
+      description: "",
+      scope: "",
+      deliverables: "",
+      categoryId: "",
+      requiredSkillIds: [],
+      budgetEGP: "",
+      deadline: "",
+    };
+    const draft = projectStore.saveDraft(
+      partial,
+      client,
+      "route-draft",
+    ).project;
+    const draftEditor = render(`/client/projects/${draft.id}/edit`);
+    assert.match(draftEditor, /value="Private route draft"/);
+    assert.match(draftEditor, /Save draft/);
+    assert.match(render("/client/projects"), /Private route draft/);
+    assert.doesNotMatch(render("/projects"), /Private route draft/);
+    assert.match(render(`/projects/${draft.id}`), /Project not found/);
+    const foreign = {
+      ...client,
+      user: { ...client.user, id: "another_client" },
+    };
+    assert.match(render("/client/projects", foreign), /No projects yet/);
+    for (const id of [draft.id, created.project.id, "missing", "project_002"]) {
+      const unavailable = render(`/client/projects/${id}/edit`, foreign);
+      assert.match(unavailable, /Project unavailable for editing/);
+      assert.doesNotMatch(
+        unavailable,
+        /Private route draft|Route creation demo/,
+      );
+    }
+    assert.match(
+      render("/client/projects/project_002/edit"),
+      /Project unavailable for editing/,
+    );
+    const editing = render(`/client/projects/${created.project.id}/edit`);
+    assert.match(editing, /Update your project brief/);
+    assert.match(editing, /value="Route creation demo"/);
+    assert.doesNotMatch(editing, />Save draft</);
+    projectStore.update(
+      {
+        ...partial,
+        title: "Updated route creation demo",
+        description: "A fictional site",
+        scope: "Schedule",
+        deliverables: "Schedule page",
+        categoryId: "web_development",
+        requiredSkillIds: ["react"],
+        budgetEGP: "5500",
+        deadline: "2099-12-31",
+      },
+      client,
+      created.project.id,
+    );
+    assert.match(
+      render(`/projects/${created.project.id}`),
+      /Updated route creation demo/,
+    );
+    assert.match(render("/projects"), /Updated route creation demo/);
   } finally {
     await vite.close();
   }

@@ -10,6 +10,7 @@ import ProtectedRoute from "../features/auth/ProtectedRoute.jsx";
 import ProjectsCatalogue from "../features/projects/ProjectsCatalogue.jsx";
 import ProjectDetails from "../features/projects/ProjectDetails.jsx";
 import ProjectCreate from "../features/projects/ProjectCreate.jsx";
+import ClientProjects from "../features/projects/ClientProjects.jsx";
 import ProposalEntry from "../features/proposals/ProposalEntry.jsx";
 import AppLayout from "../layouts/AppLayout.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
@@ -89,6 +90,8 @@ const featurePages = {
   "/projects/:projectId/propose": <ProposalEntry />,
   "/projects": <ProjectsCatalogueRoute />,
   "/client/projects/new": <ProjectCreate />,
+  "/client/projects": <ClientProjects />,
+  "/client/projects/:projectId/edit": <ProjectCreate />,
   "/projects/:projectId": <ProjectDetailsRoute />,
   "/login": <LoginPage />,
   "/register/role": <RoleSelectionPage />,

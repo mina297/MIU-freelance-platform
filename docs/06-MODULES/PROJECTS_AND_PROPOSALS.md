@@ -30,8 +30,9 @@ session's client ID rather than caller-provided ownership or status.
 Publication is explicitly simulated: an immutable, in-memory open Project joins
 catalogue queries, details, and proposal lookup until refresh. Repeating a publish
 request for the same client/form token returns the same project. Fixtures are not
-mutated. Unpublished form values clear on route exit or account switch; no draft
-storage or production publication is implemented.
+mutated. Unsaved form values clear on route exit or account switch. Private drafts
+can now be saved in memory and reopened from `/client/projects`; refresh clears
+both drafts and published changes. No production publication is implemented.
 
 The current session contract has no MIU/external-client discriminator. As a
 temporary conservative demo restriction, all clients need `approved` verification
@@ -42,8 +43,29 @@ must supply the account-origin distinction before applying FR-C02 precisely.
 
 Automated validation/store and rendered-route checks cover creation and integration.
 Browser checks of preview/edit/publish, error focus, account switching, keyboard
-use, and desktop/mobile appearance remain pending. Published project editing,
-closing/cancellation, saved drafts, and client management lists remain separate work.
+use, and desktop/mobile appearance remain pending. Closing/cancellation remain
+separate work.
+
+### Drafts and owned edits (FR-C04 / P-16)
+
+`/client/projects` lists only the active client's fixture/demo projects and private
+drafts. `/client/projects/:projectId/edit` reopens owned drafts or open projects.
+The store rechecks account activity, ownership and editable status on every save.
+Unknown, other-client, selected, closed and cancelled projects show a generic
+recovery state without exposing their brief in the editor. Restricting published
+edits to open projects is a demo safeguard, not a finalized production edit policy.
+
+Save draft accepts incomplete form strings and missing fields, while validating
+types, text limits and supplied category/skill IDs. Drafts are separate private
+records, excluded from public selectors, catalogue and details. Publishing a draft
+requires full validation and approved demo verification; it retains the draft ID
+and creation timestamp and removes the private draft representation.
+
+Published edits require full validation and approved demo verification. They retain
+ownership, ID, original creation time and open status. Memory-only overrides replace
+the original project in discovery, details and proposal lookups without duplicate
+cards or fixture mutation. Unsaved changes to an open brief never replace its public
+version. Pending clients can save drafts but cannot publish or save public edits.
 
 Clients can:
 

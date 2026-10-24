@@ -80,7 +80,11 @@ guard. Post a project in the catalogue opens the form; visitors use the existing
 login return flow. Valid briefs can be previewed, edited before publication, and
 published to the in-memory demo catalogue. Publish requires an approved client
 demo session; the MIU/external-client distinction is pending. Editing previously
-published projects at `/client/projects/:projectId/edit` remains planned.
+published projects at `/client/projects/:projectId/edit` is available for owned
+open projects. Owned private drafts can be resumed there too. `/client/projects`
+lists the current client's projects and drafts, with empty and unavailable states.
+Incomplete drafts can be saved without appearing publicly; all saved changes reset
+on refresh. Selected, closed and cancelled project edits remain unavailable.
 
 **24 October 2026 public integration:** `/` now renders LandingPage inside the
 shared PublicLayout. `/about`, `/how-it-works`, `/terms`, `/privacy`,

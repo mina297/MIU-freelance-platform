@@ -77,6 +77,19 @@
 .project-create__workspace {
   padding-bottom: 64px;
 }
+.project-create__project-list {
+  display: grid;
+  gap: 20px;
+  padding-block: 32px 64px;
+}
+.project-create__list-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+  color: #685963;
+}
 .project-create__steps {
   position: relative;
   display: flex;
