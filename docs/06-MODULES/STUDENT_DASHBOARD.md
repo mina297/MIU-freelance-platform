@@ -1,16 +1,12 @@
 # Student Dashboard — Phase 1 frontend
 
-Route: `/student/dashboard` (P-11), directly available as a frontend preview.
-The old demo account toolbar and simulated role gate were removed per the team's
-navigation request. No authentication is implemented. Real role guards await login
-integration. The catalogue remains at `/` and `/projects`.
+Route: `/student/dashboard` (P-11), connected through the shared router with the
+student role guard and memory-only mock sessions. The landing page is at `/`;
+the marketplace catalogue is at `/projects`. Real authentication remains out of scope.
 
 `frontend/src/components/navigation/DevDashboardSwitcher.jsx` provides isolated
 development navigation with separate CSS and no session or dashboard state.
-Only Student Dashboard is linked; seven planned dashboards say Coming soon.
-The switcher uses the compact MIU-red preview badge style, fixed 16px from the
-bottom-right corner, with an upward-opening dropdown. It occupies no header
-space and preserves keyboard, outside-click and route-change dismissal.
+Student and Client Dashboards are linked; six planned dashboards say Coming soon.
 Set `VITE_ENABLE_DEV_DASHBOARD_SWITCHER=false` to hide it, or remove its import
 and render in App.jsx. No dashboard routes need changing.
 
@@ -59,7 +55,10 @@ recoverable error, and populated views. No requests are made to an API.
 Manual review: open the student dashboard through the switcher, navigate sidebar sections and browser
 history, open/close dialogs with keyboard, test all preview states, verify disabled planned dashboards, and inspect desktop/tablet/mobile widths.
 
-## Verification — 23 October 2026
+## Prior branch verification — 23 October 2026
+
+The results below were recorded on the source Student Dashboard branch. Current
+client integration verification is documented in [Client Dashboard](CLIENT_DASHBOARD.md).
 
 - `npm run lint` and `npm run build` passed.
 - Existing marketplace Node tests: 8 passed.

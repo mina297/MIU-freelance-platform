@@ -7,6 +7,11 @@ tags: [MIU, pages, routing]
 
 # MIU Freelance Platform — Pages and Routes
 
+24 October 2026 client dashboard integration: `/client/dashboard` renders the
+existing `ClientDashboard` in the shared app content outlet, preserving the
+navbar, layout and client-only route guard. Refresh clears the in-memory mock
+session and requires signing in again.
+
 ## Purpose
 
 Map the 29 SRS prototype entries to proposed frontend routes.

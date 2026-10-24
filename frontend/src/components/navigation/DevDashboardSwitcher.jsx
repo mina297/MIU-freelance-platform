@@ -5,7 +5,7 @@ import "./DevDashboardSwitcher.css";
 
 const dashboards = [
   { label: "Student Dashboard", path: "/student/dashboard" },
-  { label: "Client Dashboard" },
+  { label: "Client Dashboard", path: "/client/dashboard" },
   { label: "Super Admin Dashboard" },
   { label: "Verification Dashboard" },
   { label: "Marketplace Operations Dashboard" },

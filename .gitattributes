@@ -1,2 +1,31 @@
-# Normalize text in the index and use LF in working trees on every platform.
+# Normalize text in the index and use LF working trees on every platform.
+# Auto-detection covers source, Markdown, JSON, CSS, HTML, YAML, SVG and dotfiles.
 * text=auto eol=lf
+
+# Windows command scripts require CRLF when checked out.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary assets must never undergo text or line-ending conversion.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+*.zip binary
+*.gz binary
+*.7z binary
+*.mp3 binary
+*.wav binary
+*.mp4 binary
+*.webm binary
+*.exe binary
+*.dll binary
+*.node binary

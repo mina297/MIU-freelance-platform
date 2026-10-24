@@ -210,6 +210,14 @@ update and the current Pages and Routes snapshot.
 
 These are scope limitations and documentation tasks, not verified software bugs.
 
+**23 October 2026 preview update:** KL-07 describes the initial baseline. The
+catalogue and Student/Client Dashboard previews now have React Router paths.
+Dashboard authentication/role guards and dependent editor, proposal, service,
+workspace, finance and profile modules remain unintegrated. Client entry points
+show explicit integration notices. Figma provides four jobs and aggregate totals;
+pagination exposes only the available records. See
+[Client Dashboard](../06-MODULES/CLIENT_DASHBOARD.md) for the current scope.
+
 ## 4. Open Decisions
 
 | ID    | Topic                 | Decision Needed                                                                                                                                                                                                                                                                      |
