@@ -252,6 +252,19 @@ Each order must identify its originating marketplace flow.
 
 These entities represent conceptual future records. Phase 1 uses mock data.
 
+Current service checkout demonstration: `frontend/src/features/checkout/checkoutStore.js`
+stores immutable, memory-only payment records linked to existing marketplace
+order, service, client and student IDs. Fields include `servicePriceMinor`,
+`amountPaidMinor`, `remainingMinor`, `feeMinor`, `escrowHeldMinor`, `releasedMinor`,
+`paymentDate`, `paymentMethod`, optional masked `last4`, `demo`, `serviceStatus`,
+`paymentStatus`, `escrowStatus`, `completedAt` and `workProgress`. All amount fields
+use integer EGP minor units. A successful initial record has In Progress service,
+partially-paid/held payment and held escrow statuses, zero release and work
+progress, and no completion date. Selectors overlay that status for client views
+without mutating marketplace seed records. Real card data is excluded. Route
+navigation retains records; reload clears them. See
+[Checkout and Payment UI](../06-MODULES/CHECKOUT_PAYMENT_UI.md).
+
 **Money storage recommendation:** Use exact decimal or integer minor-unit values in the eventual backend, rather than floating-point arithmetic. This is an engineering recommendation, not a finalized database decision.
 
 ## 10. VerificationCase

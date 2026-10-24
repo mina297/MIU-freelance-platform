@@ -366,6 +366,14 @@ Demonstrate:
 
 Use shared fictional mock records.
 
+The checkout increment now reads the existing service order/package/extra fixture
+and overlays successful initial demo funding through a shared payment store.
+`/client/dashboard` and `/client/payments` show the same owned order and financial
+records as checkout. Initial 50% funding changes the service to In Progress with
+Partially Paid — Escrow Held status. Delivery acceptance, completion and remaining
+payment/release workflows are not implemented by this increment. Marketplace
+seed records and project orders are preserved. See [Checkout and Payment UI](CHECKOUT_PAYMENT_UI.md).
+
 ## 11. Open Decisions
 
 - Maximum revision count

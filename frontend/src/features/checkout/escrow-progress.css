@@ -1,0 +1,81 @@
+.ec-progress {
+  font-family: var(--font-sans);
+  border-top: 1px solid #e5e7eb;
+  padding-top: 22px;
+}
+.ec-progress-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.ec-progress-title h3 {
+  font-size: 15px;
+  font-weight: 650;
+}
+.ec-progress-title > span {
+  font-size: 11px;
+  color: var(--color-miu-red);
+  font-weight: 600;
+}
+.ec-work-progress {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  font-size: 11px;
+  color: #4b5563;
+  margin: 16px 0 20px;
+}
+.ec-work-progress progress {
+  width: 100%;
+  height: 7px;
+  accent-color: var(--color-miu-red);
+  border: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #e5e7eb;
+}
+.ec-work-progress progress::-webkit-progress-bar {
+  background: #e5e7eb;
+}
+.ec-work-progress progress::-webkit-progress-value {
+  background: var(--color-miu-red);
+}
+.ec-progress ol {
+  display: grid;
+  gap: 18px;
+}
+.ec-progress li {
+  display: flex;
+  gap: 10px;
+  align-items: start;
+  font-size: 12px;
+}
+.ec-progress li > svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #707780;
+}
+.ec-progress li.is-done > svg {
+  color: var(--color-success);
+}
+.ec-progress li[aria-current] > svg {
+  color: var(--color-miu-red);
+}
+.ec-progress b {
+  font-weight: 600;
+}
+.ec-progress small {
+  display: block;
+  font-size: 11px;
+  color: #707780;
+  margin-top: 3px;
+  line-height: 1.6;
+}
+@media (max-width: 520px) {
+  .ec-progress-title {
+    flex-direction: column;
+    align-items: start;
+  }
+}

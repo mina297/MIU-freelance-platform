@@ -54,6 +54,8 @@ import TermsPage from "../features/public/TermsPage.jsx";
 import PrivacyPage from "../features/public/PrivacyPage.jsx";
 import LoadingDemoPage from "../features/public/LoadingDemoPage.jsx";
 import ErrorDemoPage from "../features/public/ErrorDemoPage.jsx";
+import CheckoutPage from "../features/checkout/CheckoutPage.jsx";
+import ClientPaymentsDashboard from "../features/dashboards/ClientPaymentsDashboard.jsx";
 
 const layouts = {
   standalone: <Outlet />,
@@ -92,6 +94,10 @@ function ProjectDetailsRoute() {
 }
 
 const featurePages = {
+  "/Checkout": <CheckoutPage />,
+  "/checkout/:orderId": <CheckoutPage />,
+  "/client/payments/overview": <ClientPaymentsDashboard />,
+  "/client/payments": <ClientPaymentsDashboard />,
   "/client/dashboard": <ClientDashboard />,
   "/student/dashboard": <StudentDashboard />,
   "/students/:studentId": <StudentProfileRoute />,
