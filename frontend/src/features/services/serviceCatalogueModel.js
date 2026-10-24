@@ -19,24 +19,27 @@ export const servicePriceOptions = [
   { value: "over_3000", label: "Over EGP 3,000" },
 ];
 
+/** Shared package validity and ordering for catalogue and detail comparison. */
+export function displayPackages(serviceId, data) {
+  return getPackagesByService(serviceId, data)
+    .filter(
+      (item) =>
+        Number.isFinite(item.priceEGP) &&
+        item.priceEGP > 0 &&
+        Number.isSafeInteger(item.deliveryDays) &&
+        item.deliveryDays > 0,
+    )
+    .sort(
+      (a, b) =>
+        a.priceEGP - b.priceEGP ||
+        a.deliveryDays - b.deliveryDays ||
+        a.id.localeCompare(b.id),
+    );
+}
+
 /** Price and delivery describe the same lowest-priced valid package, not extras. */
 export function startingPackage(serviceId, data) {
-  return (
-    getPackagesByService(serviceId, data)
-      .filter(
-        (item) =>
-          Number.isFinite(item.priceEGP) &&
-          item.priceEGP > 0 &&
-          Number.isSafeInteger(item.deliveryDays) &&
-          item.deliveryDays > 0,
-      )
-      .sort(
-        (a, b) =>
-          a.priceEGP - b.priceEGP ||
-          a.deliveryDays - b.deliveryDays ||
-          a.id.localeCompare(b.id),
-      )[0] ?? null
-  );
+  return displayPackages(serviceId, data)[0] ?? null;
 }
 
 export function discoverServices(filters, data) {

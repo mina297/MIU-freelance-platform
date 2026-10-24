@@ -1,6 +1,7 @@
 import { Code2, Palette, PenLine, Clock3, ArrowDownRight } from "lucide-react";
 import { formatEGP } from "../../utils/formatEGP.js";
 import Card from "../../components/ui/Card.jsx";
+import { Link } from "react-router-dom";
 
 const categoryIcons = {
   web_development: Code2,
@@ -34,7 +35,9 @@ export default function ServiceCard({ service, starting, data }) {
       </div>
       <div className="service-card__body">
         <p className="service-card__category">{category}</p>
-        <h3>{service.title}</h3>
+        <h3>
+          <Link to={`/services/${service.id}`}>{service.title}</Link>
+        </h3>
         <p className="service-card__description">{service.description}</p>
         <ul className="service-card__skills" aria-label="Service skills">
           {service.skillIds.map((id) => (
@@ -87,6 +90,12 @@ export default function ServiceCard({ service, starting, data }) {
             <p>No valid package is available for this listing.</p>
           )}
         </details>
+        <Link
+          className="service-card__details-link"
+          to={`/services/${service.id}`}
+        >
+          View service <ArrowDownRight size={16} aria-hidden="true" />
+        </Link>
       </div>
     </Card>
   );

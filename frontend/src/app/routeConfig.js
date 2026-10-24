@@ -86,6 +86,13 @@ export const routeConfig = [
   },
   { path: "/services", title: "Services", layout: "public", access: "public" },
   {
+    path: "/services/:serviceId",
+    title: "Service details",
+    layout: "public",
+    access: "public",
+    showInNavigation: false,
+  },
+  {
     path: "/projects/:projectId/propose",
     title: "Submit proposal",
     layout: "standalone",

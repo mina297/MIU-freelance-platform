@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { matchRoutes, Outlet, useLocation } from "react-router-dom";
 import PublicLayout from "../layouts/PublicLayout.jsx";
 import LandingHeader from "../components/navigation/LandingHeader.jsx";
 import PublicLink from "../components/navigation/PublicLink.jsx";
@@ -18,7 +18,7 @@ export default function PublicWebsite() {
 
   useEffect(() => {
     const title =
-      routeConfig.find((route) => route.path === pathname)?.title ??
+      matchRoutes(routeConfig, pathname)?.at(-1)?.route.title ??
       "Page not found";
     document.title = `${title} | MIU Freelance`;
     document.querySelector(".miu-public-main")?.focus({ preventScroll: true });
