@@ -74,6 +74,11 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
+**Service discovery (24 October 2026):** `/services` renders the public catalogue
+(P-09), with published-only search/category/skill/starting-price filters, sorting,
+package scope disclosures and empty/loading/error presentations. It retains the
+shared public shell. Service details, profiles and ordering are not connected yet.
+
 **Student proposal management:** `/student/proposals` now renders an owned-only
 student list with search/status filters and accepted demo-order links (P-14).
 `/student/proposals/:proposalId/edit` provides P-08 editing for eligible offers.
@@ -145,7 +150,7 @@ Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with
 
 - Public website: `/`, `/about`, `/how-it-works`, `/terms`, `/privacy`.
 - Public feedback demos: `/loading-demo`, `/error-demo` (not global-navigation entries).
-- Public placeholder: `/services`.
+- Public service catalogue: `/services` (details and ordering remain later work).
 - Public marketplace previews: `/projects` renders the Projects Catalogue (P-06), and `/projects/:projectId` renders Project Details (P-07).
 - Mock authentication forms: `/login`, `/register`, `/register/role`, `/forgot-password`, `/reset-password` (Task 02).
 - Student/client placeholders: `/verify`, `/verify/pending`.

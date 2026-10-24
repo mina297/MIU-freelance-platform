@@ -7,6 +7,18 @@ tags: [MIU, issues, decisions]
 
 # MIU Freelance Platform — Known Issues and Open Decisions
 
+## Services catalogue increment — 24 October 2026
+
+`/services` now provides published fictional service discovery with combined
+search/category/skill/starting-price filters, sorting and starting-package scope
+previews. Shared public navigation, account state and other marketplace routes
+are retained. All 193 tests, ESLint and production build passed for this increment.
+Earlier references to `/services` as a placeholder are historical and superseded.
+Service detail/profile navigation, publication/editing, selecting packages/extras
+and ordering remain future tasks. Catalogue loading/error props are presentation
+contracts, not evidence of a backend request. Keyboard interactions, disclosure
+focus, mobile layout and visual approval still require browser acceptance.
+
 ## Student proposals integration verification — 24 October 2026
 
 Local main `7f536c8` was integrated into `feat/m2-student-proposals` without

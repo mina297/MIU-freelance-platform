@@ -70,7 +70,7 @@ test("service filters return matches and empty results", () => {
     findServices({ query: "landing", skillId: "figma", status: SERVICE_STATUS.PUBLISHED }).map((item) => item.id),
     ["service_001"],
   );
-  assert.deepEqual(findServices({ categoryId: "web_development" }), []);
+  assert.deepEqual(findServices({ categoryId: "web_development" }).map((item) => item.id), ["service_002"]);
 });
 
 test("date formatting preserves the stored calendar day", () => {

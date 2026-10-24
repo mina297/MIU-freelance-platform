@@ -121,6 +121,44 @@ export const proposals = [
 /** @type {import('../contracts.js').Service[]} */
 export const services = [
   {
+    id: "service_002",
+    studentId: "student_002",
+    title: "Build a responsive React interface",
+    description:
+      "Turn a supplied design into accessible React components for a small website.",
+    categoryId: "web_development",
+    skillIds: ["react", "responsive_design"],
+    portfolioItemIds: [],
+    status: SERVICE_STATUS.PUBLISHED,
+    createdAt: "2026-10-22T10:00:00Z",
+    updatedAt: "2026-10-22T10:00:00Z",
+  },
+  {
+    id: "service_003",
+    studentId: "student_001",
+    title: "Write clear content for your website",
+    description:
+      "Thoughtful, reader-friendly copy for a campus initiative or small business.",
+    categoryId: "writing",
+    skillIds: ["content_writing"],
+    portfolioItemIds: [],
+    status: SERVICE_STATUS.PUBLISHED,
+    createdAt: "2026-10-21T09:00:00Z",
+    updatedAt: "2026-10-21T09:00:00Z",
+  },
+  {
+    id: "service_004",
+    studentId: "student_002",
+    title: "Create a student event poster",
+    description: "An editable poster concept for a fictional student event.",
+    categoryId: "graphic_design",
+    skillIds: ["figma"],
+    portfolioItemIds: [],
+    status: SERVICE_STATUS.PAUSED,
+    createdAt: "2026-10-23T09:00:00Z",
+    updatedAt: "2026-10-23T09:00:00Z",
+  },
+  {
     id: "service_001",
     studentId: "student_001",
     title: "Responsive landing page design",
@@ -136,6 +174,38 @@ export const services = [
 
 /** @type {import('../contracts.js').ServicePackage[]} */
 export const servicePackages = [
+  {
+    id: "package_002",
+    serviceId: "service_002",
+    name: "One responsive interface",
+    description:
+      "One supplied screen implemented as responsive React components.",
+    includedFeatures: [
+      "One responsive screen",
+      "Accessible component structure",
+    ],
+    priceEGP: 3600,
+    deliveryDays: 10,
+  },
+  {
+    id: "package_003",
+    serviceId: "service_003",
+    name: "Website introduction",
+    description:
+      "Up to 500 words of original introduction copy from a supplied brief.",
+    includedFeatures: ["Introduction copy", "Editable text document"],
+    priceEGP: 900,
+    deliveryDays: 3,
+  },
+  {
+    id: "package_004",
+    serviceId: "service_004",
+    name: "Poster concept",
+    description: "One fictional poster concept and an editable design file.",
+    includedFeatures: ["Poster concept", "Editable file"],
+    priceEGP: 1200,
+    deliveryDays: 4,
+  },
   {
     id: "package_001",
     serviceId: "service_001",

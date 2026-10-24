@@ -57,6 +57,27 @@ Exact package names, limits, and pricing rules need confirmation.
 
 ## 5. Client Service Discovery
 
+### Current catalogue demonstration — 24 October 2026 (FR-V01/V02, FR-C07; P-09)
+
+`/services` now renders the public ServicesCatalogue inside the existing public
+shell, preserving one main landmark and session-aware navigation. It reuses
+shared controls, Card, loading/error/empty states and centralized EGP formatting.
+Published fictional service fixtures support combined title/description search,
+category, skill and starting-price filtering, reset and deterministic newest,
+price and starting-package delivery sorting. Paused services stay hidden.
+
+Starting price is the lowest-priced valid package; its delivery estimate comes
+from that same package. Extras are excluded. Missing/invalid package prices remain
+unavailable, never zero; numeric filters exclude these listings and numeric sorts
+place them last. A native disclosure previews that starting package's scope.
+The catalogue uses no invented ratings, verified badges or profile links.
+
+Service details, profiles, publishing, package selection and ordering remain
+separate increments. No `/services/:serviceId` links or checkout actions are
+fabricated. New fictional records preserve existing service/order IDs and totals.
+Loading/error props are presentation states for future adapters, not a real fetch.
+Browser keyboard/mobile/visual acceptance and P-09 captures remain pending.
+
 Clients can:
 - Browse the catalogue
 - Search services

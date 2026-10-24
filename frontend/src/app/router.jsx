@@ -16,6 +16,7 @@ import ClientProposals from "../features/proposals/ClientProposals.jsx";
 import StudentProposals from "../features/proposals/StudentProposals.jsx";
 import StudentProposalEdit from "../features/proposals/StudentProposalEdit.jsx";
 import ProjectOrderSummary from "../features/orders/ProjectOrderSummary.jsx";
+import ServicesCatalogue from "../features/services/ServicesCatalogue.jsx";
 import AppLayout from "../layouts/AppLayout.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
 import AdminLayout from "../layouts/AdminLayout.jsx";
@@ -74,6 +75,7 @@ function ProjectDetailsRoute() {
 
 const featurePages = {
   "/": <LandingPage />,
+  "/services": <ServicesCatalogue />,
   "/about": <AboutPage destinations={publicDestinations} />,
   "/how-it-works": (
     <HowItWorksPage
