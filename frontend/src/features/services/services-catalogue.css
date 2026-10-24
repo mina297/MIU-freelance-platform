@@ -411,6 +411,9 @@
   outline-offset: 4px;
   border-radius: 4px;
 }
+.services-catalogue .services-hero a:focus-visible {
+  outline-color: #ffdae4;
+}
 @media (max-width: 1050px) {
   .services-workspace {
     grid-template-columns: 210px minmax(0, 1fr);
