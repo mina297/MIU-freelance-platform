@@ -23,7 +23,7 @@ export default function ProjectCard({
   onOpenProject,
 }) {
   const [expanded, setExpanded] = useState(false);
-  const clientName = clientNames.get(project.clientId) ?? "Demo client";
+  const clientName = clientNames.get(project.clientId) ?? "Client";
   const clientInitials = clientName
     .split(" ")
     .map((word) => word[0])

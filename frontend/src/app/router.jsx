@@ -71,13 +71,7 @@ function ProjectDetailsRoute() {
 }
 
 const featurePages = {
-  "/": (
-    <LandingPage
-      destinations={publicDestinations}
-      getProjectHref={(id) => `/projects/${id}`}
-      howItWorks={<HowItWorksSection />}
-    />
-  ),
+  "/": <LandingPage />,
   "/about": <AboutPage destinations={publicDestinations} />,
   "/how-it-works": (
     <HowItWorksPage

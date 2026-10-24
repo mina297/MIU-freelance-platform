@@ -1,28 +1,36 @@
 import { Link } from "react-router-dom";
 import { PUBLIC_REGISTRATION_ROLES, ROLES } from "./session.js";
+import "./roleSelection.css";
 
 export default function RoleSelectionPage() {
   return (
-    <section className="mx-auto max-w-lg space-y-4 rounded-xl border p-6">
-      <h1 className="text-2xl font-bold">Choose your account role</h1>
-      <p>
-        Simulated registration is available for students and clients only.
-        Committee accounts are provisioned by the Super Admin.
-      </p>
-      <div className="flex flex-wrap gap-4">
+    <section className="role-selection" aria-labelledby="role-selection-title">
+      <header>
+        <p className="role-selection-eyebrow">Join MIU Freelance</p>
+        <h1 id="role-selection-title">Choose your account role</h1>
+      </header>
+      <div className="role-selection-cards">
         {PUBLIC_REGISTRATION_ROLES.map((role) => (
           <Link
             key={role}
             to={`/register?role=${role}`}
-            className="rounded border p-3 underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+            className="registration-role-card"
           >
-            {role === ROLES.STUDENT ? "Student" : "Client"}
+            <h2>{role === ROLES.STUDENT ? "Student" : "Client"}</h2>
+            <p>
+              {role === ROLES.STUDENT
+                ? "Find work. Share your skills."
+                : "Hire talent. Bring ideas to life."}
+            </p>
           </Link>
         ))}
       </div>
-      <Link to="/login" className="underline">
-        Back to login
-      </Link>
+      <footer className="role-selection-footer">
+        <p>
+          Already have an account? <Link to="/login">Sign in</Link>
+        </p>
+        <p className="role-selection-note">Prototype registration</p>
+      </footer>
     </section>
   );
 }

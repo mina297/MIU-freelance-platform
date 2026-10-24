@@ -57,15 +57,16 @@ This documentation is intended for:
 
 ### 06 — Modules
 
-| Document                                                       | Purpose                  |
-| -------------------------------------------------------------- | ------------------------ |
-| [Authentication](06-MODULES/AUTHENTICATION.md)                 | Accounts and sessions    |
-| [Verification](06-MODULES/VERIFICATION.md)                     | Identity workflow        |
-| [Projects and Proposals](06-MODULES/PROJECTS_AND_PROPOSALS.md) | Project marketplace      |
-| [Services and Orders](06-MODULES/SERVICES_AND_ORDERS.md)       | Service marketplace      |
-| [Payments and Escrow](06-MODULES/PAYMENTS_AND_ESCROW.md)       | Financial workflows      |
-| [AI Features](06-MODULES/AI_FEATURES.md)                       | AI-assisted capabilities |
-| [Admin and Committees](06-MODULES/ADMIN_AND_COMMITTEES.md)     | Governance workflows     |
+| Document | Purpose |
+|---|---|
+| [Authentication](06-MODULES/AUTHENTICATION.md) | Accounts and sessions |
+| [Landing Page](06-MODULES/LANDING_PAGE.md) | Public discovery and Figma prototype behavior |
+| [Verification](06-MODULES/VERIFICATION.md) | Identity workflow |
+| [Projects and Proposals](06-MODULES/PROJECTS_AND_PROPOSALS.md) | Project marketplace |
+| [Services and Orders](06-MODULES/SERVICES_AND_ORDERS.md) | Service marketplace |
+| [Payments and Escrow](06-MODULES/PAYMENTS_AND_ESCROW.md) | Financial workflows |
+| [AI Features](06-MODULES/AI_FEATURES.md) | AI-assisted capabilities |
+| [Admin and Committees](06-MODULES/ADMIN_AND_COMMITTEES.md) | Governance workflows |
 
 ### 07 — Handover
 

@@ -2,15 +2,18 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
 import { PUBLIC_REGISTRATION_ROLES, ROLES } from "./session.js";
 import AuthForm from "./AuthForm.jsx";
+import RoleSelectionPage from "./RoleSelectionPage.jsx";
 
 export default function RegisterPage() {
   const { register } = useAuth();
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const role = params.get("role");
+  if (!PUBLIC_REGISTRATION_ROLES.includes(role)) return <RoleSelectionPage />;
   return (
     <AuthForm
-      title="Create a demo account"
+      key={role}
+      title={`Join as a ${role === ROLES.STUDENT ? "student" : "client"}`}
       submitLabel="Create account"
       initialValues={{
         role: PUBLIC_REGISTRATION_ROLES.includes(role) ? role : "",
@@ -23,7 +26,7 @@ export default function RegisterPage() {
           label: "Password",
           type: "password",
           autoComplete: "new-password",
-          hint: "At least 8 characters, including a letter and a number.",
+          hint: "8+ characters, with a letter and a number.",
         },
         {
           name: "confirmPassword",
@@ -31,28 +34,19 @@ export default function RegisterPage() {
           type: "password",
           autoComplete: "new-password",
         },
-        {
-          name: "role",
-          label: "Role",
-          options: PUBLIC_REGISTRATION_ROLES.map((value) => ({
-            value,
-            label: value === ROLES.STUDENT ? "Student" : "Client",
-          })),
-        },
       ]}
       onSubmit={(values) => {
-        const result = register(values);
+        const result = register({ ...values, role });
         if (result.ok)
           navigate("/login", { replace: true, state: { registered: true } });
         return result;
       }}
     >
       <p>
-        Registration does not verify your identity. Verification remains a
-        separate planned flow.
+        <Link to="/register">Change account type</Link>
       </p>
       <p>
-        <Link to="/login">Already have a demo account?</Link>
+        Already a member? <Link to="/login">Sign in</Link>
       </p>
     </AuthForm>
   );

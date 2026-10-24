@@ -27,6 +27,8 @@ The interface should feel:
 
 **Hero headline:** Your Talent. Real Opportunities.
 
+For the implemented P-01 landing page, the supplied “MIU Freelance desktop” frame (`8:2656`, inspected 23 October 2026) uses **Find real work. Build your reputation.** Its Inter body type, Playfair Display hero, `#b91c2b` primary, `#fdf2f3` blush and `#f8f8f9` muted surfaces reuse the existing frontend theme. The current shared public navigation remains in place. See [Landing Page](../06-MODULES/LANDING_PAGE.md) for prototype behavior and intentional adaptations.
+
 ## 3. Branding
 
 The planned visual identity uses MIU-inspired colors.

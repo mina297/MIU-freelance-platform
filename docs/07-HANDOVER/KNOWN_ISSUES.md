@@ -7,6 +7,16 @@ tags: [MIU, issues, decisions]
 
 # MIU Freelance Platform — Known Issues and Open Decisions
 
+## Homepage replacement integration — 24 October 2026
+
+Member 1's new homepage replaces the retired Member 4 landing implementation.
+Existing main-branch public pages, marketplace routes, role guards and demo session
+controls are preserved. The homepage intentionally retains fictional independent
+discovery examples; shared project/profile integration remains future work.
+Automated integration checks do not verify live scroll animation, narrow-screen
+appearance, native dialog focus restoration or keyboard interaction in a browser.
+These manual acceptance checks remain pending before final UI approval.
+
 ## 1. Purpose
 
 Track confirmed limitations, unresolved decisions, and verified bugs.
@@ -204,7 +214,21 @@ SRS requirement IDs.
 - Keep resolved issues traceable.
 - Avoid recording secrets or private user information.
 
-## 8. Related Documents
+## 8. Landing page verification — 23 October 2026
+
+P-01 now follows Figma “MIU Freelance desktop” (`8:2656`). `npm test` passed all 31 tests; `npm run build` and `npm run lint` passed. Browser checks covered desktop plus embedded 390px/768px responsive previews, hero/search wrapping, timeline and card layouts, local category filtering, no-match search and clear recovery, bookmark pressed state/status, job/profile modal previews, Escape close with focus restoration, and Post a Job navigation to client registration. Downloaded static assets loaded successfully; icon and avatar dimensions matched their design slots. The footer logo plate was corrected to 80×60 with contained original artwork.
+
+The shared navigation is intentionally preserved rather than replaced by Figma's header. Landing jobs/profiles are fictional design examples with historical design dates, separate from the shared catalogue. Services still opens its existing placeholder. Full posting, profiles, support, approved policies, verification and reviews remain future module work. Native mobile-device, full assistive-technology and production accessibility audits remain unperformed.
+
+### Subsequent landing motion update — 23 October 2026
+
+The search typewriter/perimeter light, category card carousel and scroll-driven How it works timeline supersede the corresponding earlier visual checks. Automated scroll calculation and static rendering checks are included; live browser confirmation of scroll timing, depth animation, mobile swipe, focus behavior and reduced-motion switching remains pending because no browser surface was connected for this update. Earlier browser results above apply to the previous presentation only.
+
+### Authentication presentation update — 23 October 2026
+
+Rounded authentication forms and shorter prototype wording pass all 36 automated tests, lint and production build. Rendering checks retain required field labels and prototype/reset disclosures and reject visible "demo" wording. Live browser checks of the updated form spacing, mobile layout and focus appearance remain pending; no connected browser was available in this session.
+
+## 9. Related Documents
 
 - [Project Scope](../01-PROJECT/PROJECT_SCOPE.md)
 - [Development Roadmap](../01-PROJECT/DEVELOPMENT_ROADMAP.md)

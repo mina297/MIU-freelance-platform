@@ -19,32 +19,32 @@ export const mockUsers = Object.freeze(
     },
     {
       id: "admin_001",
-      displayName: "Demo Super Admin",
+      displayName: "Super Admin",
       role: ROLES.SUPER_ADMIN,
     },
     {
       id: "committee_verification_001",
-      displayName: "Demo Verification Reviewer",
+      displayName: "Verification Reviewer",
       role: ROLES.VERIFICATION,
     },
     {
       id: "committee_marketplace_001",
-      displayName: "Demo Marketplace Reviewer",
+      displayName: "Marketplace Reviewer",
       role: ROLES.MARKETPLACE,
     },
     {
       id: "committee_finance_001",
-      displayName: "Demo Finance Reviewer",
+      displayName: "Finance Reviewer",
       role: ROLES.FINANCE,
     },
     {
       id: "committee_support_001",
-      displayName: "Demo Support Reviewer",
+      displayName: "Support Reviewer",
       role: ROLES.SUPPORT,
     },
     {
       id: "committee_ai_quality_001",
-      displayName: "Demo AI Quality Reviewer",
+      displayName: "AI Quality Reviewer",
       role: ROLES.AI_QUALITY,
     },
   ].map((user) =>

@@ -12,7 +12,8 @@ The application has Phase 1 routing, in-memory sessions and mock authentication 
 
 The public `/projects` route still displays the fictional Projects Catalogue preview. Other unimplemented features remain labeled placeholders. See the [current route snapshot](../docs/03-DESIGN/PAGES_AND_ROUTES.md#3-current-implementation-snapshot).
 
-The home route `/` now renders the public landing page. `/about`, `/how-it-works`,
+The home route `/` now renders Member 1's replacement landing page with its own
+header and footer. The previous Member 4 landing page is retired. `/about`, `/how-it-works`,
 `/terms`, `/privacy`, `/loading-demo`, and `/error-demo` use the shared public shell.
 Terms and Privacy remain clearly labelled placeholders pending approved content.
 Expand **Phase 1 demo session controls** below public content to select a fictional
@@ -36,9 +37,9 @@ Installed dependencies do not imply that their planned integrations are complete
 ### Member 4 isolated previews
 
 While the development server is running, open `/m4-pages-preview.html` to browse
-Member 4's original landing, public shell, About, How It Works, policy placeholders,
-and feedback-demo pages. The page picker is independent of Member 1's temporary
-home page. `/shared-ui-preview.html` contains the shared buttons/cards/badges,
+Member 4's public shell, About, How It Works, policy placeholders,
+and feedback-demo pages. The page picker defaults to About; the replacement
+homepage is available at `/`. `/shared-ui-preview.html` contains the shared buttons/cards/badges,
 forms, language-selector appearance, modal, tabs, pagination, table/statistics,
 toasts, and loading/progress/empty/error examples. `/how-it-works-preview.html`
 preserves the original section preview. All three entries are development previews

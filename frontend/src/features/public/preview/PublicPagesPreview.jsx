@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import "../../../index.css";
 import PublicLayout from "../../../layouts/PublicLayout.jsx";
 import Select from "../../../components/ui/Select.jsx";
-import LandingPage from "../LandingPage.jsx";
 import AboutPage from "../AboutPage.jsx";
 import HowItWorksPage from "../HowItWorksPage.jsx";
 import HowItWorksSection from "../components/HowItWorksSection.jsx";
@@ -14,7 +13,6 @@ import ErrorDemoPage from "../ErrorDemoPage.jsx";
 import "./marketplace-preview.css";
 
 const PAGES = [
-  ["landing", "Member 4 landing design"],
   ["about", "About"],
   ["howItWorks", "How It Works"],
   ["terms", "Terms placeholder"],
@@ -22,25 +20,17 @@ const PAGES = [
   ["loading", "Loading states"],
   ["error", "Empty/error states"],
 ];
-const destinations = Object.fromEntries(
-  PAGES.map(([key]) => [
-    key === "landing" ? "home" : key,
-    `/m4-pages-preview.html?page=${key}`,
-  ]),
-);
+const destinations = Object.fromEntries([
+  ["home", "/"],
+  ...PAGES.map(([key]) => [key, `/m4-pages-preview.html?page=${key}`]),
+]);
 
 export default function PublicPagesPreview() {
   const requested = new URLSearchParams(window.location.search).get("page");
   const [page, setPage] = useState(
-    PAGES.some(([id]) => id === requested) ? requested : "landing",
+    PAGES.some(([id]) => id === requested) ? requested : "about",
   );
   const content = {
-    landing: (
-      <LandingPage
-        destinations={destinations}
-        howItWorks={<HowItWorksSection />}
-      />
-    ),
     about: <AboutPage destinations={destinations} />,
     howItWorks: (
       <HowItWorksPage
@@ -80,7 +70,7 @@ export default function PublicPagesPreview() {
       </nav>
       <PublicLayout
         destinations={destinations}
-        currentPath={destinations[page === "landing" ? "home" : page]}
+        currentPath={destinations[page]}
       >
         {content[page]}
       </PublicLayout>
