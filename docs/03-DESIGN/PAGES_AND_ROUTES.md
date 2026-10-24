@@ -74,6 +74,14 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
+**24 October 2026 project creation:** P-16 creation is available at
+`/client/projects/new`, using a standalone marketplace shell and the active-client
+guard. Post a project in the catalogue opens the form; visitors use the existing
+login return flow. Valid briefs can be previewed, edited before publication, and
+published to the in-memory demo catalogue. Publish requires an approved client
+demo session; the MIU/external-client distinction is pending. Editing previously
+published projects at `/client/projects/:projectId/edit` remains planned.
+
 **24 October 2026 public integration:** `/` now renders LandingPage inside the
 shared PublicLayout. `/about`, `/how-it-works`, `/terms`, `/privacy`,
 `/loading-demo`, and `/error-demo` are registered public pages. The existing

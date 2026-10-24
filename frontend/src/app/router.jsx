@@ -9,6 +9,7 @@ import {
 import ProtectedRoute from "../features/auth/ProtectedRoute.jsx";
 import ProjectsCatalogue from "../features/projects/ProjectsCatalogue.jsx";
 import ProjectDetails from "../features/projects/ProjectDetails.jsx";
+import ProjectCreate from "../features/projects/ProjectCreate.jsx";
 import ProposalEntry from "../features/proposals/ProposalEntry.jsx";
 import AppLayout from "../layouts/AppLayout.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
@@ -43,6 +44,7 @@ function ProjectsCatalogueRoute() {
   return (
     <ProjectsCatalogue
       onOpenProject={(projectId) => navigate(`/projects/${projectId}`)}
+      onCreateProject={() => navigate("/client/projects/new")}
     />
   );
 }
@@ -86,6 +88,7 @@ const featurePages = {
   "/error-demo": <ErrorDemoPage />,
   "/projects/:projectId/propose": <ProposalEntry />,
   "/projects": <ProjectsCatalogueRoute />,
+  "/client/projects/new": <ProjectCreate />,
   "/projects/:projectId": <ProjectDetailsRoute />,
   "/login": <LoginPage />,
   "/register/role": <RoleSelectionPage />,

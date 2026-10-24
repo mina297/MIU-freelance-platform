@@ -17,6 +17,34 @@ Clients publish projects and student freelancers compete through proposals.
 
 ## 2. Client Project Management
 
+### Current creation demo (24 October 2026; FR-C04 / P-16)
+
+`/client/projects/new` is protected by the existing active-client route guard.
+The catalogue's Post a project action opens it. The marketplace-styled form collects
+title, description, category, listed skills, scope, newline-separated deliverables,
+positive EGP budget (maximum two decimals), and a valid deadline after today.
+Required fields and text-length limits are checked before preview and again at
+publication. Preview retains editable form values; publishing uses the current
+session's client ID rather than caller-provided ownership or status.
+
+Publication is explicitly simulated: an immutable, in-memory open Project joins
+catalogue queries, details, and proposal lookup until refresh. Repeating a publish
+request for the same client/form token returns the same project. Fixtures are not
+mutated. Unpublished form values clear on route exit or account switch; no draft
+storage or production publication is implemented.
+
+The current session contract has no MIU/external-client discriminator. As a
+temporary conservative demo restriction, all clients need `approved` verification
+to publish; active pending clients can write and preview. This is not an approved
+production rule for MIU clients. Nile Studio (`client_001`) now represents a
+fictional approved client scenario, not an actual verification decision. Member 1
+must supply the account-origin distinction before applying FR-C02 precisely.
+
+Automated validation/store and rendered-route checks cover creation and integration.
+Browser checks of preview/edit/publish, error focus, account switching, keyboard
+use, and desktop/mobile appearance remain pending. Published project editing,
+closing/cancellation, saved drafts, and client management lists remain separate work.
+
 Clients can:
 
 - Create a project

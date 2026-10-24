@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
+import { projectStore } from "./projectStore.js";
 import {
   ArrowRight,
   Bookmark,
@@ -16,7 +17,7 @@ import {
   categories,
   categoryNames,
   matchesBudget,
-  openProjects,
+  openProjects as fixtureOpenProjects,
   skillNames,
 } from "./catalogueModel.js";
 import CategoryCard from "./CategoryCard.jsx";
@@ -24,7 +25,21 @@ import FilterPanel from "./FilterPanel.jsx";
 import ProjectCard from "./ProjectCard.jsx";
 import ProjectsHero from "./ProjectsHero.jsx";
 
-export default function ProjectsCatalogue({ onOpenProject }) {
+export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
+  const demoProjects = useSyncExternalStore(
+    projectStore.subscribe,
+    projectStore.getSnapshot,
+    projectStore.getSnapshot,
+  );
+  const openProjects = useMemo(
+    () => [
+      ...fixtureOpenProjects,
+      ...demoProjects.filter(
+        (project) => project.status === PROJECT_STATUS.OPEN,
+      ),
+    ],
+    [demoProjects],
+  );
   const [searchDraft, setSearchDraft] = useState("");
   const [query, setQuery] = useState("");
   const [categoryId, setCategoryId] = useState("");
@@ -37,12 +52,15 @@ export default function ProjectsCatalogue({ onOpenProject }) {
   const [saveNotice, setSaveNotice] = useState("");
 
   const results = useMemo(() => {
-    const matches = findProjects({
-      query,
-      categoryId,
-      skillId,
-      status: PROJECT_STATUS.OPEN,
-    });
+    const matches = findProjects(
+      {
+        query,
+        categoryId,
+        skillId,
+        status: PROJECT_STATUS.OPEN,
+      },
+      { projects: openProjects },
+    );
     return matches
       .filter((project) => matchesBudget(project.budgetEGP, budget))
       .filter((project) => !savedOnly || savedIds.includes(project.id))
@@ -51,7 +69,16 @@ export default function ProjectsCatalogue({ onOpenProject }) {
         if (sort === "budget_high") return b.budgetEGP - a.budgetEGP;
         return b.createdAt.localeCompare(a.createdAt);
       });
-  }, [query, categoryId, skillId, budget, sort, savedOnly, savedIds]);
+  }, [
+    query,
+    categoryId,
+    skillId,
+    budget,
+    sort,
+    savedOnly,
+    savedIds,
+    openProjects,
+  ]);
 
   function clearFilters() {
     setSearchDraft("");
@@ -165,13 +192,23 @@ export default function ProjectsCatalogue({ onOpenProject }) {
               </span>
             </a>
           </nav>
-          <span className="inline-flex items-center gap-2 rounded-full bg-[#fdf2f3] px-3 py-1.5 text-xs font-semibold text-[#a52234]">
-            <span
-              className="size-1.5 rounded-full bg-miu-red"
-              aria-hidden="true"
-            />{" "}
-            Phase 1 preview
-          </span>
+          {onCreateProject ? (
+            <button
+              type="button"
+              onClick={onCreateProject}
+              className="min-h-11 shrink-0 rounded-lg border border-miu-red bg-miu-red px-4 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+            >
+              Post a project
+            </button>
+          ) : (
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#fdf2f3] px-3 py-1.5 text-xs font-semibold text-[#a52234]">
+              <span
+                className="size-1.5 rounded-full bg-miu-red"
+                aria-hidden="true"
+              />{" "}
+              Phase 1 preview
+            </span>
+          )}
         </div>
       </header>
 

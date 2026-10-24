@@ -25,6 +25,13 @@ export const routeConfig = [
     access: "public",
   },
   {
+    path: "/client/projects/new",
+    title: "Create project",
+    layout: "standalone",
+    access: "roles",
+    roles: [ROLES.CLIENT],
+  },
+  {
     path: "/projects/:projectId",
     title: "Project details",
     layout: "standalone",
