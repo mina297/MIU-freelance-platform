@@ -7,6 +7,11 @@ tags: [MIU, pages, routing]
 
 # MIU Freelance Platform — Pages and Routes
 
+24 October 2026 client dashboard integration: `/client/dashboard` renders the
+existing `ClientDashboard` in the shared app content outlet, preserving the
+navbar, layout and client-only route guard. Refresh clears the in-memory mock
+session and requires signing in again.
+
 ## Purpose
 
 Map the 29 SRS prototype entries to proposed frontend routes.
@@ -74,10 +79,96 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
-**24 October 2026 public integration:** `/` now renders LandingPage inside the
-shared PublicLayout. `/about`, `/how-it-works`, `/terms`, `/privacy`,
+**Order delivery (24 October 2026):** the existing `/orders/:orderId` workspace
+now includes Delivery & revisions. Eligible assigned students submit/resubmit;
+the owning client requests revisions or confirms acceptance/completion. Latest
+submission checks and active-role/verification/status checks protect actions.
+Lists and timeline update live. No new route, funding action, deadline or financial
+settlement is introduced. Awaiting-payment orders cannot submit delivery here.
+
+**Order workspace (24 October 2026):** `/orders/:orderId` preserves both source
+summaries and now includes participant-only Requirements, Messages and Progress &
+activity tabs. Client notes are versioned, conversation attachments are fictional
+allowlisted metadata, and the log records real demo actions only. No new route,
+payment, status mutation, delivery submission or milestone workflow is introduced.
+
+**Order lists (24 October 2026):** `/client/orders` and `/student/orders` now
+render owned-only live project/service order lists, with search/status/source
+filters, deterministic sorting, non-financial EGP value summaries and recovery
+states. Role guards and participant-only detail access remain. Summary pages link
+back to the role-specific list. Full order collaboration is not implemented yet.
+
+**Service ordering (24 October 2026):** `/services/:serviceId/order` is an active
+client-only standalone configurator, hidden from generic navigation and linked
+from public service details. It validates package/extras, quotes EGP/delivery,
+confirms current terms and creates one awaiting-payment demo order per request.
+`/orders/:orderId` now supports participant-only service summaries as well as the
+existing project handoff. No payment/escrow or full workspace is implemented here.
+
+**Student service management (24 October 2026):** student-only standalone routes
+`/student/services`, `/student/services/new`, `/student/services/:serviceId/edit`
+cover owned listings, validated private previews, complete drafts, package/extra
+editing, verified publishing, pausing and uncommitted removal. Dynamic/new routes
+are hidden from generic navigation. Public discovery/details observe serviceStore;
+private/unpublished content remains hidden. Ordering/checkout are later work.
+
+**Service details (24 October 2026):** public `/services/:serviceId` now provides
+P-10 description/provider summary, read-only package comparison, extras information
+and unavailable/loading/error states. Catalogue links open real service IDs; the
+dynamic route is hidden from global navigation. Shared public layout and session
+are preserved. Package selection, profile links and checkout are not implemented.
+
+**Service discovery (24 October 2026):** `/services` renders the public catalogue
+(P-09), with published-only search/category/skill/starting-price filters, sorting,
+package scope disclosures and empty/loading/error presentations. It retains the
+shared public shell. Service details are connected as described above; profiles
+and ordering remain future work.
+
+**Student proposal management:** `/student/proposals` now renders an owned-only
+student list with search/status filters and accepted demo-order links (P-14).
+`/student/proposals/:proposalId/edit` provides P-08 editing for eligible offers.
+The list offers confirmed withdrawal. Submitted/shortlisted offers require an open,
+uncommitted project; edits also require approved demo verification. Missing,
+other-owner and non-editable records have recovery/read-only states. Saved updates
+are shared with client review and reset on refresh. Browser acceptance remains pending.
+
+**Homepage navigation update (24 October 2026):** LandingHeader groups discovery under Hire Talent (landing student previews, `/services`, client registration) and Find Work (`/projects`, student registration, How it works). It is used by the homepage and authentication screens; other public pages retain the shared PublicHeader. The landing Hire/Work toggle selects local prototype discovery mode; it does not assign an account role or change access permissions. No new route is introduced.
+
+Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with one route registry at `frontend/src/app/routeConfig.js` and one in-memory session provider.
+
+**Client proposal review:** `/client/projects/:projectId/proposals` now renders a
+client-only, ownership-checked marketplace review screen, linked from My projects.
+P-17 currently covers incoming offers, search/status filters, sorting, comparison
+of two or three proposals, and simulated shortlist toggles. Closed/selected/cancelled
+project reviews are read-only. Confirmed accept/reject is available for submitted
+or shortlisted offers on open projects. Acceptance selects the project and links
+one demo order awaiting payment. `/orders/:orderId` renders a project-only summary
+for its client and selected student; service-order/full-workspace views and profile
+navigation remain pending. Missing and other-client records show a generic recovery
+state without proposal details. State changes reset to fixtures on refresh.
+
+**24 October 2026 project creation:** P-16 creation is available at
+`/client/projects/new`, using a standalone marketplace shell and the active-client
+guard. Post a project in the catalogue opens the form; visitors use the existing
+login return flow. Valid briefs can be previewed, edited before publication, and
+published to the in-memory demo catalogue. Publish requires an approved client
+demo session; the MIU/external-client distinction is pending. Editing previously
+published projects at `/client/projects/:projectId/edit` is available for owned
+open projects. Owned private drafts can be resumed there too. `/client/projects`
+lists the current client's projects and drafts, with empty and unavailable states.
+Incomplete drafts can be saved without appearing publicly; all saved changes reset
+on refresh. Selected, closed and cancelled project edits remain unavailable.
+My projects offers confirmed Close (open projects) and Cancel (open/closed
+projects) actions. Any linked project order or accepted proposal blocks both.
+Closed/cancelled details remain directly accessible but cannot receive proposals
+or appear in open discovery. No additional routes are introduced.
+
+**24 October 2026 public integration:** `/` renders Member 1's replacement
+LandingPage with LandingHeader and its page-owned footer. The retired Member 4
+homepage is removed. Other public pages retain the shared PublicLayout.
+`/about`, `/how-it-works`, `/terms`, `/privacy`,
 `/loading-demo`, and `/error-demo` are registered public pages. The existing
-HowItWorksSection is composed once on both the landing and full guide pages.
+HowItWorksSection remains on the full guide page; the homepage uses Member 1's timeline.
 Terms and Privacy still explicitly show unapproved-content placeholders.
 Only implemented destinations are passed to the public navigation and landing
 actions; service/profile detail actions remain unavailable. Public route changes
@@ -104,7 +195,7 @@ Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with
 
 - Public website: `/`, `/about`, `/how-it-works`, `/terms`, `/privacy`.
 - Public feedback demos: `/loading-demo`, `/error-demo` (not global-navigation entries).
-- Public placeholder: `/services`.
+- Public service catalogue: `/services` (details and ordering remain later work).
 - Public marketplace previews: `/projects` renders the Projects Catalogue (P-06), and `/projects/:projectId` renders Project Details (P-07).
 - Mock authentication forms: `/login`, `/register`, `/register/role`, `/forgot-password`, `/reset-password` (Task 02).
 - Student/client placeholders: `/verify`, `/verify/pending`.
@@ -137,6 +228,10 @@ described above; its safe mock attachment selection is implemented, while
 visual/browser verification remains tracked in the Projects and Proposals module.
 
 ## 4. Layout Groups
+
+**Public/authentication shell update:** Authentication pages use the new LandingHeader without developer route lists or session controls. Public pages retain collapsed demo session controls for integration testing. `/register` starts at Student/Client cards, then opens the corresponding query-selected form. A valid simulated forgot-password request opens `/reset-password`.
+
+**23 October 2026 landing page:** `/` renders the “MIU Freelance desktop” Figma frame (`8:2656`) through `features/public/LandingPage.jsx`. The existing public header, session/logout behavior and authentication flows are preserved; only the home main-content container becomes full width. Hero search/category controls filter the three fictional featured examples locally, with a clear-filters recovery state. Find Work and Browse all jobs open `/projects`; Post a Job opens client registration because project posting is not implemented. Job/profile buttons open labeled native demo dialogs, not new record routes. Footer section links work in-page; Help, Contact and policy buttons explain the current prototype limits. Services remains discoverable through the existing header and footer. No protected action, shared marketplace record or access policy changes.
 
 The 23 October delivery notes below describe the original isolated component
 handover. Their pending route-registration statements are superseded by section 3's
@@ -250,10 +345,12 @@ Checkout/escrow frontend increment: `/Checkout` (also matches `/checkout`) is a
 standalone entry, excluded from global navigation. Visitors can explicitly start
 a fictional client session; payment requires an active client and an owned service
 order. `/checkout/:orderId` is a client-only, ownership-checked standalone page.
-`/client/dashboard` now implements service orders and financial progress, and the
+`/client/payments/overview` implements service orders and financial progress; `/client/dashboard` retains the merged client dashboard. The
 client-only `/client/payments` route implements shared transaction history in the
 existing application layout and navigation. Other dashboard placeholders remain
 unchanged. See [Checkout and Payment UI](../06-MODULES/CHECKOUT_PAYMENT_UI.md).
+
+Authentication navigation (24 October 2026): successful registration starts the new account's session and opens `/`; successful login also opens `/` rather than a role dashboard or stored return URL. My workspace remains a separate role-aware navigation action. Public/application shells omit demo session controls and route inventories; protected route permissions are unchanged.
 
 Before changing a shared path:
 
@@ -266,6 +363,20 @@ Before changing a shared path:
 
 ## Related Documents
 
+M5 review fixes (24 October 2026) connect public `/students/:studentId`, `/clients/:clientId`, `/help`, `/help/:articleSlug` and `/support/contact`; `/profile/edit` requires the active student/client owner, and `/reviews/new` requires an active client. Reviews recheck completed-order ownership. See `frontend/src/features/profiles/MEMBER5_INTEGRATION.md` for identity and persistence contracts.
+
+### Freelancer directory implementation
+
+`/recommendations` is also connected to the public shell, navigation menu and marketplace footer. It supports explicit skills/category choices for simulated project, service and provider suggestions, with reasons, local feedback and unrestricted catalogue browsing. It requires no authenticated session because it uses only public listings. See [AI Features](../06-MODULES/AI_FEATURES.md#phase-1-skills-matching-demonstration--24-october-2026).
+
+`/freelancers` is connected to the public shell and navigation. It browses providers of published services with search, category, skill and EGP starting-price filters. Cards link to registered `/services/:serviceId` pages. Full student-profile links await Member 5 identity reconciliation; this route does not complete FR-C06. See [Freelancer Discovery](../06-MODULES/FREELANCER_DISCOVERY.md).
+
 - [SRS](../01-PROJECT/SRS.md)
 - [User Roles](../02-REQUIREMENTS/USER_ROLES_AND_PERMISSIONS.md)
 - [Frontend Architecture](../04-ARCHITECTURE/FRONTEND_ARCHITECTURE.md)
+
+
+24 October 2026 routing integration: `/student/dashboard` now maps to the existing
+`StudentDashboard` in the shared router content outlet. The shared navbar, layout
+and student role guard are preserved. Mock sessions remain memory-only: refresh
+requires signing in again before returning to the dashboard.

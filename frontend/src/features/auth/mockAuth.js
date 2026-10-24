@@ -7,7 +7,7 @@ import {
 export const normalizeEmail = (email) =>
   typeof email === "string" ? email.trim().toLowerCase() : "";
 export const emailError = (email) =>
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizeEmail(email))
+  /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/.test(normalizeEmail(email))
     ? ""
     : "Enter a valid email address.";
 export const passwordError = (password) =>
@@ -87,13 +87,13 @@ export function createMockAuthStore(fixtures = []) {
       )
         return {
           ok: false,
-          errors: { form: "Email or password is incorrect for this demo." },
+          errors: { form: "Email or password is incorrect." },
         };
       if (!isActiveUser(user))
         return {
           ok: false,
           errors: {
-            form: "This account is inactive. Demo login is unavailable.",
+            form: "This account is inactive.",
           },
         };
       return { ok: true, user: toSessionUser(user) };
@@ -104,7 +104,7 @@ export function createMockAuthStore(fixtures = []) {
       return {
         ok: true,
         message:
-          "Simulated response: no email was sent. If this account exists, use the demo reset form. No secure reset token is issued.",
+          "Prototype recovery: no email was sent. Use the reset form; no secure reset token is issued.",
       };
     },
     resetPassword({ email, password, confirmPassword }) {
@@ -119,22 +119,21 @@ export function createMockAuthStore(fixtures = []) {
         return {
           ok: false,
           errors: {
-            email:
-              "No account with this email exists in the current demo memory.",
+            email: "No account with this email exists in this prototype.",
           },
         };
       if (!isActiveUser(user))
         return {
           ok: false,
           errors: {
-            form: "This account is inactive. Its demo password cannot be changed.",
+            form: "This account is inactive. Its password cannot be changed.",
           },
         };
       passwords.set(user.id, password);
       return {
         ok: true,
         message:
-          "Simulated password reset completed in memory only. No secure token was checked. Refresh discards this change.",
+          "Prototype password updated until refresh. No secure token was checked.",
       };
     },
   };

@@ -40,6 +40,13 @@ Financial screens may display:
 
 ## 4. Planned Checkout Flow
 
+**Current service-order handoff:** `/services/:serviceId/order` confirms package
+and extra terms and creates one in-memory `awaiting_payment` Order. Its
+participant-only `/orders/:orderId` summary explicitly states no money was
+collected, escrow funded or delivery started. This is an order-creation handoff,
+not Member 3's checkout/payment simulation or provider integration. No fees or
+financial status changes are invented by this increment.
+
 1. Client selects a proposal or service package.
 2. System presents order summary.
 3. System calculates and displays the EGP amount.

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" role="img" aria-label="Club website landing section mockup">
+  <rect width="640" height="480" fill="#0f172a"/>
+  <rect x="48" y="40" width="544" height="36" rx="6" fill="#1e293b"/>
+  <circle cx="72" cy="58" r="8" fill="#b91c2b"/>
+  <rect x="96" y="50" width="80" height="16" rx="4" fill="#334155"/>
+  <rect x="48" y="100" width="320" height="28" rx="4" fill="#f8fafc"/>
+  <rect x="48" y="144" width="260" height="12" rx="3" fill="#64748b"/>
+  <rect x="48" y="168" width="200" height="12" rx="3" fill="#475569"/>
+  <rect x="48" y="208" width="120" height="36" rx="18" fill="#b91c2b"/>
+  <rect x="400" y="100" width="192" height="220" rx="12" fill="#1e293b"/>
+  <rect x="420" y="120" width="152" height="80" rx="8" fill="#334155"/>
+  <rect x="420" y="220" width="100" height="10" rx="3" fill="#64748b"/>
+  <rect x="420" y="242" width="140" height="10" rx="3" fill="#475569"/>
+  <text x="48" y="420" fill="#f8fafc" font-family="Arial, sans-serif" font-size="18" font-weight="600">Club landing - UI section</text>
+  <text x="48" y="446" fill="#94a3b8" font-family="Arial, sans-serif" font-size="13">Karim demo asset - Phase 1</text>
+</svg>

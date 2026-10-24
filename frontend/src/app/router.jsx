@@ -6,10 +6,35 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
+import StudentDashboard from "../features/dashboards/StudentDashboard.jsx";
 import ProtectedRoute from "../features/auth/ProtectedRoute.jsx";
+import ClientDashboard from "../features/dashboards/ClientDashboard.jsx";
 import ProjectsCatalogue from "../features/projects/ProjectsCatalogue.jsx";
 import ProjectDetails from "../features/projects/ProjectDetails.jsx";
+import ProjectCreate from "../features/projects/ProjectCreate.jsx";
+import ClientProjects from "../features/projects/ClientProjects.jsx";
 import ProposalEntry from "../features/proposals/ProposalEntry.jsx";
+import ClientProposals from "../features/proposals/ClientProposals.jsx";
+import StudentProposals from "../features/proposals/StudentProposals.jsx";
+import StudentProposalEdit from "../features/proposals/StudentProposalEdit.jsx";
+import OrderSummary from "../features/orders/OrderSummary.jsx";
+import OrdersList from "../features/orders/OrdersList.jsx";
+import FreelancersCatalogue from "../features/freelancers/FreelancersCatalogue.jsx";
+import {
+  StudentProfileRoute,
+  ClientProfileRoute,
+  ProfileEditRoute,
+  NewReviewRoute,
+  HelpCenterRoute,
+  HelpArticleRoute,
+} from "../features/profiles/Member5Routes.jsx";
+import SupportContactPage from "../features/help/SupportContactPage.jsx";
+import Recommendations from "../features/recommendations/Recommendations.jsx";
+import ServicesCatalogue from "../features/services/ServicesCatalogue.jsx";
+import ServiceDetails from "../features/services/ServiceDetails.jsx";
+import StudentServices from "../features/services/StudentServices.jsx";
+import ServiceForm from "../features/services/ServiceForm.jsx";
+import ServiceOrder from "../features/services/ServiceOrder.jsx";
 import AppLayout from "../layouts/AppLayout.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
 import AdminLayout from "../layouts/AdminLayout.jsx";
@@ -45,6 +70,7 @@ function ProjectsCatalogueRoute() {
   return (
     <ProjectsCatalogue
       onOpenProject={(projectId) => navigate(`/projects/${projectId}`)}
+      onCreateProject={() => navigate("/client/projects/new")}
     />
   );
 }
@@ -70,15 +96,26 @@ function ProjectDetailsRoute() {
 const featurePages = {
   "/Checkout": <CheckoutPage />,
   "/checkout/:orderId": <CheckoutPage />,
-  "/client/dashboard": <ClientPaymentsDashboard />,
+  "/client/payments/overview": <ClientPaymentsDashboard />,
   "/client/payments": <ClientPaymentsDashboard />,
-  "/": (
-    <LandingPage
-      destinations={publicDestinations}
-      getProjectHref={(id) => `/projects/${id}`}
-      howItWorks={<HowItWorksSection />}
-    />
-  ),
+  "/client/dashboard": <ClientDashboard />,
+  "/student/dashboard": <StudentDashboard />,
+  "/students/:studentId": <StudentProfileRoute />,
+  "/clients/:clientId": <ClientProfileRoute />,
+  "/profile/edit": <ProfileEditRoute />,
+  "/reviews/new": <NewReviewRoute />,
+  "/help": <HelpCenterRoute />,
+  "/help/:articleSlug": <HelpArticleRoute />,
+  "/support/contact": <SupportContactPage />,
+  "/": <LandingPage />,
+  "/freelancers": <FreelancersCatalogue />,
+  "/recommendations": <Recommendations />,
+  "/services": <ServicesCatalogue />,
+  "/services/:serviceId": <ServiceDetails />,
+  "/services/:serviceId/order": <ServiceOrder />,
+  "/student/services": <StudentServices />,
+  "/student/services/new": <ServiceForm />,
+  "/student/services/:serviceId/edit": <ServiceForm />,
   "/about": <AboutPage destinations={publicDestinations} />,
   "/how-it-works": (
     <HowItWorksPage
@@ -91,7 +128,16 @@ const featurePages = {
   "/loading-demo": <LoadingDemoPage />,
   "/error-demo": <ErrorDemoPage />,
   "/projects/:projectId/propose": <ProposalEntry />,
+  "/student/proposals": <StudentProposals />,
+  "/student/proposals/:proposalId/edit": <StudentProposalEdit />,
   "/projects": <ProjectsCatalogueRoute />,
+  "/client/projects/new": <ProjectCreate />,
+  "/client/projects": <ClientProjects />,
+  "/client/projects/:projectId/proposals": <ClientProposals />,
+  "/orders/:orderId": <OrderSummary />,
+  "/client/orders": <OrdersList role="client" />,
+  "/student/orders": <OrdersList role="student" />,
+  "/client/projects/:projectId/edit": <ProjectCreate />,
   "/projects/:projectId": <ProjectDetailsRoute />,
   "/login": <LoginPage />,
   "/register/role": <RoleSelectionPage />,

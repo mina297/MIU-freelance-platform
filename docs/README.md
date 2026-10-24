@@ -57,15 +57,17 @@ This documentation is intended for:
 
 ### 06 — Modules
 
-| Document                                                       | Purpose                  |
-| -------------------------------------------------------------- | ------------------------ |
-| [Authentication](06-MODULES/AUTHENTICATION.md)                 | Accounts and sessions    |
-| [Verification](06-MODULES/VERIFICATION.md)                     | Identity workflow        |
-| [Projects and Proposals](06-MODULES/PROJECTS_AND_PROPOSALS.md) | Project marketplace      |
-| [Services and Orders](06-MODULES/SERVICES_AND_ORDERS.md)       | Service marketplace      |
-| [Payments and Escrow](06-MODULES/PAYMENTS_AND_ESCROW.md)       | Financial workflows      |
-| [AI Features](06-MODULES/AI_FEATURES.md)                       | AI-assisted capabilities |
-| [Admin and Committees](06-MODULES/ADMIN_AND_COMMITTEES.md)     | Governance workflows     |
+| Document | Purpose |
+|---|---|
+| [Authentication](06-MODULES/AUTHENTICATION.md) | Accounts and sessions |
+| [Landing Page](06-MODULES/LANDING_PAGE.md) | Public discovery and Figma prototype behavior |
+| [Verification](06-MODULES/VERIFICATION.md) | Identity workflow |
+| [Projects and Proposals](06-MODULES/PROJECTS_AND_PROPOSALS.md) | Project marketplace |
+| [Services and Orders](06-MODULES/SERVICES_AND_ORDERS.md) | Service marketplace |
+| [Payments and Escrow](06-MODULES/PAYMENTS_AND_ESCROW.md) | Financial workflows |
+| [AI Features](06-MODULES/AI_FEATURES.md) | AI-assisted capabilities |
+| [Admin and Committees](06-MODULES/ADMIN_AND_COMMITTEES.md) | Governance workflows |
+| [Client Dashboard](06-MODULES/CLIENT_DASHBOARD.md) | Implemented frontend preview and remaining integration work |
 
 ### 07 — Handover
 
@@ -122,6 +124,8 @@ Start with the SRS, scope, prototype inventory, and development roadmap.
 | Blocked     | Requires a decision, dependency, or approval    |
 
 ## Current Baseline
+
+Member 2's Phase 1 [Freelancer Discovery](06-MODULES/FREELANCER_DISCOVERY.md) documents the published-service provider directory and its profile integration dependency.
 
 - **Project:** MIU Freelance Platform
 - **Requirements:** SRS v1.1, October 2026

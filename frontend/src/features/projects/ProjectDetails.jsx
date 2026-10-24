@@ -56,7 +56,7 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
     );
   }
 
-  const clientName = clientNames.get(project.clientId) ?? "Demo client";
+  const clientName = clientNames.get(project.clientId) ?? "Client";
   const initials = clientName
     .split(" ")
     .map((part) => part[0])
@@ -103,7 +103,13 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
               <span
                 className={`rounded-full px-3 py-1.5 text-xs font-semibold ${isOpen ? "bg-[#ddf5e4] text-[#206b40]" : "bg-white/15 text-white"}`}
               >
-                {isOpen ? "Open for proposals" : "Not accepting proposals"}
+                {isOpen
+                  ? "Open for proposals"
+                  : project.status === PROJECT_STATUS.CLOSED
+                    ? "Closed — not accepting proposals"
+                    : project.status === PROJECT_STATUS.CANCELLED
+                      ? "Cancelled — not accepting proposals"
+                      : "Not accepting proposals"}
               </span>
             </div>
             <h1
@@ -288,9 +294,7 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
                 </span>
                 <div>
                   <p className="font-bold">{clientName}</p>
-                  <p className="text-xs text-[#7e6c75]">
-                    Fictional demo client
-                  </p>
+                  <p className="text-xs text-[#7e6c75]">Fictional client</p>
                 </div>
               </div>
             </div>

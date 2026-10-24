@@ -16,7 +16,11 @@ export default function AuthProvider({ children }) {
             type: "start",
             user: accounts.findUser(userId),
           }),
-        register: (values) => accounts.register(values),
+        register: (values) => {
+          const result = accounts.register(values);
+          if (result.ok) dispatch({ type: "start", user: result.user });
+          return result;
+        },
         login: (values) => {
           const result = accounts.login(values);
           // Failed attempts must not preserve a previous privileged session.

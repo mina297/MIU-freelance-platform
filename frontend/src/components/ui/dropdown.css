@@ -1,0 +1,39 @@
+.disclosure {
+  position: relative;
+}
+.disclosure-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: pointer;
+}
+.disclosure-trigger svg {
+  flex-shrink: 0;
+}
+.disclosure-trigger > svg:last-child {
+  transition: transform 160ms ease;
+}
+.disclosure-trigger[aria-expanded="true"] > svg:last-child {
+  transform: rotate(180deg);
+}
+.disclosure-panel[hidden] {
+  display: none;
+}
+.disclosure-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  z-index: 40;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: white;
+  box-shadow:
+    0 20px 60px rgb(17 17 17 / 12%),
+    0 4px 12px rgb(17 17 17 / 4%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .disclosure-trigger svg {
+    transition: none;
+  }
+}

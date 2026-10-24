@@ -1,0 +1,162 @@
+.freelancers-filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  align-items: end;
+  gap: 20px;
+  border: 1.5px solid #c9b4c1;
+  background: #fcf9fb;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 40px;
+}
+.freelancers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.freelancers-catalogue .freelancer-card {
+  padding: clamp(24px, 3vw, 34px);
+  border: 1.5px solid #c9b4c1;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 28px #4321380a;
+  min-width: 0;
+}
+.freelancer-card__top {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 26px;
+}
+.freelancer-card__avatar {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  border: 1px solid #caa8bb;
+  border-radius: 22px;
+  color: #9a3658;
+  background: linear-gradient(135deg, #f9edf3, #eadbe7);
+  font-family: var(--font-display, Georgia, serif);
+  font-size: 28px;
+}
+.freelancer-card h3 {
+  font-size: 27px;
+  line-height: 1.3;
+  font-weight: 750;
+  letter-spacing: -0.04em;
+  margin-block: 8px;
+  overflow-wrap: anywhere;
+}
+.freelancer-card__top > div:last-child {
+  min-width: 0;
+}
+.freelancer-card__top > div > p:last-child {
+  font-size: 12px;
+  color: #796572;
+}
+.freelancer-card__skills > p {
+  font-size: 12px;
+  color: #796572;
+  margin-bottom: 12px;
+}
+.freelancer-card__skills ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+.freelancer-card__skills li {
+  font-size: 12px;
+  color: #735268;
+  padding: 6px 10px;
+  border: 1px solid #d7c2cf;
+  border-radius: 7px;
+  background: #faf5f8;
+}
+.freelancer-card__price {
+  margin-block: 24px;
+  padding: 20px;
+  border: 1px solid #d7b6c7;
+  border-radius: 12px;
+  background: #fcf1f7;
+}
+.freelancer-card__price dt {
+  font-size: 11px;
+  color: #815b70;
+  margin-bottom: 8px;
+}
+.freelancer-card__price dd {
+  font-size: 26px;
+  font-weight: 750;
+  color: #8c2d4d;
+  letter-spacing: -0.035em;
+  overflow-wrap: anywhere;
+}
+.freelancer-card__services h4 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.freelancer-card__services ul {
+  list-style: none;
+}
+.freelancer-card__services li {
+  padding-block: 14px;
+  border-top: 1px solid #e0d1da;
+}
+.freelancer-card__services a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 44px;
+  font-size: 14px;
+  font-weight: 650;
+  color: #a13757;
+}
+.freelancer-card__services a > span {
+  overflow-wrap: anywhere;
+}
+.freelancer-card__services a > svg {
+  flex-shrink: 0;
+}
+.freelancer-card__services li > p {
+  font-size: 12px;
+  color: #796572;
+}
+.freelancer-card__note,
+.freelancers-catalogue__footer-note {
+  font-size: 11px;
+  line-height: 1.85;
+  color: #6c5363;
+  margin-top: 24px;
+}
+@media (max-width: 950px) {
+  .freelancers-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 700px) {
+  .freelancers-grid,
+  .freelancers-filters {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .freelancer-card__top {
+    gap: 14px;
+    align-items: start;
+  }
+  .freelancer-card__avatar {
+    width: 54px;
+    height: 54px;
+    font-size: 22px;
+    border-radius: 16px;
+  }
+  .freelancer-card h3 {
+    font-size: 24px;
+  }
+}

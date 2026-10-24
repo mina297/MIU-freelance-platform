@@ -6,6 +6,7 @@ import {
   createMockAuthStore,
   validateRegistration,
   passwordError,
+  emailError,
 } from "../features/auth/mockAuth.js";
 import { getLoginDestination } from "../features/auth/navigation.js";
 import { routeConfig } from "../app/routeConfig.js";
@@ -48,6 +49,32 @@ const registration = {
   confirmPassword: "DemoPass1",
   role: ROLES.STUDENT,
 };
+
+test("auth email validation requires at least two letters after the final dot", () => {
+  for (const email of [
+    "svvvvvvvv@miu.c",
+    "user@miu.edu.c",
+    "user@miu.",
+    "user@miu.c1",
+  ]) {
+    assert.ok(emailError(email), email);
+    assert.ok(validateRegistration({ ...registration, email }).email, email);
+    const store = createMockAuthStore();
+    assert.ok(
+      store.login({ email, password: registration.password }).errors.email,
+    );
+    assert.ok(store.forgotPassword(email).errors.email);
+    assert.ok(store.resetPassword({ ...registration, email }).errors.email);
+  }
+  for (const email of [
+    "user@miu.co",
+    "user@miu.com",
+    "user@miu.edu.eg",
+    " USER@MIU.COM ",
+  ]) {
+    assert.equal(emailError(email), "", email);
+  }
+});
 
 test("registration validates all fields and rejects privileged or manipulated roles", () => {
   assert.deepEqual(validateRegistration(registration), {});
@@ -164,6 +191,24 @@ test("forgot-password is simulated and password reset changes only memory", () =
     fresh.login({ ...registration, email: "student_001@example.test" }).ok,
     false,
   );
+});
+
+test("account feedback stays concise without demo wording or hiding recovery limits", () => {
+  const store = createMockAuthStore(mockUsers);
+  const responses = [
+    store.login(registration),
+    store.forgotPassword(registration.email),
+    store.resetPassword(registration),
+    store.resetPassword({ ...registration, email: "student_001@example.test" }),
+  ];
+  for (const response of responses)
+    assert.doesNotMatch(JSON.stringify(response), /\bdemo\b/i);
+  assert.match(responses[1].message, /Prototype recovery/);
+  assert.match(responses[1].message, /no email was sent/);
+  assert.match(responses[3].message, /No secure token/);
+  assert.match(responses[3].message, /until refresh/);
+  for (const user of mockUsers)
+    assert.doesNotMatch(user.displayName, /\bdemo\b/i);
 });
 
 test("inactive fixtures cannot log in, reset passwords or start sessions", () => {

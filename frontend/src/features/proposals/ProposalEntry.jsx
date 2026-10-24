@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
 import { getProjectById } from "../marketplace/selectors.js";
 import { PROJECT_STATUS } from "../marketplace/constants.js";
+import { proposalStore } from "./proposalStore.js";
 import ProposalForm from "./ProposalForm.jsx";
 
 export default function ProposalEntry() {
@@ -11,6 +12,7 @@ export default function ProposalEntry() {
   const heading = useRef(null);
   const project = getProjectById(projectId);
   const isOpen = project?.status === PROJECT_STATUS.OPEN;
+  const existingProposal = proposalStore.find(projectId, session.user?.id);
   const verified = session.user?.verificationStatus === "approved";
 
   useEffect(() => {
@@ -25,9 +27,11 @@ export default function ProposalEntry() {
         <h1 ref={heading} tabIndex={-1} className="mt-4 text-3xl font-bold">
           {!project
             ? "Project not found"
-            : !isOpen
-              ? "Proposals are closed"
-              : "Prepare your proposal"}
+            : existingProposal && !isOpen
+              ? "Your proposal status"
+              : !isOpen
+                ? "Proposals are closed"
+                : "Prepare your proposal"}
         </h1>
         {project && (
           <h2 className="mt-4 text-xl font-semibold">{project.title}</h2>
@@ -47,7 +51,7 @@ export default function ProposalEntry() {
         >
           {project ? "Back to project" : "Browse projects"}
         </Link>
-        {isOpen && (
+        {project && (isOpen || existingProposal) && (
           <ProposalForm
             key={`${project.id}:${session.user?.id}`}
             project={project}

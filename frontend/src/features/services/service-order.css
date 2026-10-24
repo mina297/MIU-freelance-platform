@@ -1,0 +1,118 @@
+.service-order__body {
+  padding-block: 28px 64px;
+}
+.service-order__disclosure {
+  font-size: 13px;
+  color: #735a69;
+  line-height: 1.85;
+  margin-bottom: 24px;
+}
+.service-order__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(270px, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+.service-order__options {
+  display: grid;
+  gap: 24px;
+}
+.service-order__panel {
+  padding: clamp(22px, 3vw, 32px);
+  min-width: 0;
+}
+.service-order__panel h2 {
+  font-size: 24px;
+  font-weight: 750;
+  margin-bottom: 24px;
+}
+.service-order__panel > p {
+  font-size: 13px;
+  line-height: 1.9;
+  color: #735a69;
+  margin-block: 16px;
+}
+.service-order__scope {
+  border-top: 1px solid #ddcbd5;
+  padding-top: 20px;
+  margin-top: 22px;
+  font-size: 13px;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+.service-order__scope h3 {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.service-order__scope p {
+  color: #735a69;
+}
+.service-order__scope ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin-top: 10px;
+}
+.service-order__summary {
+  position: sticky;
+  top: 24px;
+}
+.service-order__summary dl {
+  display: grid;
+  gap: 20px;
+}
+.service-order__summary dl > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 18px;
+}
+.service-order__summary dt {
+  color: #735a69;
+  font-size: 13px;
+}
+.service-order__summary dd {
+  font-size: 14px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+.service-order__total {
+  border-top: 1px solid #ddcbd5;
+  padding-top: 22px;
+}
+.service-order__total dd {
+  font-size: 25px;
+  color: #a12a49;
+}
+.service-order__summary > .miu-button {
+  width: 100%;
+}
+.service-order__confirmation {
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+.service-order__confirmation h3 {
+  font-weight: 750;
+  font-size: 20px;
+}
+.service-order__recovery {
+  padding-block: 64px;
+  display: grid;
+  gap: 20px;
+}
+.service-order__recovery h1 {
+  font-size: 30px;
+  font-weight: 750;
+}
+.service-order__recovery a {
+  color: #a12a49;
+  text-decoration: underline;
+  min-height: 44px;
+}
+@media (max-width: 800px) {
+  .service-order__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .service-order__summary {
+    position: static;
+  }
+}

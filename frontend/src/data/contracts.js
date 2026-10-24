@@ -106,6 +106,10 @@
  * @property {string} clientId ID of the client participant.
  * @property {string} studentId ID of the student participant.
  * @property {number} agreedAmountEGP Agreed order amount in EGP, distinct from project budget.
+ * @property {number} [deliveryDays] Agreed delivery estimate copied at project acceptance or service confirmation; does not start a work timer.
+ * @property {object} [serviceTerms] Immutable service/package/extra scope and line-item amounts copied at confirmation. Older fixture orders may omit this snapshot.
+ * @property {object[]} [deliveries] Immutable delivery submissions with optional revision or acceptance metadata; sample IDs only, never real files.
+ * @property {object[]} [deliveryEvents] Recorded demo delivery/revision/acceptance events for the workspace timeline.
  * @property {string} status Proposed order workflow status.
  * @property {string} createdAt ISO 8601 date-time.
  * @property {string|null} completedAt ISO 8601 date-time, or null until completion.

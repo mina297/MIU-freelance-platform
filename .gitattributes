@@ -56,3 +56,5 @@
 *.br binary !eol
 *.exe binary !eol
 *.dll binary !eol
+
+*.node binary !eol

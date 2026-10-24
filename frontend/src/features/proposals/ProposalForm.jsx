@@ -1,6 +1,9 @@
 import { formatEGP } from "../../utils/formatEGP.js";
 import { formatDate } from "../../utils/formatDate.js";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
+import { proposalLabel } from "./clientProposalModel.js";
+import { Link } from "react-router-dom";
+import { orderStore } from "../orders/orderStore.js";
 import { useAuth } from "../../hooks/useAuth.js";
 import { proposalStore } from "./proposalStore.js";
 import ProposalAttachments from "./ProposalAttachments.jsx";
@@ -13,8 +16,24 @@ export default function ProposalForm({ project }) {
   const { session } = useAuth();
   const [errors, setErrors] = useState({});
   const [attachmentIds, setAttachmentIds] = useState([]);
-  const [, setSubmitted] = useState(false);
+  useSyncExternalStore(
+    proposalStore.subscribe,
+    proposalStore.getSnapshot,
+    proposalStore.getSnapshot,
+  );
   const proposal = proposalStore.find(project.id, session.user?.id);
+  const orders = useSyncExternalStore(
+    orderStore.subscribe,
+    orderStore.getSnapshot,
+    orderStore.getSnapshot,
+  );
+  const order =
+    proposal &&
+    orders.find(
+      (record) =>
+        record.proposalId === proposal.id &&
+        record.studentId === session.user?.id,
+    );
   function submitProposal(event) {
     event.preventDefault();
     const values = Object.fromEntries(new FormData(event.currentTarget));
@@ -22,7 +41,6 @@ export default function ProposalForm({ project }) {
     const result = proposalStore.submit(values, project.id, session);
     const nextErrors = result.errors ?? {};
     setErrors(nextErrors);
-    if (result.ok) setSubmitted(true);
     const field = ["priceEGP", "deliveryDays", "coverMessage"].find(
       (name) => nextErrors[name],
     );
@@ -37,11 +55,27 @@ export default function ProposalForm({ project }) {
         className="mt-8 rounded-2xl border-2 border-[#b5869a] bg-[#f8e7ed] p-7"
       >
         <h2 className="text-2xl font-bold">Proposal submitted — simulation</h2>
+        <p className="mt-3 font-semibold">
+          Current demo status: {proposalLabel(proposal.status)}
+        </p>
         <p className="mt-3">
           Your demo proposal is recorded. No client was contacted. This record
           resets on refresh.
         </p>
         <dl className="mt-5 space-y-3">
+          {order && (
+            <div>
+              <dt className="font-bold">Project order</dt>
+              <dd>
+                <Link
+                  className="inline-flex min-h-11 items-center text-miu-red underline"
+                  to={`/orders/${order.id}`}
+                >
+                  View demo order
+                </Link>
+              </dd>
+            </div>
+          )}
           <div>
             <dt className="font-bold">Your price</dt>
             <dd>{formatEGP(proposal.priceEGP)}</dd>
