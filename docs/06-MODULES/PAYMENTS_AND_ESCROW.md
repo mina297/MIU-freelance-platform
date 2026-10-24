@@ -131,6 +131,15 @@ Provide:
 
 Use fictional transaction references.
 
+The `/Checkout` entry and client-only `/checkout/:orderId` implement the service
+checkout demonstration described in [Checkout and Payment UI](CHECKOUT_PAYMENT_UI.md).
+The current frontend task funds an initial 50%, records it as held in mock escrow,
+and leaves 50% unpaid. Successful demo payments update a shared in-memory client
+service-status overlay and transaction history at `/client/dashboard` and
+`/client/payments`. The service stays In Progress, not completed. No real card
+credentials, money movement, automatic release or remaining-balance charge exists.
+Approved production fees and financial authorities remain open decisions.
+
 ## 11. Open Decisions
 
 - Payment provider

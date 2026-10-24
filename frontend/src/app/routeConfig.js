@@ -3,7 +3,22 @@ import { ROLES, PUBLIC_REGISTRATION_ROLES } from "../features/auth/session.js";
 // Single routing registry. Unconnected feature screens remain labeled placeholders.
 // Access metadata describes role-level demo access, not production permissions.
 export const routeConfig = [
+  {
+    path: "/Checkout",
+    title: "Checkout frontend preview",
+    layout: "standalone",
+    access: "public",
+    showInNavigation: false,
+  },
   { path: "/", title: "MIU Freelance", layout: "public", access: "public" },
+  {
+    path: "/checkout/:orderId",
+    title: "Service checkout",
+    layout: "standalone",
+    access: "roles",
+    roles: [ROLES.CLIENT],
+    showInNavigation: false,
+  },
   ...[
     ["/about", "About MIU Freelance"],
     ["/how-it-works", "How it works"],
@@ -89,6 +104,13 @@ export const routeConfig = [
   {
     path: "/client/dashboard",
     title: "Client dashboard",
+    layout: "app",
+    access: "roles",
+    roles: [ROLES.CLIENT],
+  },
+  {
+    path: "/client/payments",
+    title: "Payments & escrow",
     layout: "app",
     access: "roles",
     roles: [ROLES.CLIENT],

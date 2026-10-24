@@ -70,6 +70,13 @@ Phase 1 payments and escrow are simulated or sandbox demonstrations.
 
 Real funds are not collected or held.
 
+The current frontend checkout task explicitly demonstrates initial funding of
+50% of an agreed service price, held in mock escrow, with the other 50% remaining
+unpaid. Success changes the service to In Progress and payment to Partially Paid
+— Escrow Held; it does not complete work, release funds or charge the remainder.
+This applies to the frontend demonstration only; production installment and fee
+policies are not inferred. See [Checkout and Payment UI](../06-MODULES/CHECKOUT_PAYMENT_UI.md).
+
 ### BR-11 — Reviews
 
 Reviews follow completed work when platform rules permit.

@@ -246,6 +246,15 @@ Each SRS prototype should eventually have:
 
 ## 7. Route Change Process
 
+Checkout/escrow frontend increment: `/Checkout` (also matches `/checkout`) is a
+standalone entry, excluded from global navigation. Visitors can explicitly start
+a fictional client session; payment requires an active client and an owned service
+order. `/checkout/:orderId` is a client-only, ownership-checked standalone page.
+`/client/dashboard` now implements service orders and financial progress, and the
+client-only `/client/payments` route implements shared transaction history in the
+existing application layout and navigation. Other dashboard placeholders remain
+unchanged. See [Checkout and Payment UI](../06-MODULES/CHECKOUT_PAYMENT_UI.md).
+
 Before changing a shared path:
 
 1. Identify linked pages and navigation actions.

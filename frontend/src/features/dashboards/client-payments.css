@@ -1,0 +1,176 @@
+.client-payments {
+  color: var(--color-miu-black);
+  font-family: var(--font-sans);
+  padding: 24px 0;
+}
+.cp-heading > p {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: var(--color-miu-red);
+}
+.cp-heading h1 {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 6px 0;
+}
+.cp-heading > span,
+.cp-demo-note {
+  font-size: 13px;
+  color: #4b5563;
+}
+.cp-nav {
+  display: flex;
+  gap: 24px;
+  margin: 24px 0 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.cp-nav a {
+  padding: 12px 0;
+  font-size: 14px;
+}
+.cp-nav .active {
+  color: var(--color-miu-red);
+  border-bottom: 2px solid var(--color-miu-red);
+  font-weight: 600;
+}
+.cp-demo-note {
+  background: #f8f8f9;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+.cp-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 24px 0 32px;
+}
+.cp-orders {
+  display: grid;
+  gap: 20px;
+}
+.cp-orders > h2,
+.cp-payment-detail h2 {
+  font-size: 21px;
+  font-weight: 650;
+}
+.cp-order,
+.cp-payment-detail {
+  padding: 24px;
+}
+.cp-order-heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.cp-order-heading p,
+.cp-order > p {
+  font-size: 12px;
+  color: #4b5563;
+}
+.cp-order-heading h3 {
+  font-size: 19px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+.cp-order > p {
+  margin-top: 12px;
+}
+.cp-balances {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin: 24px 0;
+}
+.cp-balances dt {
+  font-size: 12px;
+  color: #4b5563;
+}
+.cp-balances dd {
+  font-size: 17px;
+  font-weight: 600;
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+}
+.cp-checkout-link {
+  display: inline-block;
+  border: 1px solid var(--color-miu-red);
+  border-radius: 24px;
+  padding: 10px 18px;
+  color: var(--color-miu-red);
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 16px;
+}
+.cp-history,
+.cp-payment-detail {
+  margin-top: 28px;
+}
+.cp-history :is(td, th) small {
+  display: block;
+  font-size: 11px;
+  color: #4b5563;
+  margin-top: 5px;
+}
+.cp-history :is(td, th) b {
+  display: block;
+  font-weight: 600;
+}
+.cp-history tbody th {
+  font-size: 13px;
+}
+.cp-history tbody th .miu-badge {
+  margin-top: 6px;
+}
+@media (min-width: 768px) {
+  .cp-history .miu-data-table__head th,
+  .cp-history .miu-data-table__cell {
+    padding-inline: 16px;
+  }
+}
+.cp-history .miu-button {
+  font-size: 12px;
+}
+.cp-preview-controls {
+  font-size: 11px;
+  color: #4b5563;
+  margin-top: 24px;
+}
+.cp-preview-controls .miu-field {
+  max-width: 320px;
+  margin-top: 12px;
+}
+.client-payments .ec-progress {
+  background: #fafafa;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+}
+@media (max-width: 800px) {
+  .cp-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 520px) {
+  .cp-stats,
+  .cp-balances {
+    grid-template-columns: 1fr;
+  }
+  .cp-heading h1 {
+    font-size: 25px;
+  }
+  .cp-order-heading {
+    flex-direction: column;
+  }
+  .cp-order,
+  .cp-payment-detail {
+    padding: 18px;
+  }
+  .cp-nav {
+    gap: 16px;
+  }
+}
