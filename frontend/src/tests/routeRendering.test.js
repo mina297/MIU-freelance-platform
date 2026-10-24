@@ -145,7 +145,7 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
       ),
     );
     for (const text of [
-      "Find real work. Build your reputation.",
+      "Great ideas deserve great talent.",
       "How it works",
       "Featured jobs",
       "Top-rated students",
@@ -287,7 +287,7 @@ test("public website routes render real pages in one shell with safe destination
         ),
       );
     for (const [path, text] of [
-      ["/", "Find real work. Build your reputation."],
+      ["/", "Great ideas deserve great talent."],
       ["/about", "From university learning to practical experience"],
       ["/how-it-works", "Planned service journey"],
       ["/terms", "not published Terms of Use"],

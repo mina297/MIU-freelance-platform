@@ -4,13 +4,10 @@ import {
   ArrowUpRight,
   BriefcaseBusiness,
   Check,
-  Code2,
   Grid2X2,
   Layers3,
-  Palette,
   Pause,
   Play,
-  Sparkles,
 } from "lucide-react";
 import Dropdown from "../../components/ui/Dropdown.jsx";
 import CategoryCarousel from "./CategoryCarousel.jsx";
@@ -18,6 +15,7 @@ import HowItWorks from "./HowItWorks.jsx";
 import OverlapSection from "./OverlapSection.jsx";
 import RotatingSearchHint from "./RotatingSearchHint.jsx";
 import HeroVideo from "./HeroVideo.jsx";
+import HeroHeadline from "./HeroHeadline.jsx";
 import { useReducedMotion } from "./useLandingMotion.js";
 import { formatEGP } from "../../utils/formatEGP.js";
 import {
@@ -179,27 +177,13 @@ export default function LandingPage() {
     <div className="landing" data-motion={motionEnabled ? "on" : "off"}>
       <section className="landing-hero" aria-labelledby="landing-title">
         <HeroVideo enabled={motionEnabled} />
-        <div className="landing-creative-notes" aria-hidden="true">
-          <span className="landing-note landing-note-code">
-            <Code2 size={22} />
-            Build something useful.<small>Development &amp; technology</small>
-          </span>
-          <span className="landing-note landing-note-design">
-            <Palette size={22} />
-            Make ideas stand out.<small>Design &amp; creativity</small>
-          </span>
-          <Sparkles className="landing-hero-spark" size={34} strokeWidth={1} />
-        </div>
         <div className="landing-community">
           <Icon name="accent" />
           Built for the MIU community
         </div>
-        <h1 id="landing-title">
-          Find real work. <em>Build your reputation.</em>
-        </h1>
+        <HeroHeadline enabled={motionEnabled} />
         <p className="landing-intro">
-          Connect with trusted MIU clients, turn your skills into experience,
-          and grow a portfolio that opens doors.
+          Connect. Collaborate. Create something that matters.
         </p>
         <div
           className="landing-mode-toggle"

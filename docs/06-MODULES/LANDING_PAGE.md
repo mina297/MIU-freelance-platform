@@ -52,6 +52,16 @@ The desktop layout retains the centered hero, alternating timeline, three-column
 
 ### Cinematic hero video — 24 October 2026
 
+The follow-up headline treatment cycles four concise messages: “Great ideas
+deserve great talent.”, “Your skills. Your next opportunity.”, “Find talent.
+Bring ideas to life.” and “Build work you’re proud of.” Each message types in,
+holds for 2.8 seconds, fades for 550ms, then leaves 1.1 seconds of clear video.
+The initial sentence is immediately readable. A reserved headline area prevents
+the search controls from shifting. Decorative side notes are removed and the
+supporting paragraph is shortened. Screen readers receive a stable heading;
+Pause motion and reduced motion show the complete first sentence. Timers are
+cleaned up on unmount or motion changes.
+
 The homepage hero now layers locally bundled, muted looping collaboration stock
 footage behind a burgundy readability overlay, a fine inset frame and the existing
 headline/search/entry cards. A local JPEG poster renders immediately and remains
