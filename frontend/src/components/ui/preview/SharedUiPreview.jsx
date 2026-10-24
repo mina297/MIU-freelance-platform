@@ -5,6 +5,7 @@ import Button from "../Button.jsx";
 import Card from "../Card.jsx";
 import Badge from "../Badge.jsx";
 import SharedUiExamples from "./SharedUiExamples.jsx";
+import "../../../features/public/preview/marketplace-preview.css";
 
 const BUTTON_VARIANTS = [
   "primary",
@@ -28,7 +29,7 @@ export default function SharedUiPreview() {
   const [loading, setLoading] = useState(false);
 
   return (
-    <main data-ui-preview className="space-y-8">
+    <main data-ui-preview className="marketplace-preview space-y-8">
       <header className="space-y-3">
         <h1 className="text-3xl font-bold">Component showcase</h1>
         <p className="max-w-3xl text-base">

@@ -11,6 +11,7 @@ import TermsPage from "../TermsPage.jsx";
 import PrivacyPage from "../PrivacyPage.jsx";
 import LoadingDemoPage from "../LoadingDemoPage.jsx";
 import ErrorDemoPage from "../ErrorDemoPage.jsx";
+import "./marketplace-preview.css";
 
 const PAGES = [
   ["landing", "Member 4 landing design"],
@@ -53,16 +54,15 @@ export default function PublicPagesPreview() {
     error: <ErrorDemoPage />,
   };
   return (
-    <>
+    <div className="marketplace-preview">
       <nav
         aria-label="Member 4 design preview"
-        className="space-y-3 border-b bg-[#fdf2f3] p-4"
+        className="marketplace-preview__toolbar"
       >
-        <p className="font-bold">Member 4 isolated design preview</p>
-        <p>
-          These original page designs are independent of Member 1's temporary
-          home page.
-        </p>
+        <div>
+          <strong>MIU Freelance. Design studio</strong>
+          <p>Member 4 pages, styled to match the project marketplace.</p>
+        </div>
         <Select
           label="Page to preview"
           value={page}
@@ -84,7 +84,7 @@ export default function PublicPagesPreview() {
       >
         {content[page]}
       </PublicLayout>
-    </>
+    </div>
   );
 }
 

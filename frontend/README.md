@@ -2,6 +2,12 @@
 
 This directory contains the Phase 1 React frontend for the MIU Freelance Platform.
 
+The Member 4 isolated previews now explore the team lead's marketplace visual direction:
+burgundy heroes, rose-grey backgrounds, clearly outlined cards and rectangular controls.
+`src/features/public/preview/marketplace-preview.css` is imported only by preview entries;
+it does not restyle Member 1's home page or shared application screens. Review this direction
+at `/m4-pages-preview.html` and `/shared-ui-preview.html` before adopting it in the app.
+
 The application has Phase 1 routing, in-memory sessions and mock authentication forms. Student/client registration creates an account usable until refresh. Login supports role dashboards and authorized internal return URLs. Forgot/reset-password are explicitly simulated, without real email or secure tokens; password changes exist only in memory. The existing demo selector preserves access to fixture accounts. Do not use real credentials. See [Authentication — Task 02](../docs/06-MODULES/AUTHENTICATION.md#task-02-mock-authentication) for validation, fixture email conventions and limitations.
 
 The public `/projects` route still displays the fictional Projects Catalogue preview. Other unimplemented features remain labeled placeholders. See the [current route snapshot](../docs/03-DESIGN/PAGES_AND_ROUTES.md#3-current-implementation-snapshot).
