@@ -82,5 +82,6 @@ export function workspaceTimeline(order, workspace) {
       createdAt: order.createdAt,
     },
     ...workspace.events,
+    ...(order.deliveryEvents ?? []),
   ].sort((a, b) => a.createdAt.localeCompare(b.createdAt));
 }

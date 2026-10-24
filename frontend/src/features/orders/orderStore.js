@@ -2,6 +2,11 @@ import { orders as fixtureOrders } from "../../data/fixtures/marketplace.js";
 import { clientEligibility } from "../projects/projectCreation.js";
 import { ORDER_SOURCE, ORDER_STATUS } from "../marketplace/constants.js";
 import {
+  deliveryActorError,
+  deliveryActionError,
+  validateDelivery,
+} from "./orderDeliveryModel.js";
+import {
   quoteServiceOrder,
   serviceBuyerError,
 } from "../services/serviceOrderModel.js";
@@ -17,11 +22,150 @@ export function createOrderStore(seed = []) {
   );
   const listeners = new Set();
   const serviceRequests = new Map();
+  const deliveryRequests = new Map();
+  function changeDelivery(
+    orderId,
+    values,
+    session,
+    action,
+    latestId,
+    requestId,
+  ) {
+    const current = records.find(({ id }) => id === orderId);
+    const actorError = deliveryActorError(current, session, action);
+    if (actorError) return { ok: false, errors: { form: actorError } };
+    const errors = validateDelivery(values, action);
+    if (Object.keys(errors).length) return { ok: false, errors };
+    if (typeof requestId !== "string" || !requestId.trim())
+      return {
+        ok: false,
+        errors: {
+          form: "Reopen the confirmation before submitting this demo action.",
+        },
+      };
+    const key = JSON.stringify([orderId, session.user.id, action, requestId]);
+    const fingerprint = JSON.stringify([
+      latestId,
+      action === "accept" ? null : values.text.trim(),
+      action === "submit" ? [...values.attachmentIds].sort() : null,
+    ]);
+    const repeat = deliveryRequests.get(key);
+    if (repeat)
+      return repeat.fingerprint === fingerprint
+        ? {
+            ok: true,
+            order: current,
+            delivery: repeat.delivery,
+            duplicate: true,
+          }
+        : {
+            ok: false,
+            errors: {
+              form: "This confirmation was already used with different content.",
+            },
+          };
+    const invalid = deliveryActionError(current, session, action, latestId);
+    if (invalid) return { ok: false, errors: { form: invalid } };
+    const now = new Date().toISOString();
+    let deliveries = [...(current.deliveries ?? [])];
+    let delivery;
+    let status;
+    if (action === "submit") {
+      delivery = Object.freeze({
+        id: `demo_delivery_${crypto.randomUUID()}`,
+        text: values.text.trim(),
+        attachmentIds: Object.freeze([...values.attachmentIds]),
+        submittedBy: session.user.id,
+        submittedName: session.user.displayName,
+        submittedAt: now,
+        status: "submitted",
+      });
+      deliveries.push(delivery);
+      status = ORDER_STATUS.DELIVERED;
+    } else {
+      const previous = deliveries.at(-1);
+      delivery = Object.freeze({
+        ...previous,
+        status: action === "revise" ? "revision_requested" : "accepted",
+        ...(action === "revise"
+          ? {
+              revision: Object.freeze({
+                text: values.text.trim(),
+                requestedBy: session.user.id,
+                requestedAt: now,
+              }),
+            }
+          : { acceptedBy: session.user.id, acceptedAt: now }),
+      });
+      deliveries = deliveries.map((item) =>
+        item.id === previous.id ? delivery : item,
+      );
+      status =
+        action === "revise"
+          ? ORDER_STATUS.REVISION_REQUESTED
+          : ORDER_STATUS.COMPLETED;
+    }
+    const event = Object.freeze({
+      id: `delivery_event_${crypto.randomUUID()}`,
+      label:
+        action === "submit"
+          ? "Student submitted demo delivery"
+          : action === "revise"
+            ? "Client requested demo revisions"
+            : "Client accepted delivery — demo order completed",
+      actorId: session.user.id,
+      actorName: session.user.displayName,
+      createdAt: now,
+    });
+    const order = Object.freeze({
+      ...current,
+      status,
+      deliveries: Object.freeze(deliveries),
+      deliveryEvents: Object.freeze([...(current.deliveryEvents ?? []), event]),
+      ...(action === "accept" ? { completedAt: now } : {}),
+    });
+    deliveryRequests.set(key, { fingerprint, delivery });
+    records = Object.freeze(
+      records.map((item) => (item.id === orderId ? order : item)),
+    );
+    listeners.forEach((listener) => listener());
+    return { ok: true, order, delivery };
+  }
   return {
     getSnapshot: () => records,
     subscribe(listener) {
       listeners.add(listener);
       return () => listeners.delete(listener);
+    },
+    submitDelivery(orderId, values, session, latestId, requestId) {
+      return changeDelivery(
+        orderId,
+        values,
+        session,
+        "submit",
+        latestId,
+        requestId,
+      );
+    },
+    requestRevision(orderId, values, session, latestId, requestId) {
+      return changeDelivery(
+        orderId,
+        values,
+        session,
+        "revise",
+        latestId,
+        requestId,
+      );
+    },
+    acceptDelivery(orderId, session, latestId, requestId) {
+      return changeDelivery(
+        orderId,
+        {},
+        session,
+        "accept",
+        latestId,
+        requestId,
+      );
     },
     createFromService(
       serviceId,

@@ -292,6 +292,42 @@ An order workspace includes:
 
 ## 8. Delivery Flow
 
+### Current simulated delivery lifecycle — 24 October 2026 (FR-S11; FR-C12; P-19)
+
+Both order sources expose a Delivery & revisions tab within `/orders/:orderId`.
+An active approved assigned student can submit a handover note and optional fixed
+fictional sample IDs only while `in_progress` or `revision_requested`. Awaiting
+payment/funded orders cannot start work through this UI; funding/activation belongs
+to a separate approved integration. Use the fictional in-progress `order_001` with
+Omar Nabil to demonstrate the flow. No fake activation or financial bypass is added.
+
+Submission appends an immutable delivery and changes the order to `delivered`.
+The owning active client may request revisions with a required reason, changing
+the latest submission to revision_requested and the order to that status. The
+student resubmits as a new delivery, preserving prior handovers and revision notes.
+The active approved demo client can accept the latest submitted delivery, setting
+it accepted and the order completed with completedAt. Requiring approved demo
+verification for acceptance is conservative while the client-origin policy is
+incomplete. No revision-count limit, deadline, auto-completion or financial rule is
+invented. Accepted deliveries cannot be reopened by these actions.
+
+Every action requires confirmation, current participation/role/status and the
+latest reviewed delivery ID. Store methods recheck all conditions; changed/stale
+review targets are rejected. Sender/order/action-scoped request IDs make identical
+retries harmless and reject changed payloads using the same request. Text is
+bounded to 3,000 characters; attachments are allowlisted metadata, never real files.
+Order prices, participant/source/package IDs and saved serviceTerms remain unchanged.
+Completion records acceptance only: no payment, escrow release, fee, payout,
+notification, real upload or automatic review is performed.
+
+orderStore publishes delivery/status changes to lists, summaries and workspace
+permissions. Completed/cancelled messages and notes remain read-only; requirements
+reopen during revision_requested as coordination notes, not contractual changes.
+Recorded delivery events join the workspace timeline without inventing historical
+funding or milestones. Manual browser/dialog-focus/keyboard/mobile acceptance
+remains deferred at Mina's request. Production server-side authorization remains
+later work; these are frontend demonstrations only.
+
 1. Order becomes active according to the applicable funding rules.
 2. Freelancer reviews requirements.
 3. Participants communicate.

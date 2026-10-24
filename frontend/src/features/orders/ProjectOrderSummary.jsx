@@ -75,7 +75,7 @@ export default function ProjectOrderSummary() {
           <p className="project-create__prose">
             This is a fictional order summary. It does not process payments,
             fund escrow, or start delivery work. Use the workspace below for
-            notes and messages. Checkout and delivery actions remain separate.
+            notes, messages and delivery review. Checkout remains separate.
           </p>
           <dl className="project-create__facts">
             <div>
@@ -91,7 +91,12 @@ export default function ProjectOrderSummary() {
             {order.deliveryDays && (
               <div>
                 <dt>Agreed delivery estimate</dt>
-                <dd>{order.deliveryDays} days; work has not started</dd>
+                <dd>
+                  {order.deliveryDays} days
+                  {order.status === "awaiting_payment"
+                    ? "; work has not started"
+                    : " (agreed estimate; no deadline inferred)"}
+                </dd>
               </div>
             )}
             <div>

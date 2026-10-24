@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useAuth } from "../../hooks/useAuth.js";
 import { orderWorkspaceStore } from "./orderWorkspaceStore.js";
+import OrderDelivery from "./OrderDelivery.jsx";
 import {
   orderParticipantError,
   workspaceTimeline,
@@ -187,14 +188,19 @@ function Collaboration({ order, session }) {
       <p className="order-workspace__disclosure">
         Notes and messages stay in this browser session and reset on refresh. No
         real attachments or notifications. Awaiting-payment orders have not been
-        funded or started. Delivery/revision actions are not available in this
-        increment.
+        funded or started. Delivery actions require an eligible order status and
+        never release real funds.
       </p>
       <Tabs
         label="Order workspace sections"
         value={tab}
         onValueChange={setTab}
         items={[
+          {
+            id: "delivery",
+            label: "Delivery & revisions",
+            content: <OrderDelivery order={order} />,
+          },
           {
             id: "requirements",
             label: "Requirements",
@@ -294,7 +300,8 @@ function Collaboration({ order, session }) {
                 <p>
                   No payment history, completion percentage, start date or
                   delivery deadline is inferred from this status. Milestones and
-                  delivery actions remain separate work.
+                  financial actions remain separate work; delivery history is
+                  available in its own tab.
                 </p>
                 <ol className="order-workspace__timeline">
                   {timeline.map((item) => (

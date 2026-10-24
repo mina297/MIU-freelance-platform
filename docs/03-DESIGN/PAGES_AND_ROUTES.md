@@ -74,6 +74,13 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
+**Order delivery (24 October 2026):** the existing `/orders/:orderId` workspace
+now includes Delivery & revisions. Eligible assigned students submit/resubmit;
+the owning client requests revisions or confirms acceptance/completion. Latest
+submission checks and active-role/verification/status checks protect actions.
+Lists and timeline update live. No new route, funding action, deadline or financial
+settlement is introduced. Awaiting-payment orders cannot submit delivery here.
+
 **Order workspace (24 October 2026):** `/orders/:orderId` preserves both source
 summaries and now includes participant-only Requirements, Messages and Progress &
 activity tabs. Client notes are versioned, conversation attachments are fictional
