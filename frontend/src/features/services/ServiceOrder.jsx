@@ -186,8 +186,9 @@ function OrderingForm({ details, data, session }) {
               <p role="alert">{quote.error}</p>
             )}
             <p>
-              Delivery has not started. Payment/escrow rules and the full
-              workspace remain separate workflows.
+              Creating the order does not start delivery or fund escrow. The
+              confirmed order includes a notes/messages workspace; delivery
+              actions and checkout remain separate.
             </p>
             {error && !confirming && (
               <p role="alert" className="project-create__alert">

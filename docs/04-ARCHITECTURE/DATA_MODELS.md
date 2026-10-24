@@ -8,6 +8,18 @@ tags: [MIU, data-models, database]
 
 # MIU Freelance Platform — Data Models
 
+### Phase 1 order collaboration state (24 October 2026)
+
+`orderWorkspaceStore` stores per-order immutable requirements (text, sample IDs,
+savedBy/savedAt, version), messages (order/sender IDs, safe display name and role,
+text, sample IDs, createdAt), and workspace events (label, actor/time). It is
+separate from orderStore and exposes stable getSnapshot/subscribe plus guarded
+read/saveRequirements/sendMessage/actionError operations. Requirements use expected
+versions; sends use sender/order-scoped retry keys. The current order lookup is
+rechecked on every read/mutation. Samples carry metadata only, never files/URLs.
+This is session-memory demonstration, not a secure backend or persistent messaging.
+Order financial fields and historical serviceTerms are never rewritten here.
+
 ### Service-order confirmation snapshot (24 October 2026)
 
 Service orders retain source/participant/package/extra IDs, agreedAmountEGP and

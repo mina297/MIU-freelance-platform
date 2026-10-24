@@ -28,6 +28,13 @@ Test reusable controls, validation states, and common UI behavior.
 ### Feature Testing
 Test marketplace, profiles, authentication, dashboard, and administration interactions.
 
+Workspace model/store/render tests cover both order sources, active participant
+reads/writes, foreign-role denial, requirements permissions and stale versions,
+safe attachment allowlists, text limits/escaping, idempotent message sends,
+terminal-state rejection, per-order isolation, immutable snapshots, equal-time
+activity ordering and unchanged order terms/status. Native tab/focus/keyboard,
+screen-reader/mobile and visual checks remain deferred, not passed.
+
 Order-list model/render checks cover ownership before joins/aggregation, wrong-role
 and inactive/expired denial, pending-owner access, combined search/status/source,
 stable sorts, immutable source order, safe EGP summation, missing metadata, saved

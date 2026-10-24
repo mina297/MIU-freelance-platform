@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
 import { getOrderById, getProjectById } from "../marketplace/selectors.js";
 import { orderStore } from "./orderStore.js";
+import OrderCollaboration from "./OrderCollaboration.jsx";
 import { formatEGP } from "../../utils/formatEGP.js";
 import { studentName } from "../proposals/clientProposalModel.js";
 import "../projects/project-create.css";
@@ -73,8 +74,8 @@ export default function ProjectOrderSummary() {
           </h2>
           <p className="project-create__prose">
             This is a fictional order summary. It does not process payments,
-            fund escrow, or start delivery work. Checkout and the full
-            collaboration workspace remain separate workflows.
+            fund escrow, or start delivery work. Use the workspace below for
+            notes and messages. Checkout and delivery actions remain separate.
           </p>
           <dl className="project-create__facts">
             <div>
@@ -107,6 +108,7 @@ export default function ProjectOrderSummary() {
             )}
           </div>
         </section>
+        <OrderCollaboration order={order} />
       </div>
     </main>
   );

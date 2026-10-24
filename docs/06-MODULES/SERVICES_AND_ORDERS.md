@@ -216,6 +216,43 @@ Both should use a shared order management model.
 
 ## 7. Shared Order Workspace
 
+### Current collaboration increment — 24 October 2026 (FR-S09/S10, FR-C10/C11; P-19)
+
+The existing `/orders/:orderId` project/service summaries now compose a shared
+OrderCollaboration panel with Requirements, Messages and Progress & activity tabs.
+There is still one main landmark. Guards and workspace-store read/mutation checks
+admit only the active owning client and assigned student; wrong roles, suspended,
+expired, missing and unrelated accounts cannot read private notes or conversations.
+Account/order switching remounts local drafts and tab state. Pending verification
+does not hide an already assigned participant's collaboration history.
+
+Client requirements are coordination notes, not changes to agreed package scope,
+price, delivery or status. For this demo clients can save in awaiting_payment,
+funded, in_progress and revision_requested states. They are read-only in delivered,
+disputed, completed and cancelled states; students always read them without editing.
+Requirements have monotonic versions and stale-version rejection. Saved notes and
+allowlisted sample IDs are visible to both participants. Updating notes records a
+workspace event, not a financial or governance audit decision.
+
+Participant messages are allowed after order creation, including awaiting_payment,
+but never start work/funding. Completed/cancelled orders retain readable history
+and block new messages. Required nonblank text is bounded (2,000 characters for
+messages; 5,000 for notes). Optional attachments use only fixed fictional metadata;
+there is no file input, upload, download, actual storage or notification delivery.
+Messages copy safe sender ID/name/role and timestamps; HTML is rendered as text.
+Client/order-scoped send request keys prevent duplicate retry records and reject
+reusing a request for different content. Editing/deleting messages is not included.
+
+`orderWorkspaceStore` owns immutable workspace snapshots separately from orderStore.
+Its `read`, `actionError`, `saveRequirements` and `sendMessage` methods recheck live
+orders, participants and states at call time. No collaboration action changes order
+amounts, copied terms, funding, deadlines or status. The activity log shows creation
+and recorded workspace events chronologically, preserving insertion order for equal
+timestamps. It does not invent milestone completion, payment history or percentages.
+No service/project start date or deadline is inferred from a status or estimate.
+Delivery/revision/completion controls and financial flows remain later increments.
+Browser tab/keyboard/focus/mobile acceptance remains explicitly deferred by Mina.
+
 ### Role-specific order lists — 24 October 2026 (FR-S08/S09; FR-C11; P-14/P-19 entry)
 
 `/student/orders` and `/client/orders` are active-role standalone routes. The shared
