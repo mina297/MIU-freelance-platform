@@ -150,3 +150,7 @@ Key references:
 - [Testing Strategy](../docs/05-DEVELOPMENT/TESTING_STRATEGY.md)
 
 Do not mark a planned feature as implemented until its behavior has been inspected and verified.
+
+## Freelancer discovery
+
+Open `/freelancers` to browse fictional published-service providers. Search and filters apply to the same service; package starting prices are EGP, not hourly rates. Directory data follows service publish/pause changes in memory. Full profile links await Member 5 integration. Run `npm.cmd test`, `npm.cmd run lint` and `npm.cmd run build` from this directory; manual acceptance remains deferred. See `../docs/06-MODULES/FREELANCER_DISCOVERY.md`.

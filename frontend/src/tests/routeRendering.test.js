@@ -279,7 +279,7 @@ test("public website routes render real pages in one shell with safe destination
       assert.match(html, /Phase 1 demo session controls/);
       assert.doesNotMatch(
         html,
-        /routing placeholder only|href="\/(?:freelancers|help|support\/contact|services\/service_)/,
+        /routing placeholder only|href="\/(?:help|support\/contact|services\/service_)/,
       );
       if (path === "/how-it-works")
         assert.equal(
