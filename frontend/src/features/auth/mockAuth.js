@@ -7,7 +7,7 @@ import {
 export const normalizeEmail = (email) =>
   typeof email === "string" ? email.trim().toLowerCase() : "";
 export const emailError = (email) =>
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizeEmail(email))
+  /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/.test(normalizeEmail(email))
     ? ""
     : "Enter a valid email address.";
 export const passwordError = (password) =>

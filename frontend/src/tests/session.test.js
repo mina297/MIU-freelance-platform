@@ -6,6 +6,7 @@ import {
   createMockAuthStore,
   validateRegistration,
   passwordError,
+  emailError,
 } from "../features/auth/mockAuth.js";
 import { getLoginDestination } from "../features/auth/navigation.js";
 import { routeConfig } from "../app/routeConfig.js";
@@ -48,6 +49,32 @@ const registration = {
   confirmPassword: "DemoPass1",
   role: ROLES.STUDENT,
 };
+
+test("auth email validation requires at least two letters after the final dot", () => {
+  for (const email of [
+    "svvvvvvvv@miu.c",
+    "user@miu.edu.c",
+    "user@miu.",
+    "user@miu.c1",
+  ]) {
+    assert.ok(emailError(email), email);
+    assert.ok(validateRegistration({ ...registration, email }).email, email);
+    const store = createMockAuthStore();
+    assert.ok(
+      store.login({ email, password: registration.password }).errors.email,
+    );
+    assert.ok(store.forgotPassword(email).errors.email);
+    assert.ok(store.resetPassword({ ...registration, email }).errors.email);
+  }
+  for (const email of [
+    "user@miu.co",
+    "user@miu.com",
+    "user@miu.edu.eg",
+    " USER@MIU.COM ",
+  ]) {
+    assert.equal(emailError(email), "", email);
+  }
+});
 
 test("registration validates all fields and rejects privileged or manipulated roles", () => {
   assert.deepEqual(validateRegistration(registration), {});

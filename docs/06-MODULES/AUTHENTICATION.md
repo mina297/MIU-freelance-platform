@@ -117,6 +117,8 @@ Contract tests live in `frontend/src/tests/session.test.js` and `routeAccess.tes
 
 ### Task 02 mock authentication
 
+Email validation update (24 October 2026): the shared authentication validator requires at least two letters after the final domain dot. Registration, login, forgot-password and reset-password reject addresses such as `svvvvvvvv@miu.c` while accepting suffixes such as `.co`, `.com` and `.edu.eg`. This validates syntax only, without checking mailbox ownership or domain availability.
+
 The five authentication routes now render working frontend demonstrations. Registration collects full name, email, password, confirmation and Student/Client role. It requires a valid email, at least eight password characters including a letter and a number, matching confirmation, and case-insensitive email uniqueness. The mock operation rejects privileged or unknown roles independently of the form controls (FR-V03, FR-S01, FR-C01).
 
 `createMockAuthStore()` in `frontend/src/features/auth/mockAuth.js` creates one private account/password store per `AuthProvider` mount. `useAuth()` additionally exposes `register(values)`, `login(values)`, `forgotPassword(email)` and `resetPassword(values)`, returning `{ ok, errors?, message?, user? }`. There is no second provider or session source. Registration creates an active, pending-verification account and opens login; it does not approve identity or automatically log in. Login opens an authorized internal return URL when supplied, otherwise the account's role dashboard. Failed login clears a previous session. Logout and explicit expiry still clear only the session, so registered accounts remain usable until refresh.
