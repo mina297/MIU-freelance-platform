@@ -23,6 +23,14 @@ files do not require a package-script update. Use `npm.cmd run lint` and
 `npm.cmd run build` for the remaining automated checks.
 
 ### Component Testing
+
+Chatbot feature-local tests cover canned topic matching/priority and fallback,
+blank and 500-character input boundaries, immutable message history, logout/expiry/
+account-switch cleanup, active-role visibility, safe text rendering and one global
+App widget across public/auth/application/admin/standalone routes. Tests use the
+existing Node model tests and Vite SSR conventions. Browser open/minimize/reopen,
+route persistence, focus/Escape, live announcements and mobile/zoom checks must be
+recorded separately; static markup and state tests are not browser acceptance.
 Test reusable controls, validation states, and common UI behavior.
 
 ### Feature Testing
