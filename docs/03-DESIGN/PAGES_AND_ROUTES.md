@@ -74,6 +74,22 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
+**24 October 2026 project creation:** P-16 creation is available at
+`/client/projects/new`, using a standalone marketplace shell and the active-client
+guard. Post a project in the catalogue opens the form; visitors use the existing
+login return flow. Valid briefs can be previewed, edited before publication, and
+published to the in-memory demo catalogue. Publish requires an approved client
+demo session; the MIU/external-client distinction is pending. Editing previously
+published projects at `/client/projects/:projectId/edit` is available for owned
+open projects. Owned private drafts can be resumed there too. `/client/projects`
+lists the current client's projects and drafts, with empty and unavailable states.
+Incomplete drafts can be saved without appearing publicly; all saved changes reset
+on refresh. Selected, closed and cancelled project edits remain unavailable.
+My projects offers confirmed Close (open projects) and Cancel (open/closed
+projects) actions. Any linked project order or accepted proposal blocks both.
+Closed/cancelled details remain directly accessible but cannot receive proposals
+or appear in open discovery. No additional routes are introduced.
+
 **24 October 2026 public integration:** `/` now renders LandingPage inside the
 shared PublicLayout. `/about`, `/how-it-works`, `/terms`, `/privacy`,
 `/loading-demo`, and `/error-demo` are registered public pages. The existing

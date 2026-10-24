@@ -23,6 +23,20 @@ Do not confuse a planned feature with a software defect.
 
 ## 3. Current Known Limitations
 
+**Project creation (24 October 2026):** `/client/projects/new` is a simulated
+create/preview/publish flow with private saved drafts and owned-open-project editing.
+`/client/projects` provides the client's list; `/client/projects/:projectId/edit`
+resumes drafts or edits open briefs. Saved records reset on refresh; unsaved
+form values reset on leaving or account switching. Confirmed close/cancel actions
+are available for uncommitted owned projects; any linked project order or accepted
+proposal blocks both actions. Funded/committed cancellation remains undecided.
+Reopening and non-open editing are unavailable. Future order/acceptance stores must
+supply live commitments to projectStore (currently fixture-backed).
+The session contract lacks MIU/external
+client origin, so publishing currently requires approved verification for all demo
+clients. Nile Studio is the approved fictional test case. Browser interaction,
+keyboard, and mobile/desktop visual acceptance for this new screen remain pending.
+
 **24 October 2026 public integration:** the landing, About, full How It Works,
 Terms/Privacy placeholders, and loading/error demos now have registered routes
 using one shared public shell. Public navigation is session-aware and reuses the

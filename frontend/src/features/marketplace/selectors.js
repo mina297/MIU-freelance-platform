@@ -1,7 +1,10 @@
 import { marketplaceData } from "../../data/fixtures/marketplace.js";
+import { mergeProjects, projectStore } from "../projects/projectStore.js";
+
+const currentData = () => ({ ...marketplaceData, projects: mergeProjects(marketplaceData.projects, projectStore.getSnapshot()) });
 
 // Optional data arguments let tests and later state providers reuse the same queries.
-export const getProjectById = (id, data = marketplaceData) =>
+export const getProjectById = (id, data = currentData()) =>
   data.projects.find((project) => project.id === id) ?? null;
 
 export const getServiceById = (id, data = marketplaceData) =>
@@ -10,7 +13,7 @@ export const getServiceById = (id, data = marketplaceData) =>
 export const getOrderById = (id, data = marketplaceData) =>
   data.orders.find((order) => order.id === id) ?? null;
 
-export const getProjectsByClient = (clientId, data = marketplaceData) =>
+export const getProjectsByClient = (clientId, data = currentData()) =>
   data.projects.filter((project) => project.clientId === clientId);
 
 export const getProposalsByProject = (projectId, data = marketplaceData) =>
@@ -41,7 +44,7 @@ const includesQuery = (record, query) =>
  * Filter projects without changing their source order. Empty options mean no
  * restriction; a skill filter matches a project requiring that skill.
  */
-export function findProjects({ query = "", categoryId, skillId, status } = {}, data = marketplaceData) {
+export function findProjects({ query = "", categoryId, skillId, status } = {}, data = currentData()) {
   return data.projects.filter(
     (project) =>
       includesQuery(project, query) &&

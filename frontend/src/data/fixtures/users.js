@@ -11,7 +11,12 @@ export const mockUsers = Object.freeze(
       role: ROLES.STUDENT,
       verificationStatus: "approved",
     },
-    { id: "client_001", displayName: "Nile Studio", role: ROLES.CLIENT },
+    {
+      id: "client_001",
+      displayName: "Nile Studio",
+      role: ROLES.CLIENT,
+      verificationStatus: "approved",
+    },
     {
       id: "admin_001",
       displayName: "Demo Super Admin",

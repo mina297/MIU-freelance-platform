@@ -16,6 +16,17 @@ These models are derived from SRS features but are not a finalized database sche
 
 ## 2. Core Entities
 
+**Current Phase 1 project draft representation:** private in-memory drafts are
+separate from public `Project` records. Each draft has `id`, `clientId`,
+`status: "draft"`, `createdAt`, `updatedAt`, and `values`. `values` allowlists
+the editor's text fields (`title`, `description`, `scope`, newline-separated
+`deliverables`, `categoryId`, `budgetEGP`, `deadline`) and `requiredSkillIds`.
+Incomplete budgets/dates remain form strings until publication validates and
+normalizes them. Publishing preserves the ID and creation time and replaces the
+draft with a complete open Project. Public edits use immutable in-memory overrides
+merged by ID; original fixture records remain unchanged. Neither structure defines
+a production persistence schema.
+
 | Entity | Purpose |
 |---|---|
 | User | Account identity and status |
