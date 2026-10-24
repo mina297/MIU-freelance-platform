@@ -11,7 +11,7 @@ import SupportRequestForm from "./components/SupportRequestForm.jsx";
  */
 export default function SupportContactPage({ onBack, onSuccess }) {
   return (
-    <div className="w-full bg-[#f8f8f9]">
+    <div className="w-full bg-surface-page">
       <div className="mx-auto flex w-full max-w-[720px] flex-col gap-6 px-5 py-8 sm:px-8 md:px-[120px] md:py-12">
         {onBack ? (
           <button

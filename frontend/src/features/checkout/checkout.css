@@ -1,6 +1,6 @@
 .escrow-checkout {
   min-height: 100vh;
-  background: #f8f8f9;
+  background: var(--surface-page);
   color: var(--color-miu-black, #111);
   font: 14px/1.5 var(--font-sans, Inter, sans-serif);
 }
@@ -17,7 +17,7 @@
   justify-content: space-between;
   gap: 20px;
   background: #fff;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-soft);
   padding: 18px max(24px, calc((100vw - 1272px) / 2));
 }
 .ec-brand {
@@ -74,14 +74,14 @@
 }
 .ec-title > span {
   font-size: 13px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .ec-demo-banner {
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: 12px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .ec-demo-banner svg {
   color: var(--color-miu-red);
@@ -120,7 +120,7 @@
 .ec-service-scope {
   grid-column: 1/-1;
   font-size: 13px;
-  color: #4b5563;
+  color: var(--ink-secondary);
   margin-top: 8px;
 }
 .ec-service > ul {
@@ -132,7 +132,7 @@
 .ec-service li {
   font-size: 11px;
   padding: 4px 9px;
-  background: #f8f8f9;
+  background: var(--surface-page);
   border-radius: 5px;
 }
 .ec-payment-card,
@@ -160,7 +160,7 @@
   gap: 8px;
   min-height: 56px;
   padding: 12px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-soft);
   border-radius: 9px;
   cursor: pointer;
   font-size: 12px;
@@ -213,7 +213,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-soft);
   border-radius: 9px;
   padding: 14px;
   cursor: pointer;
@@ -232,7 +232,7 @@
 .ec-new-card > p,
 .ec-wallet p {
   font-size: 12px;
-  color: #4b5563;
+  color: var(--ink-secondary);
   margin: 16px 0;
 }
 .ec-presets {
@@ -256,7 +256,7 @@
   grid-column: 1/-1;
 }
 .ec-fields input {
-  background: #f8f8f9;
+  background: var(--surface-page);
 }
 .ec-error {
   color: var(--color-miu-red);
@@ -264,7 +264,7 @@
   margin-top: 8px;
 }
 .ec-wallet {
-  background: #f8f8f9;
+  background: var(--surface-page);
   border-radius: 10px;
   padding: 20px;
 }
@@ -281,11 +281,12 @@
   top: 24px;
 }
 .escrow-checkout .ec-summary {
-  background: var(--color-miu-black, #111);
+  background: var(--hero-gradient);
   color: #fff;
   padding: 28px;
-  border: 0;
-  border-radius: 14px;
+  border: 1px solid #84516a;
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-dialog);
 }
 .ec-summary h2 {
   font-size: 22px;
@@ -293,14 +294,14 @@
 }
 .ec-summary-caption {
   font-size: 11px;
-  color: #aaa;
+  color: #edd5df;
   margin-top: 4px;
 }
 .ec-amount {
   margin: 24px 0 28px;
 }
 .ec-amount > span {
-  color: #aaa;
+  color: #edd5df;
   font-size: 13px;
 }
 .ec-amount strong {
@@ -312,7 +313,7 @@
   margin: 4px 0;
 }
 .ec-amount > small {
-  color: #aaa;
+  color: #edd5df;
   font-size: 11px;
 }
 .ec-costs {
@@ -426,7 +427,7 @@
 .ec-review > p,
 .ec-success > p {
   font-size: 13px;
-  color: #4b5563;
+  color: var(--ink-secondary);
   line-height: 1.7;
   margin: 16px 0;
 }

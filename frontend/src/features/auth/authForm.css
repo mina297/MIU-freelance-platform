@@ -8,12 +8,10 @@
   width: 100%;
   max-width: 470px;
   padding: 36px;
-  border: 1px solid #ece8e9;
+  border: 1px solid var(--border-soft);
   border-radius: 28px;
   background: linear-gradient(160deg, #fff, #fff 75%, #fffafb);
-  box-shadow:
-    0 24px 70px -28px #47111b26,
-    0 4px 16px #11111104;
+  box-shadow: var(--shadow-dialog);
   color: var(--color-miu-black);
 }
 .auth-eyebrow {
@@ -51,7 +49,7 @@
   min-width: 0;
   min-height: 50px;
   padding: 13px 16px;
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--border-control);
   border-radius: 15px;
   background: #fafafb;
   color: #18181b;
@@ -100,7 +98,7 @@
   width: 100%;
   border-radius: 15px;
   padding: 13px 18px;
-  background: var(--color-miu-red);
+  background: var(--brand-gradient);
   color: white;
   font-size: 14px;
   font-weight: 650;

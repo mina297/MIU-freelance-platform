@@ -1,0 +1,97 @@
+/* Shared visual language derived from the Member 2 marketplace. */
+:root {
+  --surface-page: #efe9ed;
+  --surface-muted: #f5eff3;
+  --surface-raised: #fff;
+  --border-soft: #c7b3bf;
+  --border-control: #9f8191;
+  --ink-primary: #35212c;
+  --ink-secondary: #6a5864;
+  --brand-gradient: linear-gradient(135deg, #bd1930, #97182d);
+  --hero-gradient:
+    radial-gradient(ellipse at 100% 0%, #84384f, transparent 75%), #391e2b;
+  --shadow-panel: 0 12px 32px -18px #48213640;
+  --shadow-dialog: 0 24px 80px -24px #391e2b60;
+  --radius-panel: 20px;
+  --radius-control: 14px;
+}
+
+@layer base {
+  body {
+    color: var(--ink-primary);
+    background: var(--surface-page);
+    font-family: var(--font-sans, "Inter", sans-serif);
+    -webkit-font-smoothing: antialiased;
+  }
+  :where(h1, h2, h3) {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: #edc4d2;
+    color: #391e2b;
+  }
+}
+
+/* Utility-based profile/help pages share these explicit component classes. */
+.premium-profile-header {
+  background: linear-gradient(110deg, #fff 45%, #f8e9ef);
+  border-block-start: 4px solid #9b3554;
+}
+.premium-profile-header > div:first-child {
+  outline: 4px solid white;
+  box-shadow: 0 0 0 5px var(--border-soft);
+}
+.premium-help-header {
+  padding: clamp(20px, 4vw, 36px);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-panel);
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      transparent 0 65px,
+      #dbaabb22 66px 100px,
+      transparent 101px
+    ),
+    linear-gradient(120deg, #fff, #faedf2);
+  box-shadow: var(--shadow-panel);
+}
+.premium-help-header h1 {
+  letter-spacing: -0.04em;
+}
+.premium-auth-layout {
+  background:
+    radial-gradient(ellipse at 15% 20%, #f8dce6aa, transparent 48%),
+    radial-gradient(ellipse at 100% 100%, #e2d3de99, transparent 45%), #f6f0f3;
+}
+.premium-route-placeholder {
+  max-width: 960px;
+  margin: 32px auto;
+  padding: clamp(24px, 5vw, 48px);
+  border: 1px solid var(--border-soft);
+  border-block-start: 4px solid #9b3554;
+  border-radius: var(--radius-panel);
+  background: white;
+  box-shadow: var(--shadow-panel);
+}
+.premium-session-controls {
+  border-color: var(--border-soft);
+  border-radius: var(--radius-panel);
+  background: white;
+  color: var(--ink-secondary);
+}
+.premium-session-controls :is(button, select) {
+  min-height: 44px;
+  border-color: var(--border-control);
+  border-radius: 12px;
+  background: var(--surface-muted);
+  color: var(--ink-primary);
+  padding: 10px 14px;
+}
+.premium-session-controls button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.premium-session-controls :is(button, select):focus-visible {
+  outline: 2px solid #b91c2b;
+  outline-offset: 3px;
+}

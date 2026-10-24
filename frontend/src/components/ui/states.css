@@ -44,7 +44,7 @@
   display: block;
   height: 16px;
   border-radius: 4px;
-  background: #e5e7eb;
+  background: var(--border-soft);
   animation: miu-state-pulse 1600ms ease-in-out infinite;
 }
 
@@ -102,7 +102,7 @@
   overflow: hidden;
   border: 0;
   border-radius: 999px;
-  background: #e5e7eb;
+  background: var(--border-soft);
   accent-color: var(--color-miu-red, #b91c2b);
 }
 
@@ -124,7 +124,7 @@
 .miu-progress__bar:indeterminate {
   background: repeating-linear-gradient(
     110deg,
-    #e5e7eb 0 16px,
+    var(--border-soft) 0 16px,
     var(--color-miu-red, #b91c2b) 16px 32px
   );
   background-size: 200% 100%;
@@ -149,7 +149,7 @@
 
 .miu-feedback-state p {
   margin: 0;
-  color: #4b5563;
+  color: var(--ink-secondary);
   font-size: 16px;
   line-height: 1.6;
 }
@@ -162,7 +162,7 @@
   flex: 0 0 auto;
   width: 32px;
   height: 32px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 
 .miu-feedback-state--error .miu-feedback-state__icon {

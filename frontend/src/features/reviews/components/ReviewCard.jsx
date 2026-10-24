@@ -33,7 +33,7 @@ export default function ReviewCard({ review }) {
   });
 
   return (
-    <article className="rounded-[10px] border border-[#e5e7eb] bg-white p-5 shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)] sm:p-6">
+    <article className="rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)] sm:p-6">
       <div className="flex items-start gap-3">
         <div
           className="flex size-11 shrink-0 items-center justify-center rounded-full bg-miu-red-tint text-sm font-semibold text-miu-red"
@@ -47,13 +47,13 @@ export default function ReviewCard({ review }) {
               {review.reviewerName}
             </h3>
             {review.simulated ? (
-              <span className="rounded-full bg-[#f1f1f3] px-2 py-0.5 text-[11px] font-medium text-[#4b5563]">
+              <span className="rounded-full bg-surface-muted px-2 py-0.5 text-[11px] font-medium text-ink-secondary">
                 Simulated submission
               </span>
             ) : null}
           </div>
           {review.reviewerOrganization ? (
-            <p className="text-sm text-[#4b5563]">
+            <p className="text-sm text-ink-secondary">
               {review.reviewerOrganization}
             </p>
           ) : null}
@@ -63,19 +63,19 @@ export default function ReviewCard({ review }) {
               <span className="text-[#d1d5db]">{"★".repeat(empty)}</span>
             </span>
             <span className="font-semibold text-miu-black">{label}</span>
-            <span className="text-[#4b5563]">{dateLabel}</span>
+            <span className="text-ink-secondary">{dateLabel}</span>
           </div>
         </div>
       </div>
 
-      <p className="mt-4 text-[15px] leading-relaxed text-[#4b5563]">
+      <p className="mt-4 text-[15px] leading-relaxed text-ink-secondary">
         {review.body}
       </p>
 
       {review.jobLabel ? (
         <p className="mt-3 text-sm font-medium text-miu-black">
           Project:{" "}
-          <span className="font-normal text-[#4b5563]">{review.jobLabel}</span>
+          <span className="font-normal text-ink-secondary">{review.jobLabel}</span>
         </p>
       ) : null}
     </article>

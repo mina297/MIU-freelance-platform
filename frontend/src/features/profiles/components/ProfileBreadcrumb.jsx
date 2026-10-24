@@ -25,12 +25,12 @@ export default function ProfileBreadcrumb({
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex items-center gap-2 text-[#4b5563] transition-colors hover:text-miu-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+          className="inline-flex items-center gap-2 text-ink-secondary transition-colors hover:text-miu-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
         >
           {backContent}
         </button>
       ) : (
-        <span className="inline-flex items-center gap-2 text-[#4b5563]">
+        <span className="inline-flex items-center gap-2 text-ink-secondary">
           {backContent}
         </span>
       )}

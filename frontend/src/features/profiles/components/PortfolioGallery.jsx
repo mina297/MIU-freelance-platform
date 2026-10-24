@@ -44,15 +44,15 @@ export default function PortfolioGallery({
           <button
             type="button"
             onClick={() => onSelectItem(item)}
-            className="group flex w-full flex-col overflow-hidden rounded-[10px] border border-[#e5e7eb] bg-white text-left shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)] transition hover:border-miu-red/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+            className="group flex w-full flex-col overflow-hidden rounded-panel border border-border-soft bg-white text-left shadow-[var(--shadow-panel)] transition hover:border-miu-red/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
           >
-            <div className="aspect-[4/3] w-full overflow-hidden bg-[#f1f1f3]">
+            <div className="aspect-[4/3] w-full overflow-hidden bg-surface-muted">
               <SafeImage
                 key={item.imageSrc || item.id}
                 src={item.imageSrc}
                 alt={item.imageAlt || item.title}
                 className="size-full object-cover transition duration-300 group-hover:scale-[1.02]"
-                placeholderClassName="flex size-full flex-col items-center justify-center gap-1 px-4 text-center text-sm text-[#4b5563]"
+                placeholderClassName="flex size-full flex-col items-center justify-center gap-1 px-4 text-center text-sm text-ink-secondary"
                 placeholderLabel={`${item.category || "Portfolio"} · No preview image`}
               />
             </div>
@@ -63,7 +63,7 @@ export default function PortfolioGallery({
               <h3 className="text-base font-semibold text-miu-black">
                 {item.title}
               </h3>
-              <p className="line-clamp-2 text-sm text-[#4b5563]">
+              <p className="line-clamp-2 text-sm text-ink-secondary">
                 {item.summary}
               </p>
             </div>
@@ -75,7 +75,7 @@ export default function PortfolioGallery({
                 <button
                   type="button"
                   onClick={() => onEditItem(item)}
-                  className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 rounded-full border border-[#e5e7eb] text-xs font-semibold text-miu-black hover:bg-[#f8f8f9]"
+                  className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 rounded-full border border-border-soft text-xs font-semibold text-miu-black hover:bg-surface-page"
                 >
                   <Pencil className="size-3.5" aria-hidden="true" />
                   Edit

@@ -1,9 +1,9 @@
 /* Reuse the foundation's neutral palette and existing theme tokens. */
 .miu-field {
   --ui-white: #fff;
-  --ui-border: #e5e7eb;
-  --ui-muted-surface: #f1f1f3;
-  --ui-secondary-text: #4b5563;
+  --ui-border: var(--border-soft);
+  --ui-muted-surface: var(--surface-muted);
+  --ui-secondary-text: var(--ink-secondary);
 
   box-sizing: border-box;
   display: flex;
@@ -23,6 +23,7 @@
 .miu-field__label {
   max-width: 100%;
   padding: 0;
+  font-weight: 600;
 }
 
 fieldset.miu-field > legend {
@@ -35,9 +36,9 @@ fieldset.miu-field > legend {
   min-width: 0;
   min-height: 48px;
   padding: 12px;
-  border: 1px solid var(--ui-border);
-  border-radius: 9999px;
-  background: var(--ui-white);
+  border: 1px solid var(--border-control);
+  border-radius: var(--radius-control);
+  background: #fffcfd;
   color: inherit;
   font: inherit;
 }
@@ -49,7 +50,7 @@ fieldset.miu-field > legend {
 
 .miu-control--multiline,
 select.miu-control[multiple] {
-  border-radius: 6px;
+  border-radius: var(--radius-control);
 }
 
 .miu-control--multiline {

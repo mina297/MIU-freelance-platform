@@ -18,7 +18,7 @@ export default function SafeImage({
       <div
         className={
           placeholderClassName ||
-          `flex items-center justify-center bg-[#f1f1f3] text-sm text-[#4b5563] ${className}`
+          `flex items-center justify-center bg-surface-muted text-sm text-ink-secondary ${className}`
         }
         role="img"
         aria-label={alt || placeholderLabel}

@@ -11,7 +11,7 @@ export default function EvidenceAttachmentPreview({ files = [], onRemove }) {
       {files.map((file) => (
         <li
           key={file.id}
-          className="relative w-28 overflow-hidden rounded-lg border border-[#e5e7eb] bg-[#f8f8f9]"
+          className="relative w-28 overflow-hidden rounded-lg border border-border-soft bg-surface-page"
         >
           {file.previewUrl ? (
             <img
@@ -20,11 +20,11 @@ export default function EvidenceAttachmentPreview({ files = [], onRemove }) {
               className="aspect-square w-full object-cover"
             />
           ) : (
-            <div className="flex aspect-square items-center justify-center px-1 text-center text-xs text-[#4b5563]">
+            <div className="flex aspect-square items-center justify-center px-1 text-center text-xs text-ink-secondary">
               File
             </div>
           )}
-          <div className="truncate px-2 py-1 text-[10px] text-[#4b5563]">
+          <div className="truncate px-2 py-1 text-[10px] text-ink-secondary">
             {file.name}
           </div>
           {file.sizeLabel ? (

@@ -10,7 +10,7 @@ export default function CommunityCard({
 }) {
   return (
     <aside
-      className="flex w-full flex-col gap-3 overflow-hidden rounded-[10px] border border-[#e5e7eb] bg-white p-6"
+      className="flex w-full flex-col gap-3 overflow-hidden rounded-panel border border-border-soft bg-white p-6"
       aria-labelledby="community-heading"
     >
       <ShieldCheck className="size-6 text-miu-red" aria-hidden="true" />
@@ -20,7 +20,7 @@ export default function CommunityCard({
       >
         {title}
       </h2>
-      <p className="text-sm leading-[1.6] text-[#4b5563]">{description}</p>
+      <p className="text-sm leading-[1.6] text-ink-secondary">{description}</p>
     </aside>
   );
 }

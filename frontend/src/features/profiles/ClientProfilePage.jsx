@@ -41,7 +41,7 @@ export default function ClientProfilePage({
 
   if (status === "loading") {
     return (
-      <div className="w-full bg-[#f8f8f9] px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
+      <div className="w-full bg-surface-page px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
         <ProfileLoadingState />
       </div>
     );
@@ -49,7 +49,7 @@ export default function ClientProfilePage({
 
   if (status === "not_found" || !data) {
     return (
-      <div className="w-full bg-[#f8f8f9] px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
+      <div className="w-full bg-surface-page px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
         <ProfileNotFoundState studentId={clientId} />
       </div>
     );
@@ -64,7 +64,7 @@ export default function ClientProfilePage({
     .join("");
 
   return (
-    <div className="w-full bg-[#f8f8f9]">
+    <div className="w-full bg-surface-page">
       <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-7 px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <ProfileBreadcrumb onBack={onBack} />
@@ -79,7 +79,7 @@ export default function ClientProfilePage({
           ) : null}
         </div>
 
-        <header className="flex w-full flex-col gap-6 rounded-[10px] border border-[#e5e7eb] bg-white p-5 shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)] sm:p-8 md:flex-row">
+        <header className="flex w-full flex-col gap-6 rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)] sm:p-8 md:flex-row">
           <div className="size-[120px] shrink-0 overflow-hidden rounded-full bg-miu-red-tint md:size-[132px]">
             <SafeImage
               src={profile.profileImage}
@@ -105,17 +105,17 @@ export default function ClientProfilePage({
             <p className="text-base font-medium text-miu-black">
               {profile.organizationName}
             </p>
-            <p className="text-base text-[#4b5563]">{profile.headline}</p>
-            <p className="max-w-[720px] text-[15px] leading-relaxed text-[#4b5563]">
+            <p className="text-base text-ink-secondary">{profile.headline}</p>
+            <p className="max-w-[720px] text-[15px] leading-relaxed text-ink-secondary">
               {profile.shortBio}
             </p>
-            <p className="text-sm text-[#4b5563]">{profile.location}</p>
+            <p className="text-sm text-ink-secondary">{profile.location}</p>
           </div>
         </header>
 
-        <section className="rounded-[10px] border border-[#e5e7eb] bg-white p-5 shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)] sm:p-6">
+        <section className="rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)] sm:p-6">
           <h2 className="text-xl font-semibold text-miu-black">About</h2>
-          <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-[#4b5563]">
+          <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-ink-secondary">
             {profile.aboutParagraphs.map((paragraph) => (
               <p key={paragraph.slice(0, 24)}>{paragraph}</p>
             ))}
@@ -129,7 +129,7 @@ export default function ClientProfilePage({
           {projectHistory.length === 0 ? (
             <ProfileEmptyState message="No completed projects linked to this client yet." />
           ) : (
-            <ul className="overflow-hidden rounded-[10px] border border-[#e5e7eb] bg-white shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)]">
+            <ul className="overflow-hidden rounded-panel border border-border-soft bg-white shadow-[var(--shadow-panel)]">
               {projectHistory.map((project, index) => {
                 const dateLabel = new Date(
                   project.completedAt,
@@ -142,14 +142,14 @@ export default function ClientProfilePage({
                   <li
                     key={project.id}
                     className={`flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-center sm:justify-between ${
-                      index > 0 ? "border-t border-[#e5e7eb]" : ""
+                      index > 0 ? "border-t border-border-soft" : ""
                     }`}
                   >
                     <div>
                       <p className="font-semibold text-miu-black">
                         {project.title}
                       </p>
-                      <p className="mt-1 text-sm text-[#4b5563]">
+                      <p className="mt-1 text-sm text-ink-secondary">
                         {project.category} · {dateLabel} · with{" "}
                         {onViewStudent ? (
                           <button

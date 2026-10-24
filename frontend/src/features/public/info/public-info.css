@@ -1,7 +1,7 @@
 /* Existing public-page/foundation tokens; full informational layouts need team review. */
 .m4-public-info {
   min-width: 0;
-  background: #fff;
+  background: var(--surface-page);
   color: var(--color-miu-black, #111111);
   font-family: var(--font-sans, "Inter", sans-serif);
   font-size: 16px;
@@ -19,7 +19,9 @@
 
 .m4-public-info__header {
   padding-block: 48px;
-  background: var(--color-miu-red-tint, #fdf2f3);
+  background: var(--hero-gradient);
+  color: white;
+  border-block-end: 1px solid #84516a;
 }
 
 .m4-public-info__intro {
@@ -35,12 +37,13 @@
   font-size: 32px;
   font-weight: 700;
   line-height: 1.2;
+  letter-spacing: -0.04em;
 }
 
 .m4-public-info__intro > p {
   max-width: 760px;
   margin: 0;
-  color: #4b5563;
+  color: #f0d4e0;
 }
 
 .m4-public-info__intro .m4-public-info__notice {
@@ -50,6 +53,8 @@
   padding: 12px 16px;
   border-inline-start: 3px solid var(--color-miu-red, #b91c2b);
   background: #fff;
+  border-radius: 12px;
+  color: var(--ink-secondary);
   font-size: 14px;
 }
 
@@ -85,7 +90,7 @@
 .m4-public-info__card p,
 .m4-public-info__card ol {
   margin: 0;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 
 .m4-public-info__card ol {
@@ -126,7 +131,7 @@
 }
 
 .m4-public-info__links span {
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 
 @media (max-width: 767px) {

@@ -1,8 +1,8 @@
 /* Scoped values from Figma 8:2657, 8:2952, 8:2927, and 8:3214. */
 :where(.miu-public-layout, .miu-public-header, .miu-public-footer) {
   --public-white: #fff;
-  --public-border: #e5e7eb;
-  --public-muted: #4b5563;
+  --public-border: var(--border-soft);
+  --public-muted: var(--ink-secondary);
   --public-footer-muted: #8d929a;
 
   font-family: var(--font-sans, "Inter", sans-serif);
@@ -136,7 +136,7 @@ a.miu-public-link:hover {
   width: 44px;
   height: 44px;
   padding: 0;
-  background: #f8f8f9;
+  background: var(--surface-page);
   color: var(--color-miu-black, #111111);
 }
 

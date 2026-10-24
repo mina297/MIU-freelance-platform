@@ -164,7 +164,7 @@ export default function AppRouter() {
                 element={
                   <ProtectedRoute route={route}>
                     {featurePages[route.path] ?? (
-                      <section className="space-y-3">
+                      <section className="premium-route-placeholder space-y-3">
                         <h1 className="text-2xl font-bold">{route.title}</h1>
                         <p>
                           {route.message ??

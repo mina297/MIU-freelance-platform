@@ -1,9 +1,9 @@
-/* Neutral values are from Figma 4:2680 / 4:2847; no global tokens are changed. */
+/* Shared marketplace palette; variants retain their semantic state colors. */
 :where(.miu-button, .miu-card, .miu-badge) {
   --ui-white: #fff;
-  --ui-border: #e5e7eb;
-  --ui-muted-surface: #f1f1f3;
-  --ui-secondary-text: #4b5563;
+  --ui-border: var(--border-soft);
+  --ui-muted-surface: var(--surface-muted);
+  --ui-secondary-text: var(--ink-secondary);
 
   box-sizing: border-box;
   font-family: var(--font-sans);
@@ -18,9 +18,9 @@
   max-width: 100%;
   padding: 10px 16px;
   border: 1px solid transparent;
-  border-radius: 9999px;
+  border-radius: var(--radius-control);
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 22px;
   text-align: center;
   overflow-wrap: anywhere;
@@ -32,7 +32,8 @@
 
 .miu-button--primary {
   border-color: var(--color-miu-red, #b91c2b);
-  background: var(--color-miu-red, #b91c2b);
+  background: var(--brand-gradient);
+  box-shadow: 0 4px 12px #65162d18;
   color: var(--ui-white);
 }
 
@@ -120,10 +121,10 @@
   min-width: 0;
   padding: 32px;
   border: 1px solid var(--ui-border);
-  border-radius: 10px;
+  border-radius: var(--radius-panel);
   background: var(--ui-white);
   color: var(--color-miu-black, #111111);
-  box-shadow: 0 8px 24px rgb(17 17 17 / 5%);
+  box-shadow: var(--shadow-panel);
   overflow-wrap: anywhere;
 }
 

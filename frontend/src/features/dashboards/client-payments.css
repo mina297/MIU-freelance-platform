@@ -15,16 +15,24 @@
   letter-spacing: -0.03em;
   margin: 6px 0;
 }
+.cp-heading {
+  padding: clamp(20px, 3vw, 32px);
+  border: 1px solid var(--border-soft);
+  border-inline-start: 4px solid #9b3554;
+  border-radius: var(--radius-panel);
+  background: linear-gradient(120deg, #fff, #f8e9ef);
+  box-shadow: var(--shadow-panel);
+}
 .cp-heading > span,
 .cp-demo-note {
   font-size: 13px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .cp-nav {
   display: flex;
   gap: 24px;
   margin: 24px 0 16px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-soft);
 }
 .cp-nav a {
   padding: 12px 0;
@@ -36,7 +44,7 @@
   font-weight: 600;
 }
 .cp-demo-note {
-  background: #f8f8f9;
+  background: var(--surface-page);
   padding: 12px 16px;
   border-radius: 8px;
   font-size: 12px;
@@ -69,7 +77,7 @@
 .cp-order-heading p,
 .cp-order > p {
   font-size: 12px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .cp-order-heading h3 {
   font-size: 19px;
@@ -87,7 +95,7 @@
 }
 .cp-balances dt {
   font-size: 12px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .cp-balances dd {
   font-size: 17px;
@@ -112,7 +120,7 @@
 .cp-history :is(td, th) small {
   display: block;
   font-size: 11px;
-  color: #4b5563;
+  color: var(--ink-secondary);
   margin-top: 5px;
 }
 .cp-history :is(td, th) b {
@@ -136,7 +144,7 @@
 }
 .cp-preview-controls {
   font-size: 11px;
-  color: #4b5563;
+  color: var(--ink-secondary);
   margin-top: 24px;
 }
 .cp-preview-controls .miu-field {
@@ -145,7 +153,7 @@
 }
 .client-payments .ec-progress {
   background: #fafafa;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-soft);
   border-radius: 10px;
   padding: 20px;
   margin-top: 20px;

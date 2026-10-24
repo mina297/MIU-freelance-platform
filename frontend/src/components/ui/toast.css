@@ -37,7 +37,7 @@
 }
 
 .miu-toast__description {
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 
 .miu-toast .miu-toast__dismiss {
@@ -52,7 +52,7 @@
 
 .miu-toast .miu-toast__dismiss:hover {
   border-color: transparent;
-  background: #f1f1f3;
+  background: var(--surface-muted);
 }
 
 .miu-toast__dismiss img {

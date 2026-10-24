@@ -4,7 +4,7 @@
  */
 export default function SkillsDisplay({ skills = [], className = "" }) {
   if (!skills.length) {
-    return <p className="text-[13px] text-[#4b5563]">No skills listed yet.</p>;
+    return <p className="text-[13px] text-ink-secondary">No skills listed yet.</p>;
   }
 
   return (
@@ -15,7 +15,7 @@ export default function SkillsDisplay({ skills = [], className = "" }) {
       {skills.map((skill) => (
         <li
           key={skill}
-          className="rounded-full bg-[#f1f1f3] px-3 py-[7px] text-[13px] leading-normal text-[#4b5563]"
+          className="rounded-full bg-surface-muted px-3 py-[7px] text-[13px] leading-normal text-ink-secondary"
         >
           {skill}
         </li>

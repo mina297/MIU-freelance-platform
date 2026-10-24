@@ -10,7 +10,7 @@ import {
 export default function TicketDetails({ ticket, className = "" }) {
   if (!ticket) {
     return (
-      <div className="rounded-[10px] border border-dashed border-[#e5e7eb] bg-white p-6 text-sm text-[#4b5563]">
+      <div className="rounded-panel border border-dashed border-border-soft bg-white p-6 text-sm text-ink-secondary">
         No ticket selected.
       </div>
     );
@@ -30,10 +30,10 @@ export default function TicketDetails({ ticket, className = "" }) {
 
   return (
     <article
-      className={`space-y-5 rounded-[10px] border border-[#e5e7eb] bg-white p-5 shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)] sm:p-6 ${className}`}
+      className={`space-y-5 rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)] sm:p-6 ${className}`}
       aria-labelledby="ticket-details-heading"
     >
-      <header className="flex flex-col gap-3 border-b border-[#e5e7eb] pb-4 sm:flex-row sm:items-start sm:justify-between">
+      <header className="flex flex-col gap-3 border-b border-border-soft pb-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0 space-y-1">
           <p className="text-xs font-semibold uppercase tracking-wide text-miu-red">
             Support ticket
@@ -44,7 +44,7 @@ export default function TicketDetails({ ticket, className = "" }) {
           >
             {subject}
           </h2>
-          <p className="break-all text-sm text-[#4b5563]">
+          <p className="break-all text-sm text-ink-secondary">
             ID:{" "}
             <span className="font-medium text-miu-black">
               {ticket.id || "Unavailable"}
@@ -58,18 +58,18 @@ export default function TicketDetails({ ticket, className = "" }) {
 
       <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <dt className="text-xs text-[#4b5563]">Category</dt>
+          <dt className="text-xs text-ink-secondary">Category</dt>
           <dd className="text-sm font-medium text-miu-black">{category}</dd>
         </div>
         <div>
-          <dt className="text-xs text-[#4b5563]">Submitted</dt>
+          <dt className="text-xs text-ink-secondary">Submitted</dt>
           <dd className="text-sm font-medium text-miu-black">
             {formatTicketSubmittedAt(ticket.createdAt)}
           </dd>
         </div>
         {ticket.referenceId ? (
           <div className="sm:col-span-2">
-            <dt className="text-xs text-[#4b5563]">Related reference</dt>
+            <dt className="text-xs text-ink-secondary">Related reference</dt>
             <dd className="break-all text-sm font-medium text-miu-black">
               {ticket.referenceId}
             </dd>
@@ -79,7 +79,7 @@ export default function TicketDetails({ ticket, className = "" }) {
 
       <section className="space-y-2">
         <h3 className="text-sm font-semibold text-miu-black">Description</h3>
-        <p className="whitespace-pre-wrap text-sm leading-relaxed text-[#4b5563]">
+        <p className="whitespace-pre-wrap text-sm leading-relaxed text-ink-secondary">
           {description || "No description provided."}
         </p>
       </section>
@@ -102,12 +102,12 @@ export default function TicketDetails({ ticket, className = "" }) {
         {evidence.length > 0 ? (
           <EvidenceAttachmentPreview files={evidence} />
         ) : (
-          <p className="text-sm text-[#4b5563]">No evidence attached.</p>
+          <p className="text-sm text-ink-secondary">No evidence attached.</p>
         )}
       </section>
 
       {ticket.simulated ? (
-        <p className="rounded-lg bg-[#f8f8f9] px-3 py-2 text-xs text-[#4b5563]">
+        <p className="rounded-lg bg-surface-page px-3 py-2 text-xs text-ink-secondary">
           Phase 1 simulation — ticket assignment and dispute decisions are owned
           by Member 3 and are not available here.
         </p>

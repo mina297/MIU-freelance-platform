@@ -14,7 +14,7 @@
   align-items: center;
   gap: 8px 32px;
   min-height: 52px;
-  border-block-end: 1px solid #e5e7eb;
+  border-block-end: 1px solid var(--border-soft);
   padding-block: 4px;
 }
 
@@ -23,16 +23,18 @@
   min-width: 44px;
   min-height: 44px;
   padding: 4px;
-  border: 3px solid transparent;
+  border: 1px solid transparent;
+  border-radius: 12px;
   background: transparent;
-  color: #4b5563;
+  color: var(--ink-secondary);
   font-size: 15px;
   font-weight: 500;
   line-height: 1.5;
 }
 
 .miu-tabs .miu-tabs__tab[aria-selected="true"] {
-  border-color: var(--color-miu-red, #b91c2b);
+  background: var(--color-miu-red-tint);
+  border-color: #c68b9f;
   color: var(--color-miu-red, #b91c2b);
   font-weight: 600;
 }
@@ -42,8 +44,8 @@
 }
 
 .miu-tabs .miu-tabs__tab:disabled {
-  background: #f1f1f3;
-  color: #4b5563;
+  background: var(--surface-muted);
+  color: var(--ink-secondary);
 }
 
 .miu-tabs__panel {
@@ -71,7 +73,7 @@
 .miu-pagination__summary {
   max-width: 100%;
   margin: 0;
-  color: #4b5563;
+  color: var(--ink-secondary);
   font-size: 12px;
   line-height: 1.5;
   text-align: center;
@@ -98,9 +100,9 @@
   min-width: 44px;
   min-height: 44px;
   padding: 8px;
-  border-color: #e5e7eb;
+  border-color: var(--border-soft);
   background: #fff;
-  color: #4b5563;
+  color: var(--ink-secondary);
   font-size: 14px;
   font-weight: 600;
   line-height: 1.5;
@@ -113,8 +115,8 @@
 }
 
 .miu-pagination .miu-pagination__button:disabled {
-  background: #f1f1f3;
-  color: #4b5563;
+  background: var(--surface-muted);
+  color: var(--ink-secondary);
 }
 
 .miu-pagination__button img {
@@ -138,7 +140,7 @@
   justify-content: center;
   min-width: 44px;
   min-height: 44px;
-  color: #4b5563;
+  color: var(--ink-secondary);
   font-size: 14px;
 }
 

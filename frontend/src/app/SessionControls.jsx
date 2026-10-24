@@ -8,7 +8,7 @@ export default function SessionControls() {
   return (
     <section
       aria-label="Prototype session controls"
-      className="my-6 space-y-3 rounded border p-4"
+      className="premium-session-controls my-6 space-y-3 rounded border p-4"
     >
       <h2 className="font-bold">Simulated session controls</h2>
       <p>

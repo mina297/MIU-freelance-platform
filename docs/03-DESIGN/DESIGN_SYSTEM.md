@@ -31,6 +31,39 @@ For the implemented P-01 landing page, the supplied “MIU Freelance desktop” 
 
 ## 3. Branding
 
+### Implemented premium theme — team direction, 24 October 2026
+
+Mina requested that all existing interfaces adopt the Member 2 marketplace's
+premium visual language. This is an implementation adaptation authorized by the
+team leader, not a claim that the source Figma frames have been revised.
+
+The shared theme lives in `frontend/src/styles/premium-theme.css`, imported by
+`index.css`. Tailwind semantic colors expose the same palette to utility-based
+profile, review and support components.
+
+| Token | Value | Purpose |
+|---|---|---|
+| `surface-page` | `#efe9ed` | Warm page backdrop |
+| `surface-muted` | `#f5eff3` | Secondary surfaces and table headers |
+| `ink-primary` | `#35212c` | Headings and primary text |
+| `ink-secondary` | `#6a5864` | Body and supporting text |
+| `border-soft` | `#c7b3bf` | Clearly separated cards and panels |
+| `border-control` | `#9f8191` | Input boundaries |
+
+Cards use a 20px radius and restrained plum shadows; form fields and shared
+buttons use 14px radii. Dashboard and information-page headers use dark burgundy
+gradients, while authentication, profiles and support retain lighter blush
+surfaces. Financial summaries use the dark treatment. Semantic success, warning,
+error and information colors retain their meaning. MIU logos retain their aspect
+ratio and original colors. The marketplace and home retain their distinctive
+compositions within this shared palette.
+
+Existing navigation, guards, data, validation, loading/empty/error states, focus
+behavior and responsive structures are preserved. This covers implemented
+interfaces and styles routing placeholders without implementing their planned
+features. See the [premium UI handover](../07-HANDOVER/PREMIUM_UI_ALIGNMENT_2026-10-24.md)
+for coverage, verification and the remaining browser acceptance work.
+
 The planned visual identity uses MIU-inspired colors.
 
 ### Branding Rules

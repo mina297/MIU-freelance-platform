@@ -19,8 +19,8 @@ export default function ProfileHeader({
     .join("");
 
   return (
-    <header className="flex w-full flex-col items-start gap-6 overflow-hidden rounded-[10px] border border-[#e5e7eb] bg-white p-5 shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)] sm:p-8 md:flex-row md:gap-7">
-      <div className="relative size-[120px] shrink-0 overflow-hidden rounded-full bg-[#f1f1f3] md:size-[132px]">
+    <header className="premium-profile-header flex w-full flex-col items-start gap-6 overflow-hidden rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)] sm:p-8 md:flex-row md:gap-7">
+      <div className="relative size-[120px] shrink-0 overflow-hidden rounded-full bg-surface-muted md:size-[132px]">
         <SafeImage
           src={profile.profileImage}
           alt={
@@ -49,7 +49,7 @@ export default function ProfileHeader({
           ) : null}
         </div>
 
-        <p className="text-base leading-normal text-[#4b5563]">
+        <p className="text-base leading-normal text-ink-secondary">
           {profile.headline}
         </p>
 
@@ -71,12 +71,12 @@ export default function ProfileHeader({
             <span className="text-[#d1d5db]">{"★".repeat(empty)}</span>
           </span>
           <span className="text-sm font-semibold text-miu-black">{label}</span>
-          <span className="text-[13px] text-[#4b5563]">
+          <span className="text-[13px] text-ink-secondary">
             ({profile.ratingSummary.count} reviews)
           </span>
         </div>
 
-        <p className="max-w-[710px] text-[15px] leading-[1.6] text-[#4b5563]">
+        <p className="max-w-[710px] text-[15px] leading-[1.6] text-ink-secondary">
           {profile.shortBio}
         </p>
       </div>

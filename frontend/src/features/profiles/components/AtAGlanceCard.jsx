@@ -54,7 +54,7 @@ export default function AtAGlanceCard({
 
   return (
     <section
-      className="flex w-full flex-col gap-6 overflow-hidden rounded-[10px] border border-[#e5e7eb] bg-white p-6 shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)]"
+      className="flex w-full flex-col gap-6 overflow-hidden rounded-panel border border-border-soft bg-white p-6 shadow-[var(--shadow-panel)]"
       aria-labelledby="at-a-glance-heading"
     >
       <h2
@@ -68,11 +68,11 @@ export default function AtAGlanceCard({
         {facts.map(({ id, label, value, Icon }) => (
           <li key={id} className="flex items-start gap-3">
             <Icon
-              className="mt-0.5 size-5 shrink-0 text-[#4b5563]"
+              className="mt-0.5 size-5 shrink-0 text-ink-secondary"
               aria-hidden="true"
             />
             <div className="min-w-0">
-              <p className="text-xs leading-normal text-[#4b5563]">{label}</p>
+              <p className="text-xs leading-normal text-ink-secondary">{label}</p>
               <p className="text-sm font-medium leading-normal text-miu-black">
                 {value}
               </p>

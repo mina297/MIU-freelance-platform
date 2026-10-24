@@ -160,15 +160,15 @@ function ProfileEditor({
 
   if (!baseProfile || !form) {
     return (
-      <div className="w-full bg-[#f8f8f9] px-5 py-8 md:px-[120px]">
+      <div className="w-full bg-surface-page px-5 py-8 md:px-[120px]">
         <div
-          className="rounded-[10px] border border-[#e5e7eb] bg-white p-8 text-center"
+          className="rounded-panel border border-border-soft bg-white p-8 text-center"
           role="alert"
         >
           <h1 className="text-xl font-semibold text-miu-black">
             Profile not found
           </h1>
-          <p className="mt-2 text-sm text-[#4b5563]">
+          <p className="mt-2 text-sm text-ink-secondary">
             Cannot edit <span className="font-medium">{resolvedId}</span>.
           </p>
         </div>
@@ -285,7 +285,7 @@ function ProfileEditor({
   }
 
   return (
-    <div className="w-full bg-[#f8f8f9]">
+    <div className="w-full bg-surface-page">
       <div className="mx-auto flex w-full max-w-[800px] flex-col gap-6 px-5 py-8 sm:px-8 md:px-[120px] md:py-12">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-miu-red">
@@ -294,7 +294,7 @@ function ProfileEditor({
           <h1 className="mt-1 text-2xl font-bold text-miu-black">
             Edit profile
           </h1>
-          <p className="mt-1 text-sm text-[#4b5563]">
+          <p className="mt-1 text-sm text-ink-secondary">
             Editing {role} profile{" "}
             <span className="font-medium">{resolvedId}</span>. Changes stay in
             sessionStorage until the tab is cleared.
@@ -302,7 +302,7 @@ function ProfileEditor({
         </div>
 
         <form
-          className="space-y-5 rounded-[10px] border border-[#e5e7eb] bg-white p-5 shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)] sm:p-6"
+          className="space-y-5 rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)] sm:p-6"
           onSubmit={handleSubmit}
           noValidate
         >
@@ -393,7 +393,7 @@ function ProfileEditor({
                   <button
                     key={skill}
                     type="button"
-                    className="rounded-full bg-[#f1f1f3] px-3 py-1 text-xs font-medium text-miu-black hover:bg-miu-red-tint"
+                    className="rounded-full bg-surface-muted px-3 py-1 text-xs font-medium text-miu-black hover:bg-miu-red-tint"
                     onClick={() => {
                       const current = form.skillsText
                         .split(",")
@@ -463,7 +463,7 @@ function ProfileEditor({
             onChange={(v) => updateField("portfolio", v)}
             placeholder="https://your-site.example (demo .example stays non-clickable)"
           />
-          <p className="text-xs text-[#4b5563]">
+          <p className="text-xs text-ink-secondary">
             Safe http(s) links open in a new tab. Domains ending in{" "}
             <span className="font-medium">.example</span> are treated as
             demo-only.
@@ -482,7 +482,7 @@ function ProfileEditor({
             <button
               type="button"
               onClick={handleCancel}
-              className="h-11 rounded-full border border-[#e5e7eb] px-5 text-sm font-semibold text-miu-black"
+              className="h-11 rounded-full border border-border-soft px-5 text-sm font-semibold text-miu-black"
               disabled={status === "saving"}
             >
               Cancel
@@ -513,7 +513,7 @@ function Field({ id, label, value, onChange, error, inputMode, placeholder }) {
         inputMode={inputMode}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="h-11 w-full rounded-lg border border-[#e5e7eb] px-3 text-sm text-miu-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+        className="h-11 w-full rounded-lg border border-border-soft px-3 text-sm text-miu-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
       />
       {error ? (
         <p className="text-sm text-danger" role="alert">
@@ -535,7 +535,7 @@ function TextArea({ id, label, value, onChange, error, rows = 4 }) {
         rows={rows}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-lg border border-[#e5e7eb] px-3 py-2 text-sm text-miu-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+        className="w-full rounded-lg border border-border-soft px-3 py-2 text-sm text-miu-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
       />
       {error ? (
         <p className="text-sm text-danger" role="alert">

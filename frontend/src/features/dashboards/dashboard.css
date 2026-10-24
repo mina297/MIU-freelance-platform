@@ -14,8 +14,8 @@
   display: flex;
   align-items: stretch;
   min-height: 100vh;
-  background: #f8f8f9;
-  color: #111;
+  background: var(--surface-page);
+  color: var(--ink-primary);
   font:
     14px/1.5 Inter,
     Arial,
@@ -46,7 +46,7 @@
   flex-shrink: 0;
   padding: 24px 20px;
   background: #fff;
-  border-right: 1px solid #e5e7eb;
+  border-right: 1px solid var(--border-soft);
 }
 .sd-brand {
   display: flex;
@@ -66,7 +66,7 @@
 .sd-brand small {
   display: block;
   font-size: 10px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .sd-caption {
   font-size: 11px;
@@ -86,11 +86,12 @@
   padding: 12px;
   height: 48px;
   text-align: left;
-  color: #4b5563;
+  color: var(--ink-secondary);
   width: 100%;
 }
 .sd-navigation nav button[aria-current] {
-  border-radius: 9999px;
+  border-radius: var(--radius-control);
+  box-shadow: inset 3px 0 #a52d4b;
   color: #b91c2b;
   background: #fbe0e3;
   font-weight: 600;
@@ -115,7 +116,7 @@
 }
 .sd-help p {
   font-size: 12px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .sd-help button {
   font-size: 12px;
@@ -131,7 +132,7 @@
   height: 88px;
   padding: 0 40px;
   background: #fff;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-soft);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -144,7 +145,7 @@
   align-items: center;
 }
 .sd-breadcrumb {
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .sd-breadcrumb strong {
   font-weight: 600;
@@ -163,7 +164,7 @@
 .sd-account small {
   display: block;
   font-size: 12px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .sd-avatar {
   width: 40px;
@@ -184,22 +185,32 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  padding: clamp(20px, 3vw, 32px);
+  border: 1px solid #84516a;
+  border-radius: var(--radius-panel);
+  background: var(--hero-gradient);
+  color: #fff;
+  box-shadow: var(--shadow-panel);
 }
 .sd-welcome h1 {
   font-size: 32px;
   line-height: 1.2;
   font-weight: 700;
   margin: 0 0 8px;
+  letter-spacing: -0.04em;
 }
 .sd-welcome p {
-  color: #4b5563;
+  color: #f0d4e0;
+}
+.sd-welcome :is(a, button):focus-visible {
+  outline-color: #ffe1ec;
 }
 .sd-button {
   display: inline-flex;
   gap: 8px;
   align-items: center;
   justify-content: center;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-soft);
   border-radius: 9999px;
   min-height: 44px;
   padding: 10px 16px;
@@ -209,7 +220,7 @@
   width: fit-content;
 }
 .sd-primary {
-  background: #b91c2b;
+  background: var(--brand-gradient);
   color: white;
   border-color: #b91c2b;
 }
@@ -219,9 +230,9 @@
 }
 .sd-panel {
   background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  box-shadow: 0 4px 16px #11111108;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-panel);
   min-width: 0;
 }
 .sd-stats {
@@ -230,6 +241,7 @@
   gap: 16px;
 }
 .sd-stat {
+  border-block-start: 3px solid #b77690;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -239,16 +251,17 @@
   display: flex;
   justify-content: space-between;
   gap: 8px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .sd-stat > strong {
   font-size: 32px;
   line-height: 1.2;
   font-weight: 700;
+  letter-spacing: -0.04em;
 }
 .sd-stat small {
   font-size: 12px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .sd-panel-heading {
   padding: 24px;
@@ -261,7 +274,7 @@
 .sd-panel-heading p,
 .sd-section-heading p {
   font-size: 12px;
-  color: #4b5563;
+  color: var(--ink-secondary);
   margin-top: 4px;
 }
 .sd-table-head,
@@ -275,15 +288,15 @@
   align-items: center;
 }
 .sd-table-head {
-  background: #f8f8f9;
+  background: var(--surface-page);
   font-size: 11px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .sd-table-row {
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border-soft);
   min-height: 80px;
   font-size: 13px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .sd-table-row h3 {
   font-size: 14px;
@@ -325,16 +338,16 @@
 .sd-more {
   width: 32px;
   height: 32px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-soft);
   border-radius: 50%;
   display: grid;
   place-items: center;
 }
 .sd-table-footer {
   padding: 16px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border-soft);
   font-size: 12px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .sd-section-heading {
   display: flex;
@@ -377,7 +390,7 @@
 }
 .sd-job p {
   font-size: 13px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .sd-job dl {
   display: grid;
@@ -386,7 +399,7 @@
 }
 .sd-job dt {
   font-size: 12px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .sd-job dd {
   font-weight: 600;
@@ -401,7 +414,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .sd-progress > strong {
   font-size: 13px;
@@ -417,10 +430,10 @@
   border: 0;
   border-radius: 999px;
   overflow: hidden;
-  background: #f1f1f3;
+  background: var(--surface-muted);
 }
 .sd-progress progress::-webkit-progress-bar {
-  background: #f1f1f3;
+  background: var(--surface-muted);
 }
 .sd-progress progress::-webkit-progress-value {
   background: #b91c2b;
@@ -438,7 +451,7 @@
   color: #707680;
 }
 .sd-footer button {
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .sd-supplement {
   display: grid;
@@ -454,25 +467,25 @@
 }
 .sd-summary p,
 .sd-summary small {
-  color: #4b5563;
+  color: var(--ink-secondary);
   margin-top: 8px;
   display: block;
 }
 .sd-summary li {
   padding: 10px 0;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-soft);
   font-size: 12px;
 }
 .sd-summary time {
   display: block;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .sd-summary input {
   accent-color: #b91c2b;
 }
 .sd-demo-controls {
   font-size: 12px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .sd-demo-controls select {
   background: #fff;
@@ -498,13 +511,13 @@
 }
 .sd-loading div {
   height: 100px;
-  background: #f1f1f3;
+  background: var(--surface-muted);
   border-radius: 8px;
   margin-top: 16px;
 }
 .sd-dialog {
   margin: auto;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-soft);
   border-radius: 12px;
   padding: 28px;
   max-width: 520px;
@@ -517,7 +530,7 @@
 .sd-dialog p {
   margin: 16px 0 24px;
   line-height: 1.6;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .sd-skip {
   position: absolute;
@@ -555,7 +568,7 @@
     width: 100%;
     padding: 14px 20px;
     border-right: 0;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--border-soft);
     position: relative;
   }
   .sd-menu {
@@ -655,7 +668,7 @@
     display: block;
     font-size: 11px;
     font-weight: 400;
-    color: #4b5563;
+    color: var(--ink-secondary);
     margin-bottom: 4px;
   }
   .sd-table-row > .sd-cell:nth-child(2) {

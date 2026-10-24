@@ -36,7 +36,7 @@
 
 .miu-data-table__intro p {
   margin: 0;
-  color: #4b5563;
+  color: var(--ink-secondary);
   font-size: 12px;
   line-height: 1.5;
 }
@@ -72,8 +72,8 @@
 .miu-data-table__head th {
   height: 44px;
   padding: 12px 24px;
-  background: #f8f8f9;
-  color: #4b5563;
+  background: var(--surface-page);
+  color: var(--ink-secondary);
   font-size: 12px;
   font-weight: 600;
   line-height: 1.5;
@@ -92,7 +92,7 @@
   border: 0;
   border-radius: 4px;
   background: transparent;
-  color: #4b5563;
+  color: var(--ink-secondary);
   font-size: 12px;
   font-weight: 600;
   line-height: 1.5;
@@ -106,8 +106,8 @@
 .miu-data-table__cell {
   height: 88px;
   padding: 16px 24px;
-  border-block-start: 1px solid #e5e7eb;
-  color: #4b5563;
+  border-block-start: 1px solid var(--border-soft);
+  color: var(--ink-secondary);
   font-size: 13px;
   font-weight: 400;
   line-height: 1.5;
@@ -144,7 +144,7 @@
 
 .miu-data-table__footer {
   padding: 16px;
-  border-block-start: 1px solid #e5e7eb;
+  border-block-start: 1px solid var(--border-soft);
 }
 
 .miu-stat-card.miu-card {
@@ -164,7 +164,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
-  color: #4b5563;
+  color: var(--ink-secondary);
   font-size: 14px;
   line-height: 1.5;
 }
@@ -187,7 +187,7 @@
 }
 
 .miu-stat-card__value--unavailable {
-  color: #4b5563;
+  color: var(--ink-secondary);
   font-size: 14px;
   font-weight: 400;
   line-height: 1.5;
@@ -196,7 +196,7 @@
 .miu-stat-card__description,
 .miu-stat-card__error p {
   margin: 0;
-  color: #4b5563;
+  color: var(--ink-secondary);
   font-size: 12px;
   line-height: 1.5;
 }
@@ -245,7 +245,7 @@
     height: auto;
     overflow: visible;
     clip-path: none;
-    background: #f8f8f9;
+    background: var(--surface-page);
   }
   .miu-data-table__head--sortable > tr {
     display: flex;
@@ -271,7 +271,7 @@
     display: grid;
     gap: 12px;
     padding: 16px;
-    border-block-start: 1px solid #e5e7eb;
+    border-block-start: 1px solid var(--border-soft);
   }
   .miu-data-table__cell {
     display: block;
@@ -286,7 +286,7 @@
   .miu-data-table__mobile-label {
     display: block;
     margin-block-end: 4px;
-    color: #4b5563;
+    color: var(--ink-secondary);
     font-size: 12px;
     font-weight: 400;
   }

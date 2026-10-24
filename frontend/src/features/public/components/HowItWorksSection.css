@@ -1,7 +1,7 @@
 .m4-how-it-works {
-  --hiw-surface: #f8f8f9;
-  --hiw-border: #e5e7eb;
-  --hiw-text-secondary: #4b5563;
+  --hiw-surface: var(--surface-page);
+  --hiw-border: var(--border-soft);
+  --hiw-text-secondary: var(--ink-secondary);
   --hiw-text-muted: #707780;
 
   padding: 56px 20px;

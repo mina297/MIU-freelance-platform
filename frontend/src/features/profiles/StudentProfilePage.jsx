@@ -49,7 +49,7 @@ export default function StudentProfilePage({
 
   if (status === "loading") {
     return (
-      <div className="w-full bg-[#f8f8f9] px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
+      <div className="w-full bg-surface-page px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
         <ProfileLoadingState />
       </div>
     );
@@ -57,7 +57,7 @@ export default function StudentProfilePage({
 
   if (status === "not_found" || !data) {
     return (
-      <div className="w-full bg-[#f8f8f9] px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
+      <div className="w-full bg-surface-page px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
         <ProfileNotFoundState studentId={studentId} />
       </div>
     );
@@ -74,7 +74,7 @@ export default function StudentProfilePage({
   }
 
   return (
-    <div className="w-full bg-[#f8f8f9]">
+    <div className="w-full bg-surface-page">
       <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-7 px-5 py-8 sm:px-8 md:gap-7 md:px-[120px] md:pb-16 md:pt-8">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <ProfileBreadcrumb onBack={onBack} />

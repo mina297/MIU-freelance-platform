@@ -86,11 +86,11 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
   if (status === "success" && submittedTicket) {
     return (
       <div className="space-y-4" role="status">
-        <div className="rounded-[10px] border border-success/30 bg-white p-4 text-center sm:p-5">
+        <div className="rounded-panel border border-success/30 bg-white p-4 text-center sm:p-5">
           <h2 className="text-lg font-semibold text-miu-black sm:text-xl">
             Support request received
           </h2>
-          <p className="mt-2 text-sm text-[#4b5563]">
+          <p className="mt-2 text-sm text-ink-secondary">
             Your request was saved in this browser session only. No email or
             committee workflow was triggered.
           </p>
@@ -99,7 +99,7 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
         {onCancel ? (
           <button
             type="button"
-            className="h-11 rounded-full border border-[#e5e7eb] px-5 text-sm font-semibold text-miu-black"
+            className="h-11 rounded-full border border-border-soft px-5 text-sm font-semibold text-miu-black"
             onClick={onCancel}
           >
             Close
@@ -111,7 +111,7 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
 
   return (
     <form
-      className="space-y-5 rounded-[10px] border border-[#e5e7eb] bg-white p-5 shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)] sm:p-6"
+      className="space-y-5 rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)] sm:p-6"
       onSubmit={handleSubmit}
       noValidate
     >
@@ -131,7 +131,7 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
         <h2 className="mt-1 text-xl font-semibold text-miu-black">
           Contact support
         </h2>
-        <p className="mt-1 text-sm text-[#4b5563]">
+        <p className="mt-1 text-sm text-ink-secondary">
           Member 5 owns the request form and ticket presentation only. Ticket
           assignment and dispute decisions belong to other modules.
         </p>
@@ -164,7 +164,7 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
           id="support-topic"
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
-          className="h-11 w-full rounded-lg border border-[#e5e7eb] px-3 text-sm"
+          className="h-11 w-full rounded-lg border border-border-soft px-3 text-sm"
         >
           <option value="">Select a topic</option>
           {TOPICS.map((t) => (
@@ -206,7 +206,7 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
           rows={5}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          className="w-full rounded-lg border border-[#e5e7eb] px-3 py-2 text-sm"
+          className="w-full rounded-lg border border-border-soft px-3 py-2 text-sm"
         />
         {errors.message ? (
           <p className="text-sm text-danger" role="alert">
@@ -240,7 +240,7 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
           <button
             type="button"
             onClick={onCancel}
-            className="h-11 rounded-full border border-[#e5e7eb] px-5 text-sm font-semibold"
+            className="h-11 rounded-full border border-border-soft px-5 text-sm font-semibold"
             disabled={status === "submitting"}
           >
             Cancel
@@ -269,7 +269,7 @@ function Field({ id, label, value, onChange, error, type = "text" }) {
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-11 w-full rounded-lg border border-[#e5e7eb] px-3 text-sm"
+        className="h-11 w-full rounded-lg border border-border-soft px-3 text-sm"
       />
       {error ? (
         <p className="text-sm text-danger" role="alert">

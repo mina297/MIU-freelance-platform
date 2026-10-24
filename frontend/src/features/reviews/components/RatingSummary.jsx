@@ -19,7 +19,7 @@ export default function RatingSummary({ ratingSummary }) {
 
   return (
     <section
-      className="rounded-[10px] border border-[#e5e7eb] bg-white p-5 shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)] sm:p-6"
+      className="rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)] sm:p-6"
       aria-label={getRatingAriaLabel(average, count)}
     >
       <h2 className="text-lg font-semibold text-miu-black">Rating summary</h2>
@@ -30,7 +30,7 @@ export default function RatingSummary({ ratingSummary }) {
             {"★".repeat(filled)}
             <span className="text-[#d1d5db]">{"★".repeat(empty)}</span>
           </p>
-          <p className="mt-1 text-sm text-[#4b5563]">{count} reviews</p>
+          <p className="mt-1 text-sm text-ink-secondary">{count} reviews</p>
         </div>
 
         <ul className="flex w-full flex-col gap-2">
@@ -42,10 +42,10 @@ export default function RatingSummary({ ratingSummary }) {
             const widthPct = Math.round((entry.count / maxBar) * 100);
             return (
               <li key={stars} className="flex items-center gap-3 text-sm">
-                <span className="w-12 shrink-0 text-[#4b5563]">
+                <span className="w-12 shrink-0 text-ink-secondary">
                   {stars} star
                 </span>
-                <div className="h-2 flex-1 overflow-hidden rounded-full bg-[#f1f1f3]">
+                <div className="h-2 flex-1 overflow-hidden rounded-full bg-surface-muted">
                   <div
                     className="h-full rounded-full bg-star"
                     style={{ width: `${widthPct}%` }}

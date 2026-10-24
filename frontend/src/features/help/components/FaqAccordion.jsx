@@ -11,12 +11,12 @@ export default function FaqAccordion({ items }) {
 
   if (!items.length) {
     return (
-      <p className="text-sm text-[#4b5563]">No FAQ items match your search.</p>
+      <p className="text-sm text-ink-secondary">No FAQ items match your search.</p>
     );
   }
 
   return (
-    <ul className="divide-y divide-[#e5e7eb] overflow-hidden rounded-[10px] border border-[#e5e7eb] bg-white">
+    <ul className="divide-y divide-[#e5e7eb] overflow-hidden rounded-panel border border-border-soft bg-white">
       {items.map((item) => {
         const open = openId === item.id;
         return (
@@ -25,18 +25,18 @@ export default function FaqAccordion({ items }) {
               <button
                 type="button"
                 aria-expanded={open}
-                className="flex w-full items-center justify-between gap-3 px-4 py-4 text-left text-sm font-semibold text-miu-black hover:bg-[#f8f8f9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red sm:px-5"
+                className="flex w-full items-center justify-between gap-3 px-4 py-4 text-left text-sm font-semibold text-miu-black hover:bg-surface-page focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red sm:px-5"
                 onClick={() => setOpenId(open ? null : item.id)}
               >
                 <span>{item.question}</span>
                 <ChevronDown
-                  className={`size-5 shrink-0 text-[#4b5563] transition ${open ? "rotate-180" : ""}`}
+                  className={`size-5 shrink-0 text-ink-secondary transition ${open ? "rotate-180" : ""}`}
                   aria-hidden="true"
                 />
               </button>
             </h3>
             {open ? (
-              <div className="px-4 pb-4 text-sm leading-relaxed text-[#4b5563] sm:px-5">
+              <div className="px-4 pb-4 text-sm leading-relaxed text-ink-secondary sm:px-5">
                 {item.answer}
               </div>
             ) : null}

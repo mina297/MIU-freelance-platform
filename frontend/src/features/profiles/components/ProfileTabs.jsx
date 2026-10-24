@@ -40,7 +40,7 @@ export default function ProfileTabs({
     <div
       role="tablist"
       aria-label="Profile sections"
-      className="flex w-full items-center gap-6 overflow-x-auto border-b border-[#e5e7eb] md:gap-8"
+      className="flex w-full items-center gap-6 overflow-x-auto border-b border-border-soft md:gap-8"
     >
       {tabs.map((tab) => {
         const isActive = tab.id === activeTabId;
@@ -70,7 +70,7 @@ export default function ProfileTabs({
             className={
               isActive
                 ? "h-9 shrink-0 rounded-full border-[3px] border-miu-red px-1 text-[15px] font-semibold text-miu-red focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
-                : "h-[52px] shrink-0 px-1 text-[15px] font-medium text-[#4b5563] hover:text-miu-black disabled:cursor-not-allowed disabled:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+                : "h-[52px] shrink-0 px-1 text-[15px] font-medium text-ink-secondary hover:text-miu-black disabled:cursor-not-allowed disabled:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
             }
             onClick={() => {
               if (isImplemented) onTabSelect?.(tab.id);

@@ -113,7 +113,7 @@
   letter-spacing: -0.045em;
 }
 .landing-intro {
-  color: #4b5563;
+  color: var(--ink-secondary);
   font-size: 17px;
   max-width: 680px;
   text-align: center;
@@ -239,7 +239,7 @@
   transition: none;
 }
 .landing-category-select {
-  border-left: 1px solid #e5e7eb;
+  border-left: 1px solid var(--border-soft);
   padding-left: 8px;
   width: 220px;
   position: relative;
@@ -248,7 +248,7 @@
 .landing-category-select > .disclosure-trigger {
   width: 100%;
   padding: 12px;
-  color: #4b5563;
+  color: var(--ink-secondary);
   border-radius: 999px;
   font-size: 13px;
   gap: 10px;
@@ -259,7 +259,7 @@
 }
 .landing-category-select > .disclosure-trigger:hover,
 .landing-category-select > .disclosure-trigger[aria-expanded="true"] {
-  background: #f8f8f9;
+  background: var(--surface-page);
 }
 .landing-category-select .disclosure-panel {
   width: 260px;
@@ -286,7 +286,7 @@
   text-align: left;
 }
 .landing-category-option:hover {
-  background: #f8f8f9;
+  background: var(--surface-page);
 }
 .landing-category-option[aria-pressed="true"] {
   background: var(--color-miu-red-tint);
@@ -364,7 +364,7 @@
 }
 .landing-heading p:not(.landing-eyebrow) {
   font-size: 16px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .landing .landing-eyebrow {
   font-size: 12px;
@@ -399,7 +399,7 @@
   gap: 18px;
 }
 .landing-job p {
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .landing-card-top {
   display: flex;
@@ -441,7 +441,7 @@
 .landing-skills span {
   background: #f4eef1;
   border: 1px solid #dbccd4;
-  color: #4b5563;
+  color: var(--ink-secondary);
   padding: 5px 10px;
   border-radius: 8px;
   font-size: 12px;
@@ -476,7 +476,7 @@
   gap: 8px;
 }
 .landing-card-actions > span {
-  color: #4b5563;
+  color: var(--ink-secondary);
   font-size: 12px;
 }
 .landing-student {
@@ -513,7 +513,7 @@
   margin-bottom: 5px;
 }
 .landing-student p {
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .landing-student .landing-skills {
   justify-content: center;
@@ -564,7 +564,7 @@
   font-weight: 700;
 }
 .landing-trust-point p {
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .landing .landing-prototype-note {
   color: #59616e;
@@ -576,7 +576,7 @@
 }
 .landing-results {
   margin-bottom: 20px;
-  color: #4b5563;
+  color: var(--ink-secondary);
 }
 .landing-results button {
   color: #b91c2b;

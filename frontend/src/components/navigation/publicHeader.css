@@ -1,7 +1,7 @@
 .public-header {
   position: relative;
   z-index: 30;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-soft);
   background: white;
   font-family: var(--font-sans);
 }

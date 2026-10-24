@@ -32,11 +32,11 @@ export default function HelpCenterPage({ onOpenArticle, onContactSupport }) {
   }, [results.faqs, activeCategory]);
 
   return (
-    <div className="w-full bg-[#f8f8f9]">
+    <div className="w-full bg-surface-page">
       <div className="mx-auto flex w-full max-w-[960px] flex-col gap-8 px-5 py-8 sm:px-8 md:px-[120px] md:py-12">
-        <header className="space-y-3">
+        <header className="premium-help-header space-y-3">
           <h1 className="text-3xl font-bold text-miu-black">Help Center</h1>
-          <p className="max-w-2xl text-[15px] text-[#4b5563]">
+          <p className="max-w-2xl text-[15px] text-ink-secondary">
             Guides and FAQs for profiles, reviews, and campus support. Phase 1
             content is fictional and for demonstration.
           </p>
@@ -47,7 +47,7 @@ export default function HelpCenterPage({ onOpenArticle, onContactSupport }) {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search articles and FAQs…"
-              className="h-12 w-full rounded-full border border-[#e5e7eb] bg-white px-5 text-sm shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+              className="h-12 w-full rounded-full border border-border-soft bg-white px-5 text-sm shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
             />
           </label>
         </header>
@@ -87,7 +87,7 @@ export default function HelpCenterPage({ onOpenArticle, onContactSupport }) {
           </div>
 
           {articles.length === 0 ? (
-            <p className="rounded-[10px] border border-dashed border-[#e5e7eb] bg-white p-6 text-sm text-[#4b5563]">
+            <p className="rounded-panel border border-dashed border-border-soft bg-white p-6 text-sm text-ink-secondary">
               No articles match “{query}”.
             </p>
           ) : (
@@ -97,12 +97,12 @@ export default function HelpCenterPage({ onOpenArticle, onContactSupport }) {
                   <button
                     type="button"
                     onClick={() => onOpenArticle?.(article.slug)}
-                    className="flex h-full w-full flex-col rounded-[10px] border border-[#e5e7eb] bg-white p-5 text-left shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)] hover:border-miu-red/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+                    className="flex h-full w-full flex-col rounded-panel border border-border-soft bg-white p-5 text-left shadow-[var(--shadow-panel)] hover:border-miu-red/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
                   >
                     <h3 className="text-base font-semibold text-miu-black">
                       {article.title}
                     </h3>
-                    <p className="mt-2 flex-1 text-sm text-[#4b5563]">
+                    <p className="mt-2 flex-1 text-sm text-ink-secondary">
                       {article.summary}
                     </p>
                     <span className="mt-3 text-sm font-semibold text-miu-red">
@@ -121,7 +121,7 @@ export default function HelpCenterPage({ onOpenArticle, onContactSupport }) {
         </section>
 
         {!helpArticles.length ? null : (
-          <p className="text-xs text-[#4b5563]">
+          <p className="text-xs text-ink-secondary">
             {`Showing ${articles.length} article${articles.length === 1 ? "" : "s"} and ${faqs.length} FAQ${faqs.length === 1 ? "" : "s"}${query ? ` for “${query}”` : ""}.`}
           </p>
         )}
@@ -138,7 +138,7 @@ function CategoryChip({ label, active, onClick }) {
       className={`rounded-full px-4 py-2 text-sm font-medium ${
         active
           ? "bg-miu-red text-white"
-          : "bg-white text-[#4b5563] ring-1 ring-[#e5e7eb] hover:text-miu-black"
+          : "bg-white text-ink-secondary ring-1 ring-[#e5e7eb] hover:text-miu-black"
       }`}
     >
       {label}

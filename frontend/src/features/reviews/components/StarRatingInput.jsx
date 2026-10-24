@@ -45,7 +45,7 @@ export default function StarRatingInput({
             </button>
           );
         })}
-        <span className="ml-2 text-sm text-[#4b5563]">
+        <span className="ml-2 text-sm text-ink-secondary">
           {value > 0 ? `${value} / 5` : "Select a rating"}
         </span>
       </div>

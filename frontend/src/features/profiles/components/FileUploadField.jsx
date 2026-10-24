@@ -116,14 +116,14 @@ export default function FileUploadField({
         >
           {label}
         </label>
-        {hint ? <span className="text-xs text-[#4b5563]">{hint}</span> : null}
+        {hint ? <span className="text-xs text-ink-secondary">{hint}</span> : null}
       </div>
 
       <div
-        className={`rounded-[10px] border border-dashed px-4 py-6 transition ${
+        className={`rounded-panel border border-dashed px-4 py-6 transition ${
           dragOver
             ? "border-miu-red bg-miu-red-tint"
-            : "border-[#d1d5db] bg-[#f8f8f9]"
+            : "border-border-control bg-surface-page"
         } ${disabled ? "opacity-60" : ""}`}
         onDragOver={(e) => {
           e.preventDefault();
@@ -144,7 +144,7 @@ export default function FileUploadField({
             <p className="text-sm font-medium text-miu-black">
               Drag and drop files here
             </p>
-            <p className="mt-1 text-xs text-[#4b5563]">or</p>
+            <p className="mt-1 text-xs text-ink-secondary">or</p>
           </div>
           <button
             type="button"
@@ -172,22 +172,22 @@ export default function FileUploadField({
           {value.map((file) => (
             <li
               key={file.id}
-              className="relative w-28 overflow-hidden rounded-lg border border-[#e5e7eb] bg-white"
+              className="relative w-28 overflow-hidden rounded-lg border border-border-soft bg-white"
             >
               {file.previewUrl ? (
                 <SafeImage
                   src={file.previewUrl}
                   alt=""
                   className="aspect-square w-full object-cover"
-                  placeholderClassName="flex aspect-square items-center justify-center bg-[#f1f1f3] text-xs text-[#4b5563]"
+                  placeholderClassName="flex aspect-square items-center justify-center bg-surface-muted text-xs text-ink-secondary"
                   placeholderLabel="File"
                 />
               ) : (
-                <div className="flex aspect-square items-center justify-center text-xs text-[#4b5563]">
+                <div className="flex aspect-square items-center justify-center text-xs text-ink-secondary">
                   File
                 </div>
               )}
-              <p className="truncate px-2 py-1 text-[10px] text-[#4b5563]">
+              <p className="truncate px-2 py-1 text-[10px] text-ink-secondary">
                 {file.name}
               </p>
               {file.sizeLabel ? (

@@ -7,8 +7,8 @@ export default function StudentProfilePreview({
   viewerMode = "visitor",
 }) {
   return (
-    <div className="min-h-screen bg-[#f8f8f9]">
-      <div className="border-b border-[#e5e7eb] bg-white px-5 py-3 text-sm text-[#4b5563] md:px-[120px]">
+    <div className="min-h-screen bg-surface-page">
+      <div className="border-b border-border-soft bg-white px-5 py-3 text-sm text-ink-secondary md:px-[120px]">
         <p>
           <span className="font-semibold text-miu-black">Member 5 preview</span>
           {" — "}

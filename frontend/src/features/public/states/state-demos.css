@@ -44,7 +44,7 @@
 
 .m4-state-demo p {
   margin: 0;
-  color: #4b5563;
+  color: var(--ink-secondary);
   font-size: 16px;
   line-height: 1.6;
 }

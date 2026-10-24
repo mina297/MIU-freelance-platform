@@ -1,6 +1,6 @@
 .ec-progress {
   font-family: var(--font-sans);
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border-soft);
   padding-top: 22px;
 }
 .ec-progress-title {
@@ -24,7 +24,7 @@
   align-items: center;
   gap: 8px 12px;
   font-size: 11px;
-  color: #4b5563;
+  color: var(--ink-secondary);
   margin: 16px 0 20px;
 }
 .ec-work-progress progress {
@@ -34,10 +34,10 @@
   border: 0;
   border-radius: 10px;
   overflow: hidden;
-  background: #e5e7eb;
+  background: var(--border-soft);
 }
 .ec-work-progress progress::-webkit-progress-bar {
-  background: #e5e7eb;
+  background: var(--border-soft);
 }
 .ec-work-progress progress::-webkit-progress-value {
   background: var(--color-miu-red);

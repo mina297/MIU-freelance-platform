@@ -16,7 +16,7 @@ export default function AboutSection({
 }) {
   return (
     <section
-      className="flex w-full flex-col gap-5 overflow-hidden rounded-[10px] border border-[#e5e7eb] bg-white p-6 shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)] sm:p-8"
+      className="flex w-full flex-col gap-5 overflow-hidden rounded-panel border border-border-soft bg-white p-6 shadow-[var(--shadow-panel)] sm:p-8"
       aria-labelledby="about-heading"
     >
       <h2
@@ -29,13 +29,13 @@ export default function AboutSection({
       {paragraphs.map((paragraph, index) => (
         <p
           key={`about-paragraph-${index}`}
-          className="text-[15px] leading-[1.7] text-[#4b5563]"
+          className="text-[15px] leading-[1.7] text-ink-secondary"
         >
           {paragraph}
         </p>
       ))}
 
-      <div className="h-px w-full bg-[#e5e7eb]" role="separator" />
+      <div className="h-px w-full bg-border-soft" role="separator" />
 
       <h3 className="text-lg font-semibold leading-normal text-miu-black">
         Skills

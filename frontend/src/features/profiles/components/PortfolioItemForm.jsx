@@ -125,7 +125,7 @@ export default function PortfolioItemForm({
 
   return (
     <form
-      className="space-y-4 rounded-[10px] border border-[#e5e7eb] bg-white p-5 shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)]"
+      className="space-y-4 rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)]"
       onSubmit={handleSubmit}
       noValidate
     >
@@ -136,7 +136,7 @@ export default function PortfolioItemForm({
         <h3 className="mt-1 text-lg font-semibold text-miu-black">
           {mode === "edit" ? "Edit portfolio item" : "Add portfolio item"}
         </h3>
-        <p className="mt-1 text-sm text-[#4b5563]">
+        <p className="mt-1 text-sm text-ink-secondary">
           Changes save to this browser session for{" "}
           <span className="font-medium text-miu-black">{studentId}</span> only.
         </p>
@@ -161,7 +161,7 @@ export default function PortfolioItemForm({
           id="pf-category"
           value={form.category}
           onChange={(e) => update("category", e.target.value)}
-          className="h-11 w-full rounded-lg border border-[#e5e7eb] px-3 text-sm"
+          className="h-11 w-full rounded-lg border border-border-soft px-3 text-sm"
         >
           {CATEGORY_OPTIONS.map((opt) => (
             <option key={opt} value={opt}>
@@ -243,7 +243,7 @@ export default function PortfolioItemForm({
         <button
           type="button"
           onClick={onCancel}
-          className="h-11 rounded-full border border-[#e5e7eb] px-5 text-sm font-semibold"
+          className="h-11 rounded-full border border-border-soft px-5 text-sm font-semibold"
           disabled={status === "saving"}
         >
           Cancel
@@ -271,7 +271,7 @@ function Field({ id, label, value, onChange, error, placeholder }) {
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="h-11 w-full rounded-lg border border-[#e5e7eb] px-3 text-sm"
+        className="h-11 w-full rounded-lg border border-border-soft px-3 text-sm"
       />
       {error ? (
         <p className="text-sm text-danger" role="alert">
@@ -293,7 +293,7 @@ function TextArea({ id, label, value, onChange, error, rows = 3 }) {
         rows={rows}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-lg border border-[#e5e7eb] px-3 py-2 text-sm"
+        className="w-full rounded-lg border border-border-soft px-3 py-2 text-sm"
       />
       {error ? (
         <p className="text-sm text-danger" role="alert">

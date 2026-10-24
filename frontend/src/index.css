@@ -1,11 +1,19 @@
 @import "tailwindcss";
+@import "./styles/premium-theme.css";
 
 @theme {
   --color-miu-red: #b91c2b;
   --color-miu-red-dark: #8f1420;
   --color-miu-red-light: #fbe0e3;
   --color-miu-red-tint: #fdf2f3;
-  --color-miu-black: #111111;
+  --color-miu-black: #35212c;
+
+  --color-surface-page: #efe9ed;
+  --color-surface-muted: #f5eff3;
+  --color-border-soft: #c7b3bf;
+  --color-border-control: #9f8191;
+  --color-ink-secondary: #6a5864;
+  --radius-panel: 1.25rem;
 
   --color-success: #1e8e3e;
   --color-info: #2563eb;

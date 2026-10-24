@@ -3,7 +3,7 @@ import LandingHeader from "../components/navigation/LandingHeader.jsx";
 
 export default function AuthLayout() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="premium-auth-layout min-h-screen">
       <a href="#main-content" className="sr-only focus:not-sr-only focus:p-3">
         Skip to content
       </a>

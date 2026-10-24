@@ -11,12 +11,12 @@ export function ProfileLoadingState() {
       aria-busy="true"
     >
       <span className="sr-only">Loading profile</span>
-      <div className="h-4 w-48 animate-pulse rounded bg-[#e5e7eb]" />
-      <div className="h-[180px] w-full animate-pulse rounded-[10px] bg-[#e5e7eb]" />
-      <div className="h-12 w-full animate-pulse rounded bg-[#e5e7eb]" />
+      <div className="h-4 w-48 animate-pulse rounded bg-border-soft" />
+      <div className="h-[180px] w-full animate-pulse rounded-panel bg-border-soft" />
+      <div className="h-12 w-full animate-pulse rounded bg-border-soft" />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
-        <div className="h-72 animate-pulse rounded-[10px] bg-[#e5e7eb]" />
-        <div className="h-72 animate-pulse rounded-[10px] bg-[#e5e7eb]" />
+        <div className="h-72 animate-pulse rounded-panel bg-border-soft" />
+        <div className="h-72 animate-pulse rounded-panel bg-border-soft" />
       </div>
     </div>
   );
@@ -25,13 +25,13 @@ export function ProfileLoadingState() {
 export function ProfileNotFoundState({ studentId }) {
   return (
     <div
-      className="rounded-[10px] border border-[#e5e7eb] bg-white p-8 text-center shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)]"
+      className="rounded-panel border border-border-soft bg-white p-8 text-center shadow-[var(--shadow-panel)]"
       role="alert"
     >
       <h2 className="text-xl font-semibold text-miu-black">
         Profile not found
       </h2>
-      <p className="mt-3 text-sm leading-relaxed text-[#4b5563]">
+      <p className="mt-3 text-sm leading-relaxed text-ink-secondary">
         No student profile matches
         {studentId ? (
           <>
@@ -51,8 +51,8 @@ export function ProfileNotFoundState({ studentId }) {
 
 export function ProfileEmptyState({ message = "Nothing to show yet." }) {
   return (
-    <div className="rounded-[10px] border border-dashed border-[#e5e7eb] bg-white p-8 text-center">
-      <p className="text-sm text-[#4b5563]">{message}</p>
+    <div className="rounded-panel border border-dashed border-border-soft bg-white p-8 text-center">
+      <p className="text-sm text-ink-secondary">{message}</p>
     </div>
   );
 }

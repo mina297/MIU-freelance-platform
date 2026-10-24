@@ -20,7 +20,7 @@ const LINK_ICONS = {
 export default function LinksCard({ links = [] }) {
   return (
     <section
-      className="flex w-full flex-col gap-5 overflow-hidden rounded-[10px] border border-[#e5e7eb] bg-white p-6 shadow-[0px_8px_24px_0px_rgba(17,17,17,0.05)] sm:p-8"
+      className="flex w-full flex-col gap-5 overflow-hidden rounded-panel border border-border-soft bg-white p-6 shadow-[var(--shadow-panel)] sm:p-8"
       aria-labelledby="links-heading"
     >
       <h2
@@ -31,18 +31,18 @@ export default function LinksCard({ links = [] }) {
       </h2>
 
       {links.length === 0 ? (
-        <p className="text-sm text-[#4b5563]">No public links added yet.</p>
+        <p className="text-sm text-ink-secondary">No public links added yet.</p>
       ) : (
         <ul className="flex flex-col gap-5">
           {links.map((link) => {
             const Icon = LINK_ICONS[link.type] ?? Globe;
             const resolved = resolveExternalLink(link.href || link.urlDisplay);
             const rowClass =
-              "flex w-full items-center gap-3 rounded-lg text-left transition hover:bg-[#f8f8f9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red";
+              "flex w-full items-center gap-3 rounded-lg text-left transition hover:bg-surface-page focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red";
 
             const content = (
               <>
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-[#f8f8f9]">
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-md bg-surface-page">
                   <Icon className="size-5 text-miu-black" aria-hidden="true" />
                 </span>
                 <div className="min-w-0 flex-1">
@@ -53,14 +53,14 @@ export default function LinksCard({ links = [] }) {
                     {resolved.display || link.urlDisplay}
                   </p>
                   {resolved.isDemoOnly ? (
-                    <p className="mt-0.5 text-[11px] text-[#4b5563]">
+                    <p className="mt-0.5 text-[11px] text-ink-secondary">
                       Demo example · not a live external link
                     </p>
                   ) : null}
                   {!resolved.isSafe &&
                   !resolved.isDemoOnly &&
                   resolved.display ? (
-                    <p className="mt-0.5 text-[11px] text-[#4b5563]">
+                    <p className="mt-0.5 text-[11px] text-ink-secondary">
                       Incomplete URL · open disabled
                     </p>
                   ) : null}

@@ -1,11 +1,11 @@
 .chatbot-widget {
-  --chatbot-primary: #800020;
+  --chatbot-primary: #97182d;
   --chatbot-primary-hover: #a52242;
   --chatbot-surface: #ffffff;
   --chatbot-raised: #fff7f8;
-  --chatbot-border: #eadde1;
-  --chatbot-ink: #27272a;
-  --chatbot-muted: #62626c;
+  --chatbot-border: var(--border-soft);
+  --chatbot-ink: var(--ink-primary);
+  --chatbot-muted: var(--ink-secondary);
   position: fixed;
   inset-inline-end: max(20px, env(safe-area-inset-right));
   bottom: max(20px, env(safe-area-inset-bottom));

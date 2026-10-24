@@ -24,7 +24,7 @@ export default function ReviewSubjectSummary({ student, order }) {
 
   return (
     <section
-      className="flex flex-col gap-4 rounded-[10px] border border-[#e5e7eb] bg-[#f8f8f9] p-4 sm:flex-row sm:items-center sm:gap-5 sm:p-5"
+      className="flex flex-col gap-4 rounded-panel border border-border-soft bg-surface-page p-4 sm:flex-row sm:items-center sm:gap-5 sm:p-5"
       aria-label="Review subject"
     >
       <div className="relative size-16 shrink-0 overflow-hidden rounded-full bg-white ring-1 ring-[#e5e7eb] sm:size-[72px]">
@@ -52,12 +52,12 @@ export default function ReviewSubjectSummary({ student, order }) {
             </span>
           ) : null}
         </div>
-        <p className="text-sm text-[#4b5563]">{academic}</p>
+        <p className="text-sm text-ink-secondary">{academic}</p>
         {order?.title ? (
           <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
             <p className="text-sm font-medium text-miu-black">
               Project:{" "}
-              <span className="font-normal text-[#4b5563]">{order.title}</span>
+              <span className="font-normal text-ink-secondary">{order.title}</span>
             </p>
             <span className="inline-flex w-fit items-center rounded-full bg-success/10 px-2.5 py-0.5 text-xs font-semibold text-success">
               {completedLabel}
