@@ -17,6 +17,7 @@ import CategoryCarousel from "./CategoryCarousel.jsx";
 import HowItWorks from "./HowItWorks.jsx";
 import OverlapSection from "./OverlapSection.jsx";
 import RotatingSearchHint from "./RotatingSearchHint.jsx";
+import HeroVideo from "./HeroVideo.jsx";
 import { useReducedMotion } from "./useLandingMotion.js";
 import { formatEGP } from "../../utils/formatEGP.js";
 import {
@@ -177,6 +178,7 @@ export default function LandingPage() {
   return (
     <div className="landing" data-motion={motionEnabled ? "on" : "off"}>
       <section className="landing-hero" aria-labelledby="landing-title">
+        <HeroVideo enabled={motionEnabled} />
         <div className="landing-creative-notes" aria-hidden="true">
           <span className="landing-note landing-note-code">
             <Code2 size={22} />

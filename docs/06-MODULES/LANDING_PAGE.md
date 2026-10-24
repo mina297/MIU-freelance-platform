@@ -50,6 +50,25 @@ The desktop layout retains the centered hero, alternating timeline, three-column
 
 ## Verification
 
+### Cinematic hero video — 24 October 2026
+
+The homepage hero now layers locally bundled, muted looping collaboration stock
+footage behind a burgundy readability overlay, a fine inset frame and the existing
+headline/search/entry cards. A local JPEG poster renders immediately and remains
+the fallback for reduced motion, data-saving connections, denied autoplay or
+media failure. The clip is approximately 8 seconds, 720p, 2.65 MB. Source and
+license credits are in `frontend/src/assets/hero/CREDITS.md`; this is stock
+footage, not a depiction of MIU facilities or accounts.
+
+`HeroVideo` connects to the existing Pause motion control. Video source loading
+is deferred until motion is enabled and the video enters the viewport; playback
+pauses when off-screen or when the document is hidden. Observers/listeners clean
+up on unmount and preference changes. No network video request occurs during SSR,
+under reduced motion, or on connections advertising Save-Data. The footage is
+decorative and hidden from assistive technology; all meaningful content remains
+HTML. Video playback lifecycle and fallback markup have automated coverage;
+actual browser autoplay, cropping and mobile visual acceptance remain pending.
+
 ### Marketplace visual polish — 24 October 2026
 
 The follow-up creative pass adds static, decorative skill notes on wide screens,

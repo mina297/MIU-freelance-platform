@@ -1,0 +1,100 @@
+.landing .landing-hero {
+  background: #301620;
+  color: white;
+}
+.landing-hero > .landing-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+}
+.landing-hero-poster,
+.landing-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 48% 42%;
+}
+.landing-hero-video {
+  opacity: 0;
+}
+.landing[data-motion="on"] .landing-hero-video[data-ready="true"] {
+  opacity: 1;
+}
+.landing-hero-film-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, #28121d77 0%, #30162099 55%, #301620fa 100%),
+    linear-gradient(90deg, #2d142477, #391e2b66 50%, #2d142477);
+}
+.landing-hero-film-frame {
+  position: absolute;
+  inset: 22px;
+  border: 1px solid #ffe2ed24;
+  border-bottom: 0;
+  border-radius: 24px 24px 0 0;
+}
+.landing .landing-hero h1 em {
+  color: #ffdae7;
+  text-decoration-color: #e39bb5;
+}
+.landing .landing-hero .landing-intro {
+  color: #f6e2eb;
+}
+.landing-hero .landing-community {
+  background: #ffffffed;
+  color: #774052;
+  border-color: #e9becf;
+}
+.landing-hero .landing-note {
+  border-color: #ffffff55;
+  background: #fff9f2ed;
+}
+.landing-hero .landing-hero-spark {
+  color: #ffd5e6;
+}
+.landing-hero .landing-mode-caption,
+.landing-hero .landing-motion-control {
+  color: #f6e2eb;
+}
+.landing-hero .landing-mode-caption a {
+  color: #ffcfdf;
+}
+.landing-hero .landing-motion-control {
+  border: 1px solid #ffffff50;
+  background: #30162070;
+}
+.landing-hero .landing-motion-control:hover {
+  background: #683248;
+}
+.landing-hero .landing-mode-toggle,
+.landing-hero .landing-search {
+  color: var(--ink-primary);
+}
+.landing-hero .landing-search {
+  box-shadow: 0 20px 64px #170a1666;
+}
+.landing
+  .landing-hero
+  :is(.landing-mode-caption a, .landing-motion-control):focus-visible {
+  outline-color: #ffe1ec;
+}
+@media (max-width: 700px) {
+  .landing-hero-film-frame {
+    inset: 12px;
+    border-radius: 18px 18px 0 0;
+  }
+  .landing-hero-poster,
+  .landing-hero-video {
+    object-position: 43% center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing[data-motion="on"] .landing-hero-video[data-ready="true"] {
+    opacity: 0;
+  }
+}

@@ -162,12 +162,19 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     ])
       assert.ok(html.includes(`href="${path}"`), path);
     assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
-    const pathways = html.match(/<nav class="landing-pathways"[\s\S]*?<\/nav>/)?.[0];
+    const pathways = html.match(
+      /<nav class="landing-pathways"[\s\S]*?<\/nav>/,
+    )?.[0];
     assert.ok(pathways, "Homepage offers both marketplace entry paths");
     assert.match(pathways, /href="\/projects"/);
     assert.match(pathways, /href="\/services"/);
-    const invitation = html.match(/<section class="landing-invitation"[\s\S]*?<\/section>/)?.[0];
-    assert.ok(invitation, "Homepage ends with role-specific registration links");
+    const invitation = html.match(
+      /<section class="landing-invitation"[\s\S]*?<\/section>/,
+    )?.[0];
+    assert.ok(
+      invitation,
+      "Homepage ends with role-specific registration links",
+    );
     assert.match(invitation, /href="\/register\?role=student"/);
     assert.match(invitation, /href="\/register\?role=client"/);
     assert.equal(
@@ -187,6 +194,16 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
       );
     }
     assert.match(html, /role="search"/);
+    assert.match(html, /class="landing-hero-media" aria-hidden="true"/);
+    const heroVideo = html.match(/<video\b[^>]*>/)?.[0];
+    assert.ok(heroVideo, "Hero includes decorative background video");
+    assert.match(heroVideo, /preload="none"/);
+    assert.match(heroVideo, /playsInline=""/i);
+    assert.doesNotMatch(
+      heroVideo,
+      /\ssrc=/,
+      "Server rendering never downloads video before motion preferences are known",
+    );
     assert.match(html, /aria-label="Choose Hire or Work"/);
     assert.match(html, /aria-pressed="false">Hire<\/button>/);
     assert.match(html, /aria-pressed="true">Work<\/button>/);
