@@ -41,10 +41,12 @@ test("services render in the public shell without fabricated destinations; loadi
     assert.match(route, /Salma Farid/);
     assert.match(route, /Omar Nabil/);
     assert.match(route, /Preview starting package/);
+    assert.match(route, /href="\/services\/service_001"/);
+    assert.match(route, /href="\/services\/service_002"/);
     assert.match(route, /aria-controls="service-filters"/);
     assert.doesNotMatch(
       route,
-      /Create a student event poster|routing placeholder only|href="\/services\/|href="\/students\/|Buy now/,
+      /Create a student event poster|routing placeholder only|href="\/services\/service_004|href="\/students\/|Buy now/,
     );
     const render = (props) =>
       renderToStaticMarkup(

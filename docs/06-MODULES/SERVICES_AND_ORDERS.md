@@ -72,9 +72,10 @@ unavailable, never zero; numeric filters exclude these listings and numeric sort
 place them last. A native disclosure previews that starting package's scope.
 The catalogue uses no invented ratings, verified badges or profile links.
 
-Service details, profiles, publishing, package selection and ordering remain
-separate increments. No `/services/:serviceId` links or checkout actions are
-fabricated. New fictional records preserve existing service/order IDs and totals.
+Service details are now connected through `/services/:serviceId` as described
+below. Profiles, publishing, package selection and ordering remain separate
+increments; no checkout actions are fabricated. New fictional records preserve
+existing service/order IDs and totals.
 Loading/error props are presentation states for future adapters, not a real fetch.
 Browser keyboard/mobile/visual acceptance and P-09 captures remain pending.
 
@@ -88,6 +89,30 @@ Clients can:
 - Select permitted extras
 - View the final EGP total
 - Place a service order
+
+### Service details and read-only package comparison — 24 October 2026 (FR-C07/C08; P-10)
+
+`/services/:serviceId` is a public route hidden from global navigation. Catalogue
+titles and View service links open the corresponding listing within the router.
+Missing, draft and paused IDs show a generic unavailable state without listing
+content. The existing public shell, session provider and one main landmark remain.
+Dynamic public titles now match route patterns rather than exact path strings.
+
+The page shows the supplied description, category, skill labels and student name,
+with a starting-package overview and a horizontally scrollable native comparison
+table. Columns share the catalogue's valid-package ordering, so displayed starting
+price and delivery describe the same package. Scope, included deliverables, EGP
+amounts and delivery estimates are shown without creating a selection or order.
+Additional fixture packages illustrate comparison; existing order/package IDs and
+the service order's EGP total remain unchanged. No package count limit is imposed.
+
+Extras display their own additional EGP price and days; none are included in the
+starting amount or automatically selected. Invalid package/extra amounts or delivery
+values are omitted; empty packages/extras and missing student metadata have explicit
+fallbacks. Portfolio media, full profiles, ratings, reviews and verification are not
+connected, and no claims or broken links are invented. Ordering/checkout remain
+future work. Loading/error props demonstrate presentation, not a backend request.
+Keyboard/table-scroll, mobile visual acceptance and P-10 screenshot capture remain pending.
 
 ## 6. Two Order Sources
 

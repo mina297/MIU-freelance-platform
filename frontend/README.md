@@ -27,8 +27,11 @@ existing standalone layout. Approved translations are pending; the interface is 
 
 Open `/services` for published fictional services, search, category/skill/price
 filters, sorting and starting-package previews. The catalogue shares the public
-layout and uses EGP only. Full service details, profiles, publishing and ordering
-are not connected yet. Filters are local page state and reset on leaving/reload.
+layout and uses EGP only. Profiles, publishing and ordering remain separate
+increments. Filters are local page state and reset on leaving/reload.
+Catalogue cards now open `/services/:serviceId` for service description, provider
+summary, read-only package comparison and optional-extra information. Unpublished
+and missing services show recovery. No checkout action is available yet.
 
 - React with JavaScript
 - Vite

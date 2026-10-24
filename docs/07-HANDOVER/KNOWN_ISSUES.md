@@ -7,6 +7,19 @@ tags: [MIU, issues, decisions]
 
 # MIU Freelance Platform — Known Issues and Open Decisions
 
+## Service detail increment — 24 October 2026
+
+Public published-service details and package/extra comparison are now connected
+from `/services`. Draft/paused/missing listings do not expose detail content.
+No order or payment actions occur. Full profiles/portfolio/reviews, package/extra
+selection and service checkout remain separate tasks. Actual keyboard/table-scroll,
+screen-reader and mobile/desktop visual acceptance remain unverified.
+All 196 automated tests, ESLint and production build passed for this increment.
+The local detail URL responded HTTP 200; this is not browser acceptance evidence.
+The production build succeeds but now warns that the main JavaScript chunk exceeds
+500 kB minified. Route-level code splitting should be considered in a focused
+performance task; this warning is not suppressed or treated as a failed build.
+
 ## Services catalogue increment — 24 October 2026
 
 `/services` now provides published fictional service discovery with combined

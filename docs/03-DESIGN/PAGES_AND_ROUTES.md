@@ -74,10 +74,17 @@ These supporting routes extend the SRS prototype inventory without changing its 
 
 ## 3. Current Implementation Snapshot
 
+**Service details (24 October 2026):** public `/services/:serviceId` now provides
+P-10 description/provider summary, read-only package comparison, extras information
+and unavailable/loading/error states. Catalogue links open real service IDs; the
+dynamic route is hidden from global navigation. Shared public layout and session
+are preserved. Package selection, profile links and checkout are not implemented.
+
 **Service discovery (24 October 2026):** `/services` renders the public catalogue
 (P-09), with published-only search/category/skill/starting-price filters, sorting,
 package scope disclosures and empty/loading/error presentations. It retains the
-shared public shell. Service details, profiles and ordering are not connected yet.
+shared public shell. Service details are connected as described above; profiles
+and ordering remain future work.
 
 **Student proposal management:** `/student/proposals` now renders an owned-only
 student list with search/status filters and accepted demo-order links (P-14).

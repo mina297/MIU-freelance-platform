@@ -175,6 +175,18 @@ export const services = [
 /** @type {import('../contracts.js').ServicePackage[]} */
 export const servicePackages = [
   {
+    id: "package_005", serviceId: "service_001", name: "Design with reusable sections",
+    description: "One landing page design plus three reusable content sections for future pages.",
+    includedFeatures: ["Desktop and mobile layouts", "Three reusable content sections", "Editable design file"],
+    priceEGP: 2800, deliveryDays: 10,
+  },
+  {
+    id: "package_006", serviceId: "service_001", name: "Launch design collection",
+    description: "Landing page, two supporting page designs and a compact component sheet.",
+    includedFeatures: ["Three page designs", "Desktop and mobile layouts", "Compact component sheet"],
+    priceEGP: 4200, deliveryDays: 14,
+  },
+  {
     id: "package_002",
     serviceId: "service_002",
     name: "One responsive interface",

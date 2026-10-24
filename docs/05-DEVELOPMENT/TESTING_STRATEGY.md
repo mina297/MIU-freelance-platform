@@ -34,6 +34,12 @@ delivery, missing-price sorting, stable source order, public-shell landmarks,
 escaped content and loading/error/empty presentations. Browser interactions,
 mobile filter disclosure and visual acceptance remain separate manual checks.
 
+Service-detail model/render tests cover public published-only lookup, matching
+packages/extras, catalogue/detail starting-price consistency, unavailable records,
+missing package/provider metadata, unique comparison header/cell associations,
+loading/error suppression, escaping, hidden dynamic navigation and unchanged
+order snapshots. Live table-scroll, keyboard and mobile review remain pending.
+
 ### Integration Testing
 Verify that modules work together through shared mock data and routing.
 
