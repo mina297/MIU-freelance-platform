@@ -6,6 +6,7 @@ import { projectStore } from "./projectStore.js";
 import { formatEGP } from "../../utils/formatEGP.js";
 import { formatDate } from "../../utils/formatDate.js";
 import "./project-create.css";
+import ProjectActions from "./ProjectActions.jsx";
 
 export default function ClientProjects() {
   const { session } = useAuth();
@@ -107,6 +108,7 @@ export default function ClientProjects() {
                     <Link to={`/projects/${record.id}`}>View project</Link>
                   )}
                 </div>
+                <ProjectActions project={record} session={session} />
               </article>
             );
           })

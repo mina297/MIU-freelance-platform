@@ -82,6 +82,43 @@
   gap: 20px;
   padding-block: 32px 64px;
 }
+.project-create__lifecycle {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #dacbd3;
+}
+.project-create__lifecycle-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.project-create__action-help {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #685963;
+}
+.project-create__lifecycle [role="status"]:not(:empty) {
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 1px solid #b6c8bb;
+  border-radius: 10px;
+  background: #edf6f0;
+  color: #255337;
+}
+.project-create__dialog {
+  max-width: 520px;
+  border: 1.5px solid #c9bac1;
+  border-radius: 20px;
+}
+.project-create__dialog .miu-modal__title-group {
+  max-width: none;
+}
+.project-create__dialog .miu-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
 .project-create__list-meta {
   display: flex;
   flex-wrap: wrap;

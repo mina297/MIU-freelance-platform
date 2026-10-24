@@ -415,20 +415,26 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                     <Search size={28} aria-hidden="true" />
                   </span>
                   <h3 className="mt-5 text-xl font-bold">
-                    No matching projects
+                    {openProjects.length
+                      ? "No matching projects"
+                      : "No open projects right now"}
                   </h3>
                   <p className="mt-2 text-sm text-[#7d7379]">
-                    {savedOnly
-                      ? "Save a project or turn off the saved filter to see more."
-                      : "Try another keyword or adjust your filters."}
+                    {!openProjects.length
+                      ? "All current projects are unavailable for new proposals. Check back for new opportunities."
+                      : savedOnly
+                        ? "Save a project or turn off the saved filter to see more."
+                        : "Try another keyword or adjust your filters."}
                   </p>
-                  <button
-                    type="button"
-                    onClick={clearFilters}
-                    className="mt-6 inline-flex items-center gap-2 rounded-xl bg-miu-red px-5 py-3 text-sm font-semibold text-white hover:bg-miu-red-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
-                  >
-                    <RotateCcw size={16} aria-hidden="true" /> Clear filters
-                  </button>
+                  {openProjects.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={clearFilters}
+                      className="mt-6 inline-flex items-center gap-2 rounded-xl bg-miu-red px-5 py-3 text-sm font-semibold text-white hover:bg-miu-red-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+                    >
+                      <RotateCcw size={16} aria-hidden="true" /> Clear filters
+                    </button>
+                  )}
                 </div>
               )}
               <p className="mt-5 text-xs leading-5 text-[#968c91]">

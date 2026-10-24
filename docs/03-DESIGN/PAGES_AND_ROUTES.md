@@ -85,6 +85,10 @@ open projects. Owned private drafts can be resumed there too. `/client/projects`
 lists the current client's projects and drafts, with empty and unavailable states.
 Incomplete drafts can be saved without appearing publicly; all saved changes reset
 on refresh. Selected, closed and cancelled project edits remain unavailable.
+My projects offers confirmed Close (open projects) and Cancel (open/closed
+projects) actions. Any linked project order or accepted proposal blocks both.
+Closed/cancelled details remain directly accessible but cannot receive proposals
+or appear in open discovery. No additional routes are introduced.
 
 **24 October 2026 public integration:** `/` now renders LandingPage inside the
 shared PublicLayout. `/about`, `/how-it-works`, `/terms`, `/privacy`,

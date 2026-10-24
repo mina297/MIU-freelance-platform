@@ -43,8 +43,7 @@ must supply the account-origin distinction before applying FR-C02 precisely.
 
 Automated validation/store and rendered-route checks cover creation and integration.
 Browser checks of preview/edit/publish, error focus, account switching, keyboard
-use, and desktop/mobile appearance remain pending. Closing/cancellation remain
-separate work.
+use, and desktop/mobile appearance remain pending.
 
 ### Drafts and owned edits (FR-C04 / P-16)
 
@@ -76,6 +75,31 @@ Clients can:
 - Close a project
 - Cancel a project when permitted
 - Review incoming proposals
+
+### Close and cancel demo projects (FR-C04)
+
+My projects now provides confirmation dialogs for Close and Cancel. Close changes
+an owned open project to `closed`; Cancel changes an owned open or closed project
+to `cancelled`. Both recheck active client ownership, the current project status,
+and linked commitments at confirmation. Any linked project order (including unpaid
+or completed examples) or accepted proposal blocks both actions. These are
+conservative demo safeguards: funded-project cancellation and production transition
+rules remain undecided, not implemented.
+
+Existing submitted proposals are retained. Terminal projects leave open discovery,
+show Closed/Cancelled in details, reject further proposal submission, and cannot be
+edited or reopened. All changes use immutable memory-only overrides, preserving
+IDs, ownership and original creation timestamps. No notifications, refunds, order
+changes, or financial transactions occur. Dismissing the dialog changes nothing.
+The confirmation initially focuses Keep project unchanged; successful actions
+announce the result and provide a focus target when the initiating button disappears.
+
+Commitment checks currently read fixture orders and accepted fixture proposals.
+The store accepts a live commitment provider for later order/acceptance integration;
+Member 2/3 must connect future shared stores before those workflows become active.
+Automated checks cover transitions, ownership, stale commitment checks, proposal
+gating, details/discovery changes, and a catalogue with no remaining open projects.
+Browser confirmation, focus restoration, keyboard and responsive checks remain pending.
 
 ## 3. Project Information
 

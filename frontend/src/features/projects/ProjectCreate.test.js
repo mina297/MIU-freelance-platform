@@ -160,6 +160,54 @@ test("creation route renders the client form, guards other sessions, and exposes
       /Updated route creation demo/,
     );
     assert.match(render("/projects"), /Updated route creation demo/);
+    assert.match(render("/client/projects"), /Close project:/);
+    assert.match(
+      render("/client/projects"),
+      /linked order or accepted proposal/,
+    );
+    assert.equal(
+      projectStore.transition(created.project.id, client, "close").ok,
+      true,
+    );
+    assert.match(
+      render(`/projects/${created.project.id}`),
+      /Closed — not accepting proposals/,
+    );
+    assert.doesNotMatch(render("/projects"), /Updated route creation demo/);
+    const student = {
+      ...client,
+      user: { ...client.user, id: "student_002", role: "student" },
+    };
+    assert.match(
+      render(`/projects/${created.project.id}/propose`, student),
+      /Proposals are closed/,
+    );
+    assert.equal(
+      projectStore.transition(created.project.id, client, "cancel").ok,
+      true,
+    );
+    assert.match(
+      render(`/projects/${created.project.id}`),
+      /Cancelled — not accepting proposals/,
+    );
+    assert.match(
+      render(`/client/projects/${created.project.id}/edit`),
+      /Project unavailable for editing/,
+    );
+    assert.equal(
+      projectStore.transition("project_002", client, "cancel").ok,
+      false,
+    );
+    for (const id of [
+      "project_001",
+      "project_003",
+      "project_004",
+      "project_005",
+    ])
+      assert.equal(projectStore.transition(id, client, "close").ok, true);
+    const emptyCatalogue = render("/projects");
+    assert.match(emptyCatalogue, /No open projects right now/);
+    assert.doesNotMatch(emptyCatalogue, /Sample brief/);
   } finally {
     await vite.close();
   }

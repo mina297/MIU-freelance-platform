@@ -7,6 +7,8 @@ import {
 } from "./projectCreation.js";
 import { PROJECT_STATUS } from "../marketplace/constants.js";
 import { projects as fixtureProjects } from "../../data/fixtures/marketplace.js";
+import { marketplaceData } from "../../data/fixtures/marketplace.js";
+import { projectTransitionError } from "./projectLifecycle.js";
 
 export const mergeProjects = (base, changes) => [
   ...new Map(
@@ -14,7 +16,10 @@ export const mergeProjects = (base, changes) => [
   ).values(),
 ];
 
-export function createProjectStore(seed = []) {
+export function createProjectStore(
+  seed = [],
+  getCommitments = () => marketplaceData,
+) {
   let records = Object.freeze([]);
   let drafts = Object.freeze([]);
   let workspace = Object.freeze([...seed]);
@@ -61,6 +66,36 @@ export function createProjectStore(seed = []) {
     getSnapshot: () => records,
     getWorkspaceSnapshot: () => workspace,
     findOwned: owned,
+    transitionError(id, session, action) {
+      return projectTransitionError(
+        find(id),
+        session,
+        action,
+        getCommitments(),
+      );
+    },
+    transition(id, session, action) {
+      const previous = find(id);
+      const error = projectTransitionError(
+        previous,
+        session,
+        action,
+        getCommitments(),
+      );
+      if (error) return failure(error);
+      const project = Object.freeze({
+        ...previous,
+        status:
+          action === "close" ? PROJECT_STATUS.CLOSED : PROJECT_STATUS.CANCELLED,
+        updatedAt: new Date().toISOString(),
+      });
+      records = Object.freeze([
+        ...records.filter((record) => record.id !== id),
+        project,
+      ]);
+      notify();
+      return { ok: true, project };
+    },
     subscribe(listener) {
       listeners.add(listener);
       return () => listeners.delete(listener);
