@@ -15,6 +15,61 @@ try {
   const page = await browser.newPage();
   page.on("pageerror", (error) => errors.push(error.message));
   await page.setViewport({ width: 1440, height: 1800 });
+  await page.goto("http://localhost:5173/student/dashboard", {
+    waitUntil: "networkidle0",
+  });
+  await page.reload({ waitUntil: "networkidle0" });
+  await page.waitForSelector(".sd-table-row");
+  const inspectSwitcher = async () => {
+    assert.equal(
+      await page.$eval(
+        ".dev-dashboard-navigation",
+        (node) => getComputedStyle(node).position,
+      ),
+      "fixed",
+    );
+    assert.equal(
+      await page.$eval(".student-dashboard", (node) => node.offsetTop),
+      0,
+    );
+    const badge = await page.$eval(
+      ".dev-dashboard-switcher summary",
+      (node) => {
+        const rect = node.getBoundingClientRect();
+        return {
+          label: node.textContent.trim(),
+          height: rect.height,
+          width: rect.width,
+          right: innerWidth - rect.right,
+          bottom: innerHeight - rect.bottom,
+        };
+      },
+    );
+    assert.equal(badge.label, "Switch dashboard");
+    assert.ok(badge.height <= 34 && badge.width <= 200);
+    assert.equal(badge.right, 16);
+    assert.equal(badge.bottom, 16);
+  };
+  await inspectSwitcher();
+  await page.click(".dev-dashboard-switcher summary");
+  await page.keyboard.press("Escape");
+  assert.equal(
+    await page.$eval(".dev-dashboard-switcher", (node) => node.open),
+    false,
+  );
+  assert.equal(
+    await page.$eval(
+      ".dev-dashboard-switcher summary",
+      (node) => document.activeElement === node,
+    ),
+    true,
+  );
+  await page.keyboard.press("Enter");
+  await page.click("h1");
+  assert.equal(
+    await page.$eval(".dev-dashboard-switcher", (node) => node.open),
+    false,
+  );
   await page.goto("http://127.0.0.1:5173/projects", {
     waitUntil: "networkidle0",
   });
@@ -71,8 +126,18 @@ try {
   await page.waitForSelector('[role="alert"]');
   await page.click('[role="alert"] button');
   await page.waitForSelector(".sd-table-row");
-  for (const width of [1024, 768, 390, 320]) {
+  for (const width of [1440, 1024, 768, 390, 320]) {
     await page.setViewport({ width, height: 900 });
+    await inspectSwitcher();
+    await page.click(".dev-dashboard-switcher summary");
+    assert.equal(
+      await page.$eval(".dev-dashboard-switcher ul", (node) => {
+        const rect = node.getBoundingClientRect();
+        return rect.left >= 0 && rect.right <= innerWidth && rect.top >= 0;
+      }),
+      true,
+    );
+    await page.keyboard.press("Escape");
     assert.equal(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= window.innerWidth,

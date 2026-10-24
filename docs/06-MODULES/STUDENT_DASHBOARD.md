@@ -8,6 +8,9 @@ integration. The catalogue remains at `/` and `/projects`.
 `frontend/src/components/navigation/DevDashboardSwitcher.jsx` provides isolated
 development navigation with separate CSS and no session or dashboard state.
 Only Student Dashboard is linked; seven planned dashboards say Coming soon.
+The switcher uses the compact MIU-red preview badge style, fixed 16px from the
+bottom-right corner, with an upward-opening dropdown. It occupies no header
+space and preserves keyboard, outside-click and route-change dismissal.
 Set `VITE_ENABLE_DEV_DASHBOARD_SWITCHER=false` to hide it, or remove its import
 and render in App.jsx. No dashboard routes need changing.
 
