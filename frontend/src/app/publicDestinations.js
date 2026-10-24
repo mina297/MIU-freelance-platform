@@ -1,6 +1,8 @@
 // Supply working public destinations only; full profiles remain unconnected.
 export const publicDestinations = Object.freeze({
   home: "/",
+  help: "/help",
+  contact: "/support/contact",
   projects: "/projects",
   services: "/services",
   freelancers: "/freelancers",

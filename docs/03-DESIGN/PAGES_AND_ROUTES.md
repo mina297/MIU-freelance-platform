@@ -349,6 +349,8 @@ Before changing a shared path:
 
 ## Related Documents
 
+M5 review fixes (24 October 2026) connect public `/students/:studentId`, `/clients/:clientId`, `/help`, `/help/:articleSlug` and `/support/contact`; `/profile/edit` requires the active student/client owner, and `/reviews/new` requires an active client. Reviews recheck completed-order ownership. See `frontend/src/features/profiles/MEMBER5_INTEGRATION.md` for identity and persistence contracts.
+
 ### Freelancer directory implementation
 
 `/recommendations` is also connected to the public shell, navigation menu and marketplace footer. It supports explicit skills/category choices for simulated project, service and provider suggestions, with reasons, local feedback and unrestricted catalogue browsing. It requires no authenticated session because it uses only public listings. See [AI Features](../06-MODULES/AI_FEATURES.md#phase-1-skills-matching-demonstration--24-october-2026).

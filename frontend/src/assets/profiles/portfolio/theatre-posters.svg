@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" role="img" aria-label="Theatre festival poster series">
+  <rect width="640" height="480" fill="#2d1b4e"/>
+  <rect x="70" y="40" width="150" height="300" rx="4" fill="#f5e6c8" transform="rotate(-6 145 190)"/>
+  <rect x="245" y="50" width="150" height="300" rx="4" fill="#c44536"/>
+  <rect x="420" y="40" width="150" height="300" rx="4" fill="#f5e6c8" transform="rotate(5 495 190)"/>
+  <circle cx="320" cy="170" r="36" fill="#f5b301" opacity="0.9"/>
+  <path d="M100 120 Q145 80 190 120" fill="none" stroke="#2d1b4e" stroke-width="3"/>
+  <path d="M450 130 Q495 90 540 130" fill="none" stroke="#2d1b4e" stroke-width="3"/>
+  <text x="70" y="400" fill="#f5e6c8" font-family="Arial, sans-serif" font-size="18" font-weight="600">Theatre Festival - Poster series</text>
+  <text x="70" y="426" fill="#c9b8e8" font-family="Arial, sans-serif" font-size="13">Illustration mock - Phase 1 demo asset</text>
+</svg>

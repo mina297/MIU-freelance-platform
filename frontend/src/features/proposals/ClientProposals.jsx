@@ -296,6 +296,12 @@ function ReviewWorkspace({ project, proposals }) {
                         </span>
                         <div>
                           <h3>{name}</h3>
+                          <Link
+                            to={`/students/${proposal.studentId}`}
+                            className="text-sm text-miu-red underline"
+                          >
+                            View student profile
+                          </Link>
                           <p>
                             Submitted{" "}
                             {formatDate(proposal.submittedAt.slice(0, 10))}

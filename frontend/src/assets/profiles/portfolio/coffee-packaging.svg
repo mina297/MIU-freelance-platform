@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" role="img" aria-label="Independent coffee packaging design">
+  <rect width="640" height="480" fill="#efe6d9"/>
+  <rect x="180" y="60" width="280" height="300" rx="16" fill="#5c3d2e"/>
+  <rect x="200" y="90" width="240" height="180" rx="8" fill="#efe6d9"/>
+  <ellipse cx="320" cy="160" rx="50" ry="36" fill="#5c3d2e"/>
+  <path d="M290 155 Q320 130 350 155" fill="none" stroke="#b91c2b" stroke-width="4"/>
+  <rect x="230" y="290" width="180" height="14" rx="4" fill="#efe6d9" opacity="0.7"/>
+  <rect x="250" y="320" width="140" height="10" rx="3" fill="#efe6d9" opacity="0.4"/>
+  <text x="180" y="420" fill="#5c3d2e" font-family="Arial, sans-serif" font-size="18" font-weight="600">Independent coffee - Packaging</text>
+  <text x="180" y="446" fill="#8a6a55" font-family="Arial, sans-serif" font-size="13">Packaging mock - Phase 1 demo asset</text>
+</svg>

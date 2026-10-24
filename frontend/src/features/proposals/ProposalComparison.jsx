@@ -1,6 +1,7 @@
 import { formatEGP } from "../../utils/formatEGP.js";
 import { formatDate } from "../../utils/formatDate.js";
 import { proposalLabel, studentName } from "./clientProposalModel.js";
+import { Link } from "react-router-dom";
 
 export default function ProposalComparison({ proposals }) {
   if (proposals.length < 2)
@@ -23,7 +24,9 @@ export default function ProposalComparison({ proposals }) {
             <th scope="col">Offer details</th>
             {proposals.map((proposal) => (
               <th key={proposal.id} scope="col">
-                {studentName(proposal.studentId)}
+                <Link to={`/students/${proposal.studentId}`}>
+                  {studentName(proposal.studentId)}
+                </Link>
               </th>
             ))}
           </tr>
