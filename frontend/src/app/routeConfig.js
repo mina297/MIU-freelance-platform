@@ -3,6 +3,7 @@ import { ROLES, PUBLIC_REGISTRATION_ROLES } from "../features/auth/session.js";
 // Single routing registry. Unconnected feature screens remain labeled placeholders.
 // Access metadata describes role-level demo access, not production permissions.
 export const routeConfig = [
+  { path: "/SuperAdmin", title: "Super Admin frontend preview", layout: "standalone", access: "public", caseSensitive: false, showInNavigation: false },
   { path: "/client/payments/overview", title: "Payment overview", layout: "app", access: "roles", roles: [ROLES.CLIENT], showInNavigation: false },
   {
     path: "/Checkout",

@@ -160,6 +160,10 @@ Demonstrate:
 
 ## 14. Open Decisions
 
+The Super Admin frontend preview is documented in
+[Super Admin Dashboard](SUPER_ADMIN_DASHBOARD.md). Other committee screens remain
+the shared router's explicitly labeled placeholders in this checkout.
+
 - Final financial approval thresholds
 - Escalation deadlines
 - Committee membership limits

@@ -229,6 +229,12 @@ visual/browser verification remains tracked in the Projects and Proposals module
 
 ## 4. Layout Groups
 
+**Super Admin preview:** `/admin` now renders the Platform Control Center under
+the existing Super Admin guard. Sections use query parameters and the existing
+mock-session controls provide access. All five committee links switch explicitly
+to their corresponding demo session; committee workflows remain placeholders.
+See [Super Admin Dashboard](../06-MODULES/SUPER_ADMIN_DASHBOARD.md).
+
 **Public/authentication shell update:** Authentication pages use the new LandingHeader without developer route lists or session controls. Public pages retain collapsed demo session controls for integration testing. `/register` starts at Student/Client cards, then opens the corresponding query-selected form. A valid simulated forgot-password request opens `/reset-password`.
 
 **23 October 2026 landing page:** `/` renders the “MIU Freelance desktop” Figma frame (`8:2656`) through `features/public/LandingPage.jsx`. The existing public header, session/logout behavior and authentication flows are preserved; only the home main-content container becomes full width. Hero search/category controls filter the three fictional featured examples locally, with a clear-filters recovery state. Find Work and Browse all jobs open `/projects`; Post a Job opens client registration because project posting is not implemented. Job/profile buttons open labeled native demo dialogs, not new record routes. Footer section links work in-page; Help, Contact and policy buttons explain the current prototype limits. Services remains discoverable through the existing header and footer. No protected action, shared marketplace record or access policy changes.

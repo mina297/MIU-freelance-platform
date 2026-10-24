@@ -39,6 +39,7 @@ import AppLayout from "../layouts/AppLayout.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
 import AdminLayout from "../layouts/AdminLayout.jsx";
 import { routeConfig } from "./routeConfig.js";
+import SuperAdminDashboard from "../features/governance/SuperAdminDashboard.jsx";
 import LoginPage from "../features/auth/LoginPage.jsx";
 import RoleSelectionPage from "../features/auth/RoleSelectionPage.jsx";
 import RegisterPage from "../features/auth/RegisterPage.jsx";
@@ -94,6 +95,8 @@ function ProjectDetailsRoute() {
 }
 
 const featurePages = {
+  "/SuperAdmin": <SuperAdminDashboard />,
+  "/admin": <SuperAdminDashboard />,
   "/Checkout": <CheckoutPage />,
   "/checkout/:orderId": <CheckoutPage />,
   "/client/payments/overview": <ClientPaymentsDashboard />,
@@ -157,6 +160,7 @@ export default function AppRouter() {
               <Route
                 key={route.path}
                 path={route.path}
+                caseSensitive={route.caseSensitive}
                 element={
                   <ProtectedRoute route={route}>
                     {featurePages[route.path] ?? (
