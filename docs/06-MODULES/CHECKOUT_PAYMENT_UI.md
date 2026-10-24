@@ -27,7 +27,7 @@ NFR-13, NFR-14 and NFR-18. This is not production payment processing.
 7. Success records EGP 1,100 as **Held in Escrow**, with EGP 1,100 remaining. The
    service becomes **In Progress**, with **Partially Paid — Escrow Held** status.
    Its work-completion progress stays at 0%; no delivery has been accepted.
-8. Follow the confirmation links to `/client/dashboard` or `/client/payments`.
+8. Follow the confirmation links to `/client/payments/overview` or `/client/payments`.
    The dashboard displays service orders, paid/held/remaining balances, payment
    dates, progress and recent payments. History supports search, transaction
    details, empty results, and demo loading/error previews with recovery.

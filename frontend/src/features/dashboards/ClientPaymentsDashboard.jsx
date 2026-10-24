@@ -128,7 +128,8 @@ export default function ClientPaymentsDashboard() {
         </span>
       </div>
       <nav className="cp-nav" aria-label="Client workspace">
-        <NavLink to="/client/dashboard">Overview & orders</NavLink>
+        <NavLink to="/client/payments/overview">Overview & orders</NavLink>
+        <NavLink to="/client/dashboard">Client dashboard</NavLink>
         <NavLink to="/client/payments">Payment history</NavLink>
       </nav>
       <p className="cp-demo-note">

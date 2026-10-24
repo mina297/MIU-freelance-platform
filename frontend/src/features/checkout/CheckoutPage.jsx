@@ -39,7 +39,7 @@ function CheckoutHeader() {
           <small>Checkout & escrow</small>
         </span>
       </Link>
-      <Link to="/client/dashboard">
+      <Link to="/client/payments/overview">
         <ArrowLeft size={16} aria-hidden="true" />
         Client workspace
       </Link>
@@ -88,7 +88,7 @@ export default function CheckoutPage() {
             title="Service order unavailable"
             description="This order does not exist or is not available to your account."
           />
-          <Link to="/client/dashboard">Back to your orders</Link>
+          <Link to="/client/payments/overview">Back to your orders</Link>
         </main>
       ) : (
         <CheckoutExperience
@@ -265,7 +265,7 @@ function CheckoutExperience({ order, session }) {
               <Link className="ec-primary-link" to="/client/payments">
                 View transaction history
               </Link>
-              <Link to="/client/dashboard">Go to client dashboard</Link>
+              <Link to="/client/payments/overview">Go to client dashboard</Link>
             </div>
           </Card>
         ) : phase === "failure" ? (
