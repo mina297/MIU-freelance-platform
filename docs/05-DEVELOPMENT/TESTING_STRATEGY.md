@@ -28,6 +28,13 @@ Test reusable controls, validation states, and common UI behavior.
 ### Feature Testing
 Test marketplace, profiles, authentication, dashboard, and administration interactions.
 
+Order-list model/render checks cover ownership before joins/aggregation, wrong-role
+and inactive/expired denial, pending-owner access, combined search/status/source,
+stable sorts, immutable source order, safe EGP summation, missing metadata, saved
+service titles, live service-order insertion, role-specific detail return links
+and suppression of stale cards/counts in loading/error views. Browser checks are
+deferred separately; automated rendering is not keyboard/visual acceptance.
+
 Service ordering tests cover approved client access, current published services,
 package/extra membership, duplicate extras, integer-cent totals, safe delivery
 arithmetic, stale price/scope/removal rejection, request idempotency, immutable

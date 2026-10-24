@@ -56,6 +56,20 @@ export const routeConfig = [
     showInNavigation: false,
   },
   {
+    path: "/client/orders",
+    title: "Client orders",
+    layout: "standalone",
+    access: "roles",
+    roles: [ROLES.CLIENT],
+  },
+  {
+    path: "/student/orders",
+    title: "Student orders",
+    layout: "standalone",
+    access: "roles",
+    roles: [ROLES.STUDENT],
+  },
+  {
     path: "/student/proposals",
     title: "My proposals",
     layout: "standalone",

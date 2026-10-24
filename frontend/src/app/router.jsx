@@ -16,6 +16,7 @@ import ClientProposals from "../features/proposals/ClientProposals.jsx";
 import StudentProposals from "../features/proposals/StudentProposals.jsx";
 import StudentProposalEdit from "../features/proposals/StudentProposalEdit.jsx";
 import OrderSummary from "../features/orders/OrderSummary.jsx";
+import OrdersList from "../features/orders/OrdersList.jsx";
 import ServicesCatalogue from "../features/services/ServicesCatalogue.jsx";
 import ServiceDetails from "../features/services/ServiceDetails.jsx";
 import StudentServices from "../features/services/StudentServices.jsx";
@@ -104,6 +105,8 @@ const featurePages = {
   "/client/projects": <ClientProjects />,
   "/client/projects/:projectId/proposals": <ClientProposals />,
   "/orders/:orderId": <OrderSummary />,
+  "/client/orders": <OrdersList role="client" />,
+  "/student/orders": <OrdersList role="student" />,
   "/client/projects/:projectId/edit": <ProjectCreate />,
   "/projects/:projectId": <ProjectDetailsRoute />,
   "/login": <LoginPage />,

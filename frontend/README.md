@@ -23,6 +23,14 @@ existing standalone layout. Approved translations are pending; the interface is 
 
 ## Technology
 
+### Student and client order lists
+
+Open `/student/orders` or `/client/orders` in the matching fictional account.
+Search owned orders, combine status/source filters and sort by date or agreed
+amount. Both project and service orders update live. Value summaries are agreed
+order totals, not actual earnings/spending or escrow. Order cards open protected
+summaries; full collaboration and manual browser acceptance are still pending.
+
 ### Simulated service ordering
 
 From a public service page choose Configure demo order, or open
