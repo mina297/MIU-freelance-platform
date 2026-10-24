@@ -7,6 +7,22 @@ tags: [MIU, issues, decisions]
 
 # MIU Freelance Platform — Known Issues and Open Decisions
 
+## Service ordering increment — 24 October 2026
+
+Automated verification: all 211 tests, ESLint and production build passed for the
+ordering increment. Browser interaction checks remain pending, not passed.
+
+Client service configuration and confirmed order creation are connected, including
+EGP/delivery calculation, stale-term rejection and duplicate-request prevention.
+Service-order summaries are participant-only and preserve copied terms; legacy
+fixtures explicitly lack historical snapshots. New orders await payment and block
+linked service editing/removal without cancelling, repricing or pausing orders.
+Service checkout/payment simulation, funding, lists, full workspace/delivery and
+production persistence/authentication remain unimplemented. All-client approved
+verification is a conservative demo restriction pending the origin contract.
+Manual browser/mobile/keyboard/dialog-focus acceptance remains deferred as requested.
+The JavaScript bundle-size warning remains a performance follow-up, not suppressed.
+
 ## Student service management increment — 24 October 2026
 
 Automated verification: all 203 tests, ESLint and the production build passed.

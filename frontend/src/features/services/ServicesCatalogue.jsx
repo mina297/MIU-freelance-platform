@@ -103,8 +103,8 @@ export default function ServicesCatalogue({
         </form>
         <p className="services-disclosure">
           Fictional Phase 1 listings. Prices and delivery describe the starting
-          package. Open a service to compare its packages. Profiles, ordering
-          and payments are not connected yet.
+          package. Open a service to compare packages and configure a simulated
+          order. Profiles and payment processing are not connected yet.
         </p>
         <div
           className="services-categories"

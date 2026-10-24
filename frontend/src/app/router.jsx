@@ -15,11 +15,12 @@ import ProposalEntry from "../features/proposals/ProposalEntry.jsx";
 import ClientProposals from "../features/proposals/ClientProposals.jsx";
 import StudentProposals from "../features/proposals/StudentProposals.jsx";
 import StudentProposalEdit from "../features/proposals/StudentProposalEdit.jsx";
-import ProjectOrderSummary from "../features/orders/ProjectOrderSummary.jsx";
+import OrderSummary from "../features/orders/OrderSummary.jsx";
 import ServicesCatalogue from "../features/services/ServicesCatalogue.jsx";
 import ServiceDetails from "../features/services/ServiceDetails.jsx";
 import StudentServices from "../features/services/StudentServices.jsx";
 import ServiceForm from "../features/services/ServiceForm.jsx";
+import ServiceOrder from "../features/services/ServiceOrder.jsx";
 import AppLayout from "../layouts/AppLayout.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
 import AdminLayout from "../layouts/AdminLayout.jsx";
@@ -80,6 +81,7 @@ const featurePages = {
   "/": <LandingPage />,
   "/services": <ServicesCatalogue />,
   "/services/:serviceId": <ServiceDetails />,
+  "/services/:serviceId/order": <ServiceOrder />,
   "/student/services": <StudentServices />,
   "/student/services/new": <ServiceForm />,
   "/student/services/:serviceId/edit": <ServiceForm />,
@@ -101,7 +103,7 @@ const featurePages = {
   "/client/projects/new": <ProjectCreate />,
   "/client/projects": <ClientProjects />,
   "/client/projects/:projectId/proposals": <ClientProposals />,
-  "/orders/:orderId": <ProjectOrderSummary />,
+  "/orders/:orderId": <OrderSummary />,
   "/client/projects/:projectId/edit": <ProjectCreate />,
   "/projects/:projectId": <ProjectDetailsRoute />,
   "/login": <LoginPage />,

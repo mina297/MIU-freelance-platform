@@ -128,7 +128,7 @@ test("decisions connect review, student confirmation, participant order access a
     ])
       assert.doesNotMatch(render(orderPath, session), /6,200/);
     assert.match(render("/orders/missing"), /Order unavailable/);
-    assert.match(render("/orders/order_002"), /Order unavailable/);
+    assert.match(render("/orders/order_002"), /Your service order/);
   } finally {
     await vite.close();
   }
