@@ -371,3 +371,11 @@ The public directory is based on published service providers. Full profile links
 - [Development Roadmap](../01-PROJECT/DEVELOPMENT_ROADMAP.md)
 - [Maintenance Guide](MAINTENANCE_GUIDE.md)
 - [SRS](../01-PROJECT/SRS.md)
+## Student Dashboard integration — 23 October 2026
+
+The dashboard uses fictional Figma display records and direct frontend preview access.
+The development switcher is separate from future authentication.
+Order workspace, profile editor, full settings, support, service management and
+financial history remain pending their owning modules. Earnings are aggregate
+demo totals, not a withdrawable balance. See
+[Student Dashboard limitations](../06-MODULES/STUDENT_DASHBOARD.md).

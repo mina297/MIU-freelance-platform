@@ -6,6 +6,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
+import StudentDashboard from "../features/dashboards/StudentDashboard.jsx";
 import ProtectedRoute from "../features/auth/ProtectedRoute.jsx";
 import ProjectsCatalogue from "../features/projects/ProjectsCatalogue.jsx";
 import ProjectDetails from "../features/projects/ProjectDetails.jsx";
@@ -90,6 +91,7 @@ function ProjectDetailsRoute() {
 }
 
 const featurePages = {
+  "/student/dashboard": <StudentDashboard />,
   "/students/:studentId": <StudentProfileRoute />,
   "/clients/:clientId": <ClientProfileRoute />,
   "/profile/edit": <ProfileEditRoute />,
