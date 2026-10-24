@@ -124,6 +124,8 @@ Start with the SRS, scope, prototype inventory, and development roadmap.
 
 ## Current Baseline
 
+Member 2's Phase 1 [Freelancer Discovery](06-MODULES/FREELANCER_DISCOVERY.md) documents the published-service provider directory and its profile integration dependency.
+
 - **Project:** MIU Freelance Platform
 - **Requirements:** SRS v1.1, October 2026
 - **Current focus:** Phase 1

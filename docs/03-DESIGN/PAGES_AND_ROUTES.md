@@ -349,6 +349,10 @@ Before changing a shared path:
 
 ## Related Documents
 
+### Freelancer directory implementation
+
+`/freelancers` is connected to the public shell and navigation. It browses providers of published services with search, category, skill and EGP starting-price filters. Cards link to registered `/services/:serviceId` pages. Full student-profile links await Member 5 identity reconciliation; this route does not complete FR-C06. See [Freelancer Discovery](../06-MODULES/FREELANCER_DISCOVERY.md).
+
 - [SRS](../01-PROJECT/SRS.md)
 - [User Roles](../02-REQUIREMENTS/USER_ROLES_AND_PERMISSIONS.md)
 - [Frontend Architecture](../04-ARCHITECTURE/FRONTEND_ARCHITECTURE.md)

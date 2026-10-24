@@ -357,6 +357,10 @@ Rounded authentication forms and shorter prototype wording pass all 36 automated
 
 ## 9. Related Documents
 
+### Freelancer discovery profile dependency — 24 October 2026
+
+The public directory is based on published service providers. Full profile links remain deferred: cached Member 5 profile fixtures use different names for canonical `student_001`/`student_002` IDs. Reconcile identities before connecting profiles, reviews or availability. See [Freelancer Discovery](../06-MODULES/FREELANCER_DISCOVERY.md). Manual browser/mobile/keyboard/screen-reader acceptance remains deferred; the existing production bundle-size warning remains open.
+
 - [Project Scope](../01-PROJECT/PROJECT_SCOPE.md)
 - [Development Roadmap](../01-PROJECT/DEVELOPMENT_ROADMAP.md)
 - [Maintenance Guide](MAINTENANCE_GUIDE.md)

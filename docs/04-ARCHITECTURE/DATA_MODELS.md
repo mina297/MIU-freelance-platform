@@ -363,3 +363,7 @@ by this foundation.
 - [SRS](../01-PROJECT/SRS.md)
 - [Business Rules](../02-REQUIREMENTS/BUSINESS_RULES.md)
 - [API Contracts](API_CONTRACTS.md)
+
+## Freelancer discovery read model — Phase 1
+
+The directory derives `{ id, displayName, services, skills, startingPriceEGP }` from published services and the marketplace public participant adapter. `services` contains matching `{ service, package }` pairs; `skills` contains their declared tags; `startingPriceEGP` is the minimum valid matching package price or `null`. It stores no profile edits, hourly rates, ratings, availability, identity evidence or authentication fields. Filters apply to the same service before grouping by provider. See [Freelancer Discovery](../06-MODULES/FREELANCER_DISCOVERY.md) for the pending Member 5 identity dependency.
