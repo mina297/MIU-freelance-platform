@@ -1,5 +1,7 @@
 import { useCallback, useLayoutEffect, useMemo, useState } from "react";
 import { ThemeContext } from "./ThemeContext.js";
+import "../styles/premium-theme.css";
+import "./theme.css";
 
 export default function ThemeProvider({ children }) {
   const [theme, setTheme] = useState("light");

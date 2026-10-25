@@ -106,13 +106,17 @@ portal content mounted beneath the document element.
 
 | Token | Value | Purpose |
 |---|---|---|
-| `theme-canvas` | `#151319` | Deep charcoal canvas |
-| `theme-subtle-surface` | `#211d25` | Inset and secondary surfaces |
-| `theme-surface` | `#2c2530` | Raised cards and dialogs |
-| `theme-accent-surface` | `#39232f` | Burgundy selection and accent surfaces |
-| `theme-border` | `#9a8292` | Control boundaries with visible contrast |
-| `theme-text` | `#f7f0f4` | Primary off-white text |
-| `theme-muted-text` | `#c6b8c2` | Supporting text |
+| `theme-canvas` | `#141518` | Deep charcoal canvas |
+| `theme-subtle-surface` | `#1b1c21` | Inset and secondary surfaces |
+| `theme-surface` | `#25262c` | Raised cards |
+| `theme-field` | `#191a1f` | Input surfaces |
+| `theme-overlay` | `#2b2c33` | Dropdowns and dialogs |
+| `theme-hover` | `#303139` | Neutral interaction and decoration |
+| `theme-divider` | `#48454f` | Card boundaries and separators |
+| `theme-accent-surface` | `#38232d` | Burgundy selection and accent surfaces |
+| `theme-border` | `#89838f` | Control boundaries with visible contrast |
+| `theme-text` | `#f4f1f3` | Primary off-white text |
+| `theme-muted-text` | `#bfbac3` | Supporting text |
 | `theme-accent` | `#ffa9bd` | Readable rose accents on dark surfaces |
 
 Primary actions retain crimson fills with white text. Keyboard focus uses
@@ -122,6 +126,12 @@ warning, information and danger have separate readable text/surface pairs.
 `frontend/src/theme/theme.css` owns shared values; homepage aliases refer to
 these values. See [Global theme handover](../07-HANDOVER/GLOBAL_THEME_2026-10-25.md)
 for controls, route coverage and verification limits.
+
+The 26 October repair loads shared CSS directly from `ThemeProvider`. Do not
+map decorative rings, card separators and input outlines to the same token.
+Keep translucent artwork translucent. Homepage styles must not override global
+placeholder behavior or shared headers. Standalone appearance controls reserve
+space in normal flow; shared layouts retain their header control.
 
 ## 4. Typography
 

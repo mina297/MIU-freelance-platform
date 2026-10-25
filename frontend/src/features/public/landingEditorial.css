@@ -94,7 +94,7 @@
   height: 56px;
   border: 1px solid var(--theme-border, #ffffff40);
   border-radius: 15px;
-  background: var(--theme-surface, #ffffff10);
+  background: #ffffff10;
 }
 .landing-pathway-services .landing-pathway-icon {
   border-color: var(--theme-border, #e2c4d1);

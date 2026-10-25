@@ -1,6 +1,4 @@
 @import "tailwindcss";
-@import "./styles/premium-theme.css";
-@import "./theme/theme.css";
 
 @theme {
   --color-miu-red: #b91c2b;

@@ -38,7 +38,7 @@ fieldset.miu-field > legend {
   padding: 12px;
   border: 1px solid var(--border-control);
   border-radius: var(--radius-control);
-  background: var(--theme-accent-surface, #fffcfd);
+  background: var(--theme-field, #fffcfd);
   color: inherit;
   font: inherit;
 }
@@ -59,7 +59,7 @@ select.miu-control[multiple] {
 
 .miu-control:focus-visible,
 .miu-choice-control:focus-visible {
-  outline: 2px solid var(--color-miu-red, #b91c2b);
+  outline: 2px solid var(--theme-focus, var(--color-miu-red, #b91c2b));
   outline-offset: 3px;
 }
 
@@ -69,7 +69,7 @@ select.miu-control[multiple] {
 }
 
 .miu-control[aria-invalid="true"] {
-  border-color: var(--color-danger, #dc2626);
+  border-color: var(--theme-danger-text, var(--color-danger, #dc2626));
 }
 
 .miu-control:disabled {

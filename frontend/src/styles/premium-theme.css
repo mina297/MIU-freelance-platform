@@ -42,7 +42,7 @@
   border-block-start: 4px solid var(--theme-border, #9b3554);
 }
 .premium-profile-header > div:first-child {
-  outline: 4px solid white;
+  outline: 4px solid var(--surface-raised);
   box-shadow: 0 0 0 5px var(--border-soft);
 }
 .premium-help-header {
@@ -78,7 +78,7 @@
       var(--theme-subtle-surface, #e2d3de99),
       transparent 45%
     ),
-    var(--theme-accent-surface, #f6f0f3);
+    var(--theme-canvas, #f6f0f3);
 }
 .premium-route-placeholder {
   max-width: 960px;

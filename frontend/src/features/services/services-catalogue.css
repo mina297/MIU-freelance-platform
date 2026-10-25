@@ -67,7 +67,7 @@
   position: relative;
   border: 1px solid var(--theme-border, #c78a9e);
   border-radius: 24px;
-  background: var(--theme-surface, #ffffff0a);
+  background: #ffffff0a;
   padding: 32px;
   box-shadow: 12px 12px 0 #ffffff09;
 }

@@ -33,7 +33,7 @@ body:has(.marketplace-preview) {
 .marketplace-preview .miu-control {
   font-weight: 400;
   border-color: var(--theme-border, #bba4b3);
-  background: var(--theme-accent-surface, #fcfafb);
+  background: var(--theme-field, #fcfafb);
 }
 
 .marketplace-preview .miu-field__label {
@@ -70,7 +70,7 @@ body:has(.marketplace-preview) {
     radial-gradient(
       circle at 92% 15%,
       transparent 0 140px,
-      var(--theme-surface, #ffffff07) 141px 210px,
+      #ffffff07 141px 210px,
       transparent 211px
     ),
     radial-gradient(ellipse at 90% 80%, #84354a 0, transparent 65%),

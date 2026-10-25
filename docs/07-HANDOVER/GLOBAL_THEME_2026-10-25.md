@@ -1,5 +1,46 @@
 # Global light and dark theme — 25 October 2026
 
+## Repair update — 26 October 2026
+
+This update supersedes the palette, floating-control placement and verification
+notes below. The running Vite server returned compiled `index.css` without the
+shared theme tokens or toggle styles. `ThemeProvider` now imports both shared
+stylesheets directly, covering the application and standalone preview providers.
+The client-transform regression check verifies that those imports and styles
+are actually present, in addition to the existing SSR route checks.
+
+Repairs made:
+- Neutral charcoal canvas and raised cards; separate field, overlay, hover and
+  divider tokens. Burgundy remains an accent rather than the default field fill.
+- Header dark rules moved from homepage CSS into the header stylesheet; duplicate
+  focus, selection, backdrop and logo rules removed. Logo plaques no longer add
+  padding that changes image layout dimensions.
+- Shared buttons, completed/status badges, inputs, validation and modal surfaces
+  corrected at their owning stylesheets. Disabled buttons retain their own state.
+- Auth inputs and chatbot conversation surfaces separated from cards. Order
+  delivery history uses a neutral inset surface. Profile avatar outlines adapt.
+- Service/landing decorative transparency restored; marketplace category artwork
+  no longer uses the bright input-border color. Project card dividers are quieter.
+- Homepage animated search placeholder no longer overlaps the animated hint.
+- Standalone routes use a normal-flow appearance toolbar before page content;
+  standalone component previews also use a normal-flow control. Nothing floats
+  over workflow actions. Standard header toggles are retained.
+
+Verification: 321 tests passed, ESLint passed, production build passed. The
+additional Vite client-stylesheet regression and focused theme tests passed.
+The existing application chunk-size warning remains. Browser screenshots were
+inspected for light/dark homepage, dark sign-in, and light/dark project catalogue
+(hero, categories and listing controls) at a narrow desktop window. Internal
+navigation from dark sign-in to home retained dark; direct catalogue entry
+started light. This is not a complete mobile or all-route visual acceptance.
+
+Computer Use stopped during further preview navigation because it could not
+determine the current browser URL with enough confidence. Remaining browser QA:
+mobile sizes, dropdown/dialog interactions, keyboard traversal, explicit refresh
+reset, authenticated dashboards/orders/admin, support/chatbot and all isolated
+previews. Source/SSR coverage is not evidence that these visual checks passed.
+Changes remain uncommitted; no branch, commit, push or merge was performed.
+
 ## Scope and requirements
 
 Team leader Mina authorized extending the homepage premium dark design across

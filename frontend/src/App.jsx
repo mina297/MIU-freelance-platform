@@ -10,8 +10,8 @@ export default function App() {
     <ThemeProvider>
       <BrowserRouter>
         <AuthProvider>
-          <AppRouter />
           <StandaloneThemeControl />
+          <AppRouter />
           <ChatbotWidget />
         </AuthProvider>
       </BrowserRouter>

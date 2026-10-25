@@ -56,7 +56,7 @@
   padding: 13px 16px;
   border: 1px solid var(--border-control);
   border-radius: 15px;
-  background: var(--theme-surface, #fafafb);
+  background: var(--theme-field, #fafafb);
   color: var(--theme-text, #18181b);
   font-size: 15px;
   transition:
@@ -68,15 +68,15 @@
   border-color: var(--theme-border, #cfc7c9);
 }
 .auth-input:focus {
-  outline: 2px solid var(--color-miu-red);
+  outline: 2px solid var(--theme-focus, var(--color-miu-red));
   outline-offset: 2px;
   border-color: var(--theme-border, #b91c2b55);
   background: var(--theme-surface, white);
   box-shadow: 0 0 0 5px #b91c2b08;
 }
 .auth-input[aria-invalid="true"] {
-  border-color: var(--color-miu-red);
-  background: var(--theme-accent-surface, #fff8f9);
+  border-color: var(--theme-danger-text, var(--color-miu-red));
+  background: var(--theme-danger-surface, #fff8f9);
 }
 .auth-input:disabled {
   opacity: 0.6;
@@ -122,7 +122,7 @@
   cursor: wait;
 }
 .auth-card :is(a, button):focus-visible {
-  outline: 2px solid var(--color-miu-red);
+  outline: 2px solid var(--theme-focus, var(--color-miu-red));
   outline-offset: 4px;
 }
 .auth-card a {
