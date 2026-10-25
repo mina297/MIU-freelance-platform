@@ -1,7 +1,7 @@
 .services-catalogue {
-  background: #eee9ed;
-  color: #30252c;
-  --ui-border: #c5afbd;
+  background: var(--theme-subtle-surface, #eee9ed);
+  color: var(--theme-text, #30252c);
+  --ui-border: var(--theme-border, #c5afbd);
   --ui-primary: #b91c2b;
 }
 .services-container {
@@ -15,7 +15,7 @@
     linear-gradient(115deg, #351923, #602637);
   color: white;
   padding-block: 72px 95px;
-  border-block: 1px solid #825567;
+  border-block: 1px solid var(--theme-border, #825567);
 }
 .services-hero__layout {
   display: grid;
@@ -24,7 +24,7 @@
   gap: 60px;
 }
 .services-eyebrow {
-  color: #a5223c;
+  color: var(--theme-accent, #a5223c);
   font-size: 11px;
   font-weight: 750;
   letter-spacing: 0.17em;
@@ -65,9 +65,9 @@
 }
 .services-hero__note {
   position: relative;
-  border: 1px solid #c78a9e;
+  border: 1px solid var(--theme-border, #c78a9e);
   border-radius: 24px;
-  background: #ffffff0a;
+  background: var(--theme-surface, #ffffff0a);
   padding: 32px;
   box-shadow: 12px 12px 0 #ffffff09;
 }
@@ -108,13 +108,13 @@
   align-items: center;
   gap: 20px;
   padding: 18px;
-  border: 2px solid #b68b9f;
-  background: white;
+  border: 2px solid var(--theme-border, #b68b9f);
+  background: var(--theme-surface, white);
   border-radius: 18px;
   box-shadow: 0 16px 32px #43213816;
 }
 .services-search > svg {
-  color: #ad2640;
+  color: var(--theme-accent, #ad2640);
   margin-left: 8px;
   flex-shrink: 0;
 }
@@ -124,7 +124,7 @@
 }
 .services-disclosure {
   font-size: 12px;
-  color: #6d5c66;
+  color: var(--theme-muted-text, #6d5c66);
   line-height: 1.8;
   margin-block: 20px 28px;
 }
@@ -145,8 +145,8 @@
   align-items: start;
 }
 .services-filters {
-  background: #fcf9fb;
-  border: 1.5px solid #c9b6c2;
+  background: var(--theme-accent-surface, #fcf9fb);
+  border: 1.5px solid var(--theme-border, #c9b6c2);
   padding: 22px;
   border-radius: 18px;
   display: grid;
@@ -168,11 +168,11 @@
 .services-filters__tip {
   font-size: 13px;
   line-height: 1.8;
-  color: #795764;
+  color: var(--theme-muted-text, #795764);
   padding: 18px;
-  border: 1px solid #d8adbf;
+  border: 1px solid var(--theme-border, #d8adbf);
   border-radius: 12px;
-  background: #f8e8ef;
+  background: var(--theme-accent-surface, #f8e8ef);
 }
 .services-catalogue .services-refine__toggle {
   display: none;
@@ -195,7 +195,7 @@
   margin-block: 6px;
 }
 .services-results__heading p[role] {
-  color: #796572;
+  color: var(--theme-muted-text, #796572);
   font-size: 13px;
 }
 .services-results__heading > .miu-field {
@@ -218,9 +218,9 @@
 }
 .services-catalogue .service-card {
   padding: 0;
-  border: 1.5px solid #c7b1bf;
+  border: 1.5px solid var(--theme-border, #c7b1bf);
   border-radius: 18px;
-  background: white;
+  background: var(--theme-surface, white);
   overflow: hidden;
   box-shadow: 0 8px 24px #4321380a;
   min-width: 0;
@@ -231,17 +231,17 @@
   align-content: center;
   min-height: 200px;
   padding: 24px;
-  background: #e9dde9;
-  color: #635074;
-  border-bottom: 1px solid #c7b1bf;
+  background: var(--theme-subtle-surface, #e9dde9);
+  color: var(--theme-muted-text, #635074);
+  border-bottom: 1px solid var(--theme-border, #c7b1bf);
 }
 .service-card__art--web_development {
-  background: #e3e7f2;
-  color: #455882;
+  background: var(--theme-info-surface, #e3e7f2);
+  color: var(--theme-info-text, #455882);
 }
 .service-card__art--writing {
-  background: #dfece4;
-  color: #37644c;
+  background: var(--theme-success-surface, #dfece4);
+  color: var(--theme-success-text, #37644c);
 }
 .service-card__art-label {
   position: absolute;
@@ -262,7 +262,7 @@
   padding: 12px 14px;
   border-radius: 12px;
   border: 1px solid currentColor;
-  background: #ffffff70;
+  background: var(--theme-surface, #ffffff70);
   transform: rotate(-5deg);
   box-shadow: 8px 8px 0 #ffffff60;
 }
@@ -301,17 +301,17 @@
   margin-top: 12px;
   font-size: 13px;
   font-weight: 700;
-  color: #a52d4b;
+  color: var(--theme-accent, #a52d4b);
 }
 .service-card h3 a:hover {
-  color: #a52d4b;
+  color: var(--theme-accent, #a52d4b);
 }
 .service-card__category {
   font-size: 10px;
   letter-spacing: 0.13em;
   font-weight: 700;
   text-transform: uppercase;
-  color: #8d586f;
+  color: var(--theme-muted-text, #8d586f);
   margin-bottom: 10px;
 }
 .service-card h3 {
@@ -323,7 +323,7 @@
 }
 .service-card__description {
   font-size: 13px;
-  color: #796572;
+  color: var(--theme-muted-text, #796572);
   line-height: 1.8;
   margin-block: 12px 18px;
   overflow-wrap: anywhere;
@@ -336,9 +336,9 @@
   margin-bottom: 20px;
 }
 .service-card__skills li {
-  border: 1px solid #d9c9d3;
+  border: 1px solid var(--theme-border, #d9c9d3);
   border-radius: 6px;
-  background: #f6f0f4;
+  background: var(--theme-accent-surface, #f6f0f4);
   padding: 5px 8px;
   font-size: 11px;
 }
@@ -355,9 +355,9 @@
   width: 30px;
   height: 30px;
   flex-shrink: 0;
-  background: #efe4eb;
+  background: var(--theme-accent-surface, #efe4eb);
   border-radius: 50%;
-  color: #9b415d;
+  color: var(--theme-accent, #9b415d);
   font-size: 10px;
 }
 .service-card__terms {
@@ -365,7 +365,7 @@
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
-  border-block: 1px solid #e3d6de;
+  border-block: 1px solid var(--theme-border, #e3d6de);
   margin-top: 20px;
   padding-block: 18px;
 }
@@ -373,7 +373,7 @@
   display: flex;
   gap: 5px;
   align-items: center;
-  color: #796572;
+  color: var(--theme-muted-text, #796572);
   font-size: 10px;
   margin-bottom: 7px;
 }
@@ -388,18 +388,18 @@
 .service-card__package {
   margin-top: 6px;
   font-size: 12px;
-  color: #796572;
+  color: var(--theme-muted-text, #796572);
   line-height: 1.8;
 }
 .service-card__package summary {
   cursor: pointer;
   padding-block: 12px;
-  color: #9e2947;
+  color: var(--theme-accent, #9e2947);
   font-weight: 650;
 }
 .service-card__package h4 {
   font-weight: 700;
-  color: #30252c;
+  color: var(--theme-text, #30252c);
 }
 .service-card__package ul {
   list-style: disc;
@@ -407,12 +407,12 @@
   margin-block: 8px;
 }
 .services-catalogue :is(a, summary):focus-visible {
-  outline: 2px solid #b91c2b;
+  outline: 2px solid var(--theme-focus, #b91c2b);
   outline-offset: 4px;
   border-radius: 4px;
 }
 .services-catalogue .services-hero a:focus-visible {
-  outline-color: #ffdae4;
+  outline-color: var(--theme-focus, #ffdae4);
 }
 @media (max-width: 1050px) {
   .services-workspace {

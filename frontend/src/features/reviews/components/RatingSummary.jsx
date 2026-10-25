@@ -19,7 +19,7 @@ export default function RatingSummary({ ratingSummary }) {
 
   return (
     <section
-      className="rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)] sm:p-6"
+      className="rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-5 shadow-[var(--shadow-panel)] sm:p-6"
       aria-label={getRatingAriaLabel(average, count)}
     >
       <h2 className="text-lg font-semibold text-miu-black">Rating summary</h2>

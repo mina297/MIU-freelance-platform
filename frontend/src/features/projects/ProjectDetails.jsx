@@ -19,7 +19,7 @@ function BackButton({ onBack }) {
     <button
       type="button"
       onClick={onBack}
-      className="inline-flex min-h-11 items-center gap-2 rounded-lg px-2 text-sm font-semibold text-miu-red hover:bg-[#f9e6eb] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+      className="inline-flex min-h-11 items-center gap-2 rounded-lg px-2 text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))] hover:bg-[color:var(--theme-accent-surface,#f9e6eb)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
     >
       <ArrowLeft size={17} aria-hidden="true" /> All projects
     </button>
@@ -31,12 +31,12 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
 
   if (!project) {
     return (
-      <main className="grid min-h-screen place-items-center bg-[#eee9ed] px-5 text-center">
-        <div className="max-w-md rounded-2xl border-2 border-[#c9bac1] bg-white p-8 shadow-lg">
+      <main className="grid min-h-screen place-items-center bg-[color:var(--theme-subtle-surface,#eee9ed)] px-5 text-center">
+        <div className="max-w-md rounded-2xl border-2 border-[color:var(--theme-border,#c9bac1)] bg-[var(--theme-surface,#fff)] p-8 shadow-lg">
           <FolderOpen
             size={34}
             aria-hidden="true"
-            className="mx-auto text-miu-red"
+            className="mx-auto text-[var(--theme-accent,var(--color-miu-red))]"
           />
           <h1
             id="project-details-heading"
@@ -45,7 +45,7 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
           >
             Project not found
           </h1>
-          <p className="mt-2 text-sm text-[#6b6066]">
+          <p className="mt-2 text-sm text-[color:var(--theme-muted-text,#6b6066)]">
             This project may have been removed from the preview.
           </p>
           <div className="mt-5">
@@ -68,15 +68,15 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
   );
 
   return (
-    <div className="min-h-screen bg-[#eee9ed] font-sans text-[#292127]">
-      <header className="border-b border-[#cdbfc5] bg-white">
+    <div className="min-h-screen bg-[color:var(--theme-subtle-surface,#eee9ed)] font-sans text-[color:var(--theme-text,#292127)]">
+      <header className="border-b border-[color:var(--theme-border,#cdbfc5)] bg-[var(--theme-surface,#fff)]">
         <div className="mx-auto flex h-[76px] max-w-[1180px] items-center justify-between gap-4 px-5 sm:px-8">
           <img
             src={miuLogo}
             alt="Misr International University"
             className="h-12 w-auto max-w-[150px] object-contain"
           />
-          <span className="rounded-full border border-[#d8b3bf] bg-[#fceff3] px-3 py-1.5 text-xs font-semibold text-miu-red">
+          <span className="rounded-full border border-[color:var(--theme-border,#d8b3bf)] bg-[color:var(--theme-accent-surface,#fceff3)] px-3 py-1.5 text-xs font-semibold text-[var(--theme-accent,var(--color-miu-red))]">
             Phase 1 preview
           </span>
         </div>
@@ -101,7 +101,7 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
                 {categoryNames.get(project.categoryId)}
               </span>
               <span
-                className={`rounded-full px-3 py-1.5 text-xs font-semibold ${isOpen ? "bg-[#ddf5e4] text-[#206b40]" : "bg-white/15 text-white"}`}
+                className={`rounded-full px-3 py-1.5 text-xs font-semibold ${isOpen ? "bg-[color:var(--theme-success-surface,#ddf5e4)] text-[color:var(--theme-success-text,#206b40)]" : "bg-white/15 text-white"}`}
               >
                 {isOpen
                   ? "Open for proposals"
@@ -139,14 +139,14 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
           <div className="space-y-6">
             <section
               aria-labelledby="overview-heading"
-              className="rounded-2xl border-2 border-[#c9bac1] bg-white p-6 shadow-[0_5px_18px_rgba(57,34,40,0.08)] sm:p-8"
+              className="rounded-2xl border-2 border-[color:var(--theme-border,#c9bac1)] bg-[var(--theme-surface,#fff)] p-6 shadow-[0_5px_18px_rgba(57,34,40,0.08)] sm:p-8"
             >
               <div className="flex items-center gap-3">
-                <span className="grid size-11 place-items-center rounded-xl bg-[#f7e4ea] text-miu-red">
+                <span className="grid size-11 place-items-center rounded-xl bg-[color:var(--theme-accent-surface,#f7e4ea)] text-[var(--theme-accent,var(--color-miu-red))]">
                   <BriefcaseBusiness size={21} aria-hidden="true" />
                 </span>
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-miu-red">
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--theme-accent,var(--color-miu-red))]">
                     The opportunity
                   </p>
                   <h2 id="overview-heading" className="text-xl font-bold">
@@ -155,23 +155,23 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
                 </div>
               </div>
               <div className="mt-6">
-                <h3 className="text-sm font-bold text-[#342a2f]">
+                <h3 className="text-sm font-bold text-[color:var(--theme-text,#342a2f)]">
                   Scope of work
                 </h3>
-                <p className="mt-2 text-base leading-8 text-[#594f54]">
+                <p className="mt-2 text-base leading-8 text-[color:var(--theme-muted-text,#594f54)]">
                   {project.scope || project.description}
                 </p>
               </div>
               {project.deliverables?.length > 0 && (
-                <div className="mt-7 border-t border-[#d9cbd2] pt-6">
-                  <h3 className="text-sm font-bold text-[#342a2f]">
+                <div className="mt-7 border-t border-[color:var(--theme-border,#d9cbd2)] pt-6">
+                  <h3 className="text-sm font-bold text-[color:var(--theme-text,#342a2f)]">
                     Expected deliverables
                   </h3>
                   <ul className="mt-3 grid gap-3 sm:grid-cols-2">
                     {project.deliverables.map((deliverable) => (
                       <li
                         key={deliverable}
-                        className="flex gap-3 rounded-xl border border-[#dac8d0] bg-[#fbf7f9] p-4 text-sm font-medium leading-6 text-[#554650]"
+                        className="flex gap-3 rounded-xl border border-[color:var(--theme-border,#dac8d0)] bg-[color:var(--theme-accent-surface,#fbf7f9)] p-4 text-sm font-medium leading-6 text-[color:var(--theme-muted-text,#554650)]"
                       >
                         <span
                           aria-hidden="true"
@@ -184,19 +184,19 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
                 </div>
               )}
               {!hasDetailedBrief && (
-                <p className="mt-3 text-sm text-[#796a71]">
+                <p className="mt-3 text-sm text-[color:var(--theme-muted-text,#796a71)]">
                   No additional brief has been provided in this preview.
                 </p>
               )}
-              <div className="mt-7 border-t border-[#d9cbd2] pt-6">
-                <h3 className="text-sm font-bold text-[#342a2f]">
+              <div className="mt-7 border-t border-[color:var(--theme-border,#d9cbd2)] pt-6">
+                <h3 className="text-sm font-bold text-[color:var(--theme-text,#342a2f)]">
                   Skills needed
                 </h3>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {project.requiredSkillIds.map((id) => (
                     <span
                       key={id}
-                      className="rounded-lg border border-[#cdbac3] bg-[#f6eef2] px-3 py-2 text-sm font-medium text-[#634757]"
+                      className="rounded-lg border border-[color:var(--theme-border,#cdbac3)] bg-[color:var(--theme-accent-surface,#f6eef2)] px-3 py-2 text-sm font-medium text-[color:var(--theme-muted-text,#634757)]"
                     >
                       {skillNames.get(id) ?? id}
                     </span>
@@ -206,22 +206,22 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
             </section>
             <section
               aria-labelledby="timeline-heading"
-              className="rounded-2xl border-2 border-[#c9bac1] bg-white p-6 shadow-[0_5px_18px_rgba(57,34,40,0.08)] sm:p-8"
+              className="rounded-2xl border-2 border-[color:var(--theme-border,#c9bac1)] bg-[var(--theme-surface,#fff)] p-6 shadow-[0_5px_18px_rgba(57,34,40,0.08)] sm:p-8"
             >
               <h2 id="timeline-heading" className="text-xl font-bold">
                 Project timeline
               </h2>
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                <div className="rounded-xl border border-[#d4c3cb] bg-[#faf7f9] p-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-[#785d6b]">
+                <div className="rounded-xl border border-[color:var(--theme-border,#d4c3cb)] bg-[color:var(--theme-accent-surface,#faf7f9)] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[color:var(--theme-muted-text,#785d6b)]">
                     Published
                   </p>
                   <p className="mt-2 font-bold">
                     {formatDate(project.createdAt)}
                   </p>
                 </div>
-                <div className="rounded-xl border border-[#d4c3cb] bg-[#faf7f9] p-4">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-[#785d6b]">
+                <div className="rounded-xl border border-[color:var(--theme-border,#d4c3cb)] bg-[color:var(--theme-accent-surface,#faf7f9)] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[color:var(--theme-muted-text,#785d6b)]">
                     Delivery deadline
                   </p>
                   <p className="mt-2 font-bold">
@@ -236,26 +236,26 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
             className="space-y-5 lg:sticky lg:top-6"
             aria-label="Project summary"
           >
-            <div className="overflow-hidden rounded-2xl border-2 border-[#b96a80] bg-white shadow-[0_8px_24px_rgba(68,26,40,0.11)]">
-              <div className="bg-[#f5e5eb] px-6 py-5">
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#8e465c]">
+            <div className="overflow-hidden rounded-2xl border-2 border-[color:var(--theme-border,#b96a80)] bg-[var(--theme-surface,#fff)] shadow-[0_8px_24px_rgba(68,26,40,0.11)]">
+              <div className="bg-[color:var(--theme-accent-surface,#f5e5eb)] px-6 py-5">
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-[color:var(--theme-accent,#8e465c)]">
                   Project budget
                 </p>
-                <p className="mt-1 text-3xl font-bold tracking-[-0.04em] text-[#341e2a]">
+                <p className="mt-1 text-3xl font-bold tracking-[-0.04em] text-[color:var(--theme-accent,#341e2a)]">
                   {formatEGP(project.budgetEGP)}
                 </p>
               </div>
               <div className="px-6 py-5">
-                <p className="flex items-center gap-2 text-sm text-[#62545c]">
+                <p className="flex items-center gap-2 text-sm text-[color:var(--theme-muted-text,#62545c)]">
                   <CalendarDays size={17} aria-hidden="true" /> Deadline:{" "}
-                  <strong className="text-[#342a2f]">
+                  <strong className="text-[color:var(--theme-text,#342a2f)]">
                     {formatDate(project.deadline)}
                   </strong>
                 </p>
-                <div className="mt-5 rounded-xl border border-[#dfc4ce] bg-[#fff7f9] p-4 text-sm leading-6 text-[#694c5b]">
+                <div className="mt-5 rounded-xl border border-[color:var(--theme-border,#dfc4ce)] bg-[color:var(--theme-accent-surface,#fff7f9)] p-4 text-sm leading-6 text-[color:var(--theme-muted-text,#694c5b)]">
                   <Info
                     size={18}
-                    className="mb-2 text-miu-red"
+                    className="mb-2 text-[var(--theme-accent,var(--color-miu-red))]"
                     aria-hidden="true"
                   />{" "}
                   {isOpen
@@ -281,20 +281,22 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
                 </button>
               </div>
             </div>
-            <div className="rounded-2xl border-2 border-[#c9bac1] bg-white p-5">
-              <p className="text-xs font-bold uppercase tracking-[0.13em] text-[#8d596b]">
+            <div className="rounded-2xl border-2 border-[color:var(--theme-border,#c9bac1)] bg-[var(--theme-surface,#fff)] p-5">
+              <p className="text-xs font-bold uppercase tracking-[0.13em] text-[color:var(--theme-muted-text,#8d596b)]">
                 About the client
               </p>
               <div className="mt-4 flex items-center gap-3">
                 <span
-                  className="grid size-11 place-items-center rounded-full bg-[#f3e2e8] text-xs font-bold text-[#9b4c62]"
+                  className="grid size-11 place-items-center rounded-full bg-[color:var(--theme-accent-surface,#f3e2e8)] text-xs font-bold text-[color:var(--theme-accent,#9b4c62)]"
                   aria-hidden="true"
                 >
                   {initials}
                 </span>
                 <div>
                   <p className="font-bold">{clientName}</p>
-                  <p className="text-xs text-[#7e6c75]">Fictional client</p>
+                  <p className="text-xs text-[color:var(--theme-muted-text,#7e6c75)]">
+                    Fictional client
+                  </p>
                 </div>
               </div>
             </div>

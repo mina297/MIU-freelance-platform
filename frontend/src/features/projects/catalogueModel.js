@@ -23,7 +23,7 @@ export const categories = [
     label: "All opportunities",
     shortLabel: "All",
     icon: LayoutGrid,
-    tone: "bg-[#f9e5e9] text-[#9b2035]",
+    tone: "bg-[var(--theme-accent-surface,#f9e5e9)] text-[var(--theme-accent,#9b2035)]",
     detail: "Your next chapter starts here",
   },
   {
@@ -31,7 +31,7 @@ export const categories = [
     label: "Development",
     shortLabel: "Web & code",
     icon: Code2,
-    tone: "bg-[#edf0fa] text-[#535d91]",
+    tone: "bg-[var(--theme-info-surface,#edf0fa)] text-[var(--theme-info-text,#535d91)]",
     detail: "Build thoughtful digital experiences",
   },
   {
@@ -39,7 +39,7 @@ export const categories = [
     label: "Graphic Design",
     shortLabel: "Design",
     icon: Palette,
-    tone: "bg-[#f5eddd] text-[#8c6728]",
+    tone: "bg-[var(--theme-warning-surface,#f5eddd)] text-[var(--theme-warning-text,#8c6728)]",
     detail: "Give bold ideas a visual identity",
   },
   {
@@ -47,7 +47,7 @@ export const categories = [
     label: "Writing & Content",
     shortLabel: "Writing",
     icon: PenLine,
-    tone: "bg-[#e7f0eb] text-[#3e7357]",
+    tone: "bg-[var(--theme-success-surface,#e7f0eb)] text-[var(--theme-success-text,#3e7357)]",
     detail: "Turn good stories into great content",
   },
 ];

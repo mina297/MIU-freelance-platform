@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <link
@@ -8,19 +8,6 @@
       href="/src/assets/figma/miu-anniversary-logo.png"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script>
-      // Every fresh homepage visit starts light, regardless of old preferences.
-      if (location.pathname === "/") {
-        document.documentElement.dataset.homeTheme = "light";
-      }
-    </script>
-    <style>
-      html[data-home-theme="dark"],
-      html[data-home-theme="dark"] body {
-        background: #151319;
-        color-scheme: dark;
-      }
-    </style>
     <title>MIU Freelance</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

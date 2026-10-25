@@ -8,40 +8,22 @@ Related requirements: P-01, FR-V01–FR-V04, NFR-01–NFR-03 and SR-09. This scr
 
 ## Behavior
 
-### Homepage dark mode — 25 October 2026
+### Shared dark mode — 25 October 2026
 
-- Team-authorized scope: P-01 (`/`) only, including its header and page-owned
-  footer. Related requirements: FR-V01 and NFR-01–NFR-03. Other routes and the
-  shared authentication header retain their existing appearance.
-- `HomepageTheme.jsx` owns the theme boundary and the header's optional native
-  toggle button, labeled “Dark mode” with `aria-pressed`. The button supports
-  keyboard activation and visible focus; its sun/moon artwork is decorative.
-- Every fresh homepage load starts in light mode, following Mina's updated
-  direction. The toggle switches the current homepage visit only; reloading or
-  returning to a newly mounted homepage resets to light. Old saved preferences
-  and operating system appearance do not override this default. Theme selection
-  is held in component state and does not access browser storage.
-- A small homepage-only initializer in `index.html` colors the canvas before
-  React loads. The component removes the root canvas attribute on unmount, so
-  navigation to another route restores its usual appearance.
-- `homepageTheme.css` scopes semantic tokens and overrides to the homepage:
-  charcoal canvas, layered plum cards, warm burgundy accents, off-white text,
-  visible control borders, dark dropdowns/dialogs and a balanced video overlay.
-  The official logo retains its artwork and is presented on a light plaque.
-  Light mode preserves the existing design. Existing search, previews, section
-  motion, video and role-dependent links keep their behavior.
-- The toggle transition respects reduced motion. Responsive header adjustments
-  accommodate the added control, including widths below 370px. These styles
-  still require visual acceptance in a real browser.
-- Automated coverage checks light initialization despite old saved preferences
-  or blocked storage, non-home route isolation, accessible initial markup and
-  principal palette contrast. Verification on 25 October 2026: all 321 tests
-  passed; the final focused theme/route run passed 16 tests; lint and production
-  build passed. The build retains its large application-chunk warning.
-  Browser visual, interactive keyboard,
-  refresh/navigation and mobile checks remain pending: Windows browser automation
-  stopped because it could not confidently determine the current Chrome URL.
+Mina expanded the homepage theme to all existing interfaces. `HomepageTheme.jsx`
+now consumes the shared `ThemeProvider` above the router; it owns no independent
+theme state. Every fresh document starts light, while internal route navigation
+preserves the selected theme. No browser storage or OS appearance preference is
+consulted. The original light layout and homepage interactions are preserved.
 
+`homepageTheme.css` retains composition-specific refinements for the hero video,
+overlapping panels, timeline, search, cards, dialogs and footer. Its palette
+aliases resolve to the shared semantic tokens. The common `ThemeToggle` lives
+in the header, has pressed semantics and keyboard focus, and respects reduced
+motion. Official logo artwork retains its colors on a light plaque.
+
+See [Global theme handover](../07-HANDOVER/GLOBAL_THEME_2026-10-25.md) for
+application-wide coverage, automated evidence and pending browser checks.
 
 - Authentication return update (24 October 2026): successful registration opens a session immediately and successful registration/login returns to `/`. Active sessions show My workspace and Sign out in the header. The session demo disclosure and test-account selector are removed from the public page; fictional marketplace content remains disclosed.
 

@@ -1,43 +1,14 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { runInNewContext } from "node:vm";
 
-function browser({ saved = null, dark = false, blocked = false } = {}) {
-  return {
-    localStorage: {
-      getItem() {
-        if (blocked) throw new Error("Storage blocked");
-        return saved;
-      },
-    },
-    matchMedia: () => ({ matches: dark }),
-  };
-}
-
-test("every fresh load starts light even with saved dark mode, a dark OS or blocked storage", () => {
+test("the document starts light before application rendering on any route", () => {
   const html = readFileSync(
     new URL("../../../index.html", import.meta.url),
     "utf8",
   );
-  const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
-  for (const options of [
-    { dark: true },
-    { saved: "light", dark: true },
-    { saved: "dark" },
-    { saved: "bad", dark: true },
-    { blocked: true, dark: true },
-  ]) {
-    for (const pathname of ["/", "/login", "/projects", "/services"]) {
-      const client = browser(options);
-      const document = { documentElement: { dataset: {} } };
-      runInNewContext(script, { ...client, document, location: { pathname } });
-      assert.equal(
-        document.documentElement.dataset.homeTheme,
-        pathname === "/" ? "light" : undefined,
-      );
-    }
-  }
+  assert.match(html, /<html[^>]*data-theme="light"/);
+  assert.doesNotMatch(html, /localStorage|sessionStorage|prefers-color-scheme/);
 });
 
 function luminance(hex) {
@@ -56,11 +27,12 @@ function contrast(a, b) {
 
 test("dark homepage text and keyboard focus contrast against each principal surface", () => {
   const css = readFileSync(
-    new URL("./homepageTheme.css", import.meta.url),
+    new URL("../../theme/theme.css", import.meta.url),
     "utf8",
   );
+  const names = { surface: "subtle-surface", raised: "surface", wine: "accent-surface", secondary: "muted-text" };
   const token = (name) =>
-    css.match(new RegExp(`--home-${name}:\\s*#([a-f0-9]{6})`))[1];
+    css.match(new RegExp(`--theme-${names[name] ?? name}:\\s*#([a-f0-9]{6})`))[1];
   for (const surface of ["canvas", "surface", "raised", "wine"]) {
     for (const text of ["text", "secondary", "accent"]) {
       assert.ok(

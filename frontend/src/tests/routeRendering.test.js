@@ -299,10 +299,7 @@ test("public website routes render real pages in one shell with safe destination
     ]) {
       const html = renderRoute(path);
       if (path !== "/") {
-        assert.doesNotMatch(
-          html,
-          /class="homepage-theme"|aria-label="Dark mode"/,
-        );
+        assert.doesNotMatch(html, /class="homepage-theme"/);
       }
       assert.ok(html.replace(/<[^>]*>/g, "").includes(text), path);
       assert.equal((html.match(/<main\b/g) ?? []).length, 1, path);
@@ -328,10 +325,7 @@ test("public website routes render real pages in one shell with safe destination
     }
     const home = renderRoute("/");
     for (const path of ["/login", "/register", "/projects", "/services"]) {
-      assert.doesNotMatch(
-        renderRoute(path),
-        /class="homepage-theme"|aria-label="Dark mode"/,
-      );
+      assert.doesNotMatch(renderRoute(path), /class="homepage-theme"/);
     }
     assert.match(home, /href="\/projects"/);
     assert.doesNotMatch(home, /m4-landing|miu-public-footer/);

@@ -28,7 +28,7 @@ export default function EvidenceAttachmentPreview({ files = [], onRemove }) {
             {file.name}
           </div>
           {file.sizeLabel ? (
-            <p className="px-2 pb-1 text-[10px] text-[#9ca3af]">
+            <p className="px-2 pb-1 text-[10px] text-[color:var(--theme-muted-text,#9ca3af)]">
               {file.sizeLabel}
             </p>
           ) : null}
@@ -36,7 +36,7 @@ export default function EvidenceAttachmentPreview({ files = [], onRemove }) {
             <button
               type="button"
               aria-label={`Remove ${file.name}`}
-              className="absolute right-1 top-1 rounded-full bg-white/95 p-1 text-miu-black shadow"
+              className="absolute right-1 top-1 rounded-full bg-[var(--theme-surface,#fff)]/95 p-1 text-miu-black shadow"
               onClick={() => onRemove(file.id)}
             >
               <X className="size-3.5" aria-hidden="true" />

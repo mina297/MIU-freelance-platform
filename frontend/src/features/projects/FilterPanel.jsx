@@ -20,13 +20,13 @@ export default function FilterPanel({
   return (
     <aside
       aria-label="Project filters"
-      className="h-fit rounded-2xl border-2 border-[#c9bac1] bg-[#faf7f9] p-5 shadow-[0_5px_18px_rgba(62,39,43,0.08)] lg:sticky lg:top-6"
+      className="h-fit rounded-2xl border-2 border-[color:var(--theme-border,#c9bac1)] bg-[color:var(--theme-accent-surface,#faf7f9)] p-5 shadow-[0_5px_18px_rgba(62,39,43,0.08)] lg:sticky lg:top-6"
     >
-      <div className="flex items-center justify-between border-b border-[#d8cbd2] pb-5">
-        <h3 className="flex items-center gap-2 text-base font-bold text-[#2a2427]">
+      <div className="flex items-center justify-between border-b border-[color:var(--theme-border,#d8cbd2)] pb-5">
+        <h3 className="flex items-center gap-2 text-base font-bold text-[color:var(--theme-text,#2a2427)]">
           <SlidersHorizontal
             size={17}
-            className="text-miu-red"
+            className="text-[var(--theme-accent,var(--color-miu-red))]"
             aria-hidden="true"
           />{" "}
           Refine results
@@ -34,7 +34,7 @@ export default function FilterPanel({
         <button
           type="button"
           onClick={clearFilters}
-          className="text-xs font-semibold text-miu-red hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+          className="text-xs font-semibold text-[var(--theme-accent,var(--color-miu-red))] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
         >
           Reset
         </button>
@@ -42,7 +42,7 @@ export default function FilterPanel({
       <div className="mt-5">
         <label
           htmlFor="project-budget"
-          className="mb-2 block text-sm font-semibold text-[#3a3235]"
+          className="mb-2 block text-sm font-semibold text-[color:var(--theme-text,#3a3235)]"
         >
           Budget
         </label>
@@ -51,7 +51,7 @@ export default function FilterPanel({
             id="project-budget"
             value={budget}
             onChange={(event) => setBudget(event.target.value)}
-            className="h-11 w-full appearance-none rounded-xl border border-[#a994a0] bg-white px-3.5 pr-9 text-sm text-[#4c4548] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+            className="h-11 w-full appearance-none rounded-xl border border-[color:var(--theme-border,#a994a0)] bg-[var(--theme-surface,#fff)] px-3.5 pr-9 text-sm text-[color:var(--theme-text,#4c4548)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
           >
             {budgetOptions.map(({ value, label }) => (
               <option key={value} value={value}>
@@ -61,7 +61,7 @@ export default function FilterPanel({
           </select>
           <ChevronDown
             size={16}
-            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#8d8487]"
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[color:var(--theme-muted-text,#8d8487)]"
             aria-hidden="true"
           />
         </div>
@@ -69,7 +69,7 @@ export default function FilterPanel({
       <div className="mt-5">
         <label
           htmlFor="project-skill"
-          className="mb-2 block text-sm font-semibold text-[#3a3235]"
+          className="mb-2 block text-sm font-semibold text-[color:var(--theme-text,#3a3235)]"
         >
           Required skill
         </label>
@@ -78,7 +78,7 @@ export default function FilterPanel({
             id="project-skill"
             value={skillId}
             onChange={(event) => setSkillId(event.target.value)}
-            className="h-11 w-full appearance-none rounded-xl border border-[#a994a0] bg-white px-3.5 pr-9 text-sm text-[#4c4548] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+            className="h-11 w-full appearance-none rounded-xl border border-[color:var(--theme-border,#a994a0)] bg-[var(--theme-surface,#fff)] px-3.5 pr-9 text-sm text-[color:var(--theme-text,#4c4548)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
           >
             <option value="">All skills</option>
             {marketplaceData.skills.map(({ id, label }) => (
@@ -89,16 +89,20 @@ export default function FilterPanel({
           </select>
           <ChevronDown
             size={16}
-            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#8d8487]"
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[color:var(--theme-muted-text,#8d8487)]"
             aria-hidden="true"
           />
         </div>
       </div>
-      <label className="mt-6 flex cursor-pointer items-center justify-between gap-3 border-t border-[#d8cbd2] pt-5 text-sm font-semibold text-[#3a3235]">
+      <label className="mt-6 flex cursor-pointer items-center justify-between gap-3 border-t border-[color:var(--theme-border,#d8cbd2)] pt-5 text-sm font-semibold text-[color:var(--theme-text,#3a3235)]">
         <span className="flex items-center gap-2">
-          <Bookmark size={16} className="text-miu-red" aria-hidden="true" />{" "}
+          <Bookmark
+            size={16}
+            className="text-[var(--theme-accent,var(--color-miu-red))]"
+            aria-hidden="true"
+          />{" "}
           Saved projects{" "}
-          <span className="text-xs font-normal text-[#9a9294]">
+          <span className="text-xs font-normal text-[color:var(--theme-muted-text,#9a9294)]">
             ({savedCount})
           </span>
         </span>
@@ -109,9 +113,13 @@ export default function FilterPanel({
           className="size-4 accent-miu-red"
         />
       </label>
-      <div className="mt-6 rounded-xl border border-[#dbb5c1] bg-[#f8e7ed] p-4 text-xs leading-5 text-[#795860]">
-        <Sparkles size={17} className="mb-2 text-miu-red" aria-hidden="true" />
-        <strong className="mb-1 block text-[#57333e]">
+      <div className="mt-6 rounded-xl border border-[color:var(--theme-border,#dbb5c1)] bg-[color:var(--theme-accent-surface,#f8e7ed)] p-4 text-xs leading-5 text-[color:var(--theme-muted-text,#795860)]">
+        <Sparkles
+          size={17}
+          className="mb-2 text-[var(--theme-accent,var(--color-miu-red))]"
+          aria-hidden="true"
+        />
+        <strong className="mb-1 block text-[color:var(--theme-accent,#57333e)]">
           Look beyond the budget
         </strong>
         Choose a clear scope, the right skills, and a deadline you can

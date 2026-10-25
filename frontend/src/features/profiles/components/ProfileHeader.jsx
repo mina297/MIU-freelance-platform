@@ -19,7 +19,7 @@ export default function ProfileHeader({
     .join("");
 
   return (
-    <header className="premium-profile-header flex w-full flex-col items-start gap-6 overflow-hidden rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)] sm:p-8 md:flex-row md:gap-7">
+    <header className="premium-profile-header flex w-full flex-col items-start gap-6 overflow-hidden rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-5 shadow-[var(--shadow-panel)] sm:p-8 md:flex-row md:gap-7">
       <div className="relative size-[120px] shrink-0 overflow-hidden rounded-full bg-surface-muted md:size-[132px]">
         <SafeImage
           src={profile.profileImage}
@@ -29,7 +29,7 @@ export default function ProfileHeader({
           className="size-full object-cover"
           width={132}
           height={132}
-          placeholderClassName="flex size-full items-center justify-center text-2xl font-semibold text-miu-red"
+          placeholderClassName="flex size-full items-center justify-center text-2xl font-semibold text-[var(--theme-accent,var(--color-miu-red))]"
           placeholderLabel={initials || "?"}
         />
       </div>
@@ -42,7 +42,7 @@ export default function ProfileHeader({
           {profile.verified ? (
             <span className="inline-flex items-center" title="Verified profile">
               <BadgeCheck
-                className="size-[22px] text-miu-red"
+                className="size-[22px] text-[var(--theme-accent,var(--color-miu-red))]"
                 aria-label="Verified"
               />
             </span>
@@ -54,7 +54,7 @@ export default function ProfileHeader({
         </p>
 
         {profile.availability?.trim() ? (
-          <p className="inline-flex max-w-full items-center rounded-full bg-miu-red-tint px-3 py-1 text-xs font-semibold text-miu-red sm:text-sm">
+          <p className="inline-flex max-w-full items-center rounded-full bg-miu-red-tint px-3 py-1 text-xs font-semibold text-[var(--theme-accent,var(--color-miu-red))] sm:text-sm">
             {profile.availability.trim()}
           </p>
         ) : null}

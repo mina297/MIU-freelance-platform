@@ -11,11 +11,11 @@ export default function CategoryCard({ category, selected, onSelect }) {
       type="button"
       aria-pressed={selected}
       onClick={() => onSelect(category.id)}
-      className={`group relative flex min-h-[112px] flex-col justify-between overflow-hidden rounded-2xl border-2 p-4 text-left transition duration-200 hover:-translate-y-1 hover:shadow-[0_16px_32px_-21px_rgba(85,28,39,0.35)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red sm:min-h-[164px] sm:p-5 motion-reduce:transform-none motion-reduce:transition-none ${selected ? "border-miu-red bg-[linear-gradient(135deg,#fff,#fce9ee)] shadow-[0_5px_16px_rgba(126,24,42,0.12)]" : "border-[#c9bac1] bg-white shadow-[0_3px_10px_rgba(62,39,43,0.06)]"}`}
+      className={`group relative flex min-h-[112px] flex-col justify-between overflow-hidden rounded-2xl border-2 p-4 text-left transition duration-200 hover:-translate-y-1 hover:shadow-[0_16px_32px_-21px_rgba(85,28,39,0.35)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red sm:min-h-[164px] sm:p-5 motion-reduce:transform-none motion-reduce:transition-none ${selected ? "border-miu-red bg-[linear-gradient(135deg,var(--theme-surface,#fff),var(--theme-accent-surface,#fce9ee))] shadow-[0_5px_16px_rgba(126,24,42,0.12)]" : "border-[color:var(--theme-border,#c9bac1)] bg-[var(--theme-surface,#fff)] shadow-[0_3px_10px_rgba(62,39,43,0.06)]"}`}
     >
       <span
         aria-hidden="true"
-        className={`pointer-events-none absolute -right-6 -top-7 size-24 rounded-full border-[18px] transition ${selected ? "border-[#f7dce1]" : "border-[#f8f5f4] group-hover:border-[#fae9ec]"}`}
+        className={`pointer-events-none absolute -right-6 -top-7 size-24 rounded-full border-[18px] transition ${selected ? "border-[color:var(--theme-border,#f7dce1)]" : "border-[color:var(--theme-border,#f8f5f4)] group-hover:border-[color:var(--theme-border,#fae9ec)]"}`}
       />
       <span
         className={`relative grid size-9 place-items-center rounded-xl ${selected ? "bg-miu-red text-white" : category.tone}`}
@@ -27,17 +27,17 @@ export default function CategoryCard({ category, selected, onSelect }) {
         )}
       </span>
       <span className="relative flex items-end justify-between gap-2">
-        <span className="text-sm font-bold leading-tight text-[#2b2427] sm:text-base">
+        <span className="text-sm font-bold leading-tight text-[color:var(--theme-text,#2b2427)] sm:text-base">
           <span className="sm:hidden">{category.shortLabel}</span>
           <span className="hidden sm:inline">{category.label}</span>
         </span>
         <span
-          className={`shrink-0 rounded-full px-2 py-1 text-[11px] font-bold ${selected ? "bg-[#f9e3e7] text-miu-red" : "bg-[#f6f3f2] text-[#8d8586]"}`}
+          className={`shrink-0 rounded-full px-2 py-1 text-[11px] font-bold ${selected ? "bg-[color:var(--theme-accent-surface,#f9e3e7)] text-[var(--theme-accent,var(--color-miu-red))]" : "bg-[color:var(--theme-subtle-surface,#f6f3f2)] text-[color:var(--theme-muted-text,#8d8586)]"}`}
         >
           {count}
         </span>
       </span>
-      <span className="relative mt-2 hidden text-xs leading-5 text-[#70666b] sm:block">
+      <span className="relative mt-2 hidden text-xs leading-5 text-[color:var(--theme-muted-text,#70666b)] sm:block">
         {category.detail}
       </span>
     </button>

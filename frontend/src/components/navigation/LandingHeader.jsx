@@ -9,6 +9,7 @@ import {
 import Dropdown from "../ui/Dropdown.jsx";
 import miuLogo from "../../assets/figma/miu-anniversary-logo.png";
 import "./publicHeader.css";
+import ThemeToggle from "../../theme/ThemeToggle.jsx";
 
 const navigation = [
   {
@@ -61,14 +62,17 @@ const navigation = [
   },
 ];
 
-export default function LandingHeader({ accountAction, themeControl }) {
+export default function LandingHeader({ accountAction }) {
   return (
     <header className="public-header">
       <div className="public-header-inner">
         <Link to="/" aria-label="MIU Freelance home" className="public-brand">
           <img src={miuLogo} alt="Misr International University" />
           <span>
-            Freelance<span className="text-miu-red">.</span>
+            Freelance
+            <span className="text-[var(--theme-accent,var(--color-miu-red))]">
+              .
+            </span>
           </span>
         </Link>
         <nav aria-label="Public navigation" className="public-navigation">
@@ -103,7 +107,7 @@ export default function LandingHeader({ accountAction, themeControl }) {
           </Link>
         </nav>
         <div className="public-auth-links">
-          {themeControl}
+          <ThemeToggle />
           {accountAction ?? (
             <>
               <Link to="/login" className="public-sign-in">

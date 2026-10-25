@@ -471,7 +471,7 @@ export default function ProjectCreate() {
             may be unavailable or no longer editable.
           </p>
           <Link
-            className="mt-6 inline-flex min-h-11 items-center text-miu-red underline"
+            className="mt-6 inline-flex min-h-11 items-center text-[var(--theme-accent,var(--color-miu-red))] underline"
             to="/client/projects"
           >
             Return to My projects

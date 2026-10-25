@@ -27,7 +27,7 @@ export default function ReviewSubjectSummary({ student, order }) {
       className="flex flex-col gap-4 rounded-panel border border-border-soft bg-surface-page p-4 sm:flex-row sm:items-center sm:gap-5 sm:p-5"
       aria-label="Review subject"
     >
-      <div className="relative size-16 shrink-0 overflow-hidden rounded-full bg-white ring-1 ring-[#e5e7eb] sm:size-[72px]">
+      <div className="relative size-16 shrink-0 overflow-hidden rounded-full bg-[var(--theme-surface,#fff)] ring-1 ring-[color:var(--theme-border,#e5e7eb)] sm:size-[72px]">
         <SafeImage
           key={student?.profileImage || displayName}
           src={student?.profileImage}
@@ -35,7 +35,7 @@ export default function ReviewSubjectSummary({ student, order }) {
           className="size-full object-cover"
           width={72}
           height={72}
-          placeholderClassName="flex size-full items-center justify-center bg-miu-red-tint text-lg font-semibold text-miu-red"
+          placeholderClassName="flex size-full items-center justify-center bg-miu-red-tint text-lg font-semibold text-[var(--theme-accent,var(--color-miu-red))]"
           placeholderLabel={initials || "?"}
         />
       </div>
@@ -46,7 +46,7 @@ export default function ReviewSubjectSummary({ student, order }) {
             {displayName}
           </h3>
           {student?.verified ? (
-            <span className="inline-flex items-center gap-1 rounded-full bg-white px-2 py-0.5 text-[11px] font-semibold text-miu-red ring-1 ring-[#e5e7eb]">
+            <span className="inline-flex items-center gap-1 rounded-full bg-[var(--theme-surface,#fff)] px-2 py-0.5 text-[11px] font-semibold text-[var(--theme-accent,var(--color-miu-red))] ring-1 ring-[color:var(--theme-border,#e5e7eb)]">
               <BadgeCheck className="size-3.5" aria-hidden="true" />
               Verified
             </span>
@@ -57,9 +57,11 @@ export default function ReviewSubjectSummary({ student, order }) {
           <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
             <p className="text-sm font-medium text-miu-black">
               Project:{" "}
-              <span className="font-normal text-ink-secondary">{order.title}</span>
+              <span className="font-normal text-ink-secondary">
+                {order.title}
+              </span>
             </p>
-            <span className="inline-flex w-fit items-center rounded-full bg-success/10 px-2.5 py-0.5 text-xs font-semibold text-success">
+            <span className="inline-flex w-fit items-center rounded-full bg-success/10 px-2.5 py-0.5 text-xs font-semibold text-[var(--theme-success-text,var(--color-success))]">
               {completedLabel}
             </span>
           </div>

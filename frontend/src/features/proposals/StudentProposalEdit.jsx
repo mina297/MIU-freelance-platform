@@ -146,7 +146,7 @@ function EditForm({ proposal }) {
               <div className="project-create__actions">
                 <Link
                   to="/student/proposals"
-                  className="text-miu-red underline"
+                  className="text-[var(--theme-accent,var(--color-miu-red))] underline"
                 >
                   Discard unsaved changes
                 </Link>
@@ -193,7 +193,7 @@ export default function StudentProposalEdit() {
               : "This proposal is unavailable or does not belong to your account."}
           </p>
           <Link
-            className="mt-6 inline-flex min-h-11 items-center text-miu-red underline"
+            className="mt-6 inline-flex min-h-11 items-center text-[var(--theme-accent,var(--color-miu-red))] underline"
             to="/student/proposals"
           >
             Return to My proposals

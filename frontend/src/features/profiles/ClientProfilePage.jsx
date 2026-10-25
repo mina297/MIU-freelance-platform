@@ -72,20 +72,20 @@ export default function ClientProfilePage({
             <button
               type="button"
               onClick={onEditProfile}
-              className="h-10 rounded-full border border-miu-red px-4 text-sm font-semibold text-miu-red hover:bg-miu-red-tint"
+              className="h-10 rounded-full border border-miu-red px-4 text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))] hover:bg-miu-red-tint"
             >
               Edit profile
             </button>
           ) : null}
         </div>
 
-        <header className="flex w-full flex-col gap-6 rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)] sm:p-8 md:flex-row">
+        <header className="flex w-full flex-col gap-6 rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-5 shadow-[var(--shadow-panel)] sm:p-8 md:flex-row">
           <div className="size-[120px] shrink-0 overflow-hidden rounded-full bg-miu-red-tint md:size-[132px]">
             <SafeImage
               src={profile.profileImage}
               alt={profile.profileImageAlt}
               className="size-full object-cover"
-              placeholderClassName="flex size-full items-center justify-center text-2xl font-semibold text-miu-red"
+              placeholderClassName="flex size-full items-center justify-center text-2xl font-semibold text-[var(--theme-accent,var(--color-miu-red))]"
               placeholderLabel={initials || "?"}
             />
           </div>
@@ -97,7 +97,7 @@ export default function ClientProfilePage({
               </h1>
               {profile.verified ? (
                 <BadgeCheck
-                  className="size-[22px] text-miu-red"
+                  className="size-[22px] text-[var(--theme-accent,var(--color-miu-red))]"
                   aria-label="Verified"
                 />
               ) : null}
@@ -113,7 +113,7 @@ export default function ClientProfilePage({
           </div>
         </header>
 
-        <section className="rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)] sm:p-6">
+        <section className="rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-5 shadow-[var(--shadow-panel)] sm:p-6">
           <h2 className="text-xl font-semibold text-miu-black">About</h2>
           <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-ink-secondary">
             {profile.aboutParagraphs.map((paragraph) => (
@@ -129,7 +129,7 @@ export default function ClientProfilePage({
           {projectHistory.length === 0 ? (
             <ProfileEmptyState message="No completed projects linked to this client yet." />
           ) : (
-            <ul className="overflow-hidden rounded-panel border border-border-soft bg-white shadow-[var(--shadow-panel)]">
+            <ul className="overflow-hidden rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] shadow-[var(--shadow-panel)]">
               {projectHistory.map((project, index) => {
                 const dateLabel = new Date(
                   project.completedAt,
@@ -154,7 +154,7 @@ export default function ClientProfilePage({
                         {onViewStudent ? (
                           <button
                             type="button"
-                            className="font-medium text-miu-red underline-offset-2 hover:underline"
+                            className="font-medium text-[var(--theme-accent,var(--color-miu-red))] underline-offset-2 hover:underline"
                             onClick={() => onViewStudent(project.studentId)}
                           >
                             {project.studentName}

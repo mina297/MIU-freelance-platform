@@ -29,7 +29,7 @@ export default function CompletedJobsSection({ projects, isOwner = false }) {
   return (
     <div className="flex w-full flex-col gap-4">
       <h2 className="text-xl font-semibold text-miu-black">Completed jobs</h2>
-      <ul className="overflow-hidden rounded-panel border border-border-soft bg-white shadow-[var(--shadow-panel)]">
+      <ul className="overflow-hidden rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] shadow-[var(--shadow-panel)]">
         {projects.map((project, index) => {
           const dateLabel = new Date(project.completedAt).toLocaleDateString(
             "en-GB",

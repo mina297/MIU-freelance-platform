@@ -50,7 +50,10 @@ export default function StarRatingInput({
         </span>
       </div>
       {error ? (
-        <p className="text-sm text-danger" role="alert">
+        <p
+          className="text-sm text-[var(--theme-danger-text,var(--color-danger))]"
+          role="alert"
+        >
           {error}
         </p>
       ) : null}

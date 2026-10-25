@@ -23,7 +23,8 @@ export default function ProjectsHero({ project }) {
       <div className="relative mx-auto grid max-w-[1280px] gap-10 px-5 pb-28 pt-14 sm:px-8 sm:pt-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:px-10 lg:pb-32">
         <div>
           <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-[#ffb9c4]">
-            <span className="h-px w-7 bg-[#e998a6]" /> The project marketplace
+            <span className="h-px w-7 bg-[color:var(--theme-accent-surface,#e998a6)]" />{" "}
+            The project marketplace
           </p>
           <h1 className="mt-5 max-w-3xl text-5xl font-bold leading-[1.07] tracking-[-0.055em] sm:text-6xl lg:text-[68px]">
             Your skills.
@@ -55,39 +56,42 @@ export default function ProjectsHero({ project }) {
           >
             <div className="absolute right-0 top-6 xl:right-7 h-[250px] w-[330px] rotate-[8deg] rounded-3xl border border-white/20 bg-white/10 shadow-2xl backdrop-blur-sm" />
             <div className="absolute right-3 top-2 xl:right-10 h-[268px] w-[345px] -rotate-[7deg] rounded-3xl border border-white/20 bg-[#f7dce1]/20 shadow-2xl backdrop-blur-sm" />
-            <div className="absolute right-5 top-6 w-[min(355px,100%)] xl:right-16 rounded-3xl border border-[#f1dfe1] bg-white p-6 text-[#251f22] shadow-[0_28px_65px_rgba(18,8,12,0.35)]">
+            <div className="absolute right-5 top-6 w-[min(355px,100%)] xl:right-16 rounded-3xl border border-[color:var(--theme-border,#f1dfe1)] bg-[var(--theme-surface,#fff)] p-6 text-[color:var(--theme-text,#251f22)] shadow-[0_28px_65px_rgba(18,8,12,0.35)]">
               <div className="flex items-center justify-between">
-                <span className="rounded-full bg-[#fcecef] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-miu-red">
+                <span className="rounded-full bg-[color:var(--theme-accent-surface,#fcecef)] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--theme-accent,var(--color-miu-red))]">
                   Project brief
                 </span>
-                <BriefcaseBusiness size={20} className="text-[#b23a4c]" />
+                <BriefcaseBusiness
+                  size={20}
+                  className="text-[color:var(--theme-accent,#b23a4c)]"
+                />
               </div>
               <h2 className="mt-5 text-[21px] font-bold leading-snug tracking-[-0.03em]">
                 {project.title}
               </h2>
-              <p className="mt-3 text-sm leading-6 text-[#72686d]">
+              <p className="mt-3 text-sm leading-6 text-[color:var(--theme-muted-text,#72686d)]">
                 {project.description}
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {project.requiredSkillIds.map((id) => (
                   <span
                     key={id}
-                    className="rounded-lg bg-[#f6f1f0] px-2.5 py-1.5 text-xs text-[#655a60]"
+                    className="rounded-lg bg-[color:var(--theme-accent-surface,#f6f1f0)] px-2.5 py-1.5 text-xs text-[color:var(--theme-muted-text,#655a60)]"
                   >
                     {skillNames.get(id)}
                   </span>
                 ))}
               </div>
-              <div className="mt-6 flex items-end justify-between border-t border-[#f0e8e9] pt-4">
+              <div className="mt-6 flex items-end justify-between border-t border-[color:var(--theme-border,#f0e8e9)] pt-4">
                 <div>
-                  <span className="block text-[11px] uppercase tracking-wider text-[#a0969a]">
+                  <span className="block text-[11px] uppercase tracking-wider text-[color:var(--theme-muted-text,#a0969a)]">
                     Project budget
                   </span>
                   <strong className="mt-1 block text-xl">
                     {formatEGP(project.budgetEGP)}
                   </strong>
                 </div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#927681]">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[color:var(--theme-muted-text,#927681)]">
                   Sample brief
                 </span>
               </div>

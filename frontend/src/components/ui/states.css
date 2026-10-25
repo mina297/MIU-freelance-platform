@@ -166,7 +166,7 @@
 }
 
 .miu-feedback-state--error .miu-feedback-state__icon {
-  color: var(--color-miu-red, #b91c2b);
+  color: var(--theme-accent, var(--color-miu-red, #b91c2b));
 }
 
 @keyframes miu-state-spin {

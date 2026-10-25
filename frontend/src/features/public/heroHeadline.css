@@ -24,7 +24,7 @@
   height: 0.85em;
   margin-inline-start: 5px;
   vertical-align: -0.04em;
-  background: #ffd2e2;
+  background: var(--theme-accent-surface, #ffd2e2);
 }
 @media (max-width: 600px) {
   .landing .landing-hero .landing-typed-headline {

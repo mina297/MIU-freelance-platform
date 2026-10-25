@@ -18,13 +18,13 @@
 }
 .admin-center
   :is(button, a, input, select, textarea, summary, [tabindex]):focus-visible {
-  outline: 3px solid #2563eb;
+  outline: 3px solid var(--theme-focus, #2563eb);
   outline-offset: 3px;
 }
 .ac-sidebar {
   width: 248px;
   flex-shrink: 0;
-  background: white;
+  background: var(--theme-surface, white);
   border-right: 1px solid var(--border-soft);
   padding: 28px 20px;
 }
@@ -48,7 +48,7 @@
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.14em;
-  color: #78818d;
+  color: var(--theme-muted-text, #78818d);
 }
 .ac-sidebar > .ac-eyebrow {
   margin: 42px 12px 16px;
@@ -63,11 +63,11 @@
   gap: 12px;
   padding: 13px 12px;
   text-align: left;
-  color: #566172;
+  color: var(--theme-muted-text, #566172);
   border-radius: 12px;
 }
 .ac-sidebar nav button[aria-current] {
-  color: var(--color-miu-red);
+  color: var(--theme-accent, var(--color-miu-red));
   background: var(--color-miu-red-tint);
   font-weight: 600;
   box-shadow: inset 3px 0 #a52d4b;
@@ -75,11 +75,11 @@
 .ac-trust {
   margin-top: 40px;
   padding: 20px 16px;
-  background: #fdf2f3;
+  background: var(--theme-accent-surface, #fdf2f3);
   border-radius: 12px;
 }
 .ac-trust svg {
-  color: #b91c2b;
+  color: var(--theme-accent, #b91c2b);
 }
 .ac-trust h3 {
   font-weight: 600;
@@ -104,13 +104,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 36px;
-  background: white;
+  background: var(--theme-surface, white);
   border-bottom: 1px solid var(--border-soft);
   color: var(--ink-secondary);
   gap: 16px;
 }
 .ac-topbar b {
-  color: #18202e;
+  color: var(--theme-info-text, #18202e);
   margin-left: 12px;
 }
 .ac-account {
@@ -125,8 +125,8 @@
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: #fdf2f3;
-  color: #b91c2b;
+  background: var(--theme-accent-surface, #fdf2f3);
+  color: var(--theme-accent, #b91c2b);
   font-weight: 700;
 }
 .ac-main {
@@ -143,7 +143,7 @@
   align-items: center;
   gap: 20px;
   padding: clamp(20px, 3vw, 32px);
-  border: 1px solid #84516a;
+  border: 1px solid var(--theme-border, #84516a);
   border-radius: var(--radius-panel);
   background: var(--hero-gradient);
   color: #fff;
@@ -163,11 +163,11 @@
   color: #f0d4e0;
 }
 .ac-heading button:focus-visible {
-  outline-color: #ffe1ec;
+  outline-color: var(--theme-focus, #ffe1ec);
 }
 .admin-center button:not(nav button) {
   font-weight: 600;
-  color: #b91c2b;
+  color: var(--theme-accent, #b91c2b);
   min-height: 40px;
 }
 .admin-center button.ac-primary {
@@ -181,20 +181,20 @@
 }
 .ac-demo {
   font-size: 12px;
-  color: #73545c;
-  border-left: 3px solid #b91c2b;
+  color: var(--theme-muted-text, #73545c);
+  border-left: 3px solid var(--theme-border, #b91c2b);
   padding: 10px 14px;
-  background: #fdf2f3;
+  background: var(--theme-accent-surface, #fdf2f3);
   border-radius: 0 8px 8px 0;
 }
 .ac-notice:empty {
   display: none;
 }
 .ac-notice {
-  color: #196c39;
+  color: var(--theme-success-text, #196c39);
 }
 .ac-panel {
-  background: white;
+  background: var(--theme-surface, white);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-panel);
   box-shadow: var(--shadow-panel);
@@ -221,7 +221,7 @@
 }
 .ac-stat {
   padding: 20px;
-  border-block-start: 3px solid #b77690;
+  border-block-start: 3px solid var(--theme-border, #b77690);
 }
 .ac-stat > div {
   display: flex;
@@ -231,7 +231,7 @@
   font-size: 12px;
 }
 .ac-stat svg {
-  color: #b91c2b;
+  color: var(--theme-accent, #b91c2b);
   flex-shrink: 0;
 }
 .ac-stat strong {
@@ -249,8 +249,8 @@
   display: inline-block;
   padding: 4px 9px;
   border-radius: 6px;
-  background: #f1f4f8;
-  color: #445268;
+  background: var(--theme-info-surface, #f1f4f8);
+  color: var(--theme-muted-text, #445268);
   font-size: 11px;
   white-space: nowrap;
 }
@@ -265,7 +265,7 @@
   font-size: 12px;
 }
 .ac-table-wrap th {
-  background: #f8f9fb;
+  background: var(--theme-info-surface, #f8f9fb);
   color: var(--ink-secondary);
   font-size: 10px;
   text-transform: uppercase;
@@ -274,7 +274,7 @@
 }
 .ac-table-wrap td {
   padding: 17px 24px;
-  border-top: 1px solid #edf0f4;
+  border-top: 1px solid var(--theme-border, #edf0f4);
   max-width: 290px;
   overflow-wrap: anywhere;
 }
@@ -326,8 +326,8 @@
   display: inline-flex;
   padding: 10px;
   border-radius: 10px;
-  background: #fdf2f3;
-  color: #b91c2b;
+  background: var(--theme-accent-surface, #fdf2f3);
+  color: var(--theme-accent, #b91c2b);
 }
 .ac-padded {
   padding: 0 4px 16px;
@@ -345,11 +345,11 @@
 }
 .admin-center :is(input, select, textarea) {
   display: block;
-  border: 1px solid #cbd1d9;
+  border: 1px solid var(--theme-border, #cbd1d9);
   border-radius: 8px;
   padding: 10px 12px;
-  background: white;
-  color: #18202e;
+  background: var(--theme-surface, white);
+  color: var(--theme-info-text, #18202e);
   max-width: 100%;
   margin-top: 6px;
   font: inherit;
@@ -419,7 +419,7 @@
   position: absolute;
   top: -100px;
   left: 16px;
-  background: white;
+  background: var(--theme-surface, white);
   padding: 12px;
   z-index: 10;
 }

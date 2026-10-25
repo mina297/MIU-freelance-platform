@@ -54,7 +54,7 @@ export default function AtAGlanceCard({
 
   return (
     <section
-      className="flex w-full flex-col gap-6 overflow-hidden rounded-panel border border-border-soft bg-white p-6 shadow-[var(--shadow-panel)]"
+      className="flex w-full flex-col gap-6 overflow-hidden rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-6 shadow-[var(--shadow-panel)]"
       aria-labelledby="at-a-glance-heading"
     >
       <h2
@@ -72,7 +72,9 @@ export default function AtAGlanceCard({
               aria-hidden="true"
             />
             <div className="min-w-0">
-              <p className="text-xs leading-normal text-ink-secondary">{label}</p>
+              <p className="text-xs leading-normal text-ink-secondary">
+                {label}
+              </p>
               <p className="text-sm font-medium leading-normal text-miu-black">
                 {value}
               </p>

@@ -34,7 +34,7 @@
 .landing-hero-film-frame {
   position: absolute;
   inset: 22px;
-  border: 1px solid #ffe2ed24;
+  border: 1px solid var(--theme-border, #ffe2ed24);
   border-bottom: 0;
   border-radius: 24px 24px 0 0;
 }
@@ -46,13 +46,13 @@
   color: #f6e2eb;
 }
 .landing-hero .landing-community {
-  background: #ffffffed;
-  color: #774052;
-  border-color: #e9becf;
+  background: var(--theme-surface, #ffffffed);
+  color: var(--theme-accent, #774052);
+  border-color: var(--theme-border, #e9becf);
 }
 .landing-hero .landing-note {
-  border-color: #ffffff55;
-  background: #fff9f2ed;
+  border-color: var(--theme-border, #ffffff55);
+  background: var(--theme-warning-surface, #fff9f2ed);
 }
 .landing-hero .landing-hero-spark {
   color: #ffd5e6;
@@ -65,7 +65,7 @@
   color: #ffcfdf;
 }
 .landing-hero .landing-motion-control {
-  border: 1px solid #ffffff50;
+  border: 1px solid var(--theme-border, #ffffff50);
   background: #30162070;
 }
 .landing-hero .landing-motion-control:hover {
@@ -81,7 +81,7 @@
 .landing
   .landing-hero
   :is(.landing-mode-caption a, .landing-motion-control):focus-visible {
-  outline-color: #ffe1ec;
+  outline-color: var(--theme-focus, #ffe1ec);
 }
 @media (max-width: 700px) {
   .landing-hero-film-frame {

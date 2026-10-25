@@ -101,6 +101,19 @@ Production permissions must be enforced by the backend.
 
 ## 6. State Management
 
+### Appearance — 25 October 2026
+
+`src/theme/ThemeProvider.jsx` wraps the router and existing authentication
+provider in `App.jsx`. It owns a single React state value initialized to light;
+navigation does not remount it. `ThemeToggle` consumes that context in public
+and authentication headers. `StandaloneThemeControl` supplies one floating
+control to standalone routes and the custom `/admin` dashboard. Preview entries
+mount the same provider independently. Theme state uses no browser persistence,
+and changes only the root `data-theme` attribute. Shared CSS tokens inherit into
+dialogs, popovers and portals. Existing role/session/store ownership is unchanged.
+
+See [Global theme handover](../07-HANDOVER/GLOBAL_THEME_2026-10-25.md).
+
 The Phase 1 chatbot mounts once in `src/App.jsx`, beside `AppRouter` under the
 existing `AuthProvider`. `features/chatbot/` owns its memory-only conversation,
 reply model and scoped styles; it reuses the existing session contract and UI

@@ -47,7 +47,7 @@ export default function HelpCenterPage({ onOpenArticle, onContactSupport }) {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search articles and FAQs…"
-              className="h-12 w-full rounded-full border border-border-soft bg-white px-5 text-sm shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+              className="h-12 w-full rounded-full border border-border-soft bg-[var(--theme-surface,#fff)] px-5 text-sm shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
             />
           </label>
         </header>
@@ -80,14 +80,14 @@ export default function HelpCenterPage({ onOpenArticle, onContactSupport }) {
                     "Open /support/contact — wire this callback from the preview or Member 1 router.",
                   ))
               }
-              className="text-sm font-semibold text-miu-red"
+              className="text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))]"
             >
               Contact support
             </button>
           </div>
 
           {articles.length === 0 ? (
-            <p className="rounded-panel border border-dashed border-border-soft bg-white p-6 text-sm text-ink-secondary">
+            <p className="rounded-panel border border-dashed border-border-soft bg-[var(--theme-surface,#fff)] p-6 text-sm text-ink-secondary">
               No articles match “{query}”.
             </p>
           ) : (
@@ -97,7 +97,7 @@ export default function HelpCenterPage({ onOpenArticle, onContactSupport }) {
                   <button
                     type="button"
                     onClick={() => onOpenArticle?.(article.slug)}
-                    className="flex h-full w-full flex-col rounded-panel border border-border-soft bg-white p-5 text-left shadow-[var(--shadow-panel)] hover:border-miu-red/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+                    className="flex h-full w-full flex-col rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-5 text-left shadow-[var(--shadow-panel)] hover:border-miu-red/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
                   >
                     <h3 className="text-base font-semibold text-miu-black">
                       {article.title}
@@ -105,7 +105,7 @@ export default function HelpCenterPage({ onOpenArticle, onContactSupport }) {
                     <p className="mt-2 flex-1 text-sm text-ink-secondary">
                       {article.summary}
                     </p>
-                    <span className="mt-3 text-sm font-semibold text-miu-red">
+                    <span className="mt-3 text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))]">
                       Read article →
                     </span>
                   </button>
@@ -138,7 +138,7 @@ function CategoryChip({ label, active, onClick }) {
       className={`rounded-full px-4 py-2 text-sm font-medium ${
         active
           ? "bg-miu-red text-white"
-          : "bg-white text-ink-secondary ring-1 ring-[#e5e7eb] hover:text-miu-black"
+          : "bg-[var(--theme-surface,#fff)] text-ink-secondary ring-1 ring-[color:var(--theme-border,#e5e7eb)] hover:text-miu-black"
       }`}
     >
       {label}

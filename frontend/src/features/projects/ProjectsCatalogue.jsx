@@ -136,17 +136,17 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
   const heroProject = openProjects[0];
 
   return (
-    <div className="min-h-screen bg-[#eee9ed] font-sans text-[#262126]">
+    <div className="min-h-screen bg-[color:var(--theme-subtle-surface,#eee9ed)] font-sans text-[color:var(--theme-text,#262126)]">
       <a
         href="#project-results"
-        className="sr-only z-50 rounded-lg bg-white p-3 text-miu-red focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        className="sr-only z-50 rounded-lg bg-[var(--theme-surface,#fff)] p-3 text-[var(--theme-accent,var(--color-miu-red))] focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
       >
         Skip to projects
       </a>
       <p role="status" className="sr-only">
         {saveNotice}
       </p>
-      <header className="border-b border-[#cdbfc5] bg-white">
+      <header className="border-b border-[color:var(--theme-border,#cdbfc5)] bg-[var(--theme-surface,#fff)]">
         <div className="mx-auto flex h-[76px] max-w-[1280px] items-center justify-between gap-5 px-5 sm:px-8 lg:px-10">
           <div className="flex items-center gap-5">
             <img
@@ -155,37 +155,40 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
               className="h-12 w-auto max-w-[150px] object-contain"
             />
             <span
-              className="hidden h-7 w-px bg-[#e7e0e1] sm:block"
+              className="hidden h-7 w-px bg-[color:var(--theme-subtle-surface,#e7e0e1)] sm:block"
               aria-hidden="true"
             />
-            <span className="hidden text-sm font-bold text-[#3e3036] sm:block">
-              Freelance<span className="text-miu-red">.</span>
+            <span className="hidden text-sm font-bold text-[color:var(--theme-text,#3e3036)] sm:block">
+              Freelance
+              <span className="text-[var(--theme-accent,var(--color-miu-red))]">
+                .
+              </span>
             </span>
           </div>
           <nav
             aria-label="Catalogue navigation"
-            className="hidden items-center gap-7 text-sm font-semibold text-[#67515c] md:flex"
+            className="hidden items-center gap-7 text-sm font-semibold text-[color:var(--theme-muted-text,#67515c)] md:flex"
           >
             <a
               href="#discover"
-              className="py-3 hover:text-miu-red focus-visible:outline-2 focus-visible:outline-miu-red"
+              className="py-3 hover:text-[var(--theme-accent,var(--color-miu-red))] focus-visible:outline-2 focus-visible:outline-miu-red"
             >
               Discover
             </a>
             <a
               href="#project-results"
               onClick={() => setSavedOnly(false)}
-              className={`border-b-2 py-3 focus-visible:outline-2 focus-visible:outline-miu-red ${savedOnly ? "border-transparent hover:text-miu-red" : "border-miu-red text-miu-red"}`}
+              className={`border-b-2 py-3 focus-visible:outline-2 focus-visible:outline-miu-red ${savedOnly ? "border-transparent hover:text-[var(--theme-accent,var(--color-miu-red))]" : "border-miu-red text-[var(--theme-accent,var(--color-miu-red))]"}`}
             >
               Projects
             </a>
             <a
               href="#project-results"
               onClick={() => setSavedOnly(true)}
-              className={`flex items-center gap-2 border-b-2 py-3 hover:text-miu-red focus-visible:outline-2 focus-visible:outline-miu-red ${savedOnly ? "border-miu-red text-miu-red" : "border-transparent"}`}
+              className={`flex items-center gap-2 border-b-2 py-3 hover:text-[var(--theme-accent,var(--color-miu-red))] focus-visible:outline-2 focus-visible:outline-miu-red ${savedOnly ? "border-miu-red text-[var(--theme-accent,var(--color-miu-red))]" : "border-transparent"}`}
             >
               <Bookmark size={15} aria-hidden="true" /> Saved{" "}
-              <span className="rounded-full bg-[#f8edf0] px-2 py-0.5 text-xs text-miu-red">
+              <span className="rounded-full bg-[color:var(--theme-accent-surface,#f8edf0)] px-2 py-0.5 text-xs text-[var(--theme-accent,var(--color-miu-red))]">
                 {savedIds.length}
               </span>
             </a>
@@ -199,7 +202,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
               Post a project
             </button>
           ) : (
-            <span className="inline-flex items-center gap-2 rounded-full bg-[#fdf2f3] px-3 py-1.5 text-xs font-semibold text-[#a52234]">
+            <span className="inline-flex items-center gap-2 rounded-full bg-[color:var(--theme-accent-surface,#fdf2f3)] px-3 py-1.5 text-xs font-semibold text-[color:var(--theme-accent,#a52234)]">
               <span
                 className="size-1.5 rounded-full bg-miu-red"
                 aria-hidden="true"
@@ -220,15 +223,15 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
               event.preventDefault();
               setQuery(searchDraft.trim());
             }}
-            className="flex flex-col gap-3 rounded-2xl border-2 border-[#b78c9e] focus-within:ring-2 focus-within:ring-[#b91c2b]/40 focus-within:ring-offset-2 bg-white p-3 shadow-[0_22px_50px_-29px_rgba(72,20,34,0.48)] sm:flex-row sm:items-center"
+            className="flex flex-col gap-3 rounded-2xl border-2 border-[color:var(--theme-border,#b78c9e)] focus-within:ring-2 focus-within:ring-[#b91c2b]/40 focus-within:ring-offset-2 bg-[var(--theme-surface,#fff)] p-3 shadow-[0_22px_50px_-29px_rgba(72,20,34,0.48)] sm:flex-row sm:items-center"
           >
-            <span className="hidden size-12 shrink-0 place-items-center rounded-xl bg-[#fdf1f3] text-miu-red sm:grid">
+            <span className="hidden size-12 shrink-0 place-items-center rounded-xl bg-[color:var(--theme-accent-surface,#fdf1f3)] text-[var(--theme-accent,var(--color-miu-red))] sm:grid">
               <Search size={22} aria-hidden="true" />
             </span>
             <div className="min-w-0 flex-1 px-1">
               <label
                 htmlFor="project-search"
-                className="mb-1 block text-xs font-bold uppercase tracking-[0.12em] text-[#a24453]"
+                className="mb-1 block text-xs font-bold uppercase tracking-[0.12em] text-[color:var(--theme-accent,#a24453)]"
               >
                 Discover projects
               </label>
@@ -237,7 +240,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                 value={searchDraft}
                 onChange={(event) => setSearchDraft(event.target.value)}
                 placeholder="Search project titles or keywords..."
-                className="w-full bg-transparent py-1 text-sm text-[#2f272b] outline-none placeholder:text-[#a99fa3]"
+                className="w-full bg-transparent py-1 text-sm text-[color:var(--theme-text,#2f272b)] outline-none placeholder:text-[color:var(--theme-muted-text,#a99fa3)]"
               />
             </div>
             {searchDraft && (
@@ -248,7 +251,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                   setQuery("");
                 }}
                 aria-label="Clear search"
-                className="self-end grid size-11 place-items-center rounded-lg text-[#796b72] hover:bg-[#faf3f4] focus-visible:outline-2 focus-visible:outline-miu-red sm:self-auto"
+                className="self-end grid size-11 place-items-center rounded-lg text-[color:var(--theme-muted-text,#796b72)] hover:bg-[color:var(--theme-accent-surface,#faf3f4)] focus-visible:outline-2 focus-visible:outline-miu-red sm:self-auto"
               >
                 <X size={18} aria-hidden="true" />
               </button>
@@ -265,14 +268,14 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
         <div className="mx-auto max-w-[1280px] px-5 pb-20 pt-12 sm:px-8 lg:px-10">
           <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-miu-red">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--theme-accent,var(--color-miu-red))]">
                 Browse by discipline
               </p>
-              <h2 className="mt-1 text-2xl font-bold tracking-[-0.04em] text-[#2b2227] sm:text-3xl">
+              <h2 className="mt-1 text-2xl font-bold tracking-[-0.04em] text-[color:var(--theme-text,#2b2227)] sm:text-3xl">
                 Find your kind of work
               </h2>
             </div>
-            <p className="max-w-md text-sm leading-6 text-[#797075]">
+            <p className="max-w-md text-sm leading-6 text-[color:var(--theme-muted-text,#797075)]">
               Explore opportunities shaped around your interests and skills.
             </p>
           </div>
@@ -297,7 +300,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                 aria-expanded={filtersOpen}
                 aria-controls="catalogue-filters"
                 onClick={() => setFiltersOpen((value) => !value)}
-                className="flex min-h-12 w-full items-center justify-between rounded-xl border border-[#bca3af] bg-white px-4 text-sm font-semibold text-[#6f3d50] lg:hidden"
+                className="flex min-h-12 w-full items-center justify-between rounded-xl border border-[color:var(--theme-border,#bca3af)] bg-[var(--theme-surface,#fff)] px-4 text-sm font-semibold text-[color:var(--theme-accent,#6f3d50)] lg:hidden"
               >
                 <span className="flex items-center gap-2">
                   <SlidersHorizontal size={17} aria-hidden="true" />
@@ -333,16 +336,19 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
             >
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-miu-red">
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--theme-accent,var(--color-miu-red))]">
                     Fresh opportunities
                   </p>
                   <h2
                     id="results-heading"
-                    className="mt-1 text-[28px] font-bold tracking-[-0.04em] text-[#2b2227] sm:text-[34px]"
+                    className="mt-1 text-[28px] font-bold tracking-[-0.04em] text-[color:var(--theme-text,#2b2227)] sm:text-[34px]"
                   >
                     Projects to explore
                   </h2>
-                  <p role="status" className="mt-1 text-sm text-[#80777c]">
+                  <p
+                    role="status"
+                    className="mt-1 text-sm text-[color:var(--theme-muted-text,#80777c)]"
+                  >
                     {results.length}{" "}
                     {results.length === 1 ? "project" : "projects"} found
                   </p>
@@ -350,7 +356,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                 <div>
                   <label
                     htmlFor="project-sort"
-                    className="mr-2 text-xs font-medium text-[#837a7f]"
+                    className="mr-2 text-xs font-medium text-[color:var(--theme-muted-text,#837a7f)]"
                   >
                     Sort by
                   </label>
@@ -358,7 +364,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                     id="project-sort"
                     value={sort}
                     onChange={(event) => setSort(event.target.value)}
-                    className="rounded-xl border border-[#ab95a1] bg-white px-3 py-2.5 text-sm font-semibold text-[#40363b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+                    className="rounded-xl border border-[color:var(--theme-border,#ab95a1)] bg-[var(--theme-surface,#fff)] px-3 py-2.5 text-sm font-semibold text-[color:var(--theme-text,#40363b)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
                   >
                     <option value="newest">Newest first</option>
                     <option value="budget_low">Budget: low to high</option>
@@ -376,7 +382,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                       key={filter.key}
                       type="button"
                       onClick={filter.clear}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-[#c58e9f] bg-[#fbeaf0] px-3 py-1.5 text-xs font-semibold text-[#a52c3d] hover:bg-[#fce9ec] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-[color:var(--theme-border,#c58e9f)] bg-[color:var(--theme-accent-surface,#fbeaf0)] px-3 py-1.5 text-xs font-semibold text-[color:var(--theme-accent,#a52c3d)] hover:bg-[color:var(--theme-accent-surface,#fce9ec)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
                     >
                       {filter.label}
                       <X size={13} aria-hidden="true" />
@@ -386,7 +392,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                   <button
                     type="button"
                     onClick={clearFilters}
-                    className="px-2 py-1.5 text-xs font-semibold text-[#80767b] hover:text-miu-red focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+                    className="px-2 py-1.5 text-xs font-semibold text-[color:var(--theme-muted-text,#80767b)] hover:text-[var(--theme-accent,var(--color-miu-red))] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
                   >
                     Clear all
                   </button>
@@ -410,8 +416,8 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                   ))}
                 </div>
               ) : (
-                <div className="mt-6 rounded-2xl border border-dashed border-[#bda0ad] bg-[#faf7f9] px-6 py-16 text-center">
-                  <span className="mx-auto grid size-16 place-items-center rounded-2xl bg-[#fdf2f3] text-miu-red">
+                <div className="mt-6 rounded-2xl border border-dashed border-[color:var(--theme-border,#bda0ad)] bg-[color:var(--theme-accent-surface,#faf7f9)] px-6 py-16 text-center">
+                  <span className="mx-auto grid size-16 place-items-center rounded-2xl bg-[color:var(--theme-accent-surface,#fdf2f3)] text-[var(--theme-accent,var(--color-miu-red))]">
                     <Search size={28} aria-hidden="true" />
                   </span>
                   <h3 className="mt-5 text-xl font-bold">
@@ -419,7 +425,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                       ? "No matching projects"
                       : "No open projects right now"}
                   </h3>
-                  <p className="mt-2 text-sm text-[#7d7379]">
+                  <p className="mt-2 text-sm text-[color:var(--theme-muted-text,#7d7379)]">
                     {!openProjects.length
                       ? "All current projects are unavailable for new proposals. Check back for new opportunities."
                       : savedOnly
@@ -437,7 +443,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                   )}
                 </div>
               )}
-              <p className="mt-5 text-xs leading-5 text-[#968c91]">
+              <p className="mt-5 text-xs leading-5 text-[color:var(--theme-muted-text,#968c91)]">
                 Fictional Phase 1 listings. Saved projects stay only while this
                 preview is open.
               </p>
@@ -445,15 +451,18 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
           </div>
         </div>
       </main>
-      <footer className="border-t border-[#cdbfc5] bg-white">
-        <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-between gap-4 px-5 py-7 text-xs text-[#75616b] sm:px-8 lg:px-10">
-          <span className="text-sm font-bold text-[#4a2939]">
-            MIU Freelance<span className="text-miu-red">.</span>
+      <footer className="border-t border-[color:var(--theme-border,#cdbfc5)] bg-[var(--theme-surface,#fff)]">
+        <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-between gap-4 px-5 py-7 text-xs text-[color:var(--theme-muted-text,#75616b)] sm:px-8 lg:px-10">
+          <span className="text-sm font-bold text-[color:var(--theme-accent,#4a2939)]">
+            MIU Freelance
+            <span className="text-[var(--theme-accent,var(--color-miu-red))]">
+              .
+            </span>
           </span>
           <span>Student talent. Thoughtful work.</span>
           <a
             href="#discover"
-            className="inline-flex min-h-11 items-center gap-2 font-semibold text-miu-red hover:underline focus-visible:outline-2 focus-visible:outline-miu-red"
+            className="inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--theme-accent,var(--color-miu-red))] hover:underline focus-visible:outline-2 focus-visible:outline-miu-red"
           >
             Back to discovery <ArrowRight size={14} aria-hidden="true" />
           </a>

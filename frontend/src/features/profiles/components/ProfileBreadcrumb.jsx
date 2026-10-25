@@ -34,7 +34,10 @@ export default function ProfileBreadcrumb({
           {backContent}
         </span>
       )}
-      <span className="text-[#8d929a]" aria-hidden="true">
+      <span
+        className="text-[color:var(--theme-muted-text,#8d929a)]"
+        aria-hidden="true"
+      >
         /
       </span>
       <span className="text-miu-black" aria-current="page">

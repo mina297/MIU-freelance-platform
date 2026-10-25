@@ -55,8 +55,8 @@
 
 .miu-button--outline {
   border-color: var(--color-miu-red, #b91c2b);
-  background: var(--ui-white);
-  color: var(--color-miu-red, #b91c2b);
+  background: var(--surface-raised, var(--ui-white));
+  color: var(--theme-accent, var(--color-miu-red, #b91c2b));
 }
 
 .miu-button--outline:hover:not(:disabled) {
@@ -122,7 +122,7 @@
   padding: 32px;
   border: 1px solid var(--ui-border);
   border-radius: var(--radius-panel);
-  background: var(--ui-white);
+  background: var(--surface-raised, var(--ui-white));
   color: var(--color-miu-black, #111111);
   box-shadow: var(--shadow-panel);
   overflow-wrap: anywhere;
@@ -149,28 +149,28 @@
 }
 
 .miu-badge--success {
-  background: #eaf6ed;
+  background: var(--theme-success-surface, #eaf6ed);
   color: var(--color-miu-black, #111111);
 }
 
 .miu-badge--info {
-  background: #eaf1fe;
-  color: var(--color-info, #2563eb);
+  background: var(--theme-info-surface, #eaf1fe);
+  color: var(--theme-info-text, var(--color-info, #2563eb));
 }
 
 .miu-badge--completed {
   background: var(--ui-border);
-  color: #374151;
+  color: var(--theme-text, #374151);
 }
 
 .miu-badge--warning {
-  background: #fef3e6;
+  background: var(--theme-warning-surface, #fef3e6);
   color: var(--color-miu-black, #111111);
 }
 
 .miu-badge--danger {
-  background: #fdebec;
-  color: var(--color-miu-red, #b91c2b);
+  background: var(--theme-accent-surface, #fdebec);
+  color: var(--theme-accent, var(--color-miu-red, #b91c2b));
 }
 
 @media (prefers-reduced-motion: reduce) {

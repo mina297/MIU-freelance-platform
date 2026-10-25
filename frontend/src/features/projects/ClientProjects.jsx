@@ -50,7 +50,7 @@ export default function ClientProjects() {
             My projects{" "}
             <span className="text-base font-normal">({projects.length})</span>
           </h2>
-          <p className="mt-2 text-sm text-[#685963]">
+          <p className="mt-2 text-sm text-[color:var(--theme-muted-text,#685963)]">
             Fictional demo records only. Saved drafts and changes reset on
             refresh.
           </p>

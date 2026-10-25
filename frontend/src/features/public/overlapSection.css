@@ -4,14 +4,14 @@
   scroll-margin-top: 24px;
 }
 .landing-overlap-backdrop-white {
-  background: white;
+  background: var(--theme-surface, white);
 }
 .landing-overlap-backdrop-muted {
   background: var(--landing-muted);
 }
 
 :where(.landing-overlap-panel) {
-  background: white;
+  background: var(--theme-surface, white);
 }
 .landing-overlap-panel {
   position: relative;

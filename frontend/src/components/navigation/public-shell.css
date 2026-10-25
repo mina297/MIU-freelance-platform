@@ -14,7 +14,7 @@
   flex-direction: column;
   min-height: 100svh;
   color: var(--color-miu-black, #111111);
-  background: var(--public-white);
+  background: var(--surface-raised, var(--public-white));
 }
 
 .miu-public-main {
@@ -29,8 +29,8 @@
   inset-inline-start: 8px;
   z-index: 100;
   padding: 12px;
-  background: #fff;
-  color: var(--color-miu-red, #b91c2b);
+  background: var(--theme-surface, #fff);
+  color: var(--theme-accent, var(--color-miu-red, #b91c2b));
   transform: translateY(-200%);
 }
 
@@ -49,7 +49,7 @@
   inset-block-start: 0;
   z-index: 20;
   border-block-end: 1px solid var(--public-border);
-  background: var(--public-white);
+  background: var(--surface-raised, var(--public-white));
   color: var(--color-miu-black, #111111);
 }
 
@@ -203,7 +203,7 @@ a.miu-public-link:hover {
   flex-shrink: 0;
   width: 72px;
   height: 54px;
-  background: var(--public-white);
+  background: var(--surface-raised, var(--public-white));
 }
 
 .miu-public-footer p {

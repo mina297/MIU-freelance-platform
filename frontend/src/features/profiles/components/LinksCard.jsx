@@ -20,7 +20,7 @@ const LINK_ICONS = {
 export default function LinksCard({ links = [] }) {
   return (
     <section
-      className="flex w-full flex-col gap-5 overflow-hidden rounded-panel border border-border-soft bg-white p-6 shadow-[var(--shadow-panel)] sm:p-8"
+      className="flex w-full flex-col gap-5 overflow-hidden rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-6 shadow-[var(--shadow-panel)] sm:p-8"
       aria-labelledby="links-heading"
     >
       <h2
@@ -49,7 +49,7 @@ export default function LinksCard({ links = [] }) {
                   <p className="text-sm font-semibold text-miu-black">
                     {link.label}
                   </p>
-                  <p className="truncate text-[13px] text-miu-red">
+                  <p className="truncate text-[13px] text-[var(--theme-accent,var(--color-miu-red))]">
                     {resolved.display || link.urlDisplay}
                   </p>
                   {resolved.isDemoOnly ? (
@@ -66,7 +66,7 @@ export default function LinksCard({ links = [] }) {
                   ) : null}
                 </div>
                 <ArrowUpRight
-                  className={`size-4 shrink-0 ${resolved.isSafe ? "text-miu-red" : "text-[#d1d5db]"}`}
+                  className={`size-4 shrink-0 ${resolved.isSafe ? "text-[var(--theme-accent,var(--color-miu-red))]" : "text-[#d1d5db]"}`}
                   aria-hidden="true"
                 />
               </>

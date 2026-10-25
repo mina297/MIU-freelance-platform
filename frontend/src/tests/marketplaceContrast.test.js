@@ -71,7 +71,7 @@ test("freelancer disclosure text and marketplace hero link focus retain sufficie
     "utf8",
   );
   const note = freelancerCSS.match(
-    /\.freelancer-card__note,[\s\S]*?color:\s*#([\da-f]{6})/i,
+    /\.freelancer-card__note,[\s\S]*?color:\s*var\(--theme-muted-text,\s*#([\da-f]{6})/i,
   )?.[1];
   assert.ok(note, "Disclosure text needs an explicit color");
   for (const background of ["ffffff", "eee9ed"])
@@ -80,7 +80,7 @@ test("freelancer disclosure text and marketplace hero link focus retain sufficie
       `Normal disclosure text against #${background}`,
     );
   const focus = catalogueCSS.match(
-    /\.services-catalogue \.services-hero a:focus-visible\s*{[^}]*outline-color:\s*#([\da-f]{6})/i,
+    /\.services-catalogue \.services-hero a:focus-visible\s*{[^}]*outline-color:\s*var\(--theme-focus,\s*#([\da-f]{6})/i,
   )?.[1];
   assert.ok(focus, "Dark hero links need a visible focus outline");
   for (const background of ["351923", "602637", "8c3c55"])

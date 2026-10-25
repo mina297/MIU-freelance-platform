@@ -116,7 +116,9 @@ export default function FileUploadField({
         >
           {label}
         </label>
-        {hint ? <span className="text-xs text-ink-secondary">{hint}</span> : null}
+        {hint ? (
+          <span className="text-xs text-ink-secondary">{hint}</span>
+        ) : null}
       </div>
 
       <div
@@ -133,7 +135,7 @@ export default function FileUploadField({
         onDrop={onDrop}
       >
         <div className="flex flex-col items-center gap-3 text-center">
-          <span className="flex size-12 items-center justify-center rounded-full bg-white text-miu-red shadow-sm ring-1 ring-[#e5e7eb]">
+          <span className="flex size-12 items-center justify-center rounded-full bg-[var(--theme-surface,#fff)] text-[var(--theme-accent,var(--color-miu-red))] shadow-sm ring-1 ring-[color:var(--theme-border,#e5e7eb)]">
             {imagesOnly ? (
               <ImagePlus className="size-6" aria-hidden="true" />
             ) : (
@@ -149,7 +151,7 @@ export default function FileUploadField({
           <button
             type="button"
             disabled={disabled}
-            className="inline-flex h-10 items-center justify-center rounded-full border border-miu-red bg-white px-4 text-sm font-semibold text-miu-red hover:bg-miu-red-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red disabled:opacity-50"
+            className="inline-flex h-10 items-center justify-center rounded-full border border-miu-red bg-[var(--theme-surface,#fff)] px-4 text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))] hover:bg-miu-red-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red disabled:opacity-50"
             onClick={() => inputRef.current?.click()}
           >
             Browse files
@@ -172,7 +174,7 @@ export default function FileUploadField({
           {value.map((file) => (
             <li
               key={file.id}
-              className="relative w-28 overflow-hidden rounded-lg border border-border-soft bg-white"
+              className="relative w-28 overflow-hidden rounded-lg border border-border-soft bg-[var(--theme-surface,#fff)]"
             >
               {file.previewUrl ? (
                 <SafeImage
@@ -191,14 +193,14 @@ export default function FileUploadField({
                 {file.name}
               </p>
               {file.sizeLabel ? (
-                <p className="px-2 pb-1 text-[10px] text-[#9ca3af]">
+                <p className="px-2 pb-1 text-[10px] text-[color:var(--theme-muted-text,#9ca3af)]">
                   {file.sizeLabel}
                 </p>
               ) : null}
               <button
                 type="button"
                 aria-label={`Remove ${file.name}`}
-                className="absolute right-1 top-1 rounded-full bg-white/95 p-1 text-miu-black shadow"
+                className="absolute right-1 top-1 rounded-full bg-[var(--theme-surface,#fff)]/95 p-1 text-miu-black shadow"
                 onClick={() => onChange(value.filter((f) => f.id !== file.id))}
                 disabled={disabled}
               >
@@ -210,7 +212,10 @@ export default function FileUploadField({
       ) : null}
 
       {showError ? (
-        <p className="text-sm text-danger" role="alert">
+        <p
+          className="text-sm text-[var(--theme-danger-text,var(--color-danger))]"
+          role="alert"
+        >
           {showError}
         </p>
       ) : null}

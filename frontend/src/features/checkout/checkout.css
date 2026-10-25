@@ -16,7 +16,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  background: #fff;
+  background: var(--theme-surface, #fff);
   border-bottom: 1px solid var(--border-soft);
   padding: 18px max(24px, calc((100vw - 1272px) / 2));
 }
@@ -36,14 +36,14 @@
 .ec-brand small {
   display: block;
   font-size: 11px;
-  color: #707780;
+  color: var(--theme-muted-text, #707780);
 }
 .ec-header > a:last-child {
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 12px;
-  color: var(--color-miu-red);
+  color: var(--theme-accent, var(--color-miu-red));
   font-weight: 600;
 }
 .ec-main {
@@ -64,7 +64,7 @@
   font-size: 10px;
   letter-spacing: 0.13em;
   font-weight: 700;
-  color: var(--color-miu-red);
+  color: var(--theme-accent, var(--color-miu-red));
 }
 .ec-title h1 {
   font-size: 30px;
@@ -84,7 +84,7 @@
   color: var(--ink-secondary);
 }
 .ec-demo-banner svg {
-  color: var(--color-miu-red);
+  color: var(--theme-accent, var(--color-miu-red));
   flex-shrink: 0;
 }
 .ec-service {
@@ -101,7 +101,7 @@
   height: 48px;
   border-radius: 50%;
   background: var(--color-miu-red-tint);
-  color: var(--color-miu-red);
+  color: var(--theme-accent, var(--color-miu-red));
   font-weight: 700;
 }
 .ec-service h2 {
@@ -112,7 +112,7 @@
 .ec-service > div > p,
 .ec-service > div > span {
   font-size: 11px;
-  color: #707780;
+  color: var(--theme-muted-text, #707780);
 }
 .ec-service > strong {
   font-size: 18px;
@@ -197,7 +197,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #707780;
+  color: var(--theme-muted-text, #707780);
   font-size: 10px;
 }
 .ec-saved {
@@ -206,7 +206,7 @@
 }
 .ec-saved legend {
   font-size: 11px;
-  color: #707780;
+  color: var(--theme-muted-text, #707780);
   margin-bottom: 10px;
 }
 .ec-saved label {
@@ -226,7 +226,7 @@
 .ec-saved small {
   display: block;
   font-size: 11px;
-  color: #707780;
+  color: var(--theme-muted-text, #707780);
   margin-top: 3px;
 }
 .ec-new-card > p,
@@ -259,7 +259,7 @@
   background: var(--surface-page);
 }
 .ec-error {
-  color: var(--color-miu-red);
+  color: var(--theme-accent, var(--color-miu-red));
   font-size: 12px;
   margin-top: 8px;
 }
@@ -269,7 +269,7 @@
   padding: 20px;
 }
 .ec-wallet > svg {
-  color: var(--color-miu-red);
+  color: var(--theme-accent, var(--color-miu-red));
   margin-bottom: 12px;
 }
 .ec-payment-form > .miu-field {
@@ -284,7 +284,7 @@
   background: var(--hero-gradient);
   color: #fff;
   padding: 28px;
-  border: 1px solid #84516a;
+  border: 1px solid var(--theme-border, #84516a);
   border-radius: var(--radius-panel);
   box-shadow: var(--shadow-dialog);
 }
@@ -332,16 +332,16 @@
 }
 .ec-costs small {
   display: block;
-  color: #aaa;
+  color: var(--theme-muted-text, #aaa);
   font-size: 10px;
   margin-top: 3px;
 }
 .ec-costs .ec-cost-item {
   font-size: 11px;
-  color: #aaa;
+  color: var(--theme-muted-text, #aaa);
 }
 .ec-costs .ec-cost-divider {
-  border-top: 1px solid #ffffff30;
+  border-top: 1px solid var(--theme-border, #ffffff30);
   padding-top: 20px;
   margin-top: 4px;
 }
@@ -353,7 +353,7 @@
   display: flex;
   align-items: start;
   gap: 12px;
-  border: 1px solid #ffffff30;
+  border: 1px solid var(--theme-border, #ffffff30);
   padding: 16px;
   border-radius: 9px;
   margin-top: 24px;
@@ -368,21 +368,21 @@
 }
 .ec-escrow-note p {
   font-size: 11px;
-  color: #bfc0c4;
+  color: var(--theme-muted-text, #bfc0c4);
   margin-top: 6px;
   line-height: 1.6;
 }
 .ec-summary-footnote {
   font-size: 10px;
-  color: #aaa;
+  color: var(--theme-muted-text, #aaa);
   margin: 16px 0;
 }
 .ec-summary .ec-confirm {
   width: 100%;
   border-radius: 8px;
-  background: #fff;
-  color: #111;
-  border-color: #fff;
+  background: var(--theme-surface, #fff);
+  color: var(--theme-text, #111);
+  border-color: var(--theme-border, #fff);
   font-size: 13px;
   font-weight: 600;
   margin-top: 8px;
@@ -390,11 +390,11 @@
 }
 .ec-summary .ec-confirm:hover:not(:disabled) {
   background: var(--color-miu-red-tint);
-  border-color: #fff;
-  color: var(--color-miu-red);
+  border-color: var(--theme-border, #fff);
+  color: var(--theme-accent, var(--color-miu-red));
 }
 .ec-summary .ec-confirm:focus-visible {
-  outline-color: #fff;
+  outline-color: var(--theme-focus, #fff);
 }
 .ec-review h2,
 .ec-success h2 {
@@ -416,7 +416,7 @@
 }
 .ec-review dt,
 .ec-success-details dt {
-  color: #707780;
+  color: var(--theme-muted-text, #707780);
 }
 .ec-review dd,
 .ec-success-details dd {
@@ -440,8 +440,8 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: #eaf6ed;
-  color: var(--color-success);
+  background: var(--theme-success-surface, #eaf6ed);
+  color: var(--theme-success-text, var(--color-success));
   margin-bottom: 16px;
 }
 .ec-actions {
@@ -451,7 +451,7 @@
   flex-wrap: wrap;
   margin-top: 24px;
   font-size: 13px;
-  color: var(--color-miu-red);
+  color: var(--theme-accent, var(--color-miu-red));
 }
 .ec-primary-link {
   display: inline-flex;
@@ -468,7 +468,7 @@
   align-items: start;
   justify-content: space-between;
   gap: 24px;
-  color: #707780;
+  color: var(--theme-muted-text, #707780);
   font-size: 10px;
 }
 .ec-footer details {
@@ -496,16 +496,16 @@
   font-weight: 700;
 }
 .ec-gate small {
-  color: #707780;
+  color: var(--theme-muted-text, #707780);
 }
 .ec-gate a {
-  color: var(--color-miu-red);
+  color: var(--theme-accent, var(--color-miu-red));
 }
 .ec-skip {
   position: absolute;
   top: -100px;
   left: 16px;
-  background: #fff;
+  background: var(--theme-surface, #fff);
   padding: 12px;
   z-index: 10;
 }

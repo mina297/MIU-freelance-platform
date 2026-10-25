@@ -16,7 +16,7 @@ export default function AboutSection({
 }) {
   return (
     <section
-      className="flex w-full flex-col gap-5 overflow-hidden rounded-panel border border-border-soft bg-white p-6 shadow-[var(--shadow-panel)] sm:p-8"
+      className="flex w-full flex-col gap-5 overflow-hidden rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-6 shadow-[var(--shadow-panel)] sm:p-8"
       aria-labelledby="about-heading"
     >
       <h2

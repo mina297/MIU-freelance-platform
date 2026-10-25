@@ -162,7 +162,7 @@ function ProfileEditor({
     return (
       <div className="w-full bg-surface-page px-5 py-8 md:px-[120px]">
         <div
-          className="rounded-panel border border-border-soft bg-white p-8 text-center"
+          className="rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-8 text-center"
           role="alert"
         >
           <h1 className="text-xl font-semibold text-miu-black">
@@ -288,7 +288,7 @@ function ProfileEditor({
     <div className="w-full bg-surface-page">
       <div className="mx-auto flex w-full max-w-[800px] flex-col gap-6 px-5 py-8 sm:px-8 md:px-[120px] md:py-12">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-miu-red">
+          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--theme-accent,var(--color-miu-red))]">
             Simulated Phase 1 workflow
           </p>
           <h1 className="mt-1 text-2xl font-bold text-miu-black">
@@ -302,7 +302,7 @@ function ProfileEditor({
         </div>
 
         <form
-          className="space-y-5 rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)] sm:p-6"
+          className="space-y-5 rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-5 shadow-[var(--shadow-panel)] sm:p-6"
           onSubmit={handleSubmit}
           noValidate
         >
@@ -471,7 +471,7 @@ function ProfileEditor({
 
           {message ? (
             <p
-              className={`text-sm ${status === "error" ? "text-danger" : "text-success"}`}
+              className={`text-sm ${status === "error" ? "text-[var(--theme-danger-text,var(--color-danger))]" : "text-[var(--theme-success-text,var(--color-success))]"}`}
               role="status"
             >
               {message}
@@ -516,7 +516,10 @@ function Field({ id, label, value, onChange, error, inputMode, placeholder }) {
         className="h-11 w-full rounded-lg border border-border-soft px-3 text-sm text-miu-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
       />
       {error ? (
-        <p className="text-sm text-danger" role="alert">
+        <p
+          className="text-sm text-[var(--theme-danger-text,var(--color-danger))]"
+          role="alert"
+        >
           {error}
         </p>
       ) : null}
@@ -538,7 +541,10 @@ function TextArea({ id, label, value, onChange, error, rows = 4 }) {
         className="w-full rounded-lg border border-border-soft px-3 py-2 text-sm text-miu-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
       />
       {error ? (
-        <p className="text-sm text-danger" role="alert">
+        <p
+          className="text-sm text-[var(--theme-danger-text,var(--color-danger))]"
+          role="alert"
+        >
           {error}
         </p>
       ) : null}
