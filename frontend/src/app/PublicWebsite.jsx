@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { matchRoutes, Outlet, useLocation } from "react-router-dom";
 import PublicLayout from "../layouts/PublicLayout.jsx";
-import LandingHeader from "../components/navigation/LandingHeader.jsx";
+import HomepageTheme from "../features/public/HomepageTheme.jsx";
 import PublicLink from "../components/navigation/PublicLink.jsx";
 import { useAuth } from "../hooks/useAuth.js";
 import { getLoginDestination } from "../features/auth/navigation.js";
@@ -44,15 +44,7 @@ export default function PublicWebsite() {
   // shared shell. Do not render a second header/footer around the homepage.
   if (pathname === "/") {
     return (
-      <>
-        <a href="#main-content" className="sr-only focus:not-sr-only focus:p-3">
-          Skip to content
-        </a>
-        <LandingHeader accountAction={accountAction} />
-        <main id="main-content" className="miu-public-main" tabIndex={-1}>
-          {content}
-        </main>
-      </>
+      <HomepageTheme accountAction={accountAction}>{content}</HomepageTheme>
     );
   }
 

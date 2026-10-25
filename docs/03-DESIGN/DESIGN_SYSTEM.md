@@ -96,6 +96,27 @@ Suggested token names:
 
 These are semantic names, not approved color values.
 
+### Homepage dark palette — 25 October 2026
+
+The homepage alone opts into `homepageTheme.css` through a `HomepageTheme`
+boundary. Its local tokens do not change other pages or shared root tokens.
+
+| Token | Value | Purpose |
+|---|---|---|
+| `home-canvas` | `#151319` | Deep charcoal canvas |
+| `home-surface` | `#211d25` | Section and dropdown surfaces |
+| `home-raised` | `#2c2530` | Raised cards |
+| `home-wine` | `#39232f` | Burgundy selection and accent surfaces |
+| `home-border` | `#655060` | Visible panel separation |
+| `home-text` | `#f7f0f4` | Primary off-white text |
+| `home-secondary` | `#c6b8c2` | Supporting text |
+| `home-accent` | `#ffa9bd` | Readable rose accents on dark surfaces |
+
+Primary actions retain crimson fills with white text. Keyboard focus uses
+`#ffc3d2`; logos retain their original colors on light plaques. The light palette
+remains the existing design. See [Landing Page](../06-MODULES/LANDING_PAGE.md)
+for theme persistence, route scope and verification limits.
+
 ## 4. Typography
 
 Use the typography family approved in Figma.

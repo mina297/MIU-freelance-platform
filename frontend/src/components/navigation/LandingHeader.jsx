@@ -61,7 +61,7 @@ const navigation = [
   },
 ];
 
-export default function LandingHeader({ accountAction }) {
+export default function LandingHeader({ accountAction, themeControl }) {
   return (
     <header className="public-header">
       <div className="public-header-inner">
@@ -103,6 +103,7 @@ export default function LandingHeader({ accountAction }) {
           </Link>
         </nav>
         <div className="public-auth-links">
+          {themeControl}
           {accountAction ?? (
             <>
               <Link to="/login" className="public-sign-in">

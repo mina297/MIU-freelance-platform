@@ -144,6 +144,8 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
         React.createElement(AuthProvider, null, React.createElement(AppRouter)),
       ),
     );
+    assert.match(html, /class="homepage-theme" data-theme="light"/);
+    assert.match(html, /aria-label="Dark mode" aria-pressed="false"/);
     for (const text of [
       "Great ideas deserve great talent.",
       "How it works",
@@ -296,6 +298,12 @@ test("public website routes render real pages in one shell with safe destination
       ["/error-demo", "Empty and error states"],
     ]) {
       const html = renderRoute(path);
+      if (path !== "/") {
+        assert.doesNotMatch(
+          html,
+          /class="homepage-theme"|aria-label="Dark mode"/,
+        );
+      }
       assert.ok(html.replace(/<[^>]*>/g, "").includes(text), path);
       assert.equal((html.match(/<main\b/g) ?? []).length, 1, path);
       assert.equal((html.match(/<footer\b/g) ?? []).length, 1, path);
@@ -319,6 +327,12 @@ test("public website routes render real pages in one shell with safe destination
         );
     }
     const home = renderRoute("/");
+    for (const path of ["/login", "/register", "/projects", "/services"]) {
+      assert.doesNotMatch(
+        renderRoute(path),
+        /class="homepage-theme"|aria-label="Dark mode"/,
+      );
+    }
     assert.match(home, /href="\/projects"/);
     assert.doesNotMatch(home, /m4-landing|miu-public-footer/);
     const loggedIn = renderRoute("/", AuthContext.Provider, {
