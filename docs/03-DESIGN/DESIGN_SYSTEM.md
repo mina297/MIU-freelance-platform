@@ -115,7 +115,7 @@ boundary. Its local tokens do not change other pages or shared root tokens.
 Primary actions retain crimson fills with white text. Keyboard focus uses
 `#ffc3d2`; logos retain their original colors on light plaques. The light palette
 remains the existing design. See [Landing Page](../06-MODULES/LANDING_PAGE.md)
-for theme persistence, route scope and verification limits.
+for the light default on each visit, route scope and verification limits.
 
 ## 4. Typography
 

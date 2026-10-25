@@ -1,18 +1,10 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import LandingHeader from "../../components/navigation/LandingHeader.jsx";
-import {
-  HOMEPAGE_THEME_KEY,
-  readThemePreference,
-  resolveHomepageTheme,
-  saveThemePreference,
-} from "./homepageTheme.js";
 import "./homepageTheme.css";
 
 export default function HomepageTheme({ accountAction, children }) {
-  const browser = typeof window === "undefined" ? undefined : window;
-  const preference = useRef(readThemePreference(browser));
-  const [theme, setTheme] = useState(() => resolveHomepageTheme(browser));
+  const [theme, setTheme] = useState("light");
 
   useLayoutEffect(() => {
     document.documentElement.dataset.homeTheme = theme;
@@ -21,29 +13,8 @@ export default function HomepageTheme({ accountAction, children }) {
     };
   }, [theme]);
 
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    const followSystem = () => {
-      if (!preference.current) setTheme(media.matches ? "dark" : "light");
-    };
-    const syncStorage = (event) => {
-      if (event.key !== HOMEPAGE_THEME_KEY && event.key !== null) return;
-      preference.current = readThemePreference(window);
-      setTheme(resolveHomepageTheme(window, preference.current));
-    };
-    media.addEventListener("change", followSystem);
-    window.addEventListener("storage", syncStorage);
-    return () => {
-      media.removeEventListener("change", followSystem);
-      window.removeEventListener("storage", syncStorage);
-    };
-  }, []);
-
   function toggleTheme() {
-    const next = theme === "dark" ? "light" : "dark";
-    preference.current = next;
-    saveThemePreference(window, next);
-    setTheme(next);
+    setTheme((current) => (current === "dark" ? "light" : "dark"));
   }
 
   return (

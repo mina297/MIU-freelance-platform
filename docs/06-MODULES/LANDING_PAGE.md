@@ -16,10 +16,11 @@ Related requirements: P-01, FR-V01–FR-V04, NFR-01–NFR-03 and SR-09. This scr
 - `HomepageTheme.jsx` owns the theme boundary and the header's optional native
   toggle button, labeled “Dark mode” with `aria-pressed`. The button supports
   keyboard activation and visible focus; its sun/moon artwork is decorative.
-- The initial theme follows `prefers-color-scheme`. An explicit choice is saved
-  as `miu-homepage-theme` in local storage. OS changes are followed until a choice
-  is made; storage events synchronize other tabs. Blocked storage still allows
-  switching for the current visit. No account or sensitive data is stored.
+- Every fresh homepage load starts in light mode, following Mina's updated
+  direction. The toggle switches the current homepage visit only; reloading or
+  returning to a newly mounted homepage resets to light. Old saved preferences
+  and operating system appearance do not override this default. Theme selection
+  is held in component state and does not access browser storage.
 - A small homepage-only initializer in `index.html` colors the canvas before
   React loads. The component removes the root canvas attribute on unmount, so
   navigation to another route restores its usual appearance.
@@ -32,12 +33,12 @@ Related requirements: P-01, FR-V01–FR-V04, NFR-01–NFR-03 and SR-09. This scr
 - The toggle transition respects reduced motion. Responsive header adjustments
   accommodate the added control, including widths below 370px. These styles
   still require visual acceptance in a real browser.
-- Automated coverage checks preference precedence, invalid/blocked storage,
-  pre-paint agreement, non-home route isolation, accessible initial markup and
+- Automated coverage checks light initialization despite old saved preferences
+  or blocked storage, non-home route isolation, accessible initial markup and
   principal palette contrast. Verification on 25 October 2026: all 321 tests
   passed; the final focused theme/route run passed 16 tests; lint and production
   build passed. The build retains its large application-chunk warning.
-  Browser visual, interactive keyboard, OS-change,
+  Browser visual, interactive keyboard,
   refresh/navigation and mobile checks remain pending: Windows browser automation
   stopped because it could not confidently determine the current Chrome URL.
 

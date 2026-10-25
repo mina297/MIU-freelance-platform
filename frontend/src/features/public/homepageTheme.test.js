@@ -2,12 +2,6 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { runInNewContext } from "node:vm";
-import {
-  HOMEPAGE_THEME_KEY,
-  readThemePreference,
-  resolveHomepageTheme,
-  saveThemePreference,
-} from "./homepageTheme.js";
 
 function browser({ saved = null, dark = false, blocked = false } = {}) {
   return {
@@ -16,42 +10,12 @@ function browser({ saved = null, dark = false, blocked = false } = {}) {
         if (blocked) throw new Error("Storage blocked");
         return saved;
       },
-      setItem(key, value) {
-        if (blocked) throw new Error("Storage blocked");
-        assert.equal(key, HOMEPAGE_THEME_KEY);
-        saved = value;
-      },
     },
     matchMedia: () => ({ matches: dark }),
   };
 }
 
-test("homepage preference follows the OS until an explicit choice is saved", () => {
-  assert.equal(resolveHomepageTheme(browser({ dark: true })), "dark");
-  assert.equal(resolveHomepageTheme(browser()), "light");
-  assert.equal(
-    resolveHomepageTheme(browser({ saved: "invalid", dark: true })),
-    "dark",
-  );
-  assert.equal(
-    resolveHomepageTheme(browser({ saved: "light", dark: true })),
-    "light",
-  );
-  const client = browser();
-  saveThemePreference(client, "dark");
-  assert.equal(readThemePreference(client), "dark");
-  assert.equal(resolveHomepageTheme(client), "dark");
-});
-
-test("storage restrictions and server rendering have safe theme fallbacks", () => {
-  const client = browser({ blocked: true, dark: true });
-  assert.equal(resolveHomepageTheme(client), "dark");
-  assert.doesNotThrow(() => saveThemePreference(client, "light"));
-  assert.equal(resolveHomepageTheme(client, "light"), "light");
-  assert.equal(resolveHomepageTheme(undefined), "light");
-});
-
-test("pre-paint initialization agrees with React and leaves other routes untouched", () => {
+test("every fresh load starts light even with saved dark mode, a dark OS or blocked storage", () => {
   const html = readFileSync(
     new URL("../../../index.html", import.meta.url),
     "utf8",
@@ -70,7 +34,7 @@ test("pre-paint initialization agrees with React and leaves other routes untouch
       runInNewContext(script, { ...client, document, location: { pathname } });
       assert.equal(
         document.documentElement.dataset.homeTheme,
-        pathname === "/" ? resolveHomepageTheme(client) : undefined,
+        pathname === "/" ? "light" : undefined,
       );
     }
   }
