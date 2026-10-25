@@ -89,11 +89,19 @@ html[data-theme="dark"] body {
   )
   img,
 :root[data-theme="dark"] img[alt="Misr International University"],
-:root[data-theme="dark"] img[alt="MIU anniversary logo"] {
-  background: #fff;
-  border-radius: 10px;
+:root[data-theme="dark"] img[alt="MIU anniversary logo"],
+.landing-footer-brand img,
+.miu-public-footer__logo img {
+  /* The official black lettering needs a light surface. Keep the backing
+     inside the existing image bounds, without a protruding white halo. */
+  box-sizing: border-box;
+  padding: 4px 6px;
+  background: linear-gradient(145deg, #faf8f5, #eae6e2);
+  border-radius: 6px;
   object-fit: contain;
-  box-shadow: 0 0 0 5px #fff;
+  box-shadow:
+    inset 0 0 0 1px #ffffff80,
+    0 2px 6px #00000018;
 }
 
 /* One reusable native control. Standalone pages reserve space in normal flow. */

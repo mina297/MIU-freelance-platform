@@ -2,6 +2,13 @@
 
 ## Repair update — 26 October 2026
 
+Logo refinement: following Mina's visibility feedback, official logos now use
+a fitted warm off-white backing on dark surfaces, with a 6px corner radius,
+subtle inset edge and restrained shadow. Removed the former 5px white halo.
+Internal padding fits the original image box; official colors and proportions
+are unchanged. Light headers stay transparent; dark footers use the backing in
+both themes. Browser appearance of this refinement has not yet been verified.
+
 This update supersedes the palette, floating-control placement and verification
 notes below. The running Vite server returned compiled `index.css` without the
 shared theme tokens or toggle styles. `ThemeProvider` now imports both shared

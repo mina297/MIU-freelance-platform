@@ -120,7 +120,10 @@ portal content mounted beneath the document element.
 | `theme-accent` | `#ffa9bd` | Readable rose accents on dark surfaces |
 
 Primary actions retain crimson fills with white text. Keyboard focus uses
-`#ffc3d2`; logos retain their original colors on light plaques. The light palette
+`#ffc3d2`; logos retain their original colors on fitted warm off-white backings
+in dark mode and dark footers. A 6px radius, restrained inset edge and soft shadow
+replace the former protruding white halo. Backings stay within existing image
+bounds, preserving layout dimensions. Light headers retain transparent logos. The light palette
 remains the existing design through explicit original-color fallbacks. Success,
 warning, information and danger have separate readable text/surface pairs.
 `frontend/src/theme/theme.css` owns shared values; homepage aliases refer to
