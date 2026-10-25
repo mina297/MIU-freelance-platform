@@ -10,7 +10,7 @@ import ProposalAttachments from "./ProposalAttachments.jsx";
 import { MOCK_PROPOSAL_ATTACHMENTS } from "./mockAttachments.js";
 
 const inputClass =
-  "mt-2 w-full rounded-xl border border-[#ab95a1] bg-[#faf7f9] px-4 py-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red";
+  "mt-2 w-full rounded-xl border border-[color:var(--theme-border,#ab95a1)] bg-[color:var(--theme-accent-surface,#faf7f9)] px-4 py-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red";
 
 export default function ProposalForm({ project }) {
   const { session } = useAuth();
@@ -52,7 +52,7 @@ export default function ProposalForm({ project }) {
     return (
       <section
         role="status"
-        className="mt-8 rounded-2xl border-2 border-[#b5869a] bg-[#f8e7ed] p-7"
+        className="mt-8 rounded-2xl border-2 border-[color:var(--theme-border,#b5869a)] bg-[color:var(--theme-accent-surface,#f8e7ed)] p-7"
       >
         <h2 className="text-2xl font-bold">Proposal submitted — simulation</h2>
         <p className="mt-3 font-semibold">
@@ -68,7 +68,7 @@ export default function ProposalForm({ project }) {
               <dt className="font-bold">Project order</dt>
               <dd>
                 <Link
-                  className="inline-flex min-h-11 items-center text-miu-red underline"
+                  className="inline-flex min-h-11 items-center text-[var(--theme-accent,var(--color-miu-red))] underline"
                   to={`/orders/${order.id}`}
                 >
                   View demo order
@@ -125,16 +125,16 @@ export default function ProposalForm({ project }) {
           setErrors({});
         }}
         aria-label="Proposal draft"
-        className="overflow-hidden rounded-2xl border-2 border-[#c9bac1] bg-white"
+        className="overflow-hidden rounded-2xl border-2 border-[color:var(--theme-border,#c9bac1)] bg-[var(--theme-surface,#fff)]"
       >
-        <div className="border-b border-[#d8b3bf] bg-[#f8e7ed] px-5 py-5 sm:px-7">
-          <p className="text-xs font-bold uppercase tracking-widest text-[#9b2035]">
+        <div className="border-b border-[color:var(--theme-border,#d8b3bf)] bg-[color:var(--theme-accent-surface,#f8e7ed)] px-5 py-5 sm:px-7">
+          <p className="text-xs font-bold uppercase tracking-widest text-[color:var(--theme-accent,#9b2035)]">
             Your approach. Your offer.
           </p>
           <h2 className="mt-2 text-xl font-bold">
             Make a thoughtful first impression
           </h2>
-          <p className="mt-2 text-sm leading-6 text-[#694c5b]">
+          <p className="mt-2 text-sm leading-6 text-[color:var(--theme-muted-text,#694c5b)]">
             Explain how you will help, what you will deliver, and how long it
             will take.
           </p>
@@ -157,7 +157,7 @@ export default function ProposalForm({ project }) {
               />
               <p
                 id="proposal-price-help"
-                className="mt-2 text-xs leading-5 text-[#71606a]"
+                className="mt-2 text-xs leading-5 text-[color:var(--theme-muted-text,#71606a)]"
               >
                 Your total price for the proposed work.
               </p>
@@ -178,7 +178,7 @@ export default function ProposalForm({ project }) {
               />
               <p
                 id="proposal-days-help"
-                className="mt-2 text-xs leading-5 text-[#71606a]"
+                className="mt-2 text-xs leading-5 text-[color:var(--theme-muted-text,#71606a)]"
               >
                 Estimate the time you need to complete the work.
               </p>
@@ -199,7 +199,7 @@ export default function ProposalForm({ project }) {
             />
             <p
               id="proposal-cover-help"
-              className="mt-2 text-xs leading-5 text-[#71606a]"
+              className="mt-2 text-xs leading-5 text-[color:var(--theme-muted-text,#71606a)]"
             >
               Connect your experience to this brief. Keep your offer clear and
               specific.
@@ -213,10 +213,10 @@ export default function ProposalForm({ project }) {
             error={errors.attachmentIds}
           />
         </div>
-        <div className="border-t border-[#c9bac1] bg-[#faf7f9] p-5 sm:p-7">
+        <div className="border-t border-[color:var(--theme-border,#c9bac1)] bg-[color:var(--theme-accent-surface,#faf7f9)] p-5 sm:p-7">
           <p
             id="proposal-preview-note"
-            className="text-sm leading-6 text-[#694c5b]"
+            className="text-sm leading-6 text-[color:var(--theme-muted-text,#694c5b)]"
           >
             Simulated submission only. Submitted proposals stay in memory until
             refresh. Leaving before submitting clears your draft, including
@@ -225,7 +225,7 @@ export default function ProposalForm({ project }) {
           <div
             id="proposal-feedback"
             role="status"
-            className="mt-4 text-sm leading-6 text-[#9b2035]"
+            className="mt-4 text-sm leading-6 text-[color:var(--theme-accent,#9b2035)]"
           >
             {Object.entries(errors).map(([key, message]) => (
               <p key={key}>{message}</p>
@@ -242,7 +242,7 @@ export default function ProposalForm({ project }) {
       </form>
       <aside
         aria-label="Project brief summary"
-        className="overflow-hidden rounded-2xl border-2 border-[#b5869a] bg-[#f5edf1]"
+        className="overflow-hidden rounded-2xl border-2 border-[color:var(--theme-border,#b5869a)] bg-[color:var(--theme-accent-surface,#f5edf1)]"
       >
         <div className="bg-[#351923] p-6 text-white">
           <p className="text-xs font-bold uppercase tracking-widest text-[#ffd7de]">
@@ -252,7 +252,7 @@ export default function ProposalForm({ project }) {
         </div>
         <dl className="space-y-5 p-6">
           <div>
-            <dt className="text-xs font-semibold uppercase tracking-wider text-[#71606a]">
+            <dt className="text-xs font-semibold uppercase tracking-wider text-[color:var(--theme-muted-text,#71606a)]">
               Project budget
             </dt>
             <dd className="mt-1 text-2xl font-bold">
@@ -260,7 +260,7 @@ export default function ProposalForm({ project }) {
             </dd>
           </div>
           <div>
-            <dt className="text-xs font-semibold uppercase tracking-wider text-[#71606a]">
+            <dt className="text-xs font-semibold uppercase tracking-wider text-[color:var(--theme-muted-text,#71606a)]">
               Project deadline
             </dt>
             <dd className="mt-1 font-semibold">
@@ -268,7 +268,7 @@ export default function ProposalForm({ project }) {
             </dd>
           </div>
         </dl>
-        <p className="mx-6 mb-6 border-t border-[#c9bac1] pt-5 text-sm leading-6 text-[#694c5b]">
+        <p className="mx-6 mb-6 border-t border-[color:var(--theme-border,#c9bac1)] pt-5 text-sm leading-6 text-[color:var(--theme-muted-text,#694c5b)]">
           Make sure your price and timeline reflect everything in the project
           brief.
         </p>

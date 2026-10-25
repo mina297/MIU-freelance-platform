@@ -14,7 +14,7 @@
   border: 1px solid var(--landing-border);
   border-bottom: 0;
   border-radius: 40px 40px 0 0;
-  background: #fff;
+  background: var(--theme-surface, #fff);
   box-shadow: 0 8px 24px #1111110d;
   clip-path: inset(-32px -32px 0 -32px);
   overflow: hidden;
@@ -54,8 +54,8 @@
   height: 44px;
   border: 1px solid var(--landing-border);
   border-radius: 50%;
-  background: white;
-  color: #27272a;
+  background: var(--theme-surface, white);
+  color: var(--theme-text, #27272a);
   transition:
     background 180ms ease,
     color 180ms ease;
@@ -92,9 +92,18 @@
   border: 1px solid var(--landing-border);
   border-radius: 22px;
   background:
-    radial-gradient(circle at 100% 0%, transparent 0 35px, #ead4de66 36px 54px, transparent 55px),
-    linear-gradient(145deg, #fff, #faf4f7);
-  color: #27272a;
+    radial-gradient(
+      circle at 100% 0%,
+      transparent 0 35px,
+      var(--theme-accent-surface, #ead4de66) 36px 54px,
+      transparent 55px
+    ),
+    linear-gradient(
+      145deg,
+      var(--theme-surface, #fff),
+      var(--theme-accent-surface, #faf4f7)
+    );
+  color: var(--theme-text, #27272a);
   box-shadow: 0 8px 24px #11111105;
   scroll-snap-align: start;
   transition:
@@ -119,15 +128,15 @@
   width: 90px;
   height: 90px;
   border-radius: 28px;
-  color: var(--color-miu-red);
-  background: #fdf2f3;
+  color: var(--theme-accent, var(--color-miu-red));
+  background: var(--theme-accent-surface, #fdf2f3);
   box-shadow: inset 0 0 0 1px #b91c2b09;
 }
 .landing-category-arrow {
   position: absolute;
   bottom: 20px;
   right: 22px;
-  color: #82596d;
+  color: var(--theme-muted-text, #82596d);
 }
 .landing-category-card:hover,
 .landing-category-card[aria-pressed="true"] {
@@ -135,10 +144,10 @@
   box-shadow: 0 12px 28px #b91c2b12;
 }
 .landing-category-card[aria-pressed="true"] {
-  background: #fdf2f3;
+  background: var(--theme-accent-surface, #fdf2f3);
 }
 .landing-category-card[aria-pressed="true"] .landing-category-art {
-  background: white;
+  background: var(--theme-surface, white);
 }
 .landing-category-section[data-reveal-ready="true"]
   .landing-category-card:not(.is-visible) {

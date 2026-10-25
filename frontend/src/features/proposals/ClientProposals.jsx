@@ -298,7 +298,7 @@ function ReviewWorkspace({ project, proposals }) {
                           <h3>{name}</h3>
                           <Link
                             to={`/students/${proposal.studentId}`}
-                            className="text-sm text-miu-red underline"
+                            className="text-sm text-[var(--theme-accent,var(--color-miu-red))] underline"
                           >
                             View student profile
                           </Link>
@@ -412,7 +412,7 @@ export default function ClientProposals() {
             This project is unavailable or does not belong to your account.
           </p>
           <Link
-            className="mt-6 inline-flex min-h-11 items-center text-miu-red underline"
+            className="mt-6 inline-flex min-h-11 items-center text-[var(--theme-accent,var(--color-miu-red))] underline"
             to="/client/projects"
           >
             Return to My projects

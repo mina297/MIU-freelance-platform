@@ -1,25 +1,25 @@
 /* Preview-only visual direction requested by the team lead. */
 body:has(.marketplace-preview) {
-  background: #eee9ed;
+  background: var(--theme-subtle-surface, #eee9ed);
 }
 
 .marketplace-preview {
-  color: #30252c;
+  color: var(--theme-text, #30252c);
   font-family: var(--font-sans, Inter, sans-serif);
-  background: #eee9ed;
+  background: var(--theme-subtle-surface, #eee9ed);
 }
 
 .marketplace-preview :is(.miu-card, .miu-field, .miu-button) {
-  --ui-border: #cbbbc6;
-  --ui-muted-surface: #f4edf1;
-  --ui-secondary-text: #685963;
+  --ui-border: var(--theme-border, #cbbbc6);
+  --ui-muted-surface: var(--theme-surface, #f4edf1);
+  --ui-secondary-text: var(--theme-muted-text, #685963);
 }
 
 .marketplace-preview .miu-card,
 .marketplace-preview .m4-how-it-works__card {
-  border: 1.5px solid #cbbbc6;
+  border: 1.5px solid var(--theme-border, #cbbbc6);
   border-radius: 20px;
-  background: #fff;
+  background: var(--theme-surface, #fff);
   box-shadow: 0 12px 30px #4023330b;
 }
 
@@ -32,36 +32,58 @@ body:has(.marketplace-preview) {
 
 .marketplace-preview .miu-control {
   font-weight: 400;
-  border-color: #bba4b3;
-  background: #fcfafb;
+  border-color: var(--theme-border, #bba4b3);
+  background: var(--theme-accent-surface, #fcfafb);
 }
 
-.marketplace-preview .miu-field__label { font-weight: 600; }
-.marketplace-preview .miu-button { min-height: 48px; padding-inline: 22px; }
+.marketplace-preview .miu-field__label {
+  font-weight: 600;
+}
+.marketplace-preview .miu-button {
+  min-height: 48px;
+  padding-inline: 22px;
+}
 
-.marketplace-preview .miu-public-header { border-bottom-color: #cbbbc6; }
-.marketplace-preview .miu-public-brand { width: 108px; height: 62px; }
-.marketplace-preview .miu-public-footer { background: #351923; --public-footer-muted: #d6c1cb; }
-.marketplace-preview .miu-public-footer__meta { border-color: #76505f; }
+.marketplace-preview .miu-public-header {
+  border-bottom-color: var(--theme-border, #cbbbc6);
+}
+.marketplace-preview .miu-public-brand {
+  width: 108px;
+  height: 62px;
+}
+.marketplace-preview .miu-public-footer {
+  background: #351923;
+  --public-footer-muted: #d6c1cb;
+}
+.marketplace-preview .miu-public-footer__meta {
+  border-color: var(--theme-border, #76505f);
+}
 
 .marketplace-preview .m4-public-info,
-.marketplace-preview .miu-public-layout { background: #eee9ed; }
+.marketplace-preview .miu-public-layout {
+  background: var(--theme-subtle-surface, #eee9ed);
+}
 
 .marketplace-preview .m4-public-info__header,
 .marketplace-preview[data-ui-preview] > header {
   background:
-    radial-gradient(circle at 92% 15%, transparent 0 140px, #ffffff07 141px 210px, transparent 211px),
+    radial-gradient(
+      circle at 92% 15%,
+      transparent 0 140px,
+      var(--theme-surface, #ffffff07) 141px 210px,
+      transparent 211px
+    ),
     radial-gradient(ellipse at 90% 80%, #84354a 0, transparent 65%),
     linear-gradient(120deg, #351923, #572333);
   color: #fff;
   padding-block: clamp(48px, 7vw, 96px);
-  border-bottom: 1px solid #9b647a;
+  border-bottom: 1px solid var(--theme-border, #9b647a);
 }
 
 .marketplace-preview .m4-public-info__intro h1,
 .marketplace-preview[data-ui-preview] > header h1 {
   font-size: clamp(36px, 5.2vw, 72px);
-  letter-spacing: -.045em;
+  letter-spacing: -0.045em;
   line-height: 1.08;
   max-width: 900px;
 }
@@ -77,28 +99,48 @@ body:has(.marketplace-preview) {
 }
 
 .marketplace-preview .m4-public-info__notice {
-  border: 1px solid #c195a8;
-  border-inline-start: 4px solid #b91c2b;
+  border: 1px solid var(--theme-border, #c195a8);
+  border-inline-start: 4px solid var(--theme-border, #b91c2b);
   border-radius: 12px;
-  color: #59434e;
-  background: #fff8fb;
+  color: var(--theme-muted-text, #59434e);
+  background: var(--theme-accent-surface, #fff8fb);
 }
 
-.marketplace-preview .m4-public-info__body { gap: 32px; padding-block: 48px 72px; }
-.marketplace-preview .m4-public-info__card { border-top: 4px solid #b86c85; }
-.marketplace-preview .m4-public-info__card h2 { letter-spacing: -.025em; }
+.marketplace-preview .m4-public-info__body {
+  gap: 32px;
+  padding-block: 48px 72px;
+}
+.marketplace-preview .m4-public-info__card {
+  border-top: 4px solid var(--theme-border, #b86c85);
+}
+.marketplace-preview .m4-public-info__card h2 {
+  letter-spacing: -0.025em;
+}
 .marketplace-preview .m4-public-info__links {
   padding: 22px;
-  background: #fff;
-  border: 1px solid #cbbbc6;
+  background: var(--theme-surface, #fff);
+  border: 1px solid var(--theme-border, #cbbbc6);
   border-radius: 16px;
 }
 
-.marketplace-preview .m4-how-it-works { background: #f5eff3; padding-block: 64px; }
-.marketplace-preview .m4-how-it-works h2 { font-size: clamp(28px, 3vw, 42px); letter-spacing: -.035em; }
-.marketplace-preview .m4-how-it-works__eyebrow { letter-spacing: .16em; }
-.marketplace-preview .m4-how-it-works__card { padding: 28px; }
-.marketplace-preview .m4-how-it-works__icon-plate { border: 1px solid #d6a7b8; background: #f9e6ee; }
+.marketplace-preview .m4-how-it-works {
+  background: var(--theme-accent-surface, #f5eff3);
+  padding-block: 64px;
+}
+.marketplace-preview .m4-how-it-works h2 {
+  font-size: clamp(28px, 3vw, 42px);
+  letter-spacing: -0.035em;
+}
+.marketplace-preview .m4-how-it-works__eyebrow {
+  letter-spacing: 0.16em;
+}
+.marketplace-preview .m4-how-it-works__card {
+  padding: 28px;
+}
+.marketplace-preview .m4-how-it-works__icon-plate {
+  border: 1px solid var(--theme-border, #d6a7b8);
+  background: var(--theme-accent-surface, #f9e6ee);
+}
 
 .marketplace-preview__toolbar {
   display: flex;
@@ -106,25 +148,66 @@ body:has(.marketplace-preview) {
   flex-wrap: wrap;
   gap: 20px 32px;
   padding: 20px max(24px, calc((100% - 1200px) / 2));
-  background: #fff;
-  border-bottom: 1px solid #cbbbc6;
+  background: var(--theme-surface, #fff);
+  border-bottom: 1px solid var(--theme-border, #cbbbc6);
 }
-.marketplace-preview__toolbar > div { flex: 1 1 320px; }
-.marketplace-preview__toolbar .miu-field { flex: 0 1 260px; }
-.marketplace-preview__toolbar p { font-size: 13px; color: #685963; margin-top: 5px; }
-.marketplace-preview__toolbar a { color: #9d1831; font-size: 14px; font-weight: 600; }
+.marketplace-preview__toolbar > div {
+  flex: 1 1 320px;
+}
+.marketplace-preview__toolbar .miu-field {
+  flex: 0 1 260px;
+}
+.marketplace-preview__toolbar p {
+  font-size: 13px;
+  color: var(--theme-muted-text, #685963);
+  margin-top: 5px;
+}
+.marketplace-preview__toolbar a {
+  color: var(--theme-accent, #9d1831);
+  font-size: 14px;
+  font-weight: 600;
+}
 
-.marketplace-preview[data-ui-preview] { max-width: 1280px; margin: auto; padding: 24px; }
-.marketplace-preview[data-ui-preview] > header { border-radius: 24px; padding-inline: clamp(24px, 5vw, 64px); }
-.marketplace-preview[data-ui-preview] > header p { color: #f1dce5; }
-.marketplace-preview[data-ui-preview] > nav { background: #fff; border-color: #bba4b3; padding: 22px; }
-.marketplace-preview[data-ui-preview] > nav a { color: #8f2845; text-underline-offset: 5px; }
-.marketplace-preview[data-ui-preview] section { scroll-margin-top: 24px; }
-.marketplace-preview[data-ui-preview] h2 { letter-spacing: -.025em; }
+.marketplace-preview[data-ui-preview] {
+  max-width: 1280px;
+  margin: auto;
+  padding: 24px;
+}
+.marketplace-preview[data-ui-preview] > header {
+  border-radius: 24px;
+  padding-inline: clamp(24px, 5vw, 64px);
+}
+.marketplace-preview[data-ui-preview] > header p {
+  color: #f1dce5;
+}
+.marketplace-preview[data-ui-preview] > nav {
+  background: var(--theme-surface, #fff);
+  border-color: var(--theme-border, #bba4b3);
+  padding: 22px;
+}
+.marketplace-preview[data-ui-preview] > nav a {
+  color: var(--theme-accent, #8f2845);
+  text-underline-offset: 5px;
+}
+.marketplace-preview[data-ui-preview] section {
+  scroll-margin-top: 24px;
+}
+.marketplace-preview[data-ui-preview] h2 {
+  letter-spacing: -0.025em;
+}
 
 @media (max-width: 600px) {
-  .marketplace-preview[data-ui-preview] { padding: 16px; }
-  .marketplace-preview__toolbar { padding: 18px; gap: 16px; }
-  .marketplace-preview__toolbar .miu-field { flex-basis: 100%; }
-  .marketplace-preview .m4-how-it-works__card { padding: 22px; }
+  .marketplace-preview[data-ui-preview] {
+    padding: 16px;
+  }
+  .marketplace-preview__toolbar {
+    padding: 18px;
+    gap: 16px;
+  }
+  .marketplace-preview__toolbar .miu-field {
+    flex-basis: 100%;
+  }
+  .marketplace-preview .m4-how-it-works__card {
+    padding: 22px;
+  }
 }

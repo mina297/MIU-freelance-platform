@@ -125,12 +125,12 @@ export default function PortfolioItemForm({
 
   return (
     <form
-      className="space-y-4 rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)]"
+      className="space-y-4 rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-5 shadow-[var(--shadow-panel)]"
       onSubmit={handleSubmit}
       noValidate
     >
       <div>
-        <p className="text-xs font-semibold uppercase tracking-wide text-miu-red">
+        <p className="text-xs font-semibold uppercase tracking-wide text-[var(--theme-accent,var(--color-miu-red))]">
           Simulated Phase 1 workflow
         </p>
         <h3 className="mt-1 text-lg font-semibold text-miu-black">
@@ -170,7 +170,10 @@ export default function PortfolioItemForm({
           ))}
         </select>
         {errors.category ? (
-          <p className="text-sm text-danger" role="alert">
+          <p
+            className="text-sm text-[var(--theme-danger-text,var(--color-danger))]"
+            role="alert"
+          >
             {errors.category}
           </p>
         ) : null}
@@ -274,7 +277,10 @@ function Field({ id, label, value, onChange, error, placeholder }) {
         className="h-11 w-full rounded-lg border border-border-soft px-3 text-sm"
       />
       {error ? (
-        <p className="text-sm text-danger" role="alert">
+        <p
+          className="text-sm text-[var(--theme-danger-text,var(--color-danger))]"
+          role="alert"
+        >
           {error}
         </p>
       ) : null}
@@ -296,7 +302,10 @@ function TextArea({ id, label, value, onChange, error, rows = 3 }) {
         className="w-full rounded-lg border border-border-soft px-3 py-2 text-sm"
       />
       {error ? (
-        <p className="text-sm text-danger" role="alert">
+        <p
+          className="text-sm text-[var(--theme-danger-text,var(--color-danger))]"
+          role="alert"
+        >
           {error}
         </p>
       ) : null}

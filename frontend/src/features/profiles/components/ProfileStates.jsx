@@ -25,7 +25,7 @@ export function ProfileLoadingState() {
 export function ProfileNotFoundState({ studentId }) {
   return (
     <div
-      className="rounded-panel border border-border-soft bg-white p-8 text-center shadow-[var(--shadow-panel)]"
+      className="rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-8 text-center shadow-[var(--shadow-panel)]"
       role="alert"
     >
       <h2 className="text-xl font-semibold text-miu-black">
@@ -51,7 +51,7 @@ export function ProfileNotFoundState({ studentId }) {
 
 export function ProfileEmptyState({ message = "Nothing to show yet." }) {
   return (
-    <div className="rounded-panel border border-dashed border-border-soft bg-white p-8 text-center">
+    <div className="rounded-panel border border-dashed border-border-soft bg-[var(--theme-surface,#fff)] p-8 text-center">
       <p className="text-sm text-ink-secondary">{message}</p>
     </div>
   );

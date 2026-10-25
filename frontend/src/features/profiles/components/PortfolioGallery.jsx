@@ -44,7 +44,7 @@ export default function PortfolioGallery({
           <button
             type="button"
             onClick={() => onSelectItem(item)}
-            className="group flex w-full flex-col overflow-hidden rounded-panel border border-border-soft bg-white text-left shadow-[var(--shadow-panel)] transition hover:border-miu-red/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+            className="group flex w-full flex-col overflow-hidden rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] text-left shadow-[var(--shadow-panel)] transition hover:border-miu-red/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
           >
             <div className="aspect-[4/3] w-full overflow-hidden bg-surface-muted">
               <SafeImage
@@ -57,7 +57,7 @@ export default function PortfolioGallery({
               />
             </div>
             <div className="flex flex-col gap-1 p-4">
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-miu-red">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-[var(--theme-accent,var(--color-miu-red))]">
                 {item.monthLabel}
               </p>
               <h3 className="text-base font-semibold text-miu-black">
@@ -85,7 +85,7 @@ export default function PortfolioGallery({
                 <button
                   type="button"
                   onClick={() => onDeleteItem(item)}
-                  className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 rounded-full border border-danger/30 text-xs font-semibold text-danger hover:bg-red-50"
+                  className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 rounded-full border border-danger/30 text-xs font-semibold text-[var(--theme-danger-text,var(--color-danger))] hover:bg-[var(--theme-danger-surface,#fef2f2)]"
                 >
                   <Trash2 className="size-3.5" aria-hidden="true" />
                   Delete

@@ -120,10 +120,11 @@ test("redesigned presentation retains named controls, suggested question intents
 test("actual App composition mounts one widget beside the router under its existing provider across layouts", () => {
   // Render App's actual children with MemoryRouter and a supplied session.
   // BrowserRouter and AuthProvider themselves remain the production owners.
-  const browser = App();
+  const theme = App();
+  const browser = theme.props.children;
   const provider = browser.props.children;
   const children = provider.props.children;
-  assert.equal(children.length, 2);
+  assert.equal(children.length, 3);
   assert.equal(children.filter((child) => child.type === Widget).length, 1);
   for (const role of [ROLES.STUDENT, ROLES.CLIENT, ROLES.SUPER_ADMIN]) {
     const session = { ...active, user: { ...user, role } };

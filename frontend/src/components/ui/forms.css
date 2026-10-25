@@ -38,7 +38,7 @@ fieldset.miu-field > legend {
   padding: 12px;
   border: 1px solid var(--border-control);
   border-radius: var(--radius-control);
-  background: #fffcfd;
+  background: var(--theme-accent-surface, #fffcfd);
   color: inherit;
   font: inherit;
 }
@@ -90,7 +90,7 @@ select.miu-control[multiple] {
   display: flex;
   align-items: flex-start;
   gap: 4px;
-  color: var(--color-miu-red, #b91c2b);
+  color: var(--theme-accent, var(--color-miu-red, #b91c2b));
 }
 
 .miu-field__error > svg {

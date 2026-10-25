@@ -20,7 +20,7 @@ export function StudentProfileRoute() {
   const [params] = useSearchParams();
   return (
     <>
-      <p className="px-5 pt-5 text-sm text-miu-red">
+      <p className="px-5 pt-5 text-sm text-[var(--theme-accent,var(--color-miu-red))]">
         Fictional Phase 1 profile. Account badges are simulated. Historical
         design samples use separate IDs.
       </p>
@@ -51,7 +51,7 @@ export function ClientProfileRoute() {
   const navigate = useNavigate();
   return (
     <>
-      <p className="px-5 pt-5 text-sm text-miu-red">
+      <p className="px-5 pt-5 text-sm text-[var(--theme-accent,var(--color-miu-red))]">
         Fictional Phase 1 client profile.
       </p>
       <ClientProfilePage
@@ -90,7 +90,7 @@ export function NewReviewRoute() {
       <h1 className="text-2xl font-bold">Review completed work</h1>
       <Link
         to="/client/orders"
-        className="inline-flex min-h-11 items-center text-miu-red underline"
+        className="inline-flex min-h-11 items-center text-[var(--theme-accent,var(--color-miu-red))] underline"
       >
         My orders
       </Link>

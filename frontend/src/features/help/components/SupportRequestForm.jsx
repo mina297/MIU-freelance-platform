@@ -86,7 +86,7 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
   if (status === "success" && submittedTicket) {
     return (
       <div className="space-y-4" role="status">
-        <div className="rounded-panel border border-success/30 bg-white p-4 text-center sm:p-5">
+        <div className="rounded-panel border border-success/30 bg-[var(--theme-surface,#fff)] p-4 text-center sm:p-5">
           <h2 className="text-lg font-semibold text-miu-black sm:text-xl">
             Support request received
           </h2>
@@ -111,7 +111,7 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
 
   return (
     <form
-      className="space-y-5 rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)] sm:p-6"
+      className="space-y-5 rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-5 shadow-[var(--shadow-panel)] sm:p-6"
       onSubmit={handleSubmit}
       noValidate
     >
@@ -120,12 +120,15 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
         memory; saved tickets contain attachment names, not file contents.
       </p>
       {errors.form && (
-        <p role="alert" className="text-sm text-danger">
+        <p
+          role="alert"
+          className="text-sm text-[var(--theme-danger-text,var(--color-danger))]"
+        >
           {errors.form}
         </p>
       )}
       <div>
-        <p className="text-xs font-semibold uppercase tracking-wide text-miu-red">
+        <p className="text-xs font-semibold uppercase tracking-wide text-[var(--theme-accent,var(--color-miu-red))]">
           Simulated Phase 1 workflow
         </p>
         <h2 className="mt-1 text-xl font-semibold text-miu-black">
@@ -174,7 +177,10 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
           ))}
         </select>
         {errors.topic ? (
-          <p className="text-sm text-danger" role="alert">
+          <p
+            className="text-sm text-[var(--theme-danger-text,var(--color-danger))]"
+            role="alert"
+          >
             {errors.topic}
           </p>
         ) : null}
@@ -209,7 +215,10 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
           className="w-full rounded-lg border border-border-soft px-3 py-2 text-sm"
         />
         {errors.message ? (
-          <p className="text-sm text-danger" role="alert">
+          <p
+            className="text-sm text-[var(--theme-danger-text,var(--color-danger))]"
+            role="alert"
+          >
             {errors.message}
           </p>
         ) : null}
@@ -272,7 +281,10 @@ function Field({ id, label, value, onChange, error, type = "text" }) {
         className="h-11 w-full rounded-lg border border-border-soft px-3 text-sm"
       />
       {error ? (
-        <p className="text-sm text-danger" role="alert">
+        <p
+          className="text-sm text-[var(--theme-danger-text,var(--color-danger))]"
+          role="alert"
+        >
           {error}
         </p>
       ) : null}

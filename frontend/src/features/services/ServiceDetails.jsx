@@ -163,7 +163,7 @@ export default function ServiceDetails({
             {student && (
               <Link
                 to={`/students/${student.id}`}
-                className="text-miu-red underline"
+                className="text-[var(--theme-accent,var(--color-miu-red))] underline"
               >
                 View student profile
               </Link>

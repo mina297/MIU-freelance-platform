@@ -10,7 +10,7 @@ import {
 export default function TicketDetails({ ticket, className = "" }) {
   if (!ticket) {
     return (
-      <div className="rounded-panel border border-dashed border-border-soft bg-white p-6 text-sm text-ink-secondary">
+      <div className="rounded-panel border border-dashed border-border-soft bg-[var(--theme-surface,#fff)] p-6 text-sm text-ink-secondary">
         No ticket selected.
       </div>
     );
@@ -30,12 +30,12 @@ export default function TicketDetails({ ticket, className = "" }) {
 
   return (
     <article
-      className={`space-y-5 rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)] sm:p-6 ${className}`}
+      className={`space-y-5 rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-5 shadow-[var(--shadow-panel)] sm:p-6 ${className}`}
       aria-labelledby="ticket-details-heading"
     >
       <header className="flex flex-col gap-3 border-b border-border-soft pb-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0 space-y-1">
-          <p className="text-xs font-semibold uppercase tracking-wide text-miu-red">
+          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--theme-accent,var(--color-miu-red))]">
             Support ticket
           </p>
           <h2
@@ -51,7 +51,7 @@ export default function TicketDetails({ ticket, className = "" }) {
             </span>
           </p>
         </div>
-        <span className="inline-flex w-fit items-center rounded-full bg-miu-red-tint px-3 py-1 text-xs font-semibold text-miu-red">
+        <span className="inline-flex w-fit items-center rounded-full bg-miu-red-tint px-3 py-1 text-xs font-semibold text-[var(--theme-accent,var(--color-miu-red))]">
           {statusLabel}
         </span>
       </header>

@@ -15,7 +15,7 @@
 }
 .ec-progress-title > span {
   font-size: 11px;
-  color: var(--color-miu-red);
+  color: var(--theme-accent, var(--color-miu-red));
   font-weight: 600;
 }
 .ec-work-progress {
@@ -55,13 +55,13 @@
 .ec-progress li > svg {
   flex-shrink: 0;
   margin-top: 2px;
-  color: #707780;
+  color: var(--theme-muted-text, #707780);
 }
 .ec-progress li.is-done > svg {
-  color: var(--color-success);
+  color: var(--theme-success-text, var(--color-success));
 }
 .ec-progress li[aria-current] > svg {
-  color: var(--color-miu-red);
+  color: var(--theme-accent, var(--color-miu-red));
 }
 .ec-progress b {
   font-weight: 600;
@@ -69,7 +69,7 @@
 .ec-progress small {
   display: block;
   font-size: 11px;
-  color: #707780;
+  color: var(--theme-muted-text, #707780);
   margin-top: 3px;
   line-height: 1.6;
 }

@@ -2,10 +2,10 @@
   --hiw-surface: var(--surface-page);
   --hiw-border: var(--border-soft);
   --hiw-text-secondary: var(--ink-secondary);
-  --hiw-text-muted: #707780;
+  --hiw-text-muted: var(--theme-muted-text, #707780);
 
   padding: 56px 20px;
-  background: #fff;
+  background: var(--theme-surface, #fff);
   color: var(--color-miu-black);
   font-family: var(--font-sans);
 }
@@ -29,7 +29,7 @@
 }
 
 .m4-how-it-works__eyebrow {
-  color: var(--color-miu-red);
+  color: var(--theme-accent, var(--color-miu-red));
   font-size: 11px;
   font-weight: 700;
   line-height: normal;
@@ -97,7 +97,7 @@
 }
 
 .m4-how-it-works__number {
-  color: var(--color-miu-red);
+  color: var(--theme-accent, var(--color-miu-red));
   font-size: 11px;
   font-weight: 700;
   line-height: normal;

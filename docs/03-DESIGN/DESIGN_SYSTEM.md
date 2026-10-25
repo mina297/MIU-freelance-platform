@@ -96,6 +96,33 @@ Suggested token names:
 
 These are semantic names, not approved color values.
 
+### Application dark palette — 25 October 2026
+
+The shared `ThemeProvider` above routing owns one in-memory light/dark choice.
+Every fresh page load starts light. Internal navigation preserves the selected
+theme; refreshing resets it. No local/session storage or OS appearance lookup
+is used. The root `data-theme` attribute also covers native top-layer dialogs and
+portal content mounted beneath the document element.
+
+| Token | Value | Purpose |
+|---|---|---|
+| `theme-canvas` | `#151319` | Deep charcoal canvas |
+| `theme-subtle-surface` | `#211d25` | Inset and secondary surfaces |
+| `theme-surface` | `#2c2530` | Raised cards and dialogs |
+| `theme-accent-surface` | `#39232f` | Burgundy selection and accent surfaces |
+| `theme-border` | `#9a8292` | Control boundaries with visible contrast |
+| `theme-text` | `#f7f0f4` | Primary off-white text |
+| `theme-muted-text` | `#c6b8c2` | Supporting text |
+| `theme-accent` | `#ffa9bd` | Readable rose accents on dark surfaces |
+
+Primary actions retain crimson fills with white text. Keyboard focus uses
+`#ffc3d2`; logos retain their original colors on light plaques. The light palette
+remains the existing design through explicit original-color fallbacks. Success,
+warning, information and danger have separate readable text/surface pairs.
+`frontend/src/theme/theme.css` owns shared values; homepage aliases refer to
+these values. See [Global theme handover](../07-HANDOVER/GLOBAL_THEME_2026-10-25.md)
+for controls, route coverage and verification limits.
+
 ## 4. Typography
 
 Use the typography family approved in Figma.

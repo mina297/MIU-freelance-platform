@@ -8,7 +8,7 @@ export default function StudentProfilePreview({
 }) {
   return (
     <div className="min-h-screen bg-surface-page">
-      <div className="border-b border-border-soft bg-white px-5 py-3 text-sm text-ink-secondary md:px-[120px]">
+      <div className="border-b border-border-soft bg-[var(--theme-surface,#fff)] px-5 py-3 text-sm text-ink-secondary md:px-[120px]">
         <p>
           <span className="font-semibold text-miu-black">Member 5 preview</span>
           {" — "}

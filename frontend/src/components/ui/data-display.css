@@ -175,7 +175,7 @@
 .miu-stat-card__icon {
   display: inline-flex;
   flex: 0 0 auto;
-  color: var(--color-miu-red, #b91c2b);
+  color: var(--theme-accent, var(--color-miu-red, #b91c2b));
 }
 
 .miu-stat-card__value {
@@ -207,7 +207,7 @@
   gap: 12px;
 }
 .miu-stat-card__error p {
-  color: var(--color-miu-red, #b91c2b);
+  color: var(--theme-accent, var(--color-miu-red, #b91c2b));
 }
 
 @media (max-width: 767px) {

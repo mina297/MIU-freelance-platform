@@ -24,7 +24,7 @@ export default function HelpArticlePage({
     return (
       <div className="w-full bg-surface-page px-5 py-8 md:px-[120px]">
         <div
-          className="rounded-panel border border-border-soft bg-white p-8 text-center"
+          className="rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-8 text-center"
           role="alert"
         >
           <h1 className="text-xl font-semibold text-miu-black">
@@ -38,7 +38,7 @@ export default function HelpArticlePage({
             <button
               type="button"
               onClick={onBack}
-              className="mt-4 text-sm font-semibold text-miu-red"
+              className="mt-4 text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))]"
             >
               ← Back to Help Center
             </button>
@@ -57,7 +57,7 @@ export default function HelpArticlePage({
           <button
             type="button"
             onClick={onBack}
-            className="self-start text-sm font-semibold text-miu-red"
+            className="self-start text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))]"
           >
             ← Back to Help Center
           </button>
@@ -65,7 +65,7 @@ export default function HelpArticlePage({
 
         <header className="space-y-2">
           {category ? (
-            <p className="text-xs font-semibold uppercase tracking-wide text-miu-red">
+            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--theme-accent,var(--color-miu-red))]">
               {category.label}
             </p>
           ) : null}
@@ -73,7 +73,7 @@ export default function HelpArticlePage({
           <p className="text-[15px] text-ink-secondary">{article.summary}</p>
         </header>
 
-        <div className="space-y-4 rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)] sm:p-6">
+        <div className="space-y-4 rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-5 shadow-[var(--shadow-panel)] sm:p-6">
           {article.body.map((paragraph) => (
             <p
               key={paragraph.slice(0, 32)}
@@ -101,7 +101,7 @@ export default function HelpArticlePage({
           Still need help?{" "}
           <button
             type="button"
-            className="font-semibold text-miu-red underline-offset-2 hover:underline"
+            className="font-semibold text-[var(--theme-accent,var(--color-miu-red))] underline-offset-2 hover:underline"
             onClick={
               onContactSupport ??
               (() =>

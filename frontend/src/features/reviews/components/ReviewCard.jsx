@@ -33,10 +33,10 @@ export default function ReviewCard({ review }) {
   });
 
   return (
-    <article className="rounded-panel border border-border-soft bg-white p-5 shadow-[var(--shadow-panel)] sm:p-6">
+    <article className="rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-5 shadow-[var(--shadow-panel)] sm:p-6">
       <div className="flex items-start gap-3">
         <div
-          className="flex size-11 shrink-0 items-center justify-center rounded-full bg-miu-red-tint text-sm font-semibold text-miu-red"
+          className="flex size-11 shrink-0 items-center justify-center rounded-full bg-miu-red-tint text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))]"
           aria-hidden="true"
         >
           {initials}
@@ -75,7 +75,9 @@ export default function ReviewCard({ review }) {
       {review.jobLabel ? (
         <p className="mt-3 text-sm font-medium text-miu-black">
           Project:{" "}
-          <span className="font-normal text-ink-secondary">{review.jobLabel}</span>
+          <span className="font-normal text-ink-secondary">
+            {review.jobLabel}
+          </span>
         </p>
       ) : null}
     </article>

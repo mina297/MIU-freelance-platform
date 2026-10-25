@@ -106,7 +106,7 @@ export default function ReviewForm({
         }
       }}
     >
-      <p className="text-sm text-miu-red">
+      <p className="text-sm text-[var(--theme-accent,var(--color-miu-red))]">
         Simulated Phase 1 review · Reviewing as {session.user.displayName}
       </p>
       <h2 className="text-xl font-semibold">Leave a review</h2>

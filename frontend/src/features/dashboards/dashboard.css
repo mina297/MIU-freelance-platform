@@ -7,7 +7,7 @@
   font-weight: 700;
 }
 .access-message a {
-  color: #b91c2b;
+  color: var(--theme-accent, #b91c2b);
   text-decoration: underline;
 }
 .student-dashboard {
@@ -34,7 +34,7 @@
 .student-dashboard select:focus-visible,
 .student-dashboard summary:focus-visible,
 .student-dashboard input:focus-visible {
-  outline: 3px solid #2563eb;
+  outline: 3px solid var(--theme-focus, #2563eb);
   outline-offset: 4px;
 }
 .student-dashboard button:hover,
@@ -45,7 +45,7 @@
   width: 248px;
   flex-shrink: 0;
   padding: 24px 20px;
-  background: #fff;
+  background: var(--theme-surface, #fff);
   border-right: 1px solid var(--border-soft);
 }
 .sd-brand {
@@ -70,7 +70,7 @@
 }
 .sd-caption {
   font-size: 11px;
-  color: #707680;
+  color: var(--theme-muted-text, #707680);
   font-weight: 600;
   margin: 32px 0;
 }
@@ -92,8 +92,8 @@
 .sd-navigation nav button[aria-current] {
   border-radius: var(--radius-control);
   box-shadow: inset 3px 0 #a52d4b;
-  color: #b91c2b;
-  background: #fbe0e3;
+  color: var(--theme-accent, #b91c2b);
+  background: var(--theme-accent-surface, #fbe0e3);
   font-weight: 600;
 }
 .sd-icon {
@@ -103,7 +103,7 @@
 }
 .sd-help {
   margin-top: 32px;
-  background: #fdf2f3;
+  background: var(--theme-accent-surface, #fdf2f3);
   padding: 16px;
   border-radius: 10px;
   display: flex;
@@ -121,7 +121,7 @@
 .sd-help button {
   font-size: 12px;
   font-weight: 600;
-  color: #b91c2b;
+  color: var(--theme-accent, #b91c2b);
   text-align: left;
 }
 .sd-workspace {
@@ -131,7 +131,7 @@
 .sd-topbar {
   height: 88px;
   padding: 0 40px;
-  background: #fff;
+  background: var(--theme-surface, #fff);
   border-bottom: 1px solid var(--border-soft);
   display: flex;
   align-items: center;
@@ -149,13 +149,13 @@
 }
 .sd-breadcrumb strong {
   font-weight: 600;
-  color: #111;
+  color: var(--theme-text, #111);
 }
 .sd-account {
   gap: 24px;
 }
 .sd-account a {
-  color: #b91c2b;
+  color: var(--theme-accent, #b91c2b);
   font-weight: 600;
 }
 .sd-account b {
@@ -186,7 +186,7 @@
   justify-content: space-between;
   gap: 16px;
   padding: clamp(20px, 3vw, 32px);
-  border: 1px solid #84516a;
+  border: 1px solid var(--theme-border, #84516a);
   border-radius: var(--radius-panel);
   background: var(--hero-gradient);
   color: #fff;
@@ -203,7 +203,7 @@
   color: #f0d4e0;
 }
 .sd-welcome :is(a, button):focus-visible {
-  outline-color: #ffe1ec;
+  outline-color: var(--theme-focus, #ffe1ec);
 }
 .sd-button {
   display: inline-flex;
@@ -222,14 +222,14 @@
 .sd-primary {
   background: var(--brand-gradient);
   color: white;
-  border-color: #b91c2b;
+  border-color: var(--theme-border, #b91c2b);
 }
 .sd-secondary {
-  background: white;
-  color: #111;
+  background: var(--theme-surface, white);
+  color: var(--theme-text, #111);
 }
 .sd-panel {
-  background: white;
+  background: var(--theme-surface, white);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-panel);
   box-shadow: var(--shadow-panel);
@@ -241,7 +241,7 @@
   gap: 16px;
 }
 .sd-stat {
-  border-block-start: 3px solid #b77690;
+  border-block-start: 3px solid var(--theme-border, #b77690);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -301,11 +301,11 @@
 .sd-table-row h3 {
   font-size: 14px;
   font-weight: 600;
-  color: #111;
+  color: var(--theme-text, #111);
 }
 .sd-price {
   font-weight: 600;
-  color: #111;
+  color: var(--theme-text, #111);
 }
 .sd-cell small {
   display: none;
@@ -320,20 +320,20 @@
   white-space: nowrap;
 }
 .sd-pending {
-  color: #995100;
-  background: #fff5e5;
+  color: var(--theme-warning-text, #995100);
+  background: var(--theme-warning-surface, #fff5e5);
 }
 .sd-accepted {
-  color: #1e7536;
-  background: #eaf6ed;
+  color: var(--theme-success-text, #1e7536);
+  background: var(--theme-success-surface, #eaf6ed);
 }
 .sd-rejected {
-  color: #b91c2b;
-  background: #fdf2f3;
+  color: var(--theme-accent, #b91c2b);
+  background: var(--theme-accent-surface, #fdf2f3);
 }
 .sd-in-progress {
-  color: #2563eb;
-  background: #eff6ff;
+  color: var(--theme-info-text, #2563eb);
+  background: var(--theme-info-surface, #eff6ff);
 }
 .sd-more {
   width: 32px;
@@ -359,7 +359,7 @@
 .sd-section-heading button {
   font-size: 12px;
   font-weight: 600;
-  color: #b91c2b;
+  color: var(--theme-accent, #b91c2b);
 }
 .sd-job-grid {
   display: grid;
@@ -379,7 +379,7 @@
   gap: 16px;
 }
 .sd-job-status > span:last-child {
-  color: #1e7536;
+  color: var(--theme-success-text, #1e7536);
   font-size: 12px;
 }
 .sd-job h3 {
@@ -448,7 +448,7 @@
   justify-content: space-between;
   padding-top: 8px;
   font-size: 11px;
-  color: #707680;
+  color: var(--theme-muted-text, #707680);
 }
 .sd-footer button {
   color: var(--ink-secondary);
@@ -488,8 +488,8 @@
   color: var(--ink-secondary);
 }
 .sd-demo-controls select {
-  background: #fff;
-  border: 1px solid #9ca3af;
+  background: var(--theme-surface, #fff);
+  border: 1px solid var(--theme-border, #9ca3af);
   border-radius: 6px;
   padding: 8px;
   margin: 8px;
@@ -499,7 +499,7 @@
   text-align: center;
 }
 .sd-empty a {
-  color: #b91c2b;
+  color: var(--theme-accent, #b91c2b);
   display: inline-block;
   margin-top: 16px;
 }
@@ -522,7 +522,7 @@
   padding: 28px;
   max-width: 520px;
   width: calc(100% - 40px);
-  color: #111;
+  color: var(--theme-text, #111);
 }
 .sd-dialog::backdrop {
   background: #1118;
@@ -538,8 +538,8 @@
   top: -100px;
   z-index: 10;
   padding: 12px;
-  background: white;
-  color: #b91c2b;
+  background: var(--theme-surface, white);
+  color: var(--theme-accent, #b91c2b);
 }
 .sd-skip:focus {
   top: 10px;

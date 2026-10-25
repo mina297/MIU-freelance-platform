@@ -24,7 +24,7 @@ export default function ReviewsSection({
           <button
             type="button"
             onClick={onLeaveReview}
-            className="h-10 rounded-full border border-miu-red px-4 text-sm font-semibold text-miu-red hover:bg-miu-red-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+            className="h-10 rounded-full border border-miu-red px-4 text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))] hover:bg-miu-red-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
           >
             Leave a review
           </button>

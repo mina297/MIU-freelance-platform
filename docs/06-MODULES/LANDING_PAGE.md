@@ -8,6 +8,23 @@ Related requirements: P-01, FR-V01–FR-V04, NFR-01–NFR-03 and SR-09. This scr
 
 ## Behavior
 
+### Shared dark mode — 25 October 2026
+
+Mina expanded the homepage theme to all existing interfaces. `HomepageTheme.jsx`
+now consumes the shared `ThemeProvider` above the router; it owns no independent
+theme state. Every fresh document starts light, while internal route navigation
+preserves the selected theme. No browser storage or OS appearance preference is
+consulted. The original light layout and homepage interactions are preserved.
+
+`homepageTheme.css` retains composition-specific refinements for the hero video,
+overlapping panels, timeline, search, cards, dialogs and footer. Its palette
+aliases resolve to the shared semantic tokens. The common `ThemeToggle` lives
+in the header, has pressed semantics and keyboard focus, and respects reduced
+motion. Official logo artwork retains its colors on a light plaque.
+
+See [Global theme handover](../07-HANDOVER/GLOBAL_THEME_2026-10-25.md) for
+application-wide coverage, automated evidence and pending browser checks.
+
 - Authentication return update (24 October 2026): successful registration opens a session immediately and successful registration/login returns to `/`. Active sessions show My workspace and Sign out in the header. The session demo disclosure and test-account selector are removed from the public page; fictional marketplace content remains disclosed.
 
 ### Integration with main — 24 October 2026

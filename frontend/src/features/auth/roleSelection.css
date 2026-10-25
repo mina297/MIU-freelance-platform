@@ -18,7 +18,7 @@
 }
 .role-selection-eyebrow {
   margin-bottom: 12px;
-  color: var(--color-miu-red);
+  color: var(--theme-accent, var(--color-miu-red));
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -49,7 +49,11 @@
   padding: 28px 20px;
   border: 1px solid var(--border-soft);
   border-radius: 24px;
-  background: linear-gradient(150deg, white 60%, #f8e9ef);
+  background: linear-gradient(
+    150deg,
+    var(--theme-surface, white) 60%,
+    var(--theme-accent-surface, #f8e9ef)
+  );
   box-shadow:
     0 16px 40px -16px rgb(17 17 17 / 20%),
     0 4px 12px rgb(17 17 17 / 4%);
@@ -107,7 +111,7 @@
   font-size: 14px;
 }
 .role-selection-footer a {
-  color: var(--color-miu-red);
+  color: var(--theme-accent, var(--color-miu-red));
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 3px;

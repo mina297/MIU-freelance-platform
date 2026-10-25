@@ -24,7 +24,7 @@
   border-radius: 9999px;
   background: var(--color-miu-red-tint);
   font-weight: 600;
-  color: #a52234;
+  color: var(--theme-accent, #a52234);
 }
 .dev-dashboard-switcher summary::-webkit-details-marker {
   display: none;
@@ -50,7 +50,7 @@
   padding: 6px;
   margin: 0;
   list-style: none;
-  background: white;
+  background: var(--theme-surface, white);
   border: 1px solid var(--border-soft);
   border-radius: 10px;
   box-shadow: 0 8px 24px #1112;
@@ -65,25 +65,25 @@
   border-radius: 6px;
 }
 .dev-dashboard-switcher a {
-  color: #b91c2b;
+  color: var(--theme-accent, #b91c2b);
   font-weight: 600;
 }
 .dev-dashboard-switcher a:hover {
-  background: #fdf2f3;
+  background: var(--theme-accent-surface, #fdf2f3);
 }
 .dev-dashboard-switcher [aria-disabled] {
-  color: #6b7280;
+  color: var(--theme-muted-text, #6b7280);
   cursor: default;
 }
 .dev-dashboard-switcher small {
   font-size: 10px;
   white-space: nowrap;
-  background: #f3f4f6;
+  background: var(--theme-subtle-surface, #f3f4f6);
   padding: 2px 5px;
   border-radius: 4px;
 }
 .dev-dashboard-switcher summary:focus-visible,
 .dev-dashboard-switcher a:focus-visible {
-  outline: 3px solid #2563eb;
+  outline: 3px solid var(--theme-focus, #2563eb);
   outline-offset: 2px;
 }

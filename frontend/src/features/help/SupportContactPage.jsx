@@ -17,7 +17,7 @@ export default function SupportContactPage({ onBack, onSuccess }) {
           <button
             type="button"
             onClick={onBack}
-            className="self-start text-sm font-semibold text-miu-red"
+            className="self-start text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))]"
           >
             ← Back to Help Center
           </button>

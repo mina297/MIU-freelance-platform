@@ -27,15 +27,19 @@
     text-wrap: pretty;
   }
   ::selection {
-    background: #edc4d2;
-    color: #391e2b;
+    background: var(--theme-accent-surface, #edc4d2);
+    color: var(--theme-accent, #391e2b);
   }
 }
 
 /* Utility-based profile/help pages share these explicit component classes. */
 .premium-profile-header {
-  background: linear-gradient(110deg, #fff 45%, #f8e9ef);
-  border-block-start: 4px solid #9b3554;
+  background: linear-gradient(
+    110deg,
+    var(--theme-surface, #fff) 45%,
+    var(--theme-accent-surface, #f8e9ef)
+  );
+  border-block-start: 4px solid var(--theme-border, #9b3554);
 }
 .premium-profile-header > div:first-child {
   outline: 4px solid white;
@@ -49,10 +53,14 @@
     radial-gradient(
       circle at 100% 0%,
       transparent 0 65px,
-      #dbaabb22 66px 100px,
+      var(--theme-accent-surface, #dbaabb22) 66px 100px,
       transparent 101px
     ),
-    linear-gradient(120deg, #fff, #faedf2);
+    linear-gradient(
+      120deg,
+      var(--theme-surface, #fff),
+      var(--theme-accent-surface, #faedf2)
+    );
   box-shadow: var(--shadow-panel);
 }
 .premium-help-header h1 {
@@ -60,23 +68,32 @@
 }
 .premium-auth-layout {
   background:
-    radial-gradient(ellipse at 15% 20%, #f8dce6aa, transparent 48%),
-    radial-gradient(ellipse at 100% 100%, #e2d3de99, transparent 45%), #f6f0f3;
+    radial-gradient(
+      ellipse at 15% 20%,
+      var(--theme-accent-surface, #f8dce6aa),
+      transparent 48%
+    ),
+    radial-gradient(
+      ellipse at 100% 100%,
+      var(--theme-subtle-surface, #e2d3de99),
+      transparent 45%
+    ),
+    var(--theme-accent-surface, #f6f0f3);
 }
 .premium-route-placeholder {
   max-width: 960px;
   margin: 32px auto;
   padding: clamp(24px, 5vw, 48px);
   border: 1px solid var(--border-soft);
-  border-block-start: 4px solid #9b3554;
+  border-block-start: 4px solid var(--theme-border, #9b3554);
   border-radius: var(--radius-panel);
-  background: white;
+  background: var(--theme-surface, white);
   box-shadow: var(--shadow-panel);
 }
 .premium-session-controls {
   border-color: var(--border-soft);
   border-radius: var(--radius-panel);
-  background: white;
+  background: var(--theme-surface, white);
   color: var(--ink-secondary);
 }
 .premium-session-controls :is(button, select) {
@@ -92,6 +109,6 @@
   cursor: not-allowed;
 }
 .premium-session-controls :is(button, select):focus-visible {
-  outline: 2px solid #b91c2b;
+  outline: 2px solid var(--theme-focus, #b91c2b);
   outline-offset: 3px;
 }

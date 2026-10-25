@@ -69,7 +69,7 @@ export default function ProfileTabs({
             }
             className={
               isActive
-                ? "h-9 shrink-0 rounded-full border-[3px] border-miu-red px-1 text-[15px] font-semibold text-miu-red focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+                ? "h-9 shrink-0 rounded-full border-[3px] border-miu-red px-1 text-[15px] font-semibold text-[var(--theme-accent,var(--color-miu-red))] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
                 : "h-[52px] shrink-0 px-1 text-[15px] font-medium text-ink-secondary hover:text-miu-black disabled:cursor-not-allowed disabled:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
             }
             onClick={() => {

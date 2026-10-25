@@ -1,0 +1,199 @@
+/* Semantic dark values opt in only when the in-memory provider changes theme.
+   Existing declaration fallbacks preserve each original light-mode color. */
+:root {
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --theme-canvas: #151319;
+  --theme-surface: #2c2530;
+  --theme-subtle-surface: #211d25;
+  --theme-accent-surface: #39232f;
+  --theme-text: #f7f0f4;
+  --theme-muted-text: #c6b8c2;
+  --theme-accent: #ffa9bd;
+  --theme-border: #9a8292;
+  --theme-focus: #ffc3d2;
+  --theme-success-text: #a0e2ba;
+  --theme-success-surface: #213b30;
+  --theme-info-text: #afcbff;
+  --theme-info-surface: #25334c;
+  --theme-warning-text: #f4cd8b;
+  --theme-warning-surface: #42321e;
+  --theme-danger-text: #ffb3c1;
+  --theme-danger-surface: #482432;
+  --surface-page: var(--theme-canvas);
+  --surface-raised: var(--theme-surface);
+  --surface-muted: var(--theme-subtle-surface);
+  --ink-primary: var(--theme-text);
+  --ink-secondary: var(--theme-muted-text);
+  --border-soft: #655060;
+  --border-control: var(--theme-border);
+  --color-surface-page: var(--surface-page);
+  --color-surface-muted: var(--surface-muted);
+  --color-border-soft: var(--border-soft);
+  --color-border-control: var(--border-control);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-miu-black: var(--theme-text);
+  --color-miu-red-light: #4c2b39;
+  --color-miu-red-tint: var(--theme-accent-surface);
+  --color-star: #f4c66b;
+  --shadow-panel: 0 12px 32px -18px #0009;
+  --shadow-dialog: 0 24px 80px -24px #000b;
+}
+html[data-theme="dark"] body {
+  background: var(--surface-page);
+  color: var(--ink-primary);
+}
+:root[data-theme="dark"] ::selection {
+  background: #71394f;
+  color: #fff;
+}
+:root[data-theme="dark"]
+  :is(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline-color: var(--theme-focus);
+}
+:root[data-theme="dark"] :is(input, textarea)::placeholder {
+  color: var(--theme-muted-text);
+  opacity: 1;
+}
+:root[data-theme="dark"] :is(input, textarea, select) {
+  caret-color: var(--theme-accent);
+}
+:root[data-theme="dark"] select option {
+  background: var(--theme-surface);
+  color: var(--theme-text);
+}
+:root[data-theme="dark"] .miu-button--secondary {
+  color: #fff;
+  background: #49303e;
+  border-color: var(--theme-border);
+}
+:root[data-theme="dark"] .miu-button--destructive {
+  color: #fff;
+  background: #af233b;
+  border-color: #eb8397;
+}
+:root[data-theme="dark"] :is(.miu-modal, .landing-dialog)::backdrop {
+  background: #100b13bd;
+  backdrop-filter: blur(5px);
+}
+:root[data-theme="dark"] :is(.miu-modal__close, .miu-toast__dismiss) img {
+  filter: brightness(0) invert(0.9);
+}
+:root[data-theme="dark"]
+  :is(
+    .public-brand,
+    .miu-public-brand,
+    .miu-public-footer__logo,
+    .landing-footer-brand,
+    .sd-brand,
+    .ac-brand,
+    .ec-brand,
+    .project-create__brand
+  )
+  img,
+:root[data-theme="dark"] img[alt="Misr International University"],
+:root[data-theme="dark"] img[alt="MIU anniversary logo"] {
+  background: #fff;
+  padding: 5px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+:root[data-theme="dark"] .premium-profile-header {
+  background: linear-gradient(110deg, #2c2530 45%, #39232f);
+}
+:root[data-theme="dark"] .premium-help-header,
+:root[data-theme="dark"] .premium-auth-layout {
+  background:
+    radial-gradient(ellipse at 100% 0%, #39232f, transparent 70%), #151319;
+}
+
+/* One reusable native control, in a header or a reserved standalone corner. */
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 999px;
+}
+.theme-toggle-track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 70px;
+  height: 36px;
+  padding: 9px;
+  border: 1px solid #b58b9d;
+  border-radius: 999px;
+  background: #f4eaf0;
+  color: #755065;
+  isolation: isolate;
+}
+.theme-toggle-track::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 3px;
+  top: 3px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 5px #35212c25;
+  transition: transform 180ms ease;
+}
+.theme-toggle[aria-pressed="true"] .theme-toggle-track::before {
+  transform: translateX(34px);
+  background: #b91c2b;
+}
+.theme-toggle:hover .theme-toggle-track {
+  border-color: #b91c2b;
+}
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--theme-focus, #b91c2b);
+  outline-offset: 4px;
+}
+:root[data-theme="dark"] .theme-toggle-track {
+  background: #332633;
+  color: #dcc3d0;
+  border-color: #987d90;
+}
+:root[data-theme="dark"] .theme-toggle-track > svg:last-child {
+  color: #fff;
+}
+.theme-toggle--floating {
+  position: fixed;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  left: max(16px, env(safe-area-inset-left));
+  z-index: 45;
+  padding: 4px;
+  border: 1px solid var(--border-control);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-panel);
+}
+@media (max-width: 520px) {
+  .theme-toggle-track {
+    width: 62px;
+    padding: 7px;
+  }
+  .theme-toggle[aria-pressed="true"] .theme-toggle-track::before {
+    transform: translateX(26px);
+  }
+  .theme-toggle--floating {
+    bottom: max(8px, env(safe-area-inset-bottom));
+    left: 8px;
+  }
+  .miu-public-header__actions {
+    gap: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle-track::before {
+    transition: none;
+  }
+}

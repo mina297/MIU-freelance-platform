@@ -21,9 +21,11 @@ export default function ProposalEntry() {
   }, [projectId]);
 
   return (
-    <main className="min-h-screen bg-[#eee9ed] px-5 py-12 text-[#292127] sm:px-8">
-      <section className="mx-auto max-w-6xl rounded-2xl border-2 border-[#c9bac1] bg-white p-6 shadow-lg sm:p-10">
-        <p className="text-sm font-semibold text-miu-red">Phase 1 preview</p>
+    <main className="min-h-screen bg-[color:var(--theme-subtle-surface,#eee9ed)] px-5 py-12 text-[color:var(--theme-text,#292127)] sm:px-8">
+      <section className="mx-auto max-w-6xl rounded-2xl border-2 border-[color:var(--theme-border,#c9bac1)] bg-[var(--theme-surface,#fff)] p-6 shadow-lg sm:p-10">
+        <p className="text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))]">
+          Phase 1 preview
+        </p>
         <h1 ref={heading} tabIndex={-1} className="mt-4 text-3xl font-bold">
           {!project
             ? "Project not found"
@@ -47,7 +49,7 @@ export default function ProposalEntry() {
         </p>
         <Link
           to={project ? `/projects/${project.id}` : "/projects"}
-          className="mt-6 inline-flex min-h-11 items-center rounded-lg border border-miu-red px-4 font-semibold text-miu-red focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+          className="mt-6 inline-flex min-h-11 items-center rounded-lg border border-miu-red px-4 font-semibold text-[var(--theme-accent,var(--color-miu-red))] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
         >
           {project ? "Back to project" : "Browse projects"}
         </Link>

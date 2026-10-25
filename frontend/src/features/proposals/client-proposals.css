@@ -14,7 +14,7 @@
 .client-proposals__disclosure {
   font-size: 13px;
   line-height: 1.7;
-  color: #685963;
+  color: var(--theme-muted-text, #685963);
 }
 .client-proposals__notice:empty {
   position: absolute;
@@ -25,9 +25,9 @@
 }
 .client-proposals__notice:not(:empty) {
   padding: 14px 18px;
-  border: 1px solid #bf9cac;
+  border: 1px solid var(--theme-border, #bf9cac);
   border-radius: 12px;
-  background: #fcf5f8;
+  background: var(--theme-accent-surface, #fcf5f8);
   font-size: 14px;
 }
 .client-proposals__filters {
@@ -57,23 +57,23 @@
 }
 .client-proposals__section-heading > p {
   font-size: 13px;
-  color: #685963;
+  color: var(--theme-muted-text, #685963);
 }
 .client-proposals__compare-help {
   padding: 18px;
-  border: 1px dashed #b99aaa;
+  border: 1px dashed var(--theme-border, #b99aaa);
   border-radius: 12px;
-  background: #faf5f8;
+  background: var(--theme-accent-surface, #faf5f8);
   font-size: 14px;
-  color: #685963;
+  color: var(--theme-muted-text, #685963);
 }
 .client-proposals__table-wrap {
   overflow-x: auto;
-  border: 1px solid #cab4c0;
+  border: 1px solid var(--theme-border, #cab4c0);
   border-radius: 12px;
 }
 .client-proposals__table-wrap:focus-visible {
-  outline: 2px solid #b91c2b;
+  outline: 2px solid var(--theme-focus, #b91c2b);
   outline-offset: 4px;
 }
 .client-proposals table {
@@ -85,14 +85,14 @@
 }
 .client-proposals caption {
   padding: 14px;
-  background: #faf5f8;
+  background: var(--theme-accent-surface, #faf5f8);
   font-weight: 600;
   text-align: start;
 }
 .client-proposals th,
 .client-proposals td {
   padding: 16px;
-  border-top: 1px solid #dacbd3;
+  border-top: 1px solid var(--theme-border, #dacbd3);
   vertical-align: top;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
@@ -100,12 +100,12 @@
   text-align: start;
 }
 .client-proposals thead th {
-  background: #f6e7ee;
-  color: #6d3149;
+  background: var(--theme-accent-surface, #f6e7ee);
+  color: var(--theme-accent, #6d3149);
 }
 .client-proposals tbody th {
   min-width: 130px;
-  background: #faf5f8;
+  background: var(--theme-accent-surface, #faf5f8);
 }
 .client-proposals__cards {
   display: grid;
@@ -131,8 +131,8 @@
   width: 44px;
   height: 44px;
   border-radius: 14px;
-  background: #f6e0e9;
-  color: #9b2035;
+  background: var(--theme-accent-surface, #f6e0e9);
+  color: var(--theme-accent, #9b2035);
   font-size: 13px;
   font-weight: 700;
 }
@@ -143,16 +143,16 @@
 .client-proposals__identity p {
   margin-top: 5px;
   font-size: 12px;
-  color: #796572;
+  color: var(--theme-muted-text, #796572);
 }
 .client-proposals__badge {
   margin-inline-start: auto;
   padding: 6px 11px;
-  border: 1px solid #c8a5b6;
+  border: 1px solid var(--theme-border, #c8a5b6);
   border-radius: 30px;
-  background: #fbf0f5;
+  background: var(--theme-accent-surface, #fbf0f5);
   font-size: 11px;
-  color: #8c304e;
+  color: var(--theme-accent, #8c304e);
   font-weight: 600;
 }
 .client-proposals__cover {
@@ -161,7 +161,7 @@
   line-height: 1.8;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
-  color: #685963;
+  color: var(--theme-muted-text, #685963);
 }
 .client-proposals__offer {
   display: flex;
@@ -169,8 +169,8 @@
   justify-content: center;
   gap: 14px;
   padding: 28px;
-  border-inline-start: 1px solid #d2b9c6;
-  background: #f4e9f0;
+  border-inline-start: 1px solid var(--theme-border, #d2b9c6);
+  background: var(--theme-accent-surface, #f4e9f0);
 }
 .client-proposals__offer > strong {
   font-size: 24px;
@@ -178,19 +178,19 @@
 }
 .client-proposals__delivery {
   font-size: 13px;
-  color: #685963;
+  color: var(--theme-muted-text, #685963);
   margin-bottom: 10px;
 }
 .client-proposals__decisions {
   display: grid;
   gap: 10px;
   padding-top: 14px;
-  border-top: 1px solid #d2b9c6;
+  border-top: 1px solid var(--theme-border, #d2b9c6);
 }
 .client-proposals__attachments {
   margin-top: 20px;
   font-size: 13px;
-  color: #685963;
+  color: var(--theme-muted-text, #685963);
   line-height: 1.8;
 }
 .client-proposals__attachments h4 {
@@ -203,7 +203,7 @@
 .client-proposals__profile-note {
   margin-block: 20px 14px;
   font-size: 12px;
-  color: #796572;
+  color: var(--theme-muted-text, #796572);
 }
 @media (max-width: 760px) {
   .client-proposals__filters {
@@ -214,6 +214,6 @@
   }
   .client-proposals__offer {
     border-inline-start: 0;
-    border-top: 1px solid #d2b9c6;
+    border-top: 1px solid var(--theme-border, #d2b9c6);
   }
 }

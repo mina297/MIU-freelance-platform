@@ -16,7 +16,7 @@ export default function NewReviewPage({
           <button
             type="button"
             onClick={onBack}
-            className="self-start text-sm font-semibold text-miu-red focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+            className="self-start text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
           >
             ← Back
           </button>

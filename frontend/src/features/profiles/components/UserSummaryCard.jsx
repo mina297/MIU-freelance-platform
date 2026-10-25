@@ -33,7 +33,7 @@ export default function UserSummaryCard({
 
   const content = (
     <>
-      <div className="relative size-12 shrink-0 overflow-hidden rounded-full bg-surface-muted ring-1 ring-[#e5e7eb] sm:size-14">
+      <div className="relative size-12 shrink-0 overflow-hidden rounded-full bg-surface-muted ring-1 ring-[color:var(--theme-border,#e5e7eb)] sm:size-14">
         <SafeImage
           key={profileImage || name}
           src={profileImage}
@@ -41,7 +41,7 @@ export default function UserSummaryCard({
           className="size-full object-cover"
           width={56}
           height={56}
-          placeholderClassName="flex size-full items-center justify-center bg-miu-red-tint text-sm font-semibold text-miu-red"
+          placeholderClassName="flex size-full items-center justify-center bg-miu-red-tint text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))]"
           placeholderLabel={initials || "?"}
         />
       </div>
@@ -53,12 +53,14 @@ export default function UserSummaryCard({
           </p>
           {verified ? (
             <BadgeCheck
-              className="size-4 shrink-0 text-miu-red"
+              className="size-4 shrink-0 text-[var(--theme-accent,var(--color-miu-red))]"
               aria-label="Verified"
             />
           ) : null}
         </div>
-        <p className="truncate text-xs text-ink-secondary sm:text-sm">{subtitle}</p>
+        <p className="truncate text-xs text-ink-secondary sm:text-sm">
+          {subtitle}
+        </p>
         {showRating && stars ? (
           <p
             className="mt-1 flex flex-wrap items-center gap-1.5 text-xs text-ink-secondary"
@@ -79,7 +81,7 @@ export default function UserSummaryCard({
     </>
   );
 
-  const baseClass = `flex w-full items-center gap-3 rounded-panel border border-border-soft bg-white p-3 shadow-[0px_4px_12px_0px_rgba(17,17,17,0.04)] sm:gap-4 sm:p-4 ${className}`;
+  const baseClass = `flex w-full items-center gap-3 rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-3 shadow-[0px_4px_12px_0px_rgba(17,17,17,0.04)] sm:gap-4 sm:p-4 ${className}`;
 
   if (typeof onSelect === "function") {
     return (

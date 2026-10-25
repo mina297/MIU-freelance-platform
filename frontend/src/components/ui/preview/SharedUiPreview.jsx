@@ -1,3 +1,5 @@
+import ThemeToggle from "../../../theme/ThemeToggle.jsx";
+import ThemeProvider from "../../../theme/ThemeProvider.jsx";
 import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./SharedUiPreview.css";
@@ -272,6 +274,9 @@ export default function SharedUiPreview() {
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <SharedUiPreview />
+    <ThemeProvider>
+      <ThemeToggle floating />
+      <SharedUiPreview />
+    </ThemeProvider>
   </StrictMode>,
 );

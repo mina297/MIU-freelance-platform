@@ -9,6 +9,7 @@ import {
   PRIMARY_LINKS,
 } from "./publicShellContent.js";
 import "./public-shell.css";
+import ThemeToggle from "../../theme/ThemeToggle.jsx";
 
 /** Visitor presentation only; routing and session policy belong to Member 1. */
 export default function PublicHeader({
@@ -96,6 +97,7 @@ export default function PublicHeader({
           {DESKTOP_LINKS.map((link) => renderLink(link))}
         </nav>
         <div className="miu-public-header__actions">
+          <ThemeToggle />
           {accountAction ?? (
             <>
               {renderLink(

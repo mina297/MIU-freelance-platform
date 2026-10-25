@@ -11,12 +11,14 @@ export default function FaqAccordion({ items }) {
 
   if (!items.length) {
     return (
-      <p className="text-sm text-ink-secondary">No FAQ items match your search.</p>
+      <p className="text-sm text-ink-secondary">
+        No FAQ items match your search.
+      </p>
     );
   }
 
   return (
-    <ul className="divide-y divide-[#e5e7eb] overflow-hidden rounded-panel border border-border-soft bg-white">
+    <ul className="divide-y divide-[#e5e7eb] overflow-hidden rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)]">
       {items.map((item) => {
         const open = openId === item.id;
         return (

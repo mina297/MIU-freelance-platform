@@ -21,7 +21,7 @@ export default function FreelancerCard({ person }) {
           <h3>{person.displayName}</h3>
           <Link
             to={`/students/${person.id}`}
-            className="text-sm text-miu-red underline"
+            className="text-sm text-[var(--theme-accent,var(--color-miu-red))] underline"
           >
             View student profile
           </Link>

@@ -38,7 +38,7 @@ export default function ProjectOrderSummary() {
           </p>
           <Link
             to="/projects"
-            className="mt-6 inline-flex min-h-11 items-center text-miu-red underline"
+            className="mt-6 inline-flex min-h-11 items-center text-[var(--theme-accent,var(--color-miu-red))] underline"
           >
             Browse projects
           </Link>

@@ -3,7 +3,7 @@
 }
 .service-order__disclosure {
   font-size: 13px;
-  color: #735a69;
+  color: var(--theme-muted-text, #735a69);
   line-height: 1.85;
   margin-bottom: 24px;
 }
@@ -29,11 +29,11 @@
 .service-order__panel > p {
   font-size: 13px;
   line-height: 1.9;
-  color: #735a69;
+  color: var(--theme-muted-text, #735a69);
   margin-block: 16px;
 }
 .service-order__scope {
-  border-top: 1px solid #ddcbd5;
+  border-top: 1px solid var(--theme-border, #ddcbd5);
   padding-top: 20px;
   margin-top: 22px;
   font-size: 13px;
@@ -45,7 +45,7 @@
   margin-bottom: 8px;
 }
 .service-order__scope p {
-  color: #735a69;
+  color: var(--theme-muted-text, #735a69);
 }
 .service-order__scope ul {
   list-style: disc;
@@ -67,7 +67,7 @@
   gap: 8px 18px;
 }
 .service-order__summary dt {
-  color: #735a69;
+  color: var(--theme-muted-text, #735a69);
   font-size: 13px;
 }
 .service-order__summary dd {
@@ -76,12 +76,12 @@
   overflow-wrap: anywhere;
 }
 .service-order__total {
-  border-top: 1px solid #ddcbd5;
+  border-top: 1px solid var(--theme-border, #ddcbd5);
   padding-top: 22px;
 }
 .service-order__total dd {
   font-size: 25px;
-  color: #a12a49;
+  color: var(--theme-accent, #a12a49);
 }
 .service-order__summary > .miu-button {
   width: 100%;
@@ -104,7 +104,7 @@
   font-weight: 750;
 }
 .service-order__recovery a {
-  color: #a12a49;
+  color: var(--theme-accent, #a12a49);
   text-decoration: underline;
   min-height: 44px;
 }

@@ -34,8 +34,8 @@
 
 .miu-tabs .miu-tabs__tab[aria-selected="true"] {
   background: var(--color-miu-red-tint);
-  border-color: #c68b9f;
-  color: var(--color-miu-red, #b91c2b);
+  border-color: var(--theme-border, #c68b9f);
+  color: var(--theme-accent, var(--color-miu-red, #b91c2b));
   font-weight: 600;
 }
 
@@ -101,7 +101,7 @@
   min-height: 44px;
   padding: 8px;
   border-color: var(--border-soft);
-  background: #fff;
+  background: var(--theme-surface, #fff);
   color: var(--ink-secondary);
   font-size: 14px;
   font-weight: 600;
