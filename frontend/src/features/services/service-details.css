@@ -58,11 +58,11 @@
   padding: 7px 12px;
   font-size: 12px;
   color: #f7dce6;
-  background: var(--theme-surface, #ffffff08);
+  background: #ffffff08;
 }
 .service-details__summary {
   border: 1px solid var(--theme-border, #b87c95);
-  background: var(--theme-surface, #ffffff09);
+  background: #ffffff09;
   border-radius: 22px;
   padding: 28px;
   box-shadow: 10px 10px 0 #ffffff06;

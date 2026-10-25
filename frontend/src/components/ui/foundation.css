@@ -43,8 +43,8 @@
 }
 
 .miu-button--secondary {
-  border-color: var(--color-miu-black, #111111);
-  background: var(--color-miu-black, #111111);
+  border-color: var(--theme-border, var(--color-miu-black, #111111));
+  background: var(--theme-hover, var(--color-miu-black, #111111));
   color: var(--ui-white);
 }
 
@@ -75,7 +75,7 @@
 
 .miu-button--destructive {
   border-color: var(--color-danger, #dc2626);
-  background: var(--color-danger, #dc2626);
+  background: var(--theme-destructive, var(--color-danger, #dc2626));
   color: var(--ui-white);
 }
 
@@ -150,7 +150,7 @@
 
 .miu-badge--success {
   background: var(--theme-success-surface, #eaf6ed);
-  color: var(--color-miu-black, #111111);
+  color: var(--theme-success-text, var(--color-miu-black, #111111));
 }
 
 .miu-badge--info {
@@ -159,17 +159,17 @@
 }
 
 .miu-badge--completed {
-  background: var(--ui-border);
-  color: var(--theme-text, #374151);
+  background: var(--theme-subtle-surface, var(--ui-border));
+  color: var(--theme-muted-text, #374151);
 }
 
 .miu-badge--warning {
   background: var(--theme-warning-surface, #fef3e6);
-  color: var(--color-miu-black, #111111);
+  color: var(--theme-warning-text, var(--color-miu-black, #111111));
 }
 
 .miu-badge--danger {
-  background: var(--theme-accent-surface, #fdebec);
+  background: var(--theme-danger-surface, #fdebec);
   color: var(--theme-accent, var(--color-miu-red, #b91c2b));
 }
 

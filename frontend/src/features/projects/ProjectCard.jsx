@@ -34,10 +34,10 @@ export default function ProjectCard({
 
   return (
     <article
-      className={`relative overflow-hidden rounded-2xl border-2 bg-[var(--theme-surface,#fff)] shadow-[0_5px_18px_rgba(57,34,40,0.09)] transition-shadow hover:shadow-[0_18px_45px_-27px_rgba(73,29,41,0.35)] motion-reduce:transition-none ${featured ? "border-[color:var(--theme-border,#b45d77)]" : "border-[color:var(--theme-border,#c9bac1)]"}`}
+      className={`relative overflow-hidden rounded-2xl border-2 bg-[var(--theme-surface,#fff)] shadow-[0_5px_18px_rgba(57,34,40,0.09)] transition-shadow hover:shadow-[0_18px_45px_-27px_rgba(73,29,41,0.35)] motion-reduce:transition-none ${featured ? "border-[color:var(--theme-border,#b45d77)]" : "border-[color:var(--theme-divider,#c9bac1)]"}`}
     >
       {featured && (
-        <div className="flex items-center justify-between gap-3 border-b border-[color:var(--theme-border,#d9a9b9)] bg-[color:var(--theme-accent-surface,#f9e5ed)] px-5 py-2.5 text-[11px] font-semibold text-[color:var(--theme-accent,#9c3144)] sm:px-6">
+        <div className="flex items-center justify-between gap-3 border-b border-[color:var(--theme-divider,#d9a9b9)] bg-[color:var(--theme-accent-surface,#f9e5ed)] px-5 py-2.5 text-[11px] font-semibold text-[color:var(--theme-accent,#9c3144)] sm:px-6">
           <span className="flex items-center gap-2 uppercase tracking-[0.13em]">
             <Sparkles size={13} aria-hidden="true" /> Latest opportunity
           </span>

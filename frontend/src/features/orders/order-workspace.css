@@ -12,7 +12,7 @@
   border: 1px solid var(--theme-border, #d5bdcb);
   padding: 22px;
   border-radius: 14px;
-  background: var(--theme-accent-surface, #fcf8fb);
+  background: var(--theme-subtle-surface, #fcf8fb);
 }
 .order-delivery__history > li > p {
   font-size: 13px;

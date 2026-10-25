@@ -12,6 +12,14 @@ test("every registered route has one accessible theme control in light and dark 
     appType: "custom",
   });
   try {
+    // Inspect Vite's client graph, not just source colors: a missing stylesheet
+    // made SSR checks pass while the browser displayed an incomplete theme.
+    const clientProvider = await vite.transformRequest("/src/theme/ThemeProvider.jsx");
+    assert.match(clientProvider.code, /theme\/theme\.css/);
+    assert.match(clientProvider.code, /styles\/premium-theme\.css/);
+    const clientStyles = await vite.transformRequest("/src/theme/theme.css");
+    assert.match(clientStyles.code, /--theme-canvas/);
+    assert.match(clientStyles.code, /\.theme-toggle-track/);
     const { default: AppRouter } = await vite.ssrLoadModule(
       "/src/app/router.jsx",
     );

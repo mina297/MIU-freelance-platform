@@ -5,14 +5,18 @@
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --theme-canvas: #151319;
-  --theme-surface: #2c2530;
-  --theme-subtle-surface: #211d25;
-  --theme-accent-surface: #39232f;
-  --theme-text: #f7f0f4;
-  --theme-muted-text: #c6b8c2;
+  --theme-canvas: #141518;
+  --theme-surface: #25262c;
+  --theme-subtle-surface: #1b1c21;
+  --theme-field: #191a1f;
+  --theme-hover: #303139;
+  --theme-overlay: #2b2c33;
+  --theme-accent-surface: #38232d;
+  --theme-text: #f4f1f3;
+  --theme-muted-text: #bfbac3;
   --theme-accent: #ffa9bd;
-  --theme-border: #9a8292;
+  --theme-border: #89838f;
+  --theme-divider: #48454f;
   --theme-focus: #ffc3d2;
   --theme-success-text: #a0e2ba;
   --theme-success-surface: #213b30;
@@ -22,12 +26,13 @@
   --theme-warning-surface: #42321e;
   --theme-danger-text: #ffb3c1;
   --theme-danger-surface: #482432;
+  --theme-destructive: #af233b;
   --surface-page: var(--theme-canvas);
   --surface-raised: var(--theme-surface);
   --surface-muted: var(--theme-subtle-surface);
   --ink-primary: var(--theme-text);
   --ink-secondary: var(--theme-muted-text);
-  --border-soft: #655060;
+  --border-soft: var(--theme-divider);
   --border-control: var(--theme-border);
   --color-surface-page: var(--surface-page);
   --color-surface-muted: var(--surface-muted);
@@ -53,7 +58,7 @@ html[data-theme="dark"] body {
   :is(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
   outline-color: var(--theme-focus);
 }
-:root[data-theme="dark"] :is(input, textarea)::placeholder {
+:root[data-theme="dark"] :where(input, textarea)::placeholder {
   color: var(--theme-muted-text);
   opacity: 1;
 }
@@ -63,16 +68,6 @@ html[data-theme="dark"] body {
 :root[data-theme="dark"] select option {
   background: var(--theme-surface);
   color: var(--theme-text);
-}
-:root[data-theme="dark"] .miu-button--secondary {
-  color: #fff;
-  background: #49303e;
-  border-color: var(--theme-border);
-}
-:root[data-theme="dark"] .miu-button--destructive {
-  color: #fff;
-  background: #af233b;
-  border-color: #eb8397;
 }
 :root[data-theme="dark"] :is(.miu-modal, .landing-dialog)::backdrop {
   background: #100b13bd;
@@ -96,20 +91,12 @@ html[data-theme="dark"] body {
 :root[data-theme="dark"] img[alt="Misr International University"],
 :root[data-theme="dark"] img[alt="MIU anniversary logo"] {
   background: #fff;
-  padding: 5px;
   border-radius: 10px;
   object-fit: contain;
-}
-:root[data-theme="dark"] .premium-profile-header {
-  background: linear-gradient(110deg, #2c2530 45%, #39232f);
-}
-:root[data-theme="dark"] .premium-help-header,
-:root[data-theme="dark"] .premium-auth-layout {
-  background:
-    radial-gradient(ellipse at 100% 0%, #39232f, transparent 70%), #151319;
+  box-shadow: 0 0 0 5px #fff;
 }
 
-/* One reusable native control, in a header or a reserved standalone corner. */
+/* One reusable native control. Standalone pages reserve space in normal flow. */
 .theme-toggle {
   display: grid;
   place-items: center;
@@ -167,14 +154,22 @@ html[data-theme="dark"] body {
   color: #fff;
 }
 .theme-toggle--floating {
-  position: fixed;
-  bottom: max(16px, env(safe-area-inset-bottom));
-  left: max(16px, env(safe-area-inset-left));
-  z-index: 45;
+  margin: 12px 24px 12px auto;
+  width: fit-content;
   padding: 4px;
   border: 1px solid var(--border-control);
   background: var(--surface-raised);
-  box-shadow: var(--shadow-panel);
+}
+.theme-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 6px clamp(20px, 4vw, 48px);
+  border-bottom: 1px solid var(--border-soft);
+  background: var(--surface-raised);
+  color: var(--ink-secondary);
+  font-size: 12px;
 }
 @media (max-width: 520px) {
   .theme-toggle-track {
@@ -183,10 +178,6 @@ html[data-theme="dark"] body {
   }
   .theme-toggle[aria-pressed="true"] .theme-toggle-track::before {
     transform: translateX(26px);
-  }
-  .theme-toggle--floating {
-    bottom: max(8px, env(safe-area-inset-bottom));
-    left: 8px;
   }
   .miu-public-header__actions {
     gap: 8px;

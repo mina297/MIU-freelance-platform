@@ -15,7 +15,7 @@ export default function CategoryCard({ category, selected, onSelect }) {
     >
       <span
         aria-hidden="true"
-        className={`pointer-events-none absolute -right-6 -top-7 size-24 rounded-full border-[18px] transition ${selected ? "border-[color:var(--theme-border,#f7dce1)]" : "border-[color:var(--theme-border,#f8f5f4)] group-hover:border-[color:var(--theme-border,#fae9ec)]"}`}
+        className={`pointer-events-none absolute -right-6 -top-7 size-24 rounded-full border-[18px] transition ${selected ? "border-[color:var(--theme-accent-surface,#f7dce1)]" : "border-[color:var(--theme-hover,#f8f5f4)] group-hover:border-[color:var(--theme-accent-surface,#fae9ec)]"}`}
       />
       <span
         className={`relative grid size-9 place-items-center rounded-xl ${selected ? "bg-miu-red text-white" : category.tone}`}
