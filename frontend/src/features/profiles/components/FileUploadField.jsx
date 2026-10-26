@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { useId, useRef, useState } from "react";
 import { FileUp, ImagePlus, X } from "lucide-react";
 import SafeImage from "./SafeImage.jsx";
@@ -17,6 +18,8 @@ export default function FileUploadField({
   error,
   disabled = false,
 }) {
+  const { t } = useLanguage();
+
   const inputId = useId();
   const resolvedId = id || inputId;
   const inputRef = useRef(null);
@@ -114,7 +117,7 @@ export default function FileUploadField({
           htmlFor={resolvedId}
           className="text-sm font-semibold text-miu-black"
         >
-          {label}
+          {t(label)}
         </label>
         {hint ? (
           <span className="text-xs text-ink-secondary">{hint}</span>
@@ -144,9 +147,9 @@ export default function FileUploadField({
           </span>
           <div>
             <p className="text-sm font-medium text-miu-black">
-              Drag and drop files here
+              {t("Drag and drop files here")}
             </p>
-            <p className="mt-1 text-xs text-ink-secondary">or</p>
+            <p className="mt-1 text-xs text-ink-secondary">{t("or")}</p>
           </div>
           <button
             type="button"
@@ -154,7 +157,7 @@ export default function FileUploadField({
             className="inline-flex h-10 items-center justify-center rounded-full border border-miu-red bg-[var(--theme-surface,#fff)] px-4 text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))] hover:bg-miu-red-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red disabled:opacity-50"
             onClick={() => inputRef.current?.click()}
           >
-            Browse files
+            {t("Browse files")}
           </button>
           <input
             ref={inputRef}
@@ -186,7 +189,7 @@ export default function FileUploadField({
                 />
               ) : (
                 <div className="flex aspect-square items-center justify-center text-xs text-ink-secondary">
-                  File
+                  {t("File")}
                 </div>
               )}
               <p className="truncate px-2 py-1 text-[10px] text-ink-secondary">
@@ -199,8 +202,8 @@ export default function FileUploadField({
               ) : null}
               <button
                 type="button"
-                aria-label={`Remove ${file.name}`}
-                className="absolute right-1 top-1 rounded-full bg-[var(--theme-surface,#fff)]/95 p-1 text-miu-black shadow"
+                aria-label={t("Remove {value0}", { value0: file.name })}
+                className="absolute end-1 top-1 rounded-full bg-[var(--theme-surface,#fff)]/95 p-1 text-miu-black shadow"
                 onClick={() => onChange(value.filter((f) => f.id !== file.id))}
                 disabled={disabled}
               >

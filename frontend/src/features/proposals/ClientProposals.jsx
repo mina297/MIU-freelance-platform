@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Bookmark, Scale } from "lucide-react";
@@ -25,6 +26,8 @@ import "../projects/project-create.css";
 import "./client-proposals.css";
 
 function ReviewWorkspace({ project, proposals }) {
+  const { t, locale } = useLanguage();
+
   const { session } = useAuth();
   const [filters, setFilters] = useState({
     query: "",
@@ -97,89 +100,98 @@ function ReviewWorkspace({ project, proposals }) {
     <main className="project-create client-proposals">
       <header className="project-create__header">
         <Link to="/client/projects">
-          <ArrowLeft size={16} aria-hidden="true" /> My projects
+          <ArrowLeft size={16} aria-hidden="true" /> {t("My projects")}
         </Link>
         <Link to={`/projects/${project.id}`}>
-          View project <ArrowRight size={16} aria-hidden="true" />
+          {t("View project")} <ArrowRight size={16} aria-hidden="true" />
         </Link>
-        <span>Phase 1 preview</span>
+        <span>{t("Phase 1 preview")}</span>
       </header>
       <section className="project-create__hero">
         <div className="project-create__container">
           <p className="project-create__eyebrow">
-            THE RIGHT PEOPLE. THE RIGHT APPROACH.
+            {t("THE RIGHT PEOPLE. THE RIGHT APPROACH.")}
           </p>
           <h1 ref={heading} tabIndex={-1}>
-            Meet the talent.
+            {t("Meet the talent.")}
             <br />
-            <em>Find your next collaborator.</em>
+            <em>{t("Find your next collaborator.")}</em>
           </h1>
           <p>{project.title}</p>
           <div className="client-proposals__hero-facts">
-            <span>{formatEGP(project.budgetEGP)} project budget</span>
-            <span>{proposals.length} proposals received</span>
+            <span>
+              {formatEGP(project.budgetEGP, locale)} {t("project budget")}
+            </span>
+            <span>
+              {proposals.length} {t("proposals received")}
+            </span>
             <span>
               {
                 proposals.filter(
                   (proposal) => proposal.status === "shortlisted",
                 ).length
               }{" "}
-              shortlisted
+              {t("shortlisted")}
             </span>
           </div>
         </div>
       </section>
       <div className="project-create__container client-proposals__body">
         <p className="client-proposals__disclosure">
-          Fictional proposals and simulated decisions. Accepting an offer
-          creates a demo order awaiting payment. No real hiring, notification,
-          payment or escrow funding occurs. Changes reset on refresh.
+          {t(
+            "Fictional proposals and simulated decisions. Accepting an offer creates a demo order awaiting payment. No real hiring, notification, payment or escrow funding occurs. Changes reset on refresh.",
+          )}
         </p>
         <p role="status" className="client-proposals__notice">
-          {notice}
+          {t(notice)}
         </p>
         {error && (
           <p role="alert" className="project-create__alert">
-            {error}
+            {t(error)}
           </p>
         )}
         {linkedOrder && (
           <div className="project-create__panel project-create__brief">
-            <h2 className="text-xl font-bold">Project order linked</h2>
+            <h2 className="text-xl font-bold">{t("Project order linked")}</h2>
             <p className="mt-3">
-              A fictional order is linked to this project. Open its summary to
-              review the agreed terms.
+              {t(
+                "A fictional order is linked to this project. Open its summary to review the agreed terms.",
+              )}
             </p>
             <div className="project-create__success-links">
-              <Link to={`/orders/${linkedOrder.id}`}>View demo order</Link>
+              <Link to={`/orders/${linkedOrder.id}`}>
+                {t("View demo order")}
+              </Link>
             </div>
           </div>
         )}
         {project.status === "open" && clientEligibility(session, true) && (
           <p className="project-create__alert">
-            An approved demo client session is required to accept an offer. You
-            can still review, shortlist or reject proposals.
+            {t(
+              "An approved demo client session is required to accept an offer. You can still review, shortlist or reject proposals.",
+            )}
           </p>
         )}
         {project.status !== "open" && (
           <p className="project-create__alert">
-            This project is not open. Proposals can be reviewed and compared,
-            but shortlisting is unavailable.
+            {t(
+              "This project is not open. Proposals can be reviewed and compared, but shortlisting is unavailable.",
+            )}
           </p>
         )}
         <section
           className="project-create__panel client-proposals__filters"
-          aria-label="Filter and sort proposals"
+          aria-label={t("Filter and sort proposals")}
         >
           <Input
-            label="Search proposals"
+            label={t("Search proposals")}
             type="search"
             value={filters.query}
             onChange={setFilter("query")}
-            placeholder="Student name or cover message"
+            placeholder={t("Student name or cover message")}
           />
           <Select
-            label="Proposal status"
+            label={t("Proposal status")}
             value={filters.status}
             onChange={setFilter("status")}
           >
@@ -192,18 +204,18 @@ function ReviewWorkspace({ project, proposals }) {
               "withdrawn",
             ].map((status) => (
               <option key={status} value={status}>
-                {status === "all" ? "All statuses" : proposalLabel(status)}
+                {status === "all" ? t("All statuses") : proposalLabel(status)}
               </option>
             ))}
           </Select>
           <Select
-            label="Sort proposals"
+            label={t("Sort proposals")}
             value={filters.sort}
             onChange={setFilter("sort")}
           >
-            <option value="newest">Newest first</option>
-            <option value="price">Lowest price</option>
-            <option value="delivery">Shortest delivery</option>
+            <option value="newest">{t("Newest first")}</option>
+            <option value="price">{t("Lowest price")}</option>
+            <option value="delivery">{t("Shortest delivery")}</option>
           </Select>
         </section>
         <section
@@ -212,9 +224,11 @@ function ReviewWorkspace({ project, proposals }) {
         >
           <div className="client-proposals__section-heading">
             <div>
-              <p className="project-create__eyebrow">A CLEARER PERSPECTIVE</p>
+              <p className="project-create__eyebrow">
+                {t("A CLEARER PERSPECTIVE")}
+              </p>
               <h2 id="proposal-comparison-heading">
-                <Scale aria-hidden="true" size={22} /> Compare offers (
+                <Scale aria-hidden="true" size={22} /> {t("Compare offers (")}
                 {selected.length}/3)
               </h2>
             </div>
@@ -226,7 +240,7 @@ function ReviewWorkspace({ project, proposals }) {
                   setNotice("Comparison selection cleared.");
                 }}
               >
-                Clear comparison
+                {t("Clear comparison")}
               </Button>
             )}
           </div>
@@ -239,23 +253,25 @@ function ReviewWorkspace({ project, proposals }) {
               ref={resultsHeading}
               tabIndex={-1}
             >
-              Incoming proposals
+              {t("Incoming proposals")}
             </h2>
             <p>
-              {visible.length} of {proposals.length} shown
+              {visible.length} {t("of")} {proposals.length} {t("shown")}
             </p>
           </div>
           {!visible.length ? (
             <div className="project-create__panel project-create__brief">
               <h3>
                 {proposals.length
-                  ? "No matching proposals"
-                  : "Your next collaborator is still on the way"}
+                  ? t("No matching proposals")
+                  : t("Your next collaborator is still on the way")}
               </h3>
               <p>
                 {proposals.length
-                  ? "Try a different search or status filter."
-                  : "New demo submissions will appear here. You can return after a student submits a proposal."}
+                  ? t("Try a different search or status filter.")
+                  : t(
+                      "New demo submissions will appear here. You can return after a student submits a proposal.",
+                    )}
               </p>
               {proposals.length > 0 && (
                 <Button
@@ -265,7 +281,7 @@ function ReviewWorkspace({ project, proposals }) {
                     setFilters({ query: "", status: "all", sort: "newest" })
                   }
                 >
-                  Reset filters
+                  {t("Reset filters")}
                 </Button>
               )}
             </div>
@@ -300,11 +316,14 @@ function ReviewWorkspace({ project, proposals }) {
                             to={`/students/${proposal.studentId}`}
                             className="text-sm text-[var(--theme-accent,var(--color-miu-red))] underline"
                           >
-                            View student profile
+                            {t("View student profile")}
                           </Link>
                           <p>
-                            Submitted{" "}
-                            {formatDate(proposal.submittedAt.slice(0, 10))}
+                            {t("Submitted")}{" "}
+                            {formatDate(
+                              proposal.submittedAt.slice(0, 10),
+                              locale,
+                            )}
                           </p>
                         </div>
                         <span className="client-proposals__badge">
@@ -316,7 +335,7 @@ function ReviewWorkspace({ project, proposals }) {
                       </p>
                       {proposal.attachmentIds.length > 0 && (
                         <div className="client-proposals__attachments">
-                          <h4>Fictional sample attachments</h4>
+                          <h4>{t("Fictional sample attachments")}</h4>
                           <ul>
                             {proposal.attachmentIds.map((id) => (
                               <li key={id}>
@@ -326,14 +345,18 @@ function ReviewWorkspace({ project, proposals }) {
                               </li>
                             ))}
                           </ul>
-                          <p>Metadata only; no files to download.</p>
+                          <p>{t("Metadata only; no files to download.")}</p>
                         </div>
                       )}
                       <p className="client-proposals__profile-note">
-                        Student profiles are not available in this preview.
+                        {t(
+                          "Student profiles are not available in this preview.",
+                        )}
                       </p>
                       <Checkbox
-                        label={`Compare proposal from ${name}`}
+                        label={t("Compare proposal from {value0}", {
+                          value0: name,
+                        })}
                         checked={compared}
                         disabled={!compared && selectedIds.length >= 3}
                         onChange={(event) =>
@@ -343,11 +366,11 @@ function ReviewWorkspace({ project, proposals }) {
                     </div>
                     <div className="client-proposals__offer">
                       <span className="project-create__eyebrow">
-                        PROPOSED PRICE
+                        {t("PROPOSED PRICE")}
                       </span>
-                      <strong>{formatEGP(proposal.priceEGP)}</strong>
+                      <strong>{formatEGP(proposal.priceEGP, locale)}</strong>
                       <span className="client-proposals__delivery">
-                        {proposal.deliveryDays} days delivery
+                        {proposal.deliveryDays} {t("days delivery")}
                       </span>
                       <Button
                         variant={
@@ -360,8 +383,8 @@ function ReviewWorkspace({ project, proposals }) {
                       >
                         <Bookmark size={16} aria-hidden="true" />
                         {proposal.status === "shortlisted"
-                          ? "Remove shortlist"
-                          : "Shortlist"}
+                          ? t("Remove shortlist")
+                          : t("Shortlist")}
                       </Button>
                       <ProposalDecisionActions
                         proposal={proposal}
@@ -390,6 +413,8 @@ function ReviewWorkspace({ project, proposals }) {
 }
 
 export default function ClientProposals() {
+  const { t } = useLanguage();
+
   const { projectId } = useParams();
   const { session } = useAuth();
   const allProposals = useSyncExternalStore(
@@ -407,15 +432,17 @@ export default function ClientProposals() {
     return (
       <main className="project-create">
         <div className="project-create__container project-create__brief">
-          <h1 className="text-3xl font-bold">Proposals unavailable</h1>
+          <h1 className="text-3xl font-bold">{t("Proposals unavailable")}</h1>
           <p className="mt-4">
-            This project is unavailable or does not belong to your account.
+            {t(
+              "This project is unavailable or does not belong to your account.",
+            )}
           </p>
           <Link
             className="mt-6 inline-flex min-h-11 items-center text-[var(--theme-accent,var(--color-miu-red))] underline"
             to="/client/projects"
           >
-            Return to My projects
+            {t("Return to My projects")}
           </Link>
         </div>
       </main>

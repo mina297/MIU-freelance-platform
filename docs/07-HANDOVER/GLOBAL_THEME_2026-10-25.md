@@ -58,6 +58,11 @@ work does not mark production or placeholder features complete.
 
 ## Behavior and ownership
 
+Localization integration, 26 October: the existing theme provider now composes
+the shared language provider for the app and isolated previews. Language has its
+own non-sensitive saved preference; theme remains in memory and starts light on
+every document load. See [localization handover](LOCALIZATION_2026-10-26.md).
+
 - `src/theme/ThemeProvider.jsx` owns one React state value above the router,
   authentication provider, route screens and chatbot. It starts light on each
   fresh load. SPA route navigation preserves the current selection. Refreshing

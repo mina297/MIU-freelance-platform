@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useRef, useState } from "react";
 import Button from "../../components/ui/Button.jsx";
 import Modal from "../../components/ui/Modal.jsx";
@@ -12,6 +13,8 @@ export default function ProposalDecisionActions({
   session,
   onResult,
 }) {
+  const { t, locale } = useLanguage();
+
   const [decision, setDecision] = useState(null);
   const [error, setError] = useState("");
   const keepButton = useRef(null);
@@ -40,10 +43,10 @@ export default function ProposalDecisionActions({
             disabled={Boolean(clientEligibility(session, true))}
             onClick={() => setDecision("accept")}
           >
-            Accept offer
+            {t("Accept offer")}
           </Button>
           <Button variant="outline" onClick={() => setDecision("reject")}>
-            Reject offer
+            {t("Reject offer")}
           </Button>
         </div>
       )}
@@ -51,38 +54,46 @@ export default function ProposalDecisionActions({
         open={Boolean(decision)}
         onClose={dismiss}
         initialFocusRef={keepButton}
-        title={accepting ? "Accept this offer?" : "Reject this offer?"}
-        description={
+        title={t(accepting ? t("Accept this offer?") : t("Reject this offer?"))}
+        description={t(
           accepting
-            ? "Select this proposal and create an order awaiting payment in the demo. Other proposals keep their current statuses."
-            : "Mark this proposal as rejected in the demo. This cannot be undone in the current preview."
-        }
+            ? t(
+                "Select this proposal and create an order awaiting payment in the demo. Other proposals keep their current statuses.",
+              )
+            : t(
+                "Mark this proposal as rejected in the demo. This cannot be undone in the current preview.",
+              ),
+        )}
         className="project-create__dialog"
         actions={
           <>
             <Button ref={keepButton} variant="outline" onClick={dismiss}>
-              Keep proposal unchanged
+              {t("Keep proposal unchanged")}
             </Button>
             <Button
               variant={accepting ? "primary" : "destructive"}
               onClick={confirm}
             >
-              {accepting ? "Confirm demo acceptance" : "Confirm rejection"}
+              {accepting
+                ? t("Confirm demo acceptance")
+                : t("Confirm rejection")}
             </Button>
           </>
         }
       >
         <p className="font-semibold">{studentName(proposal.studentId)}</p>
         <p className="mt-3">
-          {formatEGP(proposal.priceEGP)} · {proposal.deliveryDays} days delivery
+          {formatEGP(proposal.priceEGP, locale)} · {proposal.deliveryDays}{" "}
+          {t("days delivery")}
         </p>
         <p className="mt-3 text-sm">
-          Simulation only. No notifications, payments or escrow funding occur.
-          Changes reset on refresh.
+          {t(
+            "Simulation only. No notifications, payments or escrow funding occur. Changes reset on refresh.",
+          )}
         </p>
         {error && (
           <p role="alert" className="project-create__alert mt-4">
-            {error}
+            {t(error)}
           </p>
         )}
       </Modal>

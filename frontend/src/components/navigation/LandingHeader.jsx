@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { Link } from "react-router-dom";
 import {
   ArrowUpRight,
@@ -10,6 +11,7 @@ import Dropdown from "../ui/Dropdown.jsx";
 import miuLogo from "../../assets/figma/miu-anniversary-logo.png";
 import "./publicHeader.css";
 import ThemeToggle from "../../theme/ThemeToggle.jsx";
+import LanguageControl from "../../i18n/LanguageControl.jsx";
 
 const navigation = [
   {
@@ -63,24 +65,34 @@ const navigation = [
 ];
 
 export default function LandingHeader({ accountAction }) {
+  const { t } = useLanguage();
+
   return (
     <header className="public-header">
       <div className="public-header-inner">
-        <Link to="/" aria-label="MIU Freelance home" className="public-brand">
-          <img src={miuLogo} alt="Misr International University" />
+        <Link
+          to="/"
+          aria-label={t("MIU Freelance home")}
+          className="public-brand"
+        >
+          <img src={miuLogo} alt={t("Misr International University")} />
           <span>
-            Freelance
+            {t("Freelance")}
             <span className="text-[var(--theme-accent,var(--color-miu-red))]">
               .
             </span>
           </span>
         </Link>
-        <nav aria-label="Public navigation" className="public-navigation">
+        <nav aria-label={t("Public navigation")} className="public-navigation">
           {navigation.map(({ label, eyebrow, links }) => (
-            <Dropdown key={label} label={label} className="public-nav-dropdown">
+            <Dropdown
+              key={label}
+              label={t(label)}
+              className="public-nav-dropdown"
+            >
               {(close) => (
                 <>
-                  <p className="public-dropdown-eyebrow">{eyebrow}</p>
+                  <p className="public-dropdown-eyebrow">{t(eyebrow)}</p>
                   {links.map(({ to, title, description, icon: ItemIcon }) => (
                     <Link
                       key={to}
@@ -92,8 +104,8 @@ export default function LandingHeader({ accountAction }) {
                         <ItemIcon size={20} aria-hidden="true" />
                       </span>
                       <span>
-                        <strong>{title}</strong>
-                        <small>{description}</small>
+                        <strong>{t(title)}</strong>
+                        <small>{t(description)}</small>
                       </span>
                       <ArrowUpRight size={16} aria-hidden="true" />
                     </Link>
@@ -103,18 +115,19 @@ export default function LandingHeader({ accountAction }) {
             </Dropdown>
           ))}
           <Link to="/#how-it-works" className="public-nav-link">
-            How it works
+            {t("How it works")}
           </Link>
         </nav>
         <div className="public-auth-links">
+          <LanguageControl />
           <ThemeToggle />
           {accountAction ?? (
             <>
               <Link to="/login" className="public-sign-in">
-                Sign In
+                {t("Sign In")}
               </Link>
               <Link to="/register" className="public-sign-up">
-                Sign Up
+                {t("Sign Up")}
               </Link>
             </>
           )}

@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { Code2, Palette, PenLine, Clock3, ArrowDownRight } from "lucide-react";
 import { formatEGP } from "../../utils/formatEGP.js";
 import Card from "../../components/ui/Card.jsx";
@@ -10,6 +11,8 @@ const categoryIcons = {
 };
 
 export default function ServiceCard({ service, starting, data }) {
+  const { t, locale } = useLanguage();
+
   const category =
     data.categories.find(({ id }) => id === service.categoryId)?.label ??
     "Other services";
@@ -30,7 +33,9 @@ export default function ServiceCard({ service, starting, data }) {
           <span />
           <Icon size={48} strokeWidth={1.25} />
         </div>
-        <span className="service-card__art-note">STUDENT CRAFT / MIU</span>
+        <span className="service-card__art-note">
+          {t("STUDENT CRAFT / MIU")}
+        </span>
         <ArrowDownRight className="service-card__art-arrow" size={32} />
       </div>
       <div className="service-card__body">
@@ -39,7 +44,7 @@ export default function ServiceCard({ service, starting, data }) {
           <Link to={`/services/${service.id}`}>{service.title}</Link>
         </h3>
         <p className="service-card__description">{service.description}</p>
-        <ul className="service-card__skills" aria-label="Service skills">
+        <ul className="service-card__skills" aria-label={t("Service skills")}>
           {service.skillIds.map((id) => (
             <li key={id}>
               {data.skills.find((skill) => skill.id === id)?.label ??
@@ -59,22 +64,24 @@ export default function ServiceCard({ service, starting, data }) {
         </p>
         <dl className="service-card__terms">
           <div>
-            <dt>Starting at</dt>
+            <dt>{t("Starting at")}</dt>
             <dd>
-              {starting ? formatEGP(starting.priceEGP) : "Price unavailable"}
+              {starting
+                ? formatEGP(starting.priceEGP, locale)
+                : t("Price unavailable")}
             </dd>
           </div>
           <div>
             <dt>
-              <Clock3 size={13} aria-hidden="true" /> Delivery estimate
+              <Clock3 size={13} aria-hidden="true" /> {t("Delivery estimate")}
             </dt>
             <dd>
-              {starting ? `${starting.deliveryDays} days` : "Unavailable"}
+              {starting ? `${starting.deliveryDays} days` : t("Unavailable")}
             </dd>
           </div>
         </dl>
         <details className="service-card__package">
-          <summary>Preview starting package</summary>
+          <summary>{t("Preview starting package")}</summary>
           {starting ? (
             <div>
               <h4>{starting.name}</h4>
@@ -84,17 +91,19 @@ export default function ServiceCard({ service, starting, data }) {
                   <li key={feature}>{feature}</li>
                 ))}
               </ul>
-              <p>Estimate for this package only; extras are not included.</p>
+              <p>
+                {t("Estimate for this package only; extras are not included.")}
+              </p>
             </div>
           ) : (
-            <p>No valid package is available for this listing.</p>
+            <p>{t("No valid package is available for this listing.")}</p>
           )}
         </details>
         <Link
           className="service-card__details-link"
           to={`/services/${service.id}`}
         >
-          View service <ArrowDownRight size={16} aria-hidden="true" />
+          {t("View service")} <ArrowDownRight size={16} aria-hidden="true" />
         </Link>
       </div>
     </Card>

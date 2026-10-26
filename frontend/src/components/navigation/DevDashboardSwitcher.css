@@ -1,6 +1,6 @@
 .dev-dashboard-navigation {
   position: fixed;
-  right: 16px;
+  inset-inline-end: 16px;
   bottom: 16px;
   z-index: 50;
   font:
@@ -41,7 +41,7 @@
 .dev-dashboard-switcher ul {
   position: absolute;
   bottom: calc(100% + 8px);
-  right: 0;
+  inset-inline-end: 0;
   z-index: 50;
   width: 330px;
   max-width: calc(100vw - 40px);

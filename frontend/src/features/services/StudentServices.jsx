@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
@@ -14,6 +15,8 @@ import "../projects/project-create.css";
 import "./service-manage.css";
 
 function ServiceActions({ service, session, onResult }) {
+  const { t } = useLanguage();
+
   const [action, setAction] = useState(null);
   const [error, setError] = useState("");
   const keepButton = useRef(null);
@@ -39,7 +42,9 @@ function ServiceActions({ service, session, onResult }) {
     <div className="service-manage__actions">
       <div className="project-create__success-links">
         {!editError && (
-          <Link to={`/student/services/${service.id}/edit`}>Edit service</Link>
+          <Link to={`/student/services/${service.id}/edit`}>
+            {t("Edit service")}
+          </Link>
         )}
         {[service.status === "published" ? "pause" : "publish", "remove"].map(
           (item) => {
@@ -59,10 +64,10 @@ function ServiceActions({ service, session, onResult }) {
                   }}
                 >
                   {item === "publish"
-                    ? "Publish service"
+                    ? t("Publish service")
                     : item === "pause"
-                      ? "Pause service"
-                      : "Remove service"}
+                      ? t("Pause service")
+                      : t("Remove service")}
                 </Button>
                 {reason && <p className="service-manage__help">{reason}</p>}
               </div>
@@ -75,24 +80,33 @@ function ServiceActions({ service, session, onResult }) {
         open={!!action}
         onClose={close}
         initialFocusRef={keepButton}
-        title={`${action === "publish" ? "Publish" : action === "pause" ? "Pause" : "Remove"} this service?`}
-        description={
+        title={t("{value0} this service?", {
+          value0:
+            action === "publish"
+              ? "Publish"
+              : action === "pause"
+                ? "Pause"
+                : "Remove",
+        })}
+        description={t(
           action === "remove"
-            ? "This removes the listing and its packages/extras for this session. No undo is available; refresh restores fixtures."
+            ? t(
+                "This removes the listing and its packages/extras for this session. No undo is available; refresh restores fixtures.",
+              )
             : action === "pause"
               ? "The listing will disappear from public discovery. Existing orders are not cancelled or changed."
-              : "The service and its current package terms will appear in public discovery. No order or payment is created."
-        }
+              : "The service and its current package terms will appear in public discovery. No order or payment is created.",
+        )}
         actions={
           <>
             <Button variant="outline" ref={keepButton} onClick={close}>
-              Keep service unchanged
+              {t("Keep service unchanged")}
             </Button>
             <Button
               variant={action === "remove" ? "destructive" : "primary"}
               onClick={confirm}
             >
-              Confirm {action}
+              {t("Confirm")} {action}
             </Button>
           </>
         }
@@ -100,7 +114,7 @@ function ServiceActions({ service, session, onResult }) {
         <p className="font-semibold">{service.title}</p>
         {error && (
           <p role="alert" className="project-create__alert">
-            {error}
+            {t(error)}
           </p>
         )}
       </Modal>
@@ -109,6 +123,8 @@ function ServiceActions({ service, session, onResult }) {
 }
 
 function Workspace() {
+  const { t, locale } = useLanguage();
+
   const { session } = useAuth();
   const location = useLocation();
   const data = useServiceData();
@@ -147,61 +163,63 @@ function Workspace() {
   return (
     <main className="project-create service-manage">
       <header className="project-create__header">
-        <Link to="/services">Public catalogue</Link>
-        <Link to="/student/dashboard">My workspace</Link>
-        <span>Phase 1 preview</span>
+        <Link to="/services">{t("Public catalogue")}</Link>
+        <Link to="/student/dashboard">{t("My workspace")}</Link>
+        <span>{t("Phase 1 preview")}</span>
       </header>
       <section className="project-create__hero">
         <div className="project-create__container">
           <p className="project-create__eyebrow">
-            YOUR SKILLS. YOUR OWN STOREFRONT.
+            {t("YOUR SKILLS. YOUR OWN STOREFRONT.")}
           </p>
           <h1 ref={heading} tabIndex={-1}>
-            Shape your craft.
+            {t("Shape your craft.")}
             <br />
-            <em>Share your services.</em>
+            <em>{t("Share your services.")}</em>
           </h1>
           <p>
-            Prepare a clear offer, manage its packages, and choose when it is
-            visible.
+            {t(
+              "Prepare a clear offer, manage its packages, and choose when it is visible.",
+            )}
           </p>
           <Link className="service-manage__create" to="/student/services/new">
-            Create a service
+            {t("Create a service")}
           </Link>
         </div>
       </section>
       <div className="project-create__container service-manage__body">
         <p className="service-manage__disclosure">
-          Simulated service management. Drafts and paused listings are not
-          public. Changes reset on refresh. Existing orders are never cancelled
-          or repriced by these actions.
+          {t(
+            "Simulated service management. Drafts and paused listings are not public. Changes reset on refresh. Existing orders are never cancelled or repriced by these actions.",
+          )}
         </p>
         {location.state?.serviceNotice && (
           <p className="service-manage__disclosure">
-            A service was saved in this demo session. New drafts must be
-            published to appear publicly.
+            {t(
+              "A service was saved in this demo session. New drafts must be published to appear publicly.",
+            )}
           </p>
         )}
-        <p role="status">{notice}</p>
+        <p role="status">{t(notice)}</p>
         <section
           className="project-create__panel service-manage__filters"
-          aria-label="Filter your services"
+          aria-label={t("Filter your services")}
         >
           <Input
-            label="Search your services"
+            label={t("Search your services")}
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
           />
           <Select
-            label="Service status"
+            label={t("Service status")}
             value={status}
             onChange={(event) => setStatus(event.target.value)}
           >
             {["all", "draft", "published", "paused"].map((item) => (
               <option key={item} value={item}>
                 {item === "all"
-                  ? "All statuses"
+                  ? t("All statuses")
                   : item[0].toUpperCase() + item.slice(1)}
               </option>
             ))}
@@ -213,16 +231,16 @@ function Workspace() {
               setStatus("all");
             }}
           >
-            Reset filters
+            {t("Reset filters")}
           </Button>
         </section>
         <section aria-labelledby="my-services-heading">
           <div className="service-manage__section-heading">
             <h2 id="my-services-heading" ref={resultsHeading} tabIndex={-1}>
-              My services
+              {t("My services")}
             </h2>
             <p>
-              {visible.length} of {own.length} services shown
+              {visible.length} {t("of")} {own.length} {t("services shown")}
             </p>
           </div>
           <div className="service-manage__list">
@@ -234,11 +252,13 @@ function Workspace() {
                   key={service.id}
                 >
                   <div className="service-manage__section-heading">
-                    <p className="project-create__eyebrow">{service.status}</p>
+                    <p className="project-create__eyebrow">
+                      {t(service.status)}
+                    </p>
                     <span>
                       {pack
-                        ? `From ${formatEGP(pack.priceEGP)}`
-                        : "Price unavailable"}
+                        ? `From ${formatEGP(pack.priceEGP, locale)}`
+                        : t("Price unavailable")}
                     </span>
                   </div>
                   <h3>{service.title}</h3>
@@ -247,7 +267,7 @@ function Workspace() {
                   </p>
                   {service.status === "published" && (
                     <Link to={`/services/${service.id}`}>
-                      View public service
+                      {t("View public service")}
                     </Link>
                   )}
                   <ServiceActions
@@ -266,15 +286,15 @@ function Workspace() {
             <div className="project-create__panel service-manage__card">
               <h3>
                 {own.length
-                  ? "No matching services"
-                  : "Your storefront starts here"}
+                  ? t("No matching services")
+                  : t("Your storefront starts here")}
               </h3>
               <p>
                 {own.length
-                  ? "Try another title or reset your filters."
-                  : "Create a private draft and preview your first service."}
+                  ? t("Try another title or reset your filters.")
+                  : t("Create a private draft and preview your first service.")}
               </p>
-              <Link to="/student/services/new">Create a service</Link>
+              <Link to="/student/services/new">{t("Create a service")}</Link>
             </div>
           )}
         </section>

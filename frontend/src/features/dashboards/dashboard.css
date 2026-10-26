@@ -46,7 +46,7 @@
   flex-shrink: 0;
   padding: 24px 20px;
   background: var(--theme-surface, #fff);
-  border-right: 1px solid var(--border-soft);
+  border-inline-end: 1px solid var(--border-soft);
 }
 .sd-brand {
   display: flex;
@@ -86,7 +86,7 @@
   gap: 12px;
   padding: 12px;
   height: 48px;
-  text-align: left;
+  text-align: start;
   color: var(--ink-secondary);
   width: 100%;
 }
@@ -124,7 +124,7 @@
   font-size: 12px;
   font-weight: 600;
   color: var(--theme-accent, #b91c2b);
-  text-align: left;
+  text-align: start;
 }
 .sd-workspace {
   flex: 1;
@@ -536,7 +536,7 @@
 }
 .sd-skip {
   position: absolute;
-  left: 16px;
+  inset-inline-start: 16px;
   top: -100px;
   z-index: 10;
   padding: 12px;
@@ -569,14 +569,14 @@
   .sd-sidebar {
     width: 100%;
     padding: 14px 20px;
-    border-right: 0;
+    border-inline-end: 0;
     border-bottom: 1px solid var(--border-soft);
     position: relative;
   }
   .sd-menu {
     display: block;
     position: absolute;
-    right: 64px;
+    inset-inline-end: 64px;
     top: 22px;
     font-size: 22px;
     min-width: 44px;
@@ -585,7 +585,7 @@
   .sd-mobile-avatar {
     display: block;
     position: absolute;
-    right: 20px;
+    inset-inline-end: 20px;
     top: 20px;
     width: 32px;
     height: 32px;
@@ -663,7 +663,7 @@
   }
   .sd-table-row h3 {
     grid-column: 1/-1;
-    padding-right: 40px;
+    padding-inline-end: 40px;
     font-size: 14px;
   }
   .sd-cell small {
@@ -690,7 +690,7 @@
   }
   .sd-more {
     position: absolute;
-    right: 16px;
+    inset-inline-end: 16px;
     top: 16px;
   }
   .sd-job-grid,

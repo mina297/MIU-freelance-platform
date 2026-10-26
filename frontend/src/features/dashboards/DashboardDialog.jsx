@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef } from "react";
 
 export default function DashboardDialog({
@@ -6,6 +7,8 @@ export default function DashboardDialog({
   close,
   className = "",
 }) {
+  const { t } = useLanguage();
+
   const ref = useRef(null);
   const opener = useRef(document.activeElement);
   useEffect(() => {
@@ -29,7 +32,7 @@ export default function DashboardDialog({
     >
       <div className="cd-dialog-heading">
         <h2 id="client-dialog-title">{title}</h2>
-        <button onClick={close} aria-label="Close dialog">
+        <button onClick={close} aria-label={t("Close dialog")}>
           <img
             src={
               new URL("../../assets/figma/dashboard/4bf4d.svg", import.meta.url)

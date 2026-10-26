@@ -1,10 +1,13 @@
 import { useEffect } from "react";
+import { useLanguage } from "../i18n/LanguageContext.js";
 import {
   Outlet,
   Route,
   Routes,
   useNavigate,
   useParams,
+  useLocation,
+  matchRoutes,
 } from "react-router-dom";
 import StudentDashboard from "../features/dashboards/StudentDashboard.jsx";
 import ProtectedRoute from "../features/auth/ProtectedRoute.jsx";
@@ -150,6 +153,14 @@ const featurePages = {
 };
 
 export default function AppRouter() {
+  const { t } = useLanguage();
+  const { pathname } = useLocation();
+  useEffect(() => {
+    const title =
+      matchRoutes(routeConfig, pathname)?.at(-1)?.route.title ??
+      "Page not found";
+    document.title = `${t(title)} | MIU Freelance`;
+  }, [pathname, t]);
   return (
     <Routes>
       {Object.entries(layouts).map(([layout, element]) => (
@@ -165,10 +176,12 @@ export default function AppRouter() {
                   <ProtectedRoute route={route}>
                     {featurePages[route.path] ?? (
                       <section className="premium-route-placeholder space-y-3">
-                        <h1 className="text-2xl font-bold">{route.title}</h1>
+                        <h1 className="text-2xl font-bold">{t(route.title)}</h1>
                         <p>
-                          {route.message ??
-                            "Planned feature — routing placeholder only. This screen does not implement the feature workflow."}
+                          {t(
+                            route.message ??
+                              "Planned feature — routing placeholder only. This screen does not implement the feature workflow.",
+                          )}
                         </p>
                       </section>
                     )}

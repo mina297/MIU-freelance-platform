@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../../components/ui/Button.jsx";
@@ -10,6 +11,8 @@ export default function StudentProposalActions({
   session,
   onWithdraw,
 }) {
+  const { t } = useLanguage();
+
   const [open, setOpen] = useState(false);
   const [error, setError] = useState("");
   const keepButton = useRef(null);
@@ -41,12 +44,12 @@ export default function StudentProposalActions({
       <div className="project-create__success-links">
         {!editError && (
           <Link to={`/student/proposals/${proposal.id}/edit`}>
-            Edit proposal
+            {t("Edit proposal")}
           </Link>
         )}
         {!withdrawError && (
           <Button variant="outline" onClick={() => setOpen(true)}>
-            Withdraw proposal
+            {t("Withdraw proposal")}
           </Button>
         )}
       </div>
@@ -59,28 +62,31 @@ export default function StudentProposalActions({
         open={open}
         onClose={dismiss}
         initialFocusRef={keepButton}
-        title="Withdraw this proposal?"
-        description="The client will see it as withdrawn. Resubmission and undo are not supported in this demo."
+        title={t("Withdraw this proposal?")}
+        description={t(
+          "The client will see it as withdrawn. Resubmission and undo are not supported in this demo.",
+        )}
         className="project-create__dialog"
         actions={
           <>
             <Button ref={keepButton} variant="outline" onClick={dismiss}>
-              Keep proposal unchanged
+              {t("Keep proposal unchanged")}
             </Button>
             <Button variant="destructive" onClick={confirm}>
-              Confirm withdrawal
+              {t("Confirm withdrawal")}
             </Button>
           </>
         }
       >
         <p className="font-semibold">{projectTitle}</p>
         <p className="mt-3 text-sm">
-          Simulation only. No notification is sent. Your record remains visible
-          and resets to fixture state on refresh.
+          {t(
+            "Simulation only. No notification is sent. Your record remains visible and resets to fixture state on refresh.",
+          )}
         </p>
         {error && (
           <p role="alert" className="project-create__alert mt-4">
-            {error}
+            {t(error)}
           </p>
         )}
       </Modal>

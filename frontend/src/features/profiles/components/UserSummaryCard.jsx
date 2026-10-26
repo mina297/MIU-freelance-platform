@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { BadgeCheck } from "lucide-react";
 import { getRatingAriaLabel, getStarDisplay } from "../utils/ratingDisplay.js";
 import SafeImage from "./SafeImage.jsx";
@@ -14,6 +15,8 @@ export default function UserSummaryCard({
   onSelect,
   className = "",
 }) {
+  const { t, language } = useLanguage();
+
   const name = String(displayName || "Unknown user").trim() || "Unknown user";
   const initials = name
     .split(" ")
@@ -46,7 +49,7 @@ export default function UserSummaryCard({
         />
       </div>
 
-      <div className="min-w-0 flex-1 text-left">
+      <div className="min-w-0 flex-1 text-start">
         <div className="flex flex-wrap items-center gap-1.5">
           <p className="truncate text-sm font-semibold text-miu-black sm:text-base">
             {name}
@@ -54,7 +57,7 @@ export default function UserSummaryCard({
           {verified ? (
             <BadgeCheck
               className="size-4 shrink-0 text-[var(--theme-accent,var(--color-miu-red))]"
-              aria-label="Verified"
+              aria-label={t("Verified")}
             />
           ) : null}
         </div>
@@ -64,9 +67,12 @@ export default function UserSummaryCard({
         {showRating && stars ? (
           <p
             className="mt-1 flex flex-wrap items-center gap-1.5 text-xs text-ink-secondary"
-            aria-label={getRatingAriaLabel(
-              Number(ratingSummary.average),
-              Number(ratingSummary.count),
+            aria-label={t(
+              getRatingAriaLabel(
+                Number(ratingSummary.average),
+                Number(ratingSummary.count),
+                language,
+              ),
             )}
           >
             <span className="text-star" aria-hidden="true">
@@ -88,7 +94,7 @@ export default function UserSummaryCard({
       <button
         type="button"
         onClick={onSelect}
-        className={`${baseClass} text-left transition hover:border-miu-red/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red`}
+        className={`${baseClass} text-start transition hover:border-miu-red/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red`}
       >
         {content}
       </button>

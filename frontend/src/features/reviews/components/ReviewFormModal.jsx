@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import Modal from "../../../components/ui/Modal.jsx";
 import ReviewForm from "./ReviewForm.jsx";
 export default function ReviewFormModal({
@@ -8,8 +9,15 @@ export default function ReviewFormModal({
   onSuccess,
   onViewReview,
 }) {
+  const { t } = useLanguage();
+
   return (
-    <Modal open={open} onClose={onClose} title="Leave a review" closeOnBackdrop>
+    <Modal
+      open={open}
+      onClose={onClose}
+      title={t("Leave a review")}
+      closeOnBackdrop
+    >
       {open && (
         <ReviewForm
           key={`${defaultStudentId ?? "any"}:${defaultOrderId ?? "pick"}`}

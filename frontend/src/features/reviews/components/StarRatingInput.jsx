@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 /**
  * Interactive 1–5 star rating input.
  *
@@ -16,15 +17,17 @@ export default function StarRatingInput({
   error,
   disabled = false,
 }) {
+  const { t } = useLanguage();
+
   return (
     <fieldset className="space-y-2" disabled={disabled}>
       <legend className="text-sm font-semibold text-miu-black">
-        Your rating
+        {t("Your rating")}
       </legend>
       <div
         className="flex items-center gap-1"
         role="radiogroup"
-        aria-label="Star rating"
+        aria-label={t("Star rating")}
       >
         {[1, 2, 3, 4, 5].map((star) => {
           const selected = value >= star;
@@ -34,7 +37,10 @@ export default function StarRatingInput({
               type="button"
               role="radio"
               aria-checked={value === star}
-              aria-label={`${star} star${star === 1 ? "" : "s"}`}
+              aria-label={t("{value0} star{value1}", {
+                value0: star,
+                value1: star === 1 ? "" : "s",
+              })}
               name={name}
               className={`size-10 text-2xl leading-none transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red ${
                 selected ? "text-star" : "text-[#d1d5db]"
@@ -45,8 +51,8 @@ export default function StarRatingInput({
             </button>
           );
         })}
-        <span className="ml-2 text-sm text-ink-secondary">
-          {value > 0 ? `${value} / 5` : "Select a rating"}
+        <span className="ms-2 text-sm text-ink-secondary">
+          {value > 0 ? `${value} / 5` : t("Select a rating")}
         </span>
       </div>
       {error ? (
@@ -54,7 +60,7 @@ export default function StarRatingInput({
           className="text-sm text-[var(--theme-danger-text,var(--color-danger))]"
           role="alert"
         >
-          {error}
+          {t(error)}
         </p>
       ) : null}
     </fieldset>

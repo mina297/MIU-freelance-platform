@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -31,6 +32,8 @@ import miuLogo from "../../assets/figma/miu-anniversary-logo.png";
 import "./project-create.css";
 
 function ProjectBrief({ values }) {
+  const { t, locale } = useLanguage();
+
   const brief = normalizeProject(values);
   return (
     <div className="project-create__brief">
@@ -41,23 +44,23 @@ function ProjectBrief({ values }) {
       <p className="project-create__prose">{brief.description}</p>
       <div className="project-create__facts">
         <div>
-          <span>PROJECT BUDGET</span>
-          <strong>{formatEGP(brief.budgetEGP)}</strong>
+          <span>{t("PROJECT BUDGET")}</span>
+          <strong>{formatEGP(brief.budgetEGP, locale)}</strong>
         </div>
         <div>
-          <span>DEADLINE</span>
-          <strong>{formatDate(brief.deadline)}</strong>
+          <span>{t("DEADLINE")}</span>
+          <strong>{formatDate(brief.deadline, locale)}</strong>
         </div>
       </div>
-      <h3>Scope of work</h3>
+      <h3>{t("Scope of work")}</h3>
       <p className="project-create__prose">{brief.scope}</p>
-      <h3>Expected deliverables</h3>
+      <h3>{t("Expected deliverables")}</h3>
       <ul>
         {brief.deliverables.map((item, index) => (
           <li key={index}>{item}</li>
         ))}
       </ul>
-      <h3>Required skills</h3>
+      <h3>{t("Required skills")}</h3>
       <div className="project-create__skills">
         {brief.requiredSkillIds.map((id) => (
           <span key={id}>
@@ -70,6 +73,8 @@ function ProjectBrief({ values }) {
 }
 
 function ProjectCreateForm({ record }) {
+  const { t } = useLanguage();
+
   const { session } = useAuth();
   const [values, setValues] = useState(() => projectFormValues(record));
   const [isPublished] = useState(record?.status === "open");
@@ -158,50 +163,53 @@ function ProjectCreateForm({ record }) {
   return (
     <div className="project-create">
       <header className="project-create__header">
-        <Link to="/projects" aria-label="MIU Freelance projects">
-          <img src={miuLogo} alt="Misr International University" />
+        <Link to="/projects" aria-label={t("MIU Freelance projects")}>
+          <img src={miuLogo} alt={t("Misr International University")} />
         </Link>
         <Link to="/projects">
-          <ArrowLeft size={16} aria-hidden="true" /> Back to marketplace
+          <ArrowLeft size={16} aria-hidden="true" /> {t("Back to marketplace")}
         </Link>
-        <Link to="/client/projects">My projects</Link>
-        <span>Phase 1 preview</span>
+        <Link to="/client/projects">{t("My projects")}</Link>
+        <span>{t("Phase 1 preview")}</span>
       </header>
       <main>
         <section className="project-create__hero">
           <div className="project-create__container">
-            <p className="project-create__eyebrow">THE CLIENT WORKSPACE</p>
+            <p className="project-create__eyebrow">
+              {t("THE CLIENT WORKSPACE")}
+            </p>
             <h1 ref={heading} tabIndex={-1}>
               {step === "success" ? (
                 <>
-                  Your next idea.
+                  {t("Your next idea.")}
                   <br />
-                  <em>Ready to discover.</em>
+                  <em>{t("Ready to discover.")}</em>
                 </>
               ) : isPublished ? (
                 <>
-                  Refine your project.
+                  {t("Refine your project.")}
                   <br />
-                  <em>Keep the vision clear.</em>
+                  <em>{t("Keep the vision clear.")}</em>
                 </>
               ) : (
                 <>
-                  A great project starts
+                  {t("A great project starts")}
                   <br />
-                  <em>with a clear brief.</em>
+                  <em>{t("with a clear brief.")}</em>
                 </>
               )}
             </h1>
             <p>
-              Turn your idea into an opportunity for student talent. Define the
-              work, set your budget, and make the next move.
+              {t(
+                "Turn your idea into an opportunity for student talent. Define the work, set your budget, and make the next move.",
+              )}
             </p>
           </div>
         </section>
         <div className="project-create__container project-create__workspace">
           <ol
             className="project-create__steps"
-            aria-label="Project creation progress"
+            aria-label={t("Project creation progress")}
           >
             {[
               ["edit", "Write your brief"],
@@ -216,40 +224,40 @@ function ProjectCreateForm({ record }) {
                     `0${index + 1}`
                   )}
                 </span>
-                {title}
+                {t(title)}
               </li>
             ))}
           </ol>
           <div className="project-create__columns">
             <section
               className="project-create__panel"
-              aria-label="Project creation"
+              aria-label={t("Project creation")}
             >
               <div className="project-create__panel-title">
                 <ClipboardList aria-hidden="true" />
                 <div>
                   <p className="project-create__eyebrow">
                     {step === "edit"
-                      ? "MAKE IT SPECIFIC"
-                      : "YOUR PROJECT BRIEF"}
+                      ? t("MAKE IT SPECIFIC")
+                      : t("YOUR PROJECT BRIEF")}
                   </p>
                   <h2>
                     {step === "edit"
                       ? isPublished
-                        ? "Update your project brief"
-                        : "Tell us what you’re building"
+                        ? t("Update your project brief")
+                        : t("Tell us what you’re building")
                       : step === "preview"
-                        ? "One last look before publishing"
+                        ? t("One last look before publishing")
                         : isPublished
-                          ? "Changes saved — simulation"
-                          : "Published — simulation"}
+                          ? t("Changes saved — simulation")
+                          : t("Published — simulation")}
                   </h2>
                 </div>
               </div>
               {step === "edit" ? (
                 <form ref={form} noValidate onSubmit={preview}>
                   <div className="project-create__fields">
-                    <p role="status">{notice}</p>
+                    <p role="status">{t(notice)}</p>
                     {Object.keys(errors).length > 0 && (
                       <p role="alert" className="project-create__alert">
                         {errors.session ??
@@ -272,10 +280,10 @@ function ProjectCreateForm({ record }) {
                       })}
                     />
                     <Select {...fields("categoryId", "Project category")}>
-                      <option value="">Choose a category</option>
+                      <option value="">{t("Choose a category")}</option>
                       {marketplaceCategories.map(({ id, label }) => (
                         <option key={id} value={id}>
-                          {label}
+                          {t(label)}
                         </option>
                       ))}
                     </Select>
@@ -287,16 +295,16 @@ function ProjectCreateForm({ record }) {
                           : "project-skills-help"
                       }
                     >
-                      <legend>Required skills *</legend>
+                      <legend>{t("Required skills *")}</legend>
                       <p id="project-skills-help">
-                        Select the skills your project needs.
+                        {t("Select the skills your project needs.")}
                       </p>
                       <div>
                         {marketplaceSkills.map(({ id, label }) => (
                           <Checkbox
                             key={id}
                             name="requiredSkillIds"
-                            label={label}
+                            label={t(label)}
                             checked={values.requiredSkillIds.includes(id)}
                             onChange={(event) =>
                               setField(
@@ -354,11 +362,11 @@ function ProjectCreateForm({ record }) {
                   <div className="project-create__actions">
                     {!isPublished && (
                       <Button variant="outline" onClick={saveDraft}>
-                        Save draft
+                        {t("Save draft")}
                       </Button>
                     )}
                     <Button type="submit">
-                      Preview project{" "}
+                      {t("Preview project")}{" "}
                       <ArrowRight size={17} aria-hidden="true" />
                     </Button>
                   </div>
@@ -374,15 +382,15 @@ function ProjectCreateForm({ record }) {
                         setStep("edit");
                       }}
                     >
-                      Edit brief
+                      {t("Edit brief")}
                     </Button>
                     <Button
                       onClick={publish}
                       disabled={Boolean(verificationIssue)}
                     >
                       {isPublished
-                        ? "Save demo changes"
-                        : "Publish demo project"}{" "}
+                        ? t("Save demo changes")
+                        : t("Publish demo project")}{" "}
                       <ArrowRight size={17} aria-hidden="true" />
                     </Button>
                   </div>
@@ -390,18 +398,18 @@ function ProjectCreateForm({ record }) {
               ) : (
                 <div className="project-create__brief">
                   <p role="status">
-                    Your fictional project is now in this browser’s demo
-                    catalogue. No students were contacted. Refreshing clears the
-                    record.
+                    {t(
+                      "Your fictional project is now in this browser’s demo catalogue. No students were contacted. Refreshing clears the record.",
+                    )}
                   </p>
                   <h3>{published.title}</h3>
                   <div className="project-create__success-links">
                     <Link to={`/projects/${published.id}`}>
-                      View your project{" "}
+                      {t("View your project")}{" "}
                       <ArrowRight size={17} aria-hidden="true" />
                     </Link>
-                    <Link to="/projects">Browse projects</Link>
-                    <Link to="/client/projects">My projects</Link>
+                    <Link to="/projects">{t("Browse projects")}</Link>
+                    <Link to="/client/projects">{t("My projects")}</Link>
                   </div>
                 </div>
               )}
@@ -410,35 +418,35 @@ function ProjectCreateForm({ record }) {
               <div className="project-create__tip">
                 <Sparkles aria-hidden="true" />
                 <p className="project-create__eyebrow">
-                  A BETTER BRIEF. A BETTER FIT.
+                  {t("A BETTER BRIEF. A BETTER FIT.")}
                 </p>
                 <h2>
-                  Make room for
+                  {t("Make room for")}
                   <br />
-                  <em>great work.</em>
+                  <em>{t("great work.")}</em>
                 </h2>
                 <p>
-                  Be clear about the outcome. Give students enough context to
-                  propose a thoughtful approach.
+                  {t(
+                    "Be clear about the outcome. Give students enough context to propose a thoughtful approach.",
+                  )}
                 </p>
                 <ul>
-                  <li>Describe success, not just tasks.</li>
-                  <li>Keep the scope achievable.</li>
-                  <li>Allow time for feedback.</li>
+                  <li>{t("Describe success, not just tasks.")}</li>
+                  <li>{t("Keep the scope achievable.")}</li>
+                  <li>{t("Allow time for feedback.")}</li>
                 </ul>
               </div>
               <div className="project-create__disclosure">
-                <strong>A safe space to try it</strong>
+                <strong>{t("A safe space to try it")}</strong>
                 <p>
-                  This is a simulated frontend workflow. Use fictional
-                  information. Save a draft to reopen it later. Saved drafts and
-                  published changes remain in memory until refresh. Unsaved
-                  changes clear when you leave.
+                  {t(
+                    "This is a simulated frontend workflow. Use fictional information. Save a draft to reopen it later. Saved drafts and published changes remain in memory until refresh. Unsaved changes clear when you leave.",
+                  )}
                 </p>
                 {verificationIssue && (
                   <p>
-                    {verificationIssue} You can still write and preview your
-                    brief.
+                    {verificationIssue}{" "}
+                    {t("You can still write and preview your brief.")}
                   </p>
                 )}
               </div>
@@ -451,6 +459,8 @@ function ProjectCreateForm({ record }) {
 }
 
 export default function ProjectCreate() {
+  const { t } = useLanguage();
+
   const { session } = useAuth();
   const { projectId } = useParams();
   useSyncExternalStore(
@@ -464,17 +474,18 @@ export default function ProjectCreate() {
       <main className="project-create">
         <div className="project-create__container project-create__brief">
           <h1 className="text-3xl font-bold">
-            Project unavailable for editing
+            {t("Project unavailable for editing")}
           </h1>
           <p className="mt-4">
-            You can edit only your own drafts and open projects. This project
-            may be unavailable or no longer editable.
+            {t(
+              "You can edit only your own drafts and open projects. This project may be unavailable or no longer editable.",
+            )}
           </p>
           <Link
             className="mt-6 inline-flex min-h-11 items-center text-[var(--theme-accent,var(--color-miu-red))] underline"
             to="/client/projects"
           >
-            Return to My projects
+            {t("Return to My projects")}
           </Link>
         </div>
       </main>

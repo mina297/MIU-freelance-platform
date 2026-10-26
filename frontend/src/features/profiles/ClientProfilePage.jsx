@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { BadgeCheck } from "lucide-react";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext.js";
@@ -34,6 +35,8 @@ export default function ClientProfilePage({
   onViewStudent,
   simulateDelay = true,
 }) {
+  const { t, locale } = useLanguage();
+
   const { status, data } = useClientProfile(clientId, { simulateDelay });
   const auth = useContext(AuthContext);
   const isOwner =
@@ -74,7 +77,7 @@ export default function ClientProfilePage({
               onClick={onEditProfile}
               className="h-10 rounded-full border border-miu-red px-4 text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))] hover:bg-miu-red-tint"
             >
-              Edit profile
+              {t("Edit profile")}
             </button>
           ) : null}
         </div>
@@ -98,7 +101,7 @@ export default function ClientProfilePage({
               {profile.verified ? (
                 <BadgeCheck
                   className="size-[22px] text-[var(--theme-accent,var(--color-miu-red))]"
-                  aria-label="Verified"
+                  aria-label={t("Verified")}
                 />
               ) : null}
             </div>
@@ -114,7 +117,7 @@ export default function ClientProfilePage({
         </header>
 
         <section className="rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-5 shadow-[var(--shadow-panel)] sm:p-6">
-          <h2 className="text-xl font-semibold text-miu-black">About</h2>
+          <h2 className="text-xl font-semibold text-miu-black">{t("About")}</h2>
           <div className="mt-4 space-y-3 text-[15px] leading-relaxed text-ink-secondary">
             {profile.aboutParagraphs.map((paragraph) => (
               <p key={paragraph.slice(0, 24)}>{paragraph}</p>
@@ -124,16 +127,18 @@ export default function ClientProfilePage({
 
         <section className="space-y-4">
           <h2 className="text-xl font-semibold text-miu-black">
-            Project history
+            {t("Project history")}
           </h2>
           {projectHistory.length === 0 ? (
-            <ProfileEmptyState message="No completed projects linked to this client yet." />
+            <ProfileEmptyState
+              message={t("No completed projects linked to this client yet.")}
+            />
           ) : (
             <ul className="overflow-hidden rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] shadow-[var(--shadow-panel)]">
               {projectHistory.map((project, index) => {
                 const dateLabel = new Date(
                   project.completedAt,
-                ).toLocaleDateString("en-GB", {
+                ).toLocaleDateString(locale, {
                   day: "numeric",
                   month: "short",
                   year: "numeric",
@@ -150,7 +155,7 @@ export default function ClientProfilePage({
                         {project.title}
                       </p>
                       <p className="mt-1 text-sm text-ink-secondary">
-                        {project.category} · {dateLabel} · with{" "}
+                        {project.category} · {dateLabel} {t("· with")}{" "}
                         {onViewStudent ? (
                           <button
                             type="button"
@@ -165,7 +170,7 @@ export default function ClientProfilePage({
                       </p>
                     </div>
                     <p className="text-sm font-semibold text-miu-black">
-                      {formatEGP(project.amountEGP)}
+                      {formatEGP(project.amountEGP, locale)}
                     </p>
                   </li>
                 );

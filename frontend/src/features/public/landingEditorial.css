@@ -34,17 +34,17 @@
 }
 .landing-note-code {
   top: 125px;
-  left: max(24px, calc((100% - 1460px) / 2));
+  inset-inline-start: max(24px, calc((100% - 1460px) / 2));
   transform: rotate(-9deg);
 }
 .landing-note-design {
   top: 165px;
-  right: max(24px, calc((100% - 1460px) / 2));
+  inset-inline-end: max(24px, calc((100% - 1460px) / 2));
   transform: rotate(9deg);
 }
 .landing-hero-spark {
   position: absolute;
-  right: 20%;
+  inset-inline-end: 20%;
   top: 55px;
   color: var(--theme-accent, #aa4e68);
 }
@@ -60,7 +60,7 @@
   gap: 18px;
   width: min(1100px, 100%);
   margin-top: 12px;
-  text-align: left;
+  text-align: start;
 }
 .landing-pathway {
   position: relative;
@@ -125,7 +125,7 @@
 }
 .landing-pathway-arrow {
   flex-shrink: 0;
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 .landing .landing-pathway:focus-visible {
   outline-color: var(--theme-focus, #b91c2b);

@@ -1,3 +1,4 @@
+import LocalizedText from "../../i18n/LocalizedText.jsx";
 import Field from "./Field.jsx";
 
 /** Native same-name radios retain browser arrow-key and form behavior. */
@@ -58,7 +59,9 @@ export default function RadioGroup({
                 disabled={disabled || option.disabled}
                 onChange={onChange}
               />
-              <span>{option.label}</span>
+              <span>
+                <LocalizedText>{option.label}</LocalizedText>
+              </span>
             </label>
           ))}
         </div>

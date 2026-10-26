@@ -115,9 +115,9 @@
 .landing-category-name {
   position: absolute;
   top: 22px;
-  left: 22px;
-  right: 22px;
-  text-align: left;
+  inset-inline-start: 22px;
+  inset-inline-end: 22px;
+  text-align: start;
   font-size: 16px;
   font-weight: 650;
   line-height: 1.35;
@@ -135,7 +135,7 @@
 .landing-category-arrow {
   position: absolute;
   bottom: 20px;
-  right: 22px;
+  inset-inline-end: 22px;
   color: var(--theme-muted-text, #82596d);
 }
 .landing-category-card:hover,

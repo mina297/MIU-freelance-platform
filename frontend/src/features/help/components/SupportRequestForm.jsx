@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { useState } from "react";
 import FileUploadField from "../../profiles/components/FileUploadField.jsx";
 import { validateSupportForm } from "../utils/validateSupport.js";
@@ -15,6 +16,8 @@ const TOPICS = [
 
 /** Contact support form with simulated submission. */
 export default function SupportRequestForm({ onSuccess, onCancel }) {
+  const { t } = useLanguage();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [topic, setTopic] = useState("");
@@ -88,11 +91,12 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
       <div className="space-y-4" role="status">
         <div className="rounded-panel border border-success/30 bg-[var(--theme-surface,#fff)] p-4 text-center sm:p-5">
           <h2 className="text-lg font-semibold text-miu-black sm:text-xl">
-            Support request received
+            {t("Support request received")}
           </h2>
           <p className="mt-2 text-sm text-ink-secondary">
-            Your request was saved in this browser session only. No email or
-            committee workflow was triggered.
+            {t(
+              "Your request was saved in this browser session only. No email or committee workflow was triggered.",
+            )}
           </p>
         </div>
         <TicketDetails ticket={submittedTicket} />
@@ -102,7 +106,7 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
             className="h-11 rounded-full border border-border-soft px-5 text-sm font-semibold text-miu-black"
             onClick={onCancel}
           >
-            Close
+            {t("Close")}
           </button>
         ) : null}
       </div>
@@ -116,8 +120,9 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
       noValidate
     >
       <p className="text-sm">
-        Use fictional information and sample files only. Image previews stay in
-        memory; saved tickets contain attachment names, not file contents.
+        {t(
+          "Use fictional information and sample files only. Image previews stay in memory; saved tickets contain attachment names, not file contents.",
+        )}
       </p>
       {errors.form && (
         <p
@@ -129,30 +134,31 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
       )}
       <div>
         <p className="text-xs font-semibold uppercase tracking-wide text-[var(--theme-accent,var(--color-miu-red))]">
-          Simulated Phase 1 workflow
+          {t("Simulated Phase 1 workflow")}
         </p>
         <h2 className="mt-1 text-xl font-semibold text-miu-black">
-          Contact support
+          {t("Contact support")}
         </h2>
         <p className="mt-1 text-sm text-ink-secondary">
-          Member 5 owns the request form and ticket presentation only. Ticket
-          assignment and dispute decisions belong to other modules.
+          {t(
+            "Member 5 owns the request form and ticket presentation only. Ticket assignment and dispute decisions belong to other modules.",
+          )}
         </p>
       </div>
 
       <Field
-        label="Full name"
+        label={t("Full name")}
         id="support-name"
         value={name}
-        error={errors.name}
+        error={t(errors.name)}
         onChange={setName}
       />
       <Field
-        label="Email"
+        label={t("Email")}
         id="support-email"
         type="email"
         value={email}
-        error={errors.email}
+        error={t(errors.email)}
         onChange={setEmail}
       />
 
@@ -161,7 +167,7 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
           htmlFor="support-topic"
           className="text-sm font-semibold text-miu-black"
         >
-          Topic
+          {t("Topic")}
         </label>
         <select
           id="support-topic"
@@ -169,7 +175,7 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
           onChange={(e) => setTopic(e.target.value)}
           className="h-11 w-full rounded-lg border border-border-soft px-3 text-sm"
         >
-          <option value="">Select a topic</option>
+          <option value="">{t("Select a topic")}</option>
           {TOPICS.map((t) => (
             <option key={t.value} value={t.value}>
               {t.label}
@@ -187,14 +193,14 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
       </div>
 
       <Field
-        label="Subject"
+        label={t("Subject")}
         id="support-subject"
         value={subject}
-        error={errors.subject}
+        error={t(errors.subject)}
         onChange={setSubject}
       />
       <Field
-        label="Related order / project ID (optional)"
+        label={t("Related order / project ID (optional)")}
         id="support-ref"
         value={referenceId}
         onChange={setReferenceId}
@@ -205,7 +211,7 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
           htmlFor="support-message"
           className="text-sm font-semibold text-miu-black"
         >
-          Message
+          {t("Message")}
         </label>
         <textarea
           id="support-message"
@@ -225,7 +231,7 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
       </div>
 
       <FileUploadField
-        label="Evidence attachments (optional)"
+        label={t("Evidence attachments (optional)")}
         hint="Images or PDF · max 3 files · 3 MB each · simulated only"
         accept="image/*,application/pdf"
         multiple
@@ -233,7 +239,7 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
         maxBytes={3_000_000}
         imagesOnly={false}
         value={files}
-        error={errors.files}
+        error={t(errors.files)}
         onChange={(next) => {
           setFiles(next);
           setErrors((prev) => {
@@ -252,7 +258,7 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
             className="h-11 rounded-full border border-border-soft px-5 text-sm font-semibold"
             disabled={status === "submitting"}
           >
-            Cancel
+            {t("Cancel")}
           </button>
         ) : null}
         <button
@@ -260,7 +266,7 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
           className="h-11 rounded-full bg-miu-red px-5 text-sm font-semibold text-white hover:bg-miu-red-dark disabled:opacity-60"
           disabled={status === "submitting"}
         >
-          {status === "submitting" ? "Sending…" : "Submit request"}
+          {status === "submitting" ? t("Sending…") : t("Submit request")}
         </button>
       </div>
     </form>
@@ -268,10 +274,12 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
 }
 
 function Field({ id, label, value, onChange, error, type = "text" }) {
+  const { t } = useLanguage();
+
   return (
     <div className="space-y-2">
       <label htmlFor={id} className="text-sm font-semibold text-miu-black">
-        {label}
+        {t(label)}
       </label>
       <input
         id={id}
@@ -285,7 +293,7 @@ function Field({ id, label, value, onChange, error, type = "text" }) {
           className="text-sm text-[var(--theme-danger-text,var(--color-danger))]"
           role="alert"
         >
-          {error}
+          {t(error)}
         </p>
       ) : null}
     </div>

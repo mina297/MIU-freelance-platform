@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useId, useRef, useState } from "react";
 import "./authForm.css";
 
@@ -11,6 +12,8 @@ export default function AuthForm({
   afterSubmit,
   children,
 }) {
+  const { t } = useLanguage();
+
   const id = useId();
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
@@ -47,7 +50,7 @@ export default function AuthForm({
   return (
     <div className="auth-page">
       <section className="auth-card" aria-labelledby={`${id}-title`}>
-        <p className="auth-eyebrow">MIU Freelance</p>
+        <p className="auth-eyebrow">{t("MIU Freelance")}</p>
         <h1 id={`${id}-title`}>{title}</h1>
         <form
           noValidate
@@ -55,11 +58,11 @@ export default function AuthForm({
           className="auth-fields"
           aria-busy={submitting}
         >
-          <p className="sr-only">All fields are required.</p>
+          <p className="sr-only">{t("All fields are required.")}</p>
           {fields.map(
             ({ name, label, type = "text", autoComplete, hint, options }) => (
               <div key={name} className="auth-field">
-                <label htmlFor={`${id}-${name}`}>{label}</label>
+                <label htmlFor={`${id}-${name}`}>{t(label)}</label>
                 {options ? (
                   <select
                     id={`${id}-${name}`}
@@ -76,10 +79,10 @@ export default function AuthForm({
                       setValues({ ...values, [name]: event.target.value })
                     }
                   >
-                    <option value="">Choose a role</option>
+                    <option value="">{t("Choose a role")}</option>
                     {options.map((option) => (
                       <option key={option.value} value={option.value}>
-                        {option.label}
+                        {t(option.label)}
                       </option>
                     ))}
                   </select>
@@ -109,7 +112,7 @@ export default function AuthForm({
                 )}
                 {hint && (
                   <p id={`${id}-${name}-hint`} className="auth-hint">
-                    {hint}
+                    {t(hint)}
                   </p>
                 )}
                 {errors[name] && (
@@ -118,7 +121,7 @@ export default function AuthForm({
                     className="auth-error"
                     role="alert"
                   >
-                    {errors[name]}
+                    {t(errors[name])}
                   </p>
                 )}
               </div>
@@ -126,22 +129,22 @@ export default function AuthForm({
           )}
           {errors.form && (
             <p role="alert" className="auth-feedback auth-error">
-              {errors.form}
+              {t(errors.form)}
             </p>
           )}
           {message && (
             <p role="status" className="auth-feedback">
-              {message}
+              {t(message)}
             </p>
           )}
           <button type="submit" disabled={submitting} className="auth-submit">
-            {submitting ? "Please wait…" : submitLabel}
+            {submitting ? t("Please wait…") : t(submitLabel)}
           </button>
           {afterSubmit}
         </form>
         <div className="auth-links">{children}</div>
         <p className="auth-prototype-note">
-          Prototype · Resets on refresh. Use test details only.
+          {t("Prototype · Resets on refresh. Use test details only.")}
         </p>
       </section>
     </div>

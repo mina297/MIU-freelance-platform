@@ -25,7 +25,7 @@
   width: 248px;
   flex-shrink: 0;
   background: var(--theme-surface, white);
-  border-right: 1px solid var(--border-soft);
+  border-inline-end: 1px solid var(--border-soft);
   padding: 28px 20px;
 }
 .ac-brand {
@@ -62,7 +62,7 @@
   align-items: center;
   gap: 12px;
   padding: 13px 12px;
-  text-align: left;
+  text-align: start;
   color: var(--theme-muted-text, #566172);
   border-radius: 12px;
 }
@@ -111,7 +111,7 @@
 }
 .ac-topbar b {
   color: var(--theme-info-text, #18202e);
-  margin-left: 12px;
+  margin-inline-start: 12px;
 }
 .ac-account {
   display: flex;
@@ -182,7 +182,7 @@
 .ac-demo {
   font-size: 12px;
   color: var(--theme-muted-text, #73545c);
-  border-left: 3px solid var(--theme-border, #b91c2b);
+  border-inline-start: 3px solid var(--theme-border, #b91c2b);
   padding: 10px 14px;
   background: var(--theme-accent-surface, #fdf2f3);
   border-radius: 0 8px 8px 0;
@@ -261,7 +261,7 @@
 .ac-table-wrap table {
   width: 100%;
   border-collapse: collapse;
-  text-align: left;
+  text-align: start;
   font-size: 12px;
 }
 .ac-table-wrap th {
@@ -418,7 +418,7 @@
 .ac-skip {
   position: absolute;
   top: -100px;
-  left: 16px;
+  inset-inline-start: 16px;
   background: var(--theme-surface, white);
   padding: 12px;
   z-index: 10;
@@ -450,7 +450,7 @@
   .ac-sidebar {
     width: 100%;
     padding: 16px;
-    border-right: 0;
+    border-inline-end: 0;
     border-bottom: 1px solid var(--border-soft);
   }
   .ac-sidebar nav {

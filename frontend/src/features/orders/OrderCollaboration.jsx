@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useAuth } from "../../hooks/useAuth.js";
 import { orderWorkspaceStore } from "./orderWorkspaceStore.js";
@@ -18,6 +19,8 @@ import OrderSampleAttachments, {
 import "./order-workspace.css";
 
 function RequirementsEditor({ order, session, requirements }) {
+  const { t } = useLanguage();
+
   const [text, setText] = useState(requirements?.text ?? "");
   const [ids, setIds] = useState(() => [
     ...(requirements?.attachmentIds ?? []),
@@ -49,32 +52,36 @@ function RequirementsEditor({ order, session, requirements }) {
       className="order-workspace__form"
     >
       <Textarea
-        label="Client requirements notes"
+        label={t("Client requirements notes")}
         name="requirements"
         value={text}
         onChange={(event) => setText(event.target.value)}
         rows={6}
         maxLength={5000}
         required
-        error={errors.text}
-        helperText="Coordination notes only. These do not amend the agreed price, package scope or order status."
+        error={t(errors.text)}
+        helperText={t(
+          "Coordination notes only. These do not amend the agreed price, package scope or order status.",
+        )}
       />
       <OrderSampleAttachments
         ids={ids}
         onChange={setIds}
-        error={errors.attachmentIds}
+        error={t(errors.attachmentIds)}
       />
       {errors.form && (
         <p role="alert" tabIndex={-1} className="project-create__alert">
           {errors.form}
         </p>
       )}
-      <Button type="submit">Save demo requirements</Button>
+      <Button type="submit">{t("Save demo requirements")}</Button>
     </form>
   );
 }
 
 function MessageComposer({ order, session }) {
+  const { t } = useLanguage();
+
   const [text, setText] = useState("");
   const [ids, setIds] = useState([]);
   const [token, setToken] = useState(() => crypto.randomUUID());
@@ -116,33 +123,37 @@ function MessageComposer({ order, session }) {
     >
       <Textarea
         ref={input}
-        label="Message your order participant"
+        label={t("Message your order participant")}
         name="order-message"
         value={text}
         onChange={(event) => setText(event.target.value)}
         maxLength={2000}
         rows={4}
         required
-        error={errors.text}
-        helperText="Fictional text only. Do not enter passwords, identity documents or payment details."
+        error={t(errors.text)}
+        helperText={t(
+          "Fictional text only. Do not enter passwords, identity documents or payment details.",
+        )}
       />
       <OrderSampleAttachments
         ids={ids}
         onChange={setIds}
-        error={errors.attachmentIds}
+        error={t(errors.attachmentIds)}
       />
       {errors.form && (
         <p role="alert" tabIndex={-1} className="project-create__alert">
           {errors.form}
         </p>
       )}
-      <p role="status">{notice}</p>
-      <Button type="submit">Send demo message</Button>
+      <p role="status">{t(notice)}</p>
+      <Button type="submit">{t("Send demo message")}</Button>
     </form>
   );
 }
 
 function Collaboration({ order, session }) {
+  const { t, locale } = useLanguage();
+
   const [tab, setTab] = useState("requirements");
   useSyncExternalStore(
     orderWorkspaceStore.subscribe,
@@ -179,20 +190,19 @@ function Collaboration({ order, session }) {
       <div className="order-workspace__heading">
         <div>
           <p className="project-create__eyebrow">
-            ONE SPACE. A CLEARER COLLABORATION.
+            {t("ONE SPACE. A CLEARER COLLABORATION.")}
           </p>
-          <h2 id="order-workspace-heading">Order workspace</h2>
+          <h2 id="order-workspace-heading">{t("Order workspace")}</h2>
         </div>
-        <span>Participant-only · simulated</span>
+        <span>{t("Participant-only · simulated")}</span>
       </div>
       <p className="order-workspace__disclosure">
-        Notes and messages stay in this browser session and reset on refresh. No
-        real attachments or notifications. Awaiting-payment orders have not been
-        funded or started. Delivery actions require an eligible order status and
-        never release real funds.
+        {t(
+          "Notes and messages stay in this browser session and reset on refresh. No real attachments or notifications. Awaiting-payment orders have not been funded or started. Delivery actions require an eligible order status and never release real funds.",
+        )}
       </p>
       <Tabs
-        label="Order workspace sections"
+        label={t("Order workspace sections")}
         value={tab}
         onValueChange={setTab}
         items={[
@@ -206,7 +216,7 @@ function Collaboration({ order, session }) {
             label: "Requirements",
             content: (
               <Card className="order-workspace__panel">
-                <h3>Client requirements</h3>
+                <h3>{t("Client requirements")}</h3>
                 {requirements ? (
                   <div
                     className="order-workspace__saved"
@@ -214,14 +224,19 @@ function Collaboration({ order, session }) {
                     tabIndex={-1}
                   >
                     <p role="status">
-                      Requirements saved — demo · version {requirements.version}
+                      {t("Requirements saved — demo · version")}{" "}
+                      {requirements.version}
                     </p>
                     <p className="order-workspace__text">{requirements.text}</p>
                     <OrderAttachmentNames ids={requirements.attachmentIds} />
-                    <p>Saved {formatDate(requirements.savedAt)}</p>
+                    <p>
+                      {t("Saved")} {formatDate(requirements.savedAt, locale)}
+                    </p>
                   </div>
                 ) : (
-                  <p>No client requirements notes have been saved yet.</p>
+                  <p>
+                    {t("No client requirements notes have been saved yet.")}
+                  </p>
                 )}
                 {requirementsError ? (
                   <p className="order-workspace__help">{requirementsError}</p>
@@ -241,10 +256,11 @@ function Collaboration({ order, session }) {
             label: `Messages (${workspace.messages.length})`,
             content: (
               <Card className="order-workspace__panel">
-                <h3>Order conversation</h3>
+                <h3>{t("Order conversation")}</h3>
                 <p>
-                  Only this order's client and assigned student can read or add
-                  these demo messages.
+                  {t(
+                    "Only this order's client and assigned student can read or add these demo messages.",
+                  )}
                 </p>
                 {workspace.messages.length ? (
                   <ol className="order-workspace__messages">
@@ -261,9 +277,9 @@ function Collaboration({ order, session }) {
                           <strong>{message.senderName}</strong>
                           <span>
                             {message.senderRole === "client"
-                              ? "Client"
-                              : "Student"}{" "}
-                            · {formatDate(message.createdAt)}
+                              ? t("Client")
+                              : t("Student")}{" "}
+                            · {formatDate(message.createdAt, locale)}
                           </span>
                         </div>
                         <p className="order-workspace__text">{message.text}</p>
@@ -273,8 +289,9 @@ function Collaboration({ order, session }) {
                   </ol>
                 ) : (
                   <div className="order-workspace__empty">
-                    No messages yet. Start with a clear, fictional coordination
-                    note.
+                    {t(
+                      "No messages yet. Start with a clear, fictional coordination note.",
+                    )}
                   </div>
                 )}
                 {messageError ? (
@@ -290,33 +307,33 @@ function Collaboration({ order, session }) {
             label: "Progress & activity",
             content: (
               <Card className="order-workspace__panel">
-                <h3>Progress overview</h3>
+                <h3>{t("Progress overview")}</h3>
                 <p className="order-workspace__current">
-                  Current demo status:{" "}
+                  {t("Current demo status:")}{" "}
                   <strong>
                     {orderStatusLabels[order.status] ?? "Status unavailable"}
                   </strong>
                 </p>
                 <p>
-                  No payment history, completion percentage, start date or
-                  delivery deadline is inferred from this status. Milestones and
-                  financial actions remain separate work; delivery history is
-                  available in its own tab.
+                  {t(
+                    "No payment history, completion percentage, start date or delivery deadline is inferred from this status. Milestones and financial actions remain separate work; delivery history is available in its own tab.",
+                  )}
                 </p>
                 <ol className="order-workspace__timeline">
                   {timeline.map((item) => (
                     <li key={item.id}>
-                      <strong>{item.label}</strong>
+                      <strong>{t(item.label)}</strong>
                       <p>
                         {item.actorName ? `${item.actorName} · ` : ""}
-                        {formatDate(item.createdAt)}
+                        {formatDate(item.createdAt, locale)}
                       </p>
                     </li>
                   ))}
                 </ol>
                 <p>
-                  Only order creation and recorded workspace events are listed.
-                  No earlier status transitions are invented.
+                  {t(
+                    "Only order creation and recorded workspace events are listed. No earlier status transitions are invented.",
+                  )}
                 </p>
               </Card>
             ),

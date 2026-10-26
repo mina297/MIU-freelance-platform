@@ -1,0 +1,84 @@
+.language-control {
+  position: relative;
+  min-width: 100px;
+  max-width: 150px;
+}
+.language-control .miu-field {
+  gap: 2px;
+}
+.language-control .miu-field__label {
+  font-size: 10px;
+}
+.language-control .miu-control {
+  min-height: 36px;
+  padding: 6px 8px;
+  font-size: 13px;
+}
+.language-draft {
+  display: block;
+  max-width: 150px;
+  font-size: 9px;
+  line-height: 1.4;
+  color: var(--ink-secondary);
+}
+.public-auth-links,
+.miu-public-header__actions {
+  flex-wrap: wrap;
+}
+html[lang="ar"] {
+  --font-sans: "Noto Sans Arabic", Tahoma, Arial, sans-serif;
+  --font-display: "Noto Sans Arabic", Tahoma, sans-serif;
+}
+html[lang="ar"] body {
+  font-family: var(--font-sans);
+}
+html[lang="ar"] :where([class], button, input, textarea, select) {
+  font-family: var(--font-sans);
+}
+.theme-toggle-track {
+  direction: ltr;
+}
+html[dir="rtl"] .landing-mode-indicator[data-mode="work"] {
+  transform: translateX(-100%);
+}
+html[lang="ar"]
+  :is(h1, h2, h3, h4, p, span, a, button, label, small, dt, dd, th, td) {
+  letter-spacing: normal;
+}
+html[dir="rtl"]
+  :is(
+    input[type="email"],
+    input[type="url"],
+    input[type="password"],
+    input[autocomplete="cc-number"],
+    input[autocomplete="cc-csc"],
+    code,
+    pre
+  ) {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: isolate;
+}
+html[dir="rtl"]
+  :is(
+    .lucide-arrow-left,
+    .lucide-arrow-right,
+    .lucide-arrow-up-right,
+    .lucide-chevron-left,
+    .lucide-chevron-right
+  ) {
+  transform: scaleX(-1);
+}
+@media (max-width: 520px) {
+  .public-auth-links,
+  .miu-public-header__actions {
+    gap: 8px;
+  }
+  .language-control {
+    min-width: 82px;
+    max-width: 110px;
+  }
+  .language-draft {
+    font-size: 10px;
+  }
+}

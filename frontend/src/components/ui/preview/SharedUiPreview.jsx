@@ -1,3 +1,5 @@
+import LanguageControl from "../../../i18n/LanguageControl.jsx";
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import ThemeToggle from "../../../theme/ThemeToggle.jsx";
 import ThemeProvider from "../../../theme/ThemeProvider.jsx";
 import { StrictMode, useState } from "react";
@@ -27,33 +29,36 @@ const BADGES = [
 ];
 
 export default function SharedUiPreview() {
+  const { t } = useLanguage();
+
   const [lastAction, setLastAction] = useState("No preview action selected.");
   const [loading, setLoading] = useState(false);
 
   return (
     <main data-ui-preview className="marketplace-preview space-y-8">
       <header className="space-y-3">
-        <h1 className="text-3xl font-bold">Component showcase</h1>
+        <h1 className="text-3xl font-bold">{t("Component showcase")}</h1>
         <p className="max-w-3xl text-base">
-          Isolated development preview. These controls demonstrate presentation
-          only; actions do not change account or marketplace records.
+          {t(
+            "Isolated development preview. These controls demonstrate presentation only; actions do not change account or marketplace records.",
+          )}
         </p>
         <p className="text-sm">
-          Use Tab and Enter/Space to try enabled buttons. Resize the browser and
-          zoom to check labels and wrapping. Disabled buttons are skipped by
-          Tab.
+          {t(
+            "Use Tab and Enter/Space to try enabled buttons. Resize the browser and zoom to check labels and wrapping. Disabled buttons are skipped by Tab.",
+          )}
         </p>
       </header>
 
       <nav
-        aria-label="Member 4 preview directory"
+        aria-label={t("Member 4 preview directory")}
         className="flex flex-wrap gap-4 rounded-xl border p-4"
       >
         <a className="underline" href="/m4-pages-preview.html">
-          All public page designs
+          {t("All public page designs")}
         </a>
         <a className="underline" href="/how-it-works-preview.html">
-          Original How It Works section
+          {t("Original How It Works section")}
         </a>
         {[
           "buttons",
@@ -78,12 +83,12 @@ export default function SharedUiPreview() {
         className="space-y-4"
       >
         <h2 id="buttons-heading" className="text-2xl font-bold">
-          Buttons
+          {t("Buttons")}
         </h2>
         <p>
-          Static appearance samples: default, disabled, and loading. The loading
-          samples intentionally keep spinning; no requests are running. Use the
-          separate interactive demo below to start and reset loading.
+          {t(
+            "Static appearance samples: default, disabled, and loading. The loading samples intentionally keep spinning; no requests are running. Use the separate interactive demo below to start and reset loading.",
+          )}
         </p>
         <div className="space-y-4">
           {BUTTON_VARIANTS.map((variant) => (
@@ -100,18 +105,20 @@ export default function SharedUiPreview() {
               </h3>
               <div className="showcase-states">
                 <div className="showcase-state">
-                  <p className="text-sm">Default</p>
+                  <p className="text-sm">{t("Default")}</p>
                   <Button
                     variant={variant}
                     onClick={() =>
                       setLastAction(`${variant} button activated.`)
                     }
                   >
-                    <span className="showcase-label">{variant} action</span>
+                    <span className="showcase-label">
+                      {variant} {t("action")}
+                    </span>
                   </Button>
                 </div>
                 <div className="showcase-state">
-                  <p className="text-sm">Disabled sample</p>
+                  <p className="text-sm">{t("Disabled sample")}</p>
                   <Button
                     variant={variant}
                     disabled
@@ -119,11 +126,13 @@ export default function SharedUiPreview() {
                       setLastAction("Disabled action activated unexpectedly.")
                     }
                   >
-                    <span className="showcase-label">Disabled action</span>
+                    <span className="showcase-label">
+                      {t("Disabled action")}
+                    </span>
                   </Button>
                 </div>
                 <div className="showcase-state">
-                  <p className="text-sm">Static loading sample</p>
+                  <p className="text-sm">{t("Static loading sample")}</p>
                   <Button
                     variant={variant}
                     loading
@@ -131,7 +140,9 @@ export default function SharedUiPreview() {
                       setLastAction("Loading action activated unexpectedly.")
                     }
                   >
-                    <span className="showcase-label">Loading appearance</span>
+                    <span className="showcase-label">
+                      {t("Loading appearance")}
+                    </span>
                   </Button>
                 </div>
               </div>
@@ -140,11 +151,12 @@ export default function SharedUiPreview() {
         </div>
         <Card>
           <h3 className="mb-4 text-lg font-semibold">
-            Interactive loading demo
+            {t("Interactive loading demo")}
           </h3>
           <p className="mb-4 text-sm">
-            Start loading, then use Reset to return to normal. No request is
-            sent.
+            {t(
+              "Start loading, then use Reset to return to normal. No request is sent.",
+            )}
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <Button
@@ -157,7 +169,7 @@ export default function SharedUiPreview() {
               }}
             >
               <span className="showcase-label">
-                {loading ? "Loading demo active" : "Start loading"}
+                {loading ? t("Loading demo active") : t("Start loading")}
               </span>
             </Button>
             <Button
@@ -167,7 +179,7 @@ export default function SharedUiPreview() {
                 setLastAction("Loading preview reset. No data was saved.");
               }}
             >
-              Reset
+              {t("Reset")}
             </Button>
           </div>
         </Card>
@@ -182,36 +194,39 @@ export default function SharedUiPreview() {
         className="space-y-4"
       >
         <h2 id="badges-heading" className="text-2xl font-bold">
-          Badges
+          {t("Badges")}
         </h2>
         <Card>
           <div className="flex flex-wrap gap-6">
             {BADGES.map(([variant, label]) => (
               <div key={variant} className="space-y-2">
                 <p className="text-sm font-semibold">{variant}</p>
-                <Badge variant={variant}>{label}</Badge>
+                <Badge variant={variant}>{t(label)}</Badge>
               </div>
             ))}
           </div>
           <p className="mt-6 text-sm">
-            Labels are examples supplied by this preview. The Badge component
-            does not decide workflow status. Success, warning, and danger text
-            includes the documented contrast adjustments to the Figma specimens.
+            {t(
+              "Labels are examples supplied by this preview. The Badge component does not decide workflow status. Success, warning, and danger text includes the documented contrast adjustments to the Figma specimens.",
+            )}
           </p>
         </Card>
       </section>
 
       <section id="cards" aria-labelledby="cards-heading" className="space-y-4">
         <h2 id="cards-heading" className="text-2xl font-bold">
-          Cards
+          {t("Cards")}
         </h2>
-        <p>All three semantic containers share the same visual surface.</p>
+        <p>
+          {t("All three semantic containers share the same visual surface.")}
+        </p>
         <div className="showcase-cards">
           <Card>
-            <h3 className="mb-3 text-lg font-semibold">Default div</h3>
+            <h3 className="mb-3 text-lg font-semibold">{t("Default div")}</h3>
             <p>
-              A neutral container with the approved border, radius, padding, and
-              shadow.
+              {t(
+                "A neutral container with the approved border, radius, padding, and shadow.",
+              )}
             </p>
           </Card>
           <Card as="article" aria-labelledby="article-card-heading">
@@ -219,12 +234,13 @@ export default function SharedUiPreview() {
               id="article-card-heading"
               className="mb-3 text-lg font-semibold"
             >
-              Article card
+              {t("Article card")}
             </h3>
-            <Badge variant="info">Preview example</Badge>
+            <Badge variant="info">{t("Preview example")}</Badge>
             <p className="mt-3">
-              Content and labels remain the responsibility of the consuming
-              feature.
+              {t(
+                "Content and labels remain the responsibility of the consuming feature.",
+              )}
             </p>
           </Card>
           <Card as="section" aria-labelledby="section-card-heading">
@@ -232,27 +248,31 @@ export default function SharedUiPreview() {
               id="section-card-heading"
               className="mb-3 text-lg font-semibold"
             >
-              Section card
+              {t("Section card")}
             </h3>
             <p className="mb-4">
-              Interactive elements stay inside the card rather than making the
-              whole surface a button.
+              {t(
+                "Interactive elements stay inside the card rather than making the whole surface a button.",
+              )}
             </p>
             <Button
               variant="outline"
               onClick={() => setLastAction("Card action activated.")}
             >
-              Try card action
+              {t("Try card action")}
             </Button>
           </Card>
         </div>
         <Card>
-          <h3 className="mb-3 text-lg font-semibold">Long-content wrapping</h3>
+          <h3 className="mb-3 text-lg font-semibold">
+            {t("Long-content wrapping")}
+          </h3>
           <div className="flex max-w-full flex-col items-start gap-4">
             <Badge variant="info">
               <span className="showcase-label">
-                An intentionally long preview label for checking narrow screens
-                and text zoom
+                {t(
+                  "An intentionally long preview label for checking narrow screens and text zoom",
+                )}
               </span>
             </Badge>
             <Button
@@ -260,8 +280,9 @@ export default function SharedUiPreview() {
               onClick={() => setLastAction("Long-label action activated.")}
             >
               <span className="showcase-label">
-                An intentionally long action label for checking wrapping at
-                narrow widths
+                {t(
+                  "An intentionally long action label for checking wrapping at narrow widths",
+                )}
               </span>
             </Button>
           </div>
@@ -274,8 +295,11 @@ export default function SharedUiPreview() {
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ThemeProvider>
-      <ThemeToggle floating />
+    <ThemeProvider pageTitle="Shared UI component preview">
+      <div className="theme-toolbar">
+        <LanguageControl />
+        <ThemeToggle />
+      </div>
       <SharedUiPreview />
     </ThemeProvider>
   </StrictMode>,

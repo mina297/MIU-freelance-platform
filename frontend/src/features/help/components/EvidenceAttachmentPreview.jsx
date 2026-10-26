@@ -1,7 +1,10 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { X } from "lucide-react";
 
 /** Evidence file chips. Pass onRemove only when the user can delete files. */
 export default function EvidenceAttachmentPreview({ files = [], onRemove }) {
+  const { t } = useLanguage();
+
   if (!files.length) return null;
 
   const editable = typeof onRemove === "function";
@@ -21,7 +24,7 @@ export default function EvidenceAttachmentPreview({ files = [], onRemove }) {
             />
           ) : (
             <div className="flex aspect-square items-center justify-center px-1 text-center text-xs text-ink-secondary">
-              File
+              {t("File")}
             </div>
           )}
           <div className="truncate px-2 py-1 text-[10px] text-ink-secondary">
@@ -35,8 +38,8 @@ export default function EvidenceAttachmentPreview({ files = [], onRemove }) {
           {editable ? (
             <button
               type="button"
-              aria-label={`Remove ${file.name}`}
-              className="absolute right-1 top-1 rounded-full bg-[var(--theme-surface,#fff)]/95 p-1 text-miu-black shadow"
+              aria-label={t("Remove {value0}", { value0: file.name })}
+              className="absolute end-1 top-1 rounded-full bg-[var(--theme-surface,#fff)]/95 p-1 text-miu-black shadow"
               onClick={() => onRemove(file.id)}
             >
               <X className="size-3.5" aria-hidden="true" />

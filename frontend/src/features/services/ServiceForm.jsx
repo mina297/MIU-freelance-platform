@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
@@ -22,6 +23,8 @@ import "../projects/project-create.css";
 import "./service-manage.css";
 
 function Editor({ service, data, session }) {
+  const { t, locale } = useLanguage();
+
   const navigate = useNavigate();
   const [values, setValues] = useState(() => serviceFormValues(service, data));
   const [submissionId] = useState(() => crypto.randomUUID());
@@ -121,46 +124,51 @@ function Editor({ service, data, session }) {
   return (
     <main className="project-create service-manage">
       <header className="project-create__header">
-        <Link to="/student/services">My services</Link>
-        <Link to="/services">Public catalogue</Link>
-        <span>Phase 1 preview</span>
+        <Link to="/student/services">{t("My services")}</Link>
+        <Link to="/services">{t("Public catalogue")}</Link>
+        <span>{t("Phase 1 preview")}</span>
       </header>
       <section className="project-create__hero">
         <div className="project-create__container">
-          <p className="project-create__eyebrow">YOUR CRAFT, CLEARLY DEFINED</p>
+          <p className="project-create__eyebrow">
+            {t("YOUR CRAFT, CLEARLY DEFINED")}
+          </p>
           <h1 ref={heading} tabIndex={-1}>
             {preview
-              ? "See it take shape."
+              ? t("See it take shape.")
               : service
-                ? "Refine your service."
-                : "Make your skills"}
+                ? t("Refine your service.")
+                : t("Make your skills")}
             <br />
             <em>
               {preview
-                ? "Before it goes live."
+                ? t("Before it goes live.")
                 : service
-                  ? "Keep your edge."
-                  : "a service worth choosing."}
+                  ? t("Keep your edge.")
+                  : t("a service worth choosing.")}
             </em>
           </h1>
           <p>
             {preview
-              ? "Private preview. Nothing is published or ordered by viewing this screen."
-              : "Define your scope, packages and optional extras. Keep every promise clear."}
+              ? t(
+                  "Private preview. Nothing is published or ordered by viewing this screen.",
+                )
+              : t(
+                  "Define your scope, packages and optional extras. Keep every promise clear.",
+                )}
           </p>
         </div>
       </section>
       <div className="project-create__container service-manage__body">
         <p className="service-manage__disclosure">
-          Fictional demo only. Save requires a complete service and at least one
-          valid package. New saves are private drafts. Unsaved values clear when
-          leaving or switching account; all saved changes reset on refresh.
-          Publishing requires approved student verification.
+          {t(
+            "Fictional demo only. Save requires a complete service and at least one valid package. New saves are private drafts. Unsaved values clear when leaving or switching account; all saved changes reset on refresh. Publishing requires approved student verification.",
+          )}
         </p>
         {preview ? (
           <section className="project-create__panel service-manage__preview">
             <p className="project-create__eyebrow">
-              PRIVATE PREVIEW — NOT A PUBLICATION
+              {t("PRIVATE PREVIEW — NOT A PUBLICATION")}
             </p>
             <h2>{values.title}</h2>
             <p className="service-manage__description">{values.description}</p>
@@ -172,26 +180,27 @@ function Editor({ service, data, session }) {
               }
             </p>
             <ServicePackageComparison packages={previewPackages} />
-            <h3>Optional extras</h3>
+            <h3>{t("Optional extras")}</h3>
             {values.extras.length ? (
               <ul>
                 {values.extras.map((extra) => (
                   <li key={extra.id}>
                     <strong>{extra.title}</strong> —{" "}
-                    {formatEGP(Number(extra.additionalPriceEGP))}, +
-                    {extra.additionalDays} days<p>{extra.description}</p>
+                    {formatEGP(Number(extra.additionalPriceEGP), locale)}, +
+                    {extra.additionalDays} {t("days")}
+                    <p>{extra.description}</p>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p>No extras included.</p>
+              <p>{t("No extras included.")}</p>
             )}
             <div className="project-create__success-links">
               <Button variant="outline" onClick={() => setPreview(false)}>
-                Continue editing
+                {t("Continue editing")}
               </Button>
               <Button onClick={save}>
-                {service ? "Save service changes" : "Save private draft"}
+                {service ? t("Save service changes") : t("Save private draft")}
               </Button>
             </div>
           </section>
@@ -204,7 +213,7 @@ function Editor({ service, data, session }) {
               </p>
             )}
             <section className="project-create__panel service-manage__fields">
-              <h2>Service essentials</h2>
+              <h2>{t("Service essentials")}</h2>
               <Input
                 {...mainField("title", "Service title", { maxLength: 120 })}
               />
@@ -215,23 +224,23 @@ function Editor({ service, data, session }) {
                 })}
               />
               <Select {...mainField("categoryId", "Category")}>
-                <option value="">Choose category</option>
+                <option value="">{t("Choose category")}</option>
                 {data.categories.map(({ id, label }) => (
                   <option key={id} value={id}>
-                    {label}
+                    {t(label)}
                   </option>
                 ))}
               </Select>
               <fieldset>
-                <legend>Relevant skills (required)</legend>
+                <legend>{t("Relevant skills (required)")}</legend>
                 <div className="service-manage__skills">
                   {data.skills.map(({ id, label }, index) => (
                     <Checkbox
                       key={id}
                       name="skillIds"
-                      label={label}
+                      label={t(label)}
                       checked={values.skillIds.includes(id)}
-                      error={index === 0 ? errors.skillIds : undefined}
+                      error={t(index === 0 ? errors.skillIds : undefined)}
                       onChange={(event) =>
                         setValues((current) => ({
                           ...current,
@@ -251,10 +260,11 @@ function Editor({ service, data, session }) {
             >
               <div className="service-manage__section-heading">
                 <div>
-                  <h2 id="package-editor-title">Service packages</h2>
+                  <h2 id="package-editor-title">{t("Service packages")}</h2>
                   <p>
-                    Define at least one complete option. These names and scopes
-                    are yours, not fixed platform tiers.
+                    {t(
+                      "Define at least one complete option. These names and scopes are yours, not fixed platform tiers.",
+                    )}
                   </p>
                 </div>
                 <Button
@@ -266,7 +276,7 @@ function Editor({ service, data, session }) {
                     }))
                   }
                 >
-                  Add package
+                  {t("Add package")}
                 </Button>
               </div>
               {errors.packages && (
@@ -276,7 +286,9 @@ function Editor({ service, data, session }) {
               )}
               {values.packages.map((pack, index) => (
                 <fieldset className="service-manage__row" key={pack.id}>
-                  <legend>Package {index + 1}</legend>
+                  <legend>
+                    {t("Package")} {index + 1}
+                  </legend>
                   <Input
                     {...rowField("packages", index, "name", "Package name", {
                       maxLength: 120,
@@ -328,7 +340,7 @@ function Editor({ service, data, session }) {
                     variant="ghost"
                     onClick={() => removeRow("packages", index)}
                   >
-                    Remove package {index + 1}
+                    {t("Remove package")} {index + 1}
                   </Button>
                 </fieldset>
               ))}
@@ -339,10 +351,11 @@ function Editor({ service, data, session }) {
             >
               <div className="service-manage__section-heading">
                 <div>
-                  <h2 id="extra-editor-title">Optional extras</h2>
+                  <h2 id="extra-editor-title">{t("Optional extras")}</h2>
                   <p>
-                    Additional scope and time. Leave this empty when no extras
-                    are offered.
+                    {t(
+                      "Additional scope and time. Leave this empty when no extras are offered.",
+                    )}
                   </p>
                 </div>
                 <Button
@@ -354,7 +367,7 @@ function Editor({ service, data, session }) {
                     }))
                   }
                 >
-                  Add extra
+                  {t("Add extra")}
                 </Button>
               </div>
               {errors.extras && (
@@ -364,7 +377,9 @@ function Editor({ service, data, session }) {
               )}
               {values.extras.map((extra, index) => (
                 <fieldset className="service-manage__row" key={extra.id}>
-                  <legend>Extra {index + 1}</legend>
+                  <legend>
+                    {t("Extra")} {index + 1}
+                  </legend>
                   <Input
                     {...rowField("extras", index, "title", "Extra name", {
                       maxLength: 120,
@@ -403,14 +418,14 @@ function Editor({ service, data, session }) {
                     variant="ghost"
                     onClick={() => removeRow("extras", index)}
                   >
-                    Remove extra {index + 1}
+                    {t("Remove extra")} {index + 1}
                   </Button>
                 </fieldset>
               ))}
             </section>
             <div className="project-create__actions">
-              <Link to="/student/services">Discard unsaved changes</Link>
-              <Button type="submit">Preview service</Button>
+              <Link to="/student/services">{t("Discard unsaved changes")}</Link>
+              <Button type="submit">{t("Preview service")}</Button>
             </div>
           </form>
         )}
@@ -420,6 +435,8 @@ function Editor({ service, data, session }) {
 }
 
 export default function ServiceForm() {
+  const { t } = useLanguage();
+
   const { serviceId } = useParams();
   const { session } = useAuth();
   const data = useServiceData();
@@ -434,9 +451,9 @@ export default function ServiceForm() {
     return (
       <main className="project-create">
         <div className="project-create__container service-manage__recovery">
-          <h1>Service unavailable for editing</h1>
-          <p>{error}</p>
-          <Link to="/student/services">Return to My services</Link>
+          <h1>{t("Service unavailable for editing")}</h1>
+          <p>{t(error)}</p>
+          <Link to="/student/services">{t("Return to My services")}</Link>
         </div>
       </main>
     );

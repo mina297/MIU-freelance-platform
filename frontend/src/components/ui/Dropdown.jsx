@@ -1,8 +1,11 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useId, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import "./dropdown.css";
 
 export default function Dropdown({ label, children, className = "" }) {
+  const { t } = useLanguage();
+
   const [open, setOpen] = useState(false);
   const id = useId();
   const root = useRef(null);
@@ -40,7 +43,7 @@ export default function Dropdown({ label, children, className = "" }) {
         aria-controls={id}
         onClick={() => setOpen(!open)}
       >
-        {label}
+        {t(label)}
         <ChevronDown size={15} aria-hidden="true" />
       </button>
       <div

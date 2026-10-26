@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useId } from "react";
 import Card from "../../components/ui/Card.jsx";
 import PublicInfoPage from "./info/PublicInfoPage.jsx";
@@ -7,11 +8,15 @@ export default function HowItWorksPage({
   destinations = {},
   howItWorks = null,
 }) {
+  const { t } = useLanguage();
+
   const id = useId();
   return (
     <PublicInfoPage
-      title="How it works"
-      introduction="Two ways to work together: client-posted projects and student-published services."
+      title={t("How it works")}
+      introduction={t(
+        "Two ways to work together: client-posted projects and student-published services.",
+      )}
       overview={howItWorks}
       links={[
         {
@@ -36,23 +41,27 @@ export default function HowItWorksPage({
         aria-labelledby={`${id}-projects`}
         className="m4-public-info__card"
       >
-        <h2 id={`${id}-projects`}>Planned project journey</h2>
+        <h2 id={`${id}-projects`}>{t("Planned project journey")}</h2>
         <ol>
           <li>
-            The client publishes requirements, skills, an EGP budget and a
-            deadline.
+            {t(
+              "The client publishes requirements, skills, an EGP budget and a deadline.",
+            )}
           </li>
           <li>
-            The student browses projects and submits a proposal with an EGP
-            price, delivery time and message.
+            {t(
+              "The student browses projects and submits a proposal with an EGP price, delivery time and message.",
+            )}
           </li>
           <li>
-            The client compares proposals and selects a student. An accepted
-            proposal leads to a project order.
+            {t(
+              "The client compares proposals and selects a student. An accepted proposal leads to a project order.",
+            )}
           </li>
           <li>
-            Participants use the order workspace for communication and delivery.
-            The client reviews the work and accepts it or requests revisions.
+            {t(
+              "Participants use the order workspace for communication and delivery. The client reviews the work and accepts it or requests revisions.",
+            )}
           </li>
         </ol>
       </Card>
@@ -61,23 +70,27 @@ export default function HowItWorksPage({
         aria-labelledby={`${id}-services`}
         className="m4-public-info__card"
       >
-        <h2 id={`${id}-services`}>Planned service journey</h2>
+        <h2 id={`${id}-services`}>{t("Planned service journey")}</h2>
         <ol>
           <li>
-            The student publishes a service with package details, an EGP price
-            and permitted extras.
+            {t(
+              "The student publishes a service with package details, an EGP price and permitted extras.",
+            )}
           </li>
           <li>
-            The client reviews the service, selects a package and permitted
-            extras, and checks the total EGP price.
+            {t(
+              "The client reviews the service, selects a package and permitted extras, and checks the total EGP price.",
+            )}
           </li>
           <li>
-            The client places an order. Phase 1 checkout and escrow are
-            simulated.
+            {t(
+              "The client places an order. Phase 1 checkout and escrow are simulated.",
+            )}
           </li>
           <li>
-            The student delivers through the order workspace. The client reviews
-            delivery and accepts it or requests revisions.
+            {t(
+              "The student delivers through the order workspace. The client reviews delivery and accepts it or requests revisions.",
+            )}
           </li>
         </ol>
       </Card>

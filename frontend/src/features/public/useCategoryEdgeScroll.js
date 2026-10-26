@@ -22,9 +22,10 @@ export default function useCategoryEdgeScroll(ref, enabled) {
       previousTime = time;
       track.scrollLeft += (speed * elapsed) / 1000;
       const maximum = track.scrollWidth - track.clientWidth;
+      const rtl = getComputedStyle(track).direction === "rtl";
       if (
-        (speed < 0 && track.scrollLeft <= 0) ||
-        (speed > 0 && track.scrollLeft >= maximum - 1)
+        (speed < 0 && track.scrollLeft <= (rtl ? -maximum : 0)) ||
+        (speed > 0 && track.scrollLeft >= (rtl ? 0 : maximum - 1))
       ) {
         stop();
         return;
@@ -52,10 +53,11 @@ export default function useCategoryEdgeScroll(ref, enabled) {
       const strength =
         direction < 0 ? (edge - x) / edge : (x - bounds.width + edge) / edge;
       const maximum = track.scrollWidth - track.clientWidth;
+      const rtl = getComputedStyle(track).direction === "rtl";
       if (
         maximum <= 0 ||
-        (direction < 0 && track.scrollLeft <= 0) ||
-        (direction > 0 && track.scrollLeft >= maximum - 1)
+        (direction < 0 && track.scrollLeft <= (rtl ? -maximum : 0)) ||
+        (direction > 0 && track.scrollLeft >= (rtl ? 0 : maximum - 1))
       ) {
         stop();
         return;

@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { formatEGP } from "../../utils/formatEGP.js";
 import { formatDate } from "../../utils/formatDate.js";
 import { useState, useSyncExternalStore } from "react";
@@ -13,6 +14,8 @@ const inputClass =
   "mt-2 w-full rounded-xl border border-[color:var(--theme-border,#ab95a1)] bg-[color:var(--theme-accent-surface,#faf7f9)] px-4 py-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red";
 
 export default function ProposalForm({ project }) {
+  const { t, locale } = useLanguage();
+
   const { session } = useAuth();
   const [errors, setErrors] = useState({});
   const [attachmentIds, setAttachmentIds] = useState([]);
@@ -54,44 +57,49 @@ export default function ProposalForm({ project }) {
         role="status"
         className="mt-8 rounded-2xl border-2 border-[color:var(--theme-border,#b5869a)] bg-[color:var(--theme-accent-surface,#f8e7ed)] p-7"
       >
-        <h2 className="text-2xl font-bold">Proposal submitted — simulation</h2>
+        <h2 className="text-2xl font-bold">
+          {t("Proposal submitted — simulation")}
+        </h2>
         <p className="mt-3 font-semibold">
-          Current demo status: {proposalLabel(proposal.status)}
+          {t("Current demo status:")} {proposalLabel(proposal.status)}
         </p>
         <p className="mt-3">
-          Your demo proposal is recorded. No client was contacted. This record
-          resets on refresh.
+          {t(
+            "Your demo proposal is recorded. No client was contacted. This record resets on refresh.",
+          )}
         </p>
         <dl className="mt-5 space-y-3">
           {order && (
             <div>
-              <dt className="font-bold">Project order</dt>
+              <dt className="font-bold">{t("Project order")}</dt>
               <dd>
                 <Link
                   className="inline-flex min-h-11 items-center text-[var(--theme-accent,var(--color-miu-red))] underline"
                   to={`/orders/${order.id}`}
                 >
-                  View demo order
+                  {t("View demo order")}
                 </Link>
               </dd>
             </div>
           )}
           <div>
-            <dt className="font-bold">Your price</dt>
-            <dd>{formatEGP(proposal.priceEGP)}</dd>
+            <dt className="font-bold">{t("Your price")}</dt>
+            <dd>{formatEGP(proposal.priceEGP, locale)}</dd>
           </div>
           <div>
-            <dt className="font-bold">Delivery time</dt>
-            <dd>{proposal.deliveryDays} days</dd>
+            <dt className="font-bold">{t("Delivery time")}</dt>
+            <dd>
+              {proposal.deliveryDays} {t("days")}
+            </dd>
           </div>
           <div>
-            <dt className="font-bold">Cover message</dt>
+            <dt className="font-bold">{t("Cover message")}</dt>
             <dd className="whitespace-pre-wrap break-words">
               {proposal.coverMessage}
             </dd>
           </div>
           <div>
-            <dt className="font-bold">Sample attachments</dt>
+            <dt className="font-bold">{t("Sample attachments")}</dt>
             <dd>
               {proposal.attachmentIds.length ? (
                 <ul className="mt-2 list-inside list-disc break-words">
@@ -106,10 +114,10 @@ export default function ProposalForm({ project }) {
                   ))}
                 </ul>
               ) : (
-                "No sample attachments selected"
+                t("No sample attachments selected")
               )}
               <p className="mt-2 text-sm">
-                Fictional metadata only; no files were uploaded.
+                {t("Fictional metadata only; no files were uploaded.")}
               </p>
             </dd>
           </div>
@@ -124,33 +132,34 @@ export default function ProposalForm({ project }) {
         onChange={() => {
           setErrors({});
         }}
-        aria-label="Proposal draft"
+        aria-label={t("Proposal draft")}
         className="overflow-hidden rounded-2xl border-2 border-[color:var(--theme-border,#c9bac1)] bg-[var(--theme-surface,#fff)]"
       >
         <div className="border-b border-[color:var(--theme-border,#d8b3bf)] bg-[color:var(--theme-accent-surface,#f8e7ed)] px-5 py-5 sm:px-7">
           <p className="text-xs font-bold uppercase tracking-widest text-[color:var(--theme-accent,#9b2035)]">
-            Your approach. Your offer.
+            {t("Your approach. Your offer.")}
           </p>
           <h2 className="mt-2 text-xl font-bold">
-            Make a thoughtful first impression
+            {t("Make a thoughtful first impression")}
           </h2>
           <p className="mt-2 text-sm leading-6 text-[color:var(--theme-muted-text,#694c5b)]">
-            Explain how you will help, what you will deliver, and how long it
-            will take.
+            {t(
+              "Explain how you will help, what you will deliver, and how long it will take.",
+            )}
           </p>
         </div>
         <div className="space-y-7 p-5 sm:p-7">
           <div className="grid gap-5 sm:grid-cols-2">
             <div>
               <label htmlFor="proposal-price" className="text-sm font-bold">
-                Your price (EGP)
+                {t("Your price (EGP)")}
               </label>
               <input
                 id="proposal-price"
                 name="priceEGP"
                 type="number"
                 inputMode="decimal"
-                placeholder="e.g. 5500"
+                placeholder={t("e.g. 5500")}
                 className={inputClass}
                 aria-invalid={Boolean(errors.priceEGP)}
                 aria-describedby="proposal-price-help proposal-feedback"
@@ -159,19 +168,19 @@ export default function ProposalForm({ project }) {
                 id="proposal-price-help"
                 className="mt-2 text-xs leading-5 text-[color:var(--theme-muted-text,#71606a)]"
               >
-                Your total price for the proposed work.
+                {t("Your total price for the proposed work.")}
               </p>
             </div>
             <div>
               <label htmlFor="proposal-days" className="text-sm font-bold">
-                Delivery time (days)
+                {t("Delivery time (days)")}
               </label>
               <input
                 id="proposal-days"
                 name="deliveryDays"
                 type="number"
                 inputMode="numeric"
-                placeholder="e.g. 14"
+                placeholder={t("e.g. 14")}
                 className={inputClass}
                 aria-invalid={Boolean(errors.deliveryDays)}
                 aria-describedby="proposal-days-help proposal-feedback"
@@ -180,19 +189,21 @@ export default function ProposalForm({ project }) {
                 id="proposal-days-help"
                 className="mt-2 text-xs leading-5 text-[color:var(--theme-muted-text,#71606a)]"
               >
-                Estimate the time you need to complete the work.
+                {t("Estimate the time you need to complete the work.")}
               </p>
             </div>
           </div>
           <div>
             <label htmlFor="proposal-cover" className="text-sm font-bold">
-              Cover message
+              {t("Cover message")}
             </label>
             <textarea
               id="proposal-cover"
               name="coverMessage"
               rows={8}
-              placeholder="Introduce yourself, describe your approach, and explain what you will deliver…"
+              placeholder={t(
+                "Introduce yourself, describe your approach, and explain what you will deliver…",
+              )}
               className={`${inputClass} min-h-48 resize-y`}
               aria-invalid={Boolean(errors.coverMessage)}
               aria-describedby="proposal-cover-help proposal-feedback"
@@ -201,8 +212,9 @@ export default function ProposalForm({ project }) {
               id="proposal-cover-help"
               className="mt-2 text-xs leading-5 text-[color:var(--theme-muted-text,#71606a)]"
             >
-              Connect your experience to this brief. Keep your offer clear and
-              specific.
+              {t(
+                "Connect your experience to this brief. Keep your offer clear and specific.",
+              )}
             </p>
           </div>
         </div>
@@ -210,7 +222,7 @@ export default function ProposalForm({ project }) {
           <ProposalAttachments
             selectedIds={attachmentIds}
             onChange={setAttachmentIds}
-            error={errors.attachmentIds}
+            error={t(errors.attachmentIds)}
           />
         </div>
         <div className="border-t border-[color:var(--theme-border,#c9bac1)] bg-[color:var(--theme-accent-surface,#faf7f9)] p-5 sm:p-7">
@@ -218,9 +230,9 @@ export default function ProposalForm({ project }) {
             id="proposal-preview-note"
             className="text-sm leading-6 text-[color:var(--theme-muted-text,#694c5b)]"
           >
-            Simulated submission only. Submitted proposals stay in memory until
-            refresh. Leaving before submitting clears your draft, including
-            sample attachment selections.
+            {t(
+              "Simulated submission only. Submitted proposals stay in memory until refresh. Leaving before submitting clears your draft, including sample attachment selections.",
+            )}
           </p>
           <div
             id="proposal-feedback"
@@ -236,41 +248,42 @@ export default function ProposalForm({ project }) {
             aria-describedby="proposal-preview-note"
             className="mt-4 min-h-12 w-full rounded-xl bg-miu-red px-5 font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red sm:w-auto"
           >
-            Submit demo proposal
+            {t("Submit demo proposal")}
           </button>
         </div>
       </form>
       <aside
-        aria-label="Project brief summary"
+        aria-label={t("Project brief summary")}
         className="overflow-hidden rounded-2xl border-2 border-[color:var(--theme-border,#b5869a)] bg-[color:var(--theme-accent-surface,#f5edf1)]"
       >
         <div className="bg-[#351923] p-6 text-white">
           <p className="text-xs font-bold uppercase tracking-widest text-[#ffd7de]">
-            The opportunity
+            {t("The opportunity")}
           </p>
           <h2 className="mt-3 text-lg font-bold leading-7">{project.title}</h2>
         </div>
         <dl className="space-y-5 p-6">
           <div>
             <dt className="text-xs font-semibold uppercase tracking-wider text-[color:var(--theme-muted-text,#71606a)]">
-              Project budget
+              {t("Project budget")}
             </dt>
             <dd className="mt-1 text-2xl font-bold">
-              {formatEGP(project.budgetEGP)}
+              {formatEGP(project.budgetEGP, locale)}
             </dd>
           </div>
           <div>
             <dt className="text-xs font-semibold uppercase tracking-wider text-[color:var(--theme-muted-text,#71606a)]">
-              Project deadline
+              {t("Project deadline")}
             </dt>
             <dd className="mt-1 font-semibold">
-              {formatDate(project.deadline)}
+              {formatDate(project.deadline, locale)}
             </dd>
           </div>
         </dl>
         <p className="mx-6 mb-6 border-t border-[color:var(--theme-border,#c9bac1)] pt-5 text-sm leading-6 text-[color:var(--theme-muted-text,#694c5b)]">
-          Make sure your price and timeline reflect everything in the project
-          brief.
+          {t(
+            "Make sure your price and timeline reflect everything in the project brief.",
+          )}
         </p>
       </aside>
     </div>

@@ -102,12 +102,12 @@
   line-height: 1.5;
 }
 .public-dropdown-link > svg {
-  margin-left: auto;
+  margin-inline-start: auto;
   color: var(--theme-muted-text, #71717a);
   flex-shrink: 0;
 }
 .public-auth-links {
-  margin-left: auto;
+  margin-inline-start: auto;
   display: flex;
   align-items: center;
   gap: 22px;

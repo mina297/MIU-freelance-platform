@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useId, useRef, useState } from "react";
 import Button from "./Button.jsx";
 import "./navigation-controls.css";
@@ -11,6 +12,8 @@ export default function Tabs({
   disabled = false,
   className = "",
 }) {
+  const { t } = useLanguage();
+
   const groupId = useId();
   const buttons = useRef(new Map());
   const [focusedId, setFocusedId] = useState(null);
@@ -60,7 +63,7 @@ export default function Tabs({
       <div
         className="miu-tabs__list"
         role="tablist"
-        aria-label={label}
+        aria-label={t(label)}
         aria-orientation="horizontal"
         aria-disabled={unavailable || undefined}
         onBlur={(event) => {
@@ -93,7 +96,7 @@ export default function Tabs({
               if (item.id !== value) onValueChange(item.id);
             }}
           >
-            {item.label}
+            {t(item.label)}
           </Button>
         ))}
       </div>

@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useId, useRef } from "react";
 import Button from "./Button.jsx";
 import closeIcon from "../../assets/figma/modal-close.svg";
@@ -84,6 +85,8 @@ export default function Modal({
   headingLevel = 2,
   className = "",
 }) {
+  const { t } = useLanguage();
+
   const dialogRef = useRef(null);
   const headingRef = useRef(null);
   const ignoredCloseEvents = useRef(0);
@@ -203,7 +206,7 @@ export default function Modal({
         <Button
           variant="ghost"
           className="miu-modal__close"
-          aria-label={closeLabel}
+          aria-label={t(closeLabel)}
           onClick={() => onClose("close-button")}
         >
           <img

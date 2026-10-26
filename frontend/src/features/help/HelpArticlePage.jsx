@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import {
   getHelpArticleBySlug,
   helpCategories,
@@ -18,6 +19,8 @@ export default function HelpArticlePage({
   onBack,
   onContactSupport,
 }) {
+  const { t } = useLanguage();
+
   const article = getHelpArticleBySlug(articleSlug);
 
   if (!article) {
@@ -28,10 +31,10 @@ export default function HelpArticlePage({
           role="alert"
         >
           <h1 className="text-xl font-semibold text-miu-black">
-            Article not found
+            {t("Article not found")}
           </h1>
           <p className="mt-2 text-sm text-ink-secondary">
-            No help article matches{" "}
+            {t("No help article matches")}{" "}
             <span className="font-medium">{articleSlug}</span>.
           </p>
           {onBack ? (
@@ -40,7 +43,7 @@ export default function HelpArticlePage({
               onClick={onBack}
               className="mt-4 text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))]"
             >
-              ← Back to Help Center
+              {t("← Back to Help Center")}
             </button>
           ) : null}
         </div>
@@ -59,18 +62,20 @@ export default function HelpArticlePage({
             onClick={onBack}
             className="self-start text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))]"
           >
-            ← Back to Help Center
+            {t("← Back to Help Center")}
           </button>
         ) : null}
 
         <header className="space-y-2">
           {category ? (
             <p className="text-xs font-semibold uppercase tracking-wide text-[var(--theme-accent,var(--color-miu-red))]">
-              {category.label}
+              {t(category.label)}
             </p>
           ) : null}
-          <h1 className="text-3xl font-bold text-miu-black">{article.title}</h1>
-          <p className="text-[15px] text-ink-secondary">{article.summary}</p>
+          <h1 className="text-3xl font-bold text-miu-black">
+            {t(article.title)}
+          </h1>
+          <p className="text-[15px] text-ink-secondary">{t(article.summary)}</p>
         </header>
 
         <div className="space-y-4 rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-5 shadow-[var(--shadow-panel)] sm:p-6">
@@ -79,7 +84,7 @@ export default function HelpArticlePage({
               key={paragraph.slice(0, 32)}
               className="text-[15px] leading-relaxed text-ink-secondary"
             >
-              {paragraph}
+              {t(paragraph)}
             </p>
           ))}
         </div>
@@ -91,14 +96,14 @@ export default function HelpArticlePage({
                 key={tag}
                 className="rounded-full bg-surface-muted px-3 py-1 text-xs font-medium text-miu-black"
               >
-                {tag}
+                {t(tag)}
               </li>
             ))}
           </ul>
         ) : null}
 
         <div className="rounded-lg bg-miu-red-tint px-4 py-3 text-sm text-miu-black">
-          Still need help?{" "}
+          {t("Still need help?")}{" "}
           <button
             type="button"
             className="font-semibold text-[var(--theme-accent,var(--color-miu-red))] underline-offset-2 hover:underline"
@@ -110,7 +115,7 @@ export default function HelpArticlePage({
                 ))
             }
           >
-            Contact support
+            {t("Contact support")}
           </button>
         </div>
       </article>

@@ -38,7 +38,7 @@
 .landing-timeline-track {
   position: absolute;
   pointer-events: none;
-  left: calc(50% - 1px);
+  inset-inline-start: calc(50% - 1px);
   top: var(--track-start, 110px);
   height: var(--track-length, calc(100% - 220px));
   width: 2px;
@@ -62,7 +62,7 @@
 }
 .landing-timeline-light {
   position: absolute;
-  left: -4px;
+  inset-inline-start: -4px;
   top: calc(var(--timeline-progress, 1) * 100%);
   width: 10px;
   height: 10px;
@@ -151,7 +151,7 @@
 }
 .landing-step-connector {
   position: absolute;
-  left: calc(50% - 64px);
+  inset-inline-start: calc(50% - 64px);
   top: calc(50% - 1px);
   width: 64px;
   height: 2px;
@@ -171,7 +171,7 @@
   grid-column: 3;
 }
 .landing-timeline li:nth-of-type(even) .landing-step-connector {
-  left: 50%;
+  inset-inline-start: 50%;
   transform-origin: left center;
 }
 .landing-timeline[data-motion-ready="true"]
@@ -252,11 +252,11 @@
     font-size: 16px;
   }
   .landing-timeline-track {
-    left: 27px;
+    inset-inline-start: 27px;
   }
   .landing-step-connector,
   .landing-timeline li:nth-of-type(even) .landing-step-connector {
-    left: 28px;
+    inset-inline-start: 28px;
     width: 48px;
     transform-origin: left center;
   }

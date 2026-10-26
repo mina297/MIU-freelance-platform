@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import SkillsDisplay from "./SkillsDisplay.jsx";
 
 /**
@@ -14,6 +15,8 @@ export default function AboutSection({
   paragraphs = [],
   skills = [],
 }) {
+  const { t } = useLanguage();
+
   return (
     <section
       className="flex w-full flex-col gap-5 overflow-hidden rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-6 shadow-[var(--shadow-panel)] sm:p-8"
@@ -23,7 +26,7 @@ export default function AboutSection({
         id="about-heading"
         className="text-2xl font-bold leading-normal text-miu-black"
       >
-        About {firstName}
+        {t("About")} {firstName}
       </h2>
 
       {paragraphs.map((paragraph, index) => (
@@ -38,7 +41,7 @@ export default function AboutSection({
       <div className="h-px w-full bg-border-soft" role="separator" />
 
       <h3 className="text-lg font-semibold leading-normal text-miu-black">
-        Skills
+        {t("Skills")}
       </h3>
       <SkillsDisplay skills={skills} />
     </section>

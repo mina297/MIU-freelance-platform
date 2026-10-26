@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { formatEGP } from "../utils/formatCurrency.js";
 import { ProfileEmptyState } from "./ProfileStates.jsx";
 
@@ -14,25 +15,29 @@ import { ProfileEmptyState } from "./ProfileStates.jsx";
  * }} props
  */
 export default function CompletedJobsSection({ projects, isOwner = false }) {
+  const { t, locale } = useLanguage();
+
   if (!projects.length) {
     return (
       <ProfileEmptyState
-        message={
+        message={t(
           isOwner
-            ? "Completed jobs will appear here after finished orders."
-            : "No completed jobs to show yet."
-        }
+            ? t("Completed jobs will appear here after finished orders.")
+            : t("No completed jobs to show yet."),
+        )}
       />
     );
   }
 
   return (
     <div className="flex w-full flex-col gap-4">
-      <h2 className="text-xl font-semibold text-miu-black">Completed jobs</h2>
+      <h2 className="text-xl font-semibold text-miu-black">
+        {t("Completed jobs")}
+      </h2>
       <ul className="overflow-hidden rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] shadow-[var(--shadow-panel)]">
         {projects.map((project, index) => {
           const dateLabel = new Date(project.completedAt).toLocaleDateString(
-            "en-GB",
+            locale,
             { day: "numeric", month: "short", year: "numeric" },
           );
           return (
@@ -45,18 +50,18 @@ export default function CompletedJobsSection({ projects, isOwner = false }) {
               <div className="min-w-0">
                 <p className="font-semibold text-miu-black">{project.title}</p>
                 <p className="mt-1 text-sm text-ink-secondary">
-                  {project.category} · Completed {dateLabel}
+                  {project.category} {t("· Completed")} {dateLabel}
                 </p>
               </div>
               <p className="shrink-0 text-sm font-semibold text-miu-black">
-                {formatEGP(project.amountEGP)}
+                {formatEGP(project.amountEGP, locale)}
               </p>
             </li>
           );
         })}
       </ul>
       <p className="text-xs text-ink-secondary">
-        Amounts are fictional Phase 1 demo figures in EGP only.
+        {t("Amounts are fictional Phase 1 demo figures in EGP only.")}
       </p>
     </div>
   );

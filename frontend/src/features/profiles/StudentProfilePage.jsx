@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useContext, useState, useSyncExternalStore } from "react";
 import { AuthContext } from "../../contexts/AuthContext.js";
 import { NavLink } from "react-router-dom";
@@ -32,6 +33,8 @@ export default function StudentProfilePage({
   onLeaveReview,
   simulateDelay = true,
 }) {
+  const { t } = useLanguage();
+
   const auth = useContext(AuthContext);
   useSyncExternalStore(
     reviewStore.subscribe,
@@ -85,7 +88,7 @@ export default function StudentProfilePage({
               onClick={onEditProfile}
               className="h-10 rounded-full border border-miu-red px-4 text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))] hover:bg-miu-red-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
             >
-              Edit profile
+              {t("Edit profile")}
             </button>
           ) : null}
         </div>
@@ -107,8 +110,9 @@ export default function StudentProfilePage({
 
         {isOwner ? (
           <p className="rounded-lg bg-miu-red-tint px-4 py-2 text-sm text-miu-black">
-            You are viewing your profile as the owner. Visitors see the public
-            Contact action instead of Edit profile.
+            {t(
+              "You are viewing your profile as the owner. Visitors see the public Contact action instead of Edit profile.",
+            )}
           </p>
         ) : null}
 
@@ -151,7 +155,7 @@ export default function StudentProfilePage({
                 languages={profile.languages}
                 availability={profile.availability}
               />
-              <CommunityCard description={profile.communityNote} />
+              <CommunityCard description={t(profile.communityNote)} />
             </aside>
           </div>
         ) : null}

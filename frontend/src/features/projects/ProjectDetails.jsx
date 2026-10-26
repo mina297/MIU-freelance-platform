@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import {
   ArrowLeft,
   ArrowRight,
@@ -15,18 +16,22 @@ import { getProjectById } from "../marketplace/selectors.js";
 import { categoryNames, clientNames, skillNames } from "./catalogueModel.js";
 
 function BackButton({ onBack }) {
+  const { t } = useLanguage();
+
   return (
     <button
       type="button"
       onClick={onBack}
       className="inline-flex min-h-11 items-center gap-2 rounded-lg px-2 text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))] hover:bg-[color:var(--theme-accent-surface,#f9e6eb)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
     >
-      <ArrowLeft size={17} aria-hidden="true" /> All projects
+      <ArrowLeft size={17} aria-hidden="true" /> {t("All projects")}
     </button>
   );
 }
 
 export default function ProjectDetails({ projectId, onBack, onPropose }) {
+  const { t, locale } = useLanguage();
+
   const project = getProjectById(projectId);
 
   if (!project) {
@@ -43,10 +48,10 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
             tabIndex={-1}
             className="mt-4 text-2xl font-bold"
           >
-            Project not found
+            {t("Project not found")}
           </h1>
           <p className="mt-2 text-sm text-[color:var(--theme-muted-text,#6b6066)]">
-            This project may have been removed from the preview.
+            {t("This project may have been removed from the preview.")}
           </p>
           <div className="mt-5">
             <BackButton onBack={onBack} />
@@ -73,11 +78,11 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
         <div className="mx-auto flex h-[76px] max-w-[1180px] items-center justify-between gap-4 px-5 sm:px-8">
           <img
             src={miuLogo}
-            alt="Misr International University"
+            alt={t("Misr International University")}
             className="h-12 w-auto max-w-[150px] object-contain"
           />
           <span className="rounded-full border border-[color:var(--theme-border,#d8b3bf)] bg-[color:var(--theme-accent-surface,#fceff3)] px-3 py-1.5 text-xs font-semibold text-[var(--theme-accent,var(--color-miu-red))]">
-            Phase 1 preview
+            {t("Phase 1 preview")}
           </span>
         </div>
       </header>
@@ -86,7 +91,7 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
         <section className="relative overflow-hidden bg-[#351923] text-white">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -right-28 -top-40 size-[450px] rounded-full border-[80px] border-white/[0.06]"
+            className="pointer-events-none absolute -end-28 -top-40 size-[450px] rounded-full border-[80px] border-white/[0.06]"
           />
           <div className="relative mx-auto max-w-[1180px] px-5 pb-14 pt-8 sm:px-8 sm:pb-16">
             <button
@@ -94,7 +99,7 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
               onClick={onBack}
               className="inline-flex min-h-11 items-center gap-2 rounded-lg px-2 text-sm font-semibold text-[#f5c5d0] hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
-              <ArrowLeft size={17} aria-hidden="true" /> Browse projects
+              <ArrowLeft size={17} aria-hidden="true" /> {t("Browse projects")}
             </button>
             <div className="mt-8 flex flex-wrap items-center gap-2">
               <span className="rounded-full bg-white/15 px-3 py-1.5 text-xs font-semibold text-white">
@@ -104,12 +109,12 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
                 className={`rounded-full px-3 py-1.5 text-xs font-semibold ${isOpen ? "bg-[color:var(--theme-success-surface,#ddf5e4)] text-[color:var(--theme-success-text,#206b40)]" : "bg-white/15 text-white"}`}
               >
                 {isOpen
-                  ? "Open for proposals"
+                  ? t("Open for proposals")
                   : project.status === PROJECT_STATUS.CLOSED
-                    ? "Closed — not accepting proposals"
+                    ? t("Closed — not accepting proposals")
                     : project.status === PROJECT_STATUS.CANCELLED
-                      ? "Cancelled — not accepting proposals"
-                      : "Not accepting proposals"}
+                      ? t("Cancelled — not accepting proposals")
+                      : t("Not accepting proposals")}
               </span>
             </div>
             <h1
@@ -124,12 +129,12 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
             </p>
             <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-sm text-[#e4c8d0]">
               <span className="flex items-center gap-2">
-                <Clock3 size={16} aria-hidden="true" /> Posted{" "}
-                {formatDate(project.createdAt)}
+                <Clock3 size={16} aria-hidden="true" /> {t("Posted")}{" "}
+                {formatDate(project.createdAt, locale)}
               </span>
               <span className="flex items-center gap-2">
-                <CalendarDays size={16} aria-hidden="true" /> Due{" "}
-                {formatDate(project.deadline)}
+                <CalendarDays size={16} aria-hidden="true" /> {t("Due")}{" "}
+                {formatDate(project.deadline, locale)}
               </span>
             </div>
           </div>
@@ -147,16 +152,16 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
                 </span>
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--theme-accent,var(--color-miu-red))]">
-                    The opportunity
+                    {t("The opportunity")}
                   </p>
                   <h2 id="overview-heading" className="text-xl font-bold">
-                    Project overview
+                    {t("Project overview")}
                   </h2>
                 </div>
               </div>
               <div className="mt-6">
                 <h3 className="text-sm font-bold text-[color:var(--theme-text,#342a2f)]">
-                  Scope of work
+                  {t("Scope of work")}
                 </h3>
                 <p className="mt-2 text-base leading-8 text-[color:var(--theme-muted-text,#594f54)]">
                   {project.scope || project.description}
@@ -165,7 +170,7 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
               {project.deliverables?.length > 0 && (
                 <div className="mt-7 border-t border-[color:var(--theme-border,#d9cbd2)] pt-6">
                   <h3 className="text-sm font-bold text-[color:var(--theme-text,#342a2f)]">
-                    Expected deliverables
+                    {t("Expected deliverables")}
                   </h3>
                   <ul className="mt-3 grid gap-3 sm:grid-cols-2">
                     {project.deliverables.map((deliverable) => (
@@ -185,12 +190,12 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
               )}
               {!hasDetailedBrief && (
                 <p className="mt-3 text-sm text-[color:var(--theme-muted-text,#796a71)]">
-                  No additional brief has been provided in this preview.
+                  {t("No additional brief has been provided in this preview.")}
                 </p>
               )}
               <div className="mt-7 border-t border-[color:var(--theme-border,#d9cbd2)] pt-6">
                 <h3 className="text-sm font-bold text-[color:var(--theme-text,#342a2f)]">
-                  Skills needed
+                  {t("Skills needed")}
                 </h3>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {project.requiredSkillIds.map((id) => (
@@ -209,23 +214,23 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
               className="rounded-2xl border-2 border-[color:var(--theme-border,#c9bac1)] bg-[var(--theme-surface,#fff)] p-6 shadow-[0_5px_18px_rgba(57,34,40,0.08)] sm:p-8"
             >
               <h2 id="timeline-heading" className="text-xl font-bold">
-                Project timeline
+                {t("Project timeline")}
               </h2>
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
                 <div className="rounded-xl border border-[color:var(--theme-border,#d4c3cb)] bg-[color:var(--theme-accent-surface,#faf7f9)] p-4">
                   <p className="text-xs font-semibold uppercase tracking-wider text-[color:var(--theme-muted-text,#785d6b)]">
-                    Published
+                    {t("Published")}
                   </p>
                   <p className="mt-2 font-bold">
-                    {formatDate(project.createdAt)}
+                    {formatDate(project.createdAt, locale)}
                   </p>
                 </div>
                 <div className="rounded-xl border border-[color:var(--theme-border,#d4c3cb)] bg-[color:var(--theme-accent-surface,#faf7f9)] p-4">
                   <p className="text-xs font-semibold uppercase tracking-wider text-[color:var(--theme-muted-text,#785d6b)]">
-                    Delivery deadline
+                    {t("Delivery deadline")}
                   </p>
                   <p className="mt-2 font-bold">
-                    {formatDate(project.deadline)}
+                    {formatDate(project.deadline, locale)}
                   </p>
                 </div>
               </div>
@@ -234,22 +239,22 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
 
           <aside
             className="space-y-5 lg:sticky lg:top-6"
-            aria-label="Project summary"
+            aria-label={t("Project summary")}
           >
             <div className="overflow-hidden rounded-2xl border-2 border-[color:var(--theme-border,#b96a80)] bg-[var(--theme-surface,#fff)] shadow-[0_8px_24px_rgba(68,26,40,0.11)]">
               <div className="bg-[color:var(--theme-accent-surface,#f5e5eb)] px-6 py-5">
                 <p className="text-xs font-bold uppercase tracking-[0.14em] text-[color:var(--theme-accent,#8e465c)]">
-                  Project budget
+                  {t("Project budget")}
                 </p>
                 <p className="mt-1 text-3xl font-bold tracking-[-0.04em] text-[color:var(--theme-accent,#341e2a)]">
-                  {formatEGP(project.budgetEGP)}
+                  {formatEGP(project.budgetEGP, locale)}
                 </p>
               </div>
               <div className="px-6 py-5">
                 <p className="flex items-center gap-2 text-sm text-[color:var(--theme-muted-text,#62545c)]">
-                  <CalendarDays size={17} aria-hidden="true" /> Deadline:{" "}
+                  <CalendarDays size={17} aria-hidden="true" /> {t("Deadline:")}{" "}
                   <strong className="text-[color:var(--theme-text,#342a2f)]">
-                    {formatDate(project.deadline)}
+                    {formatDate(project.deadline, locale)}
                   </strong>
                 </p>
                 <div className="mt-5 rounded-xl border border-[color:var(--theme-border,#dfc4ce)] bg-[color:var(--theme-accent-surface,#fff7f9)] p-4 text-sm leading-6 text-[color:var(--theme-muted-text,#694c5b)]">
@@ -259,8 +264,10 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
                     aria-hidden="true"
                   />{" "}
                   {isOpen
-                    ? "Verified students can submit a simulated proposal on the next screen. No client is contacted in this preview."
-                    : "This project is not accepting proposals."}
+                    ? t(
+                        "Verified students can submit a simulated proposal on the next screen. No client is contacted in this preview.",
+                      )
+                    : t("This project is not accepting proposals.")}
                 </div>
                 {isOpen && onPropose && (
                   <button
@@ -268,7 +275,7 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
                     onClick={onPropose}
                     className="mt-5 flex min-h-12 w-full items-center justify-center rounded-xl bg-miu-red px-4 text-sm font-bold text-white hover:bg-miu-red-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
                   >
-                    Submit proposal
+                    {t("Submit proposal")}
                   </button>
                 )}
                 <button
@@ -276,14 +283,14 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
                   onClick={onBack}
                   className="mt-5 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-miu-red px-4 text-sm font-bold text-white hover:bg-miu-red-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
                 >
-                  Explore more projects{" "}
+                  {t("Explore more projects")}{" "}
                   <ArrowRight size={16} aria-hidden="true" />
                 </button>
               </div>
             </div>
             <div className="rounded-2xl border-2 border-[color:var(--theme-border,#c9bac1)] bg-[var(--theme-surface,#fff)] p-5">
               <p className="text-xs font-bold uppercase tracking-[0.13em] text-[color:var(--theme-muted-text,#8d596b)]">
-                About the client
+                {t("About the client")}
               </p>
               <div className="mt-4 flex items-center gap-3">
                 <span
@@ -295,7 +302,7 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
                 <div>
                   <p className="font-bold">{clientName}</p>
                   <p className="text-xs text-[color:var(--theme-muted-text,#7e6c75)]">
-                    Fictional client
+                    {t("Fictional client")}
                   </p>
                 </div>
               </div>

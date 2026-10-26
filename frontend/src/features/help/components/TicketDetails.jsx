@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import UserSummaryCard from "../../profiles/components/UserSummaryCard.jsx";
 import EvidenceAttachmentPreview from "./EvidenceAttachmentPreview.jsx";
 import {
@@ -8,10 +9,12 @@ import {
 
 /** Read-only ticket view for support requests (no assignment or committee actions). */
 export default function TicketDetails({ ticket, className = "" }) {
+  const { t, locale } = useLanguage();
+
   if (!ticket) {
     return (
       <div className="rounded-panel border border-dashed border-border-soft bg-[var(--theme-surface,#fff)] p-6 text-sm text-ink-secondary">
-        No ticket selected.
+        {t("No ticket selected.")}
       </div>
     );
   }
@@ -36,7 +39,7 @@ export default function TicketDetails({ ticket, className = "" }) {
       <header className="flex flex-col gap-3 border-b border-border-soft pb-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0 space-y-1">
           <p className="text-xs font-semibold uppercase tracking-wide text-[var(--theme-accent,var(--color-miu-red))]">
-            Support ticket
+            {t("Support ticket")}
           </p>
           <h2
             id="ticket-details-heading"
@@ -45,31 +48,35 @@ export default function TicketDetails({ ticket, className = "" }) {
             {subject}
           </h2>
           <p className="break-all text-sm text-ink-secondary">
-            ID:{" "}
+            {t("ID:")}{" "}
             <span className="font-medium text-miu-black">
               {ticket.id || "Unavailable"}
             </span>
           </p>
         </div>
         <span className="inline-flex w-fit items-center rounded-full bg-miu-red-tint px-3 py-1 text-xs font-semibold text-[var(--theme-accent,var(--color-miu-red))]">
-          {statusLabel}
+          {t(statusLabel)}
         </span>
       </header>
 
       <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <dt className="text-xs text-ink-secondary">Category</dt>
-          <dd className="text-sm font-medium text-miu-black">{category}</dd>
+          <dt className="text-xs text-ink-secondary">{t("Category")}</dt>
+          <dd className="text-sm font-medium text-miu-black">
+            {ticket.categoryLabel || t(category)}
+          </dd>
         </div>
         <div>
-          <dt className="text-xs text-ink-secondary">Submitted</dt>
+          <dt className="text-xs text-ink-secondary">{t("Submitted")}</dt>
           <dd className="text-sm font-medium text-miu-black">
-            {formatTicketSubmittedAt(ticket.createdAt)}
+            {formatTicketSubmittedAt(ticket.createdAt, locale)}
           </dd>
         </div>
         {ticket.referenceId ? (
           <div className="sm:col-span-2">
-            <dt className="text-xs text-ink-secondary">Related reference</dt>
+            <dt className="text-xs text-ink-secondary">
+              {t("Related reference")}
+            </dt>
             <dd className="break-all text-sm font-medium text-miu-black">
               {ticket.referenceId}
             </dd>
@@ -78,14 +85,18 @@ export default function TicketDetails({ ticket, className = "" }) {
       </dl>
 
       <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-miu-black">Description</h3>
+        <h3 className="text-sm font-semibold text-miu-black">
+          {t("Description")}
+        </h3>
         <p className="whitespace-pre-wrap text-sm leading-relaxed text-ink-secondary">
           {description || "No description provided."}
         </p>
       </section>
 
       <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-miu-black">Requester</h3>
+        <h3 className="text-sm font-semibold text-miu-black">
+          {t("Requester")}
+        </h3>
         <UserSummaryCard
           displayName={requester.displayName}
           headline={requester.headline || requester.roleLabel}
@@ -97,19 +108,22 @@ export default function TicketDetails({ ticket, className = "" }) {
 
       <section className="space-y-2">
         <h3 className="text-sm font-semibold text-miu-black">
-          Evidence attachments
+          {t("Evidence attachments")}
         </h3>
         {evidence.length > 0 ? (
           <EvidenceAttachmentPreview files={evidence} />
         ) : (
-          <p className="text-sm text-ink-secondary">No evidence attached.</p>
+          <p className="text-sm text-ink-secondary">
+            {t("No evidence attached.")}
+          </p>
         )}
       </section>
 
       {ticket.simulated ? (
         <p className="rounded-lg bg-surface-page px-3 py-2 text-xs text-ink-secondary">
-          Phase 1 simulation — ticket assignment and dispute decisions are owned
-          by Member 3 and are not available here.
+          {t(
+            "Phase 1 simulation — ticket assignment and dispute decisions are owned by Member 3 and are not available here.",
+          )}
         </p>
       ) : null}
     </article>

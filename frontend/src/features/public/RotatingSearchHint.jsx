@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useLanguage } from "../../i18n/LanguageContext.js";
 
 const examples = [
   "Software development",
@@ -10,20 +11,25 @@ const examples = [
 ];
 
 export default function RotatingSearchHint({ enabled }) {
-  const [text, setText] = useState(examples[0]);
+  const { t, language } = useLanguage();
+  const localizedExamples = useMemo(
+    () => examples.map((example) => t(example)),
+    [t],
+  );
+  const [frame, setFrame] = useState({ text: localizedExamples[0], language });
   useEffect(() => {
     if (!enabled) return;
     let index = 0;
-    let length = examples[0].length;
+    let length = localizedExamples[0].length;
     let deleting = true;
     let timer;
     function tick() {
-      const word = examples[index];
+      const word = localizedExamples[index];
       length += deleting ? -1 : 1;
-      setText(word.slice(0, length));
+      setFrame({ text: word.slice(0, length), language });
       let delay = deleting ? 40 : 85;
       if (length === 0) {
-        index = (index + 1) % examples.length;
+        index = (index + 1) % localizedExamples.length;
         deleting = false;
         delay = 220;
       } else if (length === word.length) {
@@ -34,12 +40,14 @@ export default function RotatingSearchHint({ enabled }) {
     }
     timer = window.setTimeout(tick, 1600);
     return () => window.clearTimeout(timer);
-  }, [enabled]);
+  }, [enabled, language, localizedExamples]);
 
   return (
     <span className="landing-search-hint" aria-hidden="true">
       <span className="landing-search-example">
-        {enabled ? text : examples[0]}
+        {enabled && frame.language === language
+          ? frame.text
+          : localizedExamples[0]}
       </span>
       <span className="landing-search-caret" />
     </span>

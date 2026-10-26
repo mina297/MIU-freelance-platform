@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useId, useRef, useState } from "react";
 import {
   X,
@@ -24,6 +25,8 @@ import {
 import "./chatbot.css";
 
 export function ChatbotMessages({ messages }) {
+  const { t } = useLanguage();
+
   return messages.map(({ id, author, text }) => (
     <div
       key={id}
@@ -35,15 +38,18 @@ export function ChatbotMessages({ messages }) {
         </span>
       )}
       <div className="chatbot-message-content">
-        <strong>{author === "user" ? "You" : "Simulated assistant"}</strong>
+        <strong>
+          {author === "user" ? t("You") : t("Simulated assistant")}
+        </strong>
         <div className="chatbot-bubble">
           {id === "welcome" && (
             <h3>
-              A little guidance.
-              <br />A clearer next step.
+              {t("A little guidance.")}
+              <br />
+              {t("A clearer next step.")}
             </h3>
           )}
-          <p>{text}</p>
+          <p dir="auto">{author === "assistant" ? t(text) : text}</p>
         </div>
       </div>
     </div>
@@ -51,6 +57,8 @@ export function ChatbotMessages({ messages }) {
 }
 
 export default function ChatbotWidget() {
+  const { t } = useLanguage();
+
   const { session } = useAuth();
   const [stored, setConversation] = useState(createConversation);
   const conversation = syncConversation(stored, session);
@@ -80,7 +88,10 @@ export default function ChatbotWidget() {
   }
 
   return (
-    <aside className="chatbot-widget" aria-label="Simulated platform assistant">
+    <aside
+      className="chatbot-widget"
+      aria-label={t("Simulated platform assistant")}
+    >
       <Card
         as="section"
         id={panelId}
@@ -100,17 +111,17 @@ export default function ChatbotWidget() {
             <img src={assistantCharacter} alt="" width="64" height="64" />
           </span>
           <div className="chatbot-heading-copy">
-            <p className="chatbot-eyebrow">PROTOTYPE ASSISTANT</p>
-            <h2 id={`${panelId}-title`}>MIU Assistant</h2>
+            <p className="chatbot-eyebrow">{t("PROTOTYPE ASSISTANT")}</p>
+            <h2 id={`${panelId}-title`}>{t("MIU Assistant")}</h2>
             <p className="chatbot-subtitle">
               <span className="chatbot-status-dot" aria-hidden="true" />
-              Ready to help · Simulated
+              {t("Ready to help · Simulated")}
             </p>
           </div>
           <Button
             variant="ghost"
             className="chatbot-minimize"
-            aria-label="Minimize assistant"
+            aria-label={t("Minimize assistant")}
             onClick={minimize}
           >
             <X size={20} aria-hidden="true" />
@@ -119,15 +130,17 @@ export default function ChatbotWidget() {
         <p id={`${panelId}-notice`} className="chatbot-notice">
           <Info size={16} aria-hidden="true" />
           <span>
-            <strong>Simulated responses</strong> · Predefined guidance,
-            <br className="chatbot-notice-break" /> not a real AI service.
+            <strong>{t("Simulated responses")}</strong>{" "}
+            {t("· Predefined guidance,")}
+            <br className="chatbot-notice-break" />{" "}
+            {t("not a real AI service.")}
           </span>
         </p>
         <div
           ref={transcript}
           className="chatbot-transcript"
           role="log"
-          aria-label="Assistant conversation"
+          aria-label={t("Assistant conversation")}
           aria-live="polite"
           aria-relevant="additions"
           tabIndex={0}
@@ -135,11 +148,13 @@ export default function ChatbotWidget() {
           <ChatbotMessages messages={conversation.messages} />
         </div>
         <div className="chatbot-quick-start">
-          <p className="chatbot-section-label">Not sure where to start?</p>
+          <p className="chatbot-section-label">
+            {t("Not sure where to start?")}
+          </p>
           <div
             className="chatbot-suggestions"
             role="group"
-            aria-label="Suggested questions"
+            aria-label={t("Suggested questions")}
           >
             {SUGGESTED_QUESTIONS.map((question, index) => {
               const TopicIcon = [
@@ -153,19 +168,19 @@ export default function ChatbotWidget() {
                 <Button
                   key={question}
                   variant="outline"
-                  aria-label={question}
+                  aria-label={t(question)}
                   onClick={() => send(question)}
                 >
                   <TopicIcon size={18} aria-hidden="true" />
-                  {
+                  {t(
                     [
                       "Find projects",
                       "Proposals",
                       "Services & orders",
                       "Verification",
                       "Get help",
-                    ][index]
-                  }
+                    ][index],
+                  )}
                 </Button>
               );
             })}
@@ -181,12 +196,15 @@ export default function ChatbotWidget() {
         >
           <Input
             ref={input}
-            label="Your message"
-            placeholder="Ask a question…"
+            label={t("Your message")}
+            placeholder={t("Ask a question…")}
             value={conversation.draft}
             maxLength={MAX_MESSAGE_LENGTH}
-            helperText={`Up to ${MAX_MESSAGE_LENGTH} characters. Do not share passwords, IDs or payment details.`}
-            error={conversation.error}
+            helperText={t(
+              "Up to {value0} characters. Do not share passwords, IDs or payment details.",
+              { value0: MAX_MESSAGE_LENGTH },
+            )}
+            error={t(conversation.error)}
             onChange={(event) =>
               setConversation((state) => ({
                 ...state,
@@ -196,17 +214,17 @@ export default function ChatbotWidget() {
             }
           />
           <span className="chatbot-error-announcement" role="status">
-            {conversation.error}
+            {t(conversation.error)}
           </span>
           <Button
             type="submit"
             className="chatbot-send"
-            aria-label="Send message"
+            aria-label={t("Send message")}
           >
             <SendHorizontal size={19} aria-hidden="true" />
           </Button>
           <p className="chatbot-composer-meta">
-            <span>Enter to send · Temporary chat</span>
+            <span>{t("Enter to send · Temporary chat")}</span>
             <span aria-hidden="true">
               {conversation.draft.length}/{MAX_MESSAGE_LENGTH}
             </span>
@@ -216,10 +234,14 @@ export default function ChatbotWidget() {
       <Button
         ref={launcher}
         className="chatbot-launcher"
-        aria-label={conversation.open ? "Minimize assistant" : "Open assistant"}
-        title={
-          conversation.open ? "Minimize MIU Assistant" : "Open MIU Assistant"
-        }
+        aria-label={t(
+          conversation.open ? t("Minimize assistant") : t("Open assistant"),
+        )}
+        title={t(
+          conversation.open
+            ? t("Minimize MIU Assistant")
+            : t("Open MIU Assistant"),
+        )}
         aria-expanded={conversation.open}
         aria-controls={panelId}
         onClick={() => {

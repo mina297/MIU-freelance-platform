@@ -173,13 +173,13 @@
 .order-workspace__message {
   background: var(--theme-accent-surface, #f8f4f7);
   border: 1px solid var(--theme-border, #d5c1cd);
-  border-left: 3px solid var(--theme-border, #b8849c);
+  border-inline-start: 3px solid var(--theme-border, #b8849c);
   padding: 20px;
   border-radius: 12px;
 }
 .order-workspace__message--own {
   background: var(--theme-accent-surface, #fff3f8);
-  border-left-color: var(--theme-border, #b91c2b);
+  border-inline-start-color: var(--theme-border, #b91c2b);
 }
 .order-workspace__message > div {
   display: flex;
@@ -209,8 +209,8 @@
 }
 .order-workspace__timeline {
   list-style: none;
-  border-left: 2px solid var(--theme-border, #d7bccc);
-  padding-left: 24px;
+  border-inline-start: 2px solid var(--theme-border, #d7bccc);
+  padding-inline-start: 24px;
   margin-block: 28px;
 }
 .order-workspace__timeline li {
@@ -222,7 +222,7 @@
 .order-workspace__timeline li::before {
   content: "";
   position: absolute;
-  left: -31px;
+  inset-inline-start: -31px;
   top: 5px;
   width: 12px;
   height: 12px;

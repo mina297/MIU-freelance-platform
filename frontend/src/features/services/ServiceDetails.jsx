@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { Link, useParams } from "react-router-dom";
 import {
   ArrowLeft,
@@ -23,37 +24,40 @@ export default function ServiceDetails({
   state = "ready",
   onRetry,
 }) {
+  const { t, locale } = useLanguage();
+
   const data = useServiceData(suppliedData);
   const params = useParams();
   if (state === "loading")
     return (
       <div className="services-container service-details__recovery">
-        <h1>Service details</h1>
-        <LoadingState message="Loading service details…" />
+        <h1>{t("Service details")}</h1>
+        <LoadingState message={t("Loading service details…")} />
       </div>
     );
   if (state !== "ready")
     return (
       <div className="services-container service-details__recovery">
-        <h1>Service details</h1>
+        <h1>{t("Service details")}</h1>
         <ErrorState
-          title="Service details could not be displayed"
+          title={t("Service details could not be displayed")}
           onRetry={onRetry}
         />
-        <Link to="/services">Back to services</Link>
+        <Link to="/services">{t("Back to services")}</Link>
       </div>
     );
   const details = publicServiceDetails(serviceId ?? params.serviceId, data);
   if (!details)
     return (
       <div className="services-container service-details__recovery">
-        <h1>Service unavailable</h1>
+        <h1>{t("Service unavailable")}</h1>
         <p>
-          This listing is unavailable or is not published. Browse the catalogue
-          for currently available services.
+          {t(
+            "This listing is unavailable or is not published. Browse the catalogue for currently available services.",
+          )}
         </p>
         <Link to="/services">
-          <ArrowLeft size={16} aria-hidden="true" /> Back to services
+          <ArrowLeft size={16} aria-hidden="true" /> {t("Back to services")}
         </Link>
       </div>
     );
@@ -66,9 +70,9 @@ export default function ServiceDetails({
         aria-labelledby="service-detail-title"
       >
         <div className="services-container">
-          <nav aria-label="Service breadcrumb">
+          <nav aria-label={t("Service breadcrumb")}>
             <Link to="/services">
-              <ArrowLeft size={15} aria-hidden="true" /> All services
+              <ArrowLeft size={15} aria-hidden="true" /> {t("All services")}
             </Link>
             <span aria-hidden="true">/</span>
             <span>{category}</span>
@@ -76,13 +80,13 @@ export default function ServiceDetails({
           <div className="service-details__hero-grid">
             <div>
               <p className="services-eyebrow">
-                A LITTLE CRAFT. A BIG DIFFERENCE.
+                {t("A LITTLE CRAFT. A BIG DIFFERENCE.")}
               </p>
               <h1 id="service-detail-title">{service.title}</h1>
               <p className="service-details__intro">{service.description}</p>
               <ul
                 className="service-details__skills"
-                aria-label="Service skills"
+                aria-label={t("Service skills")}
               >
                 {service.skillIds.map((id) => (
                   <li key={id}>
@@ -94,29 +98,34 @@ export default function ServiceDetails({
             </div>
             <aside
               className="service-details__summary"
-              aria-label="Starting package overview"
+              aria-label={t("Starting package overview")}
             >
               <Layers3 size={28} aria-hidden="true" />
-              <p className="services-eyebrow">START WITH A CLEAR SCOPE</p>
+              <p className="services-eyebrow">
+                {t("START WITH A CLEAR SCOPE")}
+              </p>
               <p className="service-details__amount">
-                {starting ? formatEGP(starting.priceEGP) : "Price unavailable"}
+                {starting
+                  ? formatEGP(starting.priceEGP, locale)
+                  : t("Price unavailable")}
               </p>
               <p>
                 {starting
                   ? `${starting.deliveryDays}-day delivery estimate for ${starting.name}`
-                  : "No valid package available"}
+                  : t("No valid package available")}
               </p>
               {starting && (
                 <a href="#service-packages">
-                  Compare packages <ArrowDown size={16} aria-hidden="true" />
+                  {t("Compare packages")}{" "}
+                  <ArrowDown size={16} aria-hidden="true" />
                 </a>
               )}
               <small>
-                Configure a simulated order. No real payment or escrow.
+                {t("Configure a simulated order. No real payment or escrow.")}
               </small>
               {starting && (
                 <Link to={`/services/${service.id}/order`}>
-                  Configure demo order
+                  {t("Configure demo order")}
                 </Link>
               )}
             </aside>
@@ -125,8 +134,9 @@ export default function ServiceDetails({
       </section>
       <div className="services-container service-details__body">
         <p className="services-disclosure">
-          Fictional Phase 1 service. Prices are in EGP. No order, payment,
-          message or notification is created on this page.
+          {t(
+            "Fictional Phase 1 service. Prices are in EGP. No order, payment, message or notification is created on this page.",
+          )}
         </p>
         <div className="service-details__overview">
           <Card
@@ -134,18 +144,20 @@ export default function ServiceDetails({
             className="service-details__panel"
             aria-labelledby="service-about"
           >
-            <p className="services-eyebrow">THE IDEA, DEFINED</p>
-            <h2 id="service-about">About this service</h2>
+            <p className="services-eyebrow">{t("THE IDEA, DEFINED")}</p>
+            <h2 id="service-about">{t("About this service")}</h2>
             <p>{service.description}</p>
             <p>
-              Review the scope and deliverables of each package below. Delivery
-              is an estimate, not a scheduled completion date.
+              {t(
+                "Review the scope and deliverables of each package below. Delivery is an estimate, not a scheduled completion date.",
+              )}
             </p>
             <div className="service-details__notice">
-              <strong>Portfolio examples</strong>
+              <strong>{t("Portfolio examples")}</strong>
               <p>
-                Portfolio media is not connected in this preview. No sample work
-                or credentials are claimed for this student.
+                {t(
+                  "Portfolio media is not connected in this preview. No sample work or credentials are claimed for this student.",
+                )}
               </p>
             </div>
           </Card>
@@ -155,22 +167,25 @@ export default function ServiceDetails({
             aria-labelledby="service-provider"
           >
             <UserRound size={30} aria-hidden="true" />
-            <p className="services-eyebrow">THE PERSON BEHIND THE CRAFT</p>
+            <p className="services-eyebrow">
+              {t("THE PERSON BEHIND THE CRAFT")}
+            </p>
             <h2 id="service-provider">
               {student?.displayName ?? "Student information unavailable"}
             </h2>
-            <p>Student service provider</p>
+            <p>{t("Student service provider")}</p>
             {student && (
               <Link
                 to={`/students/${student.id}`}
                 className="text-[var(--theme-accent,var(--color-miu-red))] underline"
               >
-                View student profile
+                {t("View student profile")}
               </Link>
             )}
             <p>
-              Open the profile for declared details and demo reviews. Service
-              tags do not certify qualifications, verification or availability.
+              {t(
+                "Open the profile for declared details and demo reviews. Service tags do not certify qualifications, verification or availability.",
+              )}
             </p>
           </Card>
         </div>
@@ -181,25 +196,25 @@ export default function ServiceDetails({
         >
           <div className="service-details__section-heading">
             <div>
-              <p className="services-eyebrow">CHOOSE YOUR SCOPE</p>
-              <h2 id="service-packages-title">Compare the packages</h2>
+              <p className="services-eyebrow">{t("CHOOSE YOUR SCOPE")}</p>
+              <h2 id="service-packages-title">{t("Compare the packages")}</h2>
             </div>
-            <p>Clear deliverables. No hidden assumptions.</p>
+            <p>{t("Clear deliverables. No hidden assumptions.")}</p>
           </div>
           <ServicePackageComparison packages={packages} />
           <p className="services-disclosure">
-            Package names and amounts are fictional examples, not approved
-            platform-wide package limits. Extras are not included in package
-            prices.
+            {t(
+              "Package names and amounts are fictional examples, not approved platform-wide package limits. Extras are not included in package prices.",
+            )}
           </p>
         </section>
         <section aria-labelledby="service-extras-title">
           <div className="service-details__section-heading">
             <div>
-              <p className="services-eyebrow">ROOM FOR A LITTLE MORE</p>
-              <h2 id="service-extras-title">Optional extras</h2>
+              <p className="services-eyebrow">{t("ROOM FOR A LITTLE MORE")}</p>
+              <h2 id="service-extras-title">{t("Optional extras")}</h2>
             </div>
-            <p>Select extras in the demo ordering form.</p>
+            <p>{t("Select extras in the demo ordering form.")}</p>
           </div>
           {extras.length ? (
             <div className="service-details__extras">
@@ -214,14 +229,17 @@ export default function ServiceDetails({
                   <p>{extra.description}</p>
                   <dl>
                     <div>
-                      <dt>Additional price</dt>
-                      <dd>{formatEGP(extra.additionalPriceEGP)}</dd>
+                      <dt>{t("Additional price")}</dt>
+                      <dd>{formatEGP(extra.additionalPriceEGP, locale)}</dd>
                     </div>
                     <div>
                       <dt>
-                        <Clock3 size={13} aria-hidden="true" /> Additional time
+                        <Clock3 size={13} aria-hidden="true" />{" "}
+                        {t("Additional time")}
                       </dt>
-                      <dd>{extra.additionalDays} days</dd>
+                      <dd>
+                        {extra.additionalDays} {t("days")}
+                      </dd>
                     </div>
                   </dl>
                 </Card>
@@ -229,12 +247,13 @@ export default function ServiceDetails({
             </div>
           ) : (
             <div className="service-details__notice">
-              No optional extras are listed for this service.
+              {t("No optional extras are listed for this service.")}
             </div>
           )}
         </section>
         <Link className="service-details__back" to="/services">
-          <ArrowLeft size={16} aria-hidden="true" /> Continue exploring services
+          <ArrowLeft size={16} aria-hidden="true" />{" "}
+          {t("Continue exploring services")}
         </Link>
       </div>
     </div>

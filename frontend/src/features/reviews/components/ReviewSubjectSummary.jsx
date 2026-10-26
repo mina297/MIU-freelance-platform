@@ -1,8 +1,11 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { BadgeCheck } from "lucide-react";
 import SafeImage from "../../profiles/components/SafeImage.jsx";
 
 /** Shows the student and completed project being reviewed. */
 export default function ReviewSubjectSummary({ student, order }) {
+  const { t, locale } = useLanguage();
+
   if (!student && !order) return null;
 
   const displayName = student?.displayName || "Student freelancer";
@@ -19,13 +22,13 @@ export default function ReviewSubjectSummary({ student, order }) {
     "MIU student freelancer";
 
   const completedLabel = order?.completedAt
-    ? `Completed ${formatCompletedDate(order.completedAt)}`
-    : "Completed";
+    ? `${t("Completed")} ${formatCompletedDate(order.completedAt, locale)}`
+    : t("Completed");
 
   return (
     <section
       className="flex flex-col gap-4 rounded-panel border border-border-soft bg-surface-page p-4 sm:flex-row sm:items-center sm:gap-5 sm:p-5"
-      aria-label="Review subject"
+      aria-label={t("Review subject")}
     >
       <div className="relative size-16 shrink-0 overflow-hidden rounded-full bg-[var(--theme-surface,#fff)] ring-1 ring-[color:var(--theme-border,#e5e7eb)] sm:size-[72px]">
         <SafeImage
@@ -48,7 +51,7 @@ export default function ReviewSubjectSummary({ student, order }) {
           {student?.verified ? (
             <span className="inline-flex items-center gap-1 rounded-full bg-[var(--theme-surface,#fff)] px-2 py-0.5 text-[11px] font-semibold text-[var(--theme-accent,var(--color-miu-red))] ring-1 ring-[color:var(--theme-border,#e5e7eb)]">
               <BadgeCheck className="size-3.5" aria-hidden="true" />
-              Verified
+              {t("Verified")}
             </span>
           ) : null}
         </div>
@@ -56,7 +59,7 @@ export default function ReviewSubjectSummary({ student, order }) {
         {order?.title ? (
           <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
             <p className="text-sm font-medium text-miu-black">
-              Project:{" "}
+              {t("Project:")}{" "}
               <span className="font-normal text-ink-secondary">
                 {order.title}
               </span>
@@ -71,12 +74,12 @@ export default function ReviewSubjectSummary({ student, order }) {
   );
 }
 
-function formatCompletedDate(isoDate) {
+function formatCompletedDate(isoDate, locale) {
   const date = new Date(
     isoDate.length === 10 ? `${isoDate}T00:00:00` : isoDate,
   );
   if (Number.isNaN(date.getTime())) return isoDate;
-  return date.toLocaleDateString("en-GB", {
+  return date.toLocaleDateString(locale, {
     day: "numeric",
     month: "short",
     year: "numeric",

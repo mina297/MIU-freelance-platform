@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import ThemeProvider from "../../../theme/ThemeProvider.jsx";
 import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
@@ -27,6 +28,8 @@ const destinations = Object.fromEntries([
 ]);
 
 export default function PublicPagesPreview() {
+  const { t } = useLanguage();
+
   const requested = new URLSearchParams(window.location.search).get("page");
   const [page, setPage] = useState(
     PAGES.some(([id]) => id === requested) ? requested : "about",
@@ -47,26 +50,26 @@ export default function PublicPagesPreview() {
   return (
     <div className="marketplace-preview">
       <nav
-        aria-label="Member 4 design preview"
+        aria-label={t("Member 4 design preview")}
         className="marketplace-preview__toolbar"
       >
         <div>
-          <strong>MIU Freelance. Design studio</strong>
-          <p>Member 4 pages, styled to match the project marketplace.</p>
+          <strong>{t("MIU Freelance. Design studio")}</strong>
+          <p>{t("Member 4 pages, styled to match the project marketplace.")}</p>
         </div>
         <Select
-          label="Page to preview"
+          label={t("Page to preview")}
           value={page}
           onChange={(event) => setPage(event.target.value)}
         >
           {PAGES.map(([id, label]) => (
             <option key={id} value={id}>
-              {label}
+              {t(label)}
             </option>
           ))}
         </Select>
         <a className="inline-block underline" href="/shared-ui-preview.html">
-          Open all shared components
+          {t("Open all shared components")}
         </a>
       </nav>
       <PublicLayout
@@ -81,7 +84,7 @@ export default function PublicPagesPreview() {
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ThemeProvider>
+    <ThemeProvider pageTitle="Public pages preview">
       <PublicPagesPreview />
     </ThemeProvider>
   </StrictMode>,

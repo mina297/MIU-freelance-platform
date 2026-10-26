@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Layers3, Search, SlidersHorizontal } from "lucide-react";
@@ -21,6 +22,8 @@ export default function ServicesCatalogue({
   state = "ready",
   onRetry,
 }) {
+  const { t, count } = useLanguage();
+
   const data = useServiceData(suppliedData);
   const [filters, setFilters] = useState({ ...EMPTY_SERVICE_FILTERS });
   const [draft, setDraft] = useState("");
@@ -43,36 +46,38 @@ export default function ServicesCatalogue({
       <section className="services-hero" aria-labelledby="services-title">
         <div className="services-container services-hero__layout">
           <div>
-            <p className="services-eyebrow">THE SERVICE MARKETPLACE</p>
+            <p className="services-eyebrow">{t("THE SERVICE MARKETPLACE")}</p>
             <h1 id="services-title">
-              Big ideas.
+              {t("Big ideas.")}
               <br />
-              <em>Expertly made.</em>
+              <em>{t("Expertly made.")}</em>
             </h1>
             <p className="services-hero__intro">
-              Find a clear scope, a creative mind, and the right service to
-              bring your next idea to life.
+              {t(
+                "Find a clear scope, a creative mind, and the right service to bring your next idea to life.",
+              )}
             </p>
             <div className="services-hero__points">
-              <span>EGP pricing</span>
-              <span>Defined packages</span>
-              <span>Student talent</span>
+              <span>{t("EGP pricing")}</span>
+              <span>{t("Defined packages")}</span>
+              <span>{t("Student talent")}</span>
             </div>
           </div>
           <div className="services-hero__note">
             <Layers3 size={32} aria-hidden="true" />
-            <p className="services-eyebrow">A DIFFERENT WAY TO WORK</p>
+            <p className="services-eyebrow">{t("A DIFFERENT WAY TO WORK")}</p>
             <h2>
-              Choose the craft.
+              {t("Choose the craft.")}
               <br />
-              Know the scope.
+              {t("Know the scope.")}
             </h2>
             <p>
-              Browse ready-defined services instead of posting a project and
-              waiting for proposals.
+              {t(
+                "Browse ready-defined services instead of posting a project and waiting for proposals.",
+              )}
             </p>
             <Link to="/projects">
-              Prefer to post a brief? Explore projects{" "}
+              {t("Prefer to post a brief? Explore projects")}{" "}
               <ArrowUpRight size={16} aria-hidden="true" />
             </Link>
           </div>
@@ -82,7 +87,7 @@ export default function ServicesCatalogue({
         <form
           className="services-search"
           role="search"
-          aria-label="Search services"
+          aria-label={t("Search services")}
           onSubmit={(event) => {
             event.preventDefault();
             setFilters((current) => ({ ...current, query: draft.trim() }));
@@ -90,26 +95,26 @@ export default function ServicesCatalogue({
         >
           <Search aria-hidden="true" />
           <Input
-            label="Discover services"
-            placeholder="Search titles or descriptions…"
+            label={t("Discover services")}
+            placeholder={t("Search titles or descriptions…")}
             value={draft}
             maxLength={160}
             onChange={(event) => setDraft(event.target.value)}
             disabled={!ready}
           />
           <Button type="submit" disabled={!ready}>
-            Find services <ArrowUpRight size={16} aria-hidden="true" />
+            {t("Find services")} <ArrowUpRight size={16} aria-hidden="true" />
           </Button>
         </form>
         <p className="services-disclosure">
-          Fictional Phase 1 listings. Prices and delivery describe the starting
-          package. Open a service to compare packages and configure a simulated
-          order. Profiles and payment processing are not connected yet.
+          {t(
+            "Fictional Phase 1 listings. Prices and delivery describe the starting package. Open a service to compare packages and configure a simulated order. Profiles and payment processing are not connected yet.",
+          )}
         </p>
         <div
           className="services-categories"
           role="group"
-          aria-label="Service categories"
+          aria-label={t("Service categories")}
         >
           {[{ id: "", label: "All services" }, ...data.categories].map(
             ({ id, label }) => (
@@ -122,7 +127,7 @@ export default function ServicesCatalogue({
                   setFilters((current) => ({ ...current, categoryId: id }))
                 }
               >
-                {label}
+                {t(label)}
               </Button>
             ),
           )}
@@ -130,7 +135,7 @@ export default function ServicesCatalogue({
         <div className="services-workspace">
           <aside
             className="services-refine"
-            aria-label="Refine service results"
+            aria-label={t("Refine service results")}
           >
             <Button
               className="services-refine__toggle"
@@ -139,46 +144,48 @@ export default function ServicesCatalogue({
               aria-controls="service-filters"
               onClick={() => setFiltersOpen((open) => !open)}
             >
-              <SlidersHorizontal size={17} aria-hidden="true" /> Refine results
+              <SlidersHorizontal size={17} aria-hidden="true" />{" "}
+              {t("Refine results")}
             </Button>
             <div
               id="service-filters"
               className={`services-filters ${filtersOpen ? "services-filters--open" : ""}`}
             >
               <div className="services-filters__heading">
-                <h2>Refine your search</h2>
+                <h2>{t("Refine your search")}</h2>
                 <Button variant="ghost" onClick={reset}>
-                  Reset
+                  {t("Reset")}
                 </Button>
               </div>
               <Select
-                label="Required skill"
+                label={t("Required skill")}
                 value={filters.skillId}
                 onChange={update("skillId")}
                 disabled={!ready}
               >
-                <option value="">All skills</option>
+                <option value="">{t("All skills")}</option>
                 {data.skills.map(({ id, label }) => (
                   <option key={id} value={id}>
-                    {label}
+                    {t(label)}
                   </option>
                 ))}
               </Select>
               <Select
-                label="Starting price"
+                label={t("Starting price")}
                 value={filters.price}
                 onChange={update("price")}
                 disabled={!ready}
               >
                 {servicePriceOptions.map(({ value, label }) => (
                   <option key={value} value={value}>
-                    {label}
+                    {t(label)}
                   </option>
                 ))}
               </Select>
               <p className="services-filters__tip">
-                A good fit starts with a clear scope. Compare what is included,
-                not just the price.
+                {t(
+                  "A good fit starts with a clear scope. Compare what is included, not just the price.",
+                )}
               </p>
             </div>
           </aside>
@@ -189,34 +196,37 @@ export default function ServicesCatalogue({
             <div className="services-results__heading">
               <div>
                 <p className="services-eyebrow">
-                  CRAFTED FOR YOUR NEXT CHAPTER
+                  {t("CRAFTED FOR YOUR NEXT CHAPTER")}
                 </p>
-                <h2 id="service-results-title">Services to explore</h2>
+                <h2 id="service-results-title">{t("Services to explore")}</h2>
                 {ready && (
                   <p role="status">
-                    {results.length}{" "}
-                    {results.length === 1 ? "service" : "services"} found
+                    {count("service", results.length)} {t("found")}
                   </p>
                 )}
               </div>
               <Select
-                label="Sort services"
+                label={t("Sort services")}
                 value={filters.sort}
                 onChange={update("sort")}
                 disabled={!ready}
               >
-                <option value="newest">Newest first</option>
-                <option value="price_low">Starting price: low to high</option>
-                <option value="price_high">Starting price: high to low</option>
+                <option value="newest">{t("Newest first")}</option>
+                <option value="price_low">
+                  {t("Starting price: low to high")}
+                </option>
+                <option value="price_high">
+                  {t("Starting price: high to low")}
+                </option>
                 <option value="delivery">
-                  Starting package: shortest delivery
+                  {t("Starting package: shortest delivery")}
                 </option>
               </Select>
             </div>
             {ready && active && (
               <div className="services-active">
                 <p>
-                  Filtered by{" "}
+                  {t("Filtered by")}{" "}
                   {[
                     filters.query && `“${filters.query}”`,
                     data.categories.find(({ id }) => id === filters.categoryId)
@@ -231,16 +241,18 @@ export default function ServicesCatalogue({
                     .join(" · ")}
                 </p>
                 <Button variant="ghost" onClick={reset}>
-                  Clear filters
+                  {t("Clear filters")}
                 </Button>
               </div>
             )}
             {state === "loading" ? (
-              <LoadingState message="Loading service listings…" />
+              <LoadingState message={t("Loading service listings…")} />
             ) : !ready ? (
               <ErrorState
-                title="Services are unavailable"
-                description="The catalogue could not be displayed. No order or payment has been created."
+                title={t("Services are unavailable")}
+                description={t(
+                  "The catalogue could not be displayed. No order or payment has been created.",
+                )}
                 onRetry={onRetry}
               />
             ) : results.length ? (
@@ -256,14 +268,18 @@ export default function ServicesCatalogue({
               </div>
             ) : (
               <EmptyState
-                title={
-                  active ? "No matching services" : "No published services yet"
-                }
-                description={
+                title={t(
                   active
-                    ? "Try a different keyword, category, skill or starting price."
-                    : "Check back for new student services."
-                }
+                    ? t("No matching services")
+                    : t("No published services yet"),
+                )}
+                description={t(
+                  active
+                    ? t(
+                        "Try a different keyword, category, skill or starting price.",
+                      )
+                    : t("Check back for new student services."),
+                )}
                 onAction={active ? reset : undefined}
               />
             )}

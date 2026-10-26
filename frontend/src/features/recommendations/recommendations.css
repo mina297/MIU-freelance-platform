@@ -81,7 +81,7 @@
 .recommendation-card__reason {
   margin-block: 22px;
   border: 1px solid var(--theme-border, #d6b9c9);
-  border-left: 4px solid var(--theme-border, #a52e50);
+  border-inline-start: 4px solid var(--theme-border, #a52e50);
   background: var(--theme-accent-surface, #fcf2f7);
   padding: 18px 20px;
   border-radius: 10px;
@@ -94,7 +94,7 @@
   margin-bottom: 6px;
 }
 .recommendation-card__reason ul {
-  padding-left: 18px;
+  padding-inline-start: 18px;
 }
 .recommendation-card dl {
   display: flex;

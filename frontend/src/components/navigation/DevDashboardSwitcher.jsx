@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
@@ -16,6 +17,8 @@ const dashboards = [
 
 // Temporary navigation only: no session, role, or dashboard state belongs here.
 export default function DevDashboardSwitcher() {
+  const { t } = useLanguage();
+
   const ref = useRef(null);
   const { pathname, search } = useLocation();
   useEffect(() => {
@@ -31,7 +34,7 @@ export default function DevDashboardSwitcher() {
   return (
     <nav
       className="dev-dashboard-navigation"
-      aria-label="Development navigation"
+      aria-label={t("Development navigation")}
     >
       <details
         ref={ref}
@@ -45,10 +48,10 @@ export default function DevDashboardSwitcher() {
       >
         <summary>
           <span className="dev-dashboard-dot" aria-hidden="true" />
-          Switch dashboard
+          {t("Switch dashboard")}
           <ChevronDown size={14} aria-hidden="true" />
         </summary>
-        <ul aria-label="Dashboards">
+        <ul aria-label={t("Dashboards")}>
           {dashboards.map(({ label, path }) => (
             <li key={label}>
               {path ? (
@@ -59,12 +62,12 @@ export default function DevDashboardSwitcher() {
                     ref.current.open = false;
                   }}
                 >
-                  {label}
+                  {t(label)}
                 </Link>
               ) : (
                 <span aria-disabled="true">
-                  {label}
-                  <small>Coming soon</small>
+                  {t(label)}
+                  <small>{t("Coming soon")}</small>
                 </span>
               )}
             </li>

@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../hooks/useAuth.js";
 import { orderParticipantError } from "./orderWorkspaceModel.js";
@@ -15,6 +16,8 @@ import Checkbox from "../../components/ui/Checkbox.jsx";
 import Modal from "../../components/ui/Modal.jsx";
 
 function DeliveryPanel({ order, session }) {
+  const { t, locale } = useLanguage();
+
   const [text, setText] = useState("");
   const [ids, setIds] = useState([]);
   const [errors, setErrors] = useState({});
@@ -101,22 +104,23 @@ function DeliveryPanel({ order, session }) {
   return (
     <Card className="order-workspace__panel order-delivery">
       <h3 ref={heading} tabIndex={-1}>
-        Delivery & revisions
+        {t("Delivery & revisions")}
       </h3>
       <p>
-        Fictional submissions and sample metadata only. Delivery actions never
-        process payments, release escrow, notify users or upload real files.
+        {t(
+          "Fictional submissions and sample metadata only. Delivery actions never process payments, release escrow, notify users or upload real files.",
+        )}
       </p>
-      <p role="status">{notice}</p>
+      <p role="status">{t(notice)}</p>
       {order.status === "completed" && (
         <div className="order-delivery__complete">
-          <strong>Order completed — simulation</strong>
+          <strong>{t("Order completed — simulation")}</strong>
           <p>
-            Accepted{" "}
+            {t("Accepted")}{" "}
             {order.completedAt
-              ? formatDate(order.completedAt)
-              : "date unavailable"}
-            . No financial settlement occurred.
+              ? formatDate(order.completedAt, locale)
+              : t("date unavailable")}
+            {t(". No financial settlement occurred.")}
           </p>
         </div>
       )}
@@ -125,12 +129,14 @@ function DeliveryPanel({ order, session }) {
           {order.deliveries.map((delivery, index) => (
             <li key={delivery.id}>
               <div className="order-delivery__meta">
-                <h4>Delivery {index + 1}</h4>
+                <h4>
+                  {t("Delivery")} {index + 1}
+                </h4>
                 <span>{delivery.status.replaceAll("_", " ")}</span>
               </div>
               <p>
-                Submitted by {delivery.submittedName} ·{" "}
-                {formatDate(delivery.submittedAt)}
+                {t("Submitted by")} {delivery.submittedName} ·{" "}
+                {formatDate(delivery.submittedAt, locale)}
               </p>
               <p className="order-workspace__text">{delivery.text}</p>
               {delivery.attachmentIds.length > 0 && (
@@ -139,29 +145,31 @@ function DeliveryPanel({ order, session }) {
                     <li key={id}>
                       {DELIVERY_SAMPLES.find((sample) => sample.id === id)
                         ?.name ?? "Sample unavailable"}{" "}
-                      (fictional metadata only)
+                      {t("(fictional metadata only)")}
                     </li>
                   ))}
                 </ul>
               )}
               {delivery.revision && (
                 <div className="order-delivery__revision">
-                  <strong>Client revision request</strong>
+                  <strong>{t("Client revision request")}</strong>
                   <p className="order-workspace__text">
                     {delivery.revision.text}
                   </p>
-                  <p>{formatDate(delivery.revision.requestedAt)}</p>
+                  <p>{formatDate(delivery.revision.requestedAt, locale)}</p>
                 </div>
               )}
               {delivery.acceptedAt && (
-                <p>Accepted {formatDate(delivery.acceptedAt)}</p>
+                <p>
+                  {t("Accepted")} {formatDate(delivery.acceptedAt, locale)}
+                </p>
               )}
             </li>
           ))}
         </ol>
       ) : (
         <div className="order-workspace__empty">
-          No student delivery has been submitted.
+          {t("No student delivery has been submitted.")}
         </div>
       )}
       {actionError ? (
@@ -174,34 +182,38 @@ function DeliveryPanel({ order, session }) {
           className="order-workspace__form"
         >
           <Textarea
-            label={
+            label={t(
               action === "submit"
-                ? "Delivery handover note"
-                : "Requested revisions"
-            }
+                ? t("Delivery handover note")
+                : t("Requested revisions"),
+            )}
             name="delivery-note"
             value={text}
             onChange={(event) => setText(event.target.value)}
             maxLength={3000}
             rows={5}
             required
-            error={errors.text}
-            helperText={
+            error={t(errors.text)}
+            helperText={t(
               action === "submit"
-                ? "Describe the fictional work being handed over. Do not enter real sensitive data."
-                : "Explain the requested changes. No revision count or deadline policy is invented."
-            }
+                ? t(
+                    "Describe the fictional work being handed over. Do not enter real sensitive data.",
+                  )
+                : t(
+                    "Explain the requested changes. No revision count or deadline policy is invented.",
+                  ),
+            )}
           />
           {action === "submit" && (
             <fieldset className="order-workspace__attachments">
-              <legend>Fictional delivery samples (optional)</legend>
-              <p>No real files are uploaded or downloaded.</p>
+              <legend>{t("Fictional delivery samples (optional)")}</legend>
+              <p>{t("No real files are uploaded or downloaded.")}</p>
               {DELIVERY_SAMPLES.map((sample, index) => (
                 <Checkbox
                   key={sample.id}
-                  label={sample.name}
+                  label={t(sample.name)}
                   checked={ids.includes(sample.id)}
-                  error={index === 0 ? errors.attachmentIds : undefined}
+                  error={t(index === 0 ? errors.attachmentIds : undefined)}
                   onChange={(event) =>
                     setIds((current) =>
                       event.target.checked
@@ -220,8 +232,8 @@ function DeliveryPanel({ order, session }) {
           )}
           <Button type="submit">
             {action === "submit"
-              ? "Review demo delivery"
-              : "Review revision request"}
+              ? t("Review demo delivery")
+              : t("Review revision request")}
           </Button>
         </form>
       )}
@@ -237,37 +249,41 @@ function DeliveryPanel({ order, session }) {
             });
           }}
         >
-          Accept latest delivery
+          {t("Accept latest delivery")}
         </Button>
       )}
       <Modal
         open={!!confirmation}
         onClose={close}
         initialFocusRef={keepButton}
-        title={
+        title={t(
           confirmation?.action === "accept"
-            ? "Accept delivery and complete this demo order?"
+            ? t("Accept delivery and complete this demo order?")
             : confirmation?.action === "revise"
               ? "Request these revisions?"
-              : "Submit this demo delivery?"
-        }
-        description={
+              : "Submit this demo delivery?",
+        )}
+        description={t(
           confirmation?.action === "accept"
-            ? "Completion records acceptance only. It does not release funds or perform financial settlement."
-            : "Only the latest current delivery/status can be changed. No notification, financial action or real upload occurs."
-        }
+            ? t(
+                "Completion records acceptance only. It does not release funds or perform financial settlement.",
+              )
+            : t(
+                "Only the latest current delivery/status can be changed. No notification, financial action or real upload occurs.",
+              ),
+        )}
         actions={
           <>
             <Button ref={keepButton} variant="outline" onClick={close}>
-              Keep order unchanged
+              {t("Keep order unchanged")}
             </Button>
             <Button onClick={confirm}>
-              Confirm demo{" "}
+              {t("Confirm demo")}{" "}
               {confirmation?.action === "accept"
-                ? "acceptance"
+                ? t("acceptance")
                 : confirmation?.action === "revise"
-                  ? "revision request"
-                  : "delivery"}
+                  ? t("revision request")
+                  : t("delivery")}
             </Button>
           </>
         }
@@ -277,8 +293,8 @@ function DeliveryPanel({ order, session }) {
         )}
         {confirmation?.action === "submit" && (
           <p>
-            {confirmation.values.attachmentIds.length} fictional samples
-            selected.
+            {confirmation.values.attachmentIds.length}{" "}
+            {t("fictional samples selected.")}
           </p>
         )}
         {errors.form && (

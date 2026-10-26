@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useMemo, useState, useSyncExternalStore } from "react";
 import { mergeProjects, projectStore } from "./projectStore.js";
 import {
@@ -26,6 +27,8 @@ import ProjectCard from "./ProjectCard.jsx";
 import ProjectsHero from "./ProjectsHero.jsx";
 
 export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
+  const { t, count } = useLanguage();
+
   const demoProjects = useSyncExternalStore(
     projectStore.subscribe,
     projectStore.getSnapshot,
@@ -139,9 +142,9 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
     <div className="min-h-screen bg-[color:var(--theme-subtle-surface,#eee9ed)] font-sans text-[color:var(--theme-text,#262126)]">
       <a
         href="#project-results"
-        className="sr-only z-50 rounded-lg bg-[var(--theme-surface,#fff)] p-3 text-[var(--theme-accent,var(--color-miu-red))] focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        className="sr-only z-50 rounded-lg bg-[var(--theme-surface,#fff)] p-3 text-[var(--theme-accent,var(--color-miu-red))] focus:not-sr-only focus:fixed focus:start-4 focus:top-4"
       >
-        Skip to projects
+        {t("Skip to projects")}
       </a>
       <p role="status" className="sr-only">
         {saveNotice}
@@ -151,7 +154,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
           <div className="flex items-center gap-5">
             <img
               src={miuLogo}
-              alt="Misr International University"
+              alt={t("Misr International University")}
               className="h-12 w-auto max-w-[150px] object-contain"
             />
             <span
@@ -159,35 +162,35 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
               aria-hidden="true"
             />
             <span className="hidden text-sm font-bold text-[color:var(--theme-text,#3e3036)] sm:block">
-              Freelance
+              {t("Freelance")}
               <span className="text-[var(--theme-accent,var(--color-miu-red))]">
                 .
               </span>
             </span>
           </div>
           <nav
-            aria-label="Catalogue navigation"
+            aria-label={t("Catalogue navigation")}
             className="hidden items-center gap-7 text-sm font-semibold text-[color:var(--theme-muted-text,#67515c)] md:flex"
           >
             <a
               href="#discover"
               className="py-3 hover:text-[var(--theme-accent,var(--color-miu-red))] focus-visible:outline-2 focus-visible:outline-miu-red"
             >
-              Discover
+              {t("Discover")}
             </a>
             <a
               href="#project-results"
               onClick={() => setSavedOnly(false)}
               className={`border-b-2 py-3 focus-visible:outline-2 focus-visible:outline-miu-red ${savedOnly ? "border-transparent hover:text-[var(--theme-accent,var(--color-miu-red))]" : "border-miu-red text-[var(--theme-accent,var(--color-miu-red))]"}`}
             >
-              Projects
+              {t("Projects")}
             </a>
             <a
               href="#project-results"
               onClick={() => setSavedOnly(true)}
               className={`flex items-center gap-2 border-b-2 py-3 hover:text-[var(--theme-accent,var(--color-miu-red))] focus-visible:outline-2 focus-visible:outline-miu-red ${savedOnly ? "border-miu-red text-[var(--theme-accent,var(--color-miu-red))]" : "border-transparent"}`}
             >
-              <Bookmark size={15} aria-hidden="true" /> Saved{" "}
+              <Bookmark size={15} aria-hidden="true" /> {t("Saved")}{" "}
               <span className="rounded-full bg-[color:var(--theme-accent-surface,#f8edf0)] px-2 py-0.5 text-xs text-[var(--theme-accent,var(--color-miu-red))]">
                 {savedIds.length}
               </span>
@@ -199,7 +202,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
               onClick={onCreateProject}
               className="min-h-11 shrink-0 rounded-lg border border-miu-red bg-miu-red px-4 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
             >
-              Post a project
+              {t("Post a project")}
             </button>
           ) : (
             <span className="inline-flex items-center gap-2 rounded-full bg-[color:var(--theme-accent-surface,#fdf2f3)] px-3 py-1.5 text-xs font-semibold text-[color:var(--theme-accent,#a52234)]">
@@ -207,7 +210,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                 className="size-1.5 rounded-full bg-miu-red"
                 aria-hidden="true"
               />{" "}
-              Phase 1 preview
+              {t("Phase 1 preview")}
             </span>
           )}
         </div>
@@ -233,13 +236,13 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                 htmlFor="project-search"
                 className="mb-1 block text-xs font-bold uppercase tracking-[0.12em] text-[color:var(--theme-accent,#a24453)]"
               >
-                Discover projects
+                {t("Discover projects")}
               </label>
               <input
                 id="project-search"
                 value={searchDraft}
                 onChange={(event) => setSearchDraft(event.target.value)}
-                placeholder="Search project titles or keywords..."
+                placeholder={t("Search project titles or keywords...")}
                 className="w-full bg-transparent py-1 text-sm text-[color:var(--theme-text,#2f272b)] outline-none placeholder:text-[color:var(--theme-muted-text,#a99fa3)]"
               />
             </div>
@@ -250,7 +253,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                   setSearchDraft("");
                   setQuery("");
                 }}
-                aria-label="Clear search"
+                aria-label={t("Clear search")}
                 className="self-end grid size-11 place-items-center rounded-lg text-[color:var(--theme-muted-text,#796b72)] hover:bg-[color:var(--theme-accent-surface,#faf3f4)] focus-visible:outline-2 focus-visible:outline-miu-red sm:self-auto"
               >
                 <X size={18} aria-hidden="true" />
@@ -260,7 +263,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
               type="submit"
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-miu-red px-7 text-sm font-bold text-white transition-colors hover:bg-miu-red-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
             >
-              Find projects <ArrowRight size={17} aria-hidden="true" />
+              {t("Find projects")} <ArrowRight size={17} aria-hidden="true" />
             </button>
           </form>
         </div>
@@ -269,18 +272,20 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
           <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--theme-accent,var(--color-miu-red))]">
-                Browse by discipline
+                {t("Browse by discipline")}
               </p>
               <h2 className="mt-1 text-2xl font-bold tracking-[-0.04em] text-[color:var(--theme-text,#2b2227)] sm:text-3xl">
-                Find your kind of work
+                {t("Find your kind of work")}
               </h2>
             </div>
             <p className="max-w-md text-sm leading-6 text-[color:var(--theme-muted-text,#797075)]">
-              Explore opportunities shaped around your interests and skills.
+              {t(
+                "Explore opportunities shaped around your interests and skills.",
+              )}
             </p>
           </div>
           <div
-            aria-label="Project categories"
+            aria-label={t("Project categories")}
             className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4"
           >
             {categories.map((category) => (
@@ -304,7 +309,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
               >
                 <span className="flex items-center gap-2">
                   <SlidersHorizontal size={17} aria-hidden="true" />
-                  Refine results{" "}
+                  {t("Refine results")}{" "}
                   {activeFilters.length > 0 && `(${activeFilters.length})`}
                 </span>
                 <ChevronDown
@@ -337,28 +342,27 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--theme-accent,var(--color-miu-red))]">
-                    Fresh opportunities
+                    {t("Fresh opportunities")}
                   </p>
                   <h2
                     id="results-heading"
                     className="mt-1 text-[28px] font-bold tracking-[-0.04em] text-[color:var(--theme-text,#2b2227)] sm:text-[34px]"
                   >
-                    Projects to explore
+                    {t("Projects to explore")}
                   </h2>
                   <p
                     role="status"
                     className="mt-1 text-sm text-[color:var(--theme-muted-text,#80777c)]"
                   >
-                    {results.length}{" "}
-                    {results.length === 1 ? "project" : "projects"} found
+                    {count("project", results.length)} {t("found")}
                   </p>
                 </div>
                 <div>
                   <label
                     htmlFor="project-sort"
-                    className="mr-2 text-xs font-medium text-[color:var(--theme-muted-text,#837a7f)]"
+                    className="me-2 text-xs font-medium text-[color:var(--theme-muted-text,#837a7f)]"
                   >
-                    Sort by
+                    {t("Sort by")}
                   </label>
                   <select
                     id="project-sort"
@@ -366,15 +370,19 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                     onChange={(event) => setSort(event.target.value)}
                     className="rounded-xl border border-[color:var(--theme-border,#ab95a1)] bg-[var(--theme-surface,#fff)] px-3 py-2.5 text-sm font-semibold text-[color:var(--theme-text,#40363b)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
                   >
-                    <option value="newest">Newest first</option>
-                    <option value="budget_low">Budget: low to high</option>
-                    <option value="budget_high">Budget: high to low</option>
+                    <option value="newest">{t("Newest first")}</option>
+                    <option value="budget_low">
+                      {t("Budget: low to high")}
+                    </option>
+                    <option value="budget_high">
+                      {t("Budget: high to low")}
+                    </option>
                   </select>
                 </div>
               </div>
               {activeFilters.length > 0 && (
                 <div
-                  aria-label="Active filters"
+                  aria-label={t("Active filters")}
                   className="mt-5 flex flex-wrap items-center gap-2"
                 >
                   {activeFilters.map((filter) => (
@@ -386,7 +394,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                     >
                       {filter.label}
                       <X size={13} aria-hidden="true" />
-                      <span className="sr-only">Remove filter</span>
+                      <span className="sr-only">{t("Remove filter")}</span>
                     </button>
                   ))}
                   <button
@@ -394,7 +402,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                     onClick={clearFilters}
                     className="px-2 py-1.5 text-xs font-semibold text-[color:var(--theme-muted-text,#80767b)] hover:text-[var(--theme-accent,var(--color-miu-red))] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
                   >
-                    Clear all
+                    {t("Clear all")}
                   </button>
                 </div>
               )}
@@ -422,15 +430,19 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                   </span>
                   <h3 className="mt-5 text-xl font-bold">
                     {openProjects.length
-                      ? "No matching projects"
-                      : "No open projects right now"}
+                      ? t("No matching projects")
+                      : t("No open projects right now")}
                   </h3>
                   <p className="mt-2 text-sm text-[color:var(--theme-muted-text,#7d7379)]">
                     {!openProjects.length
-                      ? "All current projects are unavailable for new proposals. Check back for new opportunities."
+                      ? t(
+                          "All current projects are unavailable for new proposals. Check back for new opportunities.",
+                        )
                       : savedOnly
-                        ? "Save a project or turn off the saved filter to see more."
-                        : "Try another keyword or adjust your filters."}
+                        ? t(
+                            "Save a project or turn off the saved filter to see more.",
+                          )
+                        : t("Try another keyword or adjust your filters.")}
                   </p>
                   {openProjects.length > 0 && (
                     <button
@@ -438,14 +450,16 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
                       onClick={clearFilters}
                       className="mt-6 inline-flex items-center gap-2 rounded-xl bg-miu-red px-5 py-3 text-sm font-semibold text-white hover:bg-miu-red-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
                     >
-                      <RotateCcw size={16} aria-hidden="true" /> Clear filters
+                      <RotateCcw size={16} aria-hidden="true" />{" "}
+                      {t("Clear filters")}
                     </button>
                   )}
                 </div>
               )}
               <p className="mt-5 text-xs leading-5 text-[color:var(--theme-muted-text,#968c91)]">
-                Fictional Phase 1 listings. Saved projects stay only while this
-                preview is open.
+                {t(
+                  "Fictional Phase 1 listings. Saved projects stay only while this preview is open.",
+                )}
               </p>
             </section>
           </div>
@@ -454,17 +468,17 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
       <footer className="border-t border-[color:var(--theme-border,#cdbfc5)] bg-[var(--theme-surface,#fff)]">
         <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-between gap-4 px-5 py-7 text-xs text-[color:var(--theme-muted-text,#75616b)] sm:px-8 lg:px-10">
           <span className="text-sm font-bold text-[color:var(--theme-accent,#4a2939)]">
-            MIU Freelance
+            {t("MIU Freelance")}
             <span className="text-[var(--theme-accent,var(--color-miu-red))]">
               .
             </span>
           </span>
-          <span>Student talent. Thoughtful work.</span>
+          <span>{t("Student talent. Thoughtful work.")}</span>
           <a
             href="#discover"
             className="inline-flex min-h-11 items-center gap-2 font-semibold text-[var(--theme-accent,var(--color-miu-red))] hover:underline focus-visible:outline-2 focus-visible:outline-miu-red"
           >
-            Back to discovery <ArrowRight size={14} aria-hidden="true" />
+            {t("Back to discovery")} <ArrowRight size={14} aria-hidden="true" />
           </a>
         </div>
       </footer>

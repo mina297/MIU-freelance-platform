@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { getStarDisplay } from "../../profiles/utils/ratingDisplay.js";
 
 /**
@@ -16,6 +17,8 @@ import { getStarDisplay } from "../../profiles/utils/ratingDisplay.js";
  * }} props
  */
 export default function ReviewCard({ review }) {
+  const { t, locale } = useLanguage();
+
   const { filled, empty, label } = getStarDisplay(review.rating);
   const initials =
     review.reviewerInitials ||
@@ -26,7 +29,7 @@ export default function ReviewCard({ review }) {
       .map((p) => p[0]?.toUpperCase() ?? "")
       .join("");
 
-  const dateLabel = new Date(review.createdAt).toLocaleDateString("en-GB", {
+  const dateLabel = new Date(review.createdAt).toLocaleDateString(locale, {
     day: "numeric",
     month: "short",
     year: "numeric",
@@ -48,7 +51,7 @@ export default function ReviewCard({ review }) {
             </h3>
             {review.simulated ? (
               <span className="rounded-full bg-surface-muted px-2 py-0.5 text-[11px] font-medium text-ink-secondary">
-                Simulated submission
+                {t("Simulated submission")}
               </span>
             ) : null}
           </div>
@@ -62,7 +65,7 @@ export default function ReviewCard({ review }) {
               {"★".repeat(filled)}
               <span className="text-[#d1d5db]">{"★".repeat(empty)}</span>
             </span>
-            <span className="font-semibold text-miu-black">{label}</span>
+            <span className="font-semibold text-miu-black">{t(label)}</span>
             <span className="text-ink-secondary">{dateLabel}</span>
           </div>
         </div>
@@ -74,7 +77,7 @@ export default function ReviewCard({ review }) {
 
       {review.jobLabel ? (
         <p className="mt-3 text-sm font-medium text-miu-black">
-          Project:{" "}
+          {t("Project:")}{" "}
           <span className="font-normal text-ink-secondary">
             {review.jobLabel}
           </span>

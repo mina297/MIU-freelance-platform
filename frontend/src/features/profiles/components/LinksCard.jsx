@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { ArrowUpRight, Code2, Globe, Link2 } from "lucide-react";
 import { resolveExternalLink } from "../utils/safeExternalUrl.js";
 
@@ -18,6 +19,8 @@ const LINK_ICONS = {
  * }} props
  */
 export default function LinksCard({ links = [] }) {
+  const { t } = useLanguage();
+
   return (
     <section
       className="flex w-full flex-col gap-5 overflow-hidden rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-6 shadow-[var(--shadow-panel)] sm:p-8"
@@ -27,18 +30,20 @@ export default function LinksCard({ links = [] }) {
         id="links-heading"
         className="text-lg font-semibold leading-normal text-miu-black"
       >
-        Links
+        {t("Links")}
       </h2>
 
       {links.length === 0 ? (
-        <p className="text-sm text-ink-secondary">No public links added yet.</p>
+        <p className="text-sm text-ink-secondary">
+          {t("No public links added yet.")}
+        </p>
       ) : (
         <ul className="flex flex-col gap-5">
           {links.map((link) => {
             const Icon = LINK_ICONS[link.type] ?? Globe;
             const resolved = resolveExternalLink(link.href || link.urlDisplay);
             const rowClass =
-              "flex w-full items-center gap-3 rounded-lg text-left transition hover:bg-surface-page focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red";
+              "flex w-full items-center gap-3 rounded-lg text-start transition hover:bg-surface-page focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red";
 
             const content = (
               <>
@@ -47,21 +52,21 @@ export default function LinksCard({ links = [] }) {
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-semibold text-miu-black">
-                    {link.label}
+                    {t(link.label)}
                   </p>
                   <p className="truncate text-[13px] text-[var(--theme-accent,var(--color-miu-red))]">
                     {resolved.display || link.urlDisplay}
                   </p>
                   {resolved.isDemoOnly ? (
                     <p className="mt-0.5 text-[11px] text-ink-secondary">
-                      Demo example · not a live external link
+                      {t("Demo example · not a live external link")}
                     </p>
                   ) : null}
                   {!resolved.isSafe &&
                   !resolved.isDemoOnly &&
                   resolved.display ? (
                     <p className="mt-0.5 text-[11px] text-ink-secondary">
-                      Incomplete URL · open disabled
+                      {t("Incomplete URL · open disabled")}
                     </p>
                   ) : null}
                 </div>

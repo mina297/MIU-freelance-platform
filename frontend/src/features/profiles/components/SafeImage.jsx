@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { useState } from "react";
 
 /** Image with a simple placeholder when the source is missing or fails. */
@@ -10,6 +11,8 @@ export default function SafeImage({
   width,
   height,
 }) {
+  const { t } = useLanguage();
+
   const [failed, setFailed] = useState(false);
   const usable = Boolean(src) && !failed;
 
@@ -21,7 +24,11 @@ export default function SafeImage({
           `flex items-center justify-center bg-surface-muted text-sm text-ink-secondary ${className}`
         }
         role="img"
-        aria-label={alt || placeholderLabel}
+        aria-label={
+          alt?.startsWith("Placeholder for ")
+            ? t("Placeholder for {name}", { name: alt.slice(16) })
+            : alt || t(placeholderLabel)
+        }
       >
         {placeholderLabel}
       </div>

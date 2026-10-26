@@ -1,3 +1,4 @@
+import { useLanguage } from "../i18n/LanguageContext.js";
 import { useId } from "react";
 import PublicHeader from "../components/navigation/PublicHeader.jsx";
 import PublicFooter from "../components/navigation/PublicFooter.jsx";
@@ -9,11 +10,13 @@ export default function PublicLayout({
   currentPath,
   accountAction,
 }) {
+  const { t } = useLanguage();
+
   const mainId = useId();
   return (
     <div className="miu-public-layout">
       <a className="miu-public-skip-link" href={`#${mainId}`}>
-        Skip to main content
+        {t("Skip to main content")}
       </a>
       <PublicHeader
         destinations={destinations}

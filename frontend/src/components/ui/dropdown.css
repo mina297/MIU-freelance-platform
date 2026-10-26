@@ -23,7 +23,7 @@
 .disclosure-panel {
   position: absolute;
   top: calc(100% + 12px);
-  left: 0;
+  inset-inline-start: 0;
   z-index: 40;
   border: 1px solid var(--border-soft);
   border-radius: 16px;
