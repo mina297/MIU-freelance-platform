@@ -140,6 +140,56 @@ test("Arabic help search finds translated content without changing the stored ar
 });
 
 let vite;
+test("homepage content lists render Arabic step and trust copy, not raw English metadata", async () => {
+  const [
+    { default: HowItWorks },
+    { default: LandingPage },
+    { LanguageContext },
+  ] = await Promise.all([
+    vite.ssrLoadModule("/src/features/public/HowItWorks.jsx"),
+    vite.ssrLoadModule("/src/features/public/LandingPage.jsx"),
+    vite.ssrLoadModule("/src/i18n/LanguageContext.js"),
+  ]);
+  const value = {
+    language: "ar",
+    setLanguage() {},
+    t: (key, values) => translate("ar", key, values),
+  };
+  const render = (element) =>
+    renderToStaticMarkup(
+      React.createElement(
+        MemoryRouter,
+        null,
+        React.createElement(LanguageContext.Provider, { value }, element),
+      ),
+    );
+  const steps = render(
+    React.createElement(HowItWorks, { motionEnabled: false }),
+  );
+  for (const key of [
+    "Post a job",
+    "Apply and get chosen",
+    "Review each other",
+    "Share your brief, budget and timeline. Give the right students a clear place to start.",
+    "Students bring their skills and proposals. Clients choose the right fit, and great work begins.",
+    "Deliver something great. Share feedback and turn a successful project into your next opportunity.",
+  ]) {
+    assert.ok(steps.includes(translate("ar", key)), key);
+    assert.ok(!steps.includes(key), `raw interface text: ${key}`);
+  }
+  const home = render(React.createElement(LandingPage));
+  for (const key of [
+    "Verified MIU community",
+    "Reputation you can trust",
+    "Experience that compounds",
+    "Student and client identities are connected to the university community.",
+    "Mutual ratings and completed-work history make good collaboration visible.",
+    "Every project helps students build a portfolio, references, and career momentum.",
+  ]) {
+    assert.ok(home.includes(translate("ar", key)), key);
+    assert.ok(!home.includes(key), `raw interface text: ${key}`);
+  }
+});
 before(async () => {
   vite = await createServer({
     server: { middlewareMode: true, hmr: false },

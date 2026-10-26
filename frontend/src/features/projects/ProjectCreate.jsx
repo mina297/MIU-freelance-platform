@@ -224,7 +224,7 @@ function ProjectCreateForm({ record }) {
                     `0${index + 1}`
                   )}
                 </span>
-                {title}
+                {t(title)}
               </li>
             ))}
           </ol>

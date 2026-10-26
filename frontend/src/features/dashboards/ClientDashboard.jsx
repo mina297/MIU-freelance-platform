@@ -119,7 +119,7 @@ export default function ClientDashboard() {
                 aria-current={section === key ? "page" : undefined}
               >
                 <Icon name={key} />
-                <span>{title}</span>
+                <span>{t(title)}</span>
                 {key === "applicants" && (
                   <b className="cd-nav-count">{metrics.applicants}</b>
                 )}
@@ -232,7 +232,7 @@ export default function ClientDashboard() {
                     [
                       "New applicants",
                       metrics.applicants,
-                      `Across ${metrics.open} open jobs`,
+                      t("Across {count} open jobs", { count: metrics.open }),
                       "users",
                     ],
                     [
@@ -250,7 +250,7 @@ export default function ClientDashboard() {
                   ].map(([title, value, caption, icon]) => (
                     <section className="sd-panel sd-stat" key={title}>
                       <div>
-                        <span>{title}</span>
+                        <span>{t(title)}</span>
                         <Icon name={icon} />
                       </div>
                       <strong>{value}</strong>

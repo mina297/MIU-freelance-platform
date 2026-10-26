@@ -1,4 +1,33 @@
 export default {
+  "Verified MIU community": "مجتمع MIU موثّق",
+  "Student and client identities are connected to the university community.":
+    "ترتبط هويات الطلاب والعملاء بالمجتمع الجامعي.",
+  "Reputation you can trust": "سمعة يمكنك الوثوق بها",
+  "Mutual ratings and completed-work history make good collaboration visible.":
+    "تُبرز التقييمات المتبادلة وسجل الأعمال المكتملة جودة التعاون.",
+  "Experience that compounds": "خبرة تنمو مع كل مشروع",
+  "Every project helps students build a portfolio, references, and career momentum.":
+    "يساعد كل مشروع الطلاب على بناء معرض أعمال وتوصيات وخبرة تدعم مسارهم المهني.",
+  "Applications sent": "طلبات التقديم المرسلة",
+  "This month": "هذا الشهر",
+  "Active jobs": "الأعمال النشطة",
+  "Completed jobs": "الأعمال المكتملة",
+  "All time": "كل الفترات",
+  "My rating": "تقييمي",
+  "No reviews yet": "لا توجد تقييمات بعد",
+  "32 client reviews": "٣٢ تقييمًا من العملاء",
+  "No active work": "لا توجد أعمال نشطة",
+  "Open jobs": "الأعمال المفتوحة",
+  "Accepting applications": "تستقبل طلبات التقديم",
+  "New applicants": "متقدمون جدد",
+  "Across {count} open jobs": "عبر {count} أعمال مفتوحة",
+  "Ready for approval": "جاهز للاعتماد",
+  "Write your brief": "اكتب وصف مشروعك",
+  "Review the details": "راجع التفاصيل",
+  "Publish demo": "نشر تجريبي",
+  "Part of the MIU community": "جزء من مجتمع MIU",
+  "Frontend prototype. Use test details. Identity checks, reviews, support and payments are planned.":
+    "نموذج أولي للواجهة. استخدم بيانات اختبار. التحقق من الهوية والتقييمات والدعم والدفع ميزات مخططة.",
   "How it works component preview": "معاينة مكون كيف تعمل المنصة",
   "Public pages preview": "معاينة الصفحات العامة",
   "Shared UI component preview": "معاينة مكونات الواجهة المشتركة",

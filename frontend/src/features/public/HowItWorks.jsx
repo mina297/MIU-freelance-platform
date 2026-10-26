@@ -148,8 +148,8 @@ export default function HowItWorks({ motionEnabled }) {
                       </span>
                       <span>{t(caption)}</span>
                     </div>
-                    <h3>{title}</h3>
-                    <p>{description}</p>
+                    <h3>{t(title)}</h3>
+                    <p>{t(description)}</p>
                   </article>
                   <span className="landing-step-number" aria-hidden="true">
                     0{index + 1}

@@ -67,7 +67,7 @@ function SectionHeading({ eyebrow, title, children, action }) {
     <div className="landing-heading">
       <div>
         <p className="landing-eyebrow">{t(eyebrow)}</p>
-        <h2>{title}</h2>
+        <h2>{t(title)}</h2>
         <p>{children}</p>
       </div>
       {action}
@@ -95,8 +95,12 @@ function PreviewDialog({ preview, onClose }) {
         </button>
       </form>
       <p className="landing-eyebrow">{t("Prototype preview")}</p>
-      <h2 id="preview-title">{preview?.title}</h2>
-      <p>{preview?.description}</p>
+      <h2 id="preview-title">
+        {preview?.interfaceOnly ? t(preview.title) : preview?.title}
+      </h2>
+      <p>
+        {preview?.interfaceOnly ? t(preview.description) : preview?.description}
+      </p>
       {preview?.skills && <Chips values={preview.skills} />}
       {preview?.budget && (
         <p>
@@ -176,6 +180,7 @@ export default function LandingPage() {
   }
   const showInfo = (title) =>
     setPreview({
+      interfaceOnly: true,
       title,
       description:
         "Frontend prototype. Use test details. Identity checks, reviews, support and payments are planned.",
@@ -588,8 +593,8 @@ export default function LandingPage() {
             ].map(([icon, title, description]) => (
               <article className="landing-card landing-trust-point" key={title}>
                 <Icon name={icon} />
-                <h3>{title}</h3>
-                <p>{description}</p>
+                <h3>{t(title)}</h3>
+                <p>{t(description)}</p>
               </article>
             ))}
           </div>
@@ -675,7 +680,7 @@ export default function LandingPage() {
             <div>
               {["Privacy", "Terms", "Community Guidelines"].map((title) => (
                 <button key={title} onClick={() => showInfo(title)}>
-                  {title}
+                  {t(title)}
                 </button>
               ))}
             </div>

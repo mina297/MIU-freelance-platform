@@ -1,4 +1,5 @@
 import { ShieldCheck } from "lucide-react";
+import LocalizedText from "../../../i18n/LocalizedText.jsx";
 
 /**
  * MIU community verification callout.
@@ -21,7 +22,7 @@ export default function CommunityCard({
         id="community-heading"
         className="text-base font-semibold leading-normal text-miu-black"
       >
-        {title}
+        <LocalizedText>{title}</LocalizedText>
       </h2>
       <p className="text-sm leading-[1.6] text-ink-secondary">{description}</p>
     </aside>

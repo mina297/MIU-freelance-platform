@@ -189,7 +189,7 @@ export default function SuperAdminDashboard() {
         <header className="ac-topbar">
           <span>
             {t("Administration")} <span aria-hidden="true">/</span>{" "}
-            <b>{title}</b>
+            <b>{t(title)}</b>
           </span>
           <span className="ac-account">
             <span className="ac-avatar">{t("SA")}</span>

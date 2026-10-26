@@ -319,7 +319,7 @@ export default function StudentDashboard() {
                 aria-current={section === key ? "page" : undefined}
               >
                 <Icon name={key} />
-                {title}
+                {t(title)}
               </button>
             ))}
           </nav>
@@ -427,7 +427,7 @@ export default function StudentDashboard() {
                   ].map(([title, value, caption, icon]) => (
                     <section className="sd-panel sd-stat" key={title}>
                       <div>
-                        <span>{title}</span>
+                        <span>{t(title)}</span>
                         <Icon name={icon} />
                       </div>
                       <strong>{value}</strong>

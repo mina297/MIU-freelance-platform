@@ -21,6 +21,22 @@ approved policy text; no binding Arabic policy was created.
 
 ## Verification record
 
+### Follow-up: raw content-list labels
+
+Mina's homepage screenshot exposed a coverage gap: the English/Arabic dictionary
+contained the How It Works translations, but destructured `title`/`description`
+values bypassed `t()` when rendered. Corrected those steps, homepage trust cards,
+footer labels, dashboard navigation/statistics, admin section breadcrumbs and
+project-creation step labels. Added missing authored metadata translations.
+Homepage information dialogs translate only explicitly marked interface content;
+job/profile preview content retains its original text.
+
+A new rendering regression test asserts all three step headings/descriptions and
+the trust-card copy are Arabic, with the original English interface sentences
+absent. All seven focused localization tests passed. Key presence and successful
+route rendering alone do not establish complete visible-text coverage. Browser
+acceptance and team approval remain pending as noted below.
+
 The first full regression run after the initial interface migration passed all
 321 existing tests. Six new localization checks passed for:
 

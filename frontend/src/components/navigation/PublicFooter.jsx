@@ -34,7 +34,7 @@ export default function PublicFooter({ destinations = {}, currentPath }) {
           <div className="miu-public-footer__groups">
             {FOOTER_GROUPS.map(({ title, links }) => (
               <nav key={title} aria-label={t(title)}>
-                <h2>{title}</h2>
+                <h2>{t(title)}</h2>
                 <ul>
                   {links.map(({ key, label }) => (
                     <li key={key}>
