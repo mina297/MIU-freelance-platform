@@ -1,9 +1,12 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useId, useRef, useState } from "react";
 import Modal from "../../components/ui/Modal.jsx";
 import Button from "../../components/ui/Button.jsx";
 import { projectStore } from "./projectStore.js";
 
 export default function ProjectActions({ project, session }) {
+  const { t } = useLanguage();
+
   const [action, setAction] = useState(null);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
@@ -41,7 +44,7 @@ export default function ProjectActions({ project, session }) {
   return (
     <div className="project-create__lifecycle">
       <p ref={feedback} role="status" tabIndex={-1}>
-        {notice}
+        {t(notice)}
       </p>
       {project.status !== "cancelled" && (
         <>
@@ -51,26 +54,30 @@ export default function ProjectActions({ project, session }) {
                 variant="outline"
                 disabled={Boolean(closeError)}
                 aria-describedby={closeError ? helpId : undefined}
-                aria-label={`Close project: ${project.title}`}
+                aria-label={t("Close project: {value0}", {
+                  value0: project.title,
+                })}
                 onClick={() => {
                   setNotice("");
                   setAction("close");
                 }}
               >
-                Close project
+                {t("Close project")}
               </Button>
             )}
             <Button
               variant="outline"
               disabled={Boolean(cancelError)}
               aria-describedby={cancelError ? helpId : undefined}
-              aria-label={`Cancel project: ${project.title}`}
+              aria-label={t("Cancel project: {value0}", {
+                value0: project.title,
+              })}
               onClick={() => {
                 setNotice("");
                 setAction("cancel");
               }}
             >
-              Cancel project
+              {t("Cancel project")}
             </Button>
           </div>
           {cancelError && (
@@ -83,36 +90,43 @@ export default function ProjectActions({ project, session }) {
       <Modal
         open={Boolean(action)}
         onClose={dismiss}
-        title={closing ? "Close this project?" : "Cancel this project?"}
-        description={
+        title={t(
+          closing ? t("Close this project?") : t("Cancel this project?"),
+        )}
+        description={t(
           closing
-            ? "This stops new proposals. The brief stays available by its direct link."
-            : "This marks the project as cancelled and stops new proposals. Reopening is not supported in this demo."
-        }
+            ? t(
+                "This stops new proposals. The brief stays available by its direct link.",
+              )
+            : t(
+                "This marks the project as cancelled and stops new proposals. Reopening is not supported in this demo.",
+              ),
+        )}
         initialFocusRef={keepButton}
         className="project-create__dialog"
         actions={
           <>
             <Button ref={keepButton} variant="outline" onClick={dismiss}>
-              Keep project unchanged
+              {t("Keep project unchanged")}
             </Button>
             <Button
               variant={closing ? "primary" : "destructive"}
               onClick={confirm}
             >
-              {closing ? "Confirm close" : "Confirm cancellation"}
+              {closing ? t("Confirm close") : t("Confirm cancellation")}
             </Button>
           </>
         }
       >
         <p className="font-semibold">{project.title}</p>
         <p className="mt-3 text-sm">
-          Phase 1 simulation. Existing proposals are retained. No notifications,
-          refunds, or payments are processed. Changes reset on refresh.
+          {t(
+            "Phase 1 simulation. Existing proposals are retained. No notifications, refunds, or payments are processed. Changes reset on refresh.",
+          )}
         </p>
         {error && (
           <p className="project-create__alert mt-4" role="alert">
-            {error}
+            {t(error)}
           </p>
         )}
       </Modal>

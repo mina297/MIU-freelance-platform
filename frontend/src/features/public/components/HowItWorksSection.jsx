@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { useId } from "react";
 import briefcaseDesktop from "../../../assets/public/how-it-works/briefcase-desktop.svg";
 import briefcaseMobile from "../../../assets/public/how-it-works/briefcase-mobile.svg";
@@ -36,6 +37,8 @@ const STEPS = [
 
 /** Static project-flow explanation for the public landing page. */
 export default function HowItWorksSection() {
+  const { t } = useLanguage();
+
   const headingId = useId();
 
   return (
@@ -44,16 +47,17 @@ export default function HowItWorksSection() {
         <div className="m4-how-it-works__heading-row">
           <div className="m4-how-it-works__heading-copy">
             <p className="m4-how-it-works__eyebrow">
-              A simple path to great work
+              {t("A simple path to great work")}
             </p>
-            <h2 id={headingId}>How it works</h2>
+            <h2 id={headingId}>{t("How it works")}</h2>
             <p className="m4-how-it-works__introduction">
-              Clear steps, campus accountability, and mutual reviews keep every
-              project focused and trustworthy.
+              {t(
+                "Clear steps, campus accountability, and mutual reviews keep every project focused and trustworthy.",
+              )}
             </p>
           </div>
           <p className="m4-how-it-works__summary">
-            THREE STEPS • ONE COMMUNITY
+            {t("THREE STEPS • ONE COMMUNITY")}
           </p>
         </div>
 
@@ -80,12 +84,15 @@ export default function HowItWorksSection() {
                   </span>
                   <span className="m4-how-it-works__number">0{index + 1}</span>
                 </div>
-                <h3>{step.title}</h3>
+                <h3>{t(step.title)}</h3>
                 <p className="m4-how-it-works__description">
-                  {step.description}
+                  {t(step.description)}
                 </p>
               </div>
-              <span className="m4-how-it-works__timeline-number" aria-hidden="true">
+              <span
+                className="m4-how-it-works__timeline-number"
+                aria-hidden="true"
+              >
                 0{index + 1}
               </span>
             </li>

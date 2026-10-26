@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useRef } from "react";
 import {
   ArrowLeft,
@@ -30,13 +31,19 @@ export default function CategoryCarousel({
   onSelect,
   motionEnabled,
 }) {
+  const { t, language } = useLanguage();
+
   const root = useRef(null);
   const track = useRef(null);
   useScrollReveal(root, motionEnabled);
   useCategoryEdgeScroll(track, motionEnabled);
   function scroll(direction) {
     track.current.scrollBy({
-      left: direction * track.current.clientWidth * 0.75,
+      left:
+        direction *
+        (language === "ar" ? -1 : 1) *
+        track.current.clientWidth *
+        0.75,
       behavior: motionEnabled ? "smooth" : "instant",
     });
   }
@@ -54,16 +61,16 @@ export default function CategoryCarousel({
           data-reveal
         >
           <div>
-            <p className="landing-eyebrow">A world of possibilities</p>
-            <h2 id="categories-title">Explore your next direction.</h2>
+            <p className="landing-eyebrow">{t("A world of possibilities")}</p>
+            <h2 id="categories-title">{t("Explore your next direction.")}</h2>
           </div>
           <div
             className="landing-carousel-controls"
-            aria-label="Category scrolling"
+            aria-label={t("Category scrolling")}
           >
             <button
               type="button"
-              aria-label="Scroll categories left"
+              aria-label={t("Scroll categories left")}
               aria-controls="landing-category-track"
               onClick={() => scroll(-1)}
             >
@@ -71,7 +78,7 @@ export default function CategoryCarousel({
             </button>
             <button
               type="button"
-              aria-label="Scroll categories right"
+              aria-label={t("Scroll categories right")}
               aria-controls="landing-category-track"
               onClick={() => scroll(1)}
             >
@@ -84,7 +91,7 @@ export default function CategoryCarousel({
           id="landing-category-track"
           className="landing-categories"
           role="group"
-          aria-label="Featured job categories"
+          aria-label={t("Featured job categories")}
           tabIndex={0}
         >
           {landingCategories.map((value, index) => {
@@ -100,7 +107,7 @@ export default function CategoryCarousel({
                 onClick={() => onSelect(value)}
               >
                 <span className="landing-category-name">
-                  {landingCategoryLabels[value] || value}
+                  {t(landingCategoryLabels[value] || value)}
                 </span>
                 <span className="landing-category-art">
                   <CategoryIcon

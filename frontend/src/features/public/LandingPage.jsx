@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -60,10 +61,12 @@ function Chips({ values }) {
   );
 }
 function SectionHeading({ eyebrow, title, children, action }) {
+  const { t } = useLanguage();
+
   return (
     <div className="landing-heading">
       <div>
-        <p className="landing-eyebrow">{eyebrow}</p>
+        <p className="landing-eyebrow">{t(eyebrow)}</p>
         <h2>{title}</h2>
         <p>{children}</p>
       </div>
@@ -73,6 +76,8 @@ function SectionHeading({ eyebrow, title, children, action }) {
 }
 
 function PreviewDialog({ preview, onClose }) {
+  const { t, locale } = useLanguage();
+
   const ref = useRef(null);
   useEffect(() => {
     if (preview) ref.current.showModal();
@@ -86,35 +91,38 @@ function PreviewDialog({ preview, onClose }) {
     >
       <form method="dialog">
         <button className="landing-button" autoFocus>
-          Close preview
+          {t("Close preview")}
         </button>
       </form>
-      <p className="landing-eyebrow">Prototype preview</p>
+      <p className="landing-eyebrow">{t("Prototype preview")}</p>
       <h2 id="preview-title">{preview?.title}</h2>
       <p>{preview?.description}</p>
       {preview?.skills && <Chips values={preview.skills} />}
       {preview?.budget && (
         <p>
-          <strong>{formatEGP(preview.budget)}</strong> · Design example
-          deadline: {preview.deadline}
+          <strong>{formatEGP(preview.budget, locale)}</strong>{" "}
+          {t("· Design example deadline:")} {preview.deadline}
         </p>
       )}
       <p className="landing-prototype-note">
-        Fictional design example. Profiles, applications, contact and policy
-        workflows are not available in this preview.
+        {t(
+          "Fictional design example. Profiles, applications, contact and policy workflows are not available in this preview.",
+        )}
       </p>
       <Link
         className="landing-button primary"
         to="/projects"
         onClick={() => ref.current.close()}
       >
-        Explore project catalogue
+        {t("Explore project catalogue")}
       </Link>
     </dialog>
   );
 }
 
 export default function LandingPage() {
+  const { t, locale } = useLanguage();
+
   const reducedMotion = useReducedMotion();
   const [motionPaused, setMotionPaused] = useState(false);
   const motionEnabled = !reducedMotion && !motionPaused;
@@ -179,16 +187,16 @@ export default function LandingPage() {
         <HeroVideo enabled={motionEnabled} />
         <div className="landing-community">
           <Icon name="accent" />
-          Built for the MIU community
+          {t("Built for the MIU community")}
         </div>
         <HeroHeadline enabled={motionEnabled} />
         <p className="landing-intro">
-          Connect. Collaborate. Create something that matters.
+          {t("Connect. Collaborate. Create something that matters.")}
         </p>
         <div
           className="landing-mode-toggle"
           role="group"
-          aria-label="Choose Hire or Work"
+          aria-label={t("Choose Hire or Work")}
         >
           <span
             className="landing-mode-indicator"
@@ -202,7 +210,7 @@ export default function LandingPage() {
               aria-pressed={mode === value}
               onClick={() => changeMode(value)}
             >
-              {value === "hire" ? "Hire" : "Work"}
+              {value === "hire" ? t("Hire") : t("Work")}
             </button>
           ))}
         </div>
@@ -210,15 +218,17 @@ export default function LandingPage() {
           className="landing-search"
           onSubmit={search}
           role="search"
-          aria-label={
-            mode === "hire" ? "Search student talent" : "Search featured jobs"
-          }
+          aria-label={t(
+            mode === "hire"
+              ? t("Search student talent")
+              : t("Search featured jobs"),
+          )}
         >
           <Icon name="search" />
           <label className="sr-only" htmlFor="landing-query">
             {mode === "hire"
-              ? "Search students by name or skill"
-              : "Search by title, skill, or keyword"}
+              ? t("Search students by name or skill")
+              : t("Search by title, skill, or keyword")}
           </label>
           <div className={`landing-search-input ${query ? "has-value" : ""}`}>
             <RotatingSearchHint enabled={motionEnabled && !query} />
@@ -227,21 +237,23 @@ export default function LandingPage() {
               value={query}
               maxLength={120}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search"
+              placeholder={t("Search")}
             />
           </div>
           <Dropdown
             className="landing-category-select"
-            label={
+            label={t(
               <>
                 <Grid2X2 size={17} aria-hidden="true" />
                 <span>{category || "All categories"}</span>
-              </>
-            }
+              </>,
+            )}
           >
             {(close) => (
               <>
-                <p className="landing-category-heading">Explore categories</p>
+                <p className="landing-category-heading">
+                  {t("Explore categories")}
+                </p>
                 {["", ...landingCategories].map((value) => (
                   <button
                     type="button"
@@ -262,12 +274,12 @@ export default function LandingPage() {
               </>
             )}
           </Dropdown>
-          <button className="landing-button primary">Search</button>
+          <button className="landing-button primary">{t("Search")}</button>
         </form>
         <p className="landing-mode-caption" aria-live="polite">
           {mode === "hire"
-            ? "Great ideas start with the right people. "
-            : "Your next opportunity starts here. "}
+            ? t("Great ideas start with the right people. ")
+            : t("Your next opportunity starts here. ")}
           <Link
             to={
               mode === "hire"
@@ -275,7 +287,7 @@ export default function LandingPage() {
                 : "/register?role=student"
             }
           >
-            {mode === "hire" ? "Join to hire" : "Join to work"} &rarr;
+            {mode === "hire" ? t("Join to hire") : t("Join to work")} &rarr;
           </Link>
         </p>
         {!reducedMotion && (
@@ -290,10 +302,13 @@ export default function LandingPage() {
             ) : (
               <Pause size={13} aria-hidden="true" />
             )}
-            {motionPaused ? "Resume motion" : "Pause motion"}
+            {motionPaused ? t("Resume motion") : t("Pause motion")}
           </button>
         )}
-        <nav className="landing-pathways" aria-label="Choose your marketplace">
+        <nav
+          className="landing-pathways"
+          aria-label={t("Choose your marketplace")}
+        >
           <Link
             className="landing-pathway landing-pathway-projects"
             to="/projects"
@@ -302,9 +317,9 @@ export default function LandingPage() {
               <BriefcaseBusiness size={24} aria-hidden="true" />
             </span>
             <span className="landing-pathway-copy">
-              <small>For your next challenge</small>
-              <strong>Find a project worth building.</strong>
-              <span>Explore briefs, budgets and opportunities.</span>
+              <small>{t("For your next challenge")}</small>
+              <strong>{t("Find a project worth building.")}</strong>
+              <span>{t("Explore briefs, budgets and opportunities.")}</span>
             </span>
             <ArrowUpRight
               className="landing-pathway-arrow"
@@ -320,9 +335,11 @@ export default function LandingPage() {
               <Layers3 size={24} aria-hidden="true" />
             </span>
             <span className="landing-pathway-copy">
-              <small>For your next big idea</small>
-              <strong>Find the skills to bring it to life.</strong>
-              <span>Discover services, packages and student talent.</span>
+              <small>{t("For your next big idea")}</small>
+              <strong>{t("Find the skills to bring it to life.")}</strong>
+              <span>
+                {t("Discover services, packages and student talent.")}
+              </span>
             </span>
             <ArrowUpRight
               className="landing-pathway-arrow"
@@ -345,44 +362,52 @@ export default function LandingPage() {
       <OverlapSection
         className="landing-muted"
         id="featured-jobs"
-        label="Featured jobs"
+        label={t("Featured jobs")}
         motionEnabled={motionEnabled}
         backdrop="white"
       >
         <div className="landing-container">
           <SectionHeading
             eyebrow="Fresh opportunities"
-            title="Featured jobs"
+            title={t("Featured jobs")}
             action={
               <Link className="landing-button" to="/projects">
-                Browse all jobs
+                {t("Browse all jobs")}
               </Link>
             }
           >
-            Real briefs from MIU departments, clubs, alumni, and trusted
-            community partners.
+            {t(
+              "Real briefs from MIU departments, clubs, alumni, and trusted community partners.",
+            )}
           </SectionHeading>
           <p className="landing-prototype-note">
-            Prototype content: fictional jobs and profiles from the design.
-            Saved jobs last until you leave this page.
+            {t(
+              "Prototype content: fictional jobs and profiles from the design. Saved jobs last until you leave this page.",
+            )}
           </p>
           <p role="status" className="sr-only">
-            {notice}
+            {t(notice)}
           </p>
           {mode === "work" && (filters.query || filters.category) && (
             <p role="status" className="landing-results">
-              {jobs.length} featured {jobs.length === 1 ? "job" : "jobs"} found.{" "}
-              <button onClick={clearFilters}>Clear filters</button>
+              {jobs.length} {t("featured")}{" "}
+              {jobs.length === 1 ? t("job") : t("jobs")} {t("found.")}{" "}
+              <button onClick={clearFilters}>{t("Clear filters")}</button>
             </p>
           )}
           <div className="landing-grid">
             {jobs.map((job) => (
               <article key={job.id} className="landing-card landing-job">
                 <div className="landing-card-top">
-                  <span className="landing-status">Open</span>
+                  <span className="landing-status">{t("Open")}</span>
                   <button
                     className="landing-save"
-                    aria-label={`${saved.includes(job.id) ? "Unsave" : "Save"} ${job.title}`}
+                    aria-label={t(
+                      saved.includes(job.id)
+                        ? "Unsave {title}"
+                        : "Save {title}",
+                      { title: job.title },
+                    )}
                     aria-pressed={saved.includes(job.id)}
                     onClick={() => toggleSaved(job)}
                   >
@@ -402,16 +427,18 @@ export default function LandingPage() {
                 <Chips values={job.skills} />
                 <dl className="landing-metadata">
                   <div>
-                    <dt>Fixed budget</dt>
-                    <dd>{formatEGP(job.budget)}</dd>
+                    <dt>{t("Fixed budget")}</dt>
+                    <dd>{formatEGP(job.budget, locale)}</dd>
                   </div>
                   <div>
-                    <dt>Deadline</dt>
+                    <dt>{t("Deadline")}</dt>
                     <dd>{job.deadline}</dd>
                   </div>
                   <div>
-                    <dt>Applicants</dt>
-                    <dd>{job.applicants} students</dd>
+                    <dt>{t("Applicants")}</dt>
+                    <dd>
+                      {job.applicants} {t("students")}
+                    </dd>
                   </div>
                 </dl>
                 <div className="landing-card-actions">
@@ -420,7 +447,7 @@ export default function LandingPage() {
                     className="landing-button primary"
                     onClick={() => setPreview(job)}
                   >
-                    View job
+                    {t("View job")}
                   </button>
                 </div>
               </article>
@@ -428,13 +455,14 @@ export default function LandingPage() {
           </div>
           {!jobs.length && (
             <div className="landing-empty">
-              <h3>No featured jobs match your search</h3>
+              <h3>{t("No featured jobs match your search")}</h3>
               <p>
-                Try another keyword or category, clear filters, or browse the
-                full project catalogue.
+                {t(
+                  "Try another keyword or category, clear filters, or browse the full project catalogue.",
+                )}
               </p>
               <Link className="landing-button" to="/projects">
-                Browse all jobs
+                {t("Browse all jobs")}
               </Link>
             </div>
           )}
@@ -443,28 +471,30 @@ export default function LandingPage() {
 
       <OverlapSection
         id="student-talent"
-        label="Top-rated students"
+        label={t("Top-rated students")}
         motionEnabled={motionEnabled}
         backdrop="muted"
       >
         <div className="landing-container">
           <SectionHeading
             eyebrow="Student talent, proven"
-            title="Top-rated students"
+            title={t("Top-rated students")}
             action={
               <a className="landing-button" href="#student-cards">
-                Explore talent
+                {t("Explore talent")}
               </a>
             }
           >
-            Discover skilled MIU students whose reliable work and thoughtful
-            communication earn exceptional reviews.
+            {t(
+              "Discover skilled MIU students whose reliable work and thoughtful communication earn exceptional reviews.",
+            )}
           </SectionHeading>
           {mode === "hire" && (filters.query || filters.category) && (
             <p role="status" className="landing-results">
-              {students.length} {students.length === 1 ? "student" : "students"}{" "}
-              found.
-              <button onClick={clearFilters}>Clear filters</button>
+              {students.length}{" "}
+              {students.length === 1 ? t("student") : t("students")}{" "}
+              {t("found.")}
+              <button onClick={clearFilters}>{t("Clear filters")}</button>
             </p>
           )}
           <div className="landing-grid landing-student-grid" id="student-cards">
@@ -484,14 +514,14 @@ export default function LandingPage() {
                 <div>
                   {student.id === featuredStudentId && (
                     <span className="sr-only">
-                      Highest-rated student in these results
+                      {t("Highest-rated student in these results")}
                     </span>
                   )}
                   <h3>{student.name}</h3>
                   <p>{student.study}</p>
                 </div>
                 <p className="landing-rating">
-                  <span aria-label="5 stars">★★★★★</span> {student.rating}{" "}
+                  <span aria-label={t("5 stars")}>★★★★★</span> {student.rating}{" "}
                   <small>({student.reviews})</small>
                 </p>
                 <Chips values={student.skills} />
@@ -505,17 +535,17 @@ export default function LandingPage() {
                     })
                   }
                 >
-                  View profile
+                  {t("View profile")}
                 </button>
               </article>
             ))}
           </div>
           {!students.length && (
             <div className="landing-empty">
-              <h3>No students match your search</h3>
-              <p>Try another skill or category.</p>
+              <h3>{t("No students match your search")}</h3>
+              <p>{t("Try another skill or category.")}</p>
               <button className="landing-button" onClick={clearFilters}>
-                Clear filters
+                {t("Clear filters")}
               </button>
             </div>
           )}
@@ -525,14 +555,18 @@ export default function LandingPage() {
       <OverlapSection
         className="landing-trust"
         id="trust"
-        label="Why MIU Freelance"
+        label={t("Why MIU Freelance")}
         motionEnabled={motionEnabled}
         backdrop="white"
       >
         <div className="landing-container">
-          <SectionHeading eyebrow="Trust is built in" title="Why MIU Freelance">
-            A focused marketplace where shared identity creates better briefs,
-            stronger accountability, and work that matters.
+          <SectionHeading
+            eyebrow="Trust is built in"
+            title={t("Why MIU Freelance")}
+          >
+            {t(
+              "A focused marketplace where shared identity creates better briefs, stronger accountability, and work that matters.",
+            )}
           </SectionHeading>
           <div className="landing-grid">
             {[
@@ -560,8 +594,9 @@ export default function LandingPage() {
             ))}
           </div>
           <p className="landing-prototype-note">
-            Planned platform benefits. Identity verification and reviews are
-            simulated or illustrative in Phase 1.
+            {t(
+              "Planned platform benefits. Identity verification and reviews are simulated or illustrative in Phase 1.",
+            )}
           </p>
         </div>
       </OverlapSection>
@@ -572,15 +607,16 @@ export default function LandingPage() {
       >
         <div className="landing-container landing-invitation-inner">
           <div>
-            <p className="landing-eyebrow">Your next chapter</p>
+            <p className="landing-eyebrow">{t("Your next chapter")}</p>
             <h2 id="landing-invitation-title">
-              A little ambition.
+              {t("A little ambition.")}
               <br />
-              <em>A world of possibility.</em>
+              <em>{t("A world of possibility.")}</em>
             </h2>
             <p>
-              Bring your skills. Bring your ideas. Start with one meaningful
-              collaboration.
+              {t(
+                "Bring your skills. Bring your ideas. Start with one meaningful collaboration.",
+              )}
             </p>
           </div>
           <div className="landing-invitation-actions">
@@ -588,12 +624,14 @@ export default function LandingPage() {
               className="landing-button primary"
               to="/register?role=student"
             >
-              Join as a student <ArrowUpRight size={18} aria-hidden="true" />
+              {t("Join as a student")}{" "}
+              <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
             <Link className="landing-button" to="/register?role=client">
-              Join as a client <ArrowUpRight size={18} aria-hidden="true" />
+              {t("Join as a client")}{" "}
+              <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
-            <span>Two ways to begin. One MIU community.</span>
+            <span>{t("Two ways to begin. One MIU community.")}</span>
           </div>
         </div>
       </section>
@@ -605,31 +643,35 @@ export default function LandingPage() {
                 src={asset("f03cc.png")}
                 width="80"
                 height="60"
-                alt="Misr International University anniversary logo"
+                alt={t("Misr International University anniversary logo")}
               />
               <div>
-                <p>MIU Freelance</p>
-                <small>Real projects. Proven student talent.</small>
+                <p>{t("MIU Freelance")}</p>
+                <small>{t("Real projects. Proven student talent.")}</small>
               </div>
             </div>
-            <nav aria-label="Marketplace footer">
-              <h3>Marketplace</h3>
-              <Link to="/projects">Browse Jobs</Link>
-              <a href="#student-talent">Find Talent</a>
-              <a href="#how-it-works">How it Works</a>
-              <Link to="/services">Browse Services</Link>
+            <nav aria-label={t("Marketplace footer")}>
+              <h3>{t("Marketplace")}</h3>
+              <Link to="/projects">{t("Browse Jobs")}</Link>
+              <a href="#student-talent">{t("Find Talent")}</a>
+              <a href="#how-it-works">{t("How it Works")}</a>
+              <Link to="/services">{t("Browse Services")}</Link>
             </nav>
-            <nav aria-label="Support footer">
-              <h3>Support</h3>
-              <a href="#trust">Safety &amp; Trust</a>
+            <nav aria-label={t("Support footer")}>
+              <h3>{t("Support")}</h3>
+              <a href="#trust">{t("Safety & Trust")}</a>
               <button onClick={() => showInfo("Help Center")}>
-                Help Center
+                {t("Help Center")}
               </button>
-              <button onClick={() => showInfo("Contact Us")}>Contact Us</button>
+              <button onClick={() => showInfo("Contact Us")}>
+                {t("Contact Us")}
+              </button>
             </nav>
           </div>
           <div className="landing-footer-meta">
-            <p>© 2026 Misr International University. All rights reserved.</p>
+            <p>
+              {t("© 2026 Misr International University. All rights reserved.")}
+            </p>
             <div>
               {["Privacy", "Terms", "Community Guidelines"].map((title) => (
                 <button key={title} onClick={() => showInfo(title)}>

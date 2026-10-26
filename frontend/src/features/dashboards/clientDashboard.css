@@ -3,7 +3,7 @@
   font-weight: 600;
 }
 .client-dashboard .cd-nav-count {
-  margin-left: auto;
+  margin-inline-start: auto;
   color: var(--theme-accent, var(--color-miu-red));
   font-size: 12px;
 }
@@ -328,7 +328,7 @@
   .cd-mobile-account {
     display: inline-flex;
     position: absolute;
-    right: 20px;
+    inset-inline-end: 20px;
     top: 20px;
     width: 32px;
     height: 32px;
@@ -350,7 +350,7 @@
   }
   .cd-job-title {
     grid-column: 1/-1;
-    padding-right: 44px;
+    padding-inline-end: 44px;
   }
   .cd-job-title small {
     display: none;
@@ -365,7 +365,7 @@
   .cd-job-row .sd-more {
     position: absolute;
     top: 16px;
-    right: 16px;
+    inset-inline-end: 16px;
   }
   .cd-job-applicants > small:last-child {
     display: none;

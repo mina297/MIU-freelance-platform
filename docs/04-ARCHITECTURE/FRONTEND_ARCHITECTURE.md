@@ -101,6 +101,15 @@ Production permissions must be enforced by the backend.
 
 ## 6. State Management
 
+### Language — 26 October 2026
+
+`ThemeProvider` composes one `LanguageProvider` for the app and each standalone
+preview. Language state uses `src/i18n/` dictionaries and stores only `en`/`ar` in
+`miu.language`. The HTML initialization script sets document language/direction
+before paint. Switching language preserves route/session/form/store instances;
+it does not persist theme state or translate stored records. See
+[Localization](../03-DESIGN/LOCALIZATION.md) for message ownership and review status.
+
 ### Appearance — 25 October 2026
 
 `src/theme/ThemeProvider.jsx` wraps the router and existing authentication

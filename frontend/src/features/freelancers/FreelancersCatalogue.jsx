@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Search, UsersRound } from "lucide-react";
@@ -22,6 +23,8 @@ export default function FreelancersCatalogue({
   state = "ready",
   onRetry,
 }) {
+  const { t } = useLanguage();
+
   const data = useServiceData(suppliedData);
   const [filters, setFilters] = useState({ ...emptyFreelancerFilters });
   const [draft, setDraft] = useState("");
@@ -44,37 +47,40 @@ export default function FreelancersCatalogue({
         <div className="services-container services-hero__layout">
           <div>
             <p className="services-eyebrow">
-              THE PEOPLE BEHIND THE POSSIBILITIES
+              {t("THE PEOPLE BEHIND THE POSSIBILITIES")}
             </p>
             <h1 id="freelancer-title">
-              Find the craft.
+              {t("Find the craft.")}
               <br />
-              <em>Meet the talent.</em>
+              <em>{t("Meet the talent.")}</em>
             </h1>
             <p className="services-hero__intro">
-              Explore student service providers through the work they offer.
-              Start with a skill, find a clear scope, and discover your next
-              collaboration.
+              {t(
+                "Explore student service providers through the work they offer. Start with a skill, find a clear scope, and discover your next collaboration.",
+              )}
             </p>
             <div className="services-hero__points">
-              <span>Published services</span>
-              <span>Clear EGP pricing</span>
-              <span>Skills-led discovery</span>
+              <span>{t("Published services")}</span>
+              <span>{t("Clear EGP pricing")}</span>
+              <span>{t("Skills-led discovery")}</span>
             </div>
           </div>
           <div className="services-hero__note">
             <UsersRound size={34} aria-hidden="true" />
-            <p className="services-eyebrow">LET THE OFFER SPEAK</p>
+            <p className="services-eyebrow">{t("LET THE OFFER SPEAK")}</p>
             <h2>
-              A skill is a start.
-              <br />A clear scope is next.
+              {t("A skill is a start.")}
+              <br />
+              {t("A clear scope is next.")}
             </h2>
             <p>
-              This directory shows fictional providers with published services.
-              Compare what they offer without assuming ratings or availability.
+              {t(
+                "This directory shows fictional providers with published services. Compare what they offer without assuming ratings or availability.",
+              )}
             </p>
             <Link to="/services">
-              Browse all services <ArrowUpRight size={16} aria-hidden="true" />
+              {t("Browse all services")}{" "}
+              <ArrowUpRight size={16} aria-hidden="true" />
             </Link>
           </div>
         </div>
@@ -83,7 +89,7 @@ export default function FreelancersCatalogue({
         <form
           className="services-search"
           role="search"
-          aria-label="Search freelancers"
+          aria-label={t("Search freelancers")}
           onSubmit={(event) => {
             event.preventDefault();
             setFilters((current) => ({ ...current, query: draft.trim() }));
@@ -91,115 +97,121 @@ export default function FreelancersCatalogue({
         >
           <Search aria-hidden="true" />
           <Input
-            label="Find student service providers"
-            placeholder="Search a name, skill or published service…"
+            label={t("Find student service providers")}
+            placeholder={t("Search a name, skill or published service…")}
             value={draft}
             onChange={(event) => setDraft(event.target.value)}
             maxLength={160}
             disabled={!ready}
           />
           <Button type="submit" disabled={!ready}>
-            Find talent <ArrowUpRight size={16} aria-hidden="true" />
+            {t("Find talent")} <ArrowUpRight size={16} aria-hidden="true" />
           </Button>
         </form>
         <p className="services-disclosure">
-          Fictional Phase 1 discovery based only on published services. Skills
-          are service tags, not verified qualifications. Prices are package
-          starting prices, not hourly rates. Linked profile details are
-          fictional declarations and do not certify qualifications or
-          availability.
+          {t(
+            "Fictional Phase 1 discovery based only on published services. Skills are service tags, not verified qualifications. Prices are package starting prices, not hourly rates. Linked profile details are fictional declarations and do not certify qualifications or availability.",
+          )}
         </p>
         <section
           className="freelancers-filters"
-          aria-label="Refine freelancer discovery"
+          aria-label={t("Refine freelancer discovery")}
         >
           <Select
-            label="Service category"
+            label={t("Service category")}
             value={filters.categoryId}
             onChange={update("categoryId")}
             disabled={!ready}
           >
-            <option value="">All categories</option>
+            <option value="">{t("All categories")}</option>
             {data.categories.map(({ id, label }) => (
               <option key={id} value={id}>
-                {label}
+                {t(label)}
               </option>
             ))}
           </Select>
           <Select
-            label="Published service skill"
+            label={t("Published service skill")}
             value={filters.skillId}
             onChange={update("skillId")}
             disabled={!ready}
           >
-            <option value="">All skills</option>
+            <option value="">{t("All skills")}</option>
             {data.skills.map(({ id, label }) => (
               <option key={id} value={id}>
-                {label}
+                {t(label)}
               </option>
             ))}
           </Select>
           <Select
-            label="Service starting price"
+            label={t("Service starting price")}
             value={filters.price}
             onChange={update("price")}
             disabled={!ready}
           >
             {freelancerPriceOptions.map(({ value, label }) => (
               <option key={value} value={value}>
-                {label}
+                {t(label)}
               </option>
             ))}
           </Select>
           <Button variant="outline" onClick={reset} disabled={!ready}>
-            Reset filters
+            {t("Reset filters")}
           </Button>
         </section>
         <section aria-labelledby="freelancer-results-title">
           <div className="services-results__heading">
             <div>
               <p className="services-eyebrow">
-                GOOD WORK STARTS WITH A GOOD FIT
+                {t("GOOD WORK STARTS WITH A GOOD FIT")}
               </p>
-              <h2 id="freelancer-results-title">Freelancers to explore</h2>
+              <h2 id="freelancer-results-title">
+                {t("Freelancers to explore")}
+              </h2>
               {ready && (
                 <p role="status">
                   {results.length}{" "}
-                  {results.length === 1 ? "provider" : "providers"} found
+                  {results.length === 1 ? t("provider") : t("providers")}{" "}
+                  {t("found")}
                 </p>
               )}
             </div>
             <Select
-              label="Sort providers"
+              label={t("Sort providers")}
               value={filters.sort}
               onChange={update("sort")}
               disabled={!ready}
             >
-              <option value="name">Name: A to Z</option>
-              <option value="name_desc">Name: Z to A</option>
+              <option value="name">{t("Name: A to Z")}</option>
+              <option value="name_desc">{t("Name: Z to A")}</option>
               <option value="price_low">
-                Service starting price: low to high
+                {t("Service starting price: low to high")}
               </option>
-              <option value="services">Most matching published services</option>
+              <option value="services">
+                {t("Most matching published services")}
+              </option>
             </Select>
           </div>
           {active && ready && (
             <div className="services-active">
               <p>
-                Showing services matching your search and filters. All filters
-                apply to the same published service.
+                {t(
+                  "Showing services matching your search and filters. All filters apply to the same published service.",
+                )}
               </p>
               <Button variant="ghost" onClick={reset}>
-                Clear filters
+                {t("Clear filters")}
               </Button>
             </div>
           )}
           {state === "loading" ? (
-            <LoadingState message="Loading student service providers…" />
+            <LoadingState message={t("Loading student service providers…")} />
           ) : !ready ? (
             <ErrorState
-              title="Freelancer discovery is unavailable"
-              description="Provider information could not be displayed. No account or order was changed."
+              title={t("Freelancer discovery is unavailable")}
+              description={t(
+                "Provider information could not be displayed. No account or order was changed.",
+              )}
               onRetry={onRetry}
             />
           ) : results.length ? (
@@ -210,23 +222,28 @@ export default function FreelancersCatalogue({
             </div>
           ) : (
             <EmptyState
-              title={
+              title={t(
                 active
-                  ? "No matching providers"
-                  : "No published service providers yet"
-              }
-              description={
+                  ? t("No matching providers")
+                  : t("No published service providers yet"),
+              )}
+              description={t(
                 active
-                  ? "Try another name, service category, skill or package starting price."
-                  : "Providers will appear when their services are published."
-              }
+                  ? t(
+                      "Try another name, service category, skill or package starting price.",
+                    )
+                  : t(
+                      "Providers will appear when their services are published.",
+                    ),
+              )}
               onAction={active ? reset : undefined}
             />
           )}
         </section>
         <p className="freelancers-catalogue__footer-note">
-          Alphabetical and service-count sorts are browsing tools, not
-          reputation rankings or AI recommendations.
+          {t(
+            "Alphabetical and service-count sorts are browsing tools, not reputation rankings or AI recommendations.",
+          )}
         </p>
       </div>
     </div>

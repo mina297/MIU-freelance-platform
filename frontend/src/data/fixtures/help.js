@@ -147,7 +147,7 @@ export function getHelpArticleBySlug(slug) {
   return helpArticles.find((article) => article.slug === slug) ?? null;
 }
 
-export function searchHelpContent(query) {
+export function searchHelpContent(query, translateText = (text) => text) {
   const q = String(query ?? "")
     .trim()
     .toLowerCase();
@@ -162,13 +162,15 @@ export function searchHelpContent(query) {
       ...article.body,
       ...(article.tags ?? []),
     ]
+      .flatMap((text) => [text, translateText(text)])
       .join(" ")
       .toLowerCase();
     return haystack.includes(q);
   });
 
   const faqs = faqItems.filter((faq) => {
-    const haystack = `${faq.question} ${faq.answer}`.toLowerCase();
+    const haystack =
+      `${faq.question} ${faq.answer} ${translateText(faq.question)} ${translateText(faq.answer)}`.toLowerCase();
     return haystack.includes(q);
   });
 

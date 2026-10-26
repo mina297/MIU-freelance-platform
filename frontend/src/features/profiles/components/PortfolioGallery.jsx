@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { Pencil, Trash2 } from "lucide-react";
 import { ProfileEmptyState } from "./ProfileStates.jsx";
 import SafeImage from "./SafeImage.jsx";
@@ -21,6 +22,8 @@ export default function PortfolioGallery({
   onEditItem,
   onDeleteItem,
 }) {
+  const { t } = useLanguage();
+
   const showOwnerControls =
     isOwner &&
     (typeof onEditItem === "function" || typeof onDeleteItem === "function");
@@ -28,11 +31,13 @@ export default function PortfolioGallery({
   if (!items.length) {
     return (
       <ProfileEmptyState
-        message={
+        message={t(
           isOwner
-            ? "You have not added portfolio pieces yet. Use Add portfolio item to create one."
-            : "This student has not published portfolio work yet."
-        }
+            ? t(
+                "You have not added portfolio pieces yet. Use Add portfolio item to create one.",
+              )
+            : t("This student has not published portfolio work yet."),
+        )}
       />
     );
   }
@@ -44,7 +49,7 @@ export default function PortfolioGallery({
           <button
             type="button"
             onClick={() => onSelectItem(item)}
-            className="group flex w-full flex-col overflow-hidden rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] text-left shadow-[var(--shadow-panel)] transition hover:border-miu-red/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+            className="group flex w-full flex-col overflow-hidden rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] text-start shadow-[var(--shadow-panel)] transition hover:border-miu-red/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
           >
             <div className="aspect-[4/3] w-full overflow-hidden bg-surface-muted">
               <SafeImage
@@ -78,7 +83,7 @@ export default function PortfolioGallery({
                   className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 rounded-full border border-border-soft text-xs font-semibold text-miu-black hover:bg-surface-page"
                 >
                   <Pencil className="size-3.5" aria-hidden="true" />
-                  Edit
+                  {t("Edit")}
                 </button>
               ) : null}
               {typeof onDeleteItem === "function" ? (
@@ -88,7 +93,7 @@ export default function PortfolioGallery({
                   className="inline-flex h-9 flex-1 items-center justify-center gap-1.5 rounded-full border border-danger/30 text-xs font-semibold text-[var(--theme-danger-text,var(--color-danger))] hover:bg-[var(--theme-danger-surface,#fef2f2)]"
                 >
                   <Trash2 className="size-3.5" aria-hidden="true" />
-                  Delete
+                  {t("Delete")}
                 </button>
               ) : null}
             </div>

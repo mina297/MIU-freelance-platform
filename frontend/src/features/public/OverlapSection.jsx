@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useRef } from "react";
 import { useScrollReveal } from "./useLandingMotion.js";
 import "./overlapSection.css";
@@ -12,6 +13,8 @@ export default function OverlapSection({
   sectionRef,
   backdrop = "tint",
 }) {
+  const { t } = useLanguage();
+
   const ownRef = useRef(null);
   const ref = sectionRef || ownRef;
   useScrollReveal(ref, motionEnabled);
@@ -24,7 +27,7 @@ export default function OverlapSection({
       <section
         ref={ref}
         className={`landing-section landing-overlap-panel ${className}`}
-        aria-label={label}
+        aria-label={t(label)}
         aria-labelledby={labelledBy}
         data-reveal
       >

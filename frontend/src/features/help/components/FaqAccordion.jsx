@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
@@ -7,12 +8,14 @@ import { ChevronDown } from "lucide-react";
  * }} props
  */
 export default function FaqAccordion({ items }) {
+  const { t } = useLanguage();
+
   const [openId, setOpenId] = useState(items[0]?.id ?? null);
 
   if (!items.length) {
     return (
       <p className="text-sm text-ink-secondary">
-        No FAQ items match your search.
+        {t("No FAQ items match your search.")}
       </p>
     );
   }
@@ -27,10 +30,10 @@ export default function FaqAccordion({ items }) {
               <button
                 type="button"
                 aria-expanded={open}
-                className="flex w-full items-center justify-between gap-3 px-4 py-4 text-left text-sm font-semibold text-miu-black hover:bg-surface-page focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red sm:px-5"
+                className="flex w-full items-center justify-between gap-3 px-4 py-4 text-start text-sm font-semibold text-miu-black hover:bg-surface-page focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red sm:px-5"
                 onClick={() => setOpenId(open ? null : item.id)}
               >
-                <span>{item.question}</span>
+                <span>{t(item.question)}</span>
                 <ChevronDown
                   className={`size-5 shrink-0 text-ink-secondary transition ${open ? "rotate-180" : ""}`}
                   aria-hidden="true"
@@ -39,7 +42,7 @@ export default function FaqAccordion({ items }) {
             </h3>
             {open ? (
               <div className="px-4 pb-4 text-sm leading-relaxed text-ink-secondary sm:px-5">
-                {item.answer}
+                {t(item.answer)}
               </div>
             ) : null}
           </li>

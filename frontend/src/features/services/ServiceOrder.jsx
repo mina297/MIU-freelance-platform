@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
@@ -15,6 +16,8 @@ import "../projects/project-create.css";
 import "./service-order.css";
 
 function OrderingForm({ details, data, session }) {
+  const { t, locale } = useLanguage();
+
   const navigate = useNavigate();
   const [selection, setSelection] = useState(() => ({
     packageId: details.packages[0]?.id ?? "",
@@ -61,34 +64,37 @@ function OrderingForm({ details, data, session }) {
   return (
     <main className="project-create service-order">
       <header className="project-create__header">
-        <Link to={`/services/${details.service.id}`}>Back to service</Link>
-        <Link to="/services">Catalogue</Link>
-        <span>Phase 1 preview</span>
+        <Link to={`/services/${details.service.id}`}>
+          {t("Back to service")}
+        </Link>
+        <Link to="/services">{t("Catalogue")}</Link>
+        <span>{t("Phase 1 preview")}</span>
       </header>
       <section className="project-create__hero">
         <div className="project-create__container">
           <p className="project-create__eyebrow">
-            DEFINE YOUR NEXT COLLABORATION
+            {t("DEFINE YOUR NEXT COLLABORATION")}
           </p>
           <h1 ref={heading} tabIndex={-1}>
-            Choose your scope.
+            {t("Choose your scope.")}
             <br />
-            <em>See the full picture.</em>
+            <em>{t("See the full picture.")}</em>
           </h1>
           <p>{details.service.title}</p>
         </div>
       </section>
       <div className="project-create__container service-order__body">
         <p className="service-order__disclosure">
-          Simulated order only. No payment, escrow funding, notification or
-          delivery start occurs. Your order and selections reset on refresh.
+          {t(
+            "Simulated order only. No payment, escrow funding, notification or delivery start occurs. Your order and selections reset on refresh.",
+          )}
         </p>
         <form onSubmit={review} className="service-order__layout">
           <div className="service-order__options">
             <section className="project-create__panel service-order__panel">
-              <h2>Choose a package</h2>
+              <h2>{t("Choose a package")}</h2>
               <RadioGroup
-                label="Service package"
+                label={t("Service package")}
                 name="service-package"
                 value={selection.packageId}
                 onChange={(event) => {
@@ -100,7 +106,7 @@ function OrderingForm({ details, data, session }) {
                 }}
                 options={details.packages.map((pack) => ({
                   value: pack.id,
-                  label: `${pack.name} — ${formatEGP(pack.priceEGP)} · ${pack.deliveryDays} days`,
+                  label: `${pack.name} — ${formatEGP(pack.priceEGP, locale)} · ${pack.deliveryDays} days`,
                 }))}
               />
               {details.packages.map((pack) => (
@@ -116,16 +122,21 @@ function OrderingForm({ details, data, session }) {
               ))}
             </section>
             <section className="project-create__panel service-order__panel">
-              <h2>Optional extras</h2>
+              <h2>{t("Optional extras")}</h2>
               <p>
-                Choose only the additions you need. Each extra adds its listed
-                amount and days once.
+                {t(
+                  "Choose only the additions you need. Each extra adds its listed amount and days once.",
+                )}
               </p>
               {details.extras.length ? (
                 details.extras.map((extra) => (
                   <div className="service-order__scope" key={extra.id}>
                     <Checkbox
-                      label={`${extra.title} — +${formatEGP(extra.additionalPriceEGP)} · +${extra.additionalDays} days`}
+                      label={t("{value0} — +{value1} · +{value2} days", {
+                        value0: extra.title,
+                        value1: formatEGP(extra.additionalPriceEGP, locale),
+                        value2: extra.additionalDays,
+                      })}
                       checked={selection.extraIds.includes(extra.id)}
                       onChange={(event) => {
                         setSelection((current) => ({
@@ -141,62 +152,66 @@ function OrderingForm({ details, data, session }) {
                   </div>
                 ))
               ) : (
-                <p>No optional extras for this service.</p>
+                <p>{t("No optional extras for this service.")}</p>
               )}
             </section>
           </div>
           <aside
             className="project-create__panel service-order__panel service-order__summary"
-            aria-label="Your service order estimate"
+            aria-label={t("Your service order estimate")}
           >
-            <p className="project-create__eyebrow">YOUR ORDER, AT A GLANCE</p>
-            <h2>Scope & estimate</h2>
+            <p className="project-create__eyebrow">
+              {t("YOUR ORDER, AT A GLANCE")}
+            </p>
+            <h2>{t("Scope & estimate")}</h2>
             {quote.ok ? (
               <>
                 <dl>
                   <div>
-                    <dt>Package</dt>
+                    <dt>{t("Package")}</dt>
                     <dd>{quote.terms.packageName}</dd>
                   </div>
                   <div>
-                    <dt>Package price</dt>
-                    <dd>{formatEGP(quote.terms.packagePriceEGP)}</dd>
+                    <dt>{t("Package price")}</dt>
+                    <dd>{formatEGP(quote.terms.packagePriceEGP, locale)}</dd>
                   </div>
                   {quote.terms.extras.map((extra) => (
                     <div key={extra.id}>
                       <dt>{extra.title}</dt>
-                      <dd>+{formatEGP(extra.additionalPriceEGP)}</dd>
+                      <dd>+{formatEGP(extra.additionalPriceEGP, locale)}</dd>
                     </div>
                   ))}
                   <div className="service-order__total">
-                    <dt>Agreed total</dt>
-                    <dd>{formatEGP(quote.amountEGP)}</dd>
+                    <dt>{t("Agreed total")}</dt>
+                    <dd>{formatEGP(quote.amountEGP, locale)}</dd>
                   </div>
                   <div>
-                    <dt>Combined delivery estimate</dt>
-                    <dd>{quote.deliveryDays} days</dd>
+                    <dt>{t("Combined delivery estimate")}</dt>
+                    <dd>
+                      {quote.deliveryDays} {t("days")}
+                    </dd>
                   </div>
                 </dl>
                 <p role="status" aria-atomic="true" className="sr-only">
-                  Estimated total {formatEGP(quote.amountEGP)},{" "}
-                  {quote.deliveryDays} days.
+                  {t("Estimated total")} {formatEGP(quote.amountEGP, locale)},{" "}
+                  {quote.deliveryDays} {t("days.")}
                 </p>
               </>
             ) : (
               <p role="alert">{quote.error}</p>
             )}
             <p>
-              Creating the order does not start delivery or fund escrow. The
-              confirmed order includes a notes/messages workspace; delivery
-              actions and checkout remain separate.
+              {t(
+                "Creating the order does not start delivery or fund escrow. The confirmed order includes a notes/messages workspace; delivery actions and checkout remain separate.",
+              )}
             </p>
             {error && !confirming && (
               <p role="alert" className="project-create__alert">
-                {error}
+                {t(error)}
               </p>
             )}
             <Button type="submit" disabled={!quote.ok}>
-              Review demo order
+              {t("Review demo order")}
             </Button>
             <Button
               variant="outline"
@@ -208,7 +223,7 @@ function OrderingForm({ details, data, session }) {
                 setError("");
               }}
             >
-              Reset selection
+              {t("Reset selection")}
             </Button>
           </aside>
         </form>
@@ -217,14 +232,16 @@ function OrderingForm({ details, data, session }) {
         open={!!confirming}
         onClose={close}
         initialFocusRef={keepButton}
-        title="Create this demo service order?"
-        description="Confirmation creates one order awaiting payment. No money is collected and no provider is contacted."
+        title={t("Create this demo service order?")}
+        description={t(
+          "Confirmation creates one order awaiting payment. No money is collected and no provider is contacted.",
+        )}
         actions={
           <>
             <Button variant="outline" ref={keepButton} onClick={close}>
-              Keep editing selection
+              {t("Keep editing selection")}
             </Button>
-            <Button onClick={confirm}>Confirm demo order</Button>
+            <Button onClick={confirm}>{t("Confirm demo order")}</Button>
           </>
         }
       >
@@ -234,15 +251,17 @@ function OrderingForm({ details, data, session }) {
             <p>{confirming.terms.packageName}</p>
             <p>{confirming.terms.packageDescription}</p>
             <p>
-              {formatEGP(confirming.amountEGP)} · {confirming.deliveryDays} days
-              estimated
+              {formatEGP(confirming.amountEGP, locale)} ·{" "}
+              {confirming.deliveryDays} {t("days estimated")}
             </p>
-            <p>{confirming.terms.extras.length} extras selected</p>
+            <p>
+              {confirming.terms.extras.length} {t("extras selected")}
+            </p>
             <ul>
               {confirming.terms.extras.map((extra) => (
                 <li key={extra.id}>
-                  {extra.title} — +{formatEGP(extra.additionalPriceEGP)}, +
-                  {extra.additionalDays} days
+                  {extra.title} — +{formatEGP(extra.additionalPriceEGP, locale)}
+                  , +{extra.additionalDays} {t("days")}
                 </li>
               ))}
             </ul>
@@ -250,7 +269,7 @@ function OrderingForm({ details, data, session }) {
         )}
         {error && (
           <p className="project-create__alert" role="alert">
-            {error}
+            {t(error)}
           </p>
         )}
       </Modal>
@@ -259,6 +278,8 @@ function OrderingForm({ details, data, session }) {
 }
 
 export default function ServiceOrder() {
+  const { t } = useLanguage();
+
   const { serviceId } = useParams();
   const { session } = useAuth();
   const data = useServiceData();
@@ -268,12 +289,12 @@ export default function ServiceOrder() {
     return (
       <main className="project-create">
         <div className="project-create__container service-order__recovery">
-          <h1>Service ordering unavailable</h1>
+          <h1>{t("Service ordering unavailable")}</h1>
           <p>
             {access ||
               "This service or its packages are unavailable for ordering."}
           </p>
-          <Link to="/services">Browse services</Link>
+          <Link to="/services">{t("Browse services")}</Link>
         </div>
       </main>
     );

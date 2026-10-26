@@ -1,16 +1,23 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 /**
  * Skill chip list used in the About section.
  * @param {{ skills: string[], className?: string }} props
  */
 export default function SkillsDisplay({ skills = [], className = "" }) {
+  const { t } = useLanguage();
+
   if (!skills.length) {
-    return <p className="text-[13px] text-ink-secondary">No skills listed yet.</p>;
+    return (
+      <p className="text-[13px] text-ink-secondary">
+        {t("No skills listed yet.")}
+      </p>
+    );
   }
 
   return (
     <ul
       className={`flex flex-wrap content-start gap-2 ${className}`.trim()}
-      aria-label="Skills"
+      aria-label={t("Skills")}
     >
       {skills.map((skill) => (
         <li

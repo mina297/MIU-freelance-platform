@@ -118,7 +118,7 @@
 }
 .order-list__card-terms {
   padding: 28px;
-  border-left: 1px solid var(--theme-border, #d6bdcb);
+  border-inline-start: 1px solid var(--theme-border, #d6bdcb);
   background: var(--theme-accent-surface, #f4e9f0);
 }
 .order-list__card-terms dl {
@@ -193,7 +193,7 @@
     grid-template-columns: minmax(0, 1fr);
   }
   .order-list__card-terms {
-    border-left: 0;
+    border-inline-start: 0;
     border-top: 1px solid var(--theme-border, #d6bdcb);
   }
   .order-list__results-heading > .miu-field {

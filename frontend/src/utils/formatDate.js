@@ -21,7 +21,7 @@ export function formatDate(value, locale) {
 
   const formatter = locale
     ? new Intl.DateTimeFormat(locale, {
-        day: "2-digit",
+        day: locale === "en-EG" ? "numeric" : "2-digit",
         month: "short",
         year: "numeric",
         timeZone: "UTC",

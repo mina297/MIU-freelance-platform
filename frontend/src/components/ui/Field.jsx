@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useId } from "react";
 import { CircleAlert } from "lucide-react";
 import "./foundation.css";
@@ -18,6 +19,8 @@ export default function Field({
   group = false,
   children,
 }) {
+  const { t } = useLanguage();
+
   const generatedId = useId();
   const controlId = id ?? generatedId;
   const description =
@@ -37,34 +40,34 @@ export default function Field({
   };
   const caption = (
     <>
-      {label}
+      {t(label)}
       {required && <span aria-hidden="true"> *</span>}
     </>
   );
   const content = (
     <>
       {group ? (
-        <legend className="miu-field__label">{caption}</legend>
+        <legend className="miu-field__label">{t(caption)}</legend>
       ) : choice ? (
         <label className="miu-field__choice" htmlFor={controlId}>
           {children(controlProps)}
-          <span>{caption}</span>
+          <span>{t(caption)}</span>
         </label>
       ) : (
         <label className="miu-field__label" htmlFor={controlId}>
-          {caption}
+          {t(caption)}
         </label>
       )}
       {!choice && children(controlProps)}
       {helperText && (
         <p className="miu-field__helper" id={`${controlId}-helper`}>
-          {helperText}
+          {t(helperText)}
         </p>
       )}
       {error && (
         <p className="miu-field__error" id={`${controlId}-error`}>
           <CircleAlert size={14} aria-hidden="true" />
-          <span>{error}</span>
+          <span>{t(error)}</span>
         </p>
       )}
     </>

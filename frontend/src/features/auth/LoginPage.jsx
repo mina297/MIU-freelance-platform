@@ -1,21 +1,24 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
 import AuthForm from "./AuthForm.jsx";
 
 export default function LoginPage() {
+  const { t } = useLanguage();
+
   const { login } = useAuth();
   const navigate = useNavigate();
   return (
     <AuthForm
-      title="Sign in"
-      submitLabel="Sign in"
+      title={t("Sign in")}
+      submitLabel={t("Sign in")}
       afterSubmit={
         <p className="text-sm">
           <Link
             className="underline focus-visible:outline-2"
             to="/forgot-password"
           >
-            Forgot Password?
+            {t("Forgot Password?")}
           </Link>
         </p>
       }
@@ -40,7 +43,7 @@ export default function LoginPage() {
       }}
     >
       <p>
-        New here? <Link to="/register">Create an account</Link>
+        {t("New here?")} <Link to="/register">{t("Create an account")}</Link>
       </p>
     </AuthForm>
   );

@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { useState } from "react";
 import { validatePortfolioItem } from "../utils/validatePortfolioItem.js";
 import FileUploadField from "./FileUploadField.jsx";
@@ -57,6 +58,8 @@ export default function PortfolioItemForm({
   onCancel,
   onSave,
 }) {
+  const { t } = useLanguage();
+
   const [form, setForm] = useState(() =>
     mode === "edit" && initialItem ? itemToForm(initialItem) : emptyForm(),
   );
@@ -131,22 +134,23 @@ export default function PortfolioItemForm({
     >
       <div>
         <p className="text-xs font-semibold uppercase tracking-wide text-[var(--theme-accent,var(--color-miu-red))]">
-          Simulated Phase 1 workflow
+          {t("Simulated Phase 1 workflow")}
         </p>
         <h3 className="mt-1 text-lg font-semibold text-miu-black">
-          {mode === "edit" ? "Edit portfolio item" : "Add portfolio item"}
+          {mode === "edit" ? t("Edit portfolio item") : t("Add portfolio item")}
         </h3>
         <p className="mt-1 text-sm text-ink-secondary">
-          Changes save to this browser session for{" "}
-          <span className="font-medium text-miu-black">{studentId}</span> only.
+          {t("Changes save to this browser session for")}{" "}
+          <span className="font-medium text-miu-black">{studentId}</span>{" "}
+          {t("only.")}
         </p>
       </div>
 
       <Field
         id="pf-title"
-        label="Title"
+        label={t("Title")}
         value={form.title}
-        error={errors.title}
+        error={t(errors.title)}
         onChange={(v) => update("title", v)}
       />
 
@@ -155,7 +159,7 @@ export default function PortfolioItemForm({
           htmlFor="pf-category"
           className="text-sm font-semibold text-miu-black"
         >
-          Category
+          {t("Category")}
         </label>
         <select
           id="pf-category"
@@ -181,25 +185,25 @@ export default function PortfolioItemForm({
 
       <Field
         id="pf-month"
-        label="Month label (optional)"
+        label={t("Month label (optional)")}
         value={form.monthLabel}
-        error={errors.monthLabel}
+        error={t(errors.monthLabel)}
         onChange={(v) => update("monthLabel", v)}
-        placeholder="e.g. OCT 2026"
+        placeholder={t("e.g. OCT 2026")}
       />
 
       <TextArea
         id="pf-summary"
-        label="Summary"
+        label={t("Summary")}
         value={form.summary}
-        error={errors.summary}
+        error={t(errors.summary)}
         onChange={(v) => update("summary", v)}
         rows={3}
       />
 
       <TextArea
         id="pf-description"
-        label="Longer description (optional)"
+        label={t("Longer description (optional)")}
         value={form.description}
         onChange={(v) => update("description", v)}
         rows={4}
@@ -207,20 +211,20 @@ export default function PortfolioItemForm({
 
       <Field
         id="pf-tools"
-        label="Tools (comma-separated, optional)"
+        label={t("Tools (comma-separated, optional)")}
         value={form.toolsText}
         onChange={(v) => update("toolsText", v)}
       />
 
       <FileUploadField
-        label="Portfolio image (optional)"
+        label={t("Portfolio image (optional)")}
         hint="PNG, JPG, WebP, or SVG · max 2 MB · simulated preview only"
         accept="image/*"
         maxFiles={1}
         maxBytes={2_000_000}
         imagesOnly
         value={uploadValue}
-        error={errors.imageSrc}
+        error={t(errors.imageSrc)}
         onChange={(files) => {
           const next = files[0];
           if (!next) {
@@ -249,14 +253,14 @@ export default function PortfolioItemForm({
           className="h-11 rounded-full border border-border-soft px-5 text-sm font-semibold"
           disabled={status === "saving"}
         >
-          Cancel
+          {t("Cancel")}
         </button>
         <button
           type="submit"
           className="h-11 rounded-full bg-miu-red px-5 text-sm font-semibold text-white hover:bg-miu-red-dark disabled:opacity-60"
           disabled={status === "saving"}
         >
-          {status === "saving" ? "Saving…" : "Save item"}
+          {status === "saving" ? t("Saving…") : t("Save item")}
         </button>
       </div>
     </form>
@@ -264,15 +268,17 @@ export default function PortfolioItemForm({
 }
 
 function Field({ id, label, value, onChange, error, placeholder }) {
+  const { t } = useLanguage();
+
   return (
     <div className="space-y-2">
       <label htmlFor={id} className="text-sm font-semibold text-miu-black">
-        {label}
+        {t(label)}
       </label>
       <input
         id={id}
         value={value}
-        placeholder={placeholder}
+        placeholder={t(placeholder)}
         onChange={(e) => onChange(e.target.value)}
         className="h-11 w-full rounded-lg border border-border-soft px-3 text-sm"
       />
@@ -281,7 +287,7 @@ function Field({ id, label, value, onChange, error, placeholder }) {
           className="text-sm text-[var(--theme-danger-text,var(--color-danger))]"
           role="alert"
         >
-          {error}
+          {t(error)}
         </p>
       ) : null}
     </div>
@@ -289,10 +295,12 @@ function Field({ id, label, value, onChange, error, placeholder }) {
 }
 
 function TextArea({ id, label, value, onChange, error, rows = 3 }) {
+  const { t } = useLanguage();
+
   return (
     <div className="space-y-2">
       <label htmlFor={id} className="text-sm font-semibold text-miu-black">
-        {label}
+        {t(label)}
       </label>
       <textarea
         id={id}
@@ -306,7 +314,7 @@ function TextArea({ id, label, value, onChange, error, rows = 3 }) {
           className="text-sm text-[var(--theme-danger-text,var(--color-danger))]"
           role="alert"
         >
-          {error}
+          {t(error)}
         </p>
       ) : null}
     </div>

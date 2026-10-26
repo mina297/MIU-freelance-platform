@@ -1,18 +1,24 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { MOCK_PROPOSAL_ATTACHMENTS } from "./mockAttachments.js";
 
 export default function ProposalAttachments({ selectedIds, onChange, error }) {
+  const { t } = useLanguage();
+
   return (
     <fieldset
       aria-describedby="attachment-help attachment-error"
       className="rounded-xl border-2 border-[color:var(--theme-border,#c9bac1)] bg-[color:var(--theme-accent-surface,#faf7f9)] p-5"
     >
-      <legend className="px-2 font-bold">Sample attachments (optional)</legend>
+      <legend className="px-2 font-bold">
+        {t("Sample attachments (optional)")}
+      </legend>
       <p
         id="attachment-help"
         className="text-sm leading-6 text-[color:var(--theme-muted-text,#694c5b)]"
       >
-        Select fictional samples for this demo. No real files are uploaded or
-        stored. Uncheck a sample to remove it.
+        {t(
+          "Select fictional samples for this demo. No real files are uploaded or stored. Uncheck a sample to remove it.",
+        )}
       </p>
       <div className="mt-4 space-y-3">
         {MOCK_PROPOSAL_ATTACHMENTS.map((sample) => (
@@ -51,13 +57,13 @@ export default function ProposalAttachments({ selectedIds, onChange, error }) {
       >
         {selectedIds.length
           ? `${selectedIds.length} sample attachment(s) selected`
-          : "No sample attachments selected"}
+          : t("No sample attachments selected")}
       </p>
       <p
         id="attachment-error"
         className="mt-2 text-sm text-[color:var(--theme-accent,#9b2035)]"
       >
-        {error}
+        {t(error)}
       </p>
     </fieldset>
   );

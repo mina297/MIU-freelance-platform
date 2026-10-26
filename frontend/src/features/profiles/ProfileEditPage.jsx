@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useMemo, useState } from "react";
 import { useAuth } from "../../hooks/useAuth.js";
 import { ownsProfile } from "./utils/profileOwnership.js";
@@ -14,12 +15,16 @@ import { getProfileEdit, saveProfileEdit } from "./utils/profileEditStorage.js";
 import { resolveExternalLink } from "./utils/safeExternalUrl.js";
 
 export default function ProfileEditPage(props) {
+  const { t } = useLanguage();
+
   const { session } = useAuth();
   const role = props.role ?? session.user?.role;
   const profileId = props.profileId ?? session.user?.id;
   if (!ownsProfile(session, profileId, role))
     return (
-      <p role="alert">Only the active profile owner can edit this profile.</p>
+      <p role="alert">
+        {t("Only the active profile owner can edit this profile.")}
+      </p>
     );
   return (
     <ProfileEditor
@@ -135,6 +140,8 @@ function ProfileEditor({
   onSaved,
   session,
 }) {
+  const { t } = useLanguage();
+
   const resolvedId =
     profileId ||
     (role === "client"
@@ -166,10 +173,11 @@ function ProfileEditor({
           role="alert"
         >
           <h1 className="text-xl font-semibold text-miu-black">
-            Profile not found
+            {t("Profile not found")}
           </h1>
           <p className="mt-2 text-sm text-ink-secondary">
-            Cannot edit <span className="font-medium">{resolvedId}</span>.
+            {t("Cannot edit")} <span className="font-medium">{resolvedId}</span>
+            .
           </p>
         </div>
       </div>
@@ -289,15 +297,15 @@ function ProfileEditor({
       <div className="mx-auto flex w-full max-w-[800px] flex-col gap-6 px-5 py-8 sm:px-8 md:px-[120px] md:py-12">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-[var(--theme-accent,var(--color-miu-red))]">
-            Simulated Phase 1 workflow
+            {t("Simulated Phase 1 workflow")}
           </p>
           <h1 className="mt-1 text-2xl font-bold text-miu-black">
-            Edit profile
+            {t("Edit profile")}
           </h1>
           <p className="mt-1 text-sm text-ink-secondary">
-            Editing {role} profile{" "}
-            <span className="font-medium">{resolvedId}</span>. Changes stay in
-            sessionStorage until the tab is cleared.
+            {t("Editing")} {role} {t("profile")}{" "}
+            <span className="font-medium">{resolvedId}</span>
+            {t(". Changes stay in sessionStorage until the tab is cleared.")}
           </p>
         </div>
 
@@ -307,13 +315,13 @@ function ProfileEditor({
           noValidate
         >
           <FileUploadField
-            label="Profile photo"
+            label={t("Profile photo")}
             hint="PNG or JPG · max 2 MB · preview only"
             accept="image/*"
             maxFiles={1}
             maxBytes={2_000_000}
             imagesOnly
-            error={errors.profileImage}
+            error={t(errors.profileImage)}
             value={
               photoPreview
                 ? [
@@ -339,41 +347,41 @@ function ProfileEditor({
 
           <Field
             id="displayName"
-            label="Display name"
+            label={t("Display name")}
             value={form.displayName}
-            error={errors.displayName}
+            error={t(errors.displayName)}
             onChange={(v) => updateField("displayName", v)}
           />
 
           {role === "client" ? (
             <Field
               id="organizationName"
-              label="Organization"
+              label={t("Organization")}
               value={form.organizationName}
-              error={errors.organizationName}
+              error={t(errors.organizationName)}
               onChange={(v) => updateField("organizationName", v)}
             />
           ) : null}
 
           <Field
             id="headline"
-            label="Headline"
+            label={t("Headline")}
             value={form.headline}
             onChange={(v) => updateField("headline", v)}
           />
 
           <TextArea
             id="shortBio"
-            label="Short bio"
+            label={t("Short bio")}
             value={form.shortBio}
-            error={errors.shortBio}
+            error={t(errors.shortBio)}
             onChange={(v) => updateField("shortBio", v)}
             rows={3}
           />
 
           <TextArea
             id="aboutText"
-            label="About (separate paragraphs with a blank line)"
+            label={t("About (separate paragraphs with a blank line)")}
             value={form.aboutText}
             onChange={(v) => updateField("aboutText", v)}
             rows={5}
@@ -383,9 +391,9 @@ function ProfileEditor({
             <>
               <Field
                 id="skillsText"
-                label="Skills (comma-separated)"
+                label={t("Skills (comma-separated)")}
                 value={form.skillsText}
-                error={errors.skillsText}
+                error={t(errors.skillsText)}
                 onChange={(v) => updateField("skillsText", v)}
               />
               <div className="flex flex-wrap gap-2">
@@ -413,22 +421,22 @@ function ProfileEditor({
               </div>
               <Field
                 id="availability"
-                label="Availability"
+                label={t("Availability")}
                 value={form.availability}
-                error={errors.availability}
+                error={t(errors.availability)}
                 onChange={(v) => updateField("availability", v)}
               />
               <Field
                 id="rateEGP"
-                label="Indicative rate (EGP)"
+                label={t("Indicative rate (EGP)")}
                 value={form.rateEGP}
-                error={errors.rateEGP}
+                error={t(errors.rateEGP)}
                 onChange={(v) => updateField("rateEGP", v)}
                 inputMode="numeric"
               />
               <Field
                 id="languagesText"
-                label="Languages (comma-separated)"
+                label={t("Languages (comma-separated)")}
                 value={form.languagesText}
                 onChange={(v) => updateField("languagesText", v)}
               />
@@ -437,36 +445,38 @@ function ProfileEditor({
 
           <Field
             id="location"
-            label="Location"
+            label={t("Location")}
             value={form.location}
             onChange={(v) => updateField("location", v)}
           />
 
           <Field
             id="github"
-            label="GitHub URL"
+            label={t("GitHub URL")}
             value={form.github}
             onChange={(v) => updateField("github", v)}
-            placeholder="https://github.com/your-handle"
+            placeholder={t("https://github.com/your-handle")}
           />
           <Field
             id="linkedin"
-            label="LinkedIn URL"
+            label={t("LinkedIn URL")}
             value={form.linkedin}
             onChange={(v) => updateField("linkedin", v)}
-            placeholder="https://linkedin.com/in/your-handle"
+            placeholder={t("https://linkedin.com/in/your-handle")}
           />
           <Field
             id="portfolio"
-            label={role === "client" ? "Website URL" : "Portfolio URL"}
+            label={t(role === "client" ? t("Website URL") : t("Portfolio URL"))}
             value={form.portfolio}
             onChange={(v) => updateField("portfolio", v)}
-            placeholder="https://your-site.example (demo .example stays non-clickable)"
+            placeholder={t(
+              "https://your-site.example (demo .example stays non-clickable)",
+            )}
           />
           <p className="text-xs text-ink-secondary">
-            Safe http(s) links open in a new tab. Domains ending in{" "}
-            <span className="font-medium">.example</span> are treated as
-            demo-only.
+            {t("Safe http(s) links open in a new tab. Domains ending in")}{" "}
+            <span className="font-medium">{t(".example")}</span>{" "}
+            {t("are treated as demo-only.")}
           </p>
 
           {message ? (
@@ -485,14 +495,14 @@ function ProfileEditor({
               className="h-11 rounded-full border border-border-soft px-5 text-sm font-semibold text-miu-black"
               disabled={status === "saving"}
             >
-              Cancel
+              {t("Cancel")}
             </button>
             <button
               type="submit"
               className="h-11 rounded-full bg-miu-red px-5 text-sm font-semibold text-white hover:bg-miu-red-dark disabled:opacity-60"
               disabled={status === "saving"}
             >
-              {status === "saving" ? "Saving…" : "Save changes"}
+              {status === "saving" ? t("Saving…") : t("Save changes")}
             </button>
           </div>
         </form>
@@ -502,16 +512,18 @@ function ProfileEditor({
 }
 
 function Field({ id, label, value, onChange, error, inputMode, placeholder }) {
+  const { t } = useLanguage();
+
   return (
     <div className="space-y-2">
       <label htmlFor={id} className="text-sm font-semibold text-miu-black">
-        {label}
+        {t(label)}
       </label>
       <input
         id={id}
         value={value}
         inputMode={inputMode}
-        placeholder={placeholder}
+        placeholder={t(placeholder)}
         onChange={(e) => onChange(e.target.value)}
         className="h-11 w-full rounded-lg border border-border-soft px-3 text-sm text-miu-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
       />
@@ -520,7 +532,7 @@ function Field({ id, label, value, onChange, error, inputMode, placeholder }) {
           className="text-sm text-[var(--theme-danger-text,var(--color-danger))]"
           role="alert"
         >
-          {error}
+          {t(error)}
         </p>
       ) : null}
     </div>
@@ -528,10 +540,12 @@ function Field({ id, label, value, onChange, error, inputMode, placeholder }) {
 }
 
 function TextArea({ id, label, value, onChange, error, rows = 4 }) {
+  const { t } = useLanguage();
+
   return (
     <div className="space-y-2">
       <label htmlFor={id} className="text-sm font-semibold text-miu-black">
-        {label}
+        {t(label)}
       </label>
       <textarea
         id={id}
@@ -545,7 +559,7 @@ function TextArea({ id, label, value, onChange, error, rows = 4 }) {
           className="text-sm text-[var(--theme-danger-text,var(--color-danger))]"
           role="alert"
         >
-          {error}
+          {t(error)}
         </p>
       ) : null}
     </div>

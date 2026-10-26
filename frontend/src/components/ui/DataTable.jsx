@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useId } from "react";
 import Card from "./Card.jsx";
 import Button from "./Button.jsx";
@@ -29,6 +30,8 @@ export default function DataTable({
   headingLevel = 2,
   className = "",
 }) {
+  const { t } = useLanguage();
+
   const tableId = useId();
   const titleId = `${tableId}-title`;
   const descriptionId = `${tableId}-description`;
@@ -104,7 +107,7 @@ export default function DataTable({
       aria-labelledby={titleId}
     >
       <div className="miu-data-table__intro">
-        <Heading id={titleId}>{caption}</Heading>
+        <Heading id={titleId}>{t(caption)}</Heading>
         {description && <p id={descriptionId}>{description}</p>}
       </div>
       {Boolean(toolbar) && (
@@ -112,23 +115,23 @@ export default function DataTable({
       )}
       {state === "loading" && (
         <div className="miu-data-table__feedback">
-          <LoadingState message={loadingLabel} />
+          <LoadingState message={t(loadingLabel)} />
         </div>
       )}
       <div className="miu-data-table__content" aria-busy={state === "loading"}>
         {state === "error" ? (
           <ErrorState
             className="miu-data-table__feedback-card"
-            title="Records unavailable"
-            description={errorMessage}
+            title={t("Records unavailable")}
+            description={t(errorMessage)}
             onRetry={onRetry}
             headingLevel={Math.min(level + 1, 4)}
           />
         ) : state === "ready" && !rows.length ? (
           <EmptyState
             className="miu-data-table__feedback-card"
-            title={emptyTitle}
-            description={emptyDescription}
+            title={t(emptyTitle)}
+            description={t(emptyDescription)}
             onAction={onEmptyAction}
             actionLabel={emptyActionLabel}
             headingLevel={Math.min(level + 1, 4)}
@@ -139,7 +142,7 @@ export default function DataTable({
             role="table"
             aria-describedby={description ? descriptionId : undefined}
           >
-            <caption className="miu-data-display-sr-only">{caption}</caption>
+            <caption className="miu-data-display-sr-only">{t(caption)}</caption>
             <colgroup>
               {columns.map((column) => (
                 <col
@@ -179,9 +182,8 @@ export default function DataTable({
                           variant="ghost"
                           className="miu-data-table__sort"
                           disabled={typeof onSortChange !== "function"}
-                          aria-label={getSortLabel(
-                            column.header,
-                            nextDirection,
+                          aria-label={t(
+                            getSortLabel(column.header, nextDirection),
                           )}
                           onClick={() =>
                             onSortChange({
@@ -195,7 +197,7 @@ export default function DataTable({
                             className="miu-data-table__sort-hint"
                             aria-hidden="true"
                           >
-                            {active ? selectedSort.direction : "Sort"}
+                            {active ? selectedSort.direction : t("Sort")}
                           </span>
                         </Button>
                       ) : (

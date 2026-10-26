@@ -210,7 +210,7 @@
 .landing-search-hint {
   position: absolute;
   top: 50%;
-  left: 0;
+  inset-inline-start: 0;
   transform: translateY(-50%);
   max-width: 100%;
   overflow: hidden;
@@ -226,7 +226,7 @@
   display: inline-block;
   height: 18px;
   width: 1px;
-  margin-left: 3px;
+  margin-inline-start: 3px;
   background: var(--color-miu-red);
   vertical-align: -3px;
 }
@@ -254,8 +254,8 @@
   transition: none;
 }
 .landing-category-select {
-  border-left: 1px solid var(--border-soft);
-  padding-left: 8px;
+  border-inline-start: 1px solid var(--border-soft);
+  padding-inline-start: 8px;
   width: 220px;
   position: relative;
   flex-shrink: 0;
@@ -270,7 +270,7 @@
 }
 .landing-category-select > .disclosure-trigger > span {
   flex: 1;
-  text-align: left;
+  text-align: start;
 }
 .landing-category-select > .disclosure-trigger:hover,
 .landing-category-select > .disclosure-trigger[aria-expanded="true"] {
@@ -278,8 +278,8 @@
 }
 .landing-category-select .disclosure-panel {
   width: 260px;
-  left: auto;
-  right: 0;
+  inset-inline-start: auto;
+  inset-inline-end: 0;
   padding: 8px;
 }
 .landing-category-heading {
@@ -298,7 +298,7 @@
   min-height: 42px;
   padding: 10px 12px;
   border-radius: 9px;
-  text-align: left;
+  text-align: start;
 }
 .landing-category-option:hover {
   background: var(--surface-page);
@@ -338,7 +338,7 @@
   position: absolute;
   top: 4px;
   bottom: 4px;
-  left: 4px;
+  inset-inline-start: 4px;
   width: calc(50% - 4px);
   border-radius: 999px;
   background: var(--color-miu-red);
@@ -600,7 +600,7 @@
 .landing-results button {
   color: var(--theme-accent, #b91c2b);
   text-decoration: underline;
-  margin-left: 8px;
+  margin-inline-start: 8px;
 }
 .landing-empty {
   padding: 32px;
@@ -625,7 +625,7 @@
   display: flex;
   gap: 18px;
   align-items: center;
-  margin-right: auto;
+  margin-inline-end: auto;
 }
 .landing-footer-brand img {
   width: 80px;
@@ -678,7 +678,7 @@
   background: #1119;
 }
 .landing-dialog form {
-  text-align: right;
+  text-align: end;
   margin-bottom: 24px;
 }
 .landing-dialog h2 {
@@ -738,13 +738,13 @@
   }
   .landing-category-select {
     border: 0;
-    padding-left: 0;
+    padding-inline-start: 0;
     width: auto;
     flex: 1;
   }
   .landing-category-select .disclosure-panel {
-    left: 0;
-    right: auto;
+    inset-inline-start: 0;
+    inset-inline-end: auto;
     width: min(260px, calc(100vw - 64px));
   }
   .landing-section {

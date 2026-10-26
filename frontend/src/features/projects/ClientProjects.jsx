@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, FilePenLine, Plus } from "lucide-react";
@@ -9,6 +10,8 @@ import "./project-create.css";
 import ProjectActions from "./ProjectActions.jsx";
 
 export default function ClientProjects() {
+  const { t, locale } = useLanguage();
+
   const { session } = useAuth();
   const records = useSyncExternalStore(
     projectStore.subscribe,
@@ -25,46 +28,52 @@ export default function ClientProjects() {
   return (
     <main className="project-create">
       <header className="project-create__header">
-        <Link to="/projects">MIU Freelance.</Link>
+        <Link to="/projects">{t("MIU Freelance.")}</Link>
         <Link to="/client/projects/new">
-          <Plus size={16} aria-hidden="true" /> Create a project
+          <Plus size={16} aria-hidden="true" /> {t("Create a project")}
         </Link>
       </header>
       <section className="project-create__hero">
         <div className="project-create__container">
-          <p className="project-create__eyebrow">YOUR CLIENT WORKSPACE</p>
+          <p className="project-create__eyebrow">
+            {t("YOUR CLIENT WORKSPACE")}
+          </p>
           <h1 ref={heading} tabIndex={-1}>
-            Your ideas.
+            {t("Your ideas.")}
             <br />
-            <em>Taking shape.</em>
+            <em>{t("Taking shape.")}</em>
           </h1>
           <p>
-            Revisit a draft, refine an open brief, and keep your projects
-            moving.
+            {t(
+              "Revisit a draft, refine an open brief, and keep your projects moving.",
+            )}
           </p>
         </div>
       </section>
       <div className="project-create__container project-create__project-list">
         <div>
           <h2 className="text-2xl font-bold">
-            My projects{" "}
+            {t("My projects")}{" "}
             <span className="text-base font-normal">({projects.length})</span>
           </h2>
           <p className="mt-2 text-sm text-[color:var(--theme-muted-text,#685963)]">
-            Fictional demo records only. Saved drafts and changes reset on
-            refresh.
+            {t(
+              "Fictional demo records only. Saved drafts and changes reset on refresh.",
+            )}
           </p>
         </div>
         {!projects.length ? (
           <section className="project-create__panel project-create__brief">
             <FilePenLine aria-hidden="true" />
-            <h3>No projects yet</h3>
+            <h3>{t("No projects yet")}</h3>
             <p>
-              Start a brief and save it as a draft whenever you need a break.
+              {t(
+                "Start a brief and save it as a draft whenever you need a break.",
+              )}
             </p>
             <div className="project-create__success-links">
               <Link to="/client/projects/new">
-                Create your first project{" "}
+                {t("Create your first project")}{" "}
                 <ArrowRight size={16} aria-hidden="true" />
               </Link>
             </div>
@@ -80,11 +89,12 @@ export default function ClientProjects() {
                 <div className="project-create__list-meta">
                   <span className="project-create__eyebrow">
                     {draft
-                      ? "PRIVATE DRAFT"
+                      ? t("PRIVATE DRAFT")
                       : record.status.replaceAll("_", " ")}
                   </span>
                   <span>
-                    Updated {formatDate(record.updatedAt.slice(0, 10))}
+                    {t("Updated")}{" "}
+                    {formatDate(record.updatedAt.slice(0, 10), locale)}
                   </span>
                 </div>
                 <h3>
@@ -94,23 +104,27 @@ export default function ClientProjects() {
                 </h3>
                 <p className="project-create__prose">
                   {draft
-                    ? "Only you can access this draft. Complete the brief before publishing."
-                    : `${formatEGP(record.budgetEGP)} · Deadline ${formatDate(record.deadline)}`}
+                    ? t(
+                        "Only you can access this draft. Complete the brief before publishing.",
+                      )
+                    : `${formatEGP(record.budgetEGP, locale)} · Deadline ${formatDate(record.deadline, locale)}`}
                 </p>
                 <div className="project-create__success-links">
                   {["draft", "open"].includes(record.status) && (
                     <Link to={`/client/projects/${record.id}/edit`}>
-                      {draft ? "Continue draft" : "Edit project"}{" "}
+                      {draft ? t("Continue draft") : t("Edit project")}{" "}
                       <ArrowRight size={16} aria-hidden="true" />
                     </Link>
                   )}
                   {!draft && (
                     <Link to={`/client/projects/${record.id}/proposals`}>
-                      Review proposals
+                      {t("Review proposals")}
                     </Link>
                   )}
                   {!draft && (
-                    <Link to={`/projects/${record.id}`}>View project</Link>
+                    <Link to={`/projects/${record.id}`}>
+                      {t("View project")}
+                    </Link>
                   )}
                 </div>
                 <ProjectActions project={record} session={session} />

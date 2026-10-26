@@ -1,18 +1,21 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import Checkbox from "../../components/ui/Checkbox.jsx";
 import { ORDER_SAMPLE_ATTACHMENTS } from "./orderWorkspaceModel.js";
 
 export function OrderAttachmentNames({ ids }) {
+  const { t } = useLanguage();
+
   if (!ids.length) return null;
   return (
     <ul
       className="order-workspace__samples"
-      aria-label="Fictional attachment metadata"
+      aria-label={t("Fictional attachment metadata")}
     >
       {ids.map((id) => (
         <li key={id}>
           {ORDER_SAMPLE_ATTACHMENTS.find((item) => item.id === id)?.name ??
             "Sample unavailable"}{" "}
-          <span>(fictional sample; no file)</span>
+          <span>{t("(fictional sample; no file)")}</span>
         </li>
       ))}
     </ul>
@@ -20,17 +23,19 @@ export function OrderAttachmentNames({ ids }) {
 }
 
 export default function OrderSampleAttachments({ ids, onChange, error }) {
+  const { t } = useLanguage();
+
   return (
     <fieldset className="order-workspace__attachments">
-      <legend>Sample attachments (optional)</legend>
-      <p>No real files are read, uploaded, stored or downloaded.</p>
+      <legend>{t("Sample attachments (optional)")}</legend>
+      <p>{t("No real files are read, uploaded, stored or downloaded.")}</p>
       {ORDER_SAMPLE_ATTACHMENTS.map((item, index) => (
         <Checkbox
           key={item.id}
           name="workspace-attachments"
-          label={item.name}
+          label={t(item.name)}
           checked={ids.includes(item.id)}
-          error={index === 0 ? error : undefined}
+          error={t(index === 0 ? error : undefined)}
           onChange={(event) =>
             onChange(
               event.target.checked

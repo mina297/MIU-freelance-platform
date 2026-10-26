@@ -4,7 +4,7 @@
 }
 .homepage-skip-link {
   position: absolute;
-  left: 16px;
+  inset-inline-start: 16px;
   top: -80px;
   z-index: 100;
   padding: 12px 20px;
@@ -202,7 +202,11 @@
   border-color: #e99eb6;
 }
 :root[data-theme="dark"] .landing-student {
-  background: linear-gradient(180deg, var(--theme-accent-surface) 0 68px, var(--theme-surface) 68px);
+  background: linear-gradient(
+    180deg,
+    var(--theme-accent-surface) 0 68px,
+    var(--theme-surface) 68px
+  );
 }
 :root[data-theme="dark"] .landing-student-featured {
   border-color: #d98ca9;

@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { PROFILE_TABS } from "../constants.js";
 import { useRef } from "react";
 
@@ -15,6 +16,8 @@ export default function ProfileTabs({
   tabs = PROFILE_TABS,
   onTabSelect,
 }) {
+  const { t } = useLanguage();
+
   const buttons = useRef(new Map());
   function moveFocus(event, id) {
     if (event.altKey || event.ctrlKey || event.metaKey) return;
@@ -39,7 +42,7 @@ export default function ProfileTabs({
   return (
     <div
       role="tablist"
-      aria-label="Profile sections"
+      aria-label={t("Profile sections")}
       className="flex w-full items-center gap-6 overflow-x-auto border-b border-border-soft md:gap-8"
     >
       {tabs.map((tab) => {
@@ -62,11 +65,11 @@ export default function ProfileTabs({
             aria-disabled={!isImplemented}
             disabled={!isImplemented}
             tabIndex={isActive ? 0 : -1}
-            title={
+            title={t(
               isImplemented
                 ? tab.label
-                : `${tab.label} will be available in a later Stage`
-            }
+                : `${tab.label} will be available in a later Stage`,
+            )}
             className={
               isActive
                 ? "h-9 shrink-0 rounded-full border-[3px] border-miu-red px-1 text-[15px] font-semibold text-[var(--theme-accent,var(--color-miu-red))] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
@@ -76,7 +79,7 @@ export default function ProfileTabs({
               if (isImplemented) onTabSelect?.(tab.id);
             }}
           >
-            {tab.label}
+            {t(tab.label)}
           </button>
         );
       })}

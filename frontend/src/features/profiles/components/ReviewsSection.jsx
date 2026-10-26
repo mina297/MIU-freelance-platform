@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import RatingSummary from "../../reviews/components/RatingSummary.jsx";
 import ReviewCard from "../../reviews/components/ReviewCard.jsx";
 import { ProfileEmptyState } from "./ProfileStates.jsx";
@@ -16,17 +17,19 @@ export default function ReviewsSection({
   isOwner = false,
   onLeaveReview,
 }) {
+  const { t } = useLanguage();
+
   return (
     <div className="flex w-full flex-col gap-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-xl font-semibold text-miu-black">Reviews</h2>
+        <h2 className="text-xl font-semibold text-miu-black">{t("Reviews")}</h2>
         {!isOwner && onLeaveReview ? (
           <button
             type="button"
             onClick={onLeaveReview}
             className="h-10 rounded-full border border-miu-red px-4 text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))] hover:bg-miu-red-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
           >
-            Leave a review
+            {t("Leave a review")}
           </button>
         ) : null}
       </div>
@@ -34,7 +37,7 @@ export default function ReviewsSection({
       <RatingSummary ratingSummary={ratingSummary} />
 
       {reviews.length === 0 ? (
-        <ProfileEmptyState message="No reviews yet for this profile." />
+        <ProfileEmptyState message={t("No reviews yet for this profile.")} />
       ) : (
         <ul className="flex flex-col gap-4">
           {reviews.map((review) => (

@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { BadgeCheck, MessageCircle } from "lucide-react";
 import { getRatingAriaLabel, getStarDisplay } from "../utils/ratingDisplay.js";
 import SafeImage from "./SafeImage.jsx";
@@ -8,6 +9,8 @@ export default function ProfileHeader({
   onContact,
   contactLabel = "Contact",
 }) {
+  const { t, language } = useLanguage();
+
   const { filled, empty, label } = getStarDisplay(
     profile.ratingSummary.average,
   );
@@ -40,10 +43,13 @@ export default function ProfileHeader({
             {profile.displayName}
           </h1>
           {profile.verified ? (
-            <span className="inline-flex items-center" title="Verified profile">
+            <span
+              className="inline-flex items-center"
+              title={t("Verified profile")}
+            >
               <BadgeCheck
                 className="size-[22px] text-[var(--theme-accent,var(--color-miu-red))]"
-                aria-label="Verified"
+                aria-label={t("Verified")}
               />
             </span>
           ) : null}
@@ -61,18 +67,23 @@ export default function ProfileHeader({
 
         <div
           className="flex flex-wrap items-center gap-2"
-          aria-label={getRatingAriaLabel(
-            profile.ratingSummary.average,
-            profile.ratingSummary.count,
+          aria-label={t(
+            getRatingAriaLabel(
+              profile.ratingSummary.average,
+              profile.ratingSummary.count,
+              language,
+            ),
           )}
         >
           <span className="text-base leading-none text-star" aria-hidden="true">
             {"★".repeat(filled)}
             <span className="text-[#d1d5db]">{"★".repeat(empty)}</span>
           </span>
-          <span className="text-sm font-semibold text-miu-black">{label}</span>
+          <span className="text-sm font-semibold text-miu-black">
+            {t(label)}
+          </span>
           <span className="text-[13px] text-ink-secondary">
-            ({profile.ratingSummary.count} reviews)
+            ({profile.ratingSummary.count} {t("reviews)")}
           </span>
         </div>
 
@@ -88,7 +99,7 @@ export default function ProfileHeader({
           className="inline-flex h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full border border-miu-red bg-miu-red px-[18px] text-sm font-semibold text-white transition-colors hover:bg-miu-red-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red md:w-auto"
         >
           <MessageCircle className="size-[18px]" aria-hidden="true" />
-          {contactLabel}
+          {t(contactLabel)}
         </button>
       ) : null}
     </header>

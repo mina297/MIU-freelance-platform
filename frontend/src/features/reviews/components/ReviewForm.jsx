@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { useState, useSyncExternalStore } from "react";
 import { useAuth } from "../../../hooks/useAuth.js";
 import { orderStore } from "../../orders/orderStore.js";
@@ -18,6 +19,8 @@ export default function ReviewForm({
   onViewReview,
   onCancel,
 }) {
+  const { t } = useLanguage();
+
   const { session } = useAuth();
   useSyncExternalStore(
     orderStore.subscribe,
@@ -50,23 +53,27 @@ export default function ReviewForm({
   if (!reviewClientAllowed(session))
     return (
       <p role="alert">
-        An active client session is required to leave a review.
+        {t("An active client session is required to leave a review.")}
       </p>
     );
   if (submitted && submitted.reviewerClientId === session.user.id)
     return (
       <section className="space-y-4" role="status">
-        <h2 className="text-xl font-semibold">Review submitted</h2>
+        <h2 className="text-xl font-semibold">{t("Review submitted")}</h2>
         <p>
-          Saved in memory for this preview only. Refresh clears this review.
+          {t(
+            "Saved in memory for this preview only. Refresh clears this review.",
+          )}
         </p>
         <p>{submitted.body}</p>
         {onViewReview && (
-          <Button onClick={() => onViewReview(submitted)}>View review</Button>
+          <Button onClick={() => onViewReview(submitted)}>
+            {t("View review")}
+          </Button>
         )}
         {onCancel && (
           <Button variant="outline" onClick={onCancel}>
-            Close
+            {t("Close")}
           </Button>
         )}
       </section>
@@ -75,15 +82,16 @@ export default function ReviewForm({
     return (
       <section className="space-y-4">
         <h2 className="text-xl font-semibold">
-          No completed orders available to review
+          {t("No completed orders available to review")}
         </h2>
         <p>
-          Only your completed, unreviewed orders are eligible. Awaiting-payment
-          and active orders cannot be reviewed.
+          {t(
+            "Only your completed, unreviewed orders are eligible. Awaiting-payment and active orders cannot be reviewed.",
+          )}
         </p>
         {onCancel && (
           <Button variant="outline" onClick={onCancel}>
-            Close
+            {t("Close")}
           </Button>
         )}
       </section>
@@ -107,20 +115,21 @@ export default function ReviewForm({
       }}
     >
       <p className="text-sm text-[var(--theme-accent,var(--color-miu-red))]">
-        Simulated Phase 1 review · Reviewing as {session.user.displayName}
+        {t("Simulated Phase 1 review · Reviewing as")}{" "}
+        {session.user.displayName}
       </p>
-      <h2 className="text-xl font-semibold">Leave a review</h2>
+      <h2 className="text-xl font-semibold">{t("Leave a review")}</h2>
       <Select
-        label="Completed order"
+        label={t("Completed order")}
         value={selectedId}
-        error={errors.orderId}
+        error={t(errors.orderId)}
         onChange={(event) => {
           setOrderId(event.target.value);
           setErrors({});
         }}
       >
         <option value="" disabled>
-          Choose a completed order
+          {t("Choose a completed order")}
         </option>
         {eligible.map((record) => (
           <option key={record.id} value={record.id}>
@@ -135,25 +144,25 @@ export default function ReviewForm({
       <StarRatingInput
         value={rating}
         onChange={setRating}
-        error={errors.rating}
+        error={t(errors.rating)}
       />
       <Textarea
-        label="Written feedback"
+        label={t("Written feedback")}
         rows={5}
         maxLength={800}
         value={body}
         onChange={(event) => setBody(event.target.value)}
-        error={errors.body}
+        error={t(errors.body)}
         required
-        helperText="20–800 characters. Use fictional feedback only."
+        helperText={t("20–800 characters. Use fictional feedback only.")}
       />
       <div className="flex flex-wrap gap-3">
         {onCancel && (
           <Button variant="outline" onClick={onCancel}>
-            Cancel
+            {t("Cancel")}
           </Button>
         )}
-        <Button type="submit">Submit review</Button>
+        <Button type="submit">{t("Submit review")}</Button>
       </div>
     </form>
   );

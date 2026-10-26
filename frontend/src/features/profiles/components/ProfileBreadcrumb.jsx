@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { ArrowLeft } from "lucide-react";
 
 /**
@@ -9,6 +10,8 @@ export default function ProfileBreadcrumb({
   backLabel = "Find Talent",
   currentLabel = "Public profile",
 }) {
+  const { t } = useLanguage();
+
   const backContent = (
     <>
       <ArrowLeft className="size-4 shrink-0" aria-hidden="true" />
@@ -18,7 +21,7 @@ export default function ProfileBreadcrumb({
 
   return (
     <nav
-      aria-label="Breadcrumb"
+      aria-label={t("Breadcrumb")}
       className="flex items-center gap-2 text-[13px] leading-normal"
     >
       {onBack ? (

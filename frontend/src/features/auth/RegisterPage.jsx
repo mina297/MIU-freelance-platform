@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
 import { PUBLIC_REGISTRATION_ROLES, ROLES } from "./session.js";
@@ -5,6 +6,8 @@ import AuthForm from "./AuthForm.jsx";
 import RoleSelectionPage from "./RoleSelectionPage.jsx";
 
 export default function RegisterPage() {
+  const { t } = useLanguage();
+
   const { register } = useAuth();
   const navigate = useNavigate();
   const [params] = useSearchParams();
@@ -13,8 +16,10 @@ export default function RegisterPage() {
   return (
     <AuthForm
       key={role}
-      title={`Join as a ${role === ROLES.STUDENT ? "student" : "client"}`}
-      submitLabel="Create account"
+      title={t("Join as a {value0}", {
+        value0: role === ROLES.STUDENT ? "student" : "client",
+      })}
+      submitLabel={t("Create account")}
       initialValues={{
         role: PUBLIC_REGISTRATION_ROLES.includes(role) ? role : "",
       }}
@@ -42,10 +47,10 @@ export default function RegisterPage() {
       }}
     >
       <p>
-        <Link to="/register">Change account type</Link>
+        <Link to="/register">{t("Change account type")}</Link>
       </p>
       <p>
-        Already a member? <Link to="/login">Sign in</Link>
+        {t("Already a member?")} <Link to="/login">{t("Sign in")}</Link>
       </p>
     </AuthForm>
   );

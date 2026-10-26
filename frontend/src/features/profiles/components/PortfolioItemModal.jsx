@@ -1,11 +1,14 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import Modal from "../../../components/ui/Modal.jsx";
 import SafeImage from "./SafeImage.jsx";
 export default function PortfolioItemModal({ item, open, onClose }) {
+  const { t } = useLanguage();
+
   return (
     <Modal
       open={Boolean(open && item)}
       onClose={onClose}
-      title={item?.title ?? "Portfolio item"}
+      title={t(item?.title ?? "Portfolio item")}
       closeOnBackdrop
     >
       {item && (

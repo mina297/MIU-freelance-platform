@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
@@ -14,6 +15,8 @@ import "../projects/project-create.css";
 import "./student-proposals.css";
 
 function EditForm({ proposal }) {
+  const { t, locale } = useLanguage();
+
   const { session } = useAuth();
   const project = getProjectById(proposal.projectId);
   const [values, setValues] = useState(() => ({
@@ -60,24 +63,26 @@ function EditForm({ proposal }) {
   return (
     <main className="project-create student-proposals">
       <header className="project-create__header">
-        <Link to="/student/proposals">My proposals</Link>
-        <span>Phase 1 preview</span>
+        <Link to="/student/proposals">{t("My proposals")}</Link>
+        <span>{t("Phase 1 preview")}</span>
       </header>
       <section className="project-create__hero">
         <div className="project-create__container">
-          <p className="project-create__eyebrow">MAKE YOUR APPROACH COUNT</p>
+          <p className="project-create__eyebrow">
+            {t("MAKE YOUR APPROACH COUNT")}
+          </p>
           <h1 ref={heading} tabIndex={-1}>
             {saved ? (
               <>
-                A stronger offer.
+                {t("A stronger offer.")}
                 <br />
-                <em>Ready for review.</em>
+                <em>{t("Ready for review.")}</em>
               </>
             ) : (
               <>
-                Refine your offer.
+                {t("Refine your offer.")}
                 <br />
-                <em>Keep the idea moving.</em>
+                <em>{t("Keep the idea moving.")}</em>
               </>
             )}
           </h1>
@@ -89,28 +94,35 @@ function EditForm({ proposal }) {
           {saved ? (
             <div className="project-create__brief">
               <h2 className="text-2xl font-bold">
-                Proposal updated — simulation
+                {t("Proposal updated — simulation")}
               </h2>
               <p className="mt-4" role="status">
-                Your offer is now {formatEGP(Number(values.priceEGP))} with a{" "}
-                {values.deliveryDays}-day delivery estimate. Its existing status
-                is preserved. No notification sent.
+                {t("Your offer is now")}{" "}
+                {formatEGP(Number(values.priceEGP), locale)} {t("with a")}{" "}
+                {values.deliveryDays}
+                {t(
+                  "-day delivery estimate. Its existing status is preserved. No notification sent.",
+                )}
               </p>
               <div className="project-create__success-links">
-                <Link to="/student/proposals">Return to My proposals</Link>
+                <Link to="/student/proposals">
+                  {t("Return to My proposals")}
+                </Link>
                 <Button variant="outline" onClick={() => setSaved(false)}>
-                  Continue editing
+                  {t("Continue editing")}
                 </Button>
               </div>
             </div>
           ) : (
             <form ref={form} noValidate onSubmit={save}>
               <div className="project-create__fields">
-                <h2 className="text-2xl font-bold">Update your proposal</h2>
+                <h2 className="text-2xl font-bold">
+                  {t("Update your proposal")}
+                </h2>
                 <p className="student-proposals__disclosure">
-                  Update your price, delivery estimate and approach. Your offer
-                  keeps its current review status. Unsaved changes clear when
-                  you leave; saved demo changes reset on refresh.
+                  {t(
+                    "Update your price, delivery estimate and approach. Your offer keeps its current review status. Unsaved changes clear when you leave; saved demo changes reset on refresh.",
+                  )}
                 </p>
                 {Object.keys(errors).length > 0 && (
                   <p role="alert" className="project-create__alert">
@@ -140,7 +152,7 @@ function EditForm({ proposal }) {
                   onChange={(attachmentIds) =>
                     setValues((current) => ({ ...current, attachmentIds }))
                   }
-                  error={errors.attachmentIds}
+                  error={t(errors.attachmentIds)}
                 />
               </div>
               <div className="project-create__actions">
@@ -148,9 +160,9 @@ function EditForm({ proposal }) {
                   to="/student/proposals"
                   className="text-[var(--theme-accent,var(--color-miu-red))] underline"
                 >
-                  Discard unsaved changes
+                  {t("Discard unsaved changes")}
                 </Link>
-                <Button type="submit">Save demo changes</Button>
+                <Button type="submit">{t("Save demo changes")}</Button>
               </div>
             </form>
           )}
@@ -161,6 +173,8 @@ function EditForm({ proposal }) {
 }
 
 export default function StudentProposalEdit() {
+  const { t } = useLanguage();
+
   const { proposalId } = useParams();
   const { session } = useAuth();
   useSyncExternalStore(
@@ -185,18 +199,20 @@ export default function StudentProposalEdit() {
       <main className="project-create">
         <div className="project-create__container project-create__brief">
           <h1 className="text-3xl font-bold">
-            Proposal unavailable for editing
+            {t("Proposal unavailable for editing")}
           </h1>
           <p className="mt-4">
             {proposal
               ? error
-              : "This proposal is unavailable or does not belong to your account."}
+              : t(
+                  "This proposal is unavailable or does not belong to your account.",
+                )}
           </p>
           <Link
             className="mt-6 inline-flex min-h-11 items-center text-[var(--theme-accent,var(--color-miu-red))] underline"
             to="/student/proposals"
           >
-            Return to My proposals
+            {t("Return to My proposals")}
           </Link>
         </div>
       </main>

@@ -1,3 +1,4 @@
+import { translate } from "../../../i18n/translate.js";
 /**
  * Builds a 5-star visual model for ratings.
  * @param {number} average
@@ -20,10 +21,13 @@ export function getStarDisplay(average) {
  * @param {number} average
  * @param {number} count
  */
-export function getRatingAriaLabel(average, count) {
+export function getRatingAriaLabel(average, count, language = "en") {
   const safeAverage = Number.isFinite(average) ? average.toFixed(1) : "0.0";
   const safeCount = Number.isFinite(count) ? count : 0;
-  return `Rated ${safeAverage} out of 5 from ${safeCount} reviews`;
+  return translate(language, "Rated {rating} out of 5 from {count} reviews", {
+    rating: safeAverage,
+    count: safeCount,
+  });
 }
 
 /**

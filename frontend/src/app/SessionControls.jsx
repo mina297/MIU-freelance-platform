@@ -1,19 +1,23 @@
+import { useLanguage } from "../i18n/LanguageContext.js";
 import { useState } from "react";
 import { mockUsers } from "../data/fixtures/users.js";
 import { useAuth } from "../hooks/useAuth.js";
 
 export default function SessionControls() {
+  const { t } = useLanguage();
+
   const { session, startDemoSession, logout, expireSession } = useAuth();
   const [selectedId, setSelectedId] = useState(mockUsers[0].id);
   return (
     <section
-      aria-label="Prototype session controls"
+      aria-label={t("Prototype session controls")}
       className="premium-session-controls my-6 space-y-3 rounded border p-4"
     >
-      <h2 className="font-bold">Simulated session controls</h2>
+      <h2 className="font-bold">{t("Simulated session controls")}</h2>
       <p>
-        No real authentication. Refresh clears the session. Committee accounts
-        here represent provisioned test accounts.
+        {t(
+          "No real authentication. Refresh clears the session. Committee accounts here represent provisioned test accounts.",
+        )}
       </p>
       <p role="status">
         {session.user
@@ -21,7 +25,7 @@ export default function SessionControls() {
           : `Session: ${session.status}`}
       </p>
       <label className="block" htmlFor="demo-account">
-        Test account
+        {t("Test account")}
       </label>
       <select
         id="demo-account"
@@ -40,21 +44,21 @@ export default function SessionControls() {
           className="rounded border p-2"
           onClick={() => startDemoSession(selectedId)}
         >
-          Start test session
+          {t("Start test session")}
         </button>
         <button
           className="rounded border p-2"
           onClick={logout}
           disabled={session.status === "anonymous"}
         >
-          Log out
+          {t("Log out")}
         </button>
         <button
           className="rounded border p-2"
           onClick={expireSession}
           disabled={session.status !== "authenticated"}
         >
-          Simulate expiry
+          {t("Simulate expiry")}
         </button>
       </div>
     </section>

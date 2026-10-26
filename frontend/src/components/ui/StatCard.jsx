@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useId } from "react";
 import Card from "./Card.jsx";
 import Button from "./Button.jsx";
@@ -19,6 +20,8 @@ export default function StatCard({
   retryLabel = "Try again",
   className = "",
 }) {
+  const { t } = useLanguage();
+
   const labelId = useId();
   if (!["ready", "loading", "error"].includes(state)) {
     throw new TypeError("StatCard state must be ready, loading, or error.");
@@ -36,7 +39,7 @@ export default function StatCard({
     >
       <dl>
         <dt id={labelId} className="miu-stat-card__heading">
-          <span>{label}</span>
+          <span>{t(label)}</span>
           {Boolean(icon) && (
             <span className="miu-stat-card__icon" aria-hidden="true">
               {icon}
@@ -57,7 +60,7 @@ export default function StatCard({
         </dd>
       </dl>
       {state === "loading" && (
-        <LoadingState message={loadingLabel} showSkeleton={false} />
+        <LoadingState message={t(loadingLabel)} showSkeleton={false} />
       )}
       {state === "error" && (
         <div className="miu-stat-card__error">

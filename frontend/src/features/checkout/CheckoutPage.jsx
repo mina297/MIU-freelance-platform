@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, Check, ShieldCheck } from "lucide-react";
@@ -30,65 +31,72 @@ import logo from "../../assets/figma/miu-anniversary-logo.png";
 import "./checkout.css";
 
 function CheckoutHeader() {
+  const { t } = useLanguage();
+
   return (
     <header className="ec-header">
       <Link to="/" className="ec-brand">
-        <img src={logo} alt="MIU anniversary logo" />
+        <img src={logo} alt={t("MIU anniversary logo")} />
         <span>
-          <b>MIU Freelance</b>
-          <small>Checkout & escrow</small>
+          <b>{t("MIU Freelance")}</b>
+          <small>{t("Checkout & escrow")}</small>
         </span>
       </Link>
       <Link to="/client/payments/overview">
         <ArrowLeft size={16} aria-hidden="true" />
-        Client workspace
+        {t("Client workspace")}
       </Link>
     </header>
   );
 }
 export default function CheckoutPage() {
+  const { t } = useLanguage();
+
   const { session, startDemoSession } = useAuth();
   const { orderId = "order_002" } = useParams();
   useEffect(() => {
-    document.title = "Checkout & escrow | MIU Freelance";
     window.scrollTo(0, 0);
   }, [orderId]);
   const order = getServiceOrder(orderId);
   return (
     <div className="escrow-checkout">
       <a className="ec-skip" href="#checkout-main">
-        Skip to checkout
+        {t("Skip to checkout")}
       </a>
       <CheckoutHeader />
       {!canUseClientPayments(session) ? (
         <main id="checkout-main" tabIndex={-1} className="ec-gate">
           <Card>
-            <h1>Checkout & escrow</h1>
+            <h1>{t("Checkout & escrow")}</h1>
             <p>
               {session.status === "authenticated"
-                ? "Only an active client can fund a service order."
-                : "Continue with a client account to review and fund your own service order."}
+                ? t("Only an active client can fund a service order.")
+                : t(
+                    "Continue with a client account to review and fund your own service order.",
+                  )}
             </p>
             {session.status !== "authenticated" && (
               <Button onClick={() => startDemoSession("client_001")}>
-                Start client demo
+                {t("Start client demo")}
               </Button>
             )}
             <Link to="/login" state={{ from: "/Checkout" }}>
-              Log in with another account
+              {t("Log in with another account")}
             </Link>
             <small>
-              Frontend demonstration only. No real payments or card data.
+              {t("Frontend demonstration only. No real payments or card data.")}
             </small>
           </Card>
         </main>
       ) : !order || order.clientId !== session.user.id ? (
         <main id="checkout-main" tabIndex={-1} className="ec-gate">
           <ErrorState
-            title="Service order unavailable"
-            description="This order does not exist or is not available to your account."
+            title={t("Service order unavailable")}
+            description={t(
+              "This order does not exist or is not available to your account.",
+            )}
           />
-          <Link to="/client/payments/overview">Back to your orders</Link>
+          <Link to="/client/payments/overview">{t("Back to your orders")}</Link>
         </main>
       ) : (
         <CheckoutExperience
@@ -101,6 +109,8 @@ export default function CheckoutPage() {
   );
 }
 function CheckoutExperience({ order, session }) {
+  const { t, locale } = useLanguage();
+
   const snapshot = useCheckoutSnapshot();
   const transaction = clientTransactions(snapshot, session).find(
     (item) => item.orderId === order.id,
@@ -125,7 +135,7 @@ function CheckoutExperience({ order, session }) {
     if (phase !== "details" || transaction) headingRef.current?.focus();
   }, [phase, transaction]);
   const amounts = escrowBreakdown(order.priceMinor);
-  const money = (value) => formatEGP(value / 100);
+  const money = (value) => formatEGP(value / 100, locale);
   const selectedCard =
     values.cardId === "new"
       ? sampleCardPresets[values.preset]
@@ -172,8 +182,8 @@ function CheckoutExperience({ order, session }) {
     return (
       <main id="checkout-main" tabIndex={-1} className="ec-gate">
         <ErrorState
-          title="Initial payment unavailable"
-          description="This order is not awaiting an initial payment."
+          title={t("Initial payment unavailable")}
+          description={t("This order is not awaiting an initial payment.")}
         />
       </main>
     );
@@ -181,25 +191,28 @@ function CheckoutExperience({ order, session }) {
     <main id="checkout-main" tabIndex={-1} className="ec-main">
       <div className="ec-content">
         <div className="ec-title">
-          <p>CLIENT CHECKOUT</p>
+          <p>{t("CLIENT CHECKOUT")}</p>
           <h1 ref={headingRef} tabIndex={-1}>
             {transaction
-              ? "Demo payment confirmed"
+              ? t("Demo payment confirmed")
               : phase === "review"
-                ? "Review your escrow payment"
+                ? t("Review your escrow payment")
                 : phase === "failure"
-                  ? "Payment not completed"
-                  : "A clear start to great work"}
+                  ? t("Payment not completed")
+                  : t("A clear start to great work")}
           </h1>
           <span>
-            Agree on the work. Fund the first half. Keep the next steps clear.
+            {t(
+              "Agree on the work. Fund the first half. Keep the next steps clear.",
+            )}
           </span>
         </div>
         <div className="ec-demo-banner">
           <ShieldCheck size={18} aria-hidden="true" />
           <span>
-            Demo checkout · fictional payment methods, no real charges or escrow
-            custody.
+            {t(
+              "Demo checkout · fictional payment methods, no real charges or escrow custody.",
+            )}
           </span>
         </div>
         <Card as="section" className="ec-service">
@@ -211,11 +224,12 @@ function CheckoutExperience({ order, session }) {
           </div>
           <div>
             <p>
-              {order.packageName} · Order {order.id}
+              {order.packageName} {t("· Order")} {order.id}
             </p>
             <h2>{order.title}</h2>
             <span>
-              By {order.freelancer} · {order.deliveryDays}-day delivery
+              {t("By")} {order.freelancer} · {order.deliveryDays}
+              {t("-day delivery")}
             </span>
           </div>
           <strong>{money(order.priceMinor)}</strong>
@@ -231,51 +245,56 @@ function CheckoutExperience({ order, session }) {
             <div className="ec-success-mark">
               <Check size={28} aria-hidden="true" />
             </div>
-            <Badge variant="success">Held in Escrow</Badge>
-            <h2>Your initial 50% is held, not released</h2>
+            <Badge variant="success">{t("Held in Escrow")}</Badge>
+            <h2>{t("Your initial 50% is held, not released")}</h2>
             <p>
-              This is a demo confirmation. No real payment was made. The service
-              is <b>In Progress</b>, with payment status{" "}
-              <b>Partially Paid — Escrow Held</b>.
+              {t(
+                "This is a demo confirmation. No real payment was made. The service is",
+              )}{" "}
+              <b>{t("In Progress")}</b>
+              {t(", with payment status")}{" "}
+              <b>{t("Partially Paid — Escrow Held")}</b>.
             </p>
             <dl className="ec-success-details">
               <div>
-                <dt>Transaction</dt>
+                <dt>{t("Transaction")}</dt>
                 <dd>{transaction.id}</dd>
               </div>
               <div>
-                <dt>Amount paid into escrow</dt>
+                <dt>{t("Amount paid into escrow")}</dt>
                 <dd>{money(transaction.amountPaidMinor)}</dd>
               </div>
               <div>
-                <dt>Remaining balance</dt>
+                <dt>{t("Remaining balance")}</dt>
                 <dd>{money(transaction.remainingMinor)}</dd>
               </div>
               <div>
-                <dt>Payment date</dt>
-                <dd>{formatDate(transaction.paymentDate)}</dd>
+                <dt>{t("Payment date")}</dt>
+                <dd>{formatDate(transaction.paymentDate, locale)}</dd>
               </div>
               <div>
-                <dt>Released to freelancer</dt>
+                <dt>{t("Released to freelancer")}</dt>
                 <dd>{money(transaction.releasedMinor)}</dd>
               </div>
             </dl>
             <EscrowProgress transaction={transaction} />
             <div className="ec-actions">
               <Link className="ec-primary-link" to="/client/payments">
-                View transaction history
+                {t("View transaction history")}
               </Link>
-              <Link to="/client/payments/overview">Go to client dashboard</Link>
+              <Link to="/client/payments/overview">
+                {t("Go to client dashboard")}
+              </Link>
             </div>
           </Card>
         ) : phase === "failure" ? (
           <ErrorState
-            title={
+            title={t(
               failure?.code === "cancelled"
-                ? "Demo payment cancelled"
-                : "Demo payment failed"
-            }
-            description={failure?.message ?? "No payment was recorded."}
+                ? t("Demo payment cancelled")
+                : t("Demo payment failed"),
+            )}
+            description={t(failure?.message ?? "No payment was recorded.")}
             onRetry={() => {
               setPhase("review");
               setFailure(null);
@@ -285,35 +304,35 @@ function CheckoutExperience({ order, session }) {
           />
         ) : phase === "review" ? (
           <Card as="section" className="ec-review">
-            <h2>Review before you confirm</h2>
+            <h2>{t("Review before you confirm")}</h2>
             <dl>
               <div>
-                <dt>Payment method</dt>
+                <dt>{t("Payment method")}</dt>
                 <dd>{paymentLabel}</dd>
               </div>
               <div>
-                <dt>Initial payment held in escrow</dt>
+                <dt>{t("Initial payment held in escrow")}</dt>
                 <dd>{money(amounts.initialMinor)}</dd>
               </div>
               <div>
-                <dt>Remaining balance, not charged now</dt>
+                <dt>{t("Remaining balance, not charged now")}</dt>
                 <dd>{money(amounts.remainingMinor)}</dd>
               </div>
             </dl>
             <p>
-              Funds remain held until the agreed milestone or service-completion
-              conditions are met. Confirmation does not complete the service or
-              pay the freelancer.
+              {t(
+                "Funds remain held until the agreed milestone or service-completion conditions are met. Confirmation does not complete the service or pay the freelancer.",
+              )}
             </p>
             <Button
               variant="outline"
               onClick={() => setPhase("details")}
               disabled={processing}
             >
-              Edit payment details
+              {t("Edit payment details")}
             </Button>
             {processing && (
-              <p role="status">Processing demo payment… Please wait.</p>
+              <p role="status">{t("Processing demo payment… Please wait.")}</p>
             )}
           </Card>
         ) : (
@@ -333,28 +352,29 @@ function CheckoutExperience({ order, session }) {
         {!transaction && <EscrowProgress />}
         <footer className="ec-footer">
           <span>
-            EGP only · No real card information is collected or stored.
+            {t("EGP only · No real card information is collected or stored.")}
           </span>
           <details>
-            <summary>Demo controls</summary>
+            <summary>{t("Demo controls")}</summary>
             <Select
-              label="Simulated payment outcome"
+              label={t("Simulated payment outcome")}
               value={outcome}
               disabled={processing}
               onChange={(event) => setOutcome(event.target.value)}
             >
-              <option value="success">Success</option>
-              <option value="failure">Failure</option>
-              <option value="cancelled">Cancelled</option>
+              <option value="success">{t("Success")}</option>
+              <option value="failure">{t("Failure")}</option>
+              <option value="cancelled">{t("Cancelled")}</option>
             </Select>
             <p>
-              Demo records and sessions are held in memory and clear on page
-              refresh.
+              {t(
+                "Demo records and sessions are held in memory and clear on page refresh.",
+              )}
             </p>
           </details>
         </footer>
       </div>
-      <aside className="ec-aside" aria-label="Escrow payment summary">
+      <aside className="ec-aside" aria-label={t("Escrow payment summary")}>
         <OrderSummary
           order={order}
           amounts={amounts}

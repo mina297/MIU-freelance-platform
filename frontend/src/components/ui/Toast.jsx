@@ -1,3 +1,5 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
+import LocalizedText from "../../i18n/LocalizedText.jsx";
 import Badge from "./Badge.jsx";
 import Button from "./Button.jsx";
 import Card from "./Card.jsx";
@@ -66,24 +68,33 @@ export default function Toast({
         <div className="miu-toast__status">
           {resolvedVariant === "loading" && <LoadingSpinner decorative />}
           <Badge variant={presentation.badge}>
-            {statusLabel ?? presentation.label}
+            <LocalizedText>{statusLabel ?? presentation.label}</LocalizedText>
           </Badge>
         </div>
-        <p className="miu-toast__message">{message}</p>
+        <p className="miu-toast__message">
+          <LocalizedText>{message}</LocalizedText>
+        </p>
         {description?.trim() && (
-          <p className="miu-toast__description">{description}</p>
+          <p className="miu-toast__description">
+            <LocalizedText>{description}</LocalizedText>
+          </p>
         )}
       </div>
       {dismissible && (
-        <Button
+        <DismissButton
           variant="ghost"
           className="miu-toast__dismiss"
           aria-label={dismissLabel}
           onClick={onDismiss}
         >
           <img src={closeIcon} alt="" aria-hidden="true" />
-        </Button>
+        </DismissButton>
       )}
     </Card>
   );
+}
+
+function DismissButton({ "aria-label": label, ...props }) {
+  const { t } = useLanguage();
+  return <Button {...props} aria-label={t(label)} />;
 }

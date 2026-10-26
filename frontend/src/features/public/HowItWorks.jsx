@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef } from "react";
 import { BriefcaseBusiness, Users, Star, ArrowUpRight } from "lucide-react";
 import { getTimelineMotion } from "./timelineMotion.js";
@@ -29,6 +30,8 @@ const steps = [
 ];
 
 export default function HowItWorks({ motionEnabled }) {
+  const { t } = useLanguage();
+
   const section = useRef(null);
   const timeline = useRef(null);
   useEffect(() => {
@@ -113,12 +116,14 @@ export default function HowItWorks({ motionEnabled }) {
       <div className="landing-container">
         <div className="landing-heading landing-how-heading">
           <div>
-            <p className="landing-eyebrow">From first idea to finished work</p>
-            <h2 id="how-it-works-title">How it works</h2>
-            <p>Three simple steps. A whole new set of possibilities.</p>
+            <p className="landing-eyebrow">
+              {t("From first idea to finished work")}
+            </p>
+            <h2 id="how-it-works-title">{t("How it works")}</h2>
+            <p>{t("Three simple steps. A whole new set of possibilities.")}</p>
           </div>
           <span className="landing-how-caption">
-            YOUR NEXT CHAPTER STARTS HERE{" "}
+            {t("YOUR NEXT CHAPTER STARTS HERE")}{" "}
             <ArrowUpRight size={18} aria-hidden="true" />
           </span>
         </div>
@@ -141,7 +146,7 @@ export default function HowItWorks({ motionEnabled }) {
                           aria-hidden="true"
                         />
                       </span>
-                      <span>{caption}</span>
+                      <span>{t(caption)}</span>
                     </div>
                     <h3>{title}</h3>
                     <p>{description}</p>

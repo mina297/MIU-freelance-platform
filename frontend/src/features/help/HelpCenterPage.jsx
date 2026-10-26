@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useMemo, useState } from "react";
 import {
   helpArticles,
@@ -16,10 +17,12 @@ import FaqAccordion from "./components/FaqAccordion.jsx";
  * }} props
  */
 export default function HelpCenterPage({ onOpenArticle, onContactSupport }) {
+  const { t } = useLanguage();
+
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
 
-  const results = useMemo(() => searchHelpContent(query), [query]);
+  const results = useMemo(() => searchHelpContent(query, t), [query, t]);
 
   const articles = useMemo(() => {
     if (activeCategory === "all") return results.articles;
@@ -35,18 +38,21 @@ export default function HelpCenterPage({ onOpenArticle, onContactSupport }) {
     <div className="w-full bg-surface-page">
       <div className="mx-auto flex w-full max-w-[960px] flex-col gap-8 px-5 py-8 sm:px-8 md:px-[120px] md:py-12">
         <header className="premium-help-header space-y-3">
-          <h1 className="text-3xl font-bold text-miu-black">Help Center</h1>
+          <h1 className="text-3xl font-bold text-miu-black">
+            {t("Help Center")}
+          </h1>
           <p className="max-w-2xl text-[15px] text-ink-secondary">
-            Guides and FAQs for profiles, reviews, and campus support. Phase 1
-            content is fictional and for demonstration.
+            {t(
+              "Guides and FAQs for profiles, reviews, and campus support. Phase 1 content is fictional and for demonstration.",
+            )}
           </p>
           <label className="block">
-            <span className="sr-only">Search help articles</span>
+            <span className="sr-only">{t("Search help articles")}</span>
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search articles and FAQs…"
+              placeholder={t("Search articles and FAQs…")}
               className="h-12 w-full rounded-full border border-border-soft bg-[var(--theme-surface,#fff)] px-5 text-sm shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
             />
           </label>
@@ -56,21 +62,23 @@ export default function HelpCenterPage({ onOpenArticle, onContactSupport }) {
           <CategoryChip
             active={activeCategory === "all"}
             onClick={() => setActiveCategory("all")}
-            label="All"
+            label={t("All")}
           />
           {helpCategories.map((cat) => (
             <CategoryChip
               key={cat.id}
               active={activeCategory === cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              label={cat.label}
+              label={t(cat.label)}
             />
           ))}
         </div>
 
         <section className="space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 className="text-xl font-semibold text-miu-black">Articles</h2>
+            <h2 className="text-xl font-semibold text-miu-black">
+              {t("Articles")}
+            </h2>
             <button
               type="button"
               onClick={
@@ -82,13 +90,14 @@ export default function HelpCenterPage({ onOpenArticle, onContactSupport }) {
               }
               className="text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))]"
             >
-              Contact support
+              {t("Contact support")}
             </button>
           </div>
 
           {articles.length === 0 ? (
             <p className="rounded-panel border border-dashed border-border-soft bg-[var(--theme-surface,#fff)] p-6 text-sm text-ink-secondary">
-              No articles match “{query}”.
+              {t("No articles match “")}
+              {query}”.
             </p>
           ) : (
             <ul className="grid gap-4 sm:grid-cols-2">
@@ -97,16 +106,16 @@ export default function HelpCenterPage({ onOpenArticle, onContactSupport }) {
                   <button
                     type="button"
                     onClick={() => onOpenArticle?.(article.slug)}
-                    className="flex h-full w-full flex-col rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-5 text-left shadow-[var(--shadow-panel)] hover:border-miu-red/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+                    className="flex h-full w-full flex-col rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-5 text-start shadow-[var(--shadow-panel)] hover:border-miu-red/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
                   >
                     <h3 className="text-base font-semibold text-miu-black">
-                      {article.title}
+                      {t(article.title)}
                     </h3>
                     <p className="mt-2 flex-1 text-sm text-ink-secondary">
-                      {article.summary}
+                      {t(article.summary)}
                     </p>
                     <span className="mt-3 text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))]">
-                      Read article →
+                      {t("Read article →")}
                     </span>
                   </button>
                 </li>
@@ -116,7 +125,7 @@ export default function HelpCenterPage({ onOpenArticle, onContactSupport }) {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-xl font-semibold text-miu-black">FAQs</h2>
+          <h2 className="text-xl font-semibold text-miu-black">{t("FAQs")}</h2>
           <FaqAccordion items={faqs} />
         </section>
 
@@ -131,6 +140,8 @@ export default function HelpCenterPage({ onOpenArticle, onContactSupport }) {
 }
 
 function CategoryChip({ label, active, onClick }) {
+  const { t } = useLanguage();
+
   return (
     <button
       type="button"
@@ -141,7 +152,7 @@ function CategoryChip({ label, active, onClick }) {
           : "bg-[var(--theme-surface,#fff)] text-ink-secondary ring-1 ring-[color:var(--theme-border,#e5e7eb)] hover:text-miu-black"
       }`}
     >
-      {label}
+      {t(label)}
     </button>
   );
 }

@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { startTransition, useEffect, useReducer, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
@@ -32,6 +33,8 @@ const sections = [
   ["reports", "Reports & audit", Activity],
 ];
 export default function SuperAdminDashboard() {
+  const { t, locale } = useLanguage();
+
   const [params, setParams] = useSearchParams();
   const section = sections.some(([id]) => id === params.get("section"))
     ? params.get("section")
@@ -138,7 +141,7 @@ export default function SuperAdminDashboard() {
                 })
               }
             >
-              Review case →
+              {t("Review case →")}
             </button>
           ),
         },
@@ -148,17 +151,18 @@ export default function SuperAdminDashboard() {
   return (
     <div className="admin-center">
       <a className="ac-skip" href="#admin-content">
-        Skip to control center
+        {t("Skip to control center")}
       </a>
       <aside className="ac-sidebar">
         <Link to="/projects" className="ac-brand">
-          <img src={logo} alt="MIU anniversary logo" />
+          <img src={logo} alt={t("MIU anniversary logo")} />
           <b>
-            MIU Freelance<small>Administration workspace</small>
+            {t("MIU Freelance")}
+            <small>{t("Administration workspace")}</small>
           </b>
         </Link>
-        <p className="ac-eyebrow">PLATFORM CONTROL</p>
-        <nav aria-label="Super Admin sections">
+        <p className="ac-eyebrow">{t("PLATFORM CONTROL")}</p>
+        <nav aria-label={t("Super Admin sections")}>
           {sections.map(([id, label, Icon]) => (
             <button
               key={id}
@@ -166,38 +170,43 @@ export default function SuperAdminDashboard() {
               onClick={() => go(id)}
             >
               <Icon size={18} aria-hidden="true" />
-              {label}
+              {t(label)}
             </button>
           ))}
         </nav>
         <div className="ac-trust">
           <ShieldCheck size={22} />
-          <h3>Accountable by design</h3>
-          <p>Every demo decision includes a reason and an audit record.</p>
+          <h3>{t("Accountable by design")}</h3>
+          <p>
+            {t("Every demo decision includes a reason and an audit record.")}
+          </p>
         </div>
         <Link className="ac-back" to="/">
-          Demo session controls ↗
+          {t("Demo session controls ↗")}
         </Link>
       </aside>
       <div className="ac-workspace">
         <header className="ac-topbar">
           <span>
-            Administration <span aria-hidden="true">/</span> <b>{title}</b>
+            {t("Administration")} <span aria-hidden="true">/</span>{" "}
+            <b>{title}</b>
           </span>
           <span className="ac-account">
-            <span className="ac-avatar">SA</span>Super Admin{" "}
-            <Badge>Frontend demo</Badge>
+            <span className="ac-avatar">{t("SA")}</span>
+            {t("Super Admin")} <Badge>{t("Frontend demo")}</Badge>
           </span>
         </header>
         <main id="admin-content" className="ac-main">
           <div className="ac-heading">
             <div>
-              <p className="ac-eyebrow">MIU FREELANCE · GOVERNANCE</p>
+              <p className="ac-eyebrow">{t("MIU FREELANCE · GOVERNANCE")}</p>
               <h1>
-                {section === "overview" ? "Platform Control Center" : title}
+                {section === "overview" ? t("Platform Control Center") : title}
               </h1>
               <p>
-                Clarity across the platform. Accountability in every decision.
+                {t(
+                  "Clarity across the platform. Accountability in every decision.",
+                )}
               </p>
             </div>
             <button
@@ -209,31 +218,32 @@ export default function SuperAdminDashboard() {
                 })
               }
             >
-              + Create committee account
+              {t("+ Create committee account")}
             </button>
           </div>
           <div className="ac-demo">
-            Fictional records · EGP only · No real verification, AI, payments or
-            escrow. Changes reset when you leave this workspace.
+            {t(
+              "Fictional records · EGP only · No real verification, AI, payments or escrow. Changes reset when you leave this workspace.",
+            )}
           </div>
           <p role="status" className="ac-notice">
-            {notice}
+            {t(notice)}
           </p>
           {!loaded ? (
             <div className="ac-panel ac-empty" role="status">
-              Loading control center…
+              {t("Loading control center…")}
             </div>
           ) : scenario === "error" ? (
             <div className="ac-panel ac-empty" role="alert">
-              <h2>Unable to load this demo</h2>
-              <p>Your in-memory changes are retained.</p>
+              <h2>{t("Unable to load this demo")}</h2>
+              <p>{t("Your in-memory changes are retained.")}</p>
               <button
                 onClick={() => {
                   setLoaded(false);
                   setScenario("sample");
                 }}
               >
-                Try again
+                {t("Try again")}
               </button>
             </div>
           ) : (
@@ -263,31 +273,31 @@ export default function SuperAdminDashboard() {
                       ],
                       [
                         "Sandbox escrow",
-                        formatEGP(empty ? 0 : 7500),
+                        formatEGP(empty ? 0 : 7500, locale),
                         "Fictional held amount",
                         Wallet,
                       ],
                     ].map(([label, value, caption, Icon]) => (
                       <article className="ac-panel ac-stat" key={label}>
                         <div>
-                          {label}
+                          {t(label)}
                           <Icon size={18} aria-hidden="true" />
                         </div>
                         <strong>{value}</strong>
-                        <small>{caption}</small>
+                        <small>{t(caption)}</small>
                       </article>
                     ))}
                   </div>
                   <Panel
-                    title="Needs your attention"
+                    title={t("Needs your attention")}
                     subtitle="Review escalations and pending cases before recording a decision."
                   >
                     {reviewTable}
                   </Panel>
                   <div className="ac-section-title">
-                    <h2>Committee oversight</h2>
+                    <h2>{t("Committee oversight")}</h2>
                     <button onClick={() => go("committees")}>
-                      View all committees →
+                      {t("View all committees →")}
                     </button>
                   </div>
                   <div className="ac-committee-grid">
@@ -299,13 +309,15 @@ export default function SuperAdminDashboard() {
                         <h3>{c.name}</h3>
                         <p>{c.description}</p>
                         <div>
-                          <Badge>{empty ? 0 : c.pending} queued</Badge>
+                          <Badge>
+                            {empty ? 0 : c.pending} {t("queued")}
+                          </Badge>
                           <button
                             onClick={() => {
                               go("committees");
                             }}
                           >
-                            Inspect workspace <ArrowUpRight size={15} />
+                            {t("Inspect workspace")} <ArrowUpRight size={15} />
                           </button>
                         </div>
                       </article>
@@ -315,12 +327,12 @@ export default function SuperAdminDashboard() {
               )}
               {section === "users" && (
                 <Panel
-                  title="User directory"
+                  title={t("User directory")}
                   subtitle="Manage fictional student and client accounts; committee accounts remain separate."
                 >
                   <div className="ac-filters">
                     <label>
-                      Search accounts
+                      {t("Search accounts")}
                       <input
                         type="search"
                         value={search}
@@ -328,7 +340,7 @@ export default function SuperAdminDashboard() {
                       />
                     </label>
                     <label>
-                      Role
+                      {t("Role")}
                       <select
                         value={filter}
                         onChange={(e) => setFilter(e.target.value)}
@@ -367,8 +379,8 @@ export default function SuperAdminDashboard() {
                             }
                           >
                             {u.accountStatus === "active"
-                              ? "Suspend"
-                              : "Restore"}
+                              ? t("Suspend")
+                              : t("Restore")}
                           </button>
                         ),
                       },
@@ -379,7 +391,7 @@ export default function SuperAdminDashboard() {
               {section === "committees" && (
                 <>
                   <Panel
-                    title="Five specialist workspaces"
+                    title={t("Five specialist workspaces")}
                     subtitle="Opening a committee demo switches the simulated account. Committee screens are currently routing placeholders; use session controls to return as Super Admin."
                   >
                     <div className="ac-committee-grid ac-padded">
@@ -395,14 +407,14 @@ export default function SuperAdminDashboard() {
                               });
                             }}
                           >
-                            Open {c.name} demo ↗
+                            {t("Open")} {c.name} {t("demo ↗")}
                           </button>
                         </article>
                       ))}
                     </div>
                   </Panel>
                   <Panel
-                    title="Provisioned committee accounts"
+                    title={t("Provisioned committee accounts")}
                     subtitle="No public registration. New records are display-only and cannot log in."
                   >
                     <DataTable
@@ -429,8 +441,8 @@ export default function SuperAdminDashboard() {
                               }
                             >
                               {u.accountStatus === "active"
-                                ? "Suspend"
-                                : "Reactivate"}
+                                ? t("Suspend")
+                                : t("Reactivate")}
                             </button>
                           ),
                         },
@@ -441,7 +453,7 @@ export default function SuperAdminDashboard() {
               )}
               {section === "permissions" && (
                 <Panel
-                  title="Committee permission matrix"
+                  title={t("Committee permission matrix")}
                   subtitle="Least privilege: each committee is limited to its own domain. Demo review permission changes are recorded here; shared login guards remain unchanged."
                 >
                   <DataTable
@@ -463,7 +475,7 @@ export default function SuperAdminDashboard() {
                               })
                             }
                           >
-                            {state.grants[c.id] ? "Enabled" : "Disabled"}
+                            {state.grants[c.id] ? t("Enabled") : t("Disabled")}
                           </button>
                         ),
                       },
@@ -478,7 +490,7 @@ export default function SuperAdminDashboard() {
               )}
               {section === "reviews" && (
                 <Panel
-                  title="Pending reviews & escalations"
+                  title={t("Pending reviews & escalations")}
                   subtitle="Recorded decisions are simulations. No biometric data or real evidence is processed."
                 >
                   {reviewTable}
@@ -486,7 +498,7 @@ export default function SuperAdminDashboard() {
               )}
               {section === "finance" && (
                 <Panel
-                  title="Sandbox financial overview"
+                  title={t("Sandbox financial overview")}
                   subtitle="Fictional records only. Financial approval thresholds and fee policies remain undecided; no money movement is available."
                 >
                   <DataTable
@@ -497,7 +509,7 @@ export default function SuperAdminDashboard() {
                       {
                         key: "amount",
                         label: "Amount",
-                        render: (t) => formatEGP(t.amount),
+                        render: (t) => formatEGP(t.amount, locale),
                       },
                       {
                         key: "status",
@@ -518,13 +530,13 @@ export default function SuperAdminDashboard() {
                           <strong>
                             {cases.filter((c) => c.status === status).length}
                           </strong>
-                          <small>Decisions in this preview</small>
+                          <small>{t("Decisions in this preview")}</small>
                         </article>
                       ),
                     )}
                   </div>
                   <Panel
-                    title="Administrative audit history"
+                    title={t("Administrative audit history")}
                     subtitle="Session-only events. Actor, target, reason, timestamp and before/after values are recorded together."
                   >
                     <DataTable
@@ -535,7 +547,7 @@ export default function SuperAdminDashboard() {
                           key: "timestamp",
                           label: "Time",
                           render: (r) =>
-                            new Date(r.timestamp).toLocaleString("en-GB", {
+                            new Date(r.timestamp).toLocaleString(locale, {
                               timeZone: "Africa/Cairo",
                             }),
                         },
@@ -560,11 +572,11 @@ export default function SuperAdminDashboard() {
             </>
           )}
           <footer className="ac-footer">
-            <span>© 2026 MIU Freelance</span>
+            <span>{t("© 2026 MIU Freelance")}</span>
             <details>
-              <summary>Preview states</summary>
+              <summary>{t("Preview states")}</summary>
               <label>
-                Data scenario
+                {t("Data scenario")}
                 <select
                   value={scenario}
                   onChange={(e) => {
@@ -583,30 +595,31 @@ export default function SuperAdminDashboard() {
       </div>
       {dialog && (
         <AdminDialog
-          title={
+          title={t(
             dialog.type === "create"
-              ? "Create committee account"
-              : "Record administrative decision"
-          }
+              ? t("Create committee account")
+              : t("Record administrative decision"),
+          )}
           close={() => setDialog(null)}
         >
           <form onSubmit={submit}>
             {dialog.type === "create" ? (
               <>
                 <p>
-                  Fictional account only. No credentials or activation email
-                  will be generated.
+                  {t(
+                    "Fictional account only. No credentials or activation email will be generated.",
+                  )}
                 </p>
                 <label>
-                  Member name
+                  {t("Member name")}
                   <input name="name" required maxLength={80} />
                 </label>
                 <label>
-                  Demo email
+                  {t("Demo email")}
                   <input name="email" type="email" required maxLength={160} />
                 </label>
                 <label>
-                  Committee
+                  {t("Committee")}
                   <select name="committee">
                     {committees.map((c) => (
                       <option value={c.id} key={c.id}>
@@ -624,7 +637,7 @@ export default function SuperAdminDashboard() {
                 </p>
                 {dialog.type === "decision" && (
                   <label>
-                    Decision
+                    {t("Decision")}
                     <select
                       value={dialog.value}
                       onChange={(e) =>
@@ -642,15 +655,15 @@ export default function SuperAdminDashboard() {
               </>
             )}
             <label>
-              Reason (required)
+              {t("Reason (required)")}
               <textarea name="reason" required maxLength={1000} />
             </label>
-            <p role="alert">{error}</p>
+            <p role="alert">{t(error)}</p>
             <div className="ac-actions">
               <button type="button" onClick={() => setDialog(null)}>
-                Cancel
+                {t("Cancel")}
               </button>
-              <button className="ac-primary">Confirm demo change</button>
+              <button className="ac-primary">{t("Confirm demo change")}</button>
             </div>
           </form>
         </AdminDialog>

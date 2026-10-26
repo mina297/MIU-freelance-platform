@@ -22,11 +22,11 @@ export function formatTicketStatusLabel(status) {
   return map[status] || "Submitted";
 }
 
-export function formatTicketSubmittedAt(iso) {
+export function formatTicketSubmittedAt(iso, locale = "en-GB") {
   if (!iso) return "Date unavailable";
   const date = new Date(iso);
   if (Number.isNaN(date.getTime())) return "Date unavailable";
-  return date.toLocaleString("en-GB", {
+  return date.toLocaleString(locale, {
     day: "numeric",
     month: "short",
     year: "numeric",

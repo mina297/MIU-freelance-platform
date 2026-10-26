@@ -1,11 +1,14 @@
+import { useLanguage } from "../i18n/LanguageContext.js";
 import { Outlet } from "react-router-dom";
 import LandingHeader from "../components/navigation/LandingHeader.jsx";
 
 export default function AuthLayout() {
+  const { t } = useLanguage();
+
   return (
     <div className="premium-auth-layout min-h-screen">
       <a href="#main-content" className="sr-only focus:not-sr-only focus:p-3">
-        Skip to content
+        {t("Skip to content")}
       </a>
       <LandingHeader />
       <main

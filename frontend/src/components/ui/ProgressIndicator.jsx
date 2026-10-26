@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useId } from "react";
 import "./states.css";
 
@@ -9,6 +10,8 @@ export default function ProgressIndicator({
   id,
   className = "",
 }) {
+  const { t } = useLanguage();
+
   const generatedId = useId();
   const progressId = id || generatedId;
   const maximum = Number.isFinite(max) && max > 0 ? max : 100;
@@ -19,10 +22,10 @@ export default function ProgressIndicator({
   return (
     <div className={`miu-progress ${className}`.trim()}>
       <div className="miu-progress__label">
-        <label htmlFor={progressId}>{label}</label>
+        <label htmlFor={progressId}>{t(label)}</label>
         <span aria-hidden="true">
           {current === undefined
-            ? "In progress"
+            ? t("In progress")
             : `${Math.round((current / maximum) * 100)}%`}
         </span>
       </div>

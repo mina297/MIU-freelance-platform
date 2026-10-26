@@ -1,9 +1,12 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import miuLogo from "../../assets/figma/miu-anniversary-logo.png";
 import PublicLink from "./PublicLink.jsx";
 import { FOOTER_GROUPS, LEGAL_LINKS } from "./publicShellContent.js";
 import "./public-shell.css";
 
 export default function PublicFooter({ destinations = {}, currentPath }) {
+  const { t } = useLanguage();
+
   return (
     <footer className="miu-public-footer">
       <div className="miu-public-footer__inner">
@@ -12,25 +15,25 @@ export default function PublicFooter({ destinations = {}, currentPath }) {
             <PublicLink
               className="miu-public-footer__logo"
               href={destinations.home ?? "/"}
-              aria-label="MIU Freelance home"
+              aria-label={t("MIU Freelance home")}
             >
               <img
                 src={miuLogo}
-                alt="Misr International University"
+                alt={t("Misr International University")}
                 width="400"
                 height="200"
               />
             </PublicLink>
             <div>
-              <p className="miu-public-footer__product">MIU Freelance</p>
+              <p className="miu-public-footer__product">{t("MIU Freelance")}</p>
               <p className="miu-public-footer__descriptor">
-                Real projects. Proven student talent.
+                {t("Real projects. Proven student talent.")}
               </p>
             </div>
           </div>
           <div className="miu-public-footer__groups">
             {FOOTER_GROUPS.map(({ title, links }) => (
-              <nav key={title} aria-label={title}>
+              <nav key={title} aria-label={t(title)}>
                 <h2>{title}</h2>
                 <ul>
                   {links.map(({ key, label }) => (
@@ -39,7 +42,7 @@ export default function PublicFooter({ destinations = {}, currentPath }) {
                         href={destinations[key]}
                         currentPath={currentPath}
                       >
-                        {label}
+                        {t(label)}
                       </PublicLink>
                     </li>
                   ))}
@@ -49,8 +52,10 @@ export default function PublicFooter({ destinations = {}, currentPath }) {
           </div>
         </div>
         <div className="miu-public-footer__meta">
-          <p>© 2026 Misr International University. All rights reserved.</p>
-          <nav aria-label="Legal information">
+          <p>
+            {t("© 2026 Misr International University. All rights reserved.")}
+          </p>
+          <nav aria-label={t("Legal information")}>
             <ul className="miu-public-footer__legal">
               {LEGAL_LINKS.map(({ key, label }) => (
                 <li key={key}>
@@ -58,7 +63,7 @@ export default function PublicFooter({ destinations = {}, currentPath }) {
                     href={destinations[key]}
                     currentPath={currentPath}
                   >
-                    {label}
+                    {t(label)}
                   </PublicLink>
                 </li>
               ))}

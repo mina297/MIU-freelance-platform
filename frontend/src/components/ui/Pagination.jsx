@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import Button from "./Button.jsx";
 import { getPaginationItems } from "./paginationModel.js";
 import previousIcon from "../../assets/figma/pagination-previous.svg";
@@ -16,6 +17,8 @@ export default function Pagination({
   disabled = false,
   className = "",
 }) {
+  const { t } = useLanguage();
+
   const items = getPaginationItems(page, pageCount);
   const unavailable = disabled || typeof onPageChange !== "function";
   if (items.length === 0 && summary == null) return null;
@@ -29,7 +32,7 @@ export default function Pagination({
   return (
     <nav
       className={`miu-pagination ${className}`.trim()}
-      aria-label={label}
+      aria-label={t(label)}
       aria-disabled={unavailable || undefined}
     >
       {summary != null && <p className="miu-pagination__summary">{summary}</p>}
@@ -39,7 +42,7 @@ export default function Pagination({
             <Button
               variant="ghost"
               className="miu-pagination__button"
-              aria-label={previousLabel}
+              aria-label={t(previousLabel)}
               disabled={unavailable || page === 1}
               onClick={() => requestPage(page - 1)}
             >
@@ -63,7 +66,7 @@ export default function Pagination({
                 <Button
                   variant={item === page ? "primary" : "ghost"}
                   className="miu-pagination__button"
-                  aria-label={getPageLabel(item)}
+                  aria-label={t(getPageLabel(item))}
                   aria-current={item === page ? "page" : undefined}
                   disabled={unavailable}
                   onClick={() => requestPage(item)}
@@ -81,7 +84,7 @@ export default function Pagination({
             <Button
               variant="ghost"
               className="miu-pagination__button"
-              aria-label={nextLabel}
+              aria-label={t(nextLabel)}
               disabled={unavailable || page === pageCount}
               onClick={() => requestPage(page + 1)}
             >

@@ -181,10 +181,10 @@
 .service-comparison table {
   border-collapse: collapse;
   width: 100%;
-  text-align: left;
+  text-align: start;
 }
 .service-comparison caption {
-  text-align: left;
+  text-align: start;
   padding: 20px;
   font-size: 12px;
   color: var(--theme-muted-text, #796572);
@@ -195,7 +195,7 @@
   min-width: 185px;
   max-width: 320px;
   padding: 24px;
-  border-right: 1px solid var(--theme-border, #dbcbd5);
+  border-inline-end: 1px solid var(--theme-border, #dbcbd5);
   border-bottom: 1px solid var(--theme-border, #dbcbd5);
   font-size: 13px;
   line-height: 1.85;
@@ -215,13 +215,13 @@
   color: var(--theme-muted-text, #725e6b);
 }
 .service-comparison tr > :last-child {
-  border-right: 0;
+  border-inline-end: 0;
 }
 .service-comparison tbody tr:last-child > * {
   border-bottom: 0;
 }
 .service-comparison ul {
-  padding-left: 16px;
+  padding-inline-start: 16px;
   list-style: disc;
 }
 .service-comparison .service-comparison__price {

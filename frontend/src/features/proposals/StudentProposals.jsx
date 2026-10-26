@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Send } from "lucide-react";
@@ -18,6 +19,8 @@ import "../projects/project-create.css";
 import "./student-proposals.css";
 
 function ProposalList() {
+  const { t, locale } = useLanguage();
+
   const { session } = useAuth();
   const records = useSyncExternalStore(
     proposalStore.subscribe,
@@ -57,54 +60,58 @@ function ProposalList() {
     <main className="project-create student-proposals">
       <header className="project-create__header">
         <Link to="/projects">
-          <ArrowLeft size={16} aria-hidden="true" /> Marketplace
+          <ArrowLeft size={16} aria-hidden="true" /> {t("Marketplace")}
         </Link>
-        <Link to="/student/dashboard">My workspace</Link>
-        <span>Phase 1 preview</span>
+        <Link to="/student/dashboard">{t("My workspace")}</Link>
+        <span>{t("Phase 1 preview")}</span>
       </header>
       <section className="project-create__hero">
         <div className="project-create__container">
           <p className="project-create__eyebrow">
-            YOUR NEXT CHAPTER STARTS HERE
+            {t("YOUR NEXT CHAPTER STARTS HERE")}
           </p>
           <h1 ref={heading} tabIndex={-1}>
-            Your offers.
+            {t("Your offers.")}
             <br />
-            <em>Your opportunities.</em>
+            <em>{t("Your opportunities.")}</em>
           </h1>
           <p>
-            Follow your proposals, refine your approach, and keep your next
-            collaboration in sight.
+            {t(
+              "Follow your proposals, refine your approach, and keep your next collaboration in sight.",
+            )}
           </p>
           <div className="student-proposals__metrics">
-            <span>{own.length} proposals</span>
+            <span>
+              {own.length} {t("proposals")}
+            </span>
             <span>
               {own.filter((record) => record.status === "shortlisted").length}{" "}
-              shortlisted
+              {t("shortlisted")}
             </span>
             <span>
               {own.filter((record) => record.status === "accepted").length}{" "}
-              accepted
+              {t("accepted")}
             </span>
           </div>
         </div>
       </section>
       <div className="project-create__container student-proposals__body">
         <p className="student-proposals__disclosure">
-          Fictional proposals and simulated actions. Saved changes reset on
-          refresh. No clients are notified.
+          {t(
+            "Fictional proposals and simulated actions. Saved changes reset on refresh. No clients are notified.",
+          )}
         </p>
         <p className="student-proposals__notice" role="status">
-          {notice}
+          {t(notice)}
         </p>
         <section
-          aria-label="Filter your proposals"
+          aria-label={t("Filter your proposals")}
           className="project-create__panel student-proposals__filters"
         >
           <Input
-            label="Search your proposals"
+            label={t("Search your proposals")}
             type="search"
-            placeholder="Project title or cover message"
+            placeholder={t("Project title or cover message")}
             value={filters.query}
             onChange={(event) =>
               setFilters((current) => ({
@@ -114,7 +121,7 @@ function ProposalList() {
             }
           />
           <Select
-            label="Proposal status"
+            label={t("Proposal status")}
             value={filters.status}
             onChange={(event) =>
               setFilters((current) => ({
@@ -132,7 +139,7 @@ function ProposalList() {
               "withdrawn",
             ].map((status) => (
               <option key={status} value={status}>
-                {status === "all" ? "All statuses" : proposalLabel(status)}
+                {status === "all" ? t("All statuses") : proposalLabel(status)}
               </option>
             ))}
           </Select>
@@ -140,10 +147,11 @@ function ProposalList() {
         <section aria-labelledby="student-proposals-heading">
           <div className="student-proposals__section-heading">
             <h2 id="student-proposals-heading" ref={listHeading} tabIndex={-1}>
-              My proposals
+              {t("My proposals")}
             </h2>
             <p>
-              {visible.length} of {own.length} shown · Recently updated first
+              {visible.length} {t("of")} {own.length}{" "}
+              {t("shown · Recently updated first")}
             </p>
           </div>
           {!visible.length ? (
@@ -151,13 +159,15 @@ function ProposalList() {
               <Send aria-hidden="true" />
               <h3>
                 {own.length
-                  ? "No matching proposals"
-                  : "Your first opportunity is waiting"}
+                  ? t("No matching proposals")
+                  : t("Your first opportunity is waiting")}
               </h3>
               <p>
                 {own.length
-                  ? "Try a different project name or status."
-                  : "Browse open projects and submit a demo proposal to start your list."}
+                  ? t("Try a different project name or status.")
+                  : t(
+                      "Browse open projects and submit a demo proposal to start your list.",
+                    )}
               </p>
               <div className="project-create__success-links">
                 {own.length ? (
@@ -165,11 +175,11 @@ function ProposalList() {
                     variant="outline"
                     onClick={() => setFilters({ query: "", status: "all" })}
                   >
-                    Reset filters
+                    {t("Reset filters")}
                   </Button>
                 ) : (
                   <Link to="/projects">
-                    Discover projects{" "}
+                    {t("Discover projects")}{" "}
                     <ArrowRight size={16} aria-hidden="true" />
                   </Link>
                 )}
@@ -196,7 +206,8 @@ function ProposalList() {
                           {proposalLabel(proposal.status)}
                         </span>
                         <span>
-                          Updated {formatDate(proposal.updatedAt.slice(0, 10))}
+                          {t("Updated")}{" "}
+                          {formatDate(proposal.updatedAt.slice(0, 10), locale)}
                         </span>
                       </div>
                       <h3>{title}</h3>
@@ -206,12 +217,12 @@ function ProposalList() {
                       <div className="project-create__success-links">
                         {project && (
                           <Link to={`/projects/${proposal.projectId}`}>
-                            View project brief
+                            {t("View project brief")}
                           </Link>
                         )}
                         {order && (
                           <Link to={`/orders/${order.id}`}>
-                            View demo order{" "}
+                            {t("View demo order")}{" "}
                             <ArrowRight size={16} aria-hidden="true" />
                           </Link>
                         )}
@@ -229,16 +240,23 @@ function ProposalList() {
                     </div>
                     <dl className="student-proposals__offer">
                       <div>
-                        <dt>Your offer</dt>
-                        <dd>{formatEGP(proposal.priceEGP)}</dd>
+                        <dt>{t("Your offer")}</dt>
+                        <dd>{formatEGP(proposal.priceEGP, locale)}</dd>
                       </div>
                       <div>
-                        <dt>Delivery estimate</dt>
-                        <dd>{proposal.deliveryDays} days</dd>
+                        <dt>{t("Delivery estimate")}</dt>
+                        <dd>
+                          {proposal.deliveryDays} {t("days")}
+                        </dd>
                       </div>
                       <div>
-                        <dt>Submitted</dt>
-                        <dd>{formatDate(proposal.submittedAt.slice(0, 10))}</dd>
+                        <dt>{t("Submitted")}</dt>
+                        <dd>
+                          {formatDate(
+                            proposal.submittedAt.slice(0, 10),
+                            locale,
+                          )}
+                        </dd>
                       </div>
                     </dl>
                   </article>

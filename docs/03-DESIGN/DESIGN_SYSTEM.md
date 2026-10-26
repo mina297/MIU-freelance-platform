@@ -236,6 +236,10 @@ Important requirements:
 
 ## 10. Localization
 
+The English/Arabic interface implementation and draft translation approval
+boundaries are documented in [Localization](LOCALIZATION.md). English is the
+first-visit default; language persists independently of the in-memory theme.
+
 The interface should accommodate translation.
 
 Design for:

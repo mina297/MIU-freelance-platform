@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import {
   BriefcaseBusiness,
   CalendarClock,
@@ -19,6 +20,8 @@ export default function AtAGlanceCard({
   languages,
   availability = "",
 }) {
+  const { t } = useLanguage();
+
   const facts = [
     {
       id: "availability",
@@ -61,7 +64,7 @@ export default function AtAGlanceCard({
         id="at-a-glance-heading"
         className="text-lg font-semibold leading-normal text-miu-black"
       >
-        At a glance
+        {t("At a glance")}
       </h2>
 
       <ul className="flex flex-col gap-6">
@@ -73,7 +76,7 @@ export default function AtAGlanceCard({
             />
             <div className="min-w-0">
               <p className="text-xs leading-normal text-ink-secondary">
-                {label}
+                {t(label)}
               </p>
               <p className="text-sm font-medium leading-normal text-miu-black">
                 {value}

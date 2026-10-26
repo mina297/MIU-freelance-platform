@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import {
   Link,
   useNavigate,
@@ -14,6 +15,8 @@ import HelpArticlePage from "../help/HelpArticlePage.jsx";
 import { ownsProfile } from "./utils/profileOwnership.js";
 
 export function StudentProfileRoute() {
+  const { t } = useLanguage();
+
   const { studentId } = useParams();
   const { session } = useAuth();
   const navigate = useNavigate();
@@ -21,8 +24,9 @@ export function StudentProfileRoute() {
   return (
     <>
       <p className="px-5 pt-5 text-sm text-[var(--theme-accent,var(--color-miu-red))]">
-        Fictional Phase 1 profile. Account badges are simulated. Historical
-        design samples use separate IDs.
+        {t(
+          "Fictional Phase 1 profile. Account badges are simulated. Historical design samples use separate IDs.",
+        )}
       </p>
       <StudentProfilePage
         key={`${studentId}:${session.user?.id ?? "visitor"}:${params.get("tab")}`}
@@ -46,13 +50,15 @@ export function StudentProfileRoute() {
   );
 }
 export function ClientProfileRoute() {
+  const { t } = useLanguage();
+
   const { clientId } = useParams();
   const { session } = useAuth();
   const navigate = useNavigate();
   return (
     <>
       <p className="px-5 pt-5 text-sm text-[var(--theme-accent,var(--color-miu-red))]">
-        Fictional Phase 1 client profile.
+        {t("Fictional Phase 1 client profile.")}
       </p>
       <ClientProfilePage
         key={`${clientId}:${session.user?.id ?? "visitor"}`}
@@ -82,17 +88,19 @@ export function ProfileEditRoute() {
   );
 }
 export function NewReviewRoute() {
+  const { t } = useLanguage();
+
   const navigate = useNavigate();
   const { session } = useAuth();
   const [params] = useSearchParams();
   return (
     <section className="p-5">
-      <h1 className="text-2xl font-bold">Review completed work</h1>
+      <h1 className="text-2xl font-bold">{t("Review completed work")}</h1>
       <Link
         to="/client/orders"
         className="inline-flex min-h-11 items-center text-[var(--theme-accent,var(--color-miu-red))] underline"
       >
-        My orders
+        {t("My orders")}
       </Link>
       <NewReviewPage
         key={`${session.user.id}:${params.toString()}`}

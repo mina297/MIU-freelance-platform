@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import {
   Bookmark,
   ChevronDown,
@@ -17,9 +18,11 @@ export default function FilterPanel({
   clearFilters,
   savedCount,
 }) {
+  const { t } = useLanguage();
+
   return (
     <aside
-      aria-label="Project filters"
+      aria-label={t("Project filters")}
       className="h-fit rounded-2xl border-2 border-[color:var(--theme-border,#c9bac1)] bg-[color:var(--theme-accent-surface,#faf7f9)] p-5 shadow-[0_5px_18px_rgba(62,39,43,0.08)] lg:sticky lg:top-6"
     >
       <div className="flex items-center justify-between border-b border-[color:var(--theme-border,#d8cbd2)] pb-5">
@@ -29,14 +32,14 @@ export default function FilterPanel({
             className="text-[var(--theme-accent,var(--color-miu-red))]"
             aria-hidden="true"
           />{" "}
-          Refine results
+          {t("Refine results")}
         </h3>
         <button
           type="button"
           onClick={clearFilters}
           className="text-xs font-semibold text-[var(--theme-accent,var(--color-miu-red))] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
         >
-          Reset
+          {t("Reset")}
         </button>
       </div>
       <div className="mt-5">
@@ -44,24 +47,24 @@ export default function FilterPanel({
           htmlFor="project-budget"
           className="mb-2 block text-sm font-semibold text-[color:var(--theme-text,#3a3235)]"
         >
-          Budget
+          {t("Budget")}
         </label>
         <div className="relative">
           <select
             id="project-budget"
             value={budget}
             onChange={(event) => setBudget(event.target.value)}
-            className="h-11 w-full appearance-none rounded-xl border border-[color:var(--theme-border,#a994a0)] bg-[var(--theme-surface,#fff)] px-3.5 pr-9 text-sm text-[color:var(--theme-text,#4c4548)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+            className="h-11 w-full appearance-none rounded-xl border border-[color:var(--theme-border,#a994a0)] bg-[var(--theme-surface,#fff)] px-3.5 pe-9 text-sm text-[color:var(--theme-text,#4c4548)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
           >
             {budgetOptions.map(({ value, label }) => (
               <option key={value} value={value}>
-                {label}
+                {t(label)}
               </option>
             ))}
           </select>
           <ChevronDown
             size={16}
-            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[color:var(--theme-muted-text,#8d8487)]"
+            className="pointer-events-none absolute end-3 top-1/2 -translate-y-1/2 text-[color:var(--theme-muted-text,#8d8487)]"
             aria-hidden="true"
           />
         </div>
@@ -71,25 +74,25 @@ export default function FilterPanel({
           htmlFor="project-skill"
           className="mb-2 block text-sm font-semibold text-[color:var(--theme-text,#3a3235)]"
         >
-          Required skill
+          {t("Required skill")}
         </label>
         <div className="relative">
           <select
             id="project-skill"
             value={skillId}
             onChange={(event) => setSkillId(event.target.value)}
-            className="h-11 w-full appearance-none rounded-xl border border-[color:var(--theme-border,#a994a0)] bg-[var(--theme-surface,#fff)] px-3.5 pr-9 text-sm text-[color:var(--theme-text,#4c4548)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+            className="h-11 w-full appearance-none rounded-xl border border-[color:var(--theme-border,#a994a0)] bg-[var(--theme-surface,#fff)] px-3.5 pe-9 text-sm text-[color:var(--theme-text,#4c4548)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
           >
-            <option value="">All skills</option>
+            <option value="">{t("All skills")}</option>
             {marketplaceData.skills.map(({ id, label }) => (
               <option key={id} value={id}>
-                {label}
+                {t(label)}
               </option>
             ))}
           </select>
           <ChevronDown
             size={16}
-            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[color:var(--theme-muted-text,#8d8487)]"
+            className="pointer-events-none absolute end-3 top-1/2 -translate-y-1/2 text-[color:var(--theme-muted-text,#8d8487)]"
             aria-hidden="true"
           />
         </div>
@@ -101,7 +104,7 @@ export default function FilterPanel({
             className="text-[var(--theme-accent,var(--color-miu-red))]"
             aria-hidden="true"
           />{" "}
-          Saved projects{" "}
+          {t("Saved projects")}{" "}
           <span className="text-xs font-normal text-[color:var(--theme-muted-text,#9a9294)]">
             ({savedCount})
           </span>
@@ -120,10 +123,11 @@ export default function FilterPanel({
           aria-hidden="true"
         />
         <strong className="mb-1 block text-[color:var(--theme-accent,#57333e)]">
-          Look beyond the budget
+          {t("Look beyond the budget")}
         </strong>
-        Choose a clear scope, the right skills, and a deadline you can
-        confidently meet.
+        {t(
+          "Choose a clear scope, the right skills, and a deadline you can confidently meet.",
+        )}
       </div>
     </aside>
   );

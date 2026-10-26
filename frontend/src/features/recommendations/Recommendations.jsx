@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useState, useSyncExternalStore } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Sparkles } from "lucide-react";
@@ -20,58 +21,64 @@ import "../services/services-catalogue.css";
 import "./recommendations.css";
 
 export function RecommendationCard({ item }) {
+  const { t, locale } = useLanguage();
+
   const [feedback, setFeedback] = useState("");
   return (
     <Card as="article" className="recommendation-card">
-      <p className="services-eyebrow">SIMULATED SKILLS MATCH</p>
+      <p className="services-eyebrow">{t("SIMULATED SKILLS MATCH")}</p>
       <h3>{item.title}</h3>
       {item.serviceTitle && (
         <p className="recommendation-card__service">
-          Through: {item.serviceTitle}
+          {t("Through:")} {item.serviceTitle}
         </p>
       )}
       <p>{item.description}</p>
       <div className="recommendation-card__reason">
-        <h4>Why this appears</h4>
+        <h4>{t("Why this appears")}</h4>
         <ul>
           {item.selectedSkillCount > 0 && (
             <li>
-              {item.matchedSkills.length} of {item.selectedSkillCount} selected
-              skills overlap:{" "}
+              {item.matchedSkills.length} {t("of")} {item.selectedSkillCount}{" "}
+              {t("selected skills overlap:")}{" "}
               {item.matchedSkills.map(({ label }) => label).join(", ")}.
             </li>
           )}
           {item.categoryLabel && (
-            <li>Matches your selected category: {item.categoryLabel}.</li>
+            <li>
+              {t("Matches your selected category:")} {item.categoryLabel}.
+            </li>
           )}
         </ul>
         {item.selectedSkillCount > item.matchedSkills.length && (
-          <p>Some selected skills do not appear in this listing.</p>
+          <p>{t("Some selected skills do not appear in this listing.")}</p>
         )}
       </div>
       <dl>
         <dt>{item.priceLabel}</dt>
         <dd>
           {item.priceEGP === null
-            ? "Price unavailable"
-            : formatEGP(item.priceEGP)}
+            ? t("Price unavailable")
+            : formatEGP(item.priceEGP, locale)}
         </dd>
       </dl>
       <Link className="recommendation-card__link" to={item.href}>
-        {item.serviceTitle ? "Explore matched service" : "Explore opportunity"}{" "}
+        {item.serviceTitle
+          ? t("Explore matched service")
+          : t("Explore opportunity")}{" "}
         <ArrowUpRight size={17} aria-hidden="true" />
       </Link>
       <div
         className="recommendation-card__feedback"
         role="group"
-        aria-label={`Feedback for ${item.title}`}
+        aria-label={t("Feedback for {value0}", { value0: item.title })}
       >
         <Button
           variant="outline"
           aria-pressed={feedback === "helpful"}
           onClick={() => setFeedback(feedback === "helpful" ? "" : "helpful")}
         >
-          Helpful
+          {t("Helpful")}
         </Button>
         <Button
           variant="outline"
@@ -80,13 +87,15 @@ export function RecommendationCard({ item }) {
             setFeedback(feedback === "not relevant" ? "" : "not relevant")
           }
         >
-          Not relevant
+          {t("Not relevant")}
         </Button>
       </div>
       <p className="recommendation-card__feedback-note" role="status">
         {feedback
           ? `Marked ${feedback} for this preview only. Feedback is not sent or used to train a model.`
-          : "Feedback stays in this preview and resets when results change or you leave."}
+          : t(
+              "Feedback stays in this preview and resets when results change or you leave.",
+            )}
       </p>
     </Card>
   );
@@ -97,6 +106,8 @@ export default function Recommendations({
   state = "ready",
   onRetry,
 }) {
+  const { t } = useLanguage();
+
   const serviceData = useServiceData();
   const changedProjects = useSyncExternalStore(
     projectStore.subscribe,
@@ -127,37 +138,41 @@ export default function Recommendations({
         <div className="services-container services-hero__layout">
           <div>
             <p className="services-eyebrow">
-              A LITTLE DIRECTION. MORE POSSIBILITY.
+              {t("A LITTLE DIRECTION. MORE POSSIBILITY.")}
             </p>
             <h1 id="recommendations-title">
-              Find your fit.
+              {t("Find your fit.")}
               <br />
-              <em>See the reason.</em>
+              <em>{t("See the reason.")}</em>
             </h1>
             <p className="services-hero__intro">
-              Turn the skills you choose into a starting point for your next
-              project or collaboration.
+              {t(
+                "Turn the skills you choose into a starting point for your next project or collaboration.",
+              )}
             </p>
             <div className="services-hero__points">
-              <span>Your choices</span>
-              <span>Visible reasons</span>
-              <span>Clear next steps</span>
+              <span>{t("Your choices")}</span>
+              <span>{t("Visible reasons")}</span>
+              <span>{t("Clear next steps")}</span>
             </div>
           </div>
           <div className="services-hero__note">
             <Sparkles size={34} aria-hidden="true" />
-            <p className="services-eyebrow">AI MATCHING · PHASE 1 SIMULATION</p>
+            <p className="services-eyebrow">
+              {t("AI MATCHING · PHASE 1 SIMULATION")}
+            </p>
             <h2>
-              A suggestion.
+              {t("A suggestion.")}
               <br />
-              You make the decision.
+              {t("You make the decision.")}
             </h2>
             <p>
-              This local demonstration counts matching skill tags. It does not
-              run an AI model, assess qualifications or decide who can work.
+              {t(
+                "This local demonstration counts matching skill tags. It does not run an AI model, assess qualifications or decide who can work.",
+              )}
             </p>
             <Link to="/freelancers">
-              Browse providers freely{" "}
+              {t("Browse providers freely")}{" "}
               <ArrowUpRight size={16} aria-hidden="true" />
             </Link>
           </div>
@@ -169,10 +184,10 @@ export default function Recommendations({
             className="recommendations-preferences"
             aria-labelledby="preferences-title"
           >
-            <p className="services-eyebrow">START WITH WHAT MATTERS</p>
-            <h2 id="preferences-title">Your matching choices</h2>
+            <p className="services-eyebrow">{t("START WITH WHAT MATTERS")}</p>
+            <h2 id="preferences-title">{t("Your matching choices")}</h2>
             <Select
-              label="I want suggestions for"
+              label={t("I want suggestions for")}
               value={preferences.kind}
               disabled={!ready}
               onChange={(event) =>
@@ -182,12 +197,14 @@ export default function Recommendations({
                 }))
               }
             >
-              <option value="projects">Projects to work on</option>
-              <option value="services">Services to buy</option>
-              <option value="freelancers">Student service providers</option>
+              <option value="projects">{t("Projects to work on")}</option>
+              <option value="services">{t("Services to buy")}</option>
+              <option value="freelancers">
+                {t("Student service providers")}
+              </option>
             </Select>
             <Select
-              label="Preferred category"
+              label={t("Preferred category")}
               value={preferences.categoryId}
               disabled={!ready}
               onChange={(event) =>
@@ -197,20 +214,20 @@ export default function Recommendations({
                 }))
               }
             >
-              <option value="">Any category</option>
+              <option value="">{t("Any category")}</option>
               {data.categories.map(({ id, label }) => (
                 <option key={id} value={id}>
-                  {label}
+                  {t(label)}
                 </option>
               ))}
             </Select>
             <fieldset disabled={!ready}>
-              <legend>Skills to match</legend>
-              <p>Select one or more, or choose a category.</p>
+              <legend>{t("Skills to match")}</legend>
+              <p>{t("Select one or more, or choose a category.")}</p>
               {data.skills.map(({ id, label }) => (
                 <Checkbox
                   key={id}
-                  label={label}
+                  label={t(label)}
                   checked={preferences.skillIds.includes(id)}
                   onChange={(event) =>
                     setPreferences((current) => ({
@@ -224,45 +241,48 @@ export default function Recommendations({
               ))}
             </fieldset>
             <Button variant="outline" onClick={reset} disabled={!ready}>
-              Reset choices
+              {t("Reset choices")}
             </Button>
             <p className="recommendations-disclosure">
-              Choices stay on this page. We do not read your private profile,
-              identity evidence, messages or order history.
+              {t(
+                "Choices stay on this page. We do not read your private profile, identity evidence, messages or order history.",
+              )}
             </p>
           </section>
           <section
             className="recommendations-results"
             aria-labelledby="suggestions-title"
           >
-            <p className="services-eyebrow">EXPLAINED, EVERY TIME</p>
-            <h2 id="suggestions-title">Your suggested next steps</h2>
+            <p className="services-eyebrow">{t("EXPLAINED, EVERY TIME")}</p>
+            <h2 id="suggestions-title">{t("Your suggested next steps")}</h2>
             <p className="recommendations-method">
-              Simulated matching: category restricts results; at least one
-              selected skill must overlap. More shared selected skills appear
-              first, then names alphabetically. A provider is matched through
-              one published service. Prices do not affect ranking. This is not a
-              quality rating or a prediction of success.
+              {t(
+                "Simulated matching: category restricts results; at least one selected skill must overlap. More shared selected skills appear first, then names alphabetically. A provider is matched through one published service. Prices do not affect ranking. This is not a quality rating or a prediction of success.",
+              )}
             </p>
             {ready && hasPreferences && (
               <p className="recommendations-count" role="status">
                 {results.length}{" "}
-                {results.length === 1 ? "suggestion" : "suggestions"} based on
-                your choices
+                {results.length === 1 ? t("suggestion") : t("suggestions")}{" "}
+                {t("based on your choices")}
               </p>
             )}
             {state === "loading" ? (
-              <LoadingState message="Loading simulated suggestions…" />
+              <LoadingState message={t("Loading simulated suggestions…")} />
             ) : !ready ? (
               <ErrorState
-                title="Suggestions are unavailable"
-                description="Your account and orders have not changed. Browse the catalogues or try again when available."
+                title={t("Suggestions are unavailable")}
+                description={t(
+                  "Your account and orders have not changed. Browse the catalogues or try again when available.",
+                )}
                 onRetry={onRetry}
               />
             ) : !hasPreferences ? (
               <EmptyState
-                title="Choose a starting point"
-                description="Select a skill or category to see explained suggestions. No personal preferences are assumed."
+                title={t("Choose a starting point")}
+                description={t(
+                  "Select a skill or category to see explained suggestions. No personal preferences are assumed.",
+                )}
               />
             ) : results.length ? (
               <div className="recommendations-grid">
@@ -275,25 +295,26 @@ export default function Recommendations({
               </div>
             ) : (
               <EmptyState
-                title="No matching suggestions"
-                description="Try another skill or category. Only open projects and published services are considered."
+                title={t("No matching suggestions")}
+                description={t(
+                  "Try another skill or category. Only open projects and published services are considered.",
+                )}
                 onAction={reset}
                 actionLabel="Reset choices"
               />
             )}
             <nav
               className="recommendations-browse"
-              aria-label="Browse without matching"
+              aria-label={t("Browse without matching")}
             >
-              <Link to="/projects">All projects</Link>
-              <Link to="/services">All services</Link>
-              <Link to="/freelancers">All providers</Link>
+              <Link to="/projects">{t("All projects")}</Link>
+              <Link to="/services">{t("All services")}</Link>
+              <Link to="/freelancers">{t("All providers")}</Link>
             </nav>
             <p className="recommendations-disclosure">
-              Fictional Phase 1 data. No automatic selection, application,
-              booking or payment. Review the listing and decide for yourself.
-              For provider concerns, browse the original service; profile and
-              support integration remains pending.
+              {t(
+                "Fictional Phase 1 data. No automatic selection, application, booking or payment. Review the listing and decide for yourself. For provider concerns, browse the original service; profile and support integration remains pending.",
+              )}
             </p>
           </section>
         </div>

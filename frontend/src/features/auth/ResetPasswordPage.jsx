@@ -1,14 +1,17 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
 import AuthForm from "./AuthForm.jsx";
 
 export default function ResetPasswordPage() {
+  const { t } = useLanguage();
+
   const { resetPassword } = useAuth();
   const location = useLocation();
   return (
     <AuthForm
-      title="Reset password"
-      submitLabel="Reset password"
+      title={t("Reset password")}
+      submitLabel={t("Reset password")}
       fields={[
         { name: "email", label: "Email", type: "email", autoComplete: "email" },
         {
@@ -28,14 +31,15 @@ export default function ResetPasswordPage() {
       onSubmit={resetPassword}
     >
       {location.state?.recoveryRequested && (
-        <p role="status">Request accepted. No email was sent.</p>
+        <p role="status">{t("Request accepted. No email was sent.")}</p>
       )}
       <p>
-        Prototype reset: email ownership and reset tokens are not checked. Use
-        test accounts only.
+        {t(
+          "Prototype reset: email ownership and reset tokens are not checked. Use test accounts only.",
+        )}
       </p>
       <p>
-        <Link to="/login">Back to sign in</Link>
+        <Link to="/login">{t("Back to sign in")}</Link>
       </p>
     </AuthForm>
   );

@@ -1,3 +1,5 @@
+import LanguageControl from "../../../i18n/LanguageControl.jsx";
+import LocalizedText from "../../../i18n/LocalizedText.jsx";
 import ThemeToggle from "../../../theme/ThemeToggle.jsx";
 import ThemeProvider from "../../../theme/ThemeProvider.jsx";
 import { StrictMode } from "react";
@@ -8,10 +10,15 @@ import "./marketplace-preview.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ThemeProvider>
-      <ThemeToggle floating />
+    <ThemeProvider pageTitle="How it works component preview">
+      <div className="theme-toolbar">
+        <LanguageControl />
+        <ThemeToggle />
+      </div>
       <main className="marketplace-preview">
-        <h1 className="sr-only">How it works component preview</h1>
+        <h1 className="sr-only">
+          <LocalizedText>How it works component preview</LocalizedText>
+        </h1>
         <HowItWorksSection />
       </main>
     </ThemeProvider>

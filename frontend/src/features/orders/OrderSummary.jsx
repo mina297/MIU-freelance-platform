@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
@@ -11,6 +12,8 @@ import "../services/service-order.css";
 
 /** Preserve the project view; service summaries are also participant-only. */
 export default function OrderSummary() {
+  const { t, locale } = useLanguage();
+
   const { orderId } = useParams();
   const { session } = useAuth();
   const orders = useSyncExternalStore(
@@ -33,12 +36,14 @@ export default function OrderSummary() {
       <main className="project-create">
         <div className="project-create__container service-order__recovery">
           <h1 ref={heading} tabIndex={-1}>
-            Order unavailable
+            {t("Order unavailable")}
           </h1>
           <p>
-            This order is unavailable or you are not one of its participants.
+            {t(
+              "This order is unavailable or you are not one of its participants.",
+            )}
           </p>
-          <Link to="/services">Browse services</Link>
+          <Link to="/services">{t("Browse services")}</Link>
         </div>
       </main>
     );
@@ -49,19 +54,19 @@ export default function OrderSummary() {
   return (
     <main className="project-create service-order">
       <header className="project-create__header">
-        <Link to={`/${session.user.role}/orders`}>My orders</Link>
-        <Link to="/services">MIU Freelance.</Link>
-        <span>Phase 1 preview</span>
+        <Link to={`/${session.user.role}/orders`}>{t("My orders")}</Link>
+        <Link to="/services">{t("MIU Freelance.")}</Link>
+        <span>{t("Phase 1 preview")}</span>
       </header>
       <section className="project-create__hero">
         <div className="project-create__container">
           <p className="project-create__eyebrow">
-            A CLEAR SCOPE. A NEW COLLABORATION.
+            {t("A CLEAR SCOPE. A NEW COLLABORATION.")}
           </p>
           <h1 ref={heading} tabIndex={-1}>
-            Your service order.
+            {t("Your service order.")}
             <br />
-            <em>The next chapter.</em>
+            <em>{t("The next chapter.")}</em>
           </h1>
           <p>{terms?.serviceTitle ?? "Service order"}</p>
         </div>
@@ -69,90 +74,97 @@ export default function OrderSummary() {
       <div className="project-create__container service-order__body">
         <section className="project-create__panel service-order__panel">
           <p className="project-create__eyebrow">
-            SIMULATED SERVICE ORDER HANDOFF
+            {t("SIMULATED SERVICE ORDER HANDOFF")}
           </p>
           <h2>
             {order.status === "awaiting_payment"
-              ? "Awaiting payment — demo"
+              ? t("Awaiting payment — demo")
               : order.status.replaceAll("_", " ")}
           </h2>
           <p>
-            No payment has been processed, no escrow funded and no delivery
-            timer started by creating this order. Use the workspace below for
-            notes, messages and delivery review. Checkout remains separate.
+            {t(
+              "No payment has been processed, no escrow funded and no delivery timer started by creating this order. Use the workspace below for notes, messages and delivery review. Checkout remains separate.",
+            )}
           </p>
           <dl className="project-create__facts">
             <div>
-              <dt>Agreed amount</dt>
-              <dd>{formatEGP(order.agreedAmountEGP)}</dd>
+              <dt>{t("Agreed amount")}</dt>
+              <dd>{formatEGP(order.agreedAmountEGP, locale)}</dd>
             </div>
             <div>
-              <dt>Student</dt>
+              <dt>{t("Student")}</dt>
               <dd>
                 {student?.displayName ?? "Student information unavailable"}
               </dd>
             </div>
             <div>
-              <dt>Order reference</dt>
+              <dt>{t("Order reference")}</dt>
               <dd className="break-all">{order.id}</dd>
             </div>
             {order.deliveryDays && (
               <div>
-                <dt>Agreed delivery estimate</dt>
+                <dt>{t("Agreed delivery estimate")}</dt>
                 <dd>
-                  {order.deliveryDays} days
+                  {order.deliveryDays} {t("days")}
                   {order.status === "awaiting_payment"
-                    ? "; work has not started"
-                    : " (agreed estimate; no deadline inferred)"}
+                    ? t("; work has not started")
+                    : t(" (agreed estimate; no deadline inferred)")}
                 </dd>
               </div>
             )}
           </dl>
           {terms ? (
             <div className="service-order__scope">
-              <h3>Saved package terms: {terms.packageName}</h3>
+              <h3>
+                {t("Saved package terms:")} {terms.packageName}
+              </h3>
               <p>{terms.packageDescription}</p>
-              <p>Package price: {formatEGP(terms.packagePriceEGP)}</p>
+              <p>
+                {t("Package price:")} {formatEGP(terms.packagePriceEGP, locale)}
+              </p>
               <ul>
                 {terms.includedFeatures.map((feature) => (
                   <li key={feature}>{feature}</li>
                 ))}
               </ul>
-              <h3>Saved extras</h3>
+              <h3>{t("Saved extras")}</h3>
               {terms.extras.length ? (
                 <ul>
                   {terms.extras.map((extra) => (
                     <li key={extra.id}>
-                      {extra.title} — +{formatEGP(extra.additionalPriceEGP)}, +
-                      {extra.additionalDays} days<p>{extra.description}</p>
+                      {extra.title} — +
+                      {formatEGP(extra.additionalPriceEGP, locale)}, +
+                      {extra.additionalDays} {t("days")}
+                      <p>{extra.description}</p>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p>No extras selected.</p>
+                <p>{t("No extras selected.")}</p>
               )}
               <p>
-                These terms were copied at confirmation; later listing changes
-                do not rewrite them.
+                {t(
+                  "These terms were copied at confirmation; later listing changes do not rewrite them.",
+                )}
               </p>
             </div>
           ) : (
             <p>
-              This older fixture contains an agreed amount and selection IDs,
-              but no historical package snapshot. Current listing terms are not
-              presented as historical promises.
+              {t(
+                "This older fixture contains an agreed amount and selection IDs, but no historical package snapshot. Current listing terms are not presented as historical promises.",
+              )}
             </p>
           )}
           <div className="project-create__success-links">
             {order.status === "completed" && session.user.role === "client" && (
               <Link to={`/reviews/new?orderId=${encodeURIComponent(order.id)}`}>
-                Review completed order
+                {t("Review completed order")}
               </Link>
             )}
             <Link to={`/services/${order.sourceId}`}>
-              View current service listing
+              {t("View current service listing")}
             </Link>
-            <Link to="/services">Browse services</Link>
+            <Link to="/services">{t("Browse services")}</Link>
           </div>
         </section>
         <OrderCollaboration order={order} />

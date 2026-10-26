@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useId, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import miuLogo from "../../assets/figma/miu-anniversary-logo.png";
@@ -10,6 +11,7 @@ import {
 } from "./publicShellContent.js";
 import "./public-shell.css";
 import ThemeToggle from "../../theme/ThemeToggle.jsx";
+import LanguageControl from "../../i18n/LanguageControl.jsx";
 
 /** Visitor presentation only; routing and session policy belong to Member 1. */
 export default function PublicHeader({
@@ -17,6 +19,8 @@ export default function PublicHeader({
   currentPath,
   accountAction,
 }) {
+  const { t } = useLanguage();
+
   const [menu, setMenu] = useState({ open: false, path: currentPath });
   const menuOpen = menu.open && menu.path === currentPath;
   const panelId = useId();
@@ -60,7 +64,7 @@ export default function PublicHeader({
       className={className}
       onClick={closeMenu}
     >
-      {label}
+      {t(label)}
     </PublicLink>
   );
 
@@ -81,22 +85,23 @@ export default function PublicHeader({
           className="miu-public-brand"
           href={destinations.home ?? "/"}
           ref={homeRef}
-          aria-label="MIU Freelance home"
+          aria-label={t("MIU Freelance home")}
         >
           <img
             src={miuLogo}
-            alt="Misr International University"
+            alt={t("Misr International University")}
             width="400"
             height="200"
           />
         </PublicLink>
         <nav
           className="miu-public-header__desktop-nav"
-          aria-label="Public navigation"
+          aria-label={t("Public navigation")}
         >
           {DESKTOP_LINKS.map((link) => renderLink(link))}
         </nav>
         <div className="miu-public-header__actions">
+          <LanguageControl />
           <ThemeToggle />
           {accountAction ?? (
             <>
@@ -114,7 +119,9 @@ export default function PublicHeader({
             variant="ghost"
             className="miu-public-header__toggle"
             ref={toggleRef}
-            aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+            aria-label={t(
+              menuOpen ? t("Close navigation") : t("Open navigation"),
+            )}
             aria-expanded={menuOpen}
             aria-controls={panelId}
             onClick={() => setMenu({ open: !menuOpen, path: currentPath })}
@@ -128,7 +135,7 @@ export default function PublicHeader({
         </div>
         <nav
           className="miu-public-header__quick-links"
-          aria-label="Public navigation shortcuts"
+          aria-label={t("Public navigation shortcuts")}
         >
           {PRIMARY_LINKS.map((link) => renderLink(link))}
           {!accountAction && renderLink({ key: "login", label: "Log in" })}
@@ -136,7 +143,7 @@ export default function PublicHeader({
         <nav
           id={panelId}
           className="miu-public-header__menu"
-          aria-label="More public navigation"
+          aria-label={t("More public navigation")}
           hidden={!menuOpen}
         >
           {MENU_LINKS.map((link) => renderLink(link))}

@@ -1,3 +1,4 @@
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthContext.js";
 import Modal from "../../../components/ui/Modal.jsx";
@@ -17,6 +18,8 @@ export default function PortfolioSection({
   isOwner = false,
   onPortfolioChange,
 }) {
+  const { t } = useLanguage();
+
   const auth = useContext(AuthContext);
   const session = auth?.session;
   const allowed = isOwner && ownsProfile(session, studentId, "student");
@@ -58,7 +61,7 @@ export default function PortfolioSection({
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h2 className="text-xl font-semibold">Portfolio</h2>
+        <h2 className="text-xl font-semibold">{t("Portfolio")}</h2>
         {allowed && (
           <Button
             onClick={() => {
@@ -66,7 +69,7 @@ export default function PortfolioSection({
               setMessage("");
             }}
           >
-            Add portfolio item
+            {t("Add portfolio item")}
           </Button>
         )}
       </div>
@@ -93,9 +96,11 @@ export default function PortfolioSection({
       <Modal
         open={Boolean(allowed && editor)}
         onClose={() => setEditor(null)}
-        title={
-          editor?.mode === "edit" ? "Edit portfolio item" : "Add portfolio item"
-        }
+        title={t(
+          editor?.mode === "edit"
+            ? t("Edit portfolio item")
+            : t("Add portfolio item"),
+        )}
         closeOnBackdrop
       >
         {allowed && editor && (
@@ -115,14 +120,17 @@ export default function PortfolioSection({
       <Modal
         open={Boolean(allowed && pendingDelete)}
         onClose={() => setPendingDelete(null)}
-        title="Delete portfolio item?"
-        description={`Remove “${pendingDelete?.title ?? ""}” from this profile? This is a simulated browser-session change.`}
+        title={t("Delete portfolio item?")}
+        description={t(
+          "Remove “{value0}” from this profile? This is a simulated browser-session change.",
+          { value0: pendingDelete?.title ?? "" },
+        )}
         actions={
           <>
             <Button variant="outline" onClick={() => setPendingDelete(null)}>
-              Cancel
+              {t("Cancel")}
             </Button>
-            <Button onClick={remove}>Delete</Button>
+            <Button onClick={remove}>{t("Delete")}</Button>
           </>
         }
       >

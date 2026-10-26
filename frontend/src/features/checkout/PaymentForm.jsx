@@ -1,3 +1,4 @@
+import { useLanguage } from "../../i18n/LanguageContext.js";
 import { CreditCard, LockKeyhole, Smartphone } from "lucide-react";
 import Button from "../../components/ui/Button.jsx";
 import Input from "../../components/ui/Input.jsx";
@@ -15,6 +16,8 @@ export default function PaymentForm({
   onSubmit,
   formRef,
 }) {
+  const { t } = useLanguage();
+
   const { method, cardId, preset, acknowledged } = values;
   const draft = sampleCardPresets[preset];
   return (
@@ -26,7 +29,7 @@ export default function PaymentForm({
       className="ec-payment-form"
     >
       <fieldset className="ec-methods">
-        <legend>Choose a payment method</legend>
+        <legend>{t("Choose a payment method")}</legend>
         <div>
           {PAYMENT_METHODS.map((item) => (
             <label
@@ -53,7 +56,7 @@ export default function PaymentForm({
               ) : (
                 <CreditCard size={20} aria-hidden="true" />
               )}
-              <span>{item.label}</span>
+              <span>{t(item.label)}</span>
             </label>
           ))}
         </div>
@@ -66,23 +69,24 @@ export default function PaymentForm({
       {method === "apple_pay" ? (
         <section className="ec-wallet">
           <Smartphone size={30} aria-hidden="true" />
-          <h3>Apple Pay preview</h3>
+          <h3>{t("Apple Pay preview")}</h3>
           <p>
-            Continue to review this simulated Apple Pay payment. No wallet,
-            device authentication or real account is connected.
+            {t(
+              "Continue to review this simulated Apple Pay payment. No wallet, device authentication or real account is connected.",
+            )}
           </p>
         </section>
       ) : (
         <section className="ec-card-entry">
           <div className="ec-section-heading">
-            <h3>Card details</h3>
+            <h3>{t("Card details")}</h3>
             <span>
               <LockKeyhole size={14} aria-hidden="true" />
-              Sample details only
+              {t("Sample details only")}
             </span>
           </div>
           <fieldset className="ec-saved">
-            <legend>Saved sample card</legend>
+            <legend>{t("Saved sample card")}</legend>
             {savedCards
               .filter((card) => card.brand === method)
               .map((card) => (
@@ -102,7 +106,7 @@ export default function PaymentForm({
                       {card.label} · •••• {card.last4}
                     </b>
                     <small>
-                      {card.holder} · Expires {card.expiry}
+                      {card.holder} {t("· Expires")} {card.expiry}
                     </small>
                   </span>
                 </label>
@@ -114,7 +118,7 @@ export default function PaymentForm({
                 checked={cardId === "new"}
                 onChange={() => onChange({ cardId: "new" })}
               />
-              <span>Use a new sample card</span>
+              <span>{t("Use a new sample card")}</span>
             </label>
           </fieldset>
           {errors.card && (
@@ -125,59 +129,60 @@ export default function PaymentForm({
           {cardId === "new" && (
             <div className="ec-new-card">
               <p>
-                Real card entry is disabled. Use a fictional preset to test the
-                form.
+                {t(
+                  "Real card entry is disabled. Use a fictional preset to test the form.",
+                )}
               </p>
               <div className="ec-presets">
                 <Button
                   variant="outline"
                   onClick={() => onChange({ preset: "valid" })}
                 >
-                  Load sample card
+                  {t("Load sample card")}
                 </Button>
                 <Button
                   variant="ghost"
                   onClick={() => onChange({ preset: "expired" })}
                 >
-                  Try expired card
+                  {t("Try expired card")}
                 </Button>
               </div>
               <div className="ec-fields">
                 <Input
                   id="checkout-holder"
-                  label="Cardholder name"
+                  label={t("Cardholder name")}
                   readOnly
                   autoComplete="off"
                   value={draft?.holder ?? ""}
-                  placeholder="Sample cardholder"
-                  error={errors.holder}
+                  placeholder={t("Sample cardholder")}
+                  error={t(errors.holder)}
                 />
                 <Input
                   id="checkout-number"
-                  label="Card number"
+                  label={t("Card number")}
                   readOnly
                   autoComplete="off"
                   value={draft?.number ?? ""}
-                  placeholder="•••• •••• •••• 9001"
-                  error={errors.number}
+                  placeholder={t("•••• •••• •••• 9001")}
+                  error={t(errors.number)}
                 />
                 <Input
                   id="checkout-expiry"
-                  label="Expiry date"
+                  label={t("Expiry date")}
                   readOnly
                   autoComplete="off"
                   value={draft?.expiry ?? ""}
-                  placeholder="MM/YYYY"
-                  error={errors.expiry}
+                  placeholder={t("MM/YYYY")}
+                  error={t(errors.expiry)}
                 />
                 <Input
                   id="checkout-cvc"
-                  label="CVC"
+                  label={t("CVC")}
                   readOnly
                   autoComplete="off"
                   value={draft?.cvc ?? ""}
-                  placeholder="000"
-                  error={errors.cvc}
+                  placeholder={t("000")}
+                  error={t(errors.cvc)}
                 />
               </div>
             </div>
@@ -191,10 +196,12 @@ export default function PaymentForm({
       )}
       <Checkbox
         id="checkout-acknowledge"
-        label="I understand that 50% is held in escrow, 50% remains unpaid, and no funds are released automatically."
+        label={t(
+          "I understand that 50% is held in escrow, 50% remains unpaid, and no funds are released automatically.",
+        )}
         checked={acknowledged}
         onChange={(event) => onChange({ acknowledged: event.target.checked })}
-        error={errors.acknowledged}
+        error={t(errors.acknowledged)}
       />
     </form>
   );
