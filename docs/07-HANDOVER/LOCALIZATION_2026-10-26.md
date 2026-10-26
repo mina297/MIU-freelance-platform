@@ -1,5 +1,13 @@
 # English and Arabic implementation handover — 26 October 2026
 
+## Payment integration conflict resolution
+
+Combined main's shared order/payment status integration with the Translation
+branch. Checkout confirmations and payment overview retain live order statuses,
+workspace links and payable-order checks. Escrow progress reflects accepted
+delivery without releasing funds. Added Arabic copy for the new status and
+funding notices; financial values and user-authored terms remain unchanged.
+
 ## Delivered implementation
 
 Shared language provider, English/Arabic controls, pre-paint initialization,

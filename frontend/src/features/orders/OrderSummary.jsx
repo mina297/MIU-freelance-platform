@@ -82,8 +82,15 @@ export default function OrderSummary() {
               : order.status.replaceAll("_", " ")}
           </h2>
           <p>
+            {order.initialPayment
+              ? t(
+                  "Initial demo funding is recorded; the remaining balance stays unpaid and escrow is not released by delivery acceptance.",
+                )
+              : t(
+                  "Creating an order does not fund it. An owning client can use demo checkout for its initial 50% payment.",
+                )}{" "}
             {t(
-              "No payment has been processed, no escrow funded and no delivery timer started by creating this order. Use the workspace below for notes, messages and delivery review. Checkout remains separate.",
+              "No real payment is processed or delivery timer started. Use the workspace below for notes, messages and delivery review.",
             )}
           </p>
           <dl className="project-create__facts">
@@ -156,6 +163,14 @@ export default function OrderSummary() {
             </p>
           )}
           <div className="project-create__success-links">
+            {session.user.role === "client" &&
+              (order.status === "awaiting_payment" || order.initialPayment) && (
+                <Link to={`/checkout/${order.id}`}>
+                  {order.initialPayment
+                    ? t("View payment confirmation")
+                    : t("Review & fund initial 50%")}
+                </Link>
+              )}
             {order.status === "completed" && session.user.role === "client" && (
               <Link to={`/reviews/new?orderId=${encodeURIComponent(order.id)}`}>
                 {t("Review completed order")}

@@ -252,16 +252,20 @@ Each order must identify its originating marketplace flow.
 
 These entities represent conceptual future records. Phase 1 uses mock data.
 
-Current service checkout demonstration: `frontend/src/features/checkout/checkoutStore.js`
-stores immutable, memory-only payment records linked to existing marketplace
+Current service checkout demonstration: the canonical `orderStore` saves an
+immutable, memory-only `initialPayment` receipt on a service order and atomically
+advances its status to `in_progress`. `checkoutStore.js` derives payment snapshots
+from this order source, including dynamically created service orders, linked to
 order, service, client and student IDs. Fields include `servicePriceMinor`,
 `amountPaidMinor`, `remainingMinor`, `feeMinor`, `escrowHeldMinor`, `releasedMinor`,
 `paymentDate`, `paymentMethod`, optional masked `last4`, `demo`, `serviceStatus`,
 `paymentStatus`, `escrowStatus`, `completedAt` and `workProgress`. All amount fields
 use integer EGP minor units. A successful initial record has In Progress service,
 partially-paid/held payment and held escrow statuses, zero release and work
-progress, and no completion date. Selectors overlay that status for client views
-without mutating marketplace seed records. Real card data is excluded. Route
+progress, and no completion date. Those receipt fields describe funding time;
+current status and completion come from the order, including later delivery and
+acceptance. Receipt balances do not imply automatic release on completion.
+Marketplace seed records are never mutated. Real card data is excluded. Route
 navigation retains records; reload clears them. See
 [Checkout and Payment UI](../06-MODULES/CHECKOUT_PAYMENT_UI.md).
 

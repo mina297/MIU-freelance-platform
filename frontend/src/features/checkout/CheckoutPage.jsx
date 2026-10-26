@@ -27,6 +27,7 @@ import OrderSummary from "./OrderSummary.jsx";
 import EscrowProgress from "./EscrowProgress.jsx";
 import { formatEGP } from "../../utils/formatEGP.js";
 import { formatDate } from "../../utils/formatDate.js";
+import { orderStatusLabels } from "../orders/orderListModel.js";
 import logo from "../../assets/figma/miu-anniversary-logo.png";
 import "./checkout.css";
 
@@ -54,10 +55,11 @@ export default function CheckoutPage() {
 
   const { session, startDemoSession } = useAuth();
   const { orderId = "order_002" } = useParams();
+  const snapshot = useCheckoutSnapshot();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [orderId]);
-  const order = getServiceOrder(orderId);
+  const order = getServiceOrder(orderId, undefined, snapshot.orders);
   return (
     <div className="escrow-checkout">
       <a className="ec-skip" href="#checkout-main">
@@ -251,7 +253,7 @@ function CheckoutExperience({ order, session }) {
               {t(
                 "This is a demo confirmation. No real payment was made. The service is",
               )}{" "}
-              <b>{t("In Progress")}</b>
+              <b>{t(orderStatusLabels[order.status] ?? order.status)}</b>
               {t(", with payment status")}{" "}
               <b>{t("Partially Paid — Escrow Held")}</b>.
             </p>
@@ -277,13 +279,16 @@ function CheckoutExperience({ order, session }) {
                 <dd>{money(transaction.releasedMinor)}</dd>
               </div>
             </dl>
-            <EscrowProgress transaction={transaction} />
+            <EscrowProgress transaction={transaction} status={order.status} />
             <div className="ec-actions">
               <Link className="ec-primary-link" to="/client/payments">
                 {t("View transaction history")}
               </Link>
               <Link to="/client/payments/overview">
                 {t("Go to client dashboard")}
+              </Link>
+              <Link to={`/orders/${order.id}`}>
+                {t("Open order workspace")}
               </Link>
             </div>
           </Card>

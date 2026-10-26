@@ -1,6 +1,6 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, NavLink, useSearchParams } from "react-router-dom";
 import { formatEGP } from "../../utils/formatEGP.js";
 import { formatDate } from "../../utils/formatDate.js";
 import {
@@ -125,6 +125,10 @@ export default function ClientDashboard() {
                 )}
               </button>
             ))}
+            <NavLink to="/client/orders" onClick={() => setMenuOpen(false)}>
+              <Icon name="jobs" />
+              <span>Orders</span>
+            </NavLink>
           </nav>
           <div className="sd-help">
             <Icon name="shield" />

@@ -1,24 +1,37 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { Check, Clock3, LockKeyhole } from "lucide-react";
 import { formatEGP } from "../../utils/formatEGP.js";
+import { orderStatusLabels } from "../orders/orderListModel.js";
 import "./escrow-progress.css";
 
-export default function EscrowProgress({ transaction }) {
+export default function EscrowProgress({
+  transaction,
+  status = transaction ? "in_progress" : "awaiting_payment",
+}) {
   const { t, locale } = useLanguage();
-
   const funded = Boolean(transaction);
+  const completed = status === "completed";
   return (
     <section
       className="ec-progress"
       aria-label={t("Service and escrow progress")}
     >
       <div className="ec-progress-title">
-        <h3>{funded ? t("Work is in progress") : t("Your payment plan")}</h3>
+        <h3>
+          {funded
+            ? t("Service: {status}", {
+                status: t(orderStatusLabels[status] ?? status),
+              })
+            : t("Your payment plan")}
+        </h3>
         <span>{funded ? t("50% funded") : t("Awaiting initial payment")}</span>
       </div>
       <label className="ec-work-progress">
-        {t("Service completion")} <progress value={0} max={100} />
-        {t("0% · No delivery accepted")}
+        {t("Service completion")}{" "}
+        <progress value={completed ? 100 : 0} max={100} />
+        {completed
+          ? t("100% · Delivery accepted; funds remain held")
+          : t("0% · No delivery accepted")}
       </label>
       <ol>
         <li className={funded ? "is-done" : ""}>
@@ -34,7 +47,7 @@ export default function EscrowProgress({ transaction }) {
             <small>
               {funded
                 ? formatEGP(transaction.escrowHeldMinor / 100, locale) +
-                  " held; nothing released"
+                  t(" held; nothing released")
                 : t("Funds are held, not sent to the freelancer")}
             </small>
           </div>
@@ -45,7 +58,9 @@ export default function EscrowProgress({ transaction }) {
             <b>{t("Service delivery and client review")}</b>
             <small>
               {funded
-                ? t("In Progress · service is not yet complete")
+                ? t("{status} · no automatic escrow release", {
+                    status: t(orderStatusLabels[status] ?? status),
+                  })
                 : t("Work starts after initial funding")}
             </small>
           </div>

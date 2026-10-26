@@ -12,9 +12,11 @@ NFR-13, NFR-14 and NFR-18. This is not production payment processing.
 2. `/checkout/:orderId` is client-only. Checkout rechecks ownership and accepts
    service orders awaiting initial payment. Missing, project-source or another
    client's orders are unavailable. `/Checkout` uses `order_002` as its example.
-3. The agreed order comes from the marketplace fixtures, not duplicated pricing:
-   Responsive landing page design, Salma Farid, EGP 1,800 package + EGP 400 extra,
-   agreed price EGP 2,200 and nine-day delivery.
+3. Checkout reads the live canonical `orderStore`, including newly confirmed service
+   orders. New orders use their immutable `serviceTerms`, even if the listing later
+   changes or disappears. Older fixture orders retain the existing package/extra
+   lookup. The seeded example is Responsive landing page design, Salma Farid,
+   EGP 1,800 package + EGP 400 extra, EGP 2,200 total and nine-day delivery.
 4. Select Visa, Mastercard or simulated Apple Pay. Saved cards are masked fictional
    records. New-card fields are read-only and populated from valid/expired sample
    presets; no real card details, credentials or wallet accounts are collected.
@@ -26,7 +28,10 @@ NFR-13, NFR-14 and NFR-18. This is not production payment processing.
    retry, create no transaction and leave the order awaiting payment.
 7. Success records EGP 1,100 as **Held in Escrow**, with EGP 1,100 remaining. The
    service becomes **In Progress**, with **Partially Paid — Escrow Held** status.
-   Its work-completion progress stays at 0%; no delivery has been accepted.
+   Its work-completion progress starts at 0%; no delivery has been accepted.
+   Open the order workspace to use the existing participant-only messages and
+   delivery/revision/acceptance flow. Delivery submission/acceptance still requires
+   the existing approved verification and assigned student/owning client checks.
 8. Follow the confirmation links to `/client/payments/overview` or `/client/payments`.
    The dashboard displays service orders, paid/held/remaining balances, payment
    dates, progress and recent payments. History supports search, transaction
@@ -44,18 +49,26 @@ Amounts use integer EGP minor units. If an odd piastre cannot split evenly, the
 initial installment receives the extra piastre and the remainder is complementary.
 
 Funds remain held until agreed milestone or completion conditions are met.
-This implementation has no completion, escrow-release, remaining-charge or payout
-action. There are no timers that advance work or release money.
+The existing order workspace supports delivery and completion. Acceptance does not
+release escrow, charge the remaining balance or create a payout. There are no
+timers that advance work or release money.
 
 ## Shared state and privacy
 
-- `checkoutStore.js` is the shared in-memory source for checkout, client service
-  status overlays and payment history. `useCheckoutSnapshot` subscribes through
-  React's external-store hook; marketplace seed objects are never mutated.
+- `orderStore.js` is the canonical in-memory source for order lifecycle and its
+  immutable `initialPayment` receipt. Successful funding commits the receipt and
+  `in_progress` transition together, before notifying subscribers. Repeated funding
+  returns the same receipt without rewinding later delivery/completion states.
+- `checkoutStore.js` projects cached `{ orders, transactions }` snapshots from that
+  store; it owns no second status or transaction collection. `useCheckoutSnapshot`
+  subscribes through React's external-store hook. Marketplace seeds are not mutated.
 - Records contain stable transaction/order/service/participant IDs, EGP minor-unit
   amounts, payment date, method, last four digits if applicable, demo flag, and
   explicit payment/service/escrow statuses. CVC, full card numbers, holder names,
   expiry and credentials are excluded from transaction records.
+- Receipt `serviceStatus`, `completedAt` and `workProgress` describe funding time,
+  not current work state. All current UI status/completion displays use the live
+  order; order completion leaves the financial receipt and held balance unchanged.
 - The store revalidates active client role, ownership, payable order status and
   payment selection. History selectors return only the active client's records.
 - State survives frontend route navigation. Reloading clears both the existing

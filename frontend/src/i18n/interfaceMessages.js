@@ -1,4 +1,18 @@
 export default {
+  "Service: {status}": "الخدمة: {status}",
+  "100% · Delivery accepted; funds remain held":
+    "١٠٠٪ · تم قبول التسليم؛ تظل الأموال محتجزة",
+  "{status} · no automatic escrow release":
+    "{status} · لا يتم تحرير الضمان تلقائيًا",
+  " held; nothing released": " محتجزة؛ لم يتم تحرير أي مبلغ",
+  "Open order workspace": "افتح مساحة عمل الطلب",
+  "Initial demo funding is recorded; the remaining balance stays unpaid and escrow is not released by delivery acceptance.":
+    "تم تسجيل التمويل التجريبي الأولي؛ يظل الرصيد المتبقي غير مدفوع ولا يتم تحرير الضمان عند قبول التسليم.",
+  "Creating an order does not fund it. An owning client can use demo checkout for its initial 50% payment.":
+    "إنشاء الطلب لا يموّله. يمكن للعميل صاحب الطلب استخدام الدفع التجريبي لسداد نسبة ٥٠٪ الأولى.",
+  "No real payment is processed or delivery timer started. Use the workspace below for notes, messages and delivery review.":
+    "لا تتم معالجة أي دفع حقيقي أو بدء مؤقت للتسليم. استخدم مساحة العمل أدناه للملاحظات والرسائل ومراجعة التسليم.",
+
   "Verified MIU community": "مجتمع MIU موثّق",
   "Student and client identities are connected to the university community.":
     "ترتبط هويات الطلاب والعملاء بالمجتمع الجامعي.",

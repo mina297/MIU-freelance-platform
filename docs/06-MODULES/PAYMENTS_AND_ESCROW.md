@@ -141,9 +141,11 @@ Use fictional transaction references.
 The `/Checkout` entry and client-only `/checkout/:orderId` implement the service
 checkout demonstration described in [Checkout and Payment UI](CHECKOUT_PAYMENT_UI.md).
 The current frontend task funds an initial 50%, records it as held in mock escrow,
-and leaves 50% unpaid. Successful demo payments update a shared in-memory client
-service-status overlay and transaction history at `/client/dashboard` and
-`/client/payments`. The service stays In Progress, not completed. No real card
+and leaves 50% unpaid. Successful demo payments atomically save an `initialPayment`
+receipt and advance the canonical order to In Progress. Checkout, the workspace,
+order lists, `/client/payments/overview` and `/client/payments` share that state.
+Existing delivery acceptance can complete the order without changing the held
+funds or unpaid remainder. No real card
 credentials, money movement, automatic release or remaining-balance charge exists.
 Approved production fees and financial authorities remain open decisions.
 

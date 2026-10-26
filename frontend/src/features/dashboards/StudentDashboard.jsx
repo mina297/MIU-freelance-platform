@@ -1,6 +1,6 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, NavLink, useSearchParams } from "react-router-dom";
 import {
   applications,
   activeJobs,
@@ -322,6 +322,10 @@ export default function StudentDashboard() {
                 {t(title)}
               </button>
             ))}
+            <NavLink to="/student/orders" onClick={() => setMenuOpen(false)}>
+              <Icon name="briefcase" />
+              Orders
+            </NavLink>
           </nav>
           <div className="sd-help">
             <Icon name="shield" />
