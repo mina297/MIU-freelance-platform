@@ -1,6 +1,7 @@
 import { marketplaceData } from "../../data/fixtures/marketplace.js";
 import { isActiveUser, ROLES } from "../auth/session.js";
 import { ORDER_STATUS } from "../marketplace/constants.js";
+import { createOrderStore, orderStore } from "../orders/orderStore.js";
 import {
   escrowBreakdown,
   getServiceOrder,
@@ -16,15 +17,30 @@ export function canUseClientPayments(session) {
     session.user.role === ROLES.CLIENT
   );
 }
-export function createCheckoutStore(data = marketplaceData) {
-  let snapshot = Object.freeze({ transactions: Object.freeze([]) });
-  const listeners = new Set();
+export function createCheckoutStore(
+  data = marketplaceData,
+  orders = createOrderStore(data.orders),
+) {
+  let previousOrders;
+  let snapshot;
+  const getSnapshot = () => {
+    const records = orders.getSnapshot();
+    if (records !== previousOrders) {
+      previousOrders = records;
+      snapshot = Object.freeze({
+        orders: records,
+        transactions: Object.freeze(
+          records.flatMap((order) =>
+            order.initialPayment ? [order.initialPayment] : [],
+          ),
+        ),
+      });
+    }
+    return snapshot;
+  };
   return {
-    getSnapshot: () => snapshot,
-    subscribe(listener) {
-      listeners.add(listener);
-      return () => listeners.delete(listener);
-    },
+    getSnapshot,
+    subscribe: orders.subscribe,
     fundInitial({
       orderId,
       session,
@@ -38,14 +54,14 @@ export function createCheckoutStore(data = marketplaceData) {
           code: "access",
           message: "An active client session is required.",
         };
-      const order = getServiceOrder(orderId, data);
+      const order = getServiceOrder(orderId, data, orders.getSnapshot());
       if (!order || order.clientId !== session.user.id)
         return {
           ok: false,
           code: "access",
           message: "This service order is unavailable to your account.",
         };
-      const existing = snapshot.transactions.find(
+      const existing = getSnapshot().transactions.find(
         (item) => item.orderId === orderId && item.clientId === session.user.id,
       );
       if (existing) return { ok: true, transaction: existing, duplicate: true };
@@ -102,15 +118,11 @@ export function createCheckoutStore(data = marketplaceData) {
         completedAt: null,
         workProgress: 0,
       });
-      snapshot = Object.freeze({
-        transactions: Object.freeze([...snapshot.transactions, transaction]),
-      });
-      listeners.forEach((listener) => listener());
-      return { ok: true, transaction, duplicate: false };
+      return orders.fundServiceOrder(orderId, session, transaction);
     },
   };
 }
-export const checkoutStore = createCheckoutStore();
+export const checkoutStore = createCheckoutStore(marketplaceData, orderStore);
 export function clientTransactions(snapshot, session) {
   return canUseClientPayments(session)
     ? snapshot.transactions.filter((item) => item.clientId === session.user.id)
@@ -118,10 +130,10 @@ export function clientTransactions(snapshot, session) {
 }
 export function clientServiceOrders(snapshot, session, data = marketplaceData) {
   if (!canUseClientPayments(session)) return [];
-  return data.orders
+  return snapshot.orders
     .filter((item) => item.clientId === session.user.id)
     .map((item) => {
-      const order = getServiceOrder(item.id, data);
+      const order = getServiceOrder(item.id, data, snapshot.orders);
       if (!order) return null;
       const transaction = snapshot.transactions.find(
         (item) =>
@@ -129,7 +141,7 @@ export function clientServiceOrders(snapshot, session, data = marketplaceData) {
       );
       return {
         ...order,
-        status: transaction?.serviceStatus ?? order.status,
+        status: order.status,
         transaction: transaction ?? null,
       };
     })

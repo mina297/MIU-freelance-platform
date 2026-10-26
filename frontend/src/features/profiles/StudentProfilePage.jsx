@@ -1,5 +1,6 @@
 import { useContext, useState, useSyncExternalStore } from "react";
 import { AuthContext } from "../../contexts/AuthContext.js";
+import { NavLink } from "react-router-dom";
 import { ownsProfile } from "./utils/profileOwnership.js";
 import { reviewClientAllowed, reviewStore } from "../reviews/reviewStore.js";
 import ReviewFormModal from "../reviews/components/ReviewFormModal.jsx";
@@ -130,6 +131,19 @@ export default function StudentProfilePage({
             </div>
 
             <aside className="flex w-full shrink-0 flex-col gap-6 lg:w-[360px]">
+              {isOwner && (
+                <nav
+                  aria-label="Profile workspace"
+                  className="rounded-[10px] border border-[#e5e7eb] bg-white p-5"
+                >
+                  <NavLink
+                    to="/student/orders"
+                    className="inline-flex min-h-11 w-full items-center rounded-full px-4 font-semibold text-miu-red hover:bg-miu-red-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+                  >
+                    Orders
+                  </NavLink>
+                </nav>
+              )}
               <AtAGlanceCard
                 completedJobsCount={profile.completedJobsCount}
                 ratingSummary={profile.ratingSummary}

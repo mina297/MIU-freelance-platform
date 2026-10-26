@@ -1,5 +1,6 @@
 import { orders as fixtureOrders } from "../../data/fixtures/marketplace.js";
 import { clientEligibility } from "../projects/projectCreation.js";
+import { isActiveUser } from "../auth/session.js";
 import { ORDER_SOURCE, ORDER_STATUS } from "../marketplace/constants.js";
 import {
   deliveryActorError,
@@ -137,6 +138,65 @@ export function createOrderStore(seed = []) {
       listeners.add(listener);
       return () => listeners.delete(listener);
     },
+    fundServiceOrder(orderId, session, payment) {
+      const current = records.find(({ id }) => id === orderId);
+      if (
+        session?.status !== "authenticated" ||
+        !isActiveUser(session.user) ||
+        session.user.role !== "client" ||
+        current?.sourceType !== ORDER_SOURCE.SERVICE ||
+        current.clientId !== session.user.id
+      )
+        return {
+          ok: false,
+          code: "access",
+          message: "This service order is unavailable to your account.",
+        };
+      if (current.initialPayment)
+        return {
+          ok: true,
+          transaction: current.initialPayment,
+          duplicate: true,
+        };
+      if (current.status !== ORDER_STATUS.AWAITING_PAYMENT)
+        return {
+          ok: false,
+          code: "status",
+          message: "This order is not awaiting an initial payment.",
+        };
+      const priceMinor = Math.round(current.agreedAmountEGP * 100);
+      if (
+        !Number.isSafeInteger(priceMinor) ||
+        priceMinor <= 0 ||
+        !payment ||
+        !Object.isFrozen(payment) ||
+        payment.demo !== true ||
+        payment.orderId !== current.id ||
+        payment.clientId !== current.clientId ||
+        payment.studentId !== current.studentId ||
+        payment.serviceId !== current.sourceId ||
+        payment.currency !== "EGP" ||
+        payment.servicePriceMinor !== priceMinor ||
+        payment.amountPaidMinor !== Math.ceil(priceMinor / 2) ||
+        payment.remainingMinor !== priceMinor - payment.amountPaidMinor
+      )
+        return {
+          ok: false,
+          code: "validation",
+          message: "Review the current order before funding again.",
+        };
+      const order = Object.freeze({
+        ...current,
+        status: ORDER_STATUS.IN_PROGRESS,
+        initialPayment: payment,
+      });
+      // Commit funding and the workflow transition together before notifying readers.
+      records = Object.freeze(
+        records.map((item) => (item.id === orderId ? order : item)),
+      );
+      listeners.forEach((listener) => listener());
+      return { ok: true, order, transaction: payment, duplicate: false };
+    },
     submitDelivery(orderId, values, session, latestId, requestId) {
       return changeDelivery(
         orderId,
@@ -197,7 +257,11 @@ export function createOrderStore(seed = []) {
       const previous = serviceRequests.get(key);
       if (previous)
         return previous.fingerprint === fingerprint
-          ? { ok: true, order: previous.order, duplicate: true }
+          ? {
+              ok: true,
+              order: records.find((item) => item.id === previous.order.id),
+              duplicate: true,
+            }
           : {
               ok: false,
               error:

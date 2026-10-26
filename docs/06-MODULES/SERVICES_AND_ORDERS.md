@@ -366,13 +366,16 @@ Demonstrate:
 
 Use shared fictional mock records.
 
-The checkout increment now reads the existing service order/package/extra fixture
-and overlays successful initial demo funding through a shared payment store.
-`/client/dashboard` and `/client/payments` show the same owned order and financial
-records as checkout. Initial 50% funding changes the service to In Progress with
-Partially Paid — Escrow Held status. Delivery acceptance, completion and remaining
-payment/release workflows are not implemented by this increment. Marketplace
-seed records and project orders are preserved. See [Checkout and Payment UI](CHECKOUT_PAYMENT_UI.md).
+Checkout now reads live service orders from the canonical `orderStore`. Initial
+50% funding saves an immutable receipt on the order and changes its status to
+In Progress in one update. Checkout, `/orders/:orderId`, role-specific order lists,
+`/client/payments/overview` and `/client/payments` observe that same state; the
+design-fixture `/client/dashboard` remains separate. Newly created orders use
+saved package/extra terms, while older fixtures retain their compatible lookup.
+The existing workspace supports delivery, revision and acceptance/completion with
+its verification and ownership checks. Completion does not release escrow or
+charge the remaining balance. Seed records and project-order behavior are
+preserved. See [Checkout and Payment UI](CHECKOUT_PAYMENT_UI.md).
 
 ## 11. Open Decisions
 

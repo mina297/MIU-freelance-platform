@@ -40,23 +40,61 @@ export const sampleCardPresets = Object.freeze({
     cvc: "000",
   }),
 });
-export function getServiceOrder(orderId, data = marketplaceData) {
-  const order = data.orders.find(
+export function getServiceOrder(
+  orderId,
+  data = marketplaceData,
+  orders = data.orders,
+) {
+  if (typeof orderId !== "string" || !orderId.trim()) return null;
+  const order = orders.find(
     (item) => item.id === orderId && item.sourceType === ORDER_SOURCE.SERVICE,
   );
   if (!order) return null;
+  const priceMinor = Math.round(order.agreedAmountEGP * 100);
+  if (!Number.isSafeInteger(priceMinor) || priceMinor <= 0) return null;
+  const freelancer = data.participants.students.find(
+    (item) => item.id === order.studentId,
+  );
+  const terms = order.serviceTerms;
+  if (terms) {
+    // Confirmed terms outlive later edits, pauses or removal of the listing.
+    return {
+      id: order.id,
+      clientId: order.clientId,
+      serviceId: order.sourceId,
+      studentId: order.studentId,
+      title: terms.serviceTitle,
+      freelancer: freelancer?.displayName ?? "Student information unavailable",
+      packageName: terms.packageName,
+      scope: terms.packageDescription,
+      features: terms.includedFeatures,
+      deliveryDays: order.deliveryDays,
+      items: [
+        {
+          id: order.servicePackageId,
+          name: terms.packageName,
+          amountMinor: Math.round(terms.packagePriceEGP * 100),
+        },
+        ...terms.extras.map((extra) => ({
+          id: extra.id,
+          name: extra.title,
+          amountMinor: Math.round(extra.additionalPriceEGP * 100),
+        })),
+      ],
+      priceMinor,
+      status: order.status,
+      completedAt: order.completedAt,
+    };
+  }
   const service = data.services.find((item) => item.id === order.sourceId);
   const pack = data.servicePackages.find(
     (item) =>
       item.id === order.servicePackageId && item.serviceId === order.sourceId,
   );
-  const extras = order.serviceExtraIds.map((id) =>
+  const extras = (order.serviceExtraIds ?? []).map((id) =>
     data.serviceExtras.find(
       (item) => item.id === id && item.serviceId === order.sourceId,
     ),
-  );
-  const freelancer = data.participants.students.find(
-    (item) => item.id === order.studentId,
   );
   if (
     !service ||
@@ -66,8 +104,6 @@ export function getServiceOrder(orderId, data = marketplaceData) {
     service.studentId !== order.studentId
   )
     return null;
-  const priceMinor = Math.round(order.agreedAmountEGP * 100);
-  if (!Number.isSafeInteger(priceMinor) || priceMinor <= 0) return null;
   return {
     id: order.id,
     clientId: order.clientId,

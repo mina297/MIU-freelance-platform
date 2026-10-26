@@ -16,6 +16,7 @@ import {
 } from "../checkout/checkoutStore.js";
 import { useCheckoutSnapshot } from "../checkout/useCheckoutSnapshot.js";
 import { useAuth } from "../../hooks/useAuth.js";
+import { orderStatusLabels } from "../orders/orderListModel.js";
 import { formatEGP } from "../../utils/formatEGP.js";
 import { formatDate } from "../../utils/formatDate.js";
 import "./client-payments.css";
@@ -175,7 +176,7 @@ export default function ClientPaymentsDashboard() {
                     <h3>{order.title}</h3>
                   </div>
                   <Badge variant={order.transaction ? "info" : "warning"}>
-                    {order.transaction ? "In Progress" : "Awaiting Payment"}
+                    {orderStatusLabels[order.status] ?? order.status}
                   </Badge>
                 </div>
                 <p>{order.scope}</p>
@@ -208,11 +209,22 @@ export default function ClientPaymentsDashboard() {
                     </p>
                   </>
                 )}
-                <EscrowProgress transaction={order.transaction} />
-                <Link className="cp-checkout-link" to={`/checkout/${order.id}`}>
-                  {order.transaction
-                    ? "View payment confirmation"
-                    : "Review & fund initial 50%"}
+                <EscrowProgress
+                  transaction={order.transaction}
+                  status={order.status}
+                />
+                {(order.transaction || order.status === "awaiting_payment") && (
+                  <Link
+                    className="cp-checkout-link"
+                    to={`/checkout/${order.id}`}
+                  >
+                    {order.transaction
+                      ? "View payment confirmation"
+                      : "Review & fund initial 50%"}
+                  </Link>
+                )}
+                <Link className="cp-checkout-link" to={`/orders/${order.id}`}>
+                  Open order workspace
                 </Link>
               </Card>
             ))
@@ -298,14 +310,17 @@ export default function ClientPaymentsDashboard() {
           </Button>
         </Card>
       )}
-      {paymentsView && orders.some((order) => !order.transaction) && (
-        <Link
-          className="cp-checkout-link"
-          to={`/checkout/${orders.find((order) => !order.transaction).id}`}
-        >
-          Go to service checkout
-        </Link>
-      )}
+      {paymentsView &&
+        orders.some(
+          (order) => !order.transaction && order.status === "awaiting_payment",
+        ) && (
+          <Link
+            className="cp-checkout-link"
+            to={`/checkout/${orders.find((order) => !order.transaction && order.status === "awaiting_payment").id}`}
+          >
+            Go to service checkout
+          </Link>
+        )}
       <details className="cp-preview-controls">
         <summary>Demo history controls</summary>
         <Select

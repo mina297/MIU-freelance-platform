@@ -1,18 +1,29 @@
 import { Check, Clock3, LockKeyhole } from "lucide-react";
 import { formatEGP } from "../../utils/formatEGP.js";
+import { orderStatusLabels } from "../orders/orderListModel.js";
 import "./escrow-progress.css";
 
-export default function EscrowProgress({ transaction }) {
+export default function EscrowProgress({
+  transaction,
+  status = transaction ? "in_progress" : "awaiting_payment",
+}) {
   const funded = Boolean(transaction);
+  const completed = status === "completed";
   return (
     <section className="ec-progress" aria-label="Service and escrow progress">
       <div className="ec-progress-title">
-        <h3>{funded ? "Work is in progress" : "Your payment plan"}</h3>
+        <h3>
+          {funded
+            ? `Service: ${orderStatusLabels[status] ?? status}`
+            : "Your payment plan"}
+        </h3>
         <span>{funded ? "50% funded" : "Awaiting initial payment"}</span>
       </div>
       <label className="ec-work-progress">
-        Service completion <progress value={0} max={100} />
-        0% · No delivery accepted
+        Service completion <progress value={completed ? 100 : 0} max={100} />
+        {completed
+          ? "100% · Delivery accepted; funds remain held"
+          : "0% · No delivery accepted"}
       </label>
       <ol>
         <li className={funded ? "is-done" : ""}>
@@ -37,7 +48,7 @@ export default function EscrowProgress({ transaction }) {
             <b>Service delivery and client review</b>
             <small>
               {funded
-                ? "In Progress · service is not yet complete"
+                ? `${orderStatusLabels[status] ?? status} · no automatic escrow release`
                 : "Work starts after initial funding"}
             </small>
           </div>

@@ -147,6 +147,31 @@ The `/register` and `/register/role` selection screens use concise copy and cent
 
 Sign-in, student/client sign-up and recovery forms share a centered card with soft shadows, rounded 15px input/button corners, concise labels and visible keyboard/error states. Required fields, autocomplete, password validation, disabled submission and error associations are retained. A single short footer identifies the frontend as a prototype and explains refresh resets and test-only details. Recovery retains explicit no-email/no-token and unchecked-ownership disclosures. Repeated explanatory copy is removed. User-facing "demo" wording is replaced across the application, including feedback, account labels and accessible search names; internal session APIs and account IDs are unchanged. Related requirements: FR-V03, FR-S01, FR-C01, NFR-02 and NFR-03. Live browser visual checks remain pending.
 
+### Existing Super Admin demo login
+
+`admin_001` already exists with role `super_admin`; Admin is deliberately not a
+public registration option. Do not register a duplicate or change a student/client
+role to gain access. Its fictional email is `admin_001@example.test`.
+
+There is **no configured initial password**. In one running prototype session:
+
+1. Open `/reset-password` and enter `admin_001@example.test`.
+2. Choose a disposable test password with at least eight characters, a letter and
+   a number, repeat it, and submit. No email or secure token is involved.
+3. Follow **Back to sign in**, log in at `/login` using that email and the password
+   just chosen, then use **My workspace** to navigate internally to `/admin`.
+   Login itself opens the landing page; typing a URL with a full reload clears
+   this memory-only setup.
+4. Refresh discards the password and session; repeat setup afterward.
+
+`/admin` is the protected dashboard and rejects ordinary student/client, inactive,
+anonymous and expired sessions. `/SuperAdmin` is a separate public fictional
+preview and does not demonstrate authenticated Admin access. No fixed password,
+new privileged account or new authentication bypass is introduced. This entire
+mock reset/authentication mechanism is not suitable for production deployment.
+The model and SSR regression is `frontend/src/tests/demoAdminAccess.test.js`;
+interactive browser acceptance remains separate.
+
 ## 9. Production Security Requirements
 
 Future implementation must provide:

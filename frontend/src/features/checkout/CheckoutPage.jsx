@@ -26,6 +26,7 @@ import OrderSummary from "./OrderSummary.jsx";
 import EscrowProgress from "./EscrowProgress.jsx";
 import { formatEGP } from "../../utils/formatEGP.js";
 import { formatDate } from "../../utils/formatDate.js";
+import { orderStatusLabels } from "../orders/orderListModel.js";
 import logo from "../../assets/figma/miu-anniversary-logo.png";
 import "./checkout.css";
 
@@ -49,11 +50,12 @@ function CheckoutHeader() {
 export default function CheckoutPage() {
   const { session, startDemoSession } = useAuth();
   const { orderId = "order_002" } = useParams();
+  const snapshot = useCheckoutSnapshot();
   useEffect(() => {
     document.title = "Checkout & escrow | MIU Freelance";
     window.scrollTo(0, 0);
   }, [orderId]);
-  const order = getServiceOrder(orderId);
+  const order = getServiceOrder(orderId, undefined, snapshot.orders);
   return (
     <div className="escrow-checkout">
       <a className="ec-skip" href="#checkout-main">
@@ -235,8 +237,8 @@ function CheckoutExperience({ order, session }) {
             <h2>Your initial 50% is held, not released</h2>
             <p>
               This is a demo confirmation. No real payment was made. The service
-              is <b>In Progress</b>, with payment status{" "}
-              <b>Partially Paid — Escrow Held</b>.
+              is <b>{orderStatusLabels[order.status] ?? order.status}</b>, with
+              payment status <b>Partially Paid — Escrow Held</b>.
             </p>
             <dl className="ec-success-details">
               <div>
@@ -260,12 +262,13 @@ function CheckoutExperience({ order, session }) {
                 <dd>{money(transaction.releasedMinor)}</dd>
               </div>
             </dl>
-            <EscrowProgress transaction={transaction} />
+            <EscrowProgress transaction={transaction} status={order.status} />
             <div className="ec-actions">
               <Link className="ec-primary-link" to="/client/payments">
                 View transaction history
               </Link>
               <Link to="/client/payments/overview">Go to client dashboard</Link>
+              <Link to={`/orders/${order.id}`}>Open order workspace</Link>
             </div>
           </Card>
         ) : phase === "failure" ? (

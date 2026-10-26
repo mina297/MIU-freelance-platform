@@ -73,7 +73,7 @@ test("checkout and client history share authorized service funding across routes
     assert.match(render("/checkout/missing"), /Service order unavailable/);
     const empty = render("/client/payments");
     assert.match(empty, /No payments yet/);
-    assert.match(render("/client/payments/overview"), /Awaiting Payment/);
+    assert.match(render("/client/payments/overview"), /Awaiting payment/);
     const result = checkoutStore.fundInitial({
       orderId: "order_002",
       session: client,
@@ -87,7 +87,7 @@ test("checkout and client history share authorized service funding across routes
       assert.match(html, /Partially Paid — Escrow Held/);
       assert.match(html, /Held in Escrow/);
     }
-    assert.match(render("/client/payments/overview"), /In Progress/);
+    assert.match(render("/client/payments/overview"), /In progress/);
     const confirmed = render("/Checkout");
     assert.match(confirmed, /Demo payment confirmed/);
     assert.match(confirmed, /No real payment was made/);

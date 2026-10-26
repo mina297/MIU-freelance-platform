@@ -79,7 +79,8 @@
   flex-direction: column;
   gap: 8px;
 }
-.sd-navigation nav button {
+.sd-navigation nav button,
+.sd-navigation nav a {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -89,7 +90,8 @@
   color: var(--ink-secondary);
   width: 100%;
 }
-.sd-navigation nav button[aria-current] {
+.sd-navigation nav button[aria-current],
+.sd-navigation nav a[aria-current="page"] {
   border-radius: var(--radius-control);
   box-shadow: inset 3px 0 #a52d4b;
   color: var(--theme-accent, #b91c2b);

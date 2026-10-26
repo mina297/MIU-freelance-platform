@@ -135,7 +135,10 @@ test("service-order configuration is client-only and summaries expose saved term
       assert.match(summary, /Saved package terms: Landing page/);
       assert.match(summary, /Additional section/);
       assert.equal((summary.match(/<main\b/g) ?? []).length, 1);
-      assert.doesNotMatch(summary, /href="\/checkout|Pay now|Fund escrow/);
+      if (session.user.role === "client")
+        assert.ok(summary.includes(`href="/checkout/${result.order.id}"`));
+      else assert.doesNotMatch(summary, /href="\/checkout/);
+      assert.doesNotMatch(summary, /Pay now|Fund escrow/);
     }
     for (const session of [
       { ...client, user: { ...client.user, id: "other-client" } },

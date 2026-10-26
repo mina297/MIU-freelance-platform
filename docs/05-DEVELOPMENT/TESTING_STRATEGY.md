@@ -86,6 +86,18 @@ order snapshots. Live table-scroll, keyboard and mobile review remain pending.
 ### Integration Testing
 Verify that modules work together through shared mock data and routing.
 
+Checkout/order integration regressions exercise service order creation, checkout
+lookup/rendering, initial demo funding, atomic receipt/status publication, live
+workspace/order-list/payment-view status, delivery and acceptance/completion.
+They also cover saved terms after listing removal, invalid/foreign orders,
+failure/cancellation without mutation and funding retries after completion.
+Sidebar route tests cover role-specific Orders links, owner-only student profile
+navigation and rejection of anonymous/wrong-role access. The existing Admin
+fixture is tested through reset, ordinary credential login and the protected
+`/admin` route, including ordinary-user and inactive-session denial. These are
+model/store/SSR checks; they do not establish browser keyboard, mobile, focus or
+screen-reader acceptance.
+
 ### End-to-End Scenario Testing
 Walk through complete user journeys.
 

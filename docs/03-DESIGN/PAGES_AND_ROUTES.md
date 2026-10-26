@@ -358,6 +358,13 @@ unchanged. See [Checkout and Payment UI](../06-MODULES/CHECKOUT_PAYMENT_UI.md).
 
 Authentication navigation (24 October 2026): successful registration starts the new account's session and opens `/`; successful login also opens `/` rather than a role dashboard or stored return URL. My workspace remains a separate role-aware navigation action. Public/application shells omit demo session controls and route inventories; protected route permissions are unchanged.
 
+Orders navigation integration: the student and client workspace sidebars (which
+also contain Profile) link to the existing `/student/orders` and `/client/orders`
+pages. Links share existing sidebar spacing, focus/active states and mobile menu
+behavior. The student public-profile About sidebar also offers Orders only to its
+active owner. Lists remain role-guarded and filter by the current participant
+before rendering records. No new Orders page or route is introduced.
+
 Before changing a shared path:
 
 1. Identify linked pages and navigation actions.
