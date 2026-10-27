@@ -1,0 +1,192 @@
+.miu-page-loading {
+  --loader-bg: #faf7f9;
+  --loader-surface: #fff;
+  --loader-ink: #35212c;
+  --loader-muted: #6a5864;
+  --loader-line: #dfcdd6;
+  --loader-accent: #b91c35;
+  --loader-wash: #f2e4eb;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  min-block-size: 26rem;
+  padding: clamp(1.5rem, 5vw, 4rem);
+  box-sizing: border-box;
+  overflow: hidden;
+  color: var(--loader-ink);
+  background: var(--loader-bg);
+  font-family: Inter, "Noto Sans Arabic", system-ui, sans-serif;
+  text-align: center;
+}
+[data-theme="dark"] .miu-page-loading {
+  --loader-bg: #151519;
+  --loader-surface: #222127;
+  --loader-ink: #f7f0f4;
+  --loader-muted: #c2b6c0;
+  --loader-line: #48404b;
+  --loader-accent: #ff8299;
+  --loader-wash: #30212b;
+}
+.miu-page-loading--page {
+  min-block-size: 75svh;
+}
+.miu-page-loading--startup {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  min-block-size: 100svh;
+  overflow-y: auto;
+}
+.miu-page-loading::before,
+.miu-page-loading::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inline-size: min(70vw, 46rem);
+  aspect-ratio: 1;
+  border: 1px solid var(--loader-line);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.miu-page-loading::before {
+  inset-block-start: -70%;
+  inset-inline-end: -24%;
+  box-shadow: 0 0 0 4rem var(--loader-wash);
+}
+.miu-page-loading::after {
+  inset-block-end: -75%;
+  inset-inline-start: -25%;
+  box-shadow: 0 0 0 3rem var(--loader-wash);
+}
+.miu-page-loading__content {
+  inline-size: min(100%, 28rem);
+}
+.miu-page-loading__identity {
+  display: grid;
+  place-items: center;
+  inline-size: 12rem;
+  block-size: 8rem;
+  margin: 0 auto 1.75rem;
+  border: 1px solid var(--loader-line);
+  border-radius: 1.5rem;
+  background: var(--loader-surface);
+  box-shadow: 0 14px 35px #21101b0b;
+  transform: rotate(-4deg);
+}
+.miu-page-loading__logo {
+  display: block;
+  inline-size: 9.5rem;
+  block-size: 5.2rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  object-fit: contain;
+  background: #fffaf7;
+  border-radius: 0.65rem;
+  transform: rotate(4deg);
+}
+.miu-page-loading__eyebrow {
+  margin: 0 0 0.65rem;
+  color: var(--loader-accent);
+  font-size: 0.68rem;
+  line-height: 1.8;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+:root[lang="ar"] .miu-page-loading__eyebrow {
+  letter-spacing: normal;
+}
+.miu-page-loading__brand {
+  margin: 0;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-weight: 750;
+  line-height: 1.3;
+  letter-spacing: -0.04em;
+}
+.miu-page-loading__brand-dot {
+  color: var(--loader-accent);
+}
+.miu-page-loading__status {
+  margin: 0.9rem 0 1.5rem;
+  color: var(--loader-muted);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+.miu-page-loading__track {
+  inline-size: min(15rem, 80%);
+  block-size: 3px;
+  margin-inline: auto;
+  border-radius: 999px;
+  background: var(--loader-line);
+  overflow: hidden;
+}
+.miu-page-loading__track::after {
+  content: "";
+  display: block;
+  inline-size: 45%;
+  block-size: 100%;
+  border-radius: inherit;
+  background: var(--loader-accent);
+  animation: miu-loading-sweep 1.65s ease-in-out infinite alternate;
+}
+.miu-page-loading__signature {
+  margin: 2rem 0 0;
+  color: var(--loader-muted);
+  font-size: 0.73rem;
+  line-height: 1.7;
+}
+.miu-page-loading__recovery {
+  margin-block-start: 1.5rem;
+}
+.miu-page-loading__recovery p {
+  color: var(--loader-muted);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+.miu-page-loading__reload {
+  border: 1px solid var(--loader-line);
+  border-radius: 0.75rem;
+  padding: 0.7rem 1.15rem;
+  background: var(--loader-surface);
+  color: var(--loader-ink);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.miu-page-loading__reload:hover {
+  border-color: var(--loader-accent);
+}
+.miu-page-loading__reload:focus-visible {
+  outline: 3px solid var(--loader-accent);
+  outline-offset: 4px;
+}
+.miu-page-loading [hidden],
+.miu-boot-ar,
+:root[lang="ar"] .miu-boot-en {
+  display: none;
+}
+:root[lang="ar"] .miu-boot-ar {
+  display: inline;
+}
+.miu-page-loading.is-error .miu-page-loading__track {
+  display: none;
+}
+@keyframes miu-loading-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(225%);
+  }
+}
+:root[dir="rtl"] .miu-page-loading__track {
+  transform: scaleX(-1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .miu-page-loading__track::after {
+    animation: none;
+    margin-inline: auto;
+  }
+}

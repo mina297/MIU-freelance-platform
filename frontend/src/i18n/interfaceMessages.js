@@ -1,4 +1,10 @@
 export default {
+  "A world of opportunity": "عالم من الفرص",
+  "Preparing your next chapter…": "نجهّز خطوتك القادمة…",
+  "Student talent. Real opportunities.": "مواهب طلابية. فرص حقيقية.",
+  "MIU page loading screen": "شاشة تحميل صفحات MIU",
+  "A live appearance preview. Actual pages open as soon as they are ready.":
+    "معاينة حية للمظهر. تُفتح الصفحات الفعلية فور جاهزيتها.",
   "Service: {status}": "الخدمة: {status}",
   "100% · Delivery accepted; funds remain held":
     "١٠٠٪ · تم قبول التسليم؛ تظل الأموال محتجزة",
