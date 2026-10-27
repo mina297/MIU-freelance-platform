@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <script src="/language-init.js"></script>
+    <link rel="stylesheet" href="/src/components/feedback/page-loading.css" />
     <link
       rel="icon"
       type="image/png"
@@ -18,7 +19,97 @@
     />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <div
+      id="miu-app-startup"
+      class="miu-page-loading miu-page-loading--startup"
+    >
+      <div class="miu-page-loading__content">
+        <div class="miu-page-loading__identity" aria-hidden="true">
+          <img
+            class="miu-page-loading__logo"
+            src="/src/assets/figma/miu-anniversary-logo.png"
+            alt=""
+            width="152"
+            height="83"
+            fetchpriority="high"
+          />
+        </div>
+        <p class="miu-page-loading__eyebrow">
+          <span class="miu-boot-en">A world of opportunity</span
+          ><span class="miu-boot-ar" lang="ar">عالم من الفرص</span>
+        </p>
+        <p class="miu-page-loading__brand" dir="ltr">
+          MIU Freelance<span class="miu-page-loading__brand-dot">.</span>
+        </p>
+        <p
+          id="miu-startup-status"
+          class="miu-page-loading__status"
+          role="status"
+          aria-atomic="true"
+        >
+          <span class="miu-boot-en">Preparing your next chapter…</span
+          ><span class="miu-boot-ar" lang="ar">نجهّز خطوتك القادمة…</span>
+        </p>
+        <p
+          id="miu-startup-failure"
+          class="miu-page-loading__status"
+          role="alert"
+          hidden
+        >
+          <span class="miu-boot-en"
+            >We couldn't open the platform. Please try again.</span
+          ><span class="miu-boot-ar" lang="ar"
+            >تعذّر فتح المنصة. يرجى المحاولة مرة أخرى.</span
+          >
+        </p>
+        <div class="miu-page-loading__track" aria-hidden="true"></div>
+        <p class="miu-page-loading__signature">
+          <span class="miu-boot-en">Student talent. Real opportunities.</span
+          ><span class="miu-boot-ar" lang="ar">مواهب طلابية. فرص حقيقية.</span>
+        </p>
+        <div
+          id="miu-startup-recovery"
+          class="miu-page-loading__recovery"
+          hidden
+        >
+          <p id="miu-startup-slow" role="status">
+            <span class="miu-boot-en"
+              >Taking longer than expected. You can keep waiting or
+              reload.</span
+            ><span class="miu-boot-ar" lang="ar"
+              >يستغرق التحميل وقتًا أطول من المتوقع. يمكنك الانتظار أو إعادة
+              التحميل.</span
+            >
+          </p>
+          <button
+            id="miu-startup-retry"
+            class="miu-page-loading__reload"
+            type="button"
+          >
+            <span class="miu-boot-en">Reload page</span
+            ><span class="miu-boot-ar" lang="ar">إعادة تحميل الصفحة</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <noscript>
+      <style>
+        #miu-app-startup {
+          display: none;
+        }
+      </style>
+      <main class="miu-page-loading">
+        <p>
+          Please enable JavaScript to open MIU Freelance.<br /><span
+            lang="ar"
+            dir="rtl"
+            >يرجى تفعيل JavaScript لفتح منصة MIU للعمل الحر.</span
+          >
+        </p>
+      </main>
+    </noscript>
+    <div id="root" aria-busy="true"></div>
+    <script id="miu-app-entry" type="module" src="/src/main.jsx"></script>
+    <script src="/app-startup.js"></script>
   </body>
 </html>

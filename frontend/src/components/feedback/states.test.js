@@ -17,6 +17,7 @@ before(async () => {
     Skeleton: "components/ui/Skeleton",
     ProgressIndicator: "components/ui/ProgressIndicator",
     LoadingState: "components/feedback/LoadingState",
+    PageLoadingScreen: "components/feedback/PageLoadingScreen",
     EmptyState: "components/feedback/EmptyState",
     ErrorState: "components/feedback/ErrorState",
     LoadingDemoPage: "features/public/LoadingDemoPage",
@@ -30,6 +31,27 @@ after(async () => server?.close());
 
 const render = (name, props) =>
   renderToStaticMarkup(createElement(components[name], props));
+
+test("branded page loading has one status, no fake percentage and translated Arabic copy", async () => {
+  const english = render("PageLoadingScreen");
+  assert.equal((english.match(/role="status"/g) || []).length, 1);
+  assert.match(english, /Preparing your next chapter/);
+  assert.doesNotMatch(english, /aria-valuenow|tabindex|<button/);
+  const { LanguageContext } = await server.ssrLoadModule(
+    "/src/i18n/LanguageContext.js",
+  );
+  const { translate } = await server.ssrLoadModule("/src/i18n/translate.js");
+  const arabic = renderToStaticMarkup(
+    createElement(
+      LanguageContext.Provider,
+      { value: { language: "ar", t: (key) => translate("ar", key) } },
+      createElement(components.PageLoadingScreen, { embedded: true }),
+    ),
+  );
+  assert.match(arabic, /نجهّز خطوتك القادمة/);
+  assert.doesNotMatch(arabic, /Preparing your next chapter/);
+  assert.doesNotMatch(arabic, /miu-page-loading--page/);
+});
 
 test("standalone spinner has an accessible loading message; decorative spinner is silent", () => {
   assert.match(

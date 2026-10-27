@@ -5,6 +5,7 @@ import Card from "../../components/ui/Card.jsx";
 import ProgressIndicator from "../../components/ui/ProgressIndicator.jsx";
 import Skeleton from "../../components/ui/Skeleton.jsx";
 import LoadingState from "../../components/feedback/LoadingState.jsx";
+import PageLoadingScreen from "../../components/feedback/PageLoadingScreen.jsx";
 import "./states/state-demos.css";
 
 /** Content only; Member 1 registers /loading-demo inside PublicLayout. */
@@ -36,6 +37,16 @@ export default function LoadingDemoPage() {
           )}
         </p>
       </header>
+
+      <Card as="section" aria-labelledby="branded-loading-heading">
+        <h2 id="branded-loading-heading">{t("MIU page loading screen")}</h2>
+        <p>
+          {t(
+            "A live appearance preview. Actual pages open as soon as they are ready.",
+          )}
+        </p>
+        <PageLoadingScreen embedded />
+      </Card>
 
       <Card as="section" aria-labelledby="loading-interactive-heading">
         <h2 id="loading-interactive-heading">

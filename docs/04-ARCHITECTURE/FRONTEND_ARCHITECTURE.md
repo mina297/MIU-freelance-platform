@@ -192,6 +192,38 @@ Avoid copying common components into multiple feature folders.
 
 ## 10. Loading and Error Handling
 
+### Branded application startup
+
+`index.html` supplies the MIU startup screen before React loads, using the same
+stylesheet as `PageLoadingScreen`. `public/app-startup.js` listens for the first
+application commit (`miu:app-ready`), removes the screen immediately, clears its
+timer/listeners, and removes the root's busy state. It handles module-load and
+initial-render errors with a reload action; a slow-start recovery option appears
+after 15 seconds without delaying successful startup. JavaScript-disabled users
+receive a static explanation.
+
+The existing eager routes remain eager. An application-level Suspense fallback
+reuses `PageLoadingScreen` for genuine suspension; it does not fabricate loading
+on synchronous navigation or change guards, authentication or business state.
+The existing `/loading-demo` route includes an embedded appearance specimen.
+See [startup loading handover](../07-HANDOVER/STARTUP_LOADING_2026-10-27.md).
+
+### Branded application startup
+
+`index.html` supplies the MIU startup screen before React loads, using the same
+stylesheet as `PageLoadingScreen`. `public/app-startup.js` listens for the first
+application commit (`miu:app-ready`), removes the screen immediately, clears its
+timer/listeners, and removes the root's busy state. It handles module-load and
+initial-render errors with a reload action; a slow-start recovery option appears
+after 15 seconds without delaying successful startup. JavaScript-disabled users
+receive a static explanation.
+
+The existing eager routes remain eager. An application-level Suspense fallback
+reuses `PageLoadingScreen` for genuine suspension; it does not fabricate loading
+on synchronous navigation or change guards, authentication or business state.
+The existing `/loading-demo` route includes an embedded appearance specimen.
+See [startup loading handover](../07-HANDOVER/STARTUP_LOADING_2026-10-27.md).
+
 Every important screen should consider:
 - Loading
 - Empty results

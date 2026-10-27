@@ -903,6 +903,22 @@ node node_modules/prettier/bin/prettier.cjs --check src/features/public/LandingP
 
 ## Member 4 — Loading, empty, and error states
 
+### Integrated MIU page loader — 27 October 2026
+
+`components/feedback/PageLoadingScreen.jsx` is the branded page fallback. It uses
+the original MIU logo, warm light or charcoal dark surfaces, clear borders and a
+crimson indeterminate track. One localized status announces loading; decorative
+artwork is hidden from assistive technology. Reduced motion stops the animation.
+The `embedded` prop removes page-height treatment for the labeled `/loading-demo`
+specimen. It does not own a timer, fetch data, or invent a progress percentage.
+
+`index.html` renders the matching startup design before the React bundle loads.
+English/Arabic startup spans are selected by the existing pre-paint language
+initializer; fresh documents remain light. The React component uses the shared
+language provider and active theme. Startup recovery stays available if the app
+fails or takes unusually long. See the
+[startup loading handover](../07-HANDOVER/STARTUP_LOADING_2026-10-27.md).
+
 Reusable presentation is provided by:
 
 - `frontend/src/components/ui/LoadingSpinner.jsx`
