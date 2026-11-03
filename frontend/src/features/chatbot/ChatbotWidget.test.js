@@ -43,7 +43,7 @@ const render = (session, child = createElement(Widget), path = "/") =>
     ),
   );
 
-test("widget is absent for anonymous, expired, inactive and malformed sessions", () => {
+test("public guidance remains available for guests, expired and invalid sessions without account data", () => {
   for (const session of [
     { status: "anonymous", user: null },
     { status: "expired", user: null },
@@ -54,8 +54,12 @@ test("widget is absent for anonymous, expired, inactive and malformed sessions",
       user: { ...user, accountStatus },
     })),
     { ...active, user: { ...user, role: "unknown" } },
-  ])
-    assert.equal(render(session), "");
+  ]) {
+    const html = render(session);
+    assert.match(html, /aria-label="Open assistant"/);
+    assert.match(html, /About the platform/);
+    assert.doesNotMatch(html, /Test Student|chat-test/);
+  }
 });
 
 test("every recognized active role gets an initially minimized, named nonmodal widget", () => {
@@ -64,7 +68,7 @@ test("every recognized active role gets an initially minimized, named nonmodal w
     assert.match(html, /Open assistant/);
     assert.match(html, /aria-expanded="false"/);
     assert.match(html, /<section[^>]*hidden=""/);
-    assert.match(html, /not a real AI service/);
+    assert.match(html, /Not a real AI service/);
     assert.match(html, /role="log"/);
     assert.match(html, /aria-live="polite"/);
     assert.match(html, /maxLength="500"/i);
@@ -92,28 +96,31 @@ test("conversation text is escaped rather than interpreted as HTML", () => {
   assert.doesNotMatch(html, /<img|<script/);
 });
 
-test("redesigned presentation retains named controls, suggested question intents and simulation disclosure", () => {
+test("approved compact design exposes public starter buttons, action menu and simulation disclosure", () => {
   const html = render(active);
-  assert.match(html, />MIU Assistant<\/h2>/);
-  assert.match(html, /PROTOTYPE ASSISTANT/);
+  assert.match(html, /MIU Assistant<\/h2>/);
   assert.match(html, /aria-label="Open assistant"/);
-  assert.match(html, /aria-label="Minimize assistant"/);
   assert.match(html, /aria-label="Send message"/);
-  assert.match(html, /aria-label="How do I find projects\?"/);
-  assert.match(html, /aria-label="How do proposals work\?"/);
-  assert.match(html, /aria-label="Where can I browse services and orders\?"/);
-  assert.match(html, /aria-label="How does verification work\?"/);
-  assert.match(html, /aria-label="Where can I find help\?"/);
-  assert.match(html, /Simulated responses/);
-  assert.match(html, /not a real AI service/);
-  assert.match(html, /Temporary chat/);
-  assert.match(html, /Ready to help · Simulated/);
+  for (const label of [
+    "About the platform",
+    "How it works",
+    "Find work",
+    "Hire talent",
+    "Quick Actions",
+    "Minimize chat",
+    "Collapse view",
+    "New conversation",
+  ])
+    assert.ok(html.includes(label), label);
+  assert.match(html, /Demo replies · Not a real AI service/);
+  assert.match(html, /Demo assistant · Predefined replies/);
+  assert.match(html, /Compose your message…/);
   assert.match(html, /lucide-x/);
   assert.doesNotMatch(html, /chatbot-launcher-copy|chatbot-launcher-badge/);
   assert.equal(
     (html.match(/<img[^>]*src="[^"]*miu-assistant-character\.jpg"/g) ?? [])
       .length,
-    2,
+    1,
   );
   assert.match(html, /class="chatbot-character"/);
   assert.match(html, /miu-assistant-cutout\.png/);
@@ -150,8 +157,35 @@ test("App declares one widget under authentication and routed layouts retain its
       );
     }
   }
-  assert.doesNotMatch(
-    render({ status: "anonymous", user: null }, children),
-    /class="chatbot-widget"/,
+  assert.equal(
+    (
+      render({ status: "anonymous", user: null }, children).match(
+        /class="chatbot-widget"/g,
+      ) ?? []
+    ).length,
+    1,
   );
+});
+
+test("guidance renders only approved public destinations and escapes link labels", () => {
+  const html = render(
+    active,
+    createElement(Messages, {
+      messages: [
+        {
+          id: "guidance",
+          author: "assistant",
+          text: "Public guidance",
+          links: [
+            { label: "Browse projects <script>", to: "/projects" },
+            { label: "Unsafe", to: "javascript:alert(1)" },
+            { label: "Private", to: "/admin" },
+          ],
+        },
+      ],
+    }),
+  );
+  assert.match(html, /href="\/projects"/);
+  assert.match(html, /&lt;script&gt;/);
+  assert.doesNotMatch(html, /javascript:|href="\/admin"|>Unsafe<|>Private</);
 });

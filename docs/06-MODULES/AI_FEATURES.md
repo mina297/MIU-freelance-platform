@@ -48,6 +48,53 @@ Recommendation methods, scoring, and fairness evaluation require later design.
 
 ### 2.3 AI Chatbot
 
+#### Approved compact messenger and public guidance — 3 November 2026
+
+Current team direction explicitly makes the assistant available before sign-in or
+registration. This supersedes the authenticated-only launcher descriptions below
+for the assistant only; private messages, account operations and marketplace role
+guards retain their existing restrictions. It supports public discovery (FR-V01),
+assistant guidance (FR-S15/FR-C16, P-20), and NFR-02/NFR-03 accessibility/responsiveness.
+The SRS baseline is not silently marked complete or rewritten by this visual demo.
+
+The approved design uses a 360×480px panel bounded by the viewport, a burgundy
+globe-pattern header, the existing transparent robot, a short welcome bubble, four
+starter buttons, one composer and a visible simulation disclosure. About the
+platform, How it works, Find work and Hire talent produce deterministic explanations
+of the two marketplace paths and links to existing public pages. Starter buttons
+are shown in the initial conversation only. Reply links are restricted to the
+feature's explicit public-destination allowlist. The assistant cannot access
+account records, submit proposals, order services, verify identities or move funds.
+
+A single live mascot moves from the launcher into the header on pointer opening,
+and back on minimize. A FLIP transform animation lasts 650ms, reads its current
+position before replacement to support interruption, and is cancelled on resize
+or reduced-motion changes. Keyboard activation and reduced-motion preferences
+place it immediately. The launcher becomes a 48px burgundy circle with an X.
+Closed-state wave, eye and float behavior is retained. The short-height layout
+uses a compact header so messages and input remain accessible.
+
+The three-dot disclosure reuses shared Dropdown, including outside dismissal,
+Tab navigation and Escape handling. Its actions are Minimize chat (preserves
+conversation), Collapse/Expand view (350px compact panel with smaller header), and
+New conversation (resets messages/draft/error/IDs while staying open). Focus returns
+to the launcher on minimize and to the composer on opening/new conversation.
+The composer validates blank/overlong messages and renders escaped text. Memory-only
+guest conversations work without credentials. Crossing between a guest and an active
+account, signing out, expiry or changing accounts clears prior conversation text;
+no storage, backend or AI service is introduced. New strings include draft Arabic
+translations and retain existing language and theme handling.
+
+Validation: all 343 frontend tests passed, including 16 assistant model/render
+tests; lint and production build passed with the existing bundle-size advisory.
+Chrome screenshots confirmed guest visibility and full/compact presentations.
+Complete keyboard, screen-reader, real-mobile and animation smoothness acceptance
+remains pending; native browser input was interrupted by user activity and a
+minimized/occluded window. Static/render checks do not establish those results.
+
+The following sections describe previous iterations where they conflict with
+this approved update.
+
 #### Character launcher update — 3 November 2026
 
 For FR-S15/FR-C16 and P-20, the authenticated launcher now displays a complete

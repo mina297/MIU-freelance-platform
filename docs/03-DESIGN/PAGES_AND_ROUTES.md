@@ -41,7 +41,7 @@ Map the 29 SRS prototype entries to proposed frontend routes.
 | P-17 | Proposal Comparison             | `/client/projects/:projectId/proposals`                      | Client                       |
 | P-18 | Checkout and Escrow             | `/checkout/:orderId`, `/escrow/:orderId`                     | Client/Authorized order user |
 | P-19 | Order Workspace                 | `/orders/:orderId`                                           | Authorized participants      |
-| P-20 | Messages, Chatbot, Translation  | `/messages`, global assistant                                | Registered user              |
+| P-20 | Messages, Chatbot, Translation  | `/messages`, global assistant                                | Public assistant guidance; private messages require registration |
 | P-21 | Support and Dispute Form        | `/support/contact`, `/disputes/new`                          | Registered user              |
 | P-22 | Super Admin Dashboard           | `/admin`                                                     | Super Admin                  |
 | P-23 | Committee Accounts              | `/admin/committee-accounts`                                  | Super Admin                  |
@@ -78,6 +78,12 @@ Additional proposed routes may include:
 These supporting routes extend the SRS prototype inventory without changing its numbering.
 
 ## 3. Current Implementation Snapshot
+
+**Public assistant (3 November 2026, explicit team direction):** the global
+assistant is available to guests before login/registration, with canned platform
+introductions and links to public discovery pages. This change applies only to
+the help widget; `/messages` and all account/marketplace guards retain their
+existing access rules. See [AI Features](../06-MODULES/AI_FEATURES.md).
 
 **Order delivery (24 October 2026):** the existing `/orders/:orderId` workspace
 now includes Delivery & revisions. Eligible assigned students submit/resubmit;

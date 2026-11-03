@@ -126,8 +126,11 @@ See [Global theme handover](../07-HANDOVER/GLOBAL_THEME_2026-10-25.md).
 The Phase 1 chatbot mounts once in `src/App.jsx`, beside `AppRouter` under the
 existing `AuthProvider`. `features/chatbot/` owns its memory-only conversation,
 reply model and scoped styles; it reuses the existing session contract and UI
-components without adding a context or layout. Account/session transitions clear
-chatbot state before rendering. See [AI Features](../06-MODULES/AI_FEATURES.md).
+components without adding a context or layout. Public canned guidance is available
+to guests as explicitly requested on 3 November 2026. Guest/account boundaries clear
+chatbot state before rendering; private account access remains guarded. A single
+mascot uses feature-local FLIP transforms between the launcher and panel header.
+The action disclosure reuses shared Dropdown. See [AI Features](../06-MODULES/AI_FEATURES.md).
 
 ### Local Component State
 Use for:

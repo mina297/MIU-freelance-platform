@@ -2,12 +2,14 @@ import additional from "./additionalMessages.js";
 import feedback from "./validationMessages.js";
 import interfaces from "./interfaceMessages.js";
 import help from "./helpMessages.js";
+import chatbot from "./chatbotMessages.js";
 // Draft Modern Standard Arabic interface wording; team approval pending.
 export const ar = {
   ...additional,
   ...feedback,
   ...interfaces,
   ...help,
+  ...chatbot,
   Language: "اللغة",
   "Select language": "اختر اللغة",
   Appearance: "المظهر",

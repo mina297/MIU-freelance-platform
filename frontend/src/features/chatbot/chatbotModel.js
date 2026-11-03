@@ -1,8 +1,7 @@
 import { isActiveUser } from "../auth/session.js";
 
 export const MAX_MESSAGE_LENGTH = 500;
-export const WELCOME_MESSAGE =
-  "Welcome! I can offer simulated guidance about projects, proposals, services, orders and verification. I cannot access your account records or perform actions. Please use fictional, non-sensitive details only.";
+export const WELCOME_MESSAGE = "Hi 👋 How can I help you with MIU Freelance?";
 export const FALLBACK_REPLY =
   "I only have predefined guidance about projects, proposals, services, orders, verification and navigation. Try a suggested question or visit How it works for general guidance. I cannot contact support or resolve an individual account issue.";
 
@@ -13,6 +12,47 @@ export const SUGGESTED_QUESTIONS = Object.freeze([
   "How does verification work?",
   "Where can I find help?",
 ]);
+
+export const QUICK_ACTIONS = Object.freeze([
+  {
+    id: "about",
+    label: "About the platform",
+    question: "What is MIU Freelance?",
+    text: "MIU Freelance connects student freelancers with clients. Clients can post projects and receive proposals, or order services published by students. Prices are in EGP. This is a frontend demonstration; payments, verification and assistant replies are simulated. You can explore public listings without an account.",
+    links: [{ label: "About the platform", to: "/about" }],
+  },
+  {
+    id: "how",
+    label: "How it works",
+    question: "How does MIU Freelance work?",
+    text: "There are two ways to work together: a client posts a project and students send proposals, or a student publishes a service and a client chooses a package. You can browse first, then register as a Student Freelancer or Client for account actions. Committee accounts are created only by the Super Admin.",
+    links: [{ label: "How it works", to: "/how-it-works" }],
+  },
+  {
+    id: "work",
+    label: "Find work",
+    question: "I want to find work",
+    text: "As a student, you can browse projects and submit proposals, or publish your own services and packages. Explore projects first, then sign up as a Student Freelancer. Restricted actions require the relevant account and verification steps; this assistant cannot apply or verify you.",
+    links: [
+      { label: "Browse projects", to: "/projects" },
+      { label: "Create an account", to: "/register/role" },
+    ],
+  },
+  {
+    id: "hire",
+    label: "Hire talent",
+    question: "I want to hire talent",
+    text: "As a client, you can post a project and compare student proposals, or browse services and choose a package. Explore services or student profiles without signing in. Register as a Client to start eligible account workflows. Payments and escrow are simulated in this demonstration.",
+    links: [
+      { label: "Browse services", to: "/services" },
+      { label: "Find talent", to: "/freelancers" },
+    ],
+  },
+]);
+
+export const GUIDANCE_ROUTES = new Set(
+  QUICK_ACTIONS.flatMap(({ links }) => links.map(({ to }) => to)),
+);
 
 // First matching whole-word topic/phrase wins in this explicit order. Generic
 // "work"/"browse" alone are not project signals; "find work" is explicit intent.
@@ -64,6 +104,11 @@ export function validateMessage(value) {
 export function getChatbotReply(value) {
   const error = validateMessage(value);
   if (error) return { error };
+  const action = QUICK_ACTIONS.find(
+    ({ question }) => question.toLowerCase() === value.trim().toLowerCase(),
+  );
+  if (action)
+    return { topic: action.id, text: action.text, links: action.links };
   const topic = TOPICS.find(({ pattern }) => pattern.test(value.trim()));
   return {
     topic: topic?.id ?? "fallback",
@@ -75,6 +120,7 @@ export function createConversation(accountId = null) {
   return {
     accountId,
     open: false,
+    collapsed: false,
     draft: "",
     error: "",
     messages: [{ id: "welcome", author: "assistant", text: WELCOME_MESSAGE }],
@@ -83,17 +129,16 @@ export function createConversation(accountId = null) {
 }
 
 // Reconcile before rendering so an account transition cannot expose old text.
-// Anonymous/expired/inactive sessions always discard the previous conversation.
+// Guests receive public guidance; crossing an account boundary clears all text.
 export function syncConversation(state, session) {
   const accountId =
-    session.status === "authenticated" && isActiveUser(session.user)
+    session?.status === "authenticated" && isActiveUser(session.user)
       ? session.user.id
       : null;
   return state.accountId === accountId ? state : createConversation(accountId);
 }
 
 export function sendMessage(state, value) {
-  if (!state.accountId) return state;
   const reply = getChatbotReply(value);
   if (reply.error) return { ...state, error: reply.error };
   return {
@@ -108,6 +153,7 @@ export function sendMessage(state, value) {
         id: `message-${state.nextId + 1}`,
         author: "assistant",
         text: reply.text,
+        ...(reply.links ? { links: reply.links } : {}),
       },
     ],
   };

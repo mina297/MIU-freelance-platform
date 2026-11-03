@@ -4,6 +4,7 @@ import {
   MAX_MESSAGE_LENGTH,
   FALLBACK_REPLY,
   SUGGESTED_QUESTIONS,
+  QUICK_ACTIONS,
   getChatbotReply,
   validateMessage,
   createConversation,
@@ -146,7 +147,46 @@ test("valid sends append a user/reply pair with stable unique IDs without mutati
   assert.equal(next.error, "");
   const again = sendMessage(next, "Help");
   assert.equal(new Set(again.messages.map(({ id }) => id)).size, 5);
-  assert.equal(sendMessage(createConversation(), "Help").messages.length, 1);
+  assert.equal(sendMessage(createConversation(), "Help").messages.length, 3);
+});
+
+test("all four public starter buttons explain both marketplace paths and link to public pages", () => {
+  assert.equal(QUICK_ACTIONS.length, 4);
+  for (const action of QUICK_ACTIONS) {
+    const reply = getChatbotReply(action.question);
+    assert.equal(reply.topic, action.id);
+    assert.deepEqual(getChatbotReply(action.question.toUpperCase()), reply);
+    assert.deepEqual(reply.links, action.links);
+    const guest = sendMessage(createConversation(), action.question);
+    assert.equal(guest.accountId, null);
+    assert.equal(guest.messages.length, 3);
+    assert.deepEqual(guest.messages[2].links, action.links);
+  }
+  assert.match(
+    getChatbotReply(QUICK_ACTIONS[0].question).text,
+    /projects.*services.*EGP/i,
+  );
+});
+
+test("sign-in clears guest history, logout clears account history, and new conversations reset all text", () => {
+  const guest = {
+    ...sendMessage(createConversation(), "guest fictional message"),
+    open: true,
+    collapsed: true,
+  };
+  assert.equal(syncConversation(guest, INITIAL_SESSION), guest);
+  const signed = syncConversation(guest, signedIn);
+  assert.equal(signed.messages.length, 1);
+  assert.equal(signed.collapsed, false);
+  assert.doesNotMatch(JSON.stringify(signed), /guest fictional/);
+  const privateState = sendMessage(signed, "account fictional message");
+  const loggedOut = syncConversation(privateState, INITIAL_SESSION);
+  assert.equal(loggedOut.accountId, null);
+  assert.doesNotMatch(JSON.stringify(loggedOut), /account fictional/);
+  const fresh = createConversation(privateState.accountId);
+  assert.equal(fresh.messages.length, 1);
+  assert.equal(fresh.nextId, 1);
+  assert.equal(fresh.draft, "");
 });
 
 test("same-account navigation and minimize/reopen preserve history; logout, expiry and account changes clear all private state", () => {
