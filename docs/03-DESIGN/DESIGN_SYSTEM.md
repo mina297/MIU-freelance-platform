@@ -287,3 +287,11 @@ Color must not be the only indication of status.
 ## Homepage motion refinement ? 3 November 2026
 
 Homepage entrances reveal once per mount, using small travel and 240?280ms transitions. Returning to viewed content must not hide it. Keep informational cards visually static; reserve hover feedback for interactive elements and gate it to fine hover pointers. Search hints must remain mutually exclusive with placeholders in both themes. Preserve reduced-motion and pause behavior. See [homepage review](../07-HANDOVER/HOMEPAGE_POLISH_2026-11-03.md) for verification gaps.
+
+## Shared interface motion
+
+Non-homepage shared controls use interface-motion.css, loaded by ThemeProvider. Pointer-opened Dropdown panels and native Modal dialogs progressively enter with 180ms opacity/transform transitions. Shared Button and dashboard sd-button controls use 120ms fine-pointer press feedback; disabled, aria-disabled and busy controls are excluded. Tabs and pagination use brief color feedback without moving content. Keyboard interactions and reduced-motion preferences disable these transitions. Exits remain immediate. No route, table, financial value or informational-card animation is added. Homepage styles remain independent.
+
+Custom feature controls that do not use these classes are not covered. Browser visual validation remains pending; automated component checks do not establish animation smoothness.
+
+Mina requested more visible motion: non-homepage menus/dialogs now enter over 240ms from 16px/0.96 scale. Eligible fine-pointer buttons lift 3px on hover and compress to 0.96 on press, with a subtle shadow. Service detail-link arrows move toward the reading direction. Reduced-motion, disabled/busy exclusions and immediate keyboard behavior remain. These values supersede the earlier subtle settings. Browser visual validation remains pending.

@@ -1,0 +1,50 @@
+/* Shared non-homepage interactions. No route, table or financial-data motion.
+   Starting styles progressively enhance entry; dismissal is always immediate. */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-motion-input="pointer"] body:not(:has(.homepage-theme))
+    :is(.disclosure-panel:not([hidden]), .miu-modal[open]) {
+    transition: opacity 240ms ease-out, transform 240ms cubic-bezier(0.23, 1, 0.32, 1);
+    @starting-style {
+      opacity: 0;
+      transform: translateY(16px) scale(0.96);
+    }
+  }
+  body:not(:has(.homepage-theme)) .disclosure-panel { transform-origin: top center; }
+  body:not(:has(.homepage-theme)) :is(.miu-tabs__tab, .miu-pagination button) {
+    transition: background-color 120ms ease-out, border-color 120ms ease-out;
+  }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  body:not(:has(.homepage-theme)) :is(.miu-button, .sd-button) {
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 160ms ease-out, background-color 120ms ease-out, border-color 120ms ease-out;
+  }
+  body:not(:has(.homepage-theme))
+    :is(.miu-button, .sd-button):hover:not(:disabled):not([aria-disabled="true"]):not([aria-busy="true"]):not(:focus-visible) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px -8px rgb(70 20 40 / 45%);
+  }
+  body:not(:has(.homepage-theme)) .service-card__details-link > svg {
+    transition: translate 180ms ease-out;
+  }
+  body:not(:has(.homepage-theme)) .service-card__details-link:hover > svg {
+    translate: 4px 2px;
+  }
+  html[dir="rtl"] body:not(:has(.homepage-theme)) .service-card__details-link:hover > svg {
+    translate: -4px 2px;
+  }
+  html[data-motion-input="pointer"] body:not(:has(.homepage-theme))
+    :is(.miu-button, .sd-button):active:not(:disabled):not([aria-disabled="true"]):not([aria-busy="true"]):not(:focus-visible) {
+    transform: translateY(1px) scale(0.96);
+  }
+}
+/* Keyboard focus and repeated keyboard navigation are immediate. */
+html[data-motion-input="keyboard"] body:not(:has(.homepage-theme))
+  :is(.disclosure-panel, .disclosure-trigger > svg, .miu-modal, .miu-button, .sd-button, .miu-tabs__tab, .miu-pagination button) {
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  body:not(:has(.homepage-theme))
+    :is(.disclosure-panel, .miu-modal, .miu-button, .sd-button, .miu-tabs__tab, .miu-pagination button) {
+    transition: none;
+  }
+}
