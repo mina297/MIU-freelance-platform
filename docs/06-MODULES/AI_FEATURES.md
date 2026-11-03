@@ -48,6 +48,47 @@ Recommendation methods, scoring, and fairness evaluation require later design.
 
 ### 2.3 AI Chatbot
 
+#### Character launcher update — 3 November 2026
+
+For FR-S15/FR-C16 and P-20, the authenticated launcher now displays a complete
+transparent character rather than a circular cropped portrait. The panel header
+and message portraits retain the original JPG. Feature-local `AssistantCharacter`
+clips a locally bundled raster into body, waving-arm and eye layers; it does not
+introduce Three.js, a 3D model, runtime image generation or another dependency.
+The greeting wave runs after the image loads, per account/mount, and replays on
+fine-pointer hover. Two blinks
+per 4.8-second cycle repeat three times, then stop to avoid perpetual idle motion.
+The launcher is 120×104px on desktop and 100×86px on mobile, with a smaller
+76×66px presentation when the panel is open (short-height layouts retain 64×55px).
+Fine-pointer hover produces a gentle float up to 7px over 3.6 seconds and moves
+the eye layer slightly toward the pointer. Web Animations API reads the current
+rendered float transform before cancelling/replacing motion, preserving position
+on rapid hover changes. Pointer leave/cancel returns to rest over 800ms instead
+of removing an infinite CSS animation and snapping back. The hand wave lasts
+2.6 seconds with wider +23°/−18° travel; HTML Image preloading starts the initial
+greeting reliably after loading, including cached images. Animation references
+and the reduced-motion listener are cleaned up on unmount. Opening the panel
+cancels hover motion, pauses idle character animations and uses a smaller launcher; reduced-motion preferences
+disable movement. Clicking or keyboard-activating the character retains the existing
+open/minimize, focus and Escape behavior. Session access and canned guidance stay
+unchanged. Viewport sizing reserves space for the launcher and panel.
+
+The built-in image-generation tool produced
+`frontend/src/features/chatbot/assets/miu-assistant-cutout.png` from the supplied
+JPG. Prompt: extract the exact MIU robot on a transparent background, preserve its
+pose, raised hand, red globe, white grid, LED face, graduation cap, MIU scarf and
+tablet; remove the cream background and floor shadow, keep complete edges and
+padding, and avoid redesign or added text. This is an edited raster asset, not a
+claim of pixel-identical extraction or true 3D. Browser visual, real-device,
+keyboard and animation smoothness acceptance remains pending: the in-app browser
+timed out connecting to localhost, and native Chrome control stopped because the
+automation tool could not confidently determine the browser URL.
+
+Validation: all 13 chatbot model/render tests passed; frontend lint and production
+build passed (the existing application chunk-size warning remains). Feature lint,
+formatting and diff whitespace checks also passed. The earlier circular-launcher
+description below is historical and is superseded by this update.
+
 #### Phase 1 authenticated widget — 24 October 2026
 
 `frontend/src/features/chatbot/ChatbotWidget.jsx` is mounted once alongside

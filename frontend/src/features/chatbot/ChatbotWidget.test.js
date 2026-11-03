@@ -1,12 +1,13 @@
 import test, { before, after } from "node:test";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { MemoryRouter } from "react-router-dom";
 import { createServer } from "vite";
 import { ROLES } from "../auth/session.js";
 
-let vite, Widget, Messages, AuthContext, App;
+let vite, Widget, Messages, AuthContext, Router;
 before(async () => {
   vite = await createServer({
     server: { middlewareMode: true, hmr: false },
@@ -16,7 +17,7 @@ before(async () => {
     "/src/features/chatbot/ChatbotWidget.jsx",
   ));
   ({ AuthContext } = await vite.ssrLoadModule("/src/contexts/AuthContext.js"));
-  ({ default: App } = await vite.ssrLoadModule("/src/App.jsx"));
+  ({ default: Router } = await vite.ssrLoadModule("/src/app/router.jsx"));
 });
 after(async () => {
   await vite?.close();
@@ -112,20 +113,30 @@ test("redesigned presentation retains named controls, suggested question intents
   assert.equal(
     (html.match(/<img[^>]*src="[^"]*miu-assistant-character\.jpg"/g) ?? [])
       .length,
-    3,
+    2,
   );
+  assert.match(html, /class="chatbot-character"/);
+  assert.match(html, /miu-assistant-cutout\.png/);
+  assert.match(html, /class="chatbot-character-arm"/);
+  assert.match(html, /class="chatbot-character-eyes"/);
   assert.doesNotMatch(html, /Online|Live agent/);
 });
 
-test("actual App composition mounts one widget beside the router under its existing provider across layouts", () => {
-  // Render App's actual children with MemoryRouter and a supplied session.
-  // BrowserRouter and AuthProvider themselves remain the production owners.
-  const theme = App();
-  const browser = theme.props.children;
-  const provider = browser.props.children;
-  const children = provider.props.children;
-  assert.equal(children.length, 3);
-  assert.equal(children.filter((child) => child.type === Widget).length, 1);
+test("App declares one widget under authentication and routed layouts retain its role visibility", async () => {
+  // Check wiring without invoking App outside React (App has startup hooks).
+  const source = await readFile(
+    new URL("../../App.jsx", import.meta.url),
+    "utf8",
+  );
+  assert.equal((source.match(/<ChatbotWidget\s*\/>/g) ?? []).length, 1);
+  assert.match(
+    source,
+    /<AuthProvider>[\s\S]*<AppRouter\s*\/>[\s\S]*<ChatbotWidget\s*\/>[\s\S]*<\/AuthProvider>/,
+  );
+  const children = [
+    createElement(Router, { key: "router" }),
+    createElement(Widget, { key: "assistant" }),
+  ];
   for (const role of [ROLES.STUDENT, ROLES.CLIENT, ROLES.SUPER_ADMIN]) {
     const session = { ...active, user: { ...user, role } };
     const dashboard =

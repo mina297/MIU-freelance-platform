@@ -1,4 +1,6 @@
 .chatbot-widget {
+  --chatbot-launcher-width: 120px;
+  --chatbot-launcher-height: 104px;
   --chatbot-primary: #97182d;
   --chatbot-primary-hover: #a52242;
   --chatbot-surface: var(--theme-surface, #ffffff);
@@ -15,6 +17,10 @@
   font-family: var(--font-sans);
   pointer-events: none;
 }
+.chatbot-widget[data-open="true"] {
+  --chatbot-launcher-width: 76px;
+  --chatbot-launcher-height: 66px;
+}
 .chatbot-widget *,
 .chatbot-widget *::before,
 .chatbot-widget *::after {
@@ -26,7 +32,7 @@
 .chatbot-widget .chatbot-panel {
   display: grid;
   grid-template-rows: auto auto minmax(0, 1fr) auto auto;
-  height: min(780px, calc(100dvh - 128px));
+  height: min(780px, calc(100dvh - var(--chatbot-launcher-height) - 60px));
   min-height: 0;
   min-width: 0;
   padding: 0;
@@ -67,8 +73,7 @@
     var(--theme-subtle-surface, #fff8fa);
 }
 .chatbot-widget .chatbot-avatar,
-.chatbot-widget .chatbot-message-avatar,
-.chatbot-widget .chatbot-launcher-icon {
+.chatbot-widget .chatbot-message-avatar {
   display: grid;
   place-items: center;
   overflow: hidden;
@@ -82,8 +87,7 @@
   border: 1px solid var(--theme-border, #b17b8955);
 }
 .chatbot-widget .chatbot-avatar img,
-.chatbot-widget .chatbot-message-avatar img,
-.chatbot-widget .chatbot-launcher-icon img {
+.chatbot-widget .chatbot-message-avatar img {
   display: block;
   width: 100%;
   height: 100%;
@@ -369,35 +373,124 @@
   line-height: 1.5;
   color: var(--theme-muted-text, #62626c);
 }
-.chatbot-widget .chatbot-launcher {
+.chatbot-widget .chatbot-launcher,
+.chatbot-widget .chatbot-launcher:hover:not(:disabled) {
   display: grid;
   place-items: center;
   margin-inline-start: auto;
-  width: 76px;
-  height: 76px;
-  min-height: 76px;
-  padding: 5px;
-  border: 1px solid var(--theme-border, #d88a9c);
-  border-radius: 50%;
-  background: linear-gradient(135deg, #800020, #a52242);
-  box-shadow:
-    0 8px 28px #2607124d,
-    0 0 0 4px #80002012;
-  transition:
-    transform 160ms ease,
-    box-shadow 160ms ease;
+  width: var(--chatbot-launcher-width);
+  height: var(--chatbot-launcher-height);
+  min-height: var(--chatbot-launcher-height);
+  padding: 0;
+  border: 0;
+  border-radius: 20px;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+  transition: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  cursor: pointer;
 }
-.chatbot-widget .chatbot-launcher:hover {
-  background: #a52242;
-  transform: translateY(-2px);
-  box-shadow:
-    0 12px 30px #26071255,
-    0 0 0 5px #8000201a;
-}
-.chatbot-widget .chatbot-launcher-icon {
+.chatbot-launcher-float {
+  display: block;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+}
+.chatbot-character {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 7px 5px #26071226);
+}
+.chatbot-character-arm {
+  transform-origin: 391px 651px;
+}
+.chatbot-character--ready .chatbot-character-arm {
+  animation: chatbot-wave 2600ms ease-in-out 700ms 1;
+}
+.chatbot-character-gaze {
+  transition: transform 250ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.chatbot-character-hover-backdrop {
+  opacity: 0;
+  transition: opacity 150ms linear 250ms;
+}
+.chatbot-character-eyes {
+  transform-origin: 755px 507px;
+}
+.chatbot-character-eye-backdrop {
+  opacity: 0;
+}
+.chatbot-character--ready .chatbot-character-eyes {
+  animation: chatbot-blink 4800ms ease-in-out 3;
+}
+.chatbot-character--ready .chatbot-character-eye-backdrop {
+  animation: chatbot-blink-backdrop 4800ms linear 3;
+}
+/* Finite idle blinks avoid perpetual movement; hover motion is user initiated. */
+@keyframes chatbot-wave {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  20%,
+  55% {
+    transform: rotate(23deg);
+  }
+  37%,
+  72% {
+    transform: rotate(-18deg);
+  }
+  88% {
+    transform: rotate(5deg);
+  }
+}
+@keyframes chatbot-blink {
+  0%,
+  37%,
+  43%,
+  72%,
+  78%,
+  100% {
+    transform: scaleY(1);
+  }
+  40%,
+  75% {
+    transform: scaleY(0.06);
+  }
+}
+@keyframes chatbot-blink-backdrop {
+  0%,
+  36%,
+  44%,
+  71%,
+  79%,
+  100% {
+    opacity: 0;
+  }
+  37%,
+  43%,
+  72%,
+  78% {
+    opacity: 1;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .chatbot-widget[data-open="false"]
+    .chatbot-launcher:hover
+    .chatbot-character-hover-backdrop {
+    opacity: 1;
+    transition-delay: 0ms;
+  }
+}
+.chatbot-widget[data-open="true"] .chatbot-character * {
+  animation-play-state: paused;
+}
+.chatbot-widget .chatbot-launcher:active {
+  transform: scale(0.97);
 }
 .chatbot-widget .miu-button:active {
   transform: scale(0.97);
@@ -416,12 +509,14 @@
 }
 @media (max-width: 540px) {
   .chatbot-widget {
+    --chatbot-launcher-width: 100px;
+    --chatbot-launcher-height: 86px;
     inset-inline-end: max(12px, env(safe-area-inset-right));
     bottom: max(12px, env(safe-area-inset-bottom));
     width: calc(100vw - 24px);
   }
   .chatbot-widget .chatbot-panel {
-    height: min(760px, calc(100dvh - 108px));
+    height: min(760px, calc(100dvh - var(--chatbot-launcher-height) - 48px));
     border-radius: 22px;
     margin-bottom: 12px;
   }
@@ -459,11 +554,6 @@
   .chatbot-widget .chatbot-composer .miu-control {
     font-size: 16px;
   }
-  .chatbot-widget .chatbot-launcher {
-    width: 68px;
-    height: 68px;
-    min-height: 68px;
-  }
 }
 @media (max-width: 360px) and (min-height: 541px) {
   .chatbot-widget .chatbot-suggestions {
@@ -478,7 +568,7 @@
    action strip horizontal rather than adding an outer vertical scrollbar. */
 @media (max-height: 540px) {
   .chatbot-widget .chatbot-panel {
-    height: calc(100dvh - 92px);
+    height: calc(100dvh - 100px);
   }
   .chatbot-widget .chatbot-heading {
     padding: 10px 14px;
@@ -530,10 +620,10 @@
   .chatbot-widget .chatbot-composer-meta {
     margin-top: 6px;
   }
-  .chatbot-widget .chatbot-launcher {
-    width: 56px;
-    height: 56px;
-    min-height: 56px;
+  .chatbot-widget,
+  .chatbot-widget[data-open="true"] {
+    --chatbot-launcher-width: 64px;
+    --chatbot-launcher-height: 55px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

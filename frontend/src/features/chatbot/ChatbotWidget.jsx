@@ -15,6 +15,7 @@ import Button from "../../components/ui/Button.jsx";
 import Input from "../../components/ui/Input.jsx";
 import Card from "../../components/ui/Card.jsx";
 import assistantCharacter from "./assets/miu-assistant-character.jpg";
+import AssistantCharacter from "./AssistantCharacter.jsx";
 import {
   createConversation,
   syncConversation,
@@ -90,6 +91,7 @@ export default function ChatbotWidget() {
   return (
     <aside
       className="chatbot-widget"
+      data-open={conversation.open}
       aria-label={t("Simulated platform assistant")}
     >
       <Card
@@ -231,7 +233,8 @@ export default function ChatbotWidget() {
           </p>
         </form>
       </Card>
-      <Button
+      <button
+        type="button"
         ref={launcher}
         className="chatbot-launcher"
         aria-label={t(
@@ -249,10 +252,11 @@ export default function ChatbotWidget() {
           else setConversation((state) => ({ ...state, open: true }));
         }}
       >
-        <span className="chatbot-launcher-icon" aria-hidden="true">
-          <img src={assistantCharacter} alt="" width="76" height="76" />
-        </span>
-      </Button>
+        <AssistantCharacter
+          key={conversation.accountId}
+          enabled={!conversation.open}
+        />
+      </button>
     </aside>
   );
 }
