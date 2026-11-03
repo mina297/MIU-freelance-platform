@@ -239,6 +239,7 @@ export default function LandingPage() {
             <RotatingSearchHint enabled={motionEnabled && !query} />
             <input
               id="landing-query"
+              enterKeyHint="search"
               value={query}
               maxLength={120}
               onChange={(event) => setQuery(event.target.value)}
@@ -247,12 +248,12 @@ export default function LandingPage() {
           </div>
           <Dropdown
             className="landing-category-select"
-            label={t(
+            label={
               <>
                 <Grid2X2 size={17} aria-hidden="true" />
-                <span>{category || "All categories"}</span>
-              </>,
-            )}
+                <span>{t(category || "All categories")}</span>
+              </>
+            }
           >
             {(close) => (
               <>
@@ -270,7 +271,7 @@ export default function LandingPage() {
                       close();
                     }}
                   >
-                    <span>{value || "All categories"}</span>
+                    <span>{t(value || "All categories")}</span>
                     {category === value && (
                       <Check size={16} aria-hidden="true" />
                     )}

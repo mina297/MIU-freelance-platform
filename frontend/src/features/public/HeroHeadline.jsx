@@ -32,19 +32,19 @@ export default function HeroHeadline({ enabled }) {
       let delay;
       if (phase === "hold") {
         phase = "fade";
-        delay = 550;
+        delay = 180;
       } else if (phase === "fade") {
-        phase = "blank";
-        length = 0;
+        phase = "typing";
+        length = 1;
         index = (index + 1) % localizedMessages.length;
-        delay = 1100;
+        delay = 65;
       } else {
         phase = "typing";
         length += 1;
         delay = 65;
         if (length === localizedMessages[index].length) {
           phase = "hold";
-          delay = 2800;
+          delay = 3600;
         }
       }
       setFrame({
@@ -54,7 +54,7 @@ export default function HeroHeadline({ enabled }) {
       });
       timer = window.setTimeout(tick, delay);
     }
-    timer = window.setTimeout(tick, 2800);
+    timer = window.setTimeout(tick, 3600);
     return () => window.clearTimeout(timer);
   }, [enabled, language, localizedMessages]);
 
@@ -68,7 +68,7 @@ export default function HeroHeadline({ enabled }) {
       <span
         className="landing-typed-visual"
         aria-hidden="true"
-        data-phase={enabled ? frame.phase : "hold"}
+        data-phase={enabled && frame.language === language ? frame.phase : "hold"}
       >
         {enabled && frame.language === language
           ? frame.text

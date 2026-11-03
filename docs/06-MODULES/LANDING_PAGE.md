@@ -153,3 +153,7 @@ Automated route tests cover landing sections, registration/catalogue entry links
 Scroll progress tests cover sequential step activation, bounds, reverse scrolling and viewport changes. Static markup checks cover the separate category section, scrolling controls, semantic step list and readable motion-free rendering. The new effects still require live browser visual and interaction verification; no browser surface was connected during this update.
 
 Browser checks and any remaining limitations are recorded in [Known Issues](../07-HANDOVER/KNOWN_ISSUES.md). Future work includes service catalogue integration, real profile/project record integration, approved policies and complete support workflows.
+
+## Homepage polish ? 3 November 2026
+
+The category and overlap entrances now reveal once per mount, superseding the replay behavior above. Hero phrases use a shorter fade without a separate blank interval. Category picker labels translate correctly and the dark search placeholder no longer overlaps its animated hint. Homepage-only wrapping and mobile input refinements preserve existing routes and records. See [review and verification limits](../07-HANDOVER/HOMEPAGE_POLISH_2026-11-03.md).

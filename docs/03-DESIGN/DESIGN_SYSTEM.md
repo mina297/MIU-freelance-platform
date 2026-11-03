@@ -283,3 +283,7 @@ Color must not be the only indication of status.
 - [Pages and Routes](PAGES_AND_ROUTES.md)
 - [UI Components](UI_COMPONENTS.md)
 - [Frontend Architecture](../04-ARCHITECTURE/FRONTEND_ARCHITECTURE.md)
+
+## Homepage motion refinement ? 3 November 2026
+
+Homepage entrances reveal once per mount, using small travel and 240?280ms transitions. Returning to viewed content must not hide it. Keep informational cards visually static; reserve hover feedback for interactive elements and gate it to fine hover pointers. Search hints must remain mutually exclusive with placeholders in both themes. Preserve reduced-motion and pause behavior. See [homepage review](../07-HANDOVER/HOMEPAGE_POLISH_2026-11-03.md) for verification gaps.

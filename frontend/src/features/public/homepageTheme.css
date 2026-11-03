@@ -1,6 +1,7 @@
 /* Homepage composition adapts to the shared application theme. */
 .homepage-theme {
   min-height: 100svh;
+  min-width: 0;
 }
 .homepage-skip-link {
   position: absolute;
@@ -323,5 +324,19 @@
   .homepage-theme .public-auth-links {
     gap: 7px;
     font-size: 12px;
+  }
+}
+
+/* Homepage-only intrinsic sizing: long translations wrap inside the viewport. */
+.homepage-theme :is(.public-header-inner, .public-auth-links, .public-navigation) {
+  min-width: 0;
+  max-width: 100%;
+}
+@media (max-width: 520px) {
+  .homepage-theme .public-auth-links { flex: 1 1 180px; justify-content: flex-end; }
+  .homepage-theme .public-navigation { flex-wrap: wrap; }
+  .homepage-theme :is(.public-nav-link, .public-nav-dropdown > .disclosure-trigger) {
+    white-space: normal;
+    text-align: start;
   }
 }

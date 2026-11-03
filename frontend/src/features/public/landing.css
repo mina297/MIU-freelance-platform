@@ -20,15 +20,22 @@
 .landing select {
   cursor: pointer;
 }
-.landing button:hover,
-.landing a:hover {
-  filter: brightness(0.92);
+@media (hover: hover) and (pointer: fine) {
+  .landing .landing-button:hover {
+    border-color: var(--theme-accent, #b91c2b);
+    box-shadow: 0 4px 14px #65162d24;
+  }
+}
+.landing .landing-button:active {
+  box-shadow: inset 0 2px 4px #190b1826;
 }
 .landing-icon {
   display: block;
   flex-shrink: 0;
 }
 .landing-container {
+  min-width: 0;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -62,7 +69,8 @@
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
-  white-space: nowrap;
+  white-space: normal;
+  text-align: center;
 }
 .landing-button.primary {
   background: linear-gradient(135deg, #bd1930, #97182d);
@@ -195,16 +203,16 @@
   min-width: 0;
   padding: 12px 0;
   background: transparent;
-  font-size: 15px;
+  font-size: 16px;
 }
-.landing-search-input input::placeholder {
+.landing #landing-query::placeholder {
   color: transparent;
 }
 .landing #landing-query:focus-visible {
   outline: none;
   box-shadow: inset 0 -2px 0 #9ca3af;
 }
-.landing-search-input:focus-within input::placeholder {
+.landing #landing-query:focus::placeholder {
   color: var(--theme-muted-text, #6b7280);
 }
 .landing-search-hint {
@@ -216,7 +224,7 @@
   overflow: hidden;
   white-space: nowrap;
   pointer-events: none;
-  font-size: 15px;
+  font-size: 16px;
   color: var(--theme-muted-text, #6b7280);
 }
 .landing-search-example {
@@ -402,6 +410,8 @@
   gap: 24px;
 }
 .landing-card {
+  min-width: 0;
+  overflow-wrap: anywhere;
   background: var(--theme-surface, white);
   border: 1px solid var(--landing-border);
   border-radius: 20px;
@@ -521,6 +531,8 @@
   animation: landing-border-orbit 3s linear infinite;
 }
 .landing-avatar {
+  flex-shrink: 0;
+  object-fit: cover;
   width: 88px;
   height: 88px;
   border-radius: 50%;
@@ -574,11 +586,7 @@
   background: var(--theme-accent-surface, #f8e9ef);
   color: var(--theme-accent, #a62343);
 }
-.landing-trust-point:hover {
-  transform: translateY(-6px);
-  border-color: var(--color-miu-red);
-  box-shadow: 0 8px 24px #b91c2b12;
-}
+/* Informational cards are not controls; do not lift them on hover. */
 .landing-trust-point h3 {
   font-weight: 700;
 }
@@ -622,6 +630,8 @@
   gap: 64px;
 }
 .landing-footer-brand {
+  min-width: 0;
+  overflow-wrap: anywhere;
   display: flex;
   gap: 18px;
   align-items: center;
@@ -667,6 +677,9 @@
   gap: 12px;
 }
 .landing-dialog {
+  overflow-wrap: anywhere;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   margin: auto;
   width: min(560px, calc(100% - 32px));
   max-height: calc(100% - 48px);
