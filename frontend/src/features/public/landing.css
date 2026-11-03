@@ -181,7 +181,8 @@
   pointer-events: none;
 }
 .landing-search::before {
-  animation: landing-border-orbit 4s linear infinite;
+  opacity: 0;
+  transition: opacity 160ms ease-out;
 }
 .landing-step::before {
   opacity: 0;
@@ -528,7 +529,7 @@
   position: relative;
 }
 .landing[data-motion="on"] .landing-student-featured .landing-button::before {
-  animation: landing-border-orbit 3s linear infinite;
+  animation: none;
 }
 .landing-avatar {
   flex-shrink: 0;
@@ -811,3 +812,5 @@
     transform: none;
   }
 }
+
+.landing-search:focus-within::before { opacity: 1; }

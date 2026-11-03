@@ -9,7 +9,10 @@ export default function HomepageTheme({ accountAction, children }) {
   const { theme } = useTheme();
 
   return (
-    <div className="homepage-theme" data-theme={theme}>
+    <div className="homepage-theme" data-theme={theme}
+      onPointerDown={(event) => { event.currentTarget.dataset.input = "pointer"; }}
+      onKeyDown={(event) => { event.currentTarget.dataset.input = "keyboard"; }}
+    >
       <a href="#main-content" className="homepage-skip-link">
         {t("Skip to content")}
       </a>

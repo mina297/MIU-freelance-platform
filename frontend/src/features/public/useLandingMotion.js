@@ -1,4 +1,4 @@
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
 function subscribeReducedMotion(callback) {
   const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -40,4 +40,20 @@ export function useScrollReveal(ref, enabled) {
       delete root.dataset.revealReady;
     };
   }, [ref, enabled]);
+}
+
+export function useVisibleMotion(ref, enabled) {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    if (!ref.current) return;
+    let intersects = true;
+    const update = () => setVisible(intersects && !document.hidden);
+    const observer = typeof IntersectionObserver === "undefined" ? null :
+      new IntersectionObserver(([entry]) => { intersects = entry.isIntersecting; update(); });
+    observer?.observe(ref.current);
+    document.addEventListener("visibilitychange", update);
+    update();
+    return () => { observer?.disconnect(); document.removeEventListener("visibilitychange", update); };
+  }, [ref]);
+  return enabled && visible;
 }

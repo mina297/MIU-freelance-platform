@@ -1,5 +1,6 @@
+import { useVisibleMotion } from "./useLandingMotion.js";
 import { useLanguage } from "../../i18n/LanguageContext.js";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import "./heroHeadline.css";
 
 const messages = [
@@ -9,7 +10,9 @@ const messages = [
   "Build work you’re proud of.",
 ];
 
-export default function HeroHeadline({ enabled }) {
+export default function HeroHeadline({ enabled: requestedMotion }) {
+  const motionRef = useRef(null);
+  const enabled = useVisibleMotion(motionRef, requestedMotion);
   const { t, language } = useLanguage();
   const localizedMessages = useMemo(
     () => messages.map((message) => t(message)),
@@ -59,7 +62,10 @@ export default function HeroHeadline({ enabled }) {
   }, [enabled, language, localizedMessages]);
 
   return (
-    <h1 id="landing-title" className="landing-typed-headline">
+    <h1 ref={motionRef} id="landing-title" className="landing-typed-headline">
+      <span className="landing-headline-reserve" aria-hidden="true">
+        {localizedMessages.map((message) => <span key={message}>{message}</span>)}
+      </span>
       <span className="sr-only">
         {t(
           "Great ideas deserve great talent. Find freelance projects and student services at MIU.",

@@ -42,3 +42,8 @@
     transition: none;
   }
 }
+
+/* Reserve the tallest translated phrase so typing cannot move the search UI. */
+.landing-headline-reserve, .landing-typed-visual { grid-area: 1 / 1; width: 100%; }
+.landing-headline-reserve { display: grid; visibility: hidden; pointer-events: none; }
+.landing-headline-reserve > span { grid-area: 1 / 1; overflow-wrap: anywhere; text-wrap: balance; }

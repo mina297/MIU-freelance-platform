@@ -157,3 +157,7 @@ Browser checks and any remaining limitations are recorded in [Known Issues](../0
 ## Homepage polish ? 3 November 2026
 
 The category and overlap entrances now reveal once per mount, superseding the replay behavior above. Hero phrases use a shorter fade without a separate blank interval. Category picker labels translate correctly and the dark search placeholder no longer overlaps its animated hint. Homepage-only wrapping and mobile input refinements preserve existing routes and records. See [review and verification limits](../07-HANDOVER/HOMEPAGE_POLISH_2026-11-03.md).
+
+Motion follow-up: decorative border loops are removed; pointer menus/dialogs use short progressive entrances, headline space is stable across translated phrases, and timer-driven hints pause offscreen or in hidden tabs. Pause covers the homepage header as well. See the handover for remaining visual checks.
+
+User correction: How it works retains its original scroll-driven reveals, depth/badge animation and active border orbit. The later motion simplifications for this section were reverted at Mina's request; other homepage improvements remain.

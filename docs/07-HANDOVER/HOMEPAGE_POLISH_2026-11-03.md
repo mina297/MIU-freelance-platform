@@ -35,3 +35,15 @@ Reduced-motion rules and the pause control remain. Official artwork and hero vid
 
 Preview: http://localhost:5173/
 All changes left uncommitted.
+
+## Motion follow-up
+
+Implemented homepage-only pointer dropdown entry (180ms), pointer dialog entry (200ms), and fine-pointer pressed feedback (120ms). Keyboard-opened dialogs remain immediate. Native dialog close/Escape and dropdown dismissal remain synchronous; no exit delay or new dependency was added. CSS starting-style is progressive enhancement: unsupported browsers open immediately.
+
+Removed perpetual search, featured-profile button and active timeline border rotation. Search retains a static focus accent. Timeline steps and headings remain revealed when scrolling back; entrances use smaller vertical movement and a restrained badge scale. Headline geometry reserves the tallest localized phrase to avoid typing-induced layout movement. Headline and search timers stop outside the viewport and when the document is hidden, with observer/listener cleanup. Pause motion now also disables homepage-header transitions.
+
+Verification: focused theme/localization/hero playback suite passed 14 tests. Lint/build checked during this follow-up; the existing large bundle warning remains. New effects have not been visually verified: both Chrome preview windows were minimized and unavailable to the current control binding. The prior mobile RTL issue, physical-device performance, rapid interaction browser checks and isolated edge-case matrix remain open. Do not treat these source changes as visual approval.
+
+## User correction: restore How it works
+
+At Mina's request, restored HowItWorks.jsx and howItWorks.css to their pre-motion-follow-up versions. This restores the original scroll-driven reveal/reversal, depth entrances, badge motion and active-step border orbit. Other homepage motion refinements remain. This supersedes the timeline changes described in the motion follow-up above. Reduced-motion and Pause behavior remain supported.

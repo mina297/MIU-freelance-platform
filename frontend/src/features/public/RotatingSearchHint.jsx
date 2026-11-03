@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useVisibleMotion } from "./useLandingMotion.js";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useLanguage } from "../../i18n/LanguageContext.js";
 
 const examples = [
@@ -10,7 +11,9 @@ const examples = [
   "Digital marketing",
 ];
 
-export default function RotatingSearchHint({ enabled }) {
+export default function RotatingSearchHint({ enabled: requestedMotion }) {
+  const motionRef = useRef(null);
+  const enabled = useVisibleMotion(motionRef, requestedMotion);
   const { t, language } = useLanguage();
   const localizedExamples = useMemo(
     () => examples.map((example) => t(example)),
@@ -43,7 +46,7 @@ export default function RotatingSearchHint({ enabled }) {
   }, [enabled, language, localizedExamples]);
 
   return (
-    <span className="landing-search-hint" aria-hidden="true">
+    <span ref={motionRef} className="landing-search-hint" aria-hidden="true">
       <span className="landing-search-example">
         {enabled && frame.language === language
           ? frame.text
