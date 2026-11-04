@@ -9,6 +9,7 @@ export default function StandaloneThemeControl() {
 
   const { pathname } = useLocation();
   const route = matchRoutes(routeConfig, pathname)?.at(-1)?.route;
+  if (pathname === "/projects") return null;
   return route?.layout === "standalone" || pathname === "/admin" ? (
     <div className="theme-toolbar" aria-label={t("Appearance settings")}>
       <span>{t("Appearance")}</span>

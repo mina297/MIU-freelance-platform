@@ -422,3 +422,5 @@ as the separate Member 2 feature described in section 5.
 - [Services and Orders](SERVICES_AND_ORDERS.md)
 - [Payments and Escrow](PAYMENTS_AND_ESCROW.md)
 - [Business Rules](../02-REQUIREMENTS/BUSINESS_RULES.md)
+
+Catalogue header update: /projects embeds language and theme controls beside navigation and its action. The standalone toolbar is suppressed on this route; desktop uses one row and mobile wraps controls.

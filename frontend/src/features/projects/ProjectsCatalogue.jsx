@@ -1,3 +1,6 @@
+import ThemeToggle from "../../theme/ThemeToggle.jsx";
+import LanguageControl from "../../i18n/LanguageControl.jsx";
+import "./catalogueHeader.css";
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useMemo, useState, useSyncExternalStore } from "react";
 import { mergeProjects, projectStore } from "./projectStore.js";
@@ -150,7 +153,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
         {saveNotice}
       </p>
       <header className="border-b border-[color:var(--theme-border,#cdbfc5)] bg-[var(--theme-surface,#fff)]">
-        <div className="mx-auto flex h-[76px] max-w-[1280px] items-center justify-between gap-5 px-5 sm:px-8 lg:px-10">
+        <div className="catalogue-header-row">
           <div className="flex items-center gap-5">
             <img
               src={miuLogo}
@@ -196,6 +199,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
               </span>
             </a>
           </nav>
+          <div className="catalogue-header-actions"><LanguageControl /><ThemeToggle />
           {onCreateProject ? (
             <button
               type="button"
@@ -214,6 +218,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
             </span>
           )}
         </div>
+          </div>
       </header>
 
       <main>
