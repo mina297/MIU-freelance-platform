@@ -1,8 +1,8 @@
 import LanguageSwitcher from "../components/navigation/LanguageSwitcher.jsx";
 import { useLanguage } from "./LanguageContext.js";
 const options = [
-  { value: "en", label: "English", lang: "en", dir: "ltr" },
-  { value: "ar", label: "العربية", lang: "ar", dir: "rtl" },
+  { value: "en", label: "EN", lang: "en", dir: "ltr" },
+  { value: "ar", label: "AR", lang: "ar", dir: "rtl" },
 ];
 export default function LanguageControl() {
   const { language, setLanguage, t } = useLanguage();

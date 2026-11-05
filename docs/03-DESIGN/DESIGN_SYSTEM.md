@@ -307,3 +307,5 @@ Authenticated application routes share a top/side navigation shell. The account 
 ### Header language control alignment - 5 November 2026
 
 Header language selectors display the selected language on one line aligned with adjacent actions. Their associated label remains available to screen readers. Account-menu and form labels retain their visible presentation. Header controls use a 44px minimum height and 16px text; the Arabic draft notice remains visible below without changing alignment. Browser visual verification remains pending.
+
+Header language controls now use compact EN / AR labels in a 76px-wide selector with a subtle border and 44px touch target. Language state, persistence and accessible label association are unchanged.
