@@ -1,9 +1,9 @@
+import StandaloneLayout from "../layouts/StandaloneLayout.jsx";
 import NavigationProvider from "../components/navigation/NavigationProvider.jsx";
 import ApplicationNavigation from "../components/navigation/ApplicationNavigation.jsx";
 import { useEffect } from "react";
 import { useLanguage } from "../i18n/LanguageContext.js";
 import {
-  Outlet,
   Route,
   Routes,
   useNavigate,
@@ -64,7 +64,7 @@ import CheckoutPage from "../features/checkout/CheckoutPage.jsx";
 import ClientPaymentsDashboard from "../features/dashboards/ClientPaymentsDashboard.jsx";
 
 const layouts = {
-  standalone: <Outlet />,
+  standalone: <StandaloneLayout />,
   public: <PublicWebsite />,
   auth: <AuthLayout />,
   app: <AppLayout />,

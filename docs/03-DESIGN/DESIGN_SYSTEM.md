@@ -317,3 +317,7 @@ The homepage header uses reduced logo/type size, tighter spacing, quieter dropdo
 ### Homepage navigation redesign - 5 November 2026
 
 Supersedes the earlier sizing refinement: a raised rounded navigation bar now separates the MIU brand, a softly tinted destination group, and compact utilities. EN/AR stays visible; appearance opens from a settings icon. Below 1180px, a native Modal drawer replaces the navigation row and contains all existing destinations and account actions. The drawer supports Escape, focus containment/restoration and backdrop dismissal through the shared Modal. Both color themes and RTL use semantic tokens and logical spacing. Old homepage header breakpoint overrides were removed. Build and lint passed; route/theme/language rendering checks cover the new controls. Visual browser verification remains pending because Chrome was minimized and the available computer-use interface could not bind to it.
+
+
+### Shared navigation surfaces (5 November 2026)
+Routed public pages reuse the homepage floating header, grouped destinations and compact utilities. Signed-in navigation uses matching surfaces and retains role-specific destinations and top/side preference. The application drawer breakpoint is 1280px; public navigation uses 1180px. Each route renders one language control and one theme control.

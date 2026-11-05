@@ -309,7 +309,7 @@ test("public website routes render real pages in one shell with safe destination
       assert.equal((html.match(/<h1\b/g) ?? []).length, 1, path);
       assert.match(
         html,
-        path === "/" ? /class="public-header"/ : /miu-public-header/,
+        /class="public-header"/,
       );
       assert.doesNotMatch(
         html,

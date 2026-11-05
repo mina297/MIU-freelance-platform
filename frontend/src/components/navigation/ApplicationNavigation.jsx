@@ -8,6 +8,7 @@ import {
   ShieldCheck,
   Bell,
   Menu,
+  SlidersHorizontal,
   UserRound,
   HelpCircle,
   Store,
@@ -28,6 +29,7 @@ import {
   navigationItems,
   usesApplicationNavigation,
 } from "./navigationModel.js";
+import "./publicHeader.css";
 import "./application-navigation.css";
 
 function iconFor(path) {
@@ -56,7 +58,7 @@ export default function ApplicationNavigation({ children }) {
   const drawerOpen = active && drawer === location.key;
   if (drawer !== null && drawer !== location.key) setDrawer(null);
   useEffect(() => {
-    const media = window.matchMedia("(min-width: 1100px)");
+    const media = window.matchMedia("(min-width: 1280px)");
     const close = () => {
       if (media.matches) setDrawer(null);
     };
@@ -103,6 +105,12 @@ export default function ApplicationNavigation({ children }) {
               {renderLinks(undefined, links.slice(0, 5))}
             </nav>
             <div className="application-navigation__utilities">
+              <div className="application-navigation__tools">
+                <LanguageControl />
+                <Dropdown key={`appearance-${location.key}`} className="public-preferences" label={<><SlidersHorizontal size={19} aria-hidden="true" /><span className="public-control-label">{t("Appearance settings")}</span></>}>
+                  {() => <div className="public-preferences-content"><span>{t("Appearance")}</span><ThemeToggle /></div>}
+                </Dropdown>
+              </div>
               <Link
                 className="application-navigation__help"
                 to="/help"
@@ -148,8 +156,6 @@ export default function ApplicationNavigation({ children }) {
                     <nav aria-label={t("More navigation")}>
                       {renderLinks(close, links.slice(5))}
                     </nav>
-                    <LanguageControl />
-                    <ThemeToggle />
                     <button
                       type="button"
                       onClick={() => {

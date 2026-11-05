@@ -23,3 +23,13 @@ Actual browser verification was blocked: computer-use initialization failed with
 Start `npm.cmd run dev` from frontend. Sign in using an existing demo account, then visit `/student/dashboard`, `/client/dashboard`, `/projects` or the account's authorized administrative route. Open the avatar menu and choose Navigation layout. Sessions remain memory-only: refreshing resets the session and theme, while the navigation preference is restored after signing in again.
 
 All changes are uncommitted. No branches, dependencies, backend services or business features were added.
+
+## Shared floating navigation design
+
+Extended the homepage header to routed public information, marketplace, authentication and standalone preview pages. PublicLayout accepts a header slot, preserving the router-independent M4 component preview. StandaloneLayout supplies a single public header and suppresses the catalogue duplicate; authorized application routes retain their role-filtered navigation. Admin access/error routes now use the normal shared fallback layout.
+
+Application top navigation adopts the rounded elevated surface and grouped destinations. The side rail retains placement preference and receives matching rounded treatment. Compact EN/AR and appearance controls live beside the account menu, with one instance each. Below 1280px the application shell uses its mobile drawer to accommodate the utility group and longer translated links. Homepage motion is unchanged. Relevant requirements: FR-V01, FR-V05, NFR-02, NFR-03, NFR-07.
+
+Standalone HTML component showcases retain their isolated component compositions. Browser appearance and interactive focus checks remain pending; static rendering does not establish visual correctness.
+
+Verification of shared-header integration: 25 focused navigation, role/access, route rendering, theme and language tests passed. Lint and production build passed; the existing large bundle warning remains. Actual browser/mobile visual verification was not performed. Changes remain uncommitted.

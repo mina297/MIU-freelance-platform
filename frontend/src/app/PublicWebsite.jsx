@@ -1,3 +1,4 @@
+import LandingHeader from "../components/navigation/LandingHeader.jsx";
 import { usesApplicationNavigation } from "../components/navigation/navigationModel.js";
 import { useLanguage } from "../i18n/LanguageContext.js";
 import { useEffect } from "react";
@@ -52,6 +53,7 @@ export default function PublicWebsite() {
 
   return (
     <PublicLayout
+      header={<LandingHeader accountAction={accountAction} />}
       destinations={publicDestinations}
       currentPath={pathname}
       accountAction={accountAction}

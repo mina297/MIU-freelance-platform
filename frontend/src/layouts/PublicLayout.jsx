@@ -9,6 +9,7 @@ export default function PublicLayout({
   destinations,
   currentPath,
   accountAction,
+  header,
 }) {
   const { t } = useLanguage();
 
@@ -18,11 +19,11 @@ export default function PublicLayout({
       <a className="miu-public-skip-link" href={`#${mainId}`}>
         {t("Skip to main content")}
       </a>
-      <PublicHeader
+      {header ?? <PublicHeader
         destinations={destinations}
         currentPath={currentPath}
         accountAction={accountAction}
-      />
+      />}
       <main className="miu-public-main" id={mainId} tabIndex={-1}>
         {children}
       </main>
