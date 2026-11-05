@@ -237,7 +237,9 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     );
     assert.match(html, /Hire Talent/);
     assert.match(html, /Find Work/);
-    assert.equal((html.match(/aria-expanded="false"/g) ?? []).length, 3);
+    // Desktop disclosures, appearance settings, category picker and mobile drawer.
+    assert.equal((html.match(/aria-expanded="false"/g) ?? []).length, 5);
+    assert.match(html, /aria-label="Open navigation" aria-haspopup="dialog"/);
     assert.match(html, /href="\/#student-talent"/);
     assert.match(html, /href="\/register\?role=student"/);
     assert.match(html, /<label[^>]+for="landing-query"/);

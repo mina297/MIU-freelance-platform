@@ -1,5 +1,7 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Modal from "../ui/Modal.jsx";
+import { Link, useLocation } from "react-router-dom";
 import {
   ArrowUpRight,
   BriefcaseBusiness,
@@ -7,6 +9,8 @@ import {
   Layers,
   Users,
   UserRound,
+  Menu,
+  SlidersHorizontal,
 } from "lucide-react";
 import Dropdown from "../ui/Dropdown.jsx";
 import miuLogo from "../../assets/figma/miu-anniversary-logo.png";
@@ -67,7 +71,44 @@ const navigation = [
 
 export default function LandingHeader({ accountAction }) {
   const { t } = useLanguage();
-
+  const location = useLocation();
+  const [drawerKey, setDrawerKey] = useState(null);
+  const drawerOpen = drawerKey === location.key;
+  if (drawerKey !== null && drawerKey !== location.key) setDrawerKey(null);
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1180px)");
+    const close = () => {
+      if (desktop.matches) setDrawerKey(null);
+    };
+    desktop.addEventListener("change", close);
+    return () => desktop.removeEventListener("change", close);
+  }, []);
+  const closeDrawer = () => setDrawerKey(null);
+  const authLinks = accountAction ?? (
+    <>
+      <Link to="/login" className="public-sign-in">
+        {t("Sign In")}
+      </Link>
+      <Link to="/register" className="public-sign-up">
+        {t("Sign Up")}
+        <ArrowUpRight size={16} aria-hidden="true" />
+      </Link>
+    </>
+  );
+  function renderLinks(links, close) {
+    return links.map(({ to, title, description, icon: ItemIcon }) => (
+      <Link key={to} to={to} onClick={close} className="public-dropdown-link">
+        <span className="public-dropdown-icon">
+          <ItemIcon size={20} aria-hidden="true" />
+        </span>
+        <span>
+          <strong>{t(title)}</strong>
+          <small>{t(description)}</small>
+        </span>
+        <ArrowUpRight size={16} aria-hidden="true" />
+      </Link>
+    ));
+  }
   return (
     <header className="public-header">
       <div className="public-header-inner">
@@ -76,12 +117,15 @@ export default function LandingHeader({ accountAction }) {
           aria-label={t("MIU Freelance home")}
           className="public-brand"
         >
-          <img src={miuLogo} alt={t("Misr International University")} />
+          <img
+            src={miuLogo}
+            alt={t("Misr International University")}
+            width="112"
+            height="56"
+          />
           <span>
             {t("Freelance")}
-            <span className="text-[var(--theme-accent,var(--color-miu-red))]">
-              .
-            </span>
+            <b aria-hidden="true">.</b>
           </span>
         </Link>
         <nav aria-label={t("Public navigation")} className="public-navigation">
@@ -94,23 +138,7 @@ export default function LandingHeader({ accountAction }) {
               {(close) => (
                 <>
                   <p className="public-dropdown-eyebrow">{t(eyebrow)}</p>
-                  {links.map(({ to, title, description, icon: ItemIcon }) => (
-                    <Link
-                      key={to}
-                      to={to}
-                      onClick={close}
-                      className="public-dropdown-link"
-                    >
-                      <span className="public-dropdown-icon">
-                        <ItemIcon size={20} aria-hidden="true" />
-                      </span>
-                      <span>
-                        <strong>{t(title)}</strong>
-                        <small>{t(description)}</small>
-                      </span>
-                      <ArrowUpRight size={16} aria-hidden="true" />
-                    </Link>
-                  ))}
+                  {renderLinks(links, close)}
                 </>
               )}
             </Dropdown>
@@ -120,24 +148,92 @@ export default function LandingHeader({ accountAction }) {
           </Link>
         </nav>
         <div className="public-auth-links">
-          <LanguageControl />
-          <ThemeToggle />
-          {accountAction ? (
-            <Dropdown className="public-account-menu" label={<><UserRound size={18} aria-hidden="true" /><span>{t("Account menu")}</span></>}>
-              {(close) => <div className="public-account-menu__actions" onClick={(event) => { if (event.target.closest("a, button")) close(); }}>{accountAction}</div>}
+          <div className="public-header-tools">
+            <LanguageControl />
+            <Dropdown
+              key={location.key}
+              className="public-preferences"
+              label={
+                <>
+                  <SlidersHorizontal size={19} aria-hidden="true" />
+                  <span className="public-control-label">
+                    {t("Appearance settings")}
+                  </span>
+                </>
+              }
+            >
+              {() => (
+                <div className="public-preferences-content">
+                  <span>{t("Appearance")}</span>
+                  <ThemeToggle />
+                </div>
+              )}
             </Dropdown>
-          ) : (
-            <>
-              <Link to="/login" className="public-sign-in">
-                {t("Sign In")}
-              </Link>
-              <Link to="/register" className="public-sign-up">
-                {t("Sign Up")}
-              </Link>
-            </>
-          )}
+          </div>
+          <div className="public-desktop-account">
+            {accountAction ? (
+              <Dropdown
+                className="public-account-menu"
+                label={
+                  <>
+                    <UserRound size={19} aria-hidden="true" />
+                    <span className="public-control-label">
+                      {t("Account menu")}
+                    </span>
+                  </>
+                }
+              >
+                {(close) => (
+                  <div
+                    className="public-account-menu__actions"
+                    onClick={(event) => {
+                      if (event.target.closest("a, button")) close();
+                    }}
+                  >
+                    {accountAction}
+                  </div>
+                )}
+              </Dropdown>
+            ) : (
+              authLinks
+            )}
+          </div>
+          <button
+            type="button"
+            className="public-mobile-menu"
+            aria-label={t("Open navigation")}
+            aria-haspopup="dialog"
+            aria-expanded={drawerOpen}
+            onClick={() => setDrawerKey(location.key)}
+          >
+            <Menu size={22} aria-hidden="true" />
+          </button>
         </div>
       </div>
+      <Modal
+        open={drawerOpen}
+        onClose={closeDrawer}
+        closeOnBackdrop
+        title={t("Public navigation")}
+        className="public-navigation-drawer"
+      >
+        <nav aria-label={t("Public navigation")}>
+          {navigation.map(({ label, links }) => (
+            <section key={label}>
+              <h3>{t(label)}</h3>
+              {renderLinks(links, closeDrawer)}
+            </section>
+          ))}
+        </nav>
+        <div
+          className="public-drawer-account"
+          onClick={(event) => {
+            if (event.target.closest("a, button")) closeDrawer();
+          }}
+        >
+          {authLinks}
+        </div>
+      </Modal>
     </header>
   );
 }

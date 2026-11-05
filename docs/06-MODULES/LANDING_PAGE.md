@@ -161,3 +161,8 @@ The category and overlap entrances now reveal once per mount, superseding the re
 Motion follow-up: decorative border loops are removed; pointer menus/dialogs use short progressive entrances, headline space is stable across translated phrases, and timer-driven hints pause offscreen or in hidden tabs. Pause covers the homepage header as well. See the handover for remaining visual checks.
 
 User correction: How it works retains its original scroll-driven reveals, depth/badge animation and active border orbit. The later motion simplifications for this section were reverted at Mina's request; other homepage improvements remain.
+
+
+### Homepage navigation - 5 November 2026
+
+LandingHeader now renders a floating rounded bar with grouped desktop destinations and a compact EN/AR selector. Appearance settings use an icon disclosure. Mobile/tablet navigation uses the shared accessible Modal drawer, retaining all existing links and account actions. The hero content and marketplace workflows are unchanged. Browser/real-device visual acceptance remains pending; see DESIGN_SYSTEM.md for design and verification notes.

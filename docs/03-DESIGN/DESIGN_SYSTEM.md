@@ -313,3 +313,7 @@ Header language controls now use compact EN / AR labels in a 76px-wide selector 
 ### Homepage header refinement - 5 November 2026
 
 The homepage header uses reduced logo/type size, tighter spacing, quieter dropdown surfaces and a compact account disclosure for workspace/sign-out actions. EN/AR and theme controls remain visible. Existing visitor links and responsive navigation remain available. Uses the existing keyboard/outside-click disclosure behavior; no new dependency. Browser visual verification remains pending.
+
+### Homepage navigation redesign - 5 November 2026
+
+Supersedes the earlier sizing refinement: a raised rounded navigation bar now separates the MIU brand, a softly tinted destination group, and compact utilities. EN/AR stays visible; appearance opens from a settings icon. Below 1180px, a native Modal drawer replaces the navigation row and contains all existing destinations and account actions. The drawer supports Escape, focus containment/restoration and backdrop dismissal through the shared Modal. Both color themes and RTL use semantic tokens and logical spacing. Old homepage header breakpoint overrides were removed. Build and lint passed; route/theme/language rendering checks cover the new controls. Visual browser verification remains pending because Chrome was minimized and the available computer-use interface could not bind to it.

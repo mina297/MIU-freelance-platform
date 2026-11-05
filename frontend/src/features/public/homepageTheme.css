@@ -305,42 +305,6 @@
   > .landing-icon {
   filter: brightness(0) invert(0.85);
 }
-@media (max-width: 520px) {
-  .homepage-theme .public-auth-links {
-    gap: 10px;
-  }
-  .homepage-theme .public-header-inner {
-    gap: 8px;
-  }
-  .homepage-theme .public-sign-up {
-    padding-inline: 12px;
-  }
-}
-@media (max-width: 370px) {
-  .homepage-theme .public-brand img {
-    max-width: 85px;
-    height: 36px;
-  }
-  .homepage-theme .public-auth-links {
-    gap: 7px;
-    font-size: 12px;
-  }
-}
-
-/* Homepage-only intrinsic sizing: long translations wrap inside the viewport. */
-.homepage-theme :is(.public-header-inner, .public-auth-links, .public-navigation) {
-  min-width: 0;
-  max-width: 100%;
-}
-@media (max-width: 520px) {
-  .homepage-theme .public-auth-links { flex: 1 1 180px; justify-content: flex-end; }
-  .homepage-theme .public-navigation { flex-wrap: wrap; }
-  .homepage-theme :is(.public-nav-link, .public-nav-dropdown > .disclosure-trigger) {
-    white-space: normal;
-    text-align: start;
-  }
-}
-
 /* Homepage-only motion; functional state changes remain immediate. */
 @media (prefers-reduced-motion: no-preference) {
   .homepage-theme:has(.landing[data-motion="on"]) .disclosure:not(:has(:focus-visible)) .disclosure-panel {
