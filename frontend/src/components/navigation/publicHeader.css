@@ -10,24 +10,24 @@
   margin-inline: auto;
   display: flex;
   align-items: center;
-  gap: 40px;
-  padding: 16px 32px;
+  gap: 28px;
+  padding: 12px 32px;
 }
 .public-brand {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   flex-shrink: 0;
 }
 .public-brand img {
-  height: 48px;
+  height: 42px;
   width: auto;
   max-width: 150px;
   object-fit: contain;
 }
 .public-brand > span {
   font-weight: 750;
-  font-size: 19px;
+  font-size: 17px;
   letter-spacing: -0.7px;
 }
 .public-navigation {
@@ -50,14 +50,19 @@
   white-space: nowrap;
   border-radius: 8px;
 }
-.public-nav-dropdown > .disclosure-trigger:hover,
-.public-nav-dropdown > .disclosure-trigger[aria-expanded="true"],
-.public-nav-link:hover {
+.public-nav-dropdown > .disclosure-trigger[aria-expanded="true"] {
   color: var(--theme-accent, var(--color-miu-red));
-  background: var(--theme-surface, #fafafa);
+  background: var(--theme-accent-surface, #f8f1f4);
+}
+@media (hover: hover) and (pointer: fine) {
+  .public-nav-dropdown > .disclosure-trigger:hover,
+  .public-nav-link:hover {
+    color: var(--theme-accent, var(--color-miu-red));
+    background: var(--theme-hover, #f6f3f5);
+  }
 }
 .public-nav-dropdown .disclosure-panel {
-  width: 370px;
+  width: min(340px, calc(100vw - 32px));
   padding: 12px;
 }
 .public-dropdown-eyebrow {
@@ -110,7 +115,7 @@
   margin-inline-start: auto;
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 12px;
   white-space: nowrap;
   font-size: 14px;
   font-weight: 600;
@@ -122,13 +127,13 @@
   color: var(--theme-accent, var(--color-miu-red));
 }
 .public-sign-up {
-  padding: 12px 24px;
-  border-radius: 9999px;
+  padding: 11px 20px;
+  border-radius: 12px;
   background: var(--color-miu-red);
   color: white;
 }
 .public-header .public-sign-up:focus-visible {
-  border-radius: 9999px;
+  border-radius: 12px;
 }
 .public-sign-up:hover {
   background: var(--color-miu-red-dark);
@@ -234,4 +239,57 @@
 }
 :root[data-theme="dark"] :is(.public-sign-up, .miu-public-signup):hover {
   background: #a01930;
+}
+
+/* Compact account disclosure replaces competing standalone account actions. */
+.public-account-menu > .disclosure-trigger {
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--theme-divider, #e4dce0);
+  border-radius: 12px;
+  color: var(--theme-text, #30252c);
+  font-size: 13px;
+}
+.public-account-menu > .disclosure-trigger > span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.public-account-menu .disclosure-panel {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+  width: min(240px, calc(100vw - 32px));
+  padding: 8px;
+}
+.public-account-menu__actions { display: grid; gap: 4px; }
+.public-account-menu__actions :is(a,button) {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  width: 100%;
+  padding: 10px 12px;
+  text-align: start;
+  white-space: normal;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--theme-text, #30252c);
+  font-size: 14px;
+  font-weight: 500;
+}
+@media (hover: hover) and (pointer: fine) {
+  .public-account-menu__actions :is(a,button):hover,
+  .public-account-menu > .disclosure-trigger:hover {
+    background: var(--theme-hover, #f6f3f5);
+  }
+}
+@media (max-width: 520px) {
+  .public-account-menu .disclosure-panel {
+    position: fixed;
+    inset-inline: 16px;
+    top: 80px;
+    width: auto;
+  }
 }

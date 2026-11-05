@@ -6,6 +6,7 @@ import {
   GraduationCap,
   Layers,
   Users,
+  UserRound,
 } from "lucide-react";
 import Dropdown from "../ui/Dropdown.jsx";
 import miuLogo from "../../assets/figma/miu-anniversary-logo.png";
@@ -121,7 +122,11 @@ export default function LandingHeader({ accountAction }) {
         <div className="public-auth-links">
           <LanguageControl />
           <ThemeToggle />
-          {accountAction ?? (
+          {accountAction ? (
+            <Dropdown className="public-account-menu" label={<><UserRound size={18} aria-hidden="true" /><span>{t("Account menu")}</span></>}>
+              {(close) => <div className="public-account-menu__actions" onClick={(event) => { if (event.target.closest("a, button")) close(); }}>{accountAction}</div>}
+            </Dropdown>
+          ) : (
             <>
               <Link to="/login" className="public-sign-in">
                 {t("Sign In")}

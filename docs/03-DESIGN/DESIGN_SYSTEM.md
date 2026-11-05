@@ -309,3 +309,7 @@ Authenticated application routes share a top/side navigation shell. The account 
 Header language selectors display the selected language on one line aligned with adjacent actions. Their associated label remains available to screen readers. Account-menu and form labels retain their visible presentation. Header controls use a 44px minimum height and 16px text; the Arabic draft notice remains visible below without changing alignment. Browser visual verification remains pending.
 
 Header language controls now use compact EN / AR labels in a 76px-wide selector with a subtle border and 44px touch target. Language state, persistence and accessible label association are unchanged.
+
+### Homepage header refinement - 5 November 2026
+
+The homepage header uses reduced logo/type size, tighter spacing, quieter dropdown surfaces and a compact account disclosure for workspace/sign-out actions. EN/AR and theme controls remain visible. Existing visitor links and responsive navigation remain available. Uses the existing keyboard/outside-click disclosure behavior; no new dependency. Browser visual verification remains pending.
