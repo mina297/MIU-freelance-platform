@@ -8,6 +8,8 @@ import {
   ShieldCheck,
   Bell,
   Menu,
+  Check,
+  LogOut,
   SlidersHorizontal,
   UserRound,
   HelpCircle,
@@ -134,22 +136,33 @@ export default function ApplicationNavigation({ children }) {
               >
                 {(close) => (
                   <div className="application-account__content">
-                    <strong>{session.user.displayName}</strong>
+                    <div className="application-account__identity">
+                      <span className="application-avatar" aria-hidden="true">{session.user.displayName.trim().slice(0, 1)}</span>
+                      <div><small>{t("My workspace")}</small><strong>{session.user.displayName}</strong></div>
+                    </div>
                     <fieldset>
                       <legend>{t("Navigation layout")}</legend>
                       {[
                         ["top", "Top navigation"],
                         ["side", "Side navigation"],
                       ].map(([value, label]) => (
-                        <label key={value}>
+                        <label key={value} className="navigation-choice">
                           <input
                             type="radio"
                             name="navigation-layout"
                             value={value}
                             checked={layout === value}
-                            onChange={() => setLayout(value)}
+                            onChange={(event) => {
+                              const trigger = event.currentTarget.closest(".application-account")?.querySelector(".disclosure-trigger");
+                              trigger?.focus({ preventScroll: true });
+                              close();
+                              setLayout(value);
+                            }}
                           />
-                          {t(label)}
+                          <span className="navigation-choice__card">
+                            <span className={`navigation-miniature navigation-miniature--${value}`} aria-hidden="true"><i /><b /><em /></span>
+                            <span className="navigation-choice__caption">{t(label)}<Check size={14} aria-hidden="true" /></span>
+                          </span>
                         </label>
                       ))}
                     </fieldset>
@@ -163,7 +176,7 @@ export default function ApplicationNavigation({ children }) {
                         logout();
                       }}
                     >
-                      {t("Sign out")}
+                      <LogOut size={17} aria-hidden="true" />{t("Sign out")}
                     </button>
                   </div>
                 )}
