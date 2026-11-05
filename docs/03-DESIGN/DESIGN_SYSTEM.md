@@ -302,3 +302,8 @@ Visual correction - 4 November 2026: removed button lift, added shadows, press c
 ## Navigation placement - 5 November 2026
 
 Authenticated application routes share a top/side navigation shell. The account menu owns the placement, theme and language controls; narrow screens use a Modal drawer. Route metadata determines permitted links; only navigation placement persists in localStorage. Dashboard sections remain contextual navigation. See [implementation and verification limitations](../07-HANDOVER/NAVIGATION_LAYOUT_2026-11-05.md).
+
+
+### Header language control alignment - 5 November 2026
+
+Header language selectors display the selected language on one line aligned with adjacent actions. Their associated label remains available to screen readers. Account-menu and form labels retain their visible presentation. Header controls use a 44px minimum height and 16px text; the Arabic draft notice remains visible below without changing alignment. Browser visual verification remains pending.
