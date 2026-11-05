@@ -15,7 +15,7 @@ test('client dashboard direct entries preserve the shared shell and client role 
     const render = (activeSession) => renderToStaticMarkup(React.createElement(MemoryRouter, { initialEntries: ['/client/dashboard'] }, React.createElement(AuthContext.Provider, { value: { session: activeSession } }, React.createElement(Router))));
     for (let entry = 0; entry < 2; entry++) {
       const html = render(session);
-      assert.match(html, /miu-public-main/);
+      assert.match(html, /application-shell/);
       assert.equal((html.match(/class="student-dashboard client-dashboard"/g) ?? []).length, 1);
       assert.doesNotMatch(html, /routing placeholder only/);
     }

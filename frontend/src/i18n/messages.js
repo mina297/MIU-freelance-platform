@@ -5,6 +5,12 @@ import help from "./helpMessages.js";
 import chatbot from "./chatbotMessages.js";
 // Draft Modern Standard Arabic interface wording; team approval pending.
 export const ar = {
+  "Main navigation": "القائمة الرئيسية",
+  "More navigation": "المزيد من الروابط",
+  "Account menu": "قائمة الحساب",
+  "Navigation layout": "موضع القائمة الرئيسية",
+  "Top navigation": "قائمة علوية",
+  "Side navigation": "قائمة جانبية",
   ...additional,
   ...feedback,
   ...interfaces,

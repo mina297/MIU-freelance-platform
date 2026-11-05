@@ -278,3 +278,8 @@ Avoid creating a complicated fake backend merely to simulate Phase 1 workflows.
 - [Pages and Routes](../03-DESIGN/PAGES_AND_ROUTES.md)
 - [Coding Standards](../05-DEVELOPMENT/CODING_STANDARDS.md)
 - [Work Distribution](../05-DEVELOPMENT/PHASE1_WORK_DISTRIBUTION.md)
+
+
+## Shared application navigation - 5 November 2026
+
+Authenticated application routes share a top/side navigation shell. The account menu owns the placement, theme and language controls; narrow screens use a Modal drawer. Route metadata determines permitted links; only navigation placement persists in localStorage. Dashboard sections remain contextual navigation. See [implementation and verification limitations](../07-HANDOVER/NAVIGATION_LAYOUT_2026-11-05.md).

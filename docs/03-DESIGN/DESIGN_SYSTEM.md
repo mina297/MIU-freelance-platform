@@ -297,3 +297,8 @@ Custom feature controls that do not use these classes are not covered. Browser v
 Mina requested more visible motion: non-homepage menus/dialogs now enter over 240ms from 16px/0.96 scale. Eligible fine-pointer buttons lift 3px on hover and compress to 0.96 on press, with a subtle shadow. Service detail-link arrows move toward the reading direction. Reduced-motion, disabled/busy exclusions and immediate keyboard behavior remain. These values supersede the earlier subtle settings. Browser visual validation remains pending.
 
 Visual correction - 4 November 2026: removed button lift, added shadows, press compression and diagonal arrow movement at Mina's request. Controls keep their original geometry with brief color transitions. Menus and dialogs use a restrained 6px/180ms entrance without scaling. These values supersede the stronger settings above. Keyboard and reduced-motion transitions remain disabled.
+
+
+## Navigation placement - 5 November 2026
+
+Authenticated application routes share a top/side navigation shell. The account menu owns the placement, theme and language controls; narrow screens use a Modal drawer. Route metadata determines permitted links; only navigation placement persists in localStorage. Dashboard sections remain contextual navigation. See [implementation and verification limitations](../07-HANDOVER/NAVIGATION_LAYOUT_2026-11-05.md).

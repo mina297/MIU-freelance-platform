@@ -27,7 +27,7 @@ test("student dashboard direct entries retain the shared shell and role guard", 
     for (let entry = 0; entry < 2; entry++) {
       const html = render(session);
       assert.match(html, /Welcome back, Nour/);
-      assert.match(html, /miu-public-main/);
+      assert.match(html, /application-shell/);
       assert.equal((html.match(/class="student-dashboard"/g) ?? []).length, 1);
       assert.doesNotMatch(html, /routing placeholder only/);
     }

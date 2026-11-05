@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { ApplicationShellContext } from "../../components/navigation/NavigationContext.js";
 import ThemeToggle from "../../theme/ThemeToggle.jsx";
 import LanguageControl from "../../i18n/LanguageControl.jsx";
 import "./catalogueHeader.css";
@@ -30,6 +32,7 @@ import ProjectCard from "./ProjectCard.jsx";
 import ProjectsHero from "./ProjectsHero.jsx";
 
 export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
+  const applicationShell = useContext(ApplicationShellContext);
   const { t, count } = useLanguage();
 
   const demoProjects = useSyncExternalStore(
@@ -152,7 +155,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
       <p role="status" className="sr-only">
         {saveNotice}
       </p>
-      <header className="border-b border-[color:var(--theme-border,#cdbfc5)] bg-[var(--theme-surface,#fff)]">
+      {!applicationShell && <header data-catalogue-navigation="true" className="border-b border-[color:var(--theme-border,#cdbfc5)] bg-[var(--theme-surface,#fff)]">
         <div className="catalogue-header-row">
           <div className="flex items-center gap-5">
             <img
@@ -219,7 +222,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
           )}
         </div>
           </div>
-      </header>
+      </header>}
 
       <main>
         <ProjectsHero project={heroProject} />

@@ -1,3 +1,4 @@
+import { usesApplicationNavigation } from "../components/navigation/navigationModel.js";
 import { useLanguage } from "../i18n/LanguageContext.js";
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
@@ -41,6 +42,8 @@ export default function PublicWebsite() {
 
   // The replacement homepage owns its footer; other public pages retain the
   // shared shell. Do not render a second header/footer around the homepage.
+  if (usesApplicationNavigation(session, pathname)) return content;
+
   if (pathname === "/") {
     return (
       <HomepageTheme accountAction={accountAction}>{content}</HomepageTheme>

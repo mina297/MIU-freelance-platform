@@ -1,0 +1,25 @@
+# User-selectable navigation - 5 November 2026
+
+## Behavior and coverage
+
+Authenticated users can choose Top navigation or Side navigation in the account menu. Top is the default. Only the validated `top`/`side` preference is stored under `miu.navigation-layout`; unavailable storage falls back safely. No session or theme persistence was introduced.
+
+The shared shell covers permitted application/admin routes, protected standalone workflows, and signed-in marketplace/help/profile browsing. Public marketing, authentication, anonymous browsing and standalone public previews retain their existing shells. Route permissions and Phase 1 simulation boundaries are unchanged (NFR-02, NFR-03, NFR-07, SR-17; BR-05).
+
+`navigationModel.js` derives permitted destinations from routeConfig. The first five prioritized links appear in desktop navigation; additional destinations remain in the account menu. Both placements use the same links. Below 1100px a compact header and the existing Modal-based navigation drawer replace desktop navigation without changing the stored preference. Modal supplies Escape, focus containment/restoration, backdrop dismissal and shared scroll locking.
+
+`NavigationProvider` holds one preference state. The routed child tree retains the same position and type during layout switches. Dashboard sections become contextual wrapping controls instead of a competing primary sidebar. Projects removes its duplicate header while the application shell is active. Theme and language controls are in the account menu. The official logo retains its original colors on a white plaque; the rail follows inline-start (right in RTL).
+
+## Verification
+
+Production build and lint passed during implementation. Existing theme/language checks passed across registered routes with exactly one control each. Focused tests cover storage failure/invalid values, role filtering and shell eligibility; rendering tests compare top/side links and utility counts for student, client, Super Admin and Finance Committee.
+
+The full suite initially reported 342/346 passing: three failures expected the replaced public dashboard shell and one expected the original project-create action label. The assertions were updated for the intentional shell change and the action label preserved. All 19 affected integration/navigation tests then passed; the final 13 navigation/theme/language checks also passed. The full suite was not repeated after these focused corrections.
+
+Actual browser verification was blocked: computer-use initialization failed with Windows sandbox Access is denied. Consequently desktop/mobile appearance, actual form/filter state retention, native drawer focus/scroll behavior, popup edge positioning, browser refresh persistence and real-device touch behavior remain unverified. Static render tests are not interaction or visual acceptance. Check both languages/themes at 1440, 1100, 768 and 390px, including long account names and short viewport heights. The existing production chunk-size warning remains.
+
+## Preview
+
+Start `npm.cmd run dev` from frontend. Sign in using an existing demo account, then visit `/student/dashboard`, `/client/dashboard`, `/projects` or the account's authorized administrative route. Open the avatar menu and choose Navigation layout. Sessions remain memory-only: refreshing resets the session and theme, while the navigation preference is restored after signing in again.
+
+All changes are uncommitted. No branches, dependencies, backend services or business features were added.

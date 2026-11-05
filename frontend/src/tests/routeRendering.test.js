@@ -366,7 +366,7 @@ test("public website routes render real pages in one shell with safe destination
           },
         },
       );
-      assert.match(dashboard, /My workspace/);
+      assert.match(dashboard, /aria-label="Main navigation"/);
       assert.match(dashboard, /Sign out/);
       assert.doesNotMatch(
         dashboard,

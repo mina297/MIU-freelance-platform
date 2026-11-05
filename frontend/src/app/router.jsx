@@ -1,3 +1,5 @@
+import NavigationProvider from "../components/navigation/NavigationProvider.jsx";
+import ApplicationNavigation from "../components/navigation/ApplicationNavigation.jsx";
 import { useEffect } from "react";
 import { useLanguage } from "../i18n/LanguageContext.js";
 import {
@@ -162,7 +164,7 @@ export default function AppRouter() {
     document.title = `${t(title)} | MIU Freelance`;
   }, [pathname, t]);
   return (
-    <Routes>
+    <NavigationProvider><ApplicationNavigation><Routes>
       {Object.entries(layouts).map(([layout, element]) => (
         <Route key={layout} element={element}>
           {routeConfig
@@ -191,6 +193,6 @@ export default function AppRouter() {
             ))}
         </Route>
       ))}
-    </Routes>
+    </Routes></ApplicationNavigation></NavigationProvider>
   );
 }
