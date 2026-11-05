@@ -181,8 +181,10 @@
   pointer-events: none;
 }
 .landing-search::before {
-  opacity: 0;
-  transition: opacity 160ms ease-out;
+  opacity: 1;
+}
+.landing[data-motion="on"] .landing-search::before {
+  animation: landing-border-orbit 4s linear infinite;
 }
 .landing-step::before {
   opacity: 0;
@@ -529,7 +531,7 @@
   position: relative;
 }
 .landing[data-motion="on"] .landing-student-featured .landing-button::before {
-  animation: none;
+  animation: landing-border-orbit 3s linear infinite;
 }
 .landing-avatar {
   flex-shrink: 0;
@@ -800,7 +802,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .landing-search::before,
+  .landing[data-motion="on"] .landing-search::before,
   .landing-step::before,
   .landing[data-motion="on"] .landing-student-featured .landing-button::before {
     animation: none;
@@ -812,5 +814,3 @@
     transform: none;
   }
 }
-
-.landing-search:focus-within::before { opacity: 1; }

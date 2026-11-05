@@ -47,3 +47,9 @@ Verification: focused theme/localization/hero playback suite passed 14 tests. Li
 ## User correction: restore How it works
 
 At Mina's request, restored HowItWorks.jsx and howItWorks.css to their pre-motion-follow-up versions. This restores the original scroll-driven reveal/reversal, depth entrances, badge motion and active-step border orbit. Other homepage motion refinements remain. This supersedes the timeline changes described in the motion follow-up above. Reduced-motion and Pause behavior remain supported.
+
+
+### Decorative motion restoration ? 2026-11-05
+
+Restored the requested continuously visible search border lighting (4-second orbit), featured student CTA border lighting (3-second orbit), and original overlapping panel entrance (96px over 1 second). Section reveals remain once per mount; Pause motion and reduced-motion preferences continue to disable animation. Current navigation and other homepage refinements are preserved.
+Verification: production build passed (existing large-chunk warning remains); git diff whitespace check passed. Browser visual verification was not performed for this restoration.
