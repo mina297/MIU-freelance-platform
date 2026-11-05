@@ -37,3 +37,5 @@ Verification of shared-header integration: 25 focused navigation, role/access, r
 Account menu polish: added native-radio layout preview cards with checked and keyboard-focus treatment, profile identity header, compact secondary links and separate sign-out action. Removed the side rail's stretched inner background. Both-placement rendering regression passed. Browser visual verification remains pending.
 
 Layout-picker click repair: the transparent native radio now covers its complete preview card, avoiding label-to-input focus handoff through the blur-dismissed dropdown. Selection restores focus to the account trigger and closes the popup before placement changes. The narrow-screen drawer remains intentional regardless of saved desktop placement. Browser interaction verification remains pending.
+
+Payments spacing repair: ClientPaymentsDashboard owns a centered 1488px maximum container with responsive 16?40px inline padding, bordered wrapping tabs and a bordered demo notice. Applies to payment history and overview under either navigation placement; financial logic is unchanged. Visual browser verification remains pending.

@@ -337,3 +337,6 @@
   .application-navigation__tools .language-control { width: 58px; min-width: 58px; max-width: 58px; }
   .application-navigation .public-preferences .disclosure-panel { position: fixed; inset-inline: 16px; top: 88px; width: auto; }
 }
+
+/* Programmatic route focus must not draw a box around the entire page. */
+.application-shell__content:focus:not(:focus-visible) { outline: none; }
