@@ -15,17 +15,7 @@ export default function LanguageControl() {
         label={t("Language")}
         placeholder={t("Select language")}
       />
-      {language === "ar" && (
-        <span
-          className="language-draft"
-          role="status"
-          title={t(
-            "Arabic interface translation — draft pending team approval",
-          )}
-        >
-          {t("Draft Arabic")}
-        </span>
-      )}
+
     </div>
   );
 }
