@@ -325,5 +325,7 @@ Supersedes the earlier sizing refinement: a raised rounded navigation bar now se
 
 ### Shared navigation surfaces (5 November 2026)
 
+The shared public navbar displays the original transparent MIU anniversary logo. In dark mode, a red drop shadow follows the artwork to give the black lettering more separation from the header.
+
 The shared public header returns to the top of the viewport as soon as the visitor scrolls upward. It hides while scrolling down beyond the header and stays visible while a menu is open or a header control has visible keyboard focus. Reduced motion and the homepage motion toggle skip the sliding transition.
 Routed public pages reuse the homepage floating header, grouped destinations and compact utilities. Signed-in navigation uses matching surfaces and retains role-specific destinations and top/side preference. The application drawer breakpoint is 1280px; public navigation uses 1180px. Each route renders one language control and one theme control.
