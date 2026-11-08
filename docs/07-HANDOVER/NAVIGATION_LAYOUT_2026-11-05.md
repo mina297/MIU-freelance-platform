@@ -39,3 +39,5 @@ Account menu polish: added native-radio layout preview cards with checked and ke
 Layout-picker click repair: the transparent native radio now covers its complete preview card, avoiding label-to-input focus handoff through the blur-dismissed dropdown. Selection restores focus to the account trigger and closes the popup before placement changes. The narrow-screen drawer remains intentional regardless of saved desktop placement. Browser interaction verification remains pending.
 
 Payments spacing repair: ClientPaymentsDashboard owns a centered 1488px maximum container with responsive 16?40px inline padding, bordered wrapping tabs and a bordered demo notice. Applies to payment history and overview under either navigation placement; financial logic is unchanged. Visual browser verification remains pending.
+
+6 November: desktop side navigation selected destination now joins the page canvas with concave corners, mirrored in RTL. Removed the rail-to-content gap and content-side rail border. Uses theme canvas tokens in both themes; horizontal/mobile navigation is unchanged. Browser visual verification pending.
