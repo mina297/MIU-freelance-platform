@@ -1,10 +1,11 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Modal from "../ui/Modal.jsx";
 import { Link, useLocation } from "react-router-dom";
 import {
   ArrowUpRight,
   BriefcaseBusiness,
+  ChevronDown,
   GraduationCap,
   Layers,
   Users,
@@ -21,6 +22,7 @@ import LanguageControl from "../../i18n/LanguageControl.jsx";
 const navigation = [
   {
     label: "Hire Talent",
+    icon: Users,
     eyebrow: "Make your next idea happen",
     links: [
       {
@@ -45,6 +47,7 @@ const navigation = [
   },
   {
     label: "Find Work",
+    icon: BriefcaseBusiness,
     eyebrow: "Build a career around your skills",
     links: [
       {
@@ -70,6 +73,7 @@ const navigation = [
 ];
 
 export default function LandingHeader({ accountAction }) {
+  const drawerGroup = useId();
   const { t } = useLanguage();
   const location = useLocation();
   const header = useRef(null);
@@ -244,14 +248,24 @@ export default function LandingHeader({ accountAction }) {
         title={t("Public navigation")}
         className="public-navigation-drawer"
       >
-        <nav aria-label={t("Public navigation")}>
-          {navigation.map(({ label, links }) => (
-            <section key={label}>
-              <h3>{t(label)}</h3>
-              {renderLinks(links, closeDrawer)}
-            </section>
-          ))}
-        </nav>
+        {drawerOpen && (
+          <nav aria-label={t("Public navigation")} className="public-drawer-groups">
+            {navigation.map(({ label, links, icon: GroupIcon }) => (
+              <details key={label} name={drawerGroup} className="public-drawer-group">
+                <summary>
+                  <span className="public-dropdown-icon">
+                    <GroupIcon size={20} aria-hidden="true" />
+                  </span>
+                  <span>{t(label)}</span>
+                  <ChevronDown size={18} aria-hidden="true" />
+                </summary>
+                <div className="public-drawer-group-links">
+                  {renderLinks(links, closeDrawer)}
+                </div>
+              </details>
+            ))}
+          </nav>
+        )}
         <div
           className="public-drawer-account"
           onClick={(event) => {

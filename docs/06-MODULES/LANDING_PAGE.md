@@ -165,8 +165,12 @@ User correction: How it works retains its original scroll-driven reveals, depth/
 
 ### Homepage navigation - 5 November 2026
 
+The mobile navigation drawer opens with Hire Talent and Find Work collapsed. Tap a group to see its destinations. Opening one group closes the other, and reopening the drawer resets both groups.
+
 LandingHeader now renders a floating rounded bar with grouped desktop destinations and a compact EN/AR selector. Appearance settings use an icon disclosure. Mobile/tablet navigation uses the shared accessible Modal drawer, retaining all existing links and account actions. The hero content and marketplace workflows are unchanged. Browser/real-device visual acceptance remains pending; see DESIGN_SYSTEM.md for design and verification notes.
 
 ### Dropdowns and category cards
+
+The selected Hire or Work option above the hero search uses the same burgundy as the public Sign Up button.
 
 The hero category dropdown layers above the overlapping category section while open. The header uses pill-shaped Sign In and Sign Up controls. Under “Explore your next direction”, category cards reveal in reading order, left to right in English and right to left in Arabic. Cards reset when they leave view and reveal again when reached by scrolling down or back up, with a 70ms stagger between cards that enter together. Focused cards and cards shown with motion paused or reduced are immediately visible. This supports FR-V01, FR-V02 and NFR-01–NFR-03.

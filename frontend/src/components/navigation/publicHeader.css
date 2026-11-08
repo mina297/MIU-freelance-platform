@@ -167,7 +167,7 @@
   min-height: 44px;
   padding: 12px 18px;
   border-radius: 9999px;
-  background: #b71935;
+  background: var(--public-action-background);
   color: #fff;
   font-size: 14px;
   font-weight: 650;
@@ -256,14 +256,48 @@
 .public-mobile-menu {
   display: none;
 }
-.public-navigation-drawer nav section + section {
-  margin-block-start: 24px;
+.public-drawer-groups {
+  display: grid;
+  gap: 10px;
 }
-.public-navigation-drawer h3 {
+.public-drawer-group {
+  border: 1px solid var(--theme-divider, #e3d8de);
+  border-radius: 16px;
+  background: var(--theme-subtle-surface, #f7f4f6);
+}
+.public-drawer-group > summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: inherit;
+  cursor: pointer;
+  font-weight: 650;
+  list-style: none;
+  touch-action: manipulation;
+}
+.public-drawer-group > summary::-webkit-details-marker {
+  display: none;
+}
+.public-drawer-group > summary > svg {
+  margin-inline-start: auto;
+  flex-shrink: 0;
   color: var(--theme-muted-text, #786773);
-  font-size: 12px;
-  font-weight: 700;
-  padding-inline: 12px;
+}
+.public-drawer-group[open] > summary > svg {
+  transform: rotate(180deg);
+}
+.public-drawer-group > summary:active {
+  background: var(--theme-hover, #f0e9ed);
+}
+.public-drawer-group > summary:focus-visible {
+  outline: 3px solid var(--theme-focus, #a5294b);
+  outline-offset: 2px;
+}
+.public-drawer-group-links {
+  margin-inline: 10px;
+  padding-block: 6px 10px;
+  border-block-start: 1px solid var(--theme-divider, #e3d8de);
 }
 .public-drawer-account {
   display: flex;
