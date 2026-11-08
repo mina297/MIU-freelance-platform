@@ -555,12 +555,17 @@ test("all five authentication routes render labeled forms or role selection", as
       if (/^\/(login|register)\b/.test(path)) {
         assert.doesNotMatch(html, /Public navigation/);
         assert.match(html, /class="auth-account-header"/);
-        assert.match(html, /Change account type/);
         assert.match(html, /class="auth-home-link"[^>]*href="\/"/);
         assert.doesNotMatch(html, /class="language-control"|aria-label="Dark mode"/);
-        const mode = path.startsWith("/login") ? "login" : "register";
-        for (const role of ["student", "client"]) {
-          assert.ok(html.includes(`href="/${mode}?role=${role}"`));
+        const signingIn = path.startsWith("/login");
+        if (signingIn || /^\/register\?role=(student|client)$/.test(path)) {
+          assert.match(html, /Change account type/);
+          const mode = signingIn ? "login" : "register";
+          for (const role of ["student", "client"]) {
+            assert.ok(html.includes(`href="/${mode}?role=${role}"`));
+          }
+        } else {
+          assert.doesNotMatch(html, /Change account type/);
         }
       } else {
         assert.match(html, /Public navigation/);

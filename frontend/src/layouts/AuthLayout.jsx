@@ -14,6 +14,9 @@ export default function AuthLayout() {
   const showAccountHeader =
     signingIn || ["/register", "/register/role"].includes(path);
   const role = new URLSearchParams(location.search).get("role");
+  const showAccountType =
+    signingIn ||
+    (path === "/register" && PUBLIC_REGISTRATION_ROLES.includes(role));
 
   return (
     <div className="premium-auth-layout min-h-screen">
@@ -29,25 +32,27 @@ export default function AuthLayout() {
           >
             <img src={logo} alt="" />
           </Link>
-          <Dropdown
-            key={location.key}
-            className="auth-role-menu"
-            label="Change account type"
-          >
-            {(close) =>
-              PUBLIC_REGISTRATION_ROLES.map((option) => (
-                <Link
-                  key={option}
-                  className="disclosure-item"
-                  aria-current={option === role ? "page" : undefined}
-                  to={`${signingIn ? "/login" : "/register"}?role=${option}`}
-                  onClick={close}
-                >
-                  {t(option === ROLES.STUDENT ? "Student" : "Client")}
-                </Link>
-              ))
-            }
-          </Dropdown>
+          {showAccountType && (
+            <Dropdown
+              key={location.key}
+              className="auth-role-menu"
+              label="Change account type"
+            >
+              {(close) =>
+                PUBLIC_REGISTRATION_ROLES.map((option) => (
+                  <Link
+                    key={option}
+                    className="disclosure-item"
+                    aria-current={option === role ? "page" : undefined}
+                    to={`${signingIn ? "/login" : "/register"}?role=${option}`}
+                    onClick={close}
+                  >
+                    {t(option === ROLES.STUDENT ? "Student" : "Client")}
+                  </Link>
+                ))
+              }
+            </Dropdown>
+          )}
         </header>
       ) : (
         <LandingHeader />

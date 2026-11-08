@@ -205,7 +205,7 @@ Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with
 - Public service catalogue: `/services` (details and ordering remain later work).
 - Public marketplace previews: `/projects` renders the Projects Catalogue (P-06), and `/projects/:projectId` renders Project Details (P-07).
 - Mock authentication forms: `/login`, `/register`, `/register/role`, `/forgot-password`, `/reset-password` (Task 02).
-- The compact sign-in and sign-up headers offer Student and Client options. Sign-in URLs with a role preselect the Create an account link. Sign-up options use the existing `/register?role=…` URLs.
+- The compact sign-in header and the Student and Client sign-up forms offer account-type options. The initial registration role picker displays the home logo. Sign-in URLs with a role preselect the Create an account link. Sign-up options use the existing `/register?role=…` URLs.
 - Student/client placeholders: `/verify`, `/verify/pending`.
 - Role-specific dashboard placeholders: `/student/dashboard`, `/client/dashboard`, `/admin`, and the five committee root routes listed above.
 - Registered-user placeholder: `/notifications`.

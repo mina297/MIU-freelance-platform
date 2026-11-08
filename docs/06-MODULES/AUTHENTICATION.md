@@ -123,7 +123,7 @@ The five authentication routes render frontend demonstrations. The Student and C
 
 Egypt is selected by default. The Super Admin can add options for the current app session through Registration settings. The email preference defaults to checked. The agreement starts unchecked and links to the existing public Terms and Privacy placeholders, including the User Agreement section under Terms. The checkbox demonstrates validation while policy approval remains open under OD-13. Sign-up and sign-in show Google buttons that explain the Phase 1 limitation. The preview sends no email and performs no Google authentication.
 
-Sign-up and sign-in use a compact header with the home logo on the left and a Student/Client account-type dropdown on the right. The sign-in form accepts credentials for all active account roles. Its role URL only preselects the destination of the Create an account link. The country dropdown searches the available labels, including translated labels, while registration validates against the current list.
+Sign-up and sign-in use a compact header with the home logo on the left. The Student/Client account-type dropdown appears on the sign-in page and once a visitor opens either registration form. The sign-in form accepts credentials for all active account roles. Its role URL only preselects the destination of the Create an account link. The country dropdown searches the available labels, including translated labels, while registration validates against the current list.
 
 The sign-up card pairs first and last name on wider screens and stacks all fields on narrow screens. Password follows email in a separate full-width row. Dividers separate the consent controls and Google preview from the account fields and primary action.
 
