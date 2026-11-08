@@ -53,3 +53,7 @@ At Mina's request, restored HowItWorks.jsx and howItWorks.css to their pre-motio
 
 Restored the requested continuously visible search border lighting (4-second orbit), featured student CTA border lighting (3-second orbit), and original overlapping panel entrance (96px over 1 second). Section reveals remain once per mount; Pause motion and reduced-motion preferences continue to disable animation. Current navigation and other homepage refinements are preserved.
 Verification: production build passed (existing large-chunk warning remains); git diff whitespace check passed. Browser visual verification was not performed for this restoration.
+
+
+### Preview note spacing ? 8 November 2026
+Fixed the prototype note overlapping skill chips in the homepage profile preview. The general homepage note uses a negative top margin; the dialog now overrides it with positive spacing, a divider and readable line height. Applies to all homepage preview content in both languages/themes. Production build passed; browser visual verification remains pending.

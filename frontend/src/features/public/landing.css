@@ -704,6 +704,15 @@
 .landing-dialog > p {
   margin: 16px 0;
 }
+.landing .landing-dialog > .landing-prototype-note {
+  margin: 20px 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--landing-border);
+  line-height: 1.7;
+}
+.landing-dialog > p { line-height: 1.6; }
+.landing-dialog .landing-skills { gap: 8px; }
+
 @media (max-width: 1000px) {
   .landing-section {
     padding: 52px 24px;
