@@ -113,17 +113,11 @@
   inset-inline-start: auto;
   inset-inline-end: 0;
   width: min(344px, calc(100vw - 32px));
-  padding: 4px;
-  border-radius: 22px;
-  box-shadow: 0 20px 60px -20px #21131f45;
   max-height: calc(100dvh - 110px);
   overflow-y: auto;
-  background: var(--theme-surface, #fff);
-  color: var(--theme-text, #30252c);
-  border: 1px solid var(--theme-divider, #dfd5db);
 }
 /* Account palette: identity, visual placement picker, secondary destinations. */
-.application-account__content { display: grid; gap: 16px; padding: 12px; overflow-wrap: anywhere; }
+.application-account__content { display: grid; gap: 16px; padding: 4px; overflow-wrap: anywhere; }
 .application-account__identity { display: flex; align-items: center; gap: 12px; padding: 4px 4px 16px; border-bottom: 1px solid var(--theme-divider); }
 .application-account__identity > div { min-width: 0; }
 .application-account__identity .application-avatar { width: 44px; height: 44px; border-radius: 14px; }
@@ -289,7 +283,7 @@
     order: 3;
   }
   [data-navigation-layout="side"] .application-account .disclosure-panel {
-    inset-inline-start: calc(100% + 18px);
+    inset-inline-start: 100%;
     inset-inline-end: auto;
     top: 0;
     bottom: auto;
@@ -350,26 +344,26 @@
 .application-navigation__skip:focus { transform: none; }
 .application-navigation__links { min-height: 0; }
 @media (max-width: 1279px) {
-  .application-account .disclosure-panel { position: fixed; inset-inline: 16px; top: 88px; width: auto; max-height: calc(100dvh - 104px); }
+  .application-account .disclosure-panel { max-height: calc(100dvh - 104px); }
 }
 
 .application-account > .disclosure-trigger > svg:last-child { display: none; }
 
 .application-navigation__tools { display: flex; align-items: center; gap: 6px; }
 .application-navigation__tools .language-control { width: 66px; min-width: 66px; max-width: 66px; }
-.application-navigation__tools .miu-field__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-.application-navigation__tools .miu-control { height: 44px; padding-inline: 8px 4px; border-color: transparent; background: transparent; font-size: 16px; }
+.application-navigation__tools .language-control .disclosure-trigger { border-color: transparent; background: transparent; }
 .application-navigation__tools .language-draft { position: absolute; font-size: 9px; white-space: nowrap; }
 @media (min-width: 1280px) {
   [data-navigation-layout="side"] .application-navigation__tools { order: 3; flex-direction: column; }
-  [data-navigation-layout="side"] .public-preferences .disclosure-panel { inset-inline-start: calc(100% + 24px); inset-inline-end: auto; top: auto; bottom: 0; }
+  [data-navigation-layout="side"] .language-control .disclosure-panel { inset-inline-start: 100%; inset-inline-end: auto; top: auto; bottom: 0; }
+  [data-navigation-layout="side"] .public-preferences .disclosure-panel { inset-inline-start: 100%; inset-inline-end: auto; top: auto; bottom: 0; }
 }
 @media (max-width: 600px) {
   .application-navigation__utilities { gap: 4px; }
   .application-navigation__help { display: none; }
   .application-navigation__brand img { width: 76px; height: 44px; }
   .application-navigation__tools .language-control { width: 58px; min-width: 58px; max-width: 58px; }
-  .application-navigation .public-preferences .disclosure-panel { position: fixed; inset-inline: 16px; top: 88px; width: auto; }
+  .application-navigation .public-preferences .disclosure-panel { width: min(240px, calc(100vw - 84px)); }
 }
 
 /* Programmatic route focus must not draw a box around the entire page. */

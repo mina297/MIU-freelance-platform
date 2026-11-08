@@ -291,7 +291,8 @@
   width: 260px;
   inset-inline-start: auto;
   inset-inline-end: 0;
-  padding: 8px;
+  max-height: min(420px, 65dvh);
+  overflow-y: auto;
 }
 .landing-category-heading {
   padding: 10px 12px;
@@ -303,16 +304,8 @@
 }
 .landing-category-option {
   width: 100%;
-  display: flex;
-  align-items: center;
   justify-content: space-between;
   min-height: 42px;
-  padding: 10px 12px;
-  border-radius: 9px;
-  text-align: start;
-}
-.landing-category-option:hover {
-  background: var(--surface-page);
 }
 .landing-category-option[aria-pressed="true"] {
   background: var(--color-miu-red-tint);

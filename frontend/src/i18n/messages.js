@@ -469,7 +469,7 @@ export const ar = {
     "تعرّف على مقدمي خدمات الطلاب من خلال أعمالهم. ابدأ بمهارة، وحدّد نطاقًا واضحًا، واكتشف تعاونك القادم.",
   "Explore talent": "استكشف المواهب",
   "Explore the brief. Find your fit.": "استكشف التفاصيل واختر ما يناسبك.",
-  "Explore your next direction.": "اكتشف اتجاهك القادم.",
+  "Explore your next direction": "اكتشف اتجاهك القادم",
   Extra: "إضافة",
   FAQs: "الأسئلة الشائعة",
   "FROM PROPOSAL TO PROJECT": "من العرض إلى المشروع",

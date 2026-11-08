@@ -11,6 +11,8 @@ OD-13 legal-content approval remain open; this work does not change the SRS.
 
 ## Language and theme behavior
 
+The language picker uses the shared Hire Talent dropdown styling. Its English and Arabic options display their own language names and direction, and a check marks the active choice.
+
 - `src/i18n/LanguageProvider.jsx` owns the shared React language state. Existing
   application and preview theme providers compose it once per application root.
 - English is the first-visit default. Only `miu.language` (`en` or `ar`) persists

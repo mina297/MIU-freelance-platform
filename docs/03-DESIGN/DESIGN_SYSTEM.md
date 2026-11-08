@@ -182,6 +182,8 @@ Avoid horizontal overflow.
 
 ## 7. Components
 
+Use **Hire Talent** as the design reference for every new dropdown unless the project team explicitly requests a different design. Reuse the shared `Dropdown` component and its panel and item styles for the surface, border, shadow, spacing, rounded corners and hover feedback. Keep the trigger and panel connected so the menu closes immediately when the mouse leaves both. Support click, touch, keyboard activation and Escape.
+
 Common interface components include:
 - Buttons
 - Inputs
@@ -290,6 +292,8 @@ Homepage entrances reveal once per mount, using small travel and 240?280ms trans
 
 ## Shared interface motion
 
+The language picker uses the shared dropdown and marks the active language.
+
 Non-homepage shared controls use interface-motion.css, loaded by ThemeProvider. Pointer-opened Dropdown panels and native Modal dialogs progressively enter with 180ms opacity/transform transitions. Shared Button and dashboard sd-button controls use 120ms fine-pointer press feedback; disabled, aria-disabled and busy controls are excluded. Tabs and pagination use brief color feedback without moving content. Keyboard interactions and reduced-motion preferences disable these transitions. Exits remain immediate. No route, table, financial value or informational-card animation is added. Homepage styles remain independent.
 
 Custom feature controls that do not use these classes are not covered. Browser visual validation remains pending; automated component checks do not establish animation smoothness.
@@ -320,4 +324,6 @@ Supersedes the earlier sizing refinement: a raised rounded navigation bar now se
 
 
 ### Shared navigation surfaces (5 November 2026)
+
+The shared public header returns to the top of the viewport as soon as the visitor scrolls upward. It hides while scrolling down beyond the header and stays visible while a menu is open or a header control has visible keyboard focus. Reduced motion and the homepage motion toggle skip the sliding transition.
 Routed public pages reuse the homepage floating header, grouped destinations and compact utilities. Signed-in navigation uses matching surfaces and retains role-specific destinations and top/side preference. The application drawer breakpoint is 1280px; public navigation uses 1180px. Each route renders one language control and one theme control.

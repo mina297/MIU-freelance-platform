@@ -1,5 +1,5 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Modal from "../ui/Modal.jsx";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -72,9 +72,31 @@ const navigation = [
 export default function LandingHeader({ accountAction }) {
   const { t } = useLanguage();
   const location = useLocation();
+  const header = useRef(null);
   const [drawerKey, setDrawerKey] = useState(null);
   const drawerOpen = drawerKey === location.key;
   if (drawerKey !== null && drawerKey !== location.key) setDrawerKey(null);
+  useEffect(() => {
+    const element = header.current;
+    const scroller = document.scrollingElement;
+    if (!element || !scroller) return;
+
+    let previous = Math.max(0, scroller.scrollTop);
+    function updateDirection() {
+      const current = Math.max(
+        0,
+        Math.min(scroller.scrollTop, scroller.scrollHeight - scroller.clientHeight),
+      );
+      if (current === previous) return;
+
+      const hide = current > element.offsetHeight && current > previous;
+      element.toggleAttribute("data-scroll-hidden", hide);
+      previous = current;
+    }
+
+    window.addEventListener("scroll", updateDirection, { passive: true });
+    return () => window.removeEventListener("scroll", updateDirection);
+  }, []);
   useEffect(() => {
     const desktop = window.matchMedia("(min-width: 1180px)");
     const close = () => {
@@ -97,7 +119,12 @@ export default function LandingHeader({ accountAction }) {
   );
   function renderLinks(links, close) {
     return links.map(({ to, title, description, icon: ItemIcon }) => (
-      <Link key={to} to={to} onClick={close} className="public-dropdown-link">
+      <Link
+        key={to}
+        to={to}
+        onClick={close}
+        className="disclosure-item public-dropdown-link"
+      >
         <span className="public-dropdown-icon">
           <ItemIcon size={20} aria-hidden="true" />
         </span>
@@ -110,7 +137,7 @@ export default function LandingHeader({ accountAction }) {
     ));
   }
   return (
-    <header className="public-header">
+    <header ref={header} className="public-header">
       <div className="public-header-inner">
         <Link
           to="/"

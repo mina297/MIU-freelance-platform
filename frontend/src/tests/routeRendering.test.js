@@ -211,6 +211,8 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     assert.match(html, /aria-pressed="true">Work<\/button>/);
     assert.match(html, /All categories/);
     assert.match(html, /Explore categories/);
+    assert.match(html, /class="disclosure-item landing-category-option"/);
+    assert.match(html, /id="categories-title">Explore your next direction<\/h2>/);
     assert.doesNotMatch(
       html,
       /Phase 1 demo session controls|Simulated session controls|Demo navigation/,
@@ -224,6 +226,7 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
       (html.match(/class="landing-category-card"/g) ?? []).length,
       7,
     );
+    assert.equal((html.match(/data-reveal-repeat="true"/g) ?? []).length, 7);
     assert.equal((html.match(/class="landing-step-number"/g) ?? []).length, 3);
     assert.match(html, /<ol class="landing-timeline-list">/);
     assert.doesNotMatch(html, /data-motion-ready="true"/);
@@ -237,8 +240,8 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     );
     assert.match(html, /Hire Talent/);
     assert.match(html, /Find Work/);
-    // Desktop disclosures, appearance settings, category picker and mobile drawer.
-    assert.equal((html.match(/aria-expanded="false"/g) ?? []).length, 5);
+    // Desktop disclosures, language, appearance, category picker and mobile drawer.
+    assert.equal((html.match(/aria-expanded="false"/g) ?? []).length, 6);
     assert.match(html, /aria-label="Open navigation" aria-haspopup="dialog"/);
     assert.match(html, /href="\/#student-talent"/);
     assert.match(html, /href="\/register\?role=student"/);

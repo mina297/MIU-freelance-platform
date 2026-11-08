@@ -131,6 +131,8 @@ keyboard and animation smoothness acceptance remains pending: the in-app browser
 timed out connecting to localhost, and native Chrome control stopped because the
 automation tool could not confidently determine the browser URL.
 
+The wave uses the same SVG outline for the animated arm layer and its cutout from the static body. The outline includes the full outer finger so it follows the hand through the wave.
+
 Validation: all 13 chatbot model/render tests passed; frontend lint and production
 build passed (the existing application chunk-size warning remains). Feature lint,
 formatting and diff whitespace checks also passed. The earlier circular-launcher

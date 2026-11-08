@@ -264,7 +264,7 @@ export default function LandingPage() {
                   <button
                     type="button"
                     key={value}
-                    className="landing-category-option"
+                    className="disclosure-item landing-category-option"
                     aria-pressed={category === value}
                     onClick={() => {
                       setCategory(value);

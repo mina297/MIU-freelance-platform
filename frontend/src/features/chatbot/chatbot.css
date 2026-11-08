@@ -119,12 +119,7 @@
 .chatbot-widget .chatbot-actions .disclosure-panel {
   inset-inline-start: auto;
   inset-inline-end: 0;
-  top: calc(100% + 3px);
   width: min(228px, calc(100vw - 62px));
-  padding: 8px;
-  border-color: var(--theme-border, #e6dde2);
-  border-radius: 15px;
-  color: var(--theme-text, #35212c);
   transform-origin: top right;
 }
 [dir="rtl"] .chatbot-widget .chatbot-actions .disclosure-panel {
@@ -144,7 +139,7 @@
   min-height: 40px;
   padding: 8px 10px;
   border: 0;
-  border-radius: 8px;
+  border-radius: 12px;
   background: transparent;
   color: inherit;
   font: 12px/1.5 var(--font-sans);

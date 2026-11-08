@@ -1,11 +1,24 @@
 /* Homepage navigation: raised brand bar, grouped destinations, quiet utilities. */
 .public-header {
-  position: relative;
+  position: sticky;
+  inset-block-start: 0;
   z-index: 30;
   padding: 16px 24px;
   background: var(--theme-canvas, #f6f2f4);
   font-family: var(--font-sans);
   color: var(--theme-text, #30252c);
+}
+.public-header[data-scroll-hidden]:not(:has(:focus-visible, [aria-expanded="true"])) {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .public-header:not(:has(:focus-visible)) {
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .homepage-theme:has(.landing[data-motion="off"]) .public-header {
+    transition: none;
+  }
 }
 .public-header-inner {
   max-width: 1440px;
@@ -92,7 +105,7 @@
   min-width: 66px;
   max-width: 66px;
 }
-.public-header .language-control .miu-control {
+.public-header .language-control .disclosure-trigger {
   border-color: transparent;
   background-color: transparent;
   border-radius: 10px;
@@ -131,6 +144,7 @@
 }
 .public-sign-in {
   padding: 12px;
+  border-radius: 9999px;
   font-size: 14px;
   font-weight: 600;
   white-space: nowrap;
@@ -142,7 +156,7 @@
   gap: 8px;
   min-height: 44px;
   padding: 12px 18px;
-  border-radius: 12px;
+  border-radius: 9999px;
   background: #b71935;
   color: #fff;
   font-size: 14px;
@@ -156,11 +170,6 @@
 .public-nav-dropdown .disclosure-panel {
   width: 352px;
   max-width: calc(100vw - 32px);
-  padding: 12px;
-  border-radius: 20px;
-  border: 1px solid var(--theme-divider, #e3d8de);
-  background: var(--theme-overlay, #fff);
-  box-shadow: 0 18px 48px -24px #30252c55;
 }
 .public-dropdown-eyebrow {
   padding: 10px 12px 14px;
@@ -171,14 +180,8 @@
   text-transform: uppercase;
 }
 .public-dropdown-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
   min-height: 64px;
   padding: 12px;
-  border-radius: 12px;
-  color: inherit;
-  text-decoration: none;
 }
 .public-dropdown-icon {
   display: grid;
@@ -214,13 +217,8 @@
 .public-account-menu .disclosure-panel {
   inset-inline-start: auto;
   inset-inline-end: 0;
-  padding: 12px;
   width: 240px;
   max-width: calc(100vw - 32px);
-  border: 1px solid var(--theme-divider, #e3d8de);
-  border-radius: 16px;
-  background: var(--theme-overlay, #fff);
-  color: var(--theme-text, #30252c);
 }
 .public-preferences-content {
   display: flex;
@@ -238,7 +236,7 @@
   align-items: center;
   min-height: 44px;
   padding: 10px 12px;
-  border-radius: 10px;
+  border-radius: 12px;
   background: transparent;
   color: inherit;
   font-size: 14px;
@@ -268,8 +266,10 @@
 }
 @media (hover: hover) and (pointer: fine) {
   .public-header
-    :is(.public-nav-link, .public-dropdown-link, .public-sign-in):hover,
+    :is(.public-nav-link, .public-sign-in):hover,
+  .public-account-menu__actions :is(a, button):hover,
   .public-nav-dropdown > .disclosure-trigger:hover,
+  .public-header .language-control .disclosure-trigger:hover,
   .public-preferences > .disclosure-trigger:hover,
   .public-account-menu > .disclosure-trigger:hover,
   .public-account-menu__actions :is(a, button):hover {
@@ -334,9 +334,6 @@
     max-width: 58px;
   }
   .public-preferences .disclosure-panel {
-    position: fixed;
-    inset-inline: 16px;
-    top: 88px;
-    width: auto;
+    width: min(240px, calc(100vw - 84px));
   }
 }

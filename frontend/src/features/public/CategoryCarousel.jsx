@@ -62,7 +62,7 @@ export default function CategoryCarousel({
         >
           <div>
             <p className="landing-eyebrow">{t("A world of possibilities")}</p>
-            <h2 id="categories-title">{t("Explore your next direction.")}</h2>
+            <h2 id="categories-title">{t("Explore your next direction")}</h2>
           </div>
           <div
             className="landing-carousel-controls"
@@ -102,7 +102,8 @@ export default function CategoryCarousel({
                 type="button"
                 className="landing-category-card"
                 data-reveal
-                style={{ "--reveal-delay": `${Math.min(index, 4) * 85}ms` }}
+                data-reveal-repeat
+                style={{ "--reveal-delay": `${index * 70}ms` }}
                 aria-pressed={category === value}
                 onClick={() => onSelect(value)}
               >

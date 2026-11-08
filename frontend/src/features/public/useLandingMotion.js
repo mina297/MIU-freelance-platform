@@ -14,7 +14,7 @@ export function useReducedMotion() {
   );
 }
 
-// Reveal once per mount; returning to content must not hide it again.
+// Panels reveal once. Cards can opt into replay as they re-enter view.
 export function useScrollReveal(ref, enabled) {
   useEffect(() => {
     const root = ref.current;
@@ -22,7 +22,9 @@ export function useScrollReveal(ref, enabled) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          if (entry.target.hasAttribute("data-reveal-repeat")) {
+            entry.target.classList.toggle("is-visible", entry.isIntersecting);
+          } else if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
             observer.unobserve(entry.target);
           }

@@ -22,15 +22,31 @@
 }
 .disclosure-panel {
   position: absolute;
-  top: calc(100% + 12px);
+  top: 100%;
   inset-inline-start: 0;
   z-index: 40;
-  border: 1px solid var(--border-soft);
-  border-radius: 16px;
-  background: var(--theme-overlay, white);
-  box-shadow:
-    0 20px 60px rgb(17 17 17 / 12%),
-    0 4px 12px rgb(17 17 17 / 4%);
+  padding: 12px;
+  border: 1px solid var(--theme-divider, #e3d8de);
+  border-radius: 20px;
+  background: var(--theme-overlay, #fff);
+  color: var(--theme-text, #30252c);
+  box-shadow: 0 18px 48px -24px #30252c55;
+}
+.disclosure-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: inherit;
+  text-align: start;
+  text-decoration: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .disclosure-item:hover {
+    background: var(--theme-hover, #f0e9ed);
+    color: var(--theme-accent, #a82242);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .disclosure-trigger svg {

@@ -267,6 +267,8 @@ test("all registered routes render in both languages with one language control a
         `${url}: ${language}`,
       );
       assert.ok(html.includes(language === "ar" ? "اللغة" : "Language"));
+      assert.match(html, /class="language-control"><div class="disclosure /);
+      assert.match(html, /class="disclosure-item language-menu-option"[^>]*aria-pressed="true"/);
     }
   }
   assert.equal(JSON.stringify(routeConfig), beforeRoutes);

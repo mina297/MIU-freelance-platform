@@ -10,7 +10,7 @@ export default function AssistantCharacter({ enabled = true }) {
   const gaze = useRef(null);
   const floatAnimation = useRef(null);
   const waveAnimation = useRef(null);
-  const arm = "M205 400H390L412 604L404 651L373 675L333 653L271 568Z";
+  const arm = "M205 400H390L412 604L404 651L373 675L333 653L271 568L205 540Z";
 
   useEffect(() => {
     // Preload explicitly: SVG image load delivery varies between browsers/cache hits.
