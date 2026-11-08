@@ -48,6 +48,12 @@ Recommendation methods, scoring, and fairness evaluation require later design.
 
 ### 2.3 AI Chatbot
 
+The composer's left-side question-mark button opens six public FAQs above the input by hover or activation.
+Clicking outside the widget minimizes it and preserves the current conversation and draft.
+Choosing a question adds it and its canned reply to the conversation, with links
+to the relevant public pages, including Terms, Privacy and role selection.
+Suggested questions, replies and link labels follow the current interface language.
+
 #### Approved compact messenger and public guidance — 3 November 2026
 
 Current team direction explicitly makes the assistant available before sign-in or

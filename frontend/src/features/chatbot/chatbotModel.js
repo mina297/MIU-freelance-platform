@@ -1,4 +1,5 @@
 import { isActiveUser } from "../auth/session.js";
+import { publicDestinations } from "../../app/publicDestinations.js";
 
 export const MAX_MESSAGE_LENGTH = 500;
 export const WELCOME_MESSAGE = "Hi 👋 How can I help you with MIU Freelance?";
@@ -50,8 +51,30 @@ export const QUICK_ACTIONS = Object.freeze([
   },
 ]);
 
+export const FAQ_ACTIONS = Object.freeze([
+  { ...QUICK_ACTIONS[0], label: "About this platform" },
+  ...QUICK_ACTIONS.slice(1),
+  {
+    id: "policies",
+    label: "Policies",
+    question: "Where can I read the platform policies?",
+    text: "You can read the platform’s Terms of Service and Privacy Policy on these pages.",
+    links: [
+      { label: "Terms of Service", to: publicDestinations.terms },
+      { label: "Privacy Policy", to: publicDestinations.privacy },
+    ],
+  },
+  {
+    id: "signup",
+    label: "How to sign up",
+    question: "How do I sign up?",
+    text: "Open Sign Up, choose Student Freelancer or Client, then fill out the registration form for that role. You can browse public projects and services before creating an account.",
+    links: [{ label: "Create an account", to: publicDestinations.signup }],
+  },
+]);
+
 export const GUIDANCE_ROUTES = new Set(
-  QUICK_ACTIONS.flatMap(({ links }) => links.map(({ to }) => to)),
+  FAQ_ACTIONS.flatMap(({ links }) => links.map(({ to }) => to)),
 );
 
 // First matching whole-word topic/phrase wins in this explicit order. Generic
@@ -104,7 +127,7 @@ export function validateMessage(value) {
 export function getChatbotReply(value) {
   const error = validateMessage(value);
   if (error) return { error };
-  const action = QUICK_ACTIONS.find(
+  const action = FAQ_ACTIONS.find(
     ({ question }) => question.toLowerCase() === value.trim().toLowerCase(),
   );
   if (action)
@@ -138,7 +161,7 @@ export function syncConversation(state, session) {
   return state.accountId === accountId ? state : createConversation(accountId);
 }
 
-export function sendMessage(state, value) {
+export function sendMessage(state, value, { suggested = false } = {}) {
   const reply = getChatbotReply(value);
   if (reply.error) return { ...state, error: reply.error };
   return {
@@ -148,7 +171,12 @@ export function sendMessage(state, value) {
     nextId: state.nextId + 2,
     messages: [
       ...state.messages,
-      { id: `message-${state.nextId}`, author: "user", text: value.trim() },
+      {
+        id: `message-${state.nextId}`,
+        author: "user",
+        text: value.trim(),
+        ...(suggested ? { suggested: true } : {}),
+      },
       {
         id: `message-${state.nextId + 1}`,
         author: "assistant",

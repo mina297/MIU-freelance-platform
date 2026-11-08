@@ -5,13 +5,43 @@ import {
   FALLBACK_REPLY,
   SUGGESTED_QUESTIONS,
   QUICK_ACTIONS,
+  FAQ_ACTIONS,
   getChatbotReply,
   validateMessage,
   createConversation,
   syncConversation,
   sendMessage,
 } from "./chatbotModel.js";
+import { routeConfig } from "../../app/routeConfig.js";
+import { translate } from "../../i18n/translate.js";
 import { INITIAL_SESSION, ROLES, sessionReducer } from "../auth/session.js";
+
+test("all six FAQs give guests localized guidance with public links", () => {
+  assert.equal(FAQ_ACTIONS.length, 6);
+  for (const { label, question } of FAQ_ACTIONS) {
+    const conversation = sendMessage(createConversation(), question, {
+      suggested: true,
+    });
+    const [, prompt, answer] = conversation.messages;
+    assert.equal(prompt.suggested, true);
+    for (const phrase of [label, prompt.text, answer.text])
+      assert.match(translate("ar", phrase), /\p{Script=Arabic}/u, phrase);
+    assert.ok(answer.links.length > 0, label);
+    for (const link of answer.links) {
+      assert.match(
+        translate("ar", link.label),
+        /\p{Script=Arabic}/u,
+        link.label,
+      );
+      assert.ok(
+        routeConfig.some(
+          ({ path, access }) => path === link.to && access === "public",
+        ),
+        link.to,
+      );
+    }
+  }
+});
 
 const user = {
   id: "chat-student",

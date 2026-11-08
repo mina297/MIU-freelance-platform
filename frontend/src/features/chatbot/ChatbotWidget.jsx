@@ -1,4 +1,11 @@
-import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { Link } from "react-router-dom";
 import {
   X,
@@ -26,6 +33,7 @@ import {
   sendMessage,
   MAX_MESSAGE_LENGTH,
   QUICK_ACTIONS,
+  FAQ_ACTIONS,
   GUIDANCE_ROUTES,
 } from "./chatbotModel.js";
 import "./chatbot.css";
@@ -39,7 +47,7 @@ const ACTION_ICONS = {
 
 export function ChatbotMessages({ messages }) {
   const { t } = useLanguage();
-  return messages.map(({ id, author, text, links }) => (
+  return messages.map(({ id, author, text, links, suggested }) => (
     <div key={id} className={`chatbot-message chatbot-message--${author}`}>
       {author === "assistant" && (
         <img
@@ -55,7 +63,9 @@ export function ChatbotMessages({ messages }) {
           {t(author === "user" ? "You" : "Simulated assistant")}
         </span>
         <div className="chatbot-bubble">
-          <p dir="auto">{author === "assistant" ? t(text) : text}</p>
+          <p dir="auto">
+            {author === "assistant" || suggested ? t(text) : text}
+          </p>
         </div>
         {links?.some(({ to }) => GUIDANCE_ROUTES.has(to)) && (
           <div className="chatbot-guidance-links">
@@ -80,6 +90,7 @@ export default function ChatbotWidget() {
   const conversation = syncConversation(stored, session);
   if (conversation !== stored) setConversation(conversation);
   const panelId = useId();
+  const widget = useRef(null);
   const launcher = useRef(null);
   const input = useRef(null);
   const transcript = useRef(null);
@@ -133,17 +144,34 @@ export default function ChatbotWidget() {
       transcript.current.scrollTop = transcript.current.scrollHeight;
   }, [conversation.open, conversation.messages]);
 
-  function capture(event) {
+  const capture = useCallback((event) => {
     previousPosition.current = mascot.current?.getBoundingClientRect();
     motionAllowed.current = event?.detail > 0;
-  }
-  function minimize(event) {
-    capture(event);
-    setConversation((state) => ({ ...state, open: false }));
-    launcher.current?.focus({ preventScroll: true });
-  }
-  function send(value) {
-    setConversation((state) => sendMessage(state, value));
+  }, []);
+
+  const minimize = useCallback(
+    (event, { restoreFocus = true } = {}) => {
+      capture(event);
+      setConversation((state) => ({ ...state, open: false }));
+      if (restoreFocus) launcher.current?.focus({ preventScroll: true });
+    },
+    [capture],
+  );
+
+  useEffect(() => {
+    if (!conversation.open) return;
+
+    function dismissOnOutsideClick(event) {
+      if (event.composedPath().includes(widget.current)) return;
+      minimize(event, { restoreFocus: false });
+    }
+
+    document.addEventListener("click", dismissOnOutsideClick, true);
+    return () =>
+      document.removeEventListener("click", dismissOnOutsideClick, true);
+  }, [conversation.open, minimize]);
+  function send(value, options) {
+    setConversation((state) => sendMessage(state, value, options));
     input.current?.focus({ preventScroll: true });
   }
   function action(event, close, update) {
@@ -154,6 +182,7 @@ export default function ChatbotWidget() {
 
   return (
     <aside
+      ref={widget}
       className="chatbot-widget"
       data-open={conversation.open}
       data-collapsed={conversation.collapsed}
@@ -257,7 +286,7 @@ export default function ChatbotWidget() {
                   <Button
                     key={id}
                     variant="outline"
-                    onClick={() => send(question)}
+                    onClick={() => send(question, { suggested: true })}
                   >
                     <Icon size={16} aria-hidden="true" />
                     {t(label)}
@@ -276,6 +305,32 @@ export default function ChatbotWidget() {
               send(conversation.draft);
             }}
           >
+            <Dropdown
+              label="?"
+              className="chatbot-actions chatbot-faq"
+              triggerProps={{ "aria-label": t("Frequently asked questions") }}
+            >
+              {(close) => (
+                <>
+                  <p className="chatbot-actions-title">
+                    {t("Frequently asked questions")}
+                  </p>
+                  {FAQ_ACTIONS.map(({ id, label, question }) => (
+                    <button
+                      key={id}
+                      type="button"
+                      onClick={(event) =>
+                        action(event, close, () =>
+                          send(question, { suggested: true }),
+                        )
+                      }
+                    >
+                      {t(label)}
+                    </button>
+                  ))}
+                </>
+              )}
+            </Dropdown>
             <Input
               ref={input}
               label={t("Your message")}

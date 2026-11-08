@@ -1,5 +1,6 @@
 // Draft Arabic wording for the public guidance assistant.
 export default {
+  "?": "؟",
   "Hi 👋 How can I help you with MIU Freelance?":
     "أهلًا 👋 كيف أساعدك في منصة MIU للعمل الحر؟",
   "Questions? I’m here to help.": "لديك سؤال؟ أنا هنا لمساعدتك.",
@@ -15,6 +16,18 @@ export default {
   "Expand view": "توسيع العرض",
   "New conversation": "محادثة جديدة",
   "About the platform": "عن المنصة",
+  "About this platform": "عن المنصة",
+  "Frequently asked questions": "الأسئلة الشائعة",
+  "Find work": "ابحث عن عمل",
+  "Hire talent": "وظّف مستقلًا",
+  Policies: "السياسات",
+  "How to sign up": "كيفية التسجيل",
+  "Where can I read the platform policies?": "أين أقرأ سياسات المنصة؟",
+  "How do I sign up?": "كيف أنشئ حسابًا؟",
+  "You can read the platform’s Terms of Service and Privacy Policy on these pages.":
+    "يمكنك قراءة شروط خدمة المنصة وسياسة الخصوصية في الصفحات التالية.",
+  "Open Sign Up, choose Student Freelancer or Client, then fill out the registration form for that role. You can browse public projects and services before creating an account.":
+    "افتح صفحة التسجيل، واختر طالبًا مستقلًا أو عميلًا، ثم املأ نموذج التسجيل المناسب. يمكنك تصفح المشاريع والخدمات العامة قبل إنشاء حساب.",
   "What is MIU Freelance?": "ما هي منصة MIU للعمل الحر؟",
   "How does MIU Freelance work?": "كيف تعمل منصة MIU للعمل الحر؟",
   "I want to find work": "أبحث عن عمل",
