@@ -71,6 +71,7 @@ Additional proposed routes may include:
 | `/client/orders`       | Client order history                 |
 | `/wallet/transactions` | Transaction history                  |
 | `/admin/roles`         | Administrative permission management |
+| `/admin?section=registration` | Super Admin management of the sign-up country list |
 | `/access-denied`       | Authorization error                  |
 | `/session-expired`     | Session recovery                     |
 | `*`                    | Not-found route                      |
@@ -204,6 +205,7 @@ Task 01 (22 October 2026) adds React Router through `frontend/src/App.jsx`, with
 - Public service catalogue: `/services` (details and ordering remain later work).
 - Public marketplace previews: `/projects` renders the Projects Catalogue (P-06), and `/projects/:projectId` renders Project Details (P-07).
 - Mock authentication forms: `/login`, `/register`, `/register/role`, `/forgot-password`, `/reset-password` (Task 02).
+- The compact sign-in and sign-up headers offer Student and Client options. Sign-in URLs with a role preselect the Create an account link. Sign-up options use the existing `/register?role=…` URLs.
 - Student/client placeholders: `/verify`, `/verify/pending`.
 - Role-specific dashboard placeholders: `/student/dashboard`, `/client/dashboard`, `/admin`, and the five committee root routes listed above.
 - Registered-user placeholder: `/notifications`.

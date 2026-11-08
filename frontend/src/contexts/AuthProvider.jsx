@@ -7,10 +7,20 @@ import { createMockAuthStore } from "../features/auth/mockAuth.js";
 export default function AuthProvider({ children }) {
   const [session, dispatch] = useReducer(sessionReducer, INITIAL_SESSION);
   const [accounts] = useState(() => createMockAuthStore(mockUsers));
+  const [registrationSettings, setRegistrationSettings] = useState(
+    accounts.getRegistrationSettings,
+  );
   return (
     <AuthContext.Provider
       value={{
         session,
+        registrationSettings,
+        addRegistrationCountry: (values) => {
+          const result = accounts.addRegistrationCountry(session, values);
+          if (result.ok)
+            setRegistrationSettings(accounts.getRegistrationSettings());
+          return result;
+        },
         startDemoSession: (userId) =>
           dispatch({
             type: "start",

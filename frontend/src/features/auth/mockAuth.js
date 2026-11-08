@@ -1,6 +1,7 @@
 import {
   isActiveUser,
   PUBLIC_REGISTRATION_ROLES,
+  ROLES,
   toSessionUser,
 } from "./session.js";
 
@@ -18,15 +19,30 @@ export const passwordError = (password) =>
     ? ""
     : "Use at least 8 characters, including a letter and a number.";
 
-export function validateRegistration(values) {
+const initialCountries = Object.freeze(["Egypt"]);
+
+export function validateRegistration(values, countries = initialCountries) {
   const errors = {};
-  if (typeof values.fullName !== "string" || !values.fullName.trim())
-    errors.fullName = "Enter your full name.";
-  if (emailError(values.email)) errors.email = emailError(values.email);
+  if (typeof values.firstName !== "string" || !values.firstName.trim())
+    errors.firstName = "Enter your first name.";
+  if (typeof values.lastName !== "string" || !values.lastName.trim())
+    errors.lastName = "Enter your last name.";
+  if (!countries.includes(values.country))
+    errors.country = "Choose an available country.";
+  if (values.acceptTerms !== true)
+    errors.acceptTerms = "Accept the terms to create an account.";
+  const email = normalizeEmail(values.email);
+  const invalidEmail = emailError(email);
+  if (invalidEmail) {
+    errors.email = invalidEmail;
+  } else if (
+    values.role === ROLES.STUDENT &&
+    !email.endsWith("@miuegypt.edu.eg")
+  ) {
+    errors.email = "Use your university email ending in @miuegypt.edu.eg.";
+  }
   if (passwordError(values.password))
     errors.password = passwordError(values.password);
-  if (!values.confirmPassword || values.password !== values.confirmPassword)
-    errors.confirmPassword = "Passwords must match.";
   if (!PUBLIC_REGISTRATION_ROLES.includes(values.role))
     errors.role = "Choose Student or Client.";
   return errors;
@@ -44,26 +60,82 @@ export function createMockAuthStore(fixtures = []) {
     ]),
   );
   const passwords = new Map();
+  let settings = { countries: initialCountries, audit: [] };
   let nextId = 1;
   const findByEmail = (email) =>
     [...accounts.values()].find((user) => user.email === normalizeEmail(email));
   return {
+    getRegistrationSettings: () => settings,
+    addRegistrationCountry(session, { country, reason }) {
+      if (
+        session.status !== "authenticated" ||
+        !isActiveUser(session.user) ||
+        session.user.role !== ROLES.SUPER_ADMIN
+      ) {
+        return {
+          ok: false,
+          message: "Only the Super Admin can add countries.",
+        };
+      }
+      const name =
+        typeof country === "string"
+          ? country.trim().normalize("NFC").replace(/\s+/g, " ")
+          : "";
+      if (name.length > 80 || !/^\p{L}[\p{L}\p{M} .’'()-]*$/u.test(name)) {
+        return { ok: false, message: "Enter a country name." };
+      }
+      if (
+        settings.countries.some(
+          (item) => item.toLowerCase() === name.toLowerCase(),
+        )
+      ) {
+        return { ok: false, message: "This country is already available." };
+      }
+      if (typeof reason !== "string" || !reason.trim()) {
+        return { ok: false, message: "A decision reason is required." };
+      }
+      settings = {
+        countries: Object.freeze([...settings.countries, name]),
+        audit: [
+          {
+            id: `registration-country-${name}`,
+            timestamp: new Date().toISOString(),
+            actor: session.user.displayName,
+            action: "Add registration country",
+            target: name,
+            reason: reason.trim(),
+            before: "Unavailable",
+            after: "Available",
+            result: "Simulated success",
+          },
+          ...settings.audit,
+        ],
+      };
+      return { ok: true, message: "Country added to the sign-up list." };
+    },
     findUser(id) {
       const user = accounts.get(id);
       return user ? toSessionUser(user) : undefined;
     },
     register(values) {
-      const errors = validateRegistration(values);
-      if (findByEmail(values.email))
+      const errors = validateRegistration(values, settings.countries);
+      if (!errors.email && findByEmail(values.email))
         errors.email = "This email address is already in use.";
       if (Object.keys(errors).length) return { ok: false, errors };
       let id;
       do {
         id = `registered_${nextId++}`;
       } while (accounts.has(id));
+      const firstName = values.firstName.trim();
+      const lastName = values.lastName.trim();
       const user = {
         id,
-        displayName: values.fullName.trim(),
+        firstName,
+        lastName,
+        displayName: `${firstName} ${lastName}`,
+        country: values.country,
+        emailSubscription: values.emailSubscription === true,
+        acceptTerms: true,
         email: normalizeEmail(values.email),
         role: values.role,
         accountStatus: "active",

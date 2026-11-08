@@ -73,3 +73,7 @@ and stores screenshots in the OS temporary directory. It also verifies direct
 and the existing layout across five screen widths. No browser
 dependency is added to the application. These checks do not certify production
 security or full accessibility conformance.
+
+## Registration settings
+
+Under `/admin?section=registration`, an active Super Admin can add a country name to the public sign-up list (FR-A01, FR-A10). Egypt is the initial option. An addition requires a reason and creates an entry in Reports & audit with the actor, time, country, and outcome. Duplicate names are rejected regardless of case. The list and its audit entries live for the current app session and reset on refresh. Country selection is independent of EGP pricing.

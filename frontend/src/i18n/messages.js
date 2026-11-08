@@ -5,6 +5,46 @@ import help from "./helpMessages.js";
 import chatbot from "./chatbotMessages.js";
 // Draft Modern Standard Arabic interface wording; team approval pending.
 export const ar = {
+  "University Email": "البريد الإلكتروني الجامعي",
+  "Use your university email ending in @miuegypt.edu.eg.":
+    "استخدم بريدك الإلكتروني الجامعي الذي ينتهي بـ @miuegypt.edu.eg.",
+  "First name": "الاسم الأول",
+  "Last name": "اسم العائلة",
+  Country: "الدولة",
+  "Choose a country": "اختر الدولة",
+  "Search countries": "ابحث عن دولة",
+  "No countries found.": "لا توجد دول مطابقة.",
+  Egypt: "مصر",
+  "Enter your first name.": "أدخل اسمك الأول.",
+  "Enter your last name.": "أدخل اسم العائلة.",
+  "Choose an available country.": "اختر دولة من القائمة.",
+  "Accept the terms to create an account.": "وافق على الشروط لإنشاء حساب.",
+  "Show {value0}": "إظهار {value0}",
+  "Hide {value0}": "إخفاء {value0}",
+  "Sign in with Google": "تسجيل الدخول باستخدام Google",
+  "Sign up with Google": "إنشاء حساب باستخدام Google",
+  "Google authentication is unavailable in this prototype. Use the email form with test details.":
+    "تسجيل الدخول باستخدام Google غير متاح في النموذج الأولي. استخدم نموذج البريد الإلكتروني ببيانات تجريبية.",
+  "Send me helpful emails to find rewarding work and job leads.":
+    "أرسلوا لي رسائل بريد إلكتروني تساعدني في العثور على عمل مجزٍ وفرص وظيفية.",
+  "Yes, I understand and agree to the {terms}, including the {agreement} and {privacy}.":
+    "نعم، أفهم وأوافق على {terms}، بما في ذلك {agreement} و{privacy}.",
+  "Terms of Service": "شروط الخدمة",
+  "User Agreement": "اتفاقية المستخدم",
+  "Privacy Policy": "سياسة الخصوصية",
+  "The User Agreement is awaiting team approval.": "اتفاقية المستخدم بانتظار اعتماد فريق المشروع.",
+  "Required for this prototype. Policy links open in a new tab.":
+    "الموافقة مطلوبة في النموذج الأولي. تُفتح روابط السياسات في علامة تبويب جديدة.",
+  "Registration settings": "إعدادات التسجيل",
+  "Registration countries": "الدول المتاحة للتسجيل",
+  "These countries appear in the sign-up form until the page is refreshed.":
+    "تظهر هذه الدول في نموذج التسجيل حتى إعادة تحميل الصفحة.",
+  "Add country": "إضافة دولة",
+  "Country name": "اسم الدولة",
+  "Enter a country name.": "أدخل اسم الدولة.",
+  "This country is already available.": "هذه الدولة متاحة بالفعل.",
+  "Country added to the sign-up list.": "تمت إضافة الدولة إلى قائمة التسجيل.",
+  "Only the Super Admin can add countries.": "يمكن للمسؤول العام وحده إضافة الدول.",
   "Main navigation": "القائمة الرئيسية",
   "More navigation": "المزيد من الروابط",
   "Account menu": "قائمة الحساب",

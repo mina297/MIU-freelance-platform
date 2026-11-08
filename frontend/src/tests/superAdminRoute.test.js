@@ -22,6 +22,7 @@ test("SuperAdmin preview renders its full shell on direct and case-variant URLs"
       "/superadmin",
       "/SUPERADMIN",
       "/SuperAdmin?section=finance",
+      "/SuperAdmin?section=registration",
     ]) {
       const html = renderToStaticMarkup(
         React.createElement(
@@ -37,6 +38,7 @@ test("SuperAdmin preview renders its full shell on direct and case-variant URLs"
       assert.match(html, /admin-center/);
       assert.match(html, /Super Admin sections/);
       assert.match(html, /Financial overview/);
+      assert.doesNotMatch(html, /Registration settings|Add country/);
       assert.doesNotMatch(html, /routing placeholder only/);
       assert.doesNotMatch(html, /Development:\s*Switch dashboard/);
       assert.doesNotMatch(html, /dev-dashboard-navigation/);

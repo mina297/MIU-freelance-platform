@@ -1,5 +1,7 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useId, useRef, useState } from "react";
+import { ArrowRight, Eye, EyeOff } from "lucide-react";
+import CountryDropdown from "./CountryDropdown.jsx";
 import "./authForm.css";
 
 /** Feature-local form presentation; validation and account logic live in mockAuth. */
@@ -11,12 +13,15 @@ export default function AuthForm({
   onSubmit,
   afterSubmit,
   children,
+  wide = false,
+  pillSubmit = false,
 }) {
   const { t } = useLanguage();
 
   const id = useId();
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
+  const [visiblePasswords, setVisiblePasswords] = useState({});
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const busy = useRef(false);
@@ -26,6 +31,7 @@ export default function AuthForm({
     busy.current = true;
     setSubmitting(true);
     setMessage("");
+    setVisiblePasswords({});
     try {
       const result = await onSubmit(values);
       setErrors(result.errors || {});
@@ -49,7 +55,10 @@ export default function AuthForm({
   }
   return (
     <div className="auth-page">
-      <section className="auth-card" aria-labelledby={`${id}-title`}>
+      <section
+        className={wide ? "auth-card auth-card--wide" : "auth-card"}
+        aria-labelledby={`${id}-title`}
+      >
         <p className="auth-eyebrow">{t("MIU Freelance")}</p>
         <h1 id={`${id}-title`}>{title}</h1>
         <form
@@ -58,74 +67,125 @@ export default function AuthForm({
           className="auth-fields"
           aria-busy={submitting}
         >
-          <p className="sr-only">{t("All fields are required.")}</p>
           {fields.map(
-            ({ name, label, type = "text", autoComplete, hint, options }) => (
-              <div key={name} className="auth-field">
-                <label htmlFor={`${id}-${name}`}>{t(label)}</label>
-                {options ? (
-                  <select
-                    id={`${id}-${name}`}
-                    name={name}
-                    value={values[name] || ""}
-                    required
-                    disabled={submitting}
-                    aria-invalid={Boolean(errors[name])}
-                    aria-describedby={
-                      errors[name] ? `${id}-${name}-error` : undefined
-                    }
-                    className="auth-input"
-                    onChange={(event) =>
-                      setValues({ ...values, [name]: event.target.value })
-                    }
-                  >
-                    <option value="">{t("Choose a role")}</option>
-                    {options.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {t(option.label)}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  <input
-                    id={`${id}-${name}`}
-                    name={name}
-                    type={type}
-                    autoComplete={autoComplete}
-                    value={values[name] || ""}
-                    required
-                    disabled={submitting}
-                    aria-invalid={Boolean(errors[name])}
-                    aria-describedby={
-                      [
-                        hint && `${id}-${name}-hint`,
-                        errors[name] && `${id}-${name}-error`,
-                      ]
-                        .filter(Boolean)
-                        .join(" ") || undefined
-                    }
-                    className="auth-input"
-                    onChange={(event) =>
-                      setValues({ ...values, [name]: event.target.value })
-                    }
-                  />
-                )}
-                {hint && (
-                  <p id={`${id}-${name}-hint`} className="auth-hint">
-                    {t(hint)}
-                  </p>
-                )}
-                {errors[name] && (
-                  <p
-                    id={`${id}-${name}-error`}
-                    className="auth-error"
-                    role="alert"
-                  >
-                    {t(errors[name])}
-                  </p>
-                )}
-              </div>
-            ),
+            ({
+              name,
+              label,
+              type = "text",
+              autoComplete,
+              hint,
+              options,
+              required = true,
+              revealPassword,
+            }) => {
+              const fieldId = `${id}-${name}`;
+              const checkbox = type === "checkbox";
+              const visible = Boolean(visiblePasswords[name]);
+              const fieldProps = {
+                id: fieldId,
+                name,
+                required,
+                autoComplete,
+                disabled: submitting,
+                "aria-invalid": Boolean(errors[name]),
+                "aria-describedby":
+                  [
+                    hint && `${fieldId}-hint`,
+                    errors[name] && `${fieldId}-error`,
+                  ]
+                    .filter(Boolean)
+                    .join(" ") || undefined,
+                onChange: (event) => {
+                  const value = checkbox
+                    ? event.target.checked
+                    : event.target.value;
+                  setValues((current) => ({ ...current, [name]: value }));
+                },
+              };
+              const labelContent = typeof label === "string" ? t(label) : label;
+              const input = (
+                <input
+                  {...fieldProps}
+                  className="auth-input"
+                  type={visible ? "text" : type}
+                  value={values[name] || ""}
+                  autoCapitalize={type === "password" ? "none" : undefined}
+                  spellCheck={type === "password" ? false : undefined}
+                />
+              );
+              return (
+                <div key={name} className="auth-field">
+                  {!checkbox && (
+                    <label id={`${fieldId}-label`} htmlFor={fieldId}>
+                      {labelContent}
+                    </label>
+                  )}
+                  {checkbox ? (
+                    <div className="auth-consent">
+                      <input
+                        {...fieldProps}
+                        type="checkbox"
+                        checked={Boolean(values[name])}
+                      />
+                      <label htmlFor={fieldId}>{labelContent}</label>
+                    </div>
+                  ) : options ? (
+                    <CountryDropdown
+                      id={fieldId}
+                      disabled={submitting}
+                      aria-invalid={fieldProps["aria-invalid"]}
+                      aria-describedby={fieldProps["aria-describedby"]}
+                      options={options}
+                      value={values[name] || ""}
+                      onChange={(value) =>
+                        setValues((current) => ({ ...current, [name]: value }))
+                      }
+                    />
+                  ) : revealPassword ? (
+                    <div className="auth-password">
+                      {input}
+                      <button
+                        type="button"
+                        disabled={submitting}
+                        aria-controls={fieldId}
+                        aria-label={t(
+                          visible ? "Hide {value0}" : "Show {value0}",
+                          { value0: labelContent },
+                        )}
+                        onClick={() =>
+                          setVisiblePasswords((current) => ({
+                            ...current,
+                            [name]: !visible,
+                          }))
+                        }
+                      >
+                        {visible ? (
+                          <Eye size={18} aria-hidden="true" />
+                        ) : (
+                          <EyeOff size={18} aria-hidden="true" />
+                        )}
+                      </button>
+                    </div>
+                  ) : (
+                    input
+                  )}
+                  {hint && (
+                    <p id={`${id}-${name}-hint`} className="auth-hint">
+                      {t(hint)}
+                    </p>
+                  )}
+                  {errors[name] && (
+                    <p
+                      id={`${id}-${name}-error`}
+                      className="auth-error"
+                      role="alert"
+                    >
+                      {t(errors[name])}
+                    </p>
+                  )}
+                </div>
+              );
+            },
           )}
           {errors.form && (
             <p role="alert" className="auth-feedback auth-error">
@@ -137,8 +197,13 @@ export default function AuthForm({
               {t(message)}
             </p>
           )}
-          <button type="submit" disabled={submitting} className="auth-submit">
+          <button
+            type="submit"
+            disabled={submitting}
+            className={pillSubmit ? "auth-submit auth-submit--pill" : "auth-submit"}
+          >
             {submitting ? t("Please wait…") : t(submitLabel)}
+            {pillSubmit && <ArrowRight size={22} aria-hidden="true" />}
           </button>
           {afterSubmit}
         </form>

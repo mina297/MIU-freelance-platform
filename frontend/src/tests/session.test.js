@@ -43,12 +43,66 @@ test("demo sessions start, explicitly expire, restart and log out without retain
 });
 
 const registration = {
-  fullName: "Demo Student",
-  email: "student@example.test",
+  firstName: "Demo",
+  lastName: "Student",
+  country: "Egypt",
+  acceptTerms: true,
+  email: "student@miuegypt.edu.eg",
   password: "DemoPass1",
-  confirmPassword: "DemoPass1",
   role: ROLES.STUDENT,
 };
+const recovery = { ...registration, confirmPassword: registration.password };
+
+test("registration countries are limited to the list managed and audited by the Super Admin", () => {
+  const store = createMockAuthStore(mockUsers);
+  const admin = mockUsers.find((user) => user.role === ROLES.SUPER_ADMIN);
+  const adminSession = sessionReducer(INITIAL_SESSION, {
+    type: "start",
+    user: admin,
+  });
+  const studentSession = sessionReducer(INITIAL_SESSION, {
+    type: "start",
+    user: mockUsers[0],
+  });
+  const change = {
+    country: "  Saudi   Arabia  ",
+    reason: "Expand the preview",
+  };
+
+  assert.deepEqual(store.getRegistrationSettings().countries, ["Egypt"]);
+  assert.ok(
+    store.register({ ...registration, country: "Saudi Arabia" }).errors.country,
+  );
+  assert.equal(store.addRegistrationCountry(INITIAL_SESSION, change).ok, false);
+  assert.equal(store.addRegistrationCountry(studentSession, change).ok, false);
+  assert.equal(
+    store.addRegistrationCountry(adminSession, { ...change, reason: " " }).ok,
+    false,
+  );
+  assert.equal(store.addRegistrationCountry(adminSession, change).ok, true);
+  assert.equal(
+    store.addRegistrationCountry(adminSession, {
+      ...change,
+      country: "saudi arabia",
+    }).ok,
+    false,
+  );
+  assert.deepEqual(store.getRegistrationSettings().countries, [
+    "Egypt",
+    "Saudi Arabia",
+  ]);
+  const [event] = store.getRegistrationSettings().audit;
+  assert.equal(store.getRegistrationSettings().audit.length, 1);
+  assert.equal(event.actor, admin.displayName);
+  assert.equal(event.reason, change.reason);
+  assert.equal(event.target, "Saudi Arabia");
+  const result = store.register({ ...registration, country: "Saudi Arabia" });
+  assert.equal(result.user.displayName, "Demo Student");
+  assert.equal(result.user.country, undefined);
+  assert.deepEqual(createMockAuthStore().getRegistrationSettings().countries, [
+    "Egypt",
+  ]);
+});
 
 test("auth email validation requires at least two letters after the final dot", () => {
   for (const email of [
@@ -64,7 +118,7 @@ test("auth email validation requires at least two letters after the final dot", 
       store.login({ email, password: registration.password }).errors.email,
     );
     assert.ok(store.forgotPassword(email).errors.email);
-    assert.ok(store.resetPassword({ ...registration, email }).errors.email);
+    assert.ok(store.resetPassword({ ...recovery, email }).errors.email);
   }
   for (const email of [
     "user@miu.co",
@@ -81,15 +135,25 @@ test("registration validates all fields and rejects privileged or manipulated ro
   const missing = validateRegistration({});
   assert.deepEqual(
     Object.keys(missing).sort(),
-    ["fullName", "email", "password", "confirmPassword", "role"].sort(),
+    [
+      "firstName",
+      "lastName",
+      "country",
+      "acceptTerms",
+      "email",
+      "password",
+      "role",
+    ].sort(),
   );
   assert.ok(
     validateRegistration({ ...registration, email: "bad email" }).email,
   );
-  assert.ok(validateRegistration({ ...registration, fullName: "  " }).fullName);
   assert.ok(
-    validateRegistration({ ...registration, confirmPassword: "wrong" })
-      .confirmPassword,
+    validateRegistration({ ...registration, firstName: "  " }).firstName,
+  );
+  assert.ok(validateRegistration({ ...registration, lastName: "  " }).lastName);
+  assert.ok(
+    validateRegistration({ ...registration, acceptTerms: false }).acceptTerms,
   );
   for (const role of [
     ...Object.values(ROLES).filter(
@@ -103,6 +167,33 @@ test("registration validates all fields and rejects privileged or manipulated ro
     assert.ok(store.register({ ...registration, role }).errors.role);
     assert.equal(store.login(registration).ok, false);
   }
+});
+
+test("only student registration requires the exact MIU email domain", () => {
+  const store = createMockAuthStore();
+  for (const email of [
+    "test@gmail.com",
+    "test@miuegypt.com",
+    "test@miuegypt.edu.eg.example.test",
+    "test@fake.miuegypt.edu.eg",
+  ]) {
+    assert.match(
+      store.register({ ...registration, email }).errors.email,
+      /@miuegypt\.edu\.eg/,
+    );
+  }
+  assert.equal(
+    store.register({ ...registration, email: " TEST@MIUEGYPT.EDU.EG " }).ok,
+    true,
+  );
+  assert.equal(
+    store.register({
+      ...registration,
+      role: ROLES.CLIENT,
+      email: "test@gmail.com",
+    }).ok,
+    true,
+  );
 });
 
 test("password rules enforce length, a letter and a number", () => {
@@ -121,17 +212,27 @@ test("registration to login preserves identity and rejects case-insensitive dupl
     assert.equal(created.user.accountStatus, "active");
     assert.equal(created.user.verificationStatus, "pending");
     const loggedIn = store.login({
-      email: " STUDENT@EXAMPLE.TEST ",
+      email: " STUDENT@MIUEGYPT.EDU.EG ",
       password: registration.password,
     });
     assert.deepEqual(loggedIn.user, created.user);
-    assert.ok(
-      store.register({ ...registration, email: " Student@Example.Test " })
-        .errors.email,
+    assert.deepEqual(
+      store.login({ ...registration, role: ROLES.SUPER_ADMIN }).user,
+      created.user,
     );
     assert.ok(
-      store.register({ ...registration, email: "STUDENT_001@EXAMPLE.TEST" })
-        .errors.email,
+      store.register({
+        ...registration,
+        role,
+        email: " Student@Miuegypt.edu.eg ",
+      }).errors.email,
+    );
+    assert.ok(
+      store.register({
+        ...registration,
+        role: ROLES.CLIENT,
+        email: "STUDENT_001@EXAMPLE.TEST",
+      }).errors.email,
     );
     assert.equal(store.findUser("student_001").displayName, "Salma Farid");
     assert.equal(
@@ -151,12 +252,13 @@ test("forgot-password is simulated and password reset changes only memory", () =
     /no email was sent/,
   );
   assert.equal(store.forgotPassword("unknown@example.test").ok, true);
+  assert.ok(store.resetPassword(registration).errors.confirmPassword);
   assert.equal(
-    store.resetPassword({ ...registration, password: "weak" }).ok,
+    store.resetPassword({ ...recovery, password: "weak" }).ok,
     false,
   );
   assert.equal(
-    store.resetPassword({ ...registration, email: "absent@example.test" }).ok,
+    store.resetPassword({ ...recovery, email: "absent@example.test" }).ok,
     false,
   );
   const changed = store.resetPassword({
@@ -179,8 +281,7 @@ test("forgot-password is simulated and password reset changes only memory", () =
   assert.equal(fresh.findUser("registered_1"), undefined);
   assert.equal(fresh.findUser("student_001").id, "student_001");
   assert.equal(
-    store.resetPassword({ ...registration, email: "student_001@example.test" })
-      .ok,
+    store.resetPassword({ ...recovery, email: "student_001@example.test" }).ok,
     true,
   );
   assert.equal(
@@ -198,8 +299,8 @@ test("account feedback stays concise without demo wording or hiding recovery lim
   const responses = [
     store.login(registration),
     store.forgotPassword(registration.email),
-    store.resetPassword(registration),
-    store.resetPassword({ ...registration, email: "student_001@example.test" }),
+    store.resetPassword(recovery),
+    store.resetPassword({ ...recovery, email: "student_001@example.test" }),
   ];
   for (const response of responses)
     assert.doesNotMatch(JSON.stringify(response), /\bdemo\b/i);
@@ -215,7 +316,7 @@ test("inactive fixtures cannot log in, reset passwords or start sessions", () =>
   for (const accountStatus of ["suspended", "deactivated"]) {
     const fixture = { ...mockUsers[0], accountStatus };
     const store = createMockAuthStore([fixture]);
-    const values = { ...registration, email: "student_001@example.test" };
+    const values = { ...recovery, email: "student_001@example.test" };
     assert.equal(store.resetPassword(values).ok, false);
     assert.equal(store.login(values).ok, false);
     assert.deepEqual(

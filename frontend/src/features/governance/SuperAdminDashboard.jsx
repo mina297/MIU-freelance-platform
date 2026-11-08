@@ -6,12 +6,14 @@ import {
   ArrowUpRight,
   Building2,
   ClipboardCheck,
+  Globe,
   LayoutDashboard,
   ShieldCheck,
   Users,
   Wallet,
 } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth.js";
+import { getRouteAccess, ROLES } from "../auth/session.js";
 import { formatEGP } from "../../utils/formatEGP.js";
 import {
   committees,
@@ -30,13 +32,28 @@ const sections = [
   ["permissions", "Roles & permissions", ShieldCheck],
   ["reviews", "Reviews & approvals", ClipboardCheck],
   ["finance", "Financial overview", Wallet],
+  ["registration", "Registration settings", Globe],
   ["reports", "Reports & audit", Activity],
 ];
 export default function SuperAdminDashboard() {
   const { t, locale } = useLanguage();
+  const {
+    session,
+    startDemoSession,
+    registrationSettings,
+    addRegistrationCountry,
+  } = useAuth();
+  const canManageRegistration =
+    getRouteAccess(session, {
+      access: "roles",
+      roles: [ROLES.SUPER_ADMIN],
+    }) === "allowed";
+  const availableSections = sections.filter(
+    ([id]) => id !== "registration" || canManageRegistration,
+  );
 
   const [params, setParams] = useSearchParams();
-  const section = sections.some(([id]) => id === params.get("section"))
+  const section = availableSections.some(([id]) => id === params.get("section"))
     ? params.get("section")
     : "overview";
   const title = sections.find(([id]) => id === section)[1];
@@ -52,7 +69,6 @@ export default function SuperAdminDashboard() {
   const [notice, setNotice] = useState("");
   const [scenario, setScenario] = useState("sample");
   const [loaded, setLoaded] = useState(false);
-  const { startDemoSession } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
     const timer = setTimeout(() => setLoaded(true), 250);
@@ -84,6 +100,19 @@ export default function SuperAdminDashboard() {
   function submit(event) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
+    if (dialog.type === "add-country") {
+      const result = addRegistrationCountry({
+        country: String(form.get("country")),
+        reason: String(form.get("reason")),
+      });
+      if (!result.ok) {
+        setError(result.message);
+        return;
+      }
+      setDialog(null);
+      setNotice(result.message);
+      return;
+    }
     const action = {
       ...dialog,
       reason: String(form.get("reason") || "").trim(),
@@ -163,7 +192,7 @@ export default function SuperAdminDashboard() {
         </Link>
         <p className="ac-eyebrow">{t("PLATFORM CONTROL")}</p>
         <nav aria-label={t("Super Admin sections")}>
-          {sections.map(([id, label, Icon]) => (
+          {availableSections.map(([id, label, Icon]) => (
             <button
               key={id}
               aria-current={id === section ? "page" : undefined}
@@ -520,6 +549,26 @@ export default function SuperAdminDashboard() {
                   />
                 </Panel>
               )}
+              {section === "registration" && (
+                <Panel
+                  title={t("Registration countries")}
+                  subtitle={t(
+                    "These countries appear in the sign-up form until the page is refreshed.",
+                  )}
+                >
+                  <ul className="mb-4 list-disc space-y-1 ps-5">
+                    {registrationSettings.countries.map((country) => (
+                      <li key={country}>{t(country)}</li>
+                    ))}
+                  </ul>
+                  <button
+                    className="ac-primary"
+                    onClick={() => open({ type: "add-country" })}
+                  >
+                    {t("Add country")}
+                  </button>
+                </Panel>
+              )}
               {section === "reports" && (
                 <>
                   <div className="ac-stats">
@@ -540,7 +589,18 @@ export default function SuperAdminDashboard() {
                     subtitle="Session-only events. Actor, target, reason, timestamp and before/after values are recorded together."
                   >
                     <DataTable
-                      rows={empty ? [] : state.audit}
+                      rows={
+                        empty
+                          ? []
+                          : [
+                              ...state.audit,
+                              ...(canManageRegistration
+                                ? registrationSettings.audit
+                                : []),
+                            ].sort((a, b) =>
+                              b.timestamp.localeCompare(a.timestamp),
+                            )
+                      }
                       empty="No administrative actions yet. Make a demo decision to create an audit event."
                       columns={[
                         {
@@ -596,14 +656,20 @@ export default function SuperAdminDashboard() {
       {dialog && (
         <AdminDialog
           title={t(
-            dialog.type === "create"
-              ? t("Create committee account")
-              : t("Record administrative decision"),
+            {
+              create: "Create committee account",
+              "add-country": "Add country",
+            }[dialog.type] ?? "Record administrative decision",
           )}
           close={() => setDialog(null)}
         >
           <form onSubmit={submit}>
-            {dialog.type === "create" ? (
+            {dialog.type === "add-country" ? (
+              <label>
+                {t("Country name")}
+                <input name="country" required maxLength={80} />
+              </label>
+            ) : dialog.type === "create" ? (
               <>
                 <p>
                   {t(

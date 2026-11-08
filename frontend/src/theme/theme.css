@@ -105,6 +105,18 @@ html[data-theme="dark"] body {
     0 2px 6px #00000018;
 }
 
+/* Match both the original logo and the dashboard export, including Vite asset hashes. */
+:root[data-theme="dark"] img:is([src*="/miu-anniversary-logo"], [src*="/f03cc"]) {
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  filter:
+    drop-shadow(0 0 1px var(--theme-accent))
+    drop-shadow(0 0 1px var(--theme-accent))
+    drop-shadow(0 1px 2px var(--theme-accent));
+}
+
 /* One reusable native control. Standalone pages reserve space in normal flow. */
 .theme-toggle {
   display: grid;

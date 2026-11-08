@@ -4,7 +4,7 @@ import Card from "../../components/ui/Card.jsx";
 import PublicInfoPage from "./info/PublicInfoPage.jsx";
 
 /** Deliberately no policy clauses: approved Terms content has not been supplied. */
-export default function TermsPage({ destinations = {} }) {
+export default function TermsPage({ destinations = {}, agreementAnchor }) {
   const { t } = useLanguage();
 
   const titleId = useId();
@@ -36,6 +36,8 @@ export default function TermsPage({ destinations = {} }) {
             "No approved Terms of Use have been supplied for this preview. This page does not establish conditions for using the platform.",
           )}
         </p>
+        <h2 id={agreementAnchor}>{t("User Agreement")}</h2>
+        <p>{t("The User Agreement is awaiting team approval.")}</p>
         <p>
           {t(
             "The project team must supply and approve the final content before publication.",

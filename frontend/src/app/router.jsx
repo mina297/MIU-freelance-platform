@@ -131,7 +131,12 @@ const featurePages = {
       howItWorks={<HowItWorksSection />}
     />
   ),
-  "/terms": <TermsPage destinations={publicDestinations} />,
+  "/terms": (
+    <TermsPage
+      destinations={publicDestinations}
+      agreementAnchor="user-agreement"
+    />
+  ),
   "/privacy": <PrivacyPage destinations={publicDestinations} />,
   "/loading-demo": <LoadingDemoPage />,
   "/error-demo": <ErrorDemoPage />,

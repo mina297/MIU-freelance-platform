@@ -525,6 +525,8 @@ test("all five authentication routes render labeled forms or role selection", as
     );
     for (const [path, heading] of [
       ["/login", "Sign in"],
+      ["/login?role=student", "Sign in"],
+      ["/login?role=client", "Sign in"],
       ["/register", "Choose your account role"],
       ["/register?role=student", "Join as a student"],
       ["/register?role=client", "Join as a client"],
@@ -545,11 +547,24 @@ test("all five authentication routes render labeled forms or role selection", as
         ),
       );
       assert.ok(html.includes(heading), path);
+      if (path.startsWith("/login")) {
+        assert.match(html, /<h1[^>]*>Sign in<\/h1>/);
+      }
       assert.doesNotMatch(html.replace(/<[^>]*>/g, " "), /\bdemo\b/i);
       assert.doesNotMatch(html, /routing placeholder only/i);
-      assert.match(html, /Public navigation/);
-      assert.match(html, /href="\/login"[^>]*>Sign In/);
-      assert.match(html, /href="\/register"[^>]*>Sign Up/);
+      if (/^\/(login|register)\b/.test(path)) {
+        assert.doesNotMatch(html, /Public navigation/);
+        assert.match(html, /class="auth-account-header"/);
+        assert.match(html, /Change account type/);
+        assert.match(html, /class="auth-home-link"[^>]*href="\/"/);
+        assert.doesNotMatch(html, /class="language-control"|aria-label="Dark mode"/);
+        const mode = path.startsWith("/login") ? "login" : "register";
+        for (const role of ["student", "client"]) {
+          assert.ok(html.includes(`href="/${mode}?role=${role}"`));
+        }
+      } else {
+        assert.match(html, /Public navigation/);
+      }
       assert.doesNotMatch(
         html,
         /Simulated session controls|Demo navigation|Phase 1 routing demonstration/,
@@ -571,6 +586,30 @@ test("all five authentication routes render labeled forms or role selection", as
         assert.match(html, /href="\/register\?role=client"/);
         assert.doesNotMatch(html, /<form/);
       }
+      if (/^\/register\?role=(student|client)$/.test(path)) {
+        assert.doesNotMatch(html, /name="confirmPassword"/);
+        assert.match(html, /name="firstName"/);
+        assert.match(html, /name="lastName"/);
+        assert.match(html, /name="email"[\s\S]*name="password"/);
+        if (path.endsWith("student")) {
+          assert.match(html, /University Email/);
+          assert.match(html, /@miuegypt\.edu\.eg/);
+        } else {
+          assert.doesNotMatch(html, /University Email|@miuegypt\.edu\.eg/);
+        }
+        assert.match(html, /class="disclosure auth-country"[\s\S]*?>Egypt<\/span>/);
+        assert.match(html, /<input(?=[^>]*name="emailSubscription")(?=[^>]*checked="")[^>]*>/);
+        assert.match(html, /<input(?=[^>]*name="acceptTerms")(?=[^>]*required="")(?![^>]*checked="")[^>]*>/);
+        assert.match(html, /href="\/terms#user-agreement"/);
+        assert.match(html, /aria-label="Show Password"/);
+        assert.match(html, /lucide-eye-off/);
+        assert.match(html, /Sign up with Google/);
+      }
+      if (path === "/reset-password") assert.match(html, /name="confirmPassword"/);
+      if (/^\/login\b|^\/register\?role=(student|client)$/.test(path)) {
+        assert.match(html, /auth-submit--pill[^>]*>[\s\S]*?lucide-arrow-right/);
+      }
+      if (path === "/login") assert.match(html, /Sign in with Google/);
       if (path === "/login") {
         assert.match(
           html,

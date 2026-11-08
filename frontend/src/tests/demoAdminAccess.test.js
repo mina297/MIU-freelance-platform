@@ -62,9 +62,14 @@ test("existing demo Admin uses prototype reset then normal login and only an act
       false,
     );
     for (const role of ["student", "client"]) {
+      const email =
+        role === "student" ? "student@miuegypt.edu.eg" : "client@example.test";
       const created = store.register({
-        fullName: "Ordinary account",
-        email: `${role}@example.test`,
+        firstName: "Ordinary",
+        lastName: "Account",
+        country: "Egypt",
+        acceptTerms: true,
+        email,
         password: credentials.password,
         confirmPassword: credentials.password,
         role,
@@ -73,7 +78,7 @@ test("existing demo Admin uses prototype reset then normal login and only an act
       const ordinary = sessionReducer(INITIAL_SESSION, {
         type: "start",
         user: store.login({
-          email: `${role}@example.test`,
+          email,
           password: credentials.password,
         }).user,
       });
@@ -90,7 +95,10 @@ test("existing demo Admin uses prototype reset then normal login and only an act
     }
     assert.equal(
       store.register({
-        fullName: "Forbidden",
+        firstName: "Forbidden",
+        lastName: "Account",
+        country: "Egypt",
+        acceptTerms: true,
         email: "forbidden@example.test",
         password: credentials.password,
         confirmPassword: credentials.password,

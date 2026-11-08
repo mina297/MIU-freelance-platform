@@ -3,7 +3,13 @@ import { useEffect, useId, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import "./dropdown.css";
 
-export default function Dropdown({ label, children, className = "" }) {
+export default function Dropdown({
+  label,
+  children,
+  className = "",
+  openOnHover = true,
+  triggerProps,
+}) {
   const { t } = useLanguage();
 
   const [openedBy, setOpenedBy] = useState(null);
@@ -29,11 +35,11 @@ export default function Dropdown({ label, children, className = "" }) {
       ref={root}
       className={`disclosure ${className}`}
       onPointerEnter={(event) => {
-        if (event.pointerType !== "mouse") return;
+        if (!openOnHover || event.pointerType !== "mouse") return;
         setOpenedBy((current) => current ?? "hover");
       }}
       onPointerLeave={(event) => {
-        if (event.pointerType !== "mouse") return;
+        if (!openOnHover || event.pointerType !== "mouse") return;
         if (panel.current?.contains(document.activeElement)) {
           trigger.current.focus({ preventScroll: true });
         }
@@ -51,9 +57,10 @@ export default function Dropdown({ label, children, className = "" }) {
       }}
     >
       <button
+        {...triggerProps}
         ref={trigger}
         type="button"
-        className="disclosure-trigger"
+        className={triggerProps?.className ?? "disclosure-trigger"}
         aria-expanded={open}
         aria-controls={id}
         onClick={(event) => {
@@ -73,7 +80,7 @@ export default function Dropdown({ label, children, className = "" }) {
           if (event.target.closest("a, button")) trigger.current.focus();
         }}
       >
-        {children(close)}
+        {children(close, open)}
       </div>
     </div>
   );

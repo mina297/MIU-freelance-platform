@@ -261,11 +261,13 @@ test("all registered routes render in both languages with one language control a
           ),
         ),
       );
+      const compactAuth = ["/login", "/register", "/register/role"].includes(url);
       assert.equal(
         (html.match(/class="language-control"/g) ?? []).length,
-        1,
+        compactAuth ? 0 : 1,
         `${url}: ${language}`,
       );
+      if (compactAuth) continue;
       assert.ok(html.includes(language === "ar" ? "اللغة" : "Language"));
       assert.match(html, /class="language-control"><div class="disclosure /);
       assert.match(html, /class="disclosure-item language-menu-option"[^>]*aria-pressed="true"/);
