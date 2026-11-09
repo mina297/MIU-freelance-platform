@@ -197,15 +197,12 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     }
     assert.match(html, /role="search"/);
     assert.match(html, /class="landing-hero-media" aria-hidden="true"/);
-    const heroVideo = html.match(/<video\b[^>]*>/)?.[0];
-    assert.ok(heroVideo, "Hero includes decorative background video");
-    assert.match(heroVideo, /preload="none"/);
-    assert.match(heroVideo, /playsInline=""/i);
-    assert.doesNotMatch(
-      heroVideo,
-      /\ssrc=/,
-      "Server rendering never downloads video before motion preferences are known",
-    );
+    assert.match(html, /class="landing-scene" viewBox="0 0 1678 937"/);
+    assert.match(html, /class="landing-scene-unlit"[^>]*miu-scene-unlit\.webp/);
+    assert.match(html, /class="landing-delivery landing-delivery-design"/);
+    assert.match(html, /class="landing-scene-doors"/);
+    assert.match(html, /class="landing-scene-coin"[^>]*miu-coin\.webp/);
+    assert.doesNotMatch(html, /<video\b/);
     assert.match(html, /aria-label="Choose Hire or Work"/);
     assert.match(html, /aria-pressed="false">Hire<\/button>/);
     assert.match(html, /aria-pressed="true">Work<\/button>/);

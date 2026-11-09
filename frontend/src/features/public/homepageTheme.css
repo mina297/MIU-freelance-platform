@@ -1,7 +1,25 @@
 /* Homepage composition adapts to the shared application theme. */
 .homepage-theme {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   min-height: 100svh;
   min-width: 0;
+}
+.homepage-theme > :is(.public-header, .miu-public-main) {
+  grid-area: 1 / 1;
+}
+.homepage-theme > .public-header {
+  align-self: start;
+  background: transparent;
+}
+.homepage-theme .public-header :is(.public-header-inner, .public-navigation) {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+:root[data-theme="dark"] .homepage-theme .public-header
+  :is(.public-brand > span, .public-nav-link, .public-nav-dropdown > .disclosure-trigger:not([aria-expanded="true"])) {
+  text-shadow: 0 1px 3px #301620, 0 0 5px #301620;
 }
 .homepage-skip-link {
   position: absolute;
@@ -33,15 +51,7 @@
   --landing-muted: var(--theme-subtle-surface);
   background: var(--home-canvas);
 }
-/* Cinematic hero: translucent depth, with solid readable search surfaces. */
-:root[data-theme="dark"] .landing-hero-film-overlay {
-  background:
-    linear-gradient(180deg, #15131970, #281321a8 58%, #151319e8),
-    linear-gradient(90deg, #29162065, transparent 65%);
-}
-:root[data-theme="dark"] .landing-hero-film-frame {
-  border-color: #deb5c336;
-}
+/* Cinematic hero and readable search surfaces. */
 :root[data-theme="dark"] .landing-hero h1 {
   text-shadow: 0 2px 22px #0008;
 }

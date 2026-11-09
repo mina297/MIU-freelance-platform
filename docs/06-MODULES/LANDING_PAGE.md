@@ -16,7 +16,7 @@ theme state. Every fresh document starts light, while internal route navigation
 preserves the selected theme. No browser storage or OS appearance preference is
 consulted. The original light layout and homepage interactions are preserved.
 
-`homepageTheme.css` retains composition-specific refinements for the hero video,
+`homepageTheme.css` retains composition-specific refinements for the hero,
 overlapping panels, timeline, search, cards, dialogs and footer. Its palette
 aliases resolve to the shared semantic tokens. The common `ThemeToggle` lives
 in the header, has pressed semantics and keyboard focus, and respects reduced
@@ -67,34 +67,39 @@ The desktop layout retains the centered hero, alternating timeline, three-column
 
 ## Verification
 
-### Cinematic hero video — 24 October 2026
+### Animated MIU hero — 9 November 2026
+
+The MIU building illustration fills the desktop hero, with the heading, search
+and entry links layered over the lower-left area beneath the conveyor. On narrow
+screens the full scene remains visible at the top, and the controls overlap its
+lower edge and continue onto the background below. The homepage navigation
+overlays the top of the illustration with a transparent bar. A shared SVG coordinate
+system keeps the artwork, conveyor, doorway and coin aligned as the scene
+resizes. The three local WebP assets total about 218 kB.
+
+The unlit sign holds for two seconds, then the lit artwork reveals the red
+letters and their reflection. Three illustrative design, code and video
+deliverables pass along the conveyor and disappear behind the building.
+The first delivery's arrival time triggers the sliding doors. The supplied
+gold coin emerges shortly after opening begins. It is a decorative symbol for
+compensation. Marketplace prices continue to use EGP.
+
+The sequence runs once when the landing page opens. Pause motion and reduced
+motion show the lit still image. Resume motion restarts the sequence. The
+artwork is hidden from assistive technology, and the heading, search and
+catalogue links remain available throughout.
+
+### Animated hero headline — 24 October 2026
 
 The follow-up headline treatment cycles four concise messages: “Great ideas
 deserve great talent.”, “Your skills. Your next opportunity.”, “Find talent.
 Bring ideas to life.” and “Build work you’re proud of.” Each message types in,
-holds for 2.8 seconds, fades for 550ms, then leaves 1.1 seconds of clear video.
+holds for 2.8 seconds, fades for 550ms, then pauses for 1.1 seconds.
 The initial sentence is immediately readable. A reserved headline area prevents
 the search controls from shifting. Decorative side notes are removed and the
 supporting paragraph is shortened. Screen readers receive a stable heading;
 Pause motion and reduced motion show the complete first sentence. Timers are
 cleaned up on unmount or motion changes.
-
-The homepage hero now layers locally bundled, muted looping collaboration stock
-footage behind a burgundy readability overlay, a fine inset frame and the existing
-headline/search/entry cards. A local JPEG poster renders immediately and remains
-the fallback for reduced motion, data-saving connections, denied autoplay or
-media failure. The clip is approximately 8 seconds, 720p, 2.65 MB. Source and
-license credits are in `frontend/src/assets/hero/CREDITS.md`; this is stock
-footage, not a depiction of MIU facilities or accounts.
-
-`HeroVideo` connects to the existing Pause motion control. Video source loading
-is deferred until motion is enabled and the video enters the viewport; playback
-pauses when off-screen or when the document is hidden. Observers/listeners clean
-up on unmount and preference changes. No network video request occurs during SSR,
-under reduced motion, or on connections advertising Save-Data. The footage is
-decorative and hidden from assistive technology; all meaningful content remains
-HTML. Video playback lifecycle and fallback markup have automated coverage;
-actual browser autoplay, cropping and mobile visual acceptance remain pending.
 
 ### Marketplace visual polish — 24 October 2026
 
