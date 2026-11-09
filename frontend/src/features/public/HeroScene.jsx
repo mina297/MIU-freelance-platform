@@ -1,6 +1,9 @@
 import { useId } from "react";
-import scene from "../../assets/hero/miu-scene.webp";
-import unlitScene from "../../assets/hero/miu-scene-unlit.webp";
+import { useTheme } from "../../theme/ThemeContext.js";
+import lightScene from "../../assets/hero/miu-scene.webp";
+import lightUnlitScene from "../../assets/hero/miu-scene-unlit.webp";
+import darkScene from "../../assets/hero/miu-scene-dark.webp";
+import darkUnlitScene from "../../assets/hero/miu-scene-dark-unlit.webp";
 import coin from "../../assets/hero/miu-coin.webp";
 import "./heroScene.css";
 
@@ -20,6 +23,9 @@ const deliveries = [
 
 export default function HeroScene() {
   const id = useId();
+  const { theme } = useTheme();
+  const scene = theme === "dark" ? darkScene : lightScene;
+  const unlitScene = theme === "dark" ? darkUnlitScene : lightUnlitScene;
   const ref = (name) => `url(#${id}-${name})`;
   const photo = { width: 1678, height: 937 };
 

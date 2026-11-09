@@ -1,9 +1,14 @@
 .landing .landing-hero {
+  --hero-backdrop: #301620;
   display: block;
   min-height: clamp(560px, 47vw, 900px);
   padding: clamp(144px, 14vw, 260px) clamp(24px, 5vw, 110px) 36px;
-  background: #301620;
+  background: var(--hero-backdrop);
   color: white;
+}
+
+.homepage-theme[data-theme="dark"] .landing .landing-hero {
+  --hero-backdrop: #170e18;
 }
 
 .landing-hero-copy {
@@ -240,8 +245,8 @@
     background: linear-gradient(
       to bottom,
       transparent 40vw,
-      #301620cc 49vw,
-      #301620 55.84vw
+      color-mix(in srgb, var(--hero-backdrop) 80%, transparent) 49vw,
+      var(--hero-backdrop) 55.84vw
     );
   }
 }

@@ -75,7 +75,8 @@ screens the full scene remains visible at the top, and the controls overlap its
 lower edge and continue onto the background below. The homepage navigation
 overlays the top of the illustration with a transparent bar. A shared SVG coordinate
 system keeps the artwork, conveyor, doorway and coin aligned as the scene
-resizes. The three local WebP assets total about 218 kB.
+resizes. The theme toggle selects matching day and night artwork for both
+states of the sign. Both themes use the same animation and gold coin.
 
 The unlit sign holds for two seconds, then the lit artwork reveals the red
 letters and their reflection. Three illustrative design, code and video
