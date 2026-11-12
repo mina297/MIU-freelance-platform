@@ -73,7 +73,7 @@ The MIU building illustration fills the desktop hero, with the heading, search
 and entry links layered over the lower-left area beneath the conveyor. On narrow
 screens the full scene remains visible at the top, and the controls overlap its
 lower edge and continue onto the background below. The homepage navigation
-overlays the top of the illustration with a transparent bar. A shared SVG coordinate
+overlays the top of the illustration with a transparent glass bar. A shared SVG coordinate
 system keeps the artwork, conveyor, doorway and coin aligned as the scene
 resizes. The theme toggle selects matching day and night artwork for both
 states of the sign. Both themes use the same animation and gold coin.
@@ -170,6 +170,12 @@ User correction: How it works retains its original scroll-driven reveals, depth/
 
 
 ### Homepage navigation - 5 November 2026
+
+Upper-edge refinement: softened the white top border to 27% opacity and its inset highlight to 19%, keeping the existing glass background and other edges.
+
+Transparency follow-up (latest values supersede the initial treatment below): the glass now uses a 2% theme tint, a faint highlight gradient, 3px blur and 110% saturation for a clearer view of the hero. Corner radius is 24px instead of a full pill. The lower border and inset highlight use translucent white, with a neutral shadow; the blue lower rim has been removed.
+
+12 November 2026 — reference-led glass treatment: the homepage navbar uses a pill silhouette, a low-opacity theme tint and highlight gradient, 10px backdrop blur, and bright inset edges with a cool lower rim. The illustration remains visible through the glass in light and dark mode. Grouped links remain transparent inside the lens; existing navigation, controls, drawer and scroll behavior are preserved. Opaque theme surfaces provide a fallback for unsupported backdrop filters and reduced-transparency preferences. Supports FR-V01, FR-V05, NFR-02 and NFR-03. Browser appearance verification remains pending.
 
 The mobile navigation drawer opens with Hire Talent and Find Work collapsed. Tap a group to see its destinations. Opening one group closes the other, and reopening the drawer resets both groups.
 
