@@ -1,15 +1,7 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  ArrowUpRight,
-  BriefcaseBusiness,
-  Check,
-  Grid2X2,
-  Layers3,
-  Pause,
-  Play,
-} from "lucide-react";
+import { ArrowUpRight, Check, Grid2X2, Pause, Play } from "lucide-react";
 import Dropdown from "../../components/ui/Dropdown.jsx";
 import CategoryCarousel from "./CategoryCarousel.jsx";
 import HowItWorks from "./HowItWorks.jsx";
@@ -17,6 +9,8 @@ import OverlapSection from "./OverlapSection.jsx";
 import RotatingSearchHint from "./RotatingSearchHint.jsx";
 import HeroScene from "./HeroScene.jsx";
 import HeroHeadline from "./HeroHeadline.jsx";
+import HeroStoryRail from "./HeroStoryRail.jsx";
+import { useHeroStory } from "./useHeroStory.js";
 import { useReducedMotion } from "./useLandingMotion.js";
 import { formatEGP } from "../../utils/formatEGP.js";
 import {
@@ -130,6 +124,8 @@ export default function LandingPage() {
   const reducedMotion = useReducedMotion();
   const [motionPaused, setMotionPaused] = useState(false);
   const motionEnabled = !reducedMotion && !motionPaused;
+  const heroRef = useRef(null);
+  useHeroStory(heroRef, motionEnabled);
   const [mode, setMode] = useState("work");
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
@@ -188,177 +184,153 @@ export default function LandingPage() {
 
   return (
     <div className="landing" data-motion={motionEnabled ? "on" : "off"}>
-      <section className="landing-hero" aria-labelledby="landing-title">
-        <HeroScene />
-        <div className="landing-hero-copy">
-          <div className="landing-community">
-            <Icon name="accent" />
-            {t("Built for the MIU community")}
-          </div>
-          <HeroHeadline enabled={motionEnabled} />
-          <p className="landing-intro">
-            {t("Connect. Collaborate. Create something that matters.")}
-          </p>
-          <div
-            className="landing-mode-toggle"
-            role="group"
-            aria-label={t("Choose Hire or Work")}
-          >
-            <span
-              className="landing-mode-indicator"
-              data-mode={mode}
-              aria-hidden="true"
-            />
-            {["hire", "work"].map((value) => (
-              <button
-                key={value}
-                type="button"
-                aria-pressed={mode === value}
-                onClick={() => changeMode(value)}
-              >
-                {value === "hire" ? t("Hire") : t("Work")}
-              </button>
-            ))}
-          </div>
-          <form
-            className="landing-search"
-            onSubmit={search}
-            role="search"
-            aria-label={t(
-              mode === "hire"
-                ? t("Search student talent")
-                : t("Search featured jobs"),
-            )}
-          >
-            <Icon name="search" />
-            <label className="sr-only" htmlFor="landing-query">
-              {mode === "hire"
-                ? t("Search students by name or skill")
-                : t("Search by title, skill, or keyword")}
-            </label>
-            <div className={`landing-search-input ${query ? "has-value" : ""}`}>
-              <RotatingSearchHint enabled={motionEnabled && !query} />
-              <input
-                id="landing-query"
-                enterKeyHint="search"
-                value={query}
-                maxLength={120}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder={t("Search")}
-              />
+      <div className="landing-hero-story" ref={heroRef}>
+        <section className="landing-hero" aria-labelledby="landing-title">
+          <HeroScene />
+          <div className="landing-hero-copy">
+            <div className="landing-community">
+              <Icon name="accent" />
+              {t("Built for the MIU community")}
             </div>
-            <Dropdown
-              className="landing-category-select"
-              label={
-                <>
-                  <Grid2X2 size={17} aria-hidden="true" />
-                  <span>{t(category || "All categories")}</span>
-                </>
-              }
-            >
-              {(close) => (
-                <>
-                  <p className="landing-category-heading">
-                    {t("Explore categories")}
-                  </p>
-                  {["", ...landingCategories].map((value) => (
-                    <button
-                      type="button"
-                      key={value}
-                      className="disclosure-item landing-category-option"
-                      aria-pressed={category === value}
-                      onClick={() => {
-                        setCategory(value);
-                        close();
-                      }}
-                    >
-                      <span>{t(value || "All categories")}</span>
-                      {category === value && (
-                        <Check size={16} aria-hidden="true" />
-                      )}
-                    </button>
-                  ))}
-                </>
+            <HeroHeadline />
+            <p className="landing-intro">
+              {t(
+                "Showcase your skills, discover projects, and turn your potential into real opportunities.",
               )}
-            </Dropdown>
-            <button className="landing-button primary">{t("Search")}</button>
-          </form>
-          <p className="landing-mode-caption" aria-live="polite">
-            {mode === "hire"
-              ? t("Great ideas start with the right people. ")
-              : t("Your next opportunity starts here. ")}
-            <Link
-              to={
+            </p>
+            <div
+              className="landing-mode-toggle"
+              role="group"
+              aria-label={t("Choose Hire or Work")}
+            >
+              <span
+                className="landing-mode-indicator"
+                data-mode={mode}
+                aria-hidden="true"
+              />
+              {["hire", "work"].map((value) => (
+                <button
+                  key={value}
+                  type="button"
+                  aria-pressed={mode === value}
+                  onClick={() => changeMode(value)}
+                >
+                  {value === "hire" ? t("Hire") : t("Work")}
+                </button>
+              ))}
+            </div>
+            <form
+              className="landing-search"
+              onSubmit={search}
+              role="search"
+              aria-label={t(
                 mode === "hire"
-                  ? "/register?role=client"
-                  : "/register?role=student"
-              }
-            >
-              {mode === "hire" ? t("Join to hire") : t("Join to work")} &rarr;
-            </Link>
-          </p>
-          {!reducedMotion && (
-            <button
-              type="button"
-              className="landing-motion-control"
-              aria-pressed={motionPaused}
-              onClick={() => setMotionPaused(!motionPaused)}
-            >
-              {motionPaused ? (
-                <Play size={13} aria-hidden="true" />
-              ) : (
-                <Pause size={13} aria-hidden="true" />
+                  ? t("Search student talent")
+                  : t("Search featured jobs"),
               )}
-              {motionPaused ? t("Resume motion") : t("Pause motion")}
-            </button>
-          )}
-          <nav
-            className="landing-pathways"
-            aria-label={t("Choose your marketplace")}
-          >
-            <Link
-              className="landing-pathway landing-pathway-projects"
-              to="/projects"
             >
-              <span className="landing-pathway-icon">
-                <BriefcaseBusiness size={24} aria-hidden="true" />
-              </span>
-              <span className="landing-pathway-copy">
-                <small>{t("For your next challenge")}</small>
-                <strong>{t("Find a project worth building.")}</strong>
-                <span>{t("Explore briefs, budgets and opportunities.")}</span>
-              </span>
-              <ArrowUpRight
-                className="landing-pathway-arrow"
-                size={24}
-                aria-hidden="true"
-              />
-            </Link>
-            <Link
-              className="landing-pathway landing-pathway-services"
-              to="/services"
+              <Icon name="search" />
+              <label className="sr-only" htmlFor="landing-query">
+                {mode === "hire"
+                  ? t("Search students by name or skill")
+                  : t("Search by title, skill, or keyword")}
+              </label>
+              <div
+                className={`landing-search-input ${query ? "has-value" : ""}`}
+              >
+                <RotatingSearchHint enabled={motionEnabled && !query} />
+                <input
+                  id="landing-query"
+                  enterKeyHint="search"
+                  value={query}
+                  maxLength={120}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder={t("Search")}
+                />
+              </div>
+              <Dropdown
+                className="landing-category-select"
+                label={
+                  <>
+                    <Grid2X2 size={17} aria-hidden="true" />
+                    <span>{t(category || "All categories")}</span>
+                  </>
+                }
+              >
+                {(close) => (
+                  <>
+                    <p className="landing-category-heading">
+                      {t("Explore categories")}
+                    </p>
+                    {["", ...landingCategories].map((value) => (
+                      <button
+                        type="button"
+                        key={value}
+                        className="disclosure-item landing-category-option"
+                        aria-pressed={category === value}
+                        onClick={() => {
+                          setCategory(value);
+                          close();
+                        }}
+                      >
+                        <span>{t(value || "All categories")}</span>
+                        {category === value && (
+                          <Check size={16} aria-hidden="true" />
+                        )}
+                      </button>
+                    ))}
+                  </>
+                )}
+              </Dropdown>
+              <button className="landing-button primary">{t("Search")}</button>
+            </form>
+            <p className="landing-mode-caption" aria-live="polite">
+              {mode === "hire"
+                ? t("Great ideas start with the right people. ")
+                : t("Your next opportunity starts here. ")}
+              <Link
+                to={
+                  mode === "hire"
+                    ? "/register?role=client"
+                    : "/register?role=student"
+                }
+              >
+                {mode === "hire" ? t("Join to hire") : t("Join to work")} &rarr;
+              </Link>
+            </p>
+            {!reducedMotion && (
+              <button
+                type="button"
+                className="landing-motion-control"
+                aria-pressed={motionPaused}
+                onClick={() => setMotionPaused(!motionPaused)}
+              >
+                {motionPaused ? (
+                  <Play size={13} aria-hidden="true" />
+                ) : (
+                  <Pause size={13} aria-hidden="true" />
+                )}
+                {motionPaused ? t("Resume motion") : t("Pause motion")}
+              </button>
+            )}
+            <nav
+              className="landing-pathways"
+              aria-label={t("Choose your marketplace")}
             >
-              <span className="landing-pathway-icon">
-                <Layers3 size={24} aria-hidden="true" />
-              </span>
-              <span className="landing-pathway-copy">
-                <small>{t("For your next big idea")}</small>
-                <strong>{t("Find the skills to bring it to life.")}</strong>
-                <span>
-                  {t("Discover services, packages and student talent.")}
-                </span>
-              </span>
-              <ArrowUpRight
-                className="landing-pathway-arrow"
-                size={24}
-                aria-hidden="true"
-              />
-            </Link>
-          </nav>
-        </div>
-      </section>
+              <Link className="landing-button primary" to="/projects">
+                {t("Explore Projects")}
+                <ArrowUpRight size={17} aria-hidden="true" />
+              </Link>
+              <Link className="landing-button" to="/register?role=student">
+                {t("Join as Freelancer")}
+              </Link>
+            </nav>
+          </div>
+          <HeroStoryRail />
+        </section>
+      </div>
 
-      <div className="landing-category-backdrop">
+      <div id="hero-discover" className="landing-category-backdrop">
         <CategoryCarousel
           category={category}
           onSelect={selectCategory}

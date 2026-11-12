@@ -196,3 +196,36 @@ LandingHeader now renders a floating rounded bar with grouped desktop destinatio
 The selected Hire or Work option above the hero search uses the same burgundy as the public Sign Up button.
 
 The hero category dropdown layers above the overlapping category section while open. The header uses pill-shaped Sign In and Sign Up controls. Under “Explore your next direction”, category cards reveal in reading order, left to right in English and right to left in Arabic. Cards reset when they leave view and reveal again when reached by scrolling down or back up, with a 70ms stagger between cards that enter together. Focused cards and cards shown with motion paused or reduced are immediately visible. This supports FR-V01, FR-V02 and NFR-01–NFR-03.
+
+
+### Reference-based interactive hero — 12 November 2026
+
+This update supersedes the previous timed sign/conveyor/coin hero and rotating headline. P-01 now uses the latest user-supplied MIU building reference, adapted to an ivory background plate. The rooftop letters, globe window, arched entrance, bench and isometric composition remain the visual identity. Headline, search, calls to action and floating freelancer/project/portfolio/earnings cards are live HTML; only architectural signage remains in the artwork.
+
+The headline reads “Your Talent Opens Doors.” The primary links open `/projects` and `/register?role=student`. Following the user's correction, the original homepage navbar is retained, including Hire Talent, Find Work, How it works, language/appearance controls and right-side Sign In/Sign Up buttons. The original Hire/Work search, category picker and submission behavior are also retained. Search filters the fictional landing examples; services remain reachable through the existing navigation. Shared routing, role and data contracts are unchanged.
+
+`useHeroStory.js` uses GSAP/ScrollTrigger for five reversible equal scroll beats: welcome (0–20%), opening doors/project discovery (20–40%), talent and creative services (40–60%), an illustrative connection (60–80%) and a completed portfolio with EGP earnings (80–100%). Door panels share the background's coordinate space. A CSS-sticky stage uses a 230svh wrapper on large viewports. No wheel/touch events are intercepted, no scroll snapping or scroll lock is introduced, and an anchor lets visitors skip directly to discovery. Mobile and short viewports use ordinary document flow with a shorter timeline. Cards animate transforms/opacity; the connection line uses stroke dash offset. There is no React update per animation frame.
+
+Pause motion and system reduced motion remove the scroll runway and show a complete static composition. The optional runtime cleans up with `gsap.context().revert()` on unmount or preference changes. Chunk failure also leaves a readable static layout. Only three small decorative particles repeat. The artwork is hidden from assistive technology; the stable heading and fully interactive controls stay semantic. New interface text is included in the existing draft Arabic dictionary. The illustration is not mirrored in RTL.
+
+All cards are fictional illustrations. The earnings card explicitly says “Fictional example · no payment”; there is no matching engine, order completion or financial mutation. This work supports FR-V01–FR-V03, FR-V05, NFR-01–NFR-03 and BR-02/BR-10 without marking SRS requirements complete.
+
+Verification: `npm.cmd run build`, `npm.cmd run lint` and `npm.cmd test` passed (347 tests, zero failures). Route/localization regressions cover the new hero, original navbar/search markup and discovery behavior. Native Chrome accessibility inspection confirmed the restored navbar/search/account links and new hero content. The in-app browser could not reach loopback, and native visual inspection was obstructed by the foreground app/user interaction. Full viewport, reduced-motion and reverse-scroll visual acceptance therefore remain pending; automated markup checks are not browser acceptance.
+
+
+Hero palette correction — 12 November 2026: the latest supplied reference supersedes the earlier ivory/beige color direction. The hero now uses neutral rose-white (`#f1e7e8`), dark burgundy text and vivid MIU red (`#b0001e`), with rose-white glass cards and a crimson CTA glow. A static SVG color matrix (RGB gains 0.965 / 0.974 / 1.014 in sRGB) grades the existing artwork and both door panels together, reducing the warm yellow cast without regenerating or shifting the building. Navbar, search layout, account buttons, routes and animation timing are preserved. Dark appearance retains its existing overrides.
+
+Visibility follow-up: after the user reported that the color change was not apparent, the hero backdrop and edge fades were strengthened to `#eadfe2`. Static artwork grading now uses RGB gains 0.96 / 0.96 / 1.03 plus a 0.015 blue offset, making the neutral pink cast more visible while preserving the existing image and door alignment. This supersedes the first subtle grade above.
+
+
+Hero framing correction — 12 November 2026: the user requested the complete reference framing rather than a zoomed crop. The artwork SVG now uses `xMidYMid meet` instead of `slice`; the mobile 145% width and negative left margin are removed. The full 1672 × 941 composition scales proportionally within the hero, retaining the building, rooftop lettering and bench without cropping. Door panels remain aligned because all layers share the same viewBox. Extra space on mismatched viewport proportions uses the existing hero backdrop. Navbar, search, colors and timeline are unchanged.
+
+
+Reference palette and navbar refinement — 12 November 2026: the user requested the supplied image's colors and navbar styling while preserving every existing navbar item. The active hero plate is now `miu-reference-rose.webp`, color-graded using the supplied reference; the earlier beige plate remains available. This supersedes all interim SVG color matrices, which are removed. Full-image `meet` framing is retained and the page backdrop is `#eee3e5` with a gentler edge fade.
+
+Homepage-only CSS now separates the unchanged brand from a central pill-shaped glass navigation lens and rounded language/appearance/account controls. The full-width enclosing navbar border/background is removed. Hire Talent, Find Work, How it works, all dropdown destinations, EN/AR, appearance settings, Sign In/Sign Up, authenticated account actions and mobile Modal drawer are unchanged. Shared header JSX and shared navigation styles are untouched. Opaque glass fallbacks, reduced-transparency overrides and dark surfaces remain available. Full browser visual matching is still unverified; a color reference does not guarantee pixel-identical rendering across displays.
+
+
+Top-gap correction — 12 November 2026: following the user's report of empty space above the artwork, the SVG uses `xMidYMin meet`. The complete scene is aligned to the top of its hero viewport instead of vertically centered. Image proportions and crop-free fitting are preserved.
+
+Validation for the reference palette/header update: production build, lint and 14 targeted route/theme regression tests passed. The final top-alignment follow-up changes only the SVG fitting attribute. Full browser visual acceptance remains pending.

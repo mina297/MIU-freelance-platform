@@ -1,157 +1,192 @@
 import { useId } from "react";
-import { useTheme } from "../../theme/ThemeContext.js";
-import lightScene from "../../assets/hero/miu-scene.webp";
-import lightUnlitScene from "../../assets/hero/miu-scene-unlit.webp";
-import darkScene from "../../assets/hero/miu-scene-dark.webp";
-import darkUnlitScene from "../../assets/hero/miu-scene-dark-unlit.webp";
-import coin from "../../assets/hero/miu-coin.webp";
+import {
+  BriefcaseBusiness,
+  CodeXml,
+  Check,
+  ArrowUpRight,
+  UserRound,
+  Layers3,
+} from "lucide-react";
+import { useLanguage } from "../../i18n/LanguageContext.js";
+import { formatEGP } from "../../utils/formatEGP.js";
+import scene from "../../assets/hero/miu-reference-rose.webp";
 import "./heroScene.css";
 
-// Coordinates are in the supplied artwork's original pixel space.
+// Coordinates of the doorway in the 1672 × 941 background plate.
 const doorway =
-  "M1204 826 V675 C1204 629 1247 558 1299 556 C1327 552 1337 572 1337 604 V749 Z";
+  "M1131 723 V537 C1131 485 1168 416 1207 409 C1251 407 1292 461 1292 517 V687 Z";
 
-const deliveries = [
-  { kind: "design", color: "#a4214a", icon: "M10 34 24 10 38 34ZM20 29h8" },
-  {
-    kind: "web",
-    color: "#502848",
-    icon: "m17 16-8 8 8 8m14-16 8 8-8 8m-4-20-6 24",
-  },
-  { kind: "video", color: "#b73245", icon: "M17 11v26l20-13Z" },
-];
+function SceneCard({ kind, icon: Icon, eyebrow, title, children }) {
+  const { t } = useLanguage();
+  return (
+    <div className={`miu-scene-card miu-scene-${kind}`}>
+      <span className="miu-scene-card-icon">
+        <Icon size={19} />
+      </span>
+      <div>
+        <small>{t(eyebrow)}</small>
+        <strong>{t(title)}</strong>
+        {children}
+      </div>
+    </div>
+  );
+}
 
 export default function HeroScene() {
   const id = useId();
-  const { theme } = useTheme();
-  const scene = theme === "dark" ? darkScene : lightScene;
-  const unlitScene = theme === "dark" ? darkUnlitScene : lightUnlitScene;
-  const ref = (name) => `url(#${id}-${name})`;
-  const photo = { width: 1678, height: 937 };
-
+  const { t, locale } = useLanguage();
+  const url = (name) => `url(#${id}-${name})`;
+  const photo = { width: 1672, height: 941 };
   return (
     <div className="landing-hero-media" aria-hidden="true">
       <svg
         className="landing-scene"
-        viewBox="0 0 1678 937"
-        preserveAspectRatio="xMaxYMid slice"
-        width="1678"
-        height="937"
+        viewBox="0 0 1672 941"
+        preserveAspectRatio="xMidYMin meet"
+        width="1672"
+        height="941"
         focusable="false"
       >
         <defs>
-          <radialGradient id={`${id}-sign-fade`}>
-            <stop offset=".72" stopColor="white" />
-            <stop offset="1" stopColor="black" />
-          </radialGradient>
-          <mask
-            id={`${id}-sign`}
-            maskUnits="userSpaceOnUse"
-            x="750"
-            y="0"
-            width="700"
-            height="460"
-          >
-            <ellipse
-              cx="1100"
-              cy="216"
-              rx="350"
-              ry="230"
-              fill={ref("sign-fade")}
-            />
-          </mask>
-          <clipPath id={`${id}-belt`}>
-            <rect width="778" height="540" />
-          </clipPath>
           <clipPath id={`${id}-door`}>
             <path d={doorway} />
           </clipPath>
           <clipPath id={`${id}-left`}>
-            <rect x="1203" y="550" width="54" height="280" />
+            <rect x="1130" y="405" width="79" height="325" />
           </clipPath>
           <clipPath id={`${id}-right`}>
-            <rect x="1257" y="550" width="81" height="280" />
+            <rect x="1209" y="405" width="85" height="325" />
           </clipPath>
-          <linearGradient id={`${id}-interior`} x2=".85" y2="1">
-            <stop stopColor="#220a18" />
-            <stop offset=".68" stopColor="#5f132b" />
-            <stop offset="1" stopColor="#db5852" />
+          <linearGradient id={`${id}-interior`} x2=".8" y2="1">
+            <stop stopColor="#310713" />
+            <stop offset=".7" stopColor="#9b102b" />
+            <stop offset="1" stopColor="#ffaf9b" />
           </linearGradient>
         </defs>
-
-        <image href={scene} {...photo} />
-        <image
-          className="landing-scene-unlit"
-          href={unlitScene}
-          {...photo}
-          mask={ref("sign")}
-        />
-
-        <g clipPath={ref("belt")}>
-          {deliveries.map(({ kind, color, icon }) => (
-            <g
-              className={`landing-delivery landing-delivery-${kind}`}
-              key={kind}
-            >
-              <ellipse
-                cx="4"
-                cy="20"
-                rx="42"
-                ry="12"
-                fill="#642741"
-                opacity=".23"
-              />
-              <g transform="rotate(31) translate(-38 -45)">
-                <rect y="5" width="76" height="64" rx="10" fill={color} />
-                <rect
-                  width="76"
-                  height="64"
-                  rx="10"
-                  fill="#fff0f3"
-                  stroke={color}
-                  strokeWidth="2"
-                />
-                <path
-                  d={icon}
-                  transform="translate(14 8)"
-                  fill="none"
-                  stroke={color}
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </g>
+        <g>
+          <image href={scene} {...photo} />
+          <g className="landing-scene-doors" clipPath={url("door")}>
+            <path d={doorway} fill={url("interior")} />
+            <path
+              className="miu-door-light"
+              d={doorway}
+              fill="#ff8e8d"
+              opacity=".32"
+            />
+            <g className="landing-scene-door-left">
+              <image href={scene} {...photo} clipPath={url("left")} />
             </g>
-          ))}
-        </g>
-
-        <g className="landing-scene-doors" clipPath={ref("door")}>
-          <path d={doorway} fill={ref("interior")} />
-          <path
-            d="M1204 826 1231 777 1337 727 V749Z"
-            fill="#e76b5b"
-            opacity=".42"
-          />
-          <g className="landing-scene-door-left">
-            <g clipPath={ref("door")}>
-              <image href={scene} {...photo} clipPath={ref("left")} />
-            </g>
-          </g>
-          <g className="landing-scene-door-right">
-            <g clipPath={ref("door")}>
-              <image href={scene} {...photo} clipPath={ref("right")} />
+            <g className="landing-scene-door-right">
+              <image href={scene} {...photo} clipPath={url("right")} />
             </g>
           </g>
         </g>
-        <image
-          className="landing-scene-coin"
-          href={coin}
-          x="1192"
-          y="611"
-          width="150"
-          height="137"
-        />
       </svg>
+      <div className="miu-scene-overlay">
+        <svg
+          className="miu-connections"
+          viewBox="0 0 700 650"
+          fill="none"
+          focusable="false"
+        >
+          <path
+            className="miu-orbit"
+            d="M110 468C40 393 546 359 615 427S244 600 110 468Z"
+          />
+          <path
+            className="miu-match-line"
+            pathLength="1"
+            d="M505 240C580 300 540 390 320 400"
+          />
+        </svg>
+        <SceneCard
+          kind="project"
+          icon={BriefcaseBusiness}
+          eyebrow="A new opportunity"
+          title="Website design"
+        >
+          <span className="miu-card-detail">{t("Design & development")}</span>
+          <span className="miu-card-tag">
+            {t("Open for proposals")} <ArrowUpRight size={12} />
+          </span>
+        </SceneCard>
+        <SceneCard
+          kind="profile"
+          icon={UserRound}
+          eyebrow="Student freelancer"
+          title="Nour Ahmed"
+        >
+          <span className="miu-card-detail">{t("UI / UX Designer")}</span>
+          <span className="miu-card-skills">
+            Figma <i /> React <i /> {t("Branding")}
+          </span>
+        </SceneCard>
+        <SceneCard
+          kind="service"
+          icon={Layers3}
+          eyebrow="Made by students"
+          title="Ideas, beautifully built."
+        >
+          <span className="miu-service-swatches">
+            <i />
+            <i />
+            <i />
+            <i />
+          </span>
+          <span className="miu-card-detail">
+            {t("Portfolios & creative services")}
+          </span>
+        </SceneCard>
+        <div className="miu-scene-match">
+          <Check size={14} />
+          {t("A great connection")}
+        </div>
+        <div className="miu-scene-laptop">
+          <div className="miu-laptop-screen">
+            <div className="miu-laptop-browser">
+              <i />
+              <i />
+              <i />
+              <span>nour.design</span>
+            </div>
+            <div className="miu-portfolio">
+              <CodeXml size={20} />
+              <small>{t("DESIGN. BUILD. INSPIRE.")}</small>
+              <strong>
+                {t("A little vision.")}
+                <br />
+                {t("A lasting impression.")}
+              </strong>
+              <div>
+                <i />
+                <i />
+                <i />
+              </div>
+            </div>
+          </div>
+          <div className="miu-laptop-base" />
+          <span className="miu-completed">
+            <Check size={12} />
+            {t("Project completed")}
+          </span>
+        </div>
+        <SceneCard
+          kind="earnings"
+          icon={ArrowUpRight}
+          eyebrow="Illustrative earnings"
+          title={formatEGP(3500, locale)}
+        >
+          <span className="miu-card-detail">
+            {t("Your skills. Real possibilities.")}
+          </span>
+          <span className="miu-card-tag">
+            {t("Fictional example · no payment")}
+          </span>
+        </SceneCard>
+        <span className="miu-particle miu-particle-one" />
+        <span className="miu-particle miu-particle-two" />
+        <span className="miu-particle miu-particle-three" />
+      </div>
     </div>
   );
 }

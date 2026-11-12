@@ -12,42 +12,176 @@
   align-self: start;
   background: transparent;
 }
+/* The reference separates the brand, central glass lens and account controls. */
+.homepage-theme > .public-header {
+  padding: 22px clamp(20px, 3.6vw, 64px);
+}
 .homepage-theme .public-header-inner {
-  /* A clear glass lens: bright rim, soft tint, and visible scenery beneath. */
-  border-radius: 24px;
-  border: 1px solid #ffffff45;
-  border-block-start-color: #ffffff45;
-  border-block-end-color: #ffffff45;
-  background: var(--theme-surface, #fff);
-  box-shadow:
-    inset 0 1px 1px #ffffff30,
-    inset 0 -1px 2px #ffffff30,
-    inset 1px 0 2px #ffffff26,
-    0 8px 24px -16px #00000040;
+  min-height: 62px;
+  padding: 0;
+  gap: 24px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 .homepage-theme .public-navigation {
-  background: transparent;
-  border-color: transparent;
-  box-shadow: none;
+  gap: 3px;
+  padding: 4px 10px;
+  border: 1px solid #ffffffbd;
+  border-radius: 999px;
+  background: #fff7f9ed;
+  box-shadow:
+    inset 0 1px 3px #ffffff,
+    0 4px 20px #ffffff75,
+    0 8px 24px -16px #7d35463b;
 }
-@supports ((backdrop-filter: blur(3px)) or (-webkit-backdrop-filter: blur(3px))) {
+.homepage-theme .public-navigation > .public-nav-link,
+.homepage-theme .public-nav-dropdown > .disclosure-trigger {
+  min-height: 42px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.homepage-theme .public-header-tools {
+  gap: 8px;
+  padding-inline-end: 0;
+  border-inline-end: 0;
+}
+.homepage-theme .public-header .language-control .disclosure-trigger,
+.homepage-theme .public-sign-in {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  border: 1px solid #ffffff9c;
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: #fff7f9ed;
+  box-shadow: inset 0 1px 2px #ffffffa6;
+  font-size: 12px;
+  text-decoration: none;
+}
+.homepage-theme .public-header .language-control .disclosure-trigger {
+  width: 100%;
+  padding-inline: 10px;
+}
+.homepage-theme
+  .public-header
+  :is(.public-preferences, .public-account-menu)
+  > .disclosure-trigger,
+.homepage-theme .public-mobile-menu {
+  min-height: 42px;
+  min-width: 42px;
+  border-color: #ffffff9c;
+  background: #fff7f9ed;
+  box-shadow: inset 0 1px 2px #ffffffa6;
+}
+.homepage-theme .public-sign-up {
+  min-height: 42px;
+  padding: 10px 19px;
+  border: 1px solid #bc0825;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #d40525, #b0001e);
+  box-shadow:
+    inset 0 1px 2px #ffffff61,
+    0 5px 15px #a9092421;
+  font-size: 12px;
+  text-decoration: none;
+}
+.homepage-theme
+  .public-nav-dropdown
+  > .disclosure-trigger[aria-expanded="true"] {
+  color: #ae0826;
+  background: #ffffff80;
+  box-shadow: inset 0 -2px #bd0c2d;
+}
+@supports (
+  (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))
+) {
+  .homepage-theme .public-navigation,
+  .homepage-theme .public-header .language-control .disclosure-trigger,
+  .homepage-theme .public-sign-in,
+  .homepage-theme
+    .public-header
+    :is(.public-preferences, .public-account-menu)
+    > .disclosure-trigger,
+  .homepage-theme .public-mobile-menu {
+    background: linear-gradient(135deg, #ffffff55, #fff8fa14);
+    -webkit-backdrop-filter: blur(10px) saturate(110%);
+    backdrop-filter: blur(10px) saturate(110%);
+  }
+}
+:root[data-theme="dark"] .homepage-theme .public-navigation,
+:root[data-theme="dark"]
+  .homepage-theme
+  .public-header
+  .language-control
+  .disclosure-trigger,
+:root[data-theme="dark"] .homepage-theme .public-sign-in,
+:root[data-theme="dark"]
+  .homepage-theme
+  .public-header
+  :is(.public-preferences, .public-account-menu)
+  > .disclosure-trigger,
+:root[data-theme="dark"] .homepage-theme .public-mobile-menu {
+  background: #35232cce;
+  border-color: #d9aebc66;
+  box-shadow:
+    inset 0 1px 2px #ffffff26,
+    0 6px 20px #10030b1f;
+}
+@media (max-width: 1179px) {
+  .homepage-theme > .public-header {
+    padding: 14px 20px;
+  }
   .homepage-theme .public-header-inner {
-    background: linear-gradient(135deg, #ffffff09, transparent 55%, #ffffff04),
-      color-mix(in srgb, var(--theme-surface, #fff) 2%, transparent);
-    -webkit-backdrop-filter: blur(3px) saturate(110%);
-    backdrop-filter: blur(3px) saturate(110%);
+    gap: 14px;
+  }
+}
+@media (max-width: 600px) {
+  .homepage-theme > .public-header {
+    padding: 12px 16px;
+  }
+  .homepage-theme .public-header-inner {
+    gap: 8px;
+    min-height: 54px;
+  }
+  .homepage-theme .public-header-tools {
+    gap: 5px;
+  }
+  .homepage-theme .public-header .language-control .disclosure-trigger {
+    padding-inline: 7px;
   }
 }
 @media (prefers-reduced-transparency: reduce) {
-  .homepage-theme .public-header-inner {
+  .homepage-theme .public-navigation,
+  .homepage-theme .public-header .language-control .disclosure-trigger,
+  .homepage-theme .public-sign-in,
+  .homepage-theme
+    .public-header
+    :is(.public-preferences, .public-account-menu)
+    > .disclosure-trigger,
+  .homepage-theme .public-mobile-menu {
     background: var(--theme-surface, #fff);
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
 }
-:root[data-theme="dark"] .homepage-theme .public-header
-  :is(.public-brand > span, .public-nav-link, .public-nav-dropdown > .disclosure-trigger:not([aria-expanded="true"])) {
-  text-shadow: 0 1px 3px #301620, 0 0 5px #301620;
+:root[data-theme="dark"]
+  .homepage-theme
+  .public-header
+  :is(
+    .public-brand > span,
+    .public-nav-link,
+    .public-nav-dropdown > .disclosure-trigger:not([aria-expanded="true"])
+  ) {
+  text-shadow:
+    0 1px 3px #301620,
+    0 0 5px #301620;
 }
 .homepage-skip-link {
   position: absolute;
@@ -345,29 +479,54 @@
 }
 /* Homepage-only motion; functional state changes remain immediate. */
 @media (prefers-reduced-motion: no-preference) {
-  .homepage-theme:has(.landing[data-motion="on"]) .disclosure:not(:has(:focus-visible)) .disclosure-panel {
-    transition: opacity 180ms ease-out, transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
+  .homepage-theme:has(.landing[data-motion="on"])
+    .disclosure:not(:has(:focus-visible))
+    .disclosure-panel {
+    transition:
+      opacity 180ms ease-out,
+      transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
     transform-origin: top center;
-    @starting-style { opacity: 0; transform: translateY(-6px) scale(0.985); }
+    @starting-style {
+      opacity: 0;
+      transform: translateY(-6px) scale(0.985);
+    }
   }
 }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .homepage-theme:has(.landing[data-motion="on"]) :is(.landing-button, .landing-save, .public-sign-up) {
-    transition: transform 120ms ease-out, box-shadow 120ms ease-out;
+  .homepage-theme:has(.landing[data-motion="on"])
+    :is(.landing-button, .landing-save, .public-sign-up) {
+    transition:
+      transform 120ms ease-out,
+      box-shadow 120ms ease-out;
   }
-  .homepage-theme:has(.landing[data-motion="on"]) :is(.landing-button, .landing-save, .public-sign-up):active:not(:focus-visible) {
+  .homepage-theme:has(.landing[data-motion="on"])
+    :is(.landing-button, .landing-save, .public-sign-up):active:not(
+      :focus-visible
+    ) {
     transform: scale(0.97);
   }
 }
-.homepage-theme:has(.landing[data-motion="off"]) :is(.disclosure-panel, .disclosure-trigger > svg, .landing-dialog, .landing-mode-indicator) {
+.homepage-theme:has(.landing[data-motion="off"])
+  :is(
+    .disclosure-panel,
+    .disclosure-trigger > svg,
+    .landing-dialog,
+    .landing-mode-indicator
+  ) {
   transition: none;
   animation: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .homepage-theme[data-input="pointer"]:has(.landing[data-motion="on"]) .landing-dialog[open] {
-    transition: opacity 200ms ease-out, transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
-    @starting-style { opacity: 0; transform: translateY(8px) scale(0.985); }
+  .homepage-theme[data-input="pointer"]:has(.landing[data-motion="on"])
+    .landing-dialog[open] {
+    transition:
+      opacity 200ms ease-out,
+      transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+    @starting-style {
+      opacity: 0;
+      transform: translateY(8px) scale(0.985);
+    }
   }
 }
 

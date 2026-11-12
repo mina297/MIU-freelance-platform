@@ -147,7 +147,7 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     assert.match(html, /class="homepage-theme" data-theme="light"/);
     assert.match(html, /aria-label="Dark mode" aria-pressed="false"/);
     for (const text of [
-      "Great ideas deserve great talent.",
+      "Your Talent",
       "How it works",
       "Featured jobs",
       "Top-rated students",
@@ -167,9 +167,9 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     const pathways = html.match(
       /<nav class="landing-pathways"[\s\S]*?<\/nav>/,
     )?.[0];
-    assert.ok(pathways, "Homepage offers both marketplace entry paths");
+    assert.ok(pathways, "Homepage offers project discovery and freelancer registration");
     assert.match(pathways, /href="\/projects"/);
-    assert.match(pathways, /href="\/services"/);
+    assert.match(pathways, /href="\/register\?role=student"/);
     const invitation = html.match(
       /<section class="landing-invitation"[\s\S]*?<\/section>/,
     )?.[0];
@@ -197,11 +197,15 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     }
     assert.match(html, /role="search"/);
     assert.match(html, /class="landing-hero-media" aria-hidden="true"/);
-    assert.match(html, /class="landing-scene" viewBox="0 0 1678 937"/);
-    assert.match(html, /class="landing-scene-unlit"[^>]*miu-scene-unlit\.webp/);
-    assert.match(html, /class="landing-delivery landing-delivery-design"/);
+    assert.match(html, /class="landing-scene" viewBox="0 0 1672 941"/);
+    assert.match(html, /miu-reference-rose\.webp/);
     assert.match(html, /class="landing-scene-doors"/);
-    assert.match(html, /class="landing-scene-coin"[^>]*miu-coin\.webp/);
+    for (const kind of ["project", "profile", "service", "earnings"]) {
+      assert.match(html, new RegExp('miu-scene-card miu-scene-' + kind));
+    }
+    assert.match(html, /Fictional example · no payment/);
+    assert.match(html, /href="#hero-discover"/);
+    assert.match(html, /Opens Doors\./);
     assert.doesNotMatch(html, /<video\b/);
     assert.match(html, /aria-label="Choose Hire or Work"/);
     assert.match(html, /aria-pressed="false">Hire<\/button>/);
@@ -291,7 +295,7 @@ test("public website routes render real pages in one shell with safe destination
         ),
       );
     for (const [path, text] of [
-      ["/", "Great ideas deserve great talent."],
+      ["/", "Your Talent"],
       ["/about", "From university learning to practical experience"],
       ["/how-it-works", "Planned service journey"],
       ["/terms", "not published Terms of Use"],
