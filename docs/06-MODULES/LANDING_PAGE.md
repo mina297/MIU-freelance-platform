@@ -1,5 +1,7 @@
 # Landing Page — Phase 1 frontend
 
+Hero background update — 12 November 2026: the light-mode hero canvas and desktop/mobile artwork edge fades now use white (`#ffffff`) instead of beige. The hero artwork in `miu-reference-ivory.webp` is also replaced with the user's latest neutral-white image, retaining its 1672 × 941 dimensions, red accents and existing image/door alignment. Existing dark-mode overrides are retained.
+
 Implemented at `/`, based on [MIU Freelance desktop, node 8:2656](https://www.figma.com/design/4OarPMFlQbiJI1Q1WxblcC/MIU-Freelancing-Platform--Copy-?node-id=8-2656).
 
 Related requirements: P-01, FR-V01–FR-V04, NFR-01–NFR-03 and SR-09. This screen supports public discovery and entry to existing authentication. It does not complete the full marketplace or account requirements.
@@ -7,6 +9,8 @@ Related requirements: P-01, FR-V01–FR-V04, NFR-01–NFR-03 and SR-09. This scr
 `frontend/src/features/public/` owns the page, scoped styles and fictional landing-only examples. Assets in `frontend/src/assets/figma/landing/` are downloaded originals from the frame; no temporary Figma URLs are used at runtime. Inter, Playfair Display and brand colors reuse the existing theme. The shared public header now uses Upwork-inspired Hire Talent and Find Work dropdowns, How it works, Sign In and Sign Up, with MIU branding retained (23 October 2026).
 
 ## Behavior
+
+Search appearance — 12 November 2026: the hero search uses a white pill surface with a red oval icon-only submit button and an accessible Search label. The existing rotating search examples, query, Hire/Work mode and filtering behavior are preserved. The category picker sits below the pill and still combines with the query on submission. The hero search perimeter animation is removed to match the supplied reference.
 
 ### Shared dark mode — 25 October 2026
 

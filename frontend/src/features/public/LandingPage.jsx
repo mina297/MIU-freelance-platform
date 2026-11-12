@@ -248,42 +248,48 @@ export default function LandingPage() {
                   placeholder={t("Search")}
                 />
               </div>
-              <Dropdown
-                className="landing-category-select"
-                label={
-                  <>
-                    <Grid2X2 size={17} aria-hidden="true" />
-                    <span>{t(category || "All categories")}</span>
-                  </>
-                }
+              <button
+                type="submit"
+                className="landing-button primary miu-hero-search-submit"
+                aria-label={t("Search")}
               >
-                {(close) => (
-                  <>
-                    <p className="landing-category-heading">
-                      {t("Explore categories")}
-                    </p>
-                    {["", ...landingCategories].map((value) => (
-                      <button
-                        type="button"
-                        key={value}
-                        className="disclosure-item landing-category-option"
-                        aria-pressed={category === value}
-                        onClick={() => {
-                          setCategory(value);
-                          close();
-                        }}
-                      >
-                        <span>{t(value || "All categories")}</span>
-                        {category === value && (
-                          <Check size={16} aria-hidden="true" />
-                        )}
-                      </button>
-                    ))}
-                  </>
-                )}
-              </Dropdown>
-              <button className="landing-button primary">{t("Search")}</button>
+                <Icon name="search" />
+              </button>
             </form>
+            <Dropdown
+              className="landing-category-select"
+              label={
+                <>
+                  <Grid2X2 size={17} aria-hidden="true" />
+                  <span>{t(category || "All categories")}</span>
+                </>
+              }
+            >
+              {(close) => (
+                <>
+                  <p className="landing-category-heading">
+                    {t("Explore categories")}
+                  </p>
+                  {["", ...landingCategories].map((value) => (
+                    <button
+                      type="button"
+                      key={value}
+                      className="disclosure-item landing-category-option"
+                      aria-pressed={category === value}
+                      onClick={() => {
+                        setCategory(value);
+                        close();
+                      }}
+                    >
+                      <span>{t(value || "All categories")}</span>
+                      {category === value && (
+                        <Check size={16} aria-hidden="true" />
+                      )}
+                    </button>
+                  ))}
+                </>
+              )}
+            </Dropdown>
             <p className="landing-mode-caption" aria-live="polite">
               {mode === "hire"
                 ? t("Great ideas start with the right people. ")

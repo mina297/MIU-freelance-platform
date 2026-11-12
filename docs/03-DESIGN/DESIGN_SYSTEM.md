@@ -8,6 +8,8 @@ tags: [MIU, design-system, UI]
 
 # MIU Freelance Platform — Design System
 
+Latest homepage hero background choice — 12 November 2026: use white (`#ffffff`) for the light-mode hero canvas and its artwork edge fades, superseding the previous beige backdrop. This is scoped to P-01.
+
 ## 1. Purpose
 
 Define a consistent visual language for the platform.

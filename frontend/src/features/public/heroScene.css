@@ -1,6 +1,6 @@
 /* Reference-led MIU hero. Artwork stays separate from live interface content. */
 .landing-hero-story {
-  --hero-surface: #faf6f0;
+  --hero-surface: #ffffff;
   --hero-ink: #300510;
   --hero-crimson: #b0001e;
   background: var(--hero-surface);
@@ -100,21 +100,42 @@
   background: var(--hero-crimson);
 }
 .landing .landing-hero .landing-search {
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 10px;
-  padding: 12px;
+  min-height: 60px;
+  padding: 6px 7px 6px 20px;
   color: var(--ink-primary);
-  background: #fff9f2c9;
-  border-color: #ffffff;
+  background: #ffffffd9;
+  border: 1px solid #ffffff;
+  border-radius: 999px;
   box-shadow:
-    0 12px 30px #7b20371a,
-    inset 0 1px 2px #ffffff;
+    0 5px 18px #44212c14,
+    inset 0 2px 4px #ffffff;
+}
+.landing .landing-hero .landing-search::before {
+  display: none;
 }
 .landing .landing-hero .landing-search-input {
-  flex: 1 0 calc(100% - 40px);
+  flex: 1;
+  width: auto;
+}
+.landing .landing-hero .landing-search :is(input, .landing-search-hint) {
+  font-size: 13px;
+}
+.landing .landing-hero .landing-search .miu-hero-search-submit {
+  flex: 0 0 62px;
+  width: 62px;
+  min-height: 44px;
+  padding: 10px 18px;
+  border-radius: 999px;
+}
+.landing .landing-hero .miu-hero-search-submit .landing-icon {
+  width: 20px;
+  height: 20px;
 }
 .landing .landing-hero .landing-category-select {
-  flex: 1;
+  flex: 0 0 auto;
+  margin-top: -10px;
   border: 0;
   padding-inline-start: 0;
 }
@@ -184,7 +205,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(90deg, #faf6f070, #faf6f01a 35%, transparent 52%);
+  background: linear-gradient(90deg, #ffffff70, #ffffff1a 35%, transparent 52%);
 }
 .landing-scene {
   display: block;
@@ -736,10 +757,10 @@
   }
   .landing-hero-media::after {
     background: linear-gradient(
-      #faf6f0 0%,
-      #faf6f000 18%,
-      #faf6f000 87%,
-      #faf6f0 100%
+      #ffffff 0%,
+      #ffffff00 18%,
+      #ffffff00 87%,
+      #ffffff 100%
     );
   }
   .miu-scene-overlay {
