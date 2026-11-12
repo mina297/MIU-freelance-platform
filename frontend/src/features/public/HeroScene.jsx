@@ -34,7 +34,7 @@ export default function HeroScene() {
       <svg
         className="landing-scene"
         viewBox="0 0 1678 937"
-        preserveAspectRatio="xMidYMid slice"
+        preserveAspectRatio="xMaxYMid slice"
         width="1678"
         height="937"
         focusable="false"

@@ -69,6 +69,14 @@ The desktop layout retains the centered hero, alternating timeline, three-column
 
 ### Animated MIU hero — 9 November 2026
 
+Latest full-width fit: the original artwork now fills the entire hero image area with SVG `xMaxYMid slice` and its original `0 0 1678 937` viewBox. This supersedes the expanded-viewBox/contain experiments below. There are no letterbox bands, separate pink padding or blurred image copies: the source image itself covers the available area, cropping at the edges when aspect ratios differ. Right alignment favors the building on narrow screens. All original animation layers share the same coordinate system and crop. The current hero height and search controls are preserved.
+
+Latest height adjustment: the desktop hero minimum height is now `clamp(490px, 40vw, 780px)`, with slightly smaller vertical padding. These values supersede the earlier height refinement below; mobile sizing remains unchanged.
+
+Internal scale follow-up: expanded the SVG viewBox by 8% around its center, making the building, conveyor and synchronized animation layers approximately 7.4% smaller within the existing image area. The outer SVG dimensions, hero height, text and search controls are unchanged by this follow-up.
+
+Height refinement: the desktop hero uses `clamp(520px, 43vw, 830px)` minimum height and reduced vertical padding. The illustration now fits inside that same area with SVG `xMidYMid meet` instead of filling and cropping with `slice`, making the internal design smaller without shrinking the container again. Theme-specific backdrop colors fill any spare space. The shared SVG coordinate system preserves artwork proportions and animation alignment. The narrow-screen scene and control layout retain their existing sizing.
+
 The MIU building illustration fills the desktop hero, with the heading, search
 and entry links layered over the lower-left area beneath the conveyor. On narrow
 screens the full scene remains visible at the top, and the controls overlap its
@@ -170,6 +178,8 @@ User correction: How it works retains its original scroll-driven reveals, depth/
 
 
 ### Homepage navigation - 5 November 2026
+
+Navbar text-selection repair: links and buttons inside `public-header-inner` no longer allow accidental text selection or display the global rose selection fill. This removes the small pink rectangles behind EN, Sign In and Sign Up without changing button backgrounds, dropdowns or keyboard focus. Page content remains selectable.
 
 Upper-edge refinement: softened the white top border to 27% opacity and its inset highlight to 19%, keeping the existing glass background and other edges.
 

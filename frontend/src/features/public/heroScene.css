@@ -1,8 +1,8 @@
 .landing .landing-hero {
   --hero-backdrop: #301620;
   display: block;
-  min-height: clamp(560px, 47vw, 900px);
-  padding: clamp(144px, 14vw, 260px) clamp(24px, 5vw, 110px) 36px;
+  min-height: clamp(490px, 40vw, 780px);
+  padding: clamp(120px, 11.5vw, 214px) clamp(24px, 5vw, 110px) 28px;
   background: var(--hero-backdrop);
   color: white;
 }
@@ -235,10 +235,6 @@
 
   .landing-hero-copy {
     width: min(100%, 480px);
-  }
-
-  .landing-scene {
-    height: auto;
   }
 
   .landing-hero-media::after {
