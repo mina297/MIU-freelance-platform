@@ -198,7 +198,7 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     assert.match(html, /role="search"/);
     assert.match(html, /class="landing-hero-media" aria-hidden="true"/);
     assert.match(html, /class="landing-scene" viewBox="0 0 1672 941"/);
-    assert.match(html, /miu-reference-rose\.webp/);
+    assert.match(html, /miu-reference-ivory\.webp/);
     assert.match(html, /class="landing-scene-doors"/);
     for (const kind of ["project", "profile", "service", "earnings"]) {
       assert.match(html, new RegExp('miu-scene-card miu-scene-' + kind));

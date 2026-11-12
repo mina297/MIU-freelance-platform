@@ -1,6 +1,6 @@
 /* Reference-led MIU hero. Artwork stays separate from live interface content. */
 .landing-hero-story {
-  --hero-surface: #eee3e5;
+  --hero-surface: #faf6f0;
   --hero-ink: #300510;
   --hero-crimson: #b0001e;
   background: var(--hero-surface);
@@ -104,7 +104,7 @@
   gap: 10px;
   padding: 12px;
   color: var(--ink-primary);
-  background: #fff9fbc9;
+  background: #fff9f2c9;
   border-color: #ffffff;
   box-shadow:
     0 12px 30px #7b20371a,
@@ -137,7 +137,7 @@
   padding: 12px 23px;
   font-size: 12px;
   border-color: #a51535;
-  background: #fff5f770;
+  background: #fff9f270;
   color: var(--hero-crimson);
 }
 .landing .landing-hero .landing-pathways .primary,
@@ -184,7 +184,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(90deg, #eee3e570, #eee3e51a 35%, transparent 52%);
+  background: linear-gradient(90deg, #faf6f070, #faf6f01a 35%, transparent 52%);
 }
 .landing-scene {
   display: block;
@@ -212,7 +212,7 @@
   overflow: visible;
 }
 .miu-orbit {
-  stroke: #fff4f6;
+  stroke: #fff7ee;
   stroke-width: 2;
   opacity: 0.8;
 }
@@ -230,7 +230,7 @@
   padding: 15px;
   border: 1px solid #ffffffea;
   border-radius: 13px;
-  background: linear-gradient(135deg, #ffffffeb, #fff5f7b0);
+  background: linear-gradient(135deg, #ffffffeb, #fff9f2b0);
   box-shadow:
     0 14px 30px -12px #6b293d33,
     inset 0 0 0 1px #9a27321c;
@@ -337,7 +337,7 @@
   padding: 8px 12px;
   border: 1px solid #fff;
   border-radius: 99px;
-  background: #fff3f5ed;
+  background: #fff7f2ed;
   box-shadow: 0 4px 16px #a70d2920;
   color: #970c2a;
   font-size: 9px;
@@ -381,7 +381,7 @@
   justify-items: start;
   gap: 7px;
   padding: 13px;
-  color: #faeef1;
+  color: #f9eee6;
   background: #80132f;
 }
 .miu-portfolio > svg {
@@ -623,7 +623,7 @@
 @media (prefers-reduced-transparency: reduce) {
   .miu-scene-card,
   .landing .landing-hero .landing-search {
-    background: #fff7f9;
+    background: #fffaf5;
     backdrop-filter: none;
   }
 }
@@ -736,10 +736,10 @@
   }
   .landing-hero-media::after {
     background: linear-gradient(
-      #eee3e5 0%,
-      #eee3e500 18%,
-      #eee3e500 87%,
-      #eee3e5 100%
+      #faf6f0 0%,
+      #faf6f000 18%,
+      #faf6f000 87%,
+      #faf6f0 100%
     );
   }
   .miu-scene-overlay {

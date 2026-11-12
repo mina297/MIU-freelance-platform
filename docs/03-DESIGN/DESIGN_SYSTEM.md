@@ -340,3 +340,6 @@ The subsequent 12 November user reference corrects the hero palette to neutral r
 
 
 Latest 12 November refinement: the reference-derived rose image now supplies the hero colors directly; the temporary SVG grading filter is removed. The homepage header adopts separate brand, central glass navigation pill and rounded utility/account controls, using 10px backdrop blur, translucent white rims and an opaque reduced-transparency fallback. All existing navbar labels, destinations and behavior are preserved. The earlier full-width glass navbar shape is superseded on P-01.
+
+
+Latest user color choice — 12 November 2026: restore the original beige/ivory hero plate and `#faf6f0` backdrop, with warm ivory glass tints. Retain the existing separated glass navbar shape and its complete navigation content. This supersedes the temporary rose-white hero palette.

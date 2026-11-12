@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { formatEGP } from "../../utils/formatEGP.js";
-import scene from "../../assets/hero/miu-reference-rose.webp";
+import scene from "../../assets/hero/miu-reference-ivory.webp";
 import "./heroScene.css";
 
 // Coordinates of the doorway in the 1672 × 941 background plate.

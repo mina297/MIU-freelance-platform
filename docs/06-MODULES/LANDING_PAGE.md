@@ -229,3 +229,8 @@ Homepage-only CSS now separates the unchanged brand from a central pill-shaped g
 Top-gap correction — 12 November 2026: following the user's report of empty space above the artwork, the SVG uses `xMidYMin meet`. The complete scene is aligned to the top of its hero viewport instead of vertically centered. Image proportions and crop-free fitting are preserved.
 
 Validation for the reference palette/header update: production build, lint and 14 targeted route/theme regression tests passed. The final top-alignment follow-up changes only the SVG fitting attribute. Full browser visual acceptance remains pending.
+
+
+Beige restoration — 12 November 2026: the latest user request restores the supplied warm beige image. The active hero imports the retained `miu-reference-ivory.webp` directly, with no color-grading filter. The hero backdrop/edge fades use `#faf6f0`, and glass surfaces return to warm ivory tints. The current navbar structure, image fitting, door implementation and scroll timeline are preserved as found at the start of this color-only update. This supersedes the rose palette instructions above.
+
+Latest artwork replacement — 12 November 2026: `miu-reference-ivory.webp` now contains the user-selected lighter off-white version with restored architectural contrast and a corrected red glass door arch. The optimized WebP retains the original 1672 × 941 dimensions and existing SVG image/door alignment. This is a decorative asset replacement for P-01/FR-V01; navigation, roles and interactions are unchanged.
