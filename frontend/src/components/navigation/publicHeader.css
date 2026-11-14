@@ -34,6 +34,15 @@
   background: var(--theme-surface, #fff);
   box-shadow: 0 8px 24px -18px #48233555;
 }
+/* Navigation controls should not pick up the site's rose text-selection fill. */
+.public-header-inner :is(a, button) {
+  -webkit-user-select: none;
+  user-select: none;
+}
+.public-header-inner :is(a, button, a *, button *)::selection {
+  background: transparent;
+  color: inherit;
+}
 .public-brand {
   display: flex;
   align-items: center;

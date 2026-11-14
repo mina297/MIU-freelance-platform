@@ -8,6 +8,8 @@ tags: [MIU, design-system, UI]
 
 # MIU Freelance Platform — Design System
 
+Latest homepage hero background choice — 12 November 2026: use white (`#ffffff`) for the light-mode hero canvas and its artwork edge fades, superseding the previous beige backdrop. This is scoped to P-01.
+
 ## 1. Purpose
 
 Define a consistent visual language for the platform.
@@ -329,3 +331,17 @@ In dark mode, a rose drop shadow follows the MIU anniversary artwork wherever th
 
 The shared public header returns to the top of the viewport as soon as the visitor scrolls upward. It hides while scrolling down beyond the header and stays visible while a menu is open or a header control has visible keyboard focus. Reduced motion and the homepage motion toggle skip the sliding transition.
 Routed public pages reuse the homepage floating header, grouped destinations and compact utilities. Signed-in navigation uses matching surfaces and retains role-specific destinations and top/side preference. The application drawer breakpoint is 1280px; public navigation uses 1180px. Each route renders one language control and one theme control.
+
+
+### Homepage hero reference update — 12 November 2026
+
+The current user direction uses warm ivory, white and crimson for the homepage hero, with a stable sans-serif “Your Talent Opens Doors.” headline and a reference-derived MIU miniature building. Live glass cards illustrate a five-step freelance journey. This is scoped to P-01; shared marketplace colors and the original homepage navbar/search controls remain in place. Motion has a complete static fallback and does not capture scrolling. See [Landing Page](../06-MODULES/LANDING_PAGE.md) for behavior, Phase 1 disclosures and verification limits.
+
+
+The subsequent 12 November user reference corrects the hero palette to neutral rose-white `#f1e7e8`, burgundy `#300510` and MIU red `#b0001e`. This replaces the earlier beige/ivory tint for P-01 only; the original navbar and functional search are preserved.
+
+
+Latest 12 November refinement: the reference-derived rose image now supplies the hero colors directly; the temporary SVG grading filter is removed. The homepage header adopts separate brand, central glass navigation pill and rounded utility/account controls, using 10px backdrop blur, translucent white rims and an opaque reduced-transparency fallback. All existing navbar labels, destinations and behavior are preserved. The earlier full-width glass navbar shape is superseded on P-01.
+
+
+Latest user color choice — 12 November 2026: restore the original beige/ivory hero plate and `#faf6f0` backdrop, with warm ivory glass tints. Retain the existing separated glass navbar shape and its complete navigation content. This supersedes the temporary rose-white hero palette.
