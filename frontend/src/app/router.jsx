@@ -11,9 +11,9 @@ import {
   useLocation,
   matchRoutes,
 } from "react-router-dom";
-import StudentDashboard from "../features/dashboards/StudentDashboard.jsx";
+import StudentDashboard from "../features/dashboards/student/StudentDashboard.jsx";
 import ProtectedRoute from "../features/auth/ProtectedRoute.jsx";
-import ClientDashboard from "../features/dashboards/ClientDashboard.jsx";
+import ClientDashboard from "../features/dashboards/client/ClientDashboard.jsx";
 import ProjectsCatalogue from "../features/projects/ProjectsCatalogue.jsx";
 import ProjectDetails from "../features/projects/ProjectDetails.jsx";
 import ProjectCreate from "../features/projects/ProjectCreate.jsx";
@@ -44,7 +44,7 @@ import AppLayout from "../layouts/AppLayout.jsx";
 import AuthLayout from "../layouts/AuthLayout.jsx";
 import AdminLayout from "../layouts/AdminLayout.jsx";
 import { routeConfig } from "./routeConfig.js";
-import SuperAdminDashboard from "../features/governance/SuperAdminDashboard.jsx";
+import SuperAdminDashboard from "../features/dashboards/governance/SuperAdminDashboard.jsx";
 import LoginPage from "../features/auth/LoginPage.jsx";
 import RoleSelectionPage from "../features/auth/RoleSelectionPage.jsx";
 import RegisterPage from "../features/auth/RegisterPage.jsx";

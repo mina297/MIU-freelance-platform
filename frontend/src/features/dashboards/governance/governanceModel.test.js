@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createAdminState, adminReducer, committees } from "./adminModel.js";
+import { createAdminState, adminReducer, committees } from "./governanceModel.js";
 const event = {
   reason: "Reviewed fictional case",
   eventId: "event_01",

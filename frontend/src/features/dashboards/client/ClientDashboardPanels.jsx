@@ -1,10 +1,10 @@
-import { useLanguage } from "../../i18n/LanguageContext.js";
+import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { useState } from "react";
-import DashboardDialog from "./DashboardDialog.jsx";
+import { DashboardDialog } from "../shared/DashboardUi.jsx";
 import { asset } from "./clientDashboardAssets.js";
 import { Icon, Badge } from "./ClientDashboardUi.jsx";
-import { formatEGP } from "../../utils/formatEGP.js";
-import { formatDate } from "../../utils/formatDate.js";
+import { formatEGP } from "../../../utils/formatEGP.js";
+import { formatDate } from "../../../utils/formatDate.js";
 export function ReviewForm({ job, close, submit }) {
   const { t } = useLanguage();
 

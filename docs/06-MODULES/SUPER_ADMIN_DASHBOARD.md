@@ -1,5 +1,16 @@
 # Super Admin Platform Control Center
 
+## Shared dashboard refactor — 15 November 2026
+
+The implementation now lives in `frontend/src/features/dashboards/governance/`
+and uses the shared dashboard layout and primitives. `governanceModel.js` retains
+the original admin model with its fixture import relocated. Imports target the
+modular files directly; previous governance compatibility files have been removed.
+`/admin` protection, `/SuperAdmin`
+preview access, registration permissions, reducer decisions and audits are
+unchanged. See [Member 3 dashboard foundation](../07-HANDOVER/M3_DASHBOARD_REFACTOR.md)
+for the current layout contract, file organization and validation limitations.
+
 Direct frontend preview: `/SuperAdmin` (also accepts capitalization variants).
 This public demo route reuses the complete dashboard and its own layout, without
 starting or persisting a session. Direct navigation and refresh therefore work.
@@ -57,7 +68,8 @@ not invented. Identity evidence is text-only and AI results remain simulated.
 ## Verification
 
 Run `npm run lint`, `npm run build`, and `npm test` in `frontend`.
-`adminModel.test.js` checks auditable decisions, invalid transitions, duplicate
+`features/dashboards/governance/governanceModel.test.js` checks auditable decisions,
+invalid transitions, duplicate
 committee accounts, domain restrictions and independent permission/status changes.
 The existing route/session tests continue to protect role boundaries.
 

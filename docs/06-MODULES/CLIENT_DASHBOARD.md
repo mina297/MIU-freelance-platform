@@ -1,5 +1,16 @@
 # Client Dashboard — Phase 1 frontend
 
+## Shared dashboard refactor — 15 November 2026
+
+The implementation now lives in `frontend/src/features/dashboards/client/` and
+uses the shared dashboard layout and primitives. Imports target these modular
+paths directly; temporary compatibility files have been removed. The client
+model's contents and existing mock workflows are preserved. The shared shell
+owns sidebar/header rendering while
+existing application navigation and role guards remain unchanged. See
+[Member 3 dashboard foundation](../07-HANDOVER/M3_DASHBOARD_REFACTOR.md) for the
+current file organization, layout contract and validation limitations.
+
 ## 24 October 2026 routing integration
 
 The shared router now renders the existing `ClientDashboard` at `/client/dashboard`
@@ -63,11 +74,11 @@ locale argument; existing callers retain the original default.
 
 ## Files and integration
 
-- `ClientDashboard.jsx`: page, navigation and session-only interaction state.
-- `ClientDashboardPanels.jsx`: jobs list and validated review form.
-- `ClientDashboardUi.jsx`, `DashboardDialog.jsx`: small UI and native modal.
-- `clientDashboardModel.js`: fictional records, filtering and derived metrics.
-- `clientDashboardAssets.js`, `clientDashboard.css`: local assets and scoped styles.
+- `client/ClientDashboard.jsx`: page, navigation and session-only interaction state.
+- `client/ClientDashboardPanels.jsx`: jobs list and validated review form.
+- `client/ClientDashboardUi.jsx`, `shared/DashboardUi.jsx`: small UI and native modal.
+- `client/clientDashboardModel.js`: fictional records, filtering and derived metrics.
+- `client/clientDashboardAssets.js`, `client/clientDashboard.css`: local assets and scoped styles.
 - `dashboard.css`: shared Student/Client Dashboard layout styles.
 - `App.jsx`: preview router with public catalogue, student and client dashboards.
 - `DevDashboardSwitcher.jsx`: both implemented dashboards linked; six others disabled.

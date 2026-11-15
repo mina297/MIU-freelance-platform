@@ -1,5 +1,8 @@
-import { useLanguage } from "../../i18n/LanguageContext.js";
-import { useEffect, useRef } from "react";
+import { useLanguage } from "../../../i18n/LanguageContext.js";
+import {
+  DashboardDialog,
+  Badge as DashboardBadge,
+} from "../shared/DashboardUi.jsx";
 export function Panel({ title, subtitle, children }) {
   const { t } = useLanguage();
   return (
@@ -13,38 +16,10 @@ export function Panel({ title, subtitle, children }) {
   );
 }
 export function Badge({ children }) {
-  const { t } = useLanguage();
-  return <span className="ac-badge">{t(children)}</span>;
+  return <DashboardBadge variant="admin">{children}</DashboardBadge>;
 }
-export function AdminDialog({ title, close, children }) {
-  const { t } = useLanguage();
-
-  const ref = useRef(null);
-  useEffect(() => {
-    const previous = document.activeElement;
-    const dialog = ref.current;
-    dialog.showModal();
-    return () => {
-      dialog.close();
-      previous?.focus();
-    };
-  }, []);
-  return (
-    <dialog
-      ref={ref}
-      className="ac-dialog"
-      aria-labelledby="admin-dialog-title"
-      onCancel={close}
-    >
-      <header>
-        <h2 id="admin-dialog-title">{title}</h2>
-        <button onClick={close} aria-label={t("Close dialog")}>
-          ×
-        </button>
-      </header>
-      {children}
-    </dialog>
-  );
+export function AdminDialog(props) {
+  return <DashboardDialog {...props} variant="admin" />;
 }
 export function DataTable({ columns, rows, empty = "No matching records." }) {
   const { t } = useLanguage();

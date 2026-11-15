@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { formatDate } from "../../utils/formatDate.js";
+import { formatDate } from "../../../utils/formatDate.js";
 import {
   clientJobs,
   clientMetrics,

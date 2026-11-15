@@ -23,6 +23,8 @@ const files = {
   star: "f02e4.svg",
 };
 export function asset(name) {
-  return new URL(`../../assets/figma/dashboard/${files[name]}`, import.meta.url)
-    .href;
+  return new URL(
+    `../../../assets/figma/dashboard/${files[name]}`,
+    import.meta.url,
+  ).href;
 }

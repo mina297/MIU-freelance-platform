@@ -1,4 +1,4 @@
-import { mockUsers } from "../../data/fixtures/users.js";
+import { mockUsers } from "../../../data/fixtures/users.js";
 export const committees = [
   {
     id: "verification",

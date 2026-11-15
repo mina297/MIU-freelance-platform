@@ -26,8 +26,12 @@ are deliberate additions. Google Fonts are inherited from the app's HTML.
 
 ## Components and mock records
 
-`frontend/src/features/dashboards/StudentDashboard.jsx` contains the dashboard,
-ApplicationsTable, ActiveJobs, Badge, Empty, and native DetailDialog components.
+`frontend/src/features/dashboards/student/StudentDashboard.jsx` contains the page
+and its session-only interaction state. `student/StudentDashboardPanels.jsx`
+contains ApplicationsTable, ActiveJobs, Empty and section views;
+`shared/DashboardLayout.jsx` and `shared/DashboardUi.jsx` provide the common shell,
+badges, statistics and native dialogs. Imports use these modular paths directly;
+temporary compatibility files have been removed.
 `dashboard.css` scopes dashboard styling; `dashboardFixtures.js` contains stable,
 fictional design display records. Assets are local in `src/assets/figma/dashboard/`.
 Existing Member 2 marketplace contracts and fixtures are unchanged. These design
