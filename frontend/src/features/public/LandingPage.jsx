@@ -1,3 +1,4 @@
+import HeroTypingProvider from "./HeroTypingProvider.jsx";
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -187,7 +188,7 @@ export default function LandingPage() {
       <div className="landing-hero-story" ref={heroRef}>
         <section className="landing-hero" aria-labelledby="landing-title">
           <HeroScene />
-          <div className="landing-hero-copy">
+          <HeroTypingProvider enabled={motionEnabled}>
             <div className="landing-community">
               <Icon name="accent" />
               {t("Built for the MIU community")}
@@ -238,7 +239,7 @@ export default function LandingPage() {
               <div
                 className={`landing-search-input ${query ? "has-value" : ""}`}
               >
-                <RotatingSearchHint enabled={motionEnabled && !query} />
+                <RotatingSearchHint />
                 <input
                   id="landing-query"
                   enterKeyHint="search"
@@ -331,7 +332,7 @@ export default function LandingPage() {
                 {t("Join as Freelancer")}
               </Link>
             </nav>
-          </div>
+          </HeroTypingProvider>
           <HeroStoryRail />
         </section>
       </div>

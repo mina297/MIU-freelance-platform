@@ -912,3 +912,9 @@
 :root[dir="rtl"] .miu-hero-title > span {
   white-space: normal;
 }
+
+/* Keep the headline footprint stable while typing. */
+.landing .landing-hero .miu-hero-title--typing { display: grid; }
+.miu-hero-title--typing > .miu-title-reserve, .miu-hero-title--typing > .miu-title-typed { grid-area: 1 / 1; color: inherit; white-space: normal; }
+.miu-title-reserve { visibility: hidden; pointer-events: none; }
+.miu-title-typed > span { color: var(--hero-crimson); }

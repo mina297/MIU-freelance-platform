@@ -57,3 +57,7 @@ Verification: production build passed (existing large-chunk warning remains); gi
 
 ### Preview note spacing ? 8 November 2026
 Fixed the prototype note overlapping skill chips in the homepage profile preview. The general homepage note uses a negative top margin; the dialog now overrides it with positive spacing, a divider and readable line height. Applies to all homepage preview content in both languages/themes. Production build passed; browser visual verification remains pending.
+
+18 November: hero heading cycles through three typed English/Arabic phrases, reserving phrase space and using existing Pause/reduced/visible motion controls. Stable accessible heading and cleaned-up timers. Browser visual verification pending.
+
+18 November follow-up: headline and search example now consume one shared typing phase, cycling together through type, 2.8-second hold and erase. One cleaned-up timer pauses offscreen/hidden and follows existing motion controls; language changes reset the cycle. Provider keeps the original hero-copy DOM/layout and isolates clock updates to consumers. Browser visual verification pending.

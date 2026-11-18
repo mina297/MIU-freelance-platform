@@ -147,7 +147,7 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     assert.match(html, /class="homepage-theme" data-theme="light"/);
     assert.match(html, /aria-label="Dark mode" aria-pressed="false"/);
     for (const text of [
-      "Your Talent",
+      "Your Skills",
       "How it works",
       "Featured jobs",
       "Top-rated students",
@@ -205,7 +205,7 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     }
     assert.match(html, /Fictional example · no payment/);
     assert.match(html, /href="#hero-discover"/);
-    assert.match(html, /Opens Doors\./);
+    assert.match(html, /Create Impact\./);
     assert.doesNotMatch(html, /<video\b/);
     assert.match(html, /aria-label="Choose Hire or Work"/);
     assert.match(html, /aria-pressed="false">Hire<\/button>/);
@@ -295,7 +295,7 @@ test("public website routes render real pages in one shell with safe destination
         ),
       );
     for (const [path, text] of [
-      ["/", "Your Talent"],
+      ["/", "Your Skills"],
       ["/about", "From university learning to practical experience"],
       ["/how-it-works", "Planned service journey"],
       ["/terms", "not published Terms of Use"],
