@@ -596,6 +596,7 @@ test("all five authentication routes render labeled forms or role selection", as
       assert.ok(html.includes(heading), path);
       if (path.startsWith("/login")) {
         assert.match(html, /<h1[^>]*>Sign in<\/h1>/);
+        assert.match(html, /class="auth-card auth-card--wide"/);
       }
       assert.doesNotMatch(html.replace(/<[^>]*>/g, " "), /\bdemo\b/i);
       assert.doesNotMatch(html, /routing placeholder only/i);
@@ -607,12 +608,10 @@ test("all five authentication routes render labeled forms or role selection", as
           html,
           /class="language-control"|aria-label="Dark mode"/,
         );
-        const signingIn = path.startsWith("/login");
-        if (signingIn || /^\/register\?role=(student|client)$/.test(path)) {
+        if (/^\/register\?role=(student|client)$/.test(path)) {
           assert.match(html, /Change account type/);
-          const mode = signingIn ? "login" : "register";
           for (const role of ["student", "client"]) {
-            assert.ok(html.includes(`href="/${mode}?role=${role}"`));
+            assert.ok(html.includes(`href="/register?role=${role}"`));
           }
         } else {
           assert.doesNotMatch(html, /Change account type/);

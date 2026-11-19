@@ -17,6 +17,7 @@ export default function LoginPage() {
     : undefined;
   return (
     <AuthForm
+      wide
       pillSubmit
       title={t("Sign in")}
       submitLabel={t("Sign in")}

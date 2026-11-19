@@ -15,8 +15,7 @@ export default function AuthLayout() {
     signingIn || ["/register", "/register/role"].includes(path);
   const role = new URLSearchParams(location.search).get("role");
   const showAccountType =
-    signingIn ||
-    (path === "/register" && PUBLIC_REGISTRATION_ROLES.includes(role));
+    path === "/register" && PUBLIC_REGISTRATION_ROLES.includes(role);
 
   return (
     <div className="premium-auth-layout min-h-screen">
@@ -44,7 +43,7 @@ export default function AuthLayout() {
                     key={option}
                     className="disclosure-item"
                     aria-current={option === role ? "page" : undefined}
-                    to={`${signingIn ? "/login" : "/register"}?role=${option}`}
+                    to={`/register?role=${option}`}
                     onClick={close}
                   >
                     {t(option === ROLES.STUDENT ? "Student" : "Client")}
