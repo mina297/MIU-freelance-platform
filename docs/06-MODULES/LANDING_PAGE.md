@@ -1,5 +1,11 @@
 # Landing Page — Phase 1 frontend
 
+Hero footer cleanup — 19 November 2026. Removed the chapter rail, progress line, discovery shortcut and its explanatory caption. The discovery section remains below the hero. The illustrated earnings retain their existing fictional example disclosure.
+
+First-scroll door opening — 19 November 2026. The hero starts playback as soon as the page scrolls past the top of the hero. The door opens in half a second, then the cards and lights follow. Playback continues after the first scroll input. Returning above the start point resets the scene so it can play again.
+
+Faster door opening — 19 November 2026. The two leaves and inner rim now complete their opening in 0.5 timeline units instead of 0.7. The first card and light trail start at 1.6, just after the door fully opens at 1.5. These timings supersede the earlier door-first values below.
+
 Door-first reveal — 19 November 2026: the decorative journey stage is hidden in CSS from the first paint, including while the optional animation chunk loads. The timeline reveals the stage after the door finishes opening at beat 1.7; the first card and its light begin together at beat 1.8, followed by the existing sequence. Reversing before door-open hides the stage again. Paused/reduced-motion and failed-import fallback now keep the decorative cards/trails hidden with the closed door, superseding earlier full-composition fallback notes. Public content and discovery controls remain available. Related: P-01, FR-V01, NFR-02/NFR-03. Browser visual acceptance remains pending.
 
 Continuous light journey — 19 November 2026: superseding the separate door-origin trails, the light now draws a connected chain: door → Website Project → profile → people tile → briefcase tile → New Project → laptop → EGP. Each segment starts at the preceding segment's endpoint behind its object. Non-overlapping 0.45-beat segments share their timing with the associated object's emergence; completed segments remain visible. Reverse scrolling unwinds the same chain, and pause/reduced-motion shows it fully drawn. Visual browser acceptance remains pending.

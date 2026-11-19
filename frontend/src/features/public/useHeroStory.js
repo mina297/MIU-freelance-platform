@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-/** Reversible explanatory motion. CSS sticky preserves native scrolling. */
+/** The first scroll starts playback. Returning to the top resets the scene. */
 export function useHeroStory(ref, enabled) {
   useEffect(() => {
     if (!enabled) return;
@@ -19,7 +19,6 @@ export function useHeroStory(ref, enabled) {
         context = gsap.context(() => {
           const select = gsap.utils.selector(root);
           root.dataset.storyReady = "true";
-          root.dataset.scene = "0";
           gsap.from(select(".landing-hero-copy > *"), {
             opacity: 0,
             y: 12,
@@ -32,55 +31,43 @@ export function useHeroStory(ref, enabled) {
             defaults: { ease: "power2.inOut" },
             scrollTrigger: {
               trigger: root,
-              start: "top top",
+              start: "top -1px",
               end: () =>
                 window.matchMedia("(max-width: 760px), (max-height: 700px)")
                   .matches
                   ? "bottom 65%"
                   : "bottom bottom",
-              scrub: 0.45,
+              toggleActions: "play none none reset",
               invalidateOnRefresh: true,
-              onUpdate: ({ progress }) => {
-                root.dataset.scene = String(
-                  Math.min(4, Math.floor(progress * 5)),
-                );
-              },
             },
           });
-          // Five equal beats include a quiet opening fifth before the doors move.
+          const doorStart = 0;
+          const doorDuration = 0.5;
+          const doorOpenAt = doorStart + doorDuration;
           timeline
-            .to({}, { duration: 5 }, 0)
-            .fromTo(
-              select(".miu-story-progress-fill"),
-              { scaleX: 0 },
-              { scaleX: 1, duration: 5, ease: "none" },
-              0,
-            )
             .to(
               select(".landing-scene-door-left"),
               // Follow the artwork's sloping threshold (34 / 161).
-              { x: -79, y: (79 * 34) / 161, duration: 0.7 },
-              1,
+              { x: -79, y: (79 * 34) / 161, duration: doorDuration },
+              doorStart,
             )
             .to(
               select(".landing-scene-door-right"),
               // Clear the widened opening at x=1302, plus 2px for its edge.
               // The right leaf starts at x=1209: 1302 - 1209 + 2 = 95.
-              { x: 95, y: (-95 * 34) / 161, duration: 0.7 },
-              1,
+              { x: 95, y: (-95 * 34) / 161, duration: doorDuration },
+              doorStart,
             )
             .fromTo(
               select(".miu-door-original-rim"),
               { opacity: 1 },
-              { opacity: 0, duration: 0.7 },
-              1,
+              { opacity: 0, duration: doorDuration },
+              doorStart,
             );
           // Every item starts at the door in the shared artwork coordinate
           // system, including after a responsive resize/ScrollTrigger refresh.
           const stage = root.querySelector(".miu-journey-stage");
-          // Door travel finishes at 1 + 0.7. Reveal the stage only then;
-          // CSS keeps it hidden during loading, pause and reduced motion.
-          timeline.set(stage, { visibility: "visible" }, 1.7);
+          timeline.set(stage, { visibility: "visible" }, doorOpenAt);
           const emerge = {
             opacity: 0,
             x: (_, element) =>
@@ -97,15 +84,17 @@ export function useHeroStory(ref, enabled) {
           };
           // Each light segment begins behind the preceding object and only
           // starts after its segment finishes, forming one continuous chain.
-          for (const [selector, trail, at] of [
-            [".miu-scene-project", "project", 1.8],
-            [".miu-scene-profile", "profile", 2.25],
-            [".miu-floating-users", "users", 2.7],
-            [".miu-floating-briefcase", "briefcase", 3.15],
-            [".miu-scene-service", "service", 3.6],
-            [".miu-scene-laptop", "laptop", 4.05],
-            [".miu-scene-earnings", "earnings", 4.5],
-          ]) {
+          const reveals = [
+            [".miu-scene-project", "project"],
+            [".miu-scene-profile", "profile"],
+            [".miu-floating-users", "users"],
+            [".miu-floating-briefcase", "briefcase"],
+            [".miu-scene-service", "service"],
+            [".miu-scene-laptop", "laptop"],
+            [".miu-scene-earnings", "earnings"],
+          ];
+          for (const [index, [selector, trail]] of reveals.entries()) {
+            const at = doorOpenAt + 0.1 + index * emerge.duration;
             timeline.from(select(selector), { ...emerge }, at);
             timeline.fromTo(
               select(`[data-trail="${trail}"]`),
@@ -131,7 +120,6 @@ export function useHeroStory(ref, enabled) {
       cancelled = true;
       context?.revert();
       delete root.dataset.storyReady;
-      delete root.dataset.scene;
     };
   }, [ref, enabled]);
 }

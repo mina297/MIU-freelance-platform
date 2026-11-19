@@ -211,84 +211,6 @@
 .landing-scene-doors {
   opacity: 1;
 }
-.landing .landing-hero > .miu-story-rail {
-  position: absolute;
-  z-index: 3;
-  bottom: 26px;
-  left: 5.2%;
-  right: 5.2%;
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  column-gap: 50px;
-  row-gap: 14px;
-  align-items: end;
-}
-.miu-story-skip {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  align-self: center;
-  width: fit-content;
-  color: #6f4a51;
-  text-decoration: none;
-  font-size: 10px;
-}
-.miu-story-skip svg {
-  width: 30px;
-  height: 30px;
-  padding: 7px;
-  border: 1px solid #9b435635;
-  border-radius: 50%;
-}
-.miu-story-chapters {
-  position: relative;
-}
-.miu-story-progress {
-  height: 1px;
-  margin-bottom: 14px;
-  background: #98425324;
-}
-.miu-story-progress-fill {
-  display: block;
-  width: 100%;
-  height: 2px;
-  background: #ab0f31;
-  transform-origin: left;
-}
-.miu-story-chapters ol {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.miu-story-chapters li {
-  display: flex;
-  gap: 7px;
-  align-items: center;
-  color: #6c5057;
-  font-size: 9px;
-  line-height: 1.4;
-}
-.miu-story-chapters li > span {
-  color: #a16f79;
-  font-size: 8px;
-}
-[data-story-ready="true"][data-scene="0"] [data-chapter="0"],
-[data-scene="1"] [data-chapter="1"],
-[data-scene="2"] [data-chapter="2"],
-[data-scene="3"] [data-chapter="3"],
-[data-scene="4"] [data-chapter="4"] {
-  color: #a30d2b;
-  font-weight: 700;
-}
-.landing .landing-hero .miu-story-disclosure {
-  grid-column: 1 / -1;
-  margin: 0;
-  color: #80666b;
-  font-size: 8px;
-}
 .miu-mobile-destinations {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -313,10 +235,7 @@
     .landing-intro,
     .landing-community,
     .landing-mode-caption,
-    .landing-motion-control,
-    .miu-story-skip,
-    .miu-story-disclosure,
-    .miu-story-chapters li
+    .landing-motion-control
   ) {
   color: #d3bfc1;
 }
@@ -351,15 +270,6 @@
 }
 :root[data-theme="dark"] .landing .landing-hero .landing-search-hint {
   color: #d3bfc1;
-}
-:root[data-theme="dark"] .miu-story-progress-fill {
-  background: #e5b6ba;
-}
-:root[data-theme="dark"] .miu-story-progress {
-  background: #b9839445;
-}
-:root[data-theme="dark"] .miu-story-chapters [data-chapter] > span {
-  color: #d6a5b3;
 }
 :root[data-theme="dark"] .miu-scene-card {
   background: linear-gradient(135deg, #302023f2, #1e1316ed);
@@ -430,10 +340,6 @@
   }
   .miu-scene-earnings {
     width: 170px;
-  }
-  .miu-story-chapters li {
-    display: grid;
-    gap: 2px;
   }
 }
 @media (max-height: 700px) and (min-width: 761px) {
@@ -576,29 +482,6 @@
     padding: 5px 8px;
     font-size: 8px;
   }
-  .landing .landing-hero > .miu-story-rail {
-    position: relative;
-    inset: auto;
-    order: 3;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    align-items: stretch;
-  }
-  .miu-story-skip {
-    align-self: flex-start;
-  }
-  .miu-story-chapters li {
-    display: grid;
-    gap: 5px;
-    font-size: 8px;
-  }
-  .miu-story-chapters ol {
-    gap: 6px;
-  }
-  .landing .landing-hero .miu-story-disclosure {
-    font-size: 8px;
-  }
   :root[data-theme="dark"] .landing-hero-media::after {
     background: linear-gradient(
       var(--hero-surface),
@@ -654,7 +537,6 @@
   direction: ltr;
 }
 :root[dir="rtl"] .landing-hero-copy,
-:root[dir="rtl"] .miu-story-rail,
 :root[dir="rtl"] .miu-scene-card {
   direction: rtl;
 }

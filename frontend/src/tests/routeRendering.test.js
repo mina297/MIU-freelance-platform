@@ -249,7 +249,8 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
       previousTrailEnd = coordinates.slice(-2);
     }
     assert.match(html, /Fictional example · no payment/);
-    assert.match(html, /href="#hero-discover"/);
+    assert.match(html, /id="hero-discover"/);
+    assert.doesNotMatch(html, /miu-story-rail|miu-story-progress|miu-story-chapters/);
     assert.match(html, /Create Impact\./);
     assert.doesNotMatch(html, /<video\b/);
     assert.match(html, /aria-label="Choose Hire or Work"/);

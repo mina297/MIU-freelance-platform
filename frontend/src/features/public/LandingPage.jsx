@@ -9,7 +9,6 @@ import OverlapSection from "./OverlapSection.jsx";
 import RotatingSearchHint from "./RotatingSearchHint.jsx";
 import HeroScene from "./HeroScene.jsx";
 import HeroHeadline from "./HeroHeadline.jsx";
-import HeroStoryRail from "./HeroStoryRail.jsx";
 import { useHeroStory } from "./useHeroStory.js";
 import { useReducedMotion } from "./useLandingMotion.js";
 import { formatEGP } from "../../utils/formatEGP.js";
@@ -297,7 +296,6 @@ export default function LandingPage() {
               </Link>
             </nav>
           </HeroTypingProvider>
-          <HeroStoryRail />
         </section>
       </div>
 
