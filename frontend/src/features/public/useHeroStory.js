@@ -58,18 +58,19 @@ export function useHeroStory(ref, enabled) {
             )
             .to(
               select(".landing-scene-door-left"),
-              { x: -79, y: 16, duration: 0.7 },
+              // Follow the artwork's sloping threshold (34 / 161).
+              { x: -79, y: (79 * 34) / 161, duration: 0.7 },
               1,
             )
             .to(
               select(".landing-scene-door-right"),
-              { x: 85, y: -16, duration: 0.7 },
+              { x: 85, y: (-85 * 34) / 161, duration: 0.7 },
               1,
             )
             .fromTo(
               select(".miu-door-light"),
               { opacity: 0 },
-              { opacity: 0.5, duration: 0.7 },
+              { opacity: 0.08, duration: 0.7 },
               1,
             )
             .from(

@@ -16,7 +16,7 @@ import "./heroScene.css";
 
 // Both images use this 1672 × 941 coordinate system for the doorway.
 const doorway =
-  "M1131 723 V537 C1131 485 1168 416 1207 409 C1251 407 1292 461 1292 517 V687 Z";
+  "M1131 721 V548 C1131 491 1169 427 1209 417 C1255 405 1292 450 1292 505 V687 Z";
 
 function SceneCard({ kind, icon: Icon, eyebrow, title, children }) {
   const { t } = useLanguage();
@@ -61,10 +61,10 @@ export default function HeroScene() {
           <clipPath id={`${id}-right`}>
             <rect x="1209" y="405" width="85" height="325" />
           </clipPath>
-          <linearGradient id={`${id}-interior`} x2=".8" y2="1">
-            <stop stopColor="#310713" />
-            <stop offset=".7" stopColor="#9b102b" />
-            <stop offset="1" stopColor="#ffaf9b" />
+          <linearGradient id={`${id}-interior`} x2="0" y2="1">
+            <stop stopColor="#18060b" />
+            <stop offset=".7" stopColor="#390a16" />
+            <stop offset="1" stopColor="#75192c" />
           </linearGradient>
         </defs>
         <g>
@@ -74,14 +74,20 @@ export default function HeroScene() {
             <path
               className="miu-door-light"
               d={doorway}
-              fill="#ff8e8d"
-              opacity=".32"
+              fill="#d94a58"
+              opacity="0"
             />
+            {/* Clip the arch before moving each leaf so wall pixels cannot
+                slide into the opening. The outer clip keeps the frame fixed. */}
             <g className="landing-scene-door-left">
-              <image href={scene} {...photo} clipPath={url("left")} />
+              <g clipPath={url("door")}>
+                <image href={scene} {...photo} clipPath={url("left")} />
+              </g>
             </g>
             <g className="landing-scene-door-right">
-              <image href={scene} {...photo} clipPath={url("right")} />
+              <g clipPath={url("door")}>
+                <image href={scene} {...photo} clipPath={url("right")} />
+              </g>
             </g>
           </g>
         </g>

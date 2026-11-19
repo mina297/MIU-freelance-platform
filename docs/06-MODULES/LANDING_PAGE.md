@@ -1,5 +1,9 @@
 # Landing Page — Phase 1 frontend
 
+Door alignment correction — 19 November 2026: P-01's sliding door leaves now clip to the artwork's arch before their translation, then remain clipped by the stationary opening. This prevents rectangular wall/image fragments from moving across the interior. The opening follows the inner arch and sloped threshold; both leaves slide parallel to that threshold. A darker depth gradient and restrained light replace the flat pink opening. Theme selection, scroll reversal, pause/reduced-motion fallback and public access are preserved. Related requirements: FR-V01, NFR-02/NFR-03. Browser visual verification remains pending because the local preview connection timed out.
+
+Verification: production build, ESLint and all 12 tests in `routeRendering.test.js` passed. These checks do not establish visual alignment or real-device acceptance.
+
 Dark reference update — 19 November 2026: the user's supplied screenshot now guides P-01 dark appearance. `miu-crimson-dark-reference.webp` replaces the earlier dark plate with charcoal architecture, bright crimson rooftop letters/doors and off-white university signage. The 1672 × 941 coordinate system is retained for all three image layers. Hero surfaces use near-black oxblood `#19090c`, warm off-white text, dusty rose headline accents, muted brown glass and crimson actions; homepage navigation uses matching glass. Light appearance, routes, roles, search and the existing story remain unchanged. This supports FR-V01 and NFR-02/NFR-03 without claiming requirement completion. Browser visual acceptance remains pending.
 
 Verification of that hero update: production build, ESLint and 16 targeted route/theme tests passed. The artwork dimensions are verified as 1672 × 941, and the selected hero text/surface pairs have a minimum calculated contrast of 8.65:1. The in-app browser timed out connecting to the local Vite server, so full visual acceptance is still pending.
