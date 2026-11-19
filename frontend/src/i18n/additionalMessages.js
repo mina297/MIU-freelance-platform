@@ -1,4 +1,7 @@
 export default {
+  "Website Project": "مشروع موقع إلكتروني",
+  "New Project": "مشروع جديد",
+  "Website Development": "تطوير المواقع الإلكترونية",
   "Your Talent": "موهبتك",
   "Opens Doors.": "تفتح الأبواب.",
   "Find student talent, discover projects, and bring your ideas to life.": "اكتشف مواهب الطلاب، واستكشف المشاريع، وحوّل أفكارك إلى واقع.",

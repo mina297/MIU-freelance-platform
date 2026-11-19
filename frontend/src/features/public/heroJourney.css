@@ -1,0 +1,389 @@
+/* The overlay uses the plate's dimensions, so its door origin scales with it. */
+.landing-hero-media .miu-scene-overlay {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  width: min(100%, 1672px);
+  height: auto;
+  aspect-ratio: 1672 / 941;
+  perspective: none;
+}
+.miu-journey-item {
+  position: absolute;
+}
+.miu-journey-stage {
+  position: absolute;
+  left: 56%;
+  top: 14%;
+  width: 43%;
+  height: 74%;
+  container-type: inline-size;
+  perspective: 900px;
+  direction: ltr;
+}
+.miu-journey-stage .miu-connections {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.miu-journey-stage .miu-light-trails {
+  stroke: #fff9f7;
+  stroke-width: 1.8;
+  filter: drop-shadow(0 0 3px #ff657b) drop-shadow(0 0 7px #ffbac4);
+}
+.miu-journey-stage .miu-light-trails path {
+  stroke: inherit;
+  stroke-width: inherit;
+  opacity: 0.9;
+  stroke-dasharray: 1;
+  filter: none;
+}
+.miu-journey-stage .miu-scene-card {
+  --journey-glass: linear-gradient(130deg, #ffffffeb, #fff1f1b5 58%, #f8c7cd7a);
+  box-sizing: border-box;
+  display: flex;
+  position: absolute;
+  padding: 1.36cqw;
+  gap: 1.12cqw;
+  border: 1px solid #fff8f5;
+  border-radius: 1.92cqw;
+  background: var(--journey-glass);
+  box-shadow:
+    inset 0 0 0 2px #ffffff60,
+    inset 0 0 12px #ffffffb0,
+    2px 3px 0 #d9808b60,
+    0 0 10px #fff5f4,
+    0 10px 24px #8b152734;
+  backdrop-filter: blur(5px);
+  color: #3b171c;
+  transform-style: preserve-3d;
+  text-align: left;
+  direction: ltr;
+}
+.miu-journey-stage .miu-scene-card::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px solid #ffffff6e;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.miu-journey-stage .miu-scene-card strong {
+  font-family: var(--font-sans);
+  font-size: 1.52cqw;
+  line-height: 1.25;
+  font-weight: 750;
+  color: inherit;
+  letter-spacing: -0.025em;
+}
+.miu-journey-stage .miu-scene-card-icon {
+  display: grid;
+  place-items: center;
+  width: 5.2cqw;
+  height: 5.2cqw;
+  flex-shrink: 0;
+  border-radius: 0.88cqw;
+  color: #fff3ee;
+  background: linear-gradient(135deg, #ec5660, #a6091c);
+  border: 1px solid #ffb6ba;
+  box-shadow:
+    inset 0 1px 3px #fff7,
+    0 2px 5px #a90b2b40;
+}
+.miu-journey-stage .miu-scene-card-icon svg {
+  width: 3.2cqw;
+  height: 3.2cqw;
+}
+.miu-journey-stage .miu-scene-project {
+  display: block;
+  left: 48%;
+  top: 29%;
+  width: 24%;
+  padding: 0 1.2cqw 1.36cqw;
+  transform: rotate(-13deg) rotateY(-18deg) rotateX(5deg);
+}
+.miu-window-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.52cqw;
+  height: 3.52cqw;
+  border-bottom: 1px solid #c798993a;
+}
+.miu-window-bar i {
+  width: 0.68cqw;
+  height: 0.68cqw;
+  background: #c63a47;
+  border-radius: 50%;
+  box-shadow: 0 0 3px #fc6977;
+}
+.miu-window-bar span {
+  margin-left: auto;
+  width: 2.4cqw;
+  height: 0.4cqw;
+  background: #c38e9470;
+}
+.miu-window-content {
+  display: flex;
+  align-items: center;
+  gap: 1.12cqw;
+  padding: 1.2cqw 0;
+}
+.miu-window-content > div {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 0.72cqw;
+}
+.miu-skeleton-line {
+  display: block;
+  width: 100%;
+  height: 0.64cqw;
+  background: #a87c8370;
+  border-radius: 1px;
+}
+.miu-skeleton-line.short {
+  width: 70%;
+}
+.miu-project-progress {
+  display: block;
+  height: 0.88cqw;
+  background: #d5a1a443;
+  border-radius: 1px;
+  overflow: hidden;
+}
+.miu-project-progress i {
+  display: block;
+  width: 67%;
+  height: 100%;
+  background: #c63240;
+}
+.miu-journey-stage .miu-scene-profile {
+  display: block;
+  left: 6%;
+  top: 49%;
+  width: 21.6%;
+  transform: rotate(9deg) rotateY(22deg) rotateX(-4deg);
+}
+.miu-profile-preview {
+  display: flex;
+  gap: 1.44cqw;
+  align-items: center;
+}
+.miu-profile-avatar {
+  width: 8cqw;
+  height: 8.8cqw;
+  border-radius: 0.8cqw;
+  background: #f1dfde;
+}
+.miu-profile-preview > div {
+  display: grid;
+  flex: 1;
+  gap: 1.04cqw;
+}
+.miu-profile-stars {
+  display: flex;
+  gap: 0.36cqw;
+  padding-top: 0.8cqw;
+  color: #bf2333;
+}
+.miu-profile-stars svg {
+  width: 2.32cqw;
+  height: 2.32cqw;
+  stroke-width: 1;
+}
+.miu-profile-caption {
+  display: block;
+  margin-top: 0.56cqw;
+  font-size: 1.08cqw;
+  color: #84535a;
+}
+.miu-journey-stage .miu-scene-service {
+  display: flex;
+  left: 36%;
+  right: auto;
+  top: 76%;
+  width: 24%;
+  transform: rotate(7deg) rotateY(17deg);
+}
+.miu-journey-stage .miu-scene-service > div {
+  min-width: 0;
+  display: grid;
+  flex: 1;
+  gap: 0.8cqw;
+}
+.miu-journey-stage .miu-card-detail {
+  font-size: 1.08cqw;
+  color: #765358;
+  line-height: 1.3;
+}
+.miu-journey-stage .miu-scene-earnings {
+  display: block;
+  left: 81%;
+  top: 26%;
+  width: 12%;
+  padding: 1.04cqw;
+  transform: rotate(-12deg) rotateY(-14deg);
+}
+.miu-journey-stage .miu-scene-earnings strong {
+  color: #b31c2c;
+  font-size: 2.4cqw;
+}
+.miu-earnings-chart {
+  position: relative;
+  display: flex;
+  align-items: end;
+  gap: 0.64cqw;
+  height: 5.6cqw;
+  padding-top: 0.8cqw;
+}
+.miu-earnings-chart i {
+  width: 1.36cqw;
+  height: 35%;
+  background: linear-gradient(#ed5762, #a30b1f);
+}
+.miu-earnings-chart i:nth-child(2) {
+  height: 50%;
+}
+.miu-earnings-chart i:nth-child(3) {
+  height: 72%;
+}
+.miu-earnings-chart i:nth-child(4) {
+  height: 94%;
+}
+.miu-earnings-chart svg {
+  position: absolute;
+  inset: -0.48cqw 0 auto;
+  width: 100%;
+  height: 4cqw;
+  color: #d12437;
+}
+.miu-journey-stage .miu-scene-laptop {
+  left: 73%;
+  right: auto;
+  top: 59%;
+  width: 24%;
+  transform: rotate(-7deg) rotateY(-18deg);
+}
+.miu-journey-stage .miu-laptop-screen {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  width: 100%;
+  height: 15cqw;
+  border: 0.7cqw solid #32252a;
+  border-radius: 1cqw 1cqw 0.3cqw 0.3cqw;
+  background: radial-gradient(ellipse at center, #581120, #19090e 68%);
+  transform: skewX(-12deg);
+  box-shadow:
+    inset 0 0 0 1px #ffffff20,
+    0 0 12px #fff5f540;
+}
+.miu-laptop-screen > svg {
+  width: 7cqw;
+  height: 7cqw;
+  color: #c21e36;
+  stroke-width: 0.9;
+  filter: drop-shadow(0 0 3px #f92e4f);
+}
+.miu-laptop-keyboard {
+  position: relative;
+  width: 103%;
+  height: 4.5cqw;
+  margin-left: -2%;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 6%, #9c8f933b 6% 7%),
+    linear-gradient(#f8e9e9, #d1bfc1);
+  transform: skewX(-37deg);
+  border: 1px solid #fffc;
+}
+.miu-laptop-keyboard i {
+  display: block;
+  position: absolute;
+  width: 25%;
+  height: 35%;
+  left: 36%;
+  bottom: 5%;
+  background: #bba9ac;
+  border: 1px solid #fff9;
+}
+.miu-journey-stage .miu-laptop-base {
+  width: 112%;
+  height: 0.8cqw;
+  margin-left: -8%;
+  background: linear-gradient(#fff7f5, #ad969c);
+  transform: skewX(-37deg);
+  border-radius: 0 0 2cqw 2cqw;
+}
+.miu-floating-icon {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 10%;
+  aspect-ratio: 1;
+  border-radius: 2cqw;
+  color: #fff5ef;
+  background: linear-gradient(135deg, #ffb4b0, #d33948 48%, #ad1025);
+  border: 1px solid #fff8;
+  box-shadow:
+    inset 0 0 7px #ffe3e4,
+    0 0 12px #ff9ca6;
+}
+.miu-floating-icon svg {
+  width: 58%;
+  height: 58%;
+  stroke-width: 1.5;
+}
+.miu-floating-briefcase {
+  left: 70%;
+  top: 7%;
+  transform: rotate(8deg) rotateY(-10deg);
+}
+.miu-floating-users {
+  left: -5%;
+  top: 52%;
+  width: 9%;
+  transform: rotate(-11deg) rotateY(16deg);
+}
+.miu-journey-disclosure {
+  position: absolute;
+  left: 48%;
+  top: 96%;
+  color: #7b454d;
+  font-size: 1.3cqw;
+}
+:root[data-theme="dark"] .miu-journey-stage .miu-scene-card {
+  --journey-glass: linear-gradient(130deg, #44262cdd, #241015c9);
+  color: #fff3ef;
+  border-color: #f7c5c9;
+  box-shadow:
+    inset 0 0 0 2px #fff2,
+    0 0 8px #f7b4be60,
+    0 10px 24px #08020380;
+}
+:root[data-theme="dark"]
+  .miu-journey-stage
+  :is(.miu-card-detail, .miu-profile-caption, .miu-journey-disclosure) {
+  color: #e8bcc1;
+}
+:root[data-theme="dark"] .miu-journey-stage .miu-scene-earnings strong {
+  color: #ffacb6;
+}
+@media (max-width: 760px) {
+  .landing-hero-media .miu-scene-overlay {
+    width: 145%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .miu-journey-stage .miu-scene-card {
+    background: #fff3ef;
+    backdrop-filter: none;
+  }
+  :root[data-theme="dark"] .miu-journey-stage .miu-scene-card {
+    background: #30191f;
+  }
+}

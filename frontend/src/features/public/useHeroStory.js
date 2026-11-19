@@ -74,60 +74,48 @@ export function useHeroStory(ref, enabled) {
               { opacity: 1 },
               { opacity: 0, duration: 0.7 },
               1,
-            )
-            .from(
-              select(".miu-scene-project"),
-              {
-                opacity: 0,
-                x: -70,
-                y: 110,
-                scale: 0.94,
-                rotationY: -8,
-                duration: 0.65,
-              },
-              1.25,
-            )
-            .from(
-              select(".miu-scene-profile"),
-              { opacity: 0, x: 60, y: 60, scale: 0.94, duration: 0.6 },
-              2,
-            )
-            .from(
-              select(".miu-scene-service"),
-              { opacity: 0, x: -35, y: 80, scale: 0.96, duration: 0.6 },
-              2.35,
-            )
-            .to(
-              select(".miu-scene-project"),
-              { x: -15, y: 20, duration: 0.65 },
-              3,
-            )
-            .fromTo(
-              select(".miu-match-line"),
-              { opacity: 0, strokeDashoffset: 1 },
-              { opacity: 1, strokeDashoffset: 0, duration: 0.6 },
-              3.15,
-            )
-            .from(
-              select(".miu-scene-match"),
-              { opacity: 0, y: 8, duration: 0.35 },
-              3.65,
-            )
-            .to(
-              select(".miu-scene-service"),
-              { opacity: 0, y: -12, duration: 0.3 },
-              4,
-            )
-            .from(
-              select(".miu-scene-laptop"),
-              { opacity: 0, y: 55, scale: 0.94, duration: 0.6 },
-              4,
-            )
-            .from(
-              select(".miu-scene-earnings"),
-              { opacity: 0, x: -20, y: 35, scale: 0.96, duration: 0.5 },
-              4.45,
             );
+          // Every item starts at the door in the shared artwork coordinate
+          // system, including after a responsive resize/ScrollTrigger refresh.
+          const stage = root.querySelector(".miu-journey-stage");
+          const emerge = {
+            opacity: 0,
+            x: (_, element) =>
+              stage.clientWidth * 0.39 -
+              element.offsetLeft -
+              element.offsetWidth / 2,
+            y: (_, element) =>
+              stage.clientHeight * 0.63 -
+              element.offsetTop -
+              element.offsetHeight / 2,
+            scale: 0.94,
+            duration: 0.45,
+            ease: "power3.out",
+          };
+          // Each light segment begins behind the preceding object and only
+          // starts after its segment finishes, forming one continuous chain.
+          for (const [selector, trail, at] of [
+            [".miu-scene-project", "project", 1.4],
+            [".miu-scene-profile", "profile", 1.85],
+            [".miu-floating-users", "users", 2.3],
+            [".miu-floating-briefcase", "briefcase", 2.75],
+            [".miu-scene-service", "service", 3.2],
+            [".miu-scene-laptop", "laptop", 3.65],
+            [".miu-scene-earnings", "earnings", 4.1],
+          ]) {
+            timeline.from(select(selector), { ...emerge }, at);
+            timeline.fromTo(
+              select(`[data-trail="${trail}"]`),
+              { opacity: 0, strokeDashoffset: 1 },
+              {
+                opacity: 0.9,
+                strokeDashoffset: 0,
+                duration: emerge.duration,
+                ease: "none",
+              },
+              at,
+            );
+          }
         }, root);
         ScrollTrigger.refresh();
       } catch {

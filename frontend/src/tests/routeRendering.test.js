@@ -167,7 +167,10 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     const pathways = html.match(
       /<nav class="landing-pathways"[\s\S]*?<\/nav>/,
     )?.[0];
-    assert.ok(pathways, "Homepage offers project discovery and freelancer registration");
+    assert.ok(
+      pathways,
+      "Homepage offers project discovery and freelancer registration",
+    );
     assert.match(pathways, /href="\/projects"/);
     assert.match(pathways, /href="\/register\?role=student"/);
     const invitation = html.match(
@@ -213,7 +216,37 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     assert.doesNotMatch(html, /class="miu-door-reflection" opacity="0"/);
     assert.match(html, /<image[^>]+mask="url\(#[^"]+-scene-plate\)"/);
     for (const kind of ["project", "profile", "service", "earnings"]) {
-      assert.match(html, new RegExp('miu-scene-card miu-scene-' + kind));
+      assert.match(html, new RegExp("miu-scene-card miu-scene-" + kind));
+    }
+    assert.match(html, /class="miu-journey-stage"/);
+    assert.match(html, /class="miu-profile-stars"/);
+    assert.match(html, /class="miu-earnings-chart"/);
+    assert.match(html, /class="miu-light-trails"/);
+    let previousTrailEnd = [273, 410];
+    for (const trail of [
+      "project",
+      "profile",
+      "users",
+      "briefcase",
+      "service",
+      "laptop",
+      "earnings",
+    ]) {
+      assert.ok(
+        html.includes(`data-trail="${trail}"`),
+        `Dedicated light trail for ${trail}`,
+      );
+      const path = html.match(
+        new RegExp(`data-trail="${trail}"[^>]* d="([^"]+)"`),
+      )?.[1];
+      assert.ok(path, `Light path exists for ${trail}`);
+      const coordinates = path.match(/-?\d+(?:\.\d+)?/g).map(Number);
+      assert.deepEqual(
+        coordinates.slice(0, 2),
+        previousTrailEnd,
+        `${trail} continues the previous light path`,
+      );
+      previousTrailEnd = coordinates.slice(-2);
     }
     assert.match(html, /Fictional example · no payment/);
     assert.match(html, /href="#hero-discover"/);
@@ -222,8 +255,14 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     assert.match(html, /aria-label="Choose Hire or Work"/);
     assert.match(html, /aria-pressed="false">Hire<\/button>/);
     assert.match(html, /aria-pressed="true">Work<\/button>/);
-    assert.doesNotMatch(html, /All categories|landing-category-select|landing-category-option/);
-    assert.match(html, /id="categories-title">Explore your next direction<\/h2>/);
+    assert.doesNotMatch(
+      html,
+      /All categories|landing-category-select|landing-category-option/,
+    );
+    assert.match(
+      html,
+      /id="categories-title">Explore your next direction<\/h2>/,
+    );
     assert.doesNotMatch(
       html,
       /Phase 1 demo session controls|Simulated session controls|Demo navigation/,
@@ -321,10 +360,7 @@ test("public website routes render real pages in one shell with safe destination
       assert.equal((html.match(/<main\b/g) ?? []).length, 1, path);
       assert.equal((html.match(/<footer\b/g) ?? []).length, 1, path);
       assert.equal((html.match(/<h1\b/g) ?? []).length, 1, path);
-      assert.match(
-        html,
-        /class="public-header"/,
-      );
+      assert.match(html, /class="public-header"/);
       assert.doesNotMatch(
         html,
         /Phase 1 demo session controls|Simulated session controls|Demo navigation/,
@@ -567,7 +603,10 @@ test("all five authentication routes render labeled forms or role selection", as
         assert.doesNotMatch(html, /Public navigation/);
         assert.match(html, /class="auth-account-header"/);
         assert.match(html, /class="auth-home-link"[^>]*href="\/"/);
-        assert.doesNotMatch(html, /class="language-control"|aria-label="Dark mode"/);
+        assert.doesNotMatch(
+          html,
+          /class="language-control"|aria-label="Dark mode"/,
+        );
         const signingIn = path.startsWith("/login");
         if (signingIn || /^\/register\?role=(student|client)$/.test(path)) {
           assert.match(html, /Change account type/);
@@ -613,15 +652,25 @@ test("all five authentication routes render labeled forms or role selection", as
         } else {
           assert.doesNotMatch(html, /University Email|@miuegypt\.edu\.eg/);
         }
-        assert.match(html, /class="disclosure auth-country"[\s\S]*?>Egypt<\/span>/);
-        assert.match(html, /<input(?=[^>]*name="emailSubscription")(?=[^>]*checked="")[^>]*>/);
-        assert.match(html, /<input(?=[^>]*name="acceptTerms")(?=[^>]*required="")(?![^>]*checked="")[^>]*>/);
+        assert.match(
+          html,
+          /class="disclosure auth-country"[\s\S]*?>Egypt<\/span>/,
+        );
+        assert.match(
+          html,
+          /<input(?=[^>]*name="emailSubscription")(?=[^>]*checked="")[^>]*>/,
+        );
+        assert.match(
+          html,
+          /<input(?=[^>]*name="acceptTerms")(?=[^>]*required="")(?![^>]*checked="")[^>]*>/,
+        );
         assert.match(html, /href="\/terms#user-agreement"/);
         assert.match(html, /aria-label="Show Password"/);
         assert.match(html, /lucide-eye-off/);
         assert.match(html, /Sign up with Google/);
       }
-      if (path === "/reset-password") assert.match(html, /name="confirmPassword"/);
+      if (path === "/reset-password")
+        assert.match(html, /name="confirmPassword"/);
       if (/^\/login\b|^\/register\?role=(student|client)$/.test(path)) {
         assert.match(html, /auth-submit--pill[^>]*>[\s\S]*?lucide-arrow-right/);
       }
