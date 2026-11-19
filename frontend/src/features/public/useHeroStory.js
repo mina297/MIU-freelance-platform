@@ -64,13 +64,15 @@ export function useHeroStory(ref, enabled) {
             )
             .to(
               select(".landing-scene-door-right"),
-              { x: 85, y: (-85 * 34) / 161, duration: 0.7 },
+              // Clear the widened opening at x=1302, plus 2px for its edge.
+              // The right leaf starts at x=1209: 1302 - 1209 + 2 = 95.
+              { x: 95, y: (-95 * 34) / 161, duration: 0.7 },
               1,
             )
             .fromTo(
-              select(".miu-door-light"),
-              { opacity: 0 },
-              { opacity: 0.08, duration: 0.7 },
+              select(".miu-door-original-rim"),
+              { opacity: 1 },
+              { opacity: 0, duration: 0.7 },
               1,
             )
             .from(

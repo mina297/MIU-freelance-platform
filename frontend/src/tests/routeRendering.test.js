@@ -200,6 +200,18 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     assert.match(html, /class="landing-scene" viewBox="0 0 1672 941"/);
     assert.match(html, /miu-crimson-light\.webp/);
     assert.match(html, /class="landing-scene-doors"/);
+    const doorContentId = html.match(/id="([^"]+-door-content)"/)?.[1];
+    assert.ok(doorContentId, "The live doorway can also supply its reflection");
+    assert.ok(
+      html.includes(`<use href="#${doorContentId}"`),
+      "Floor reflection shares the animated leaves instead of a closed still",
+    );
+    assert.match(html, /class="miu-door-reflection"/);
+    assert.doesNotMatch(html, /miu-scene-still/);
+    assert.match(html, /class="miu-scene-live"/);
+    assert.doesNotMatch(html, /class="miu-scene-live" opacity="0"/);
+    assert.doesNotMatch(html, /class="miu-door-reflection" opacity="0"/);
+    assert.match(html, /<image[^>]+mask="url\(#[^"]+-scene-plate\)"/);
     for (const kind of ["project", "profile", "service", "earnings"]) {
       assert.match(html, new RegExp('miu-scene-card miu-scene-' + kind));
     }
