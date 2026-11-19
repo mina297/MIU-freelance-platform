@@ -7,6 +7,10 @@ tags: [MIU, pages, routing]
 
 # MIU Freelance Platform — Pages and Routes
 
+Sign out from the public header or workspace account menu returns to `/` and replaces the current history entry.
+
+Google registration preview — 19 November 2026: `/register?role=student&method=google` and `/register?role=client&method=google` are completion states on the existing public registration route. The Google sign-up button opens the relevant state; Use email instead returns to its role's ordinary form. Invalid/privileged role queries still show only public role selection. Successful mock completion starts a memory-only session and opens `/`. No Google OAuth or new route is introduced. See [Authentication](../06-MODULES/AUTHENTICATION.md).
+
 24 October 2026 client dashboard integration: `/client/dashboard` renders the
 existing `ClientDashboard` in the shared app content outlet, preserving the
 navbar, layout and client-only route guard. Refresh clears the in-memory mock

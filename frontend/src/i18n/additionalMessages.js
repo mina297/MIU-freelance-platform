@@ -1,10 +1,21 @@
 export default {
+  "Sign up to find work you love": "سجّل للعثور على عمل تحبه",
+  "Sign up to find the talent you need": "سجّل للعثور على المواهب التي تحتاجها",
+  "Create my account": "إنشاء حسابي",
+  "Use email instead": "استخدام البريد الإلكتروني بدلًا من ذلك",
+  "Student Preview": "حساب طالب تجريبي",
+  "Client Preview": "حساب عميل تجريبي",
+  "Google sign-up preview: fictional account. No Google connection is made.":
+    "معاينة التسجيل باستخدام Google: حساب خيالي، ولا يتم الاتصال بخدمة Google.",
+  "This preview account already exists. Refresh to start a new prototype session.":
+    "هذا الحساب التجريبي موجود بالفعل. حدّث الصفحة لبدء جلسة نموذج أولي جديدة.",
   "Website Project": "مشروع موقع إلكتروني",
   "New Project": "مشروع جديد",
   "Website Development": "تطوير المواقع الإلكترونية",
   "Your Talent": "موهبتك",
   "Opens Doors.": "تفتح الأبواب.",
-  "Find student talent, discover projects, and bring your ideas to life.": "اكتشف مواهب الطلاب، واستكشف المشاريع، وحوّل أفكارك إلى واقع.",
+  "Find student talent, discover projects, and bring your ideas to life.":
+    "اكتشف مواهب الطلاب، واستكشف المشاريع، وحوّل أفكارك إلى واقع.",
   "Explore Projects": "استكشف المشاريع",
   "Join as Freelancer": "انضم كمستقل",
   "A new opportunity": "فرصة جديدة",
@@ -14,7 +25,7 @@ export default {
   "Student freelancer": "طالب مستقل",
   "Nour Ahmed": "نور أحمد",
   "UI / UX Designer": "مصمم واجهات وتجربة المستخدم",
-  "Branding": "الهوية البصرية",
+  Branding: "الهوية البصرية",
   "Made by students": "بإبداع الطلاب",
   "Ideas, beautifully built.": "أفكار تنبض بالإبداع.",
   "Portfolios & creative services": "معارض أعمال وخدمات إبداعية",
@@ -27,12 +38,13 @@ export default {
   "Your skills. Real possibilities.": "مهاراتك. وإمكانات حقيقية.",
   "Fictional example · no payment": "مثال خيالي · لا يوجد دفع",
   "Explore the possibilities": "اكتشف الإمكانات",
-  "Welcome": "مرحبًا",
+  Welcome: "مرحبًا",
   "Opportunities open": "تفتح الفرص",
   "Discover talent": "اكتشف المواهب",
   "Make connections": "ابدأ التعاون",
   "Project success": "نجاح المشروع",
-  "An illustration of your journey. Fictional projects, profiles and earnings.": "تصوّر لرحلتك. المشاريع والملفات والأرباح أمثلة خيالية.",
+  "An illustration of your journey. Fictional projects, profiles and earnings.":
+    "تصوّر لرحلتك. المشاريع والملفات والأرباح أمثلة خيالية.",
   " (agreed estimate; no deadline inferred)":
     " (تقدير متفق عليه؛ لا يُفترض موعد نهائي)",
   " the requested ID": " المعرّف المطلوب",

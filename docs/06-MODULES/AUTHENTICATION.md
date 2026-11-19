@@ -8,6 +8,16 @@ tags: [MIU, authentication, accounts]
 
 # Authentication Module
 
+### Google sign-up completion preview — 19 November 2026
+
+The registration Google button now opens `/register?role=student&method=google` or the corresponding client query on the existing route. The website-styled completion card shows a fictional role-specific identity, Country, optional email preference, required unchecked agreement with the existing policy links, Create my account, Use email instead and Sign in. Keyboard entry focuses its heading; role selection and the admin-managed country list are preserved. The regular email form and Google sign-in notice retain their existing behavior.
+
+This is explicitly a Phase 1 preview, without Google OAuth, network calls, tokens, real identity selection or email delivery. `registerGoogle()` derives its identity from fixed fictional profiles, validates public role/country/consent and duplicate emails, and creates an active, pending-verification memory-only account through the existing store and provider. It starts a session and opens `/`, as email registration does. It sets no password, and supplied identity/status/credential overrides are ignored; ordinary email registration still requires its password. Repeat creation of the preview identity shows a recoverable form message. Refresh discards the account. The account emails do not establish Google ownership or MIU affiliation. Screenshot identities are not copied.
+
+Related requirements: FR-V03, FR-S01, FR-C01, NFR-02/NFR-03. Policy approval and Arabic translation approval remain open. Browser focus, click-through and responsive visual acceptance remain pending. This supersedes the earlier sign-up-button-notice description below; Google sign-in remains unavailable.
+
+Verification: production build and ESLint passed, along with all 30 tests across `googleRegistration.test.js`, `session.test.js` and `routeRendering.test.js`. Coverage includes country/consent validation, duplicate rejection, role restrictions, fixed fictional identities, no generated password or session secrets, memory reset, both completion screens and the existing email-registration/login/recovery regressions. Browser interaction and visual checks were not run.
+
 ## 1. Purpose
 
 Manage the intended account access experience for students, clients, Super Admin, and committee members.
@@ -138,6 +148,8 @@ Forgot-password validates syntax and returns a simulated response for both known
 Session records use an explicit field allowlist (`id`, `displayName`, `role`, `accountStatus`, `verificationStatus`). Account activity and verification remain separate; verification gating and automatic expiry timing remain deferred. No backend, notification service or persistent storage is introduced. Tests in `session.test.js` cover validation/account flows and safe navigation; `routeRendering.test.js` covers the five pages and retains the public catalogue regression. Browser interaction, responsive and accessibility verification must be recorded separately from these model/markup tests.
 
 ### Public navigation and onboarding update
+
+Sign out in the public header or workspace account menu clears the active session and replaces the current history entry with the public homepage (`/`). Protected routes continue to require an active session.
 
 24 October 2026: successful sign-up signs in automatically; both sign-up and sign-in navigate to the landing page. The shared landing/public header offers My workspace and Sign out for active sessions. Public and application layouts no longer mount session selectors, expiry simulators or demo route lists. Application pages reuse the public shell; route access checks remain in place. Existing prototype disclosures and memory-only account/session limitations remain applicable (FR-V03, FR-S01, FR-C01).
 

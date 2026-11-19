@@ -6,6 +6,7 @@ import AuthForm from "./AuthForm.jsx";
 import RoleSelectionPage from "./RoleSelectionPage.jsx";
 import GoogleAuthButton from "./GoogleAuthButton.jsx";
 import { publicDestinations } from "../../app/publicDestinations.js";
+import { GOOGLE_PREVIEW_PROFILES } from "./mockAuth.js";
 
 const termsLinks = {
   "{terms}": ["Terms of Service", publicDestinations.terms],
@@ -19,29 +20,67 @@ const termsLinks = {
 export default function RegisterPage() {
   const { t } = useLanguage();
 
-  const { register, registrationSettings } = useAuth();
+  const { register, registerGoogle, registrationSettings } = useAuth();
   const navigate = useNavigate();
-  const [params] = useSearchParams();
+  const [params, setParams] = useSearchParams();
   const role = params.get("role");
   if (!PUBLIC_REGISTRATION_ROLES.includes(role)) return <RoleSelectionPage />;
+  const googleSignup = params.get("method") === "google";
+  const profile = GOOGLE_PREVIEW_PROFILES[role];
   const terms = t(
     "Yes, I understand and agree to the {terms}, including the {agreement} and {privacy}.",
   ).split(/(\{terms\}|\{agreement\}|\{privacy\})/);
   return (
     <AuthForm
-      key={role}
+      key={`${role}-${googleSignup ? "google" : "email"}`}
       wide
       pillSubmit
-      title={t("Join as a {value0}", {
-        value0: role === ROLES.STUDENT ? "student" : "client",
-      })}
-      submitLabel={t("Create account")}
+      title={
+        googleSignup
+          ? t(
+              role === ROLES.STUDENT
+                ? "Sign up to find work you love"
+                : "Sign up to find the talent you need",
+            )
+          : t("Join as a {value0}", {
+              value0: role === ROLES.STUDENT ? "student" : "client",
+            })
+      }
+      submitLabel={t(googleSignup ? "Create my account" : "Create account")}
+      focusTitle={googleSignup}
+      intro={
+        googleSignup && (
+          <div className="auth-google-completion">
+            <div className="auth-google-identity">
+              <span className="auth-google-avatar" aria-hidden="true">
+                {profile.firstName[0]}
+              </span>
+              <div>
+                <strong>{t(`${profile.firstName} ${profile.lastName}`)}</strong>
+                <bdi>{profile.email}</bdi>
+              </div>
+            </div>
+            <p className="auth-hint">
+              {t(
+                "Google sign-up preview: fictional account. No Google connection is made.",
+              )}
+            </p>
+          </div>
+        )
+      }
       initialValues={{
         country: "Egypt",
         emailSubscription: true,
         acceptTerms: false,
       }}
-      afterSubmit={<GoogleAuthButton label="Sign up with Google" />}
+      afterSubmit={
+        !googleSignup && (
+          <GoogleAuthButton
+            label="Sign up with Google"
+            onClick={() => setParams({ role, method: "google" })}
+          />
+        )
+      }
       fields={[
         { name: "firstName", label: "First name", autoComplete: "given-name" },
         { name: "lastName", label: "Last name", autoComplete: "family-name" },
@@ -97,13 +136,23 @@ export default function RegisterPage() {
           type: "checkbox",
           hint: "Required for this prototype. Policy links open in a new tab.",
         },
-      ]}
+      ].filter(
+        (field) =>
+          !googleSignup ||
+          ["country", "emailSubscription", "acceptTerms"].includes(field.name),
+      )}
       onSubmit={(values) => {
-        const result = register({ ...values, role });
+        const result = (googleSignup ? registerGoogle : register)({
+          ...values,
+          role,
+        });
         if (result.ok) navigate("/", { replace: true });
         return result;
       }}
     >
+      {googleSignup && (
+        <Link to={`/register?role=${role}`}>{t("Use email instead")}</Link>
+      )}
       <p>
         {t("Already a member?")}{" "}
         <Link to={`/login?role=${role}`}>{t("Sign in")}</Link>

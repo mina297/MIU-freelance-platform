@@ -1,5 +1,5 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
-import { useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import CountryDropdown from "./CountryDropdown.jsx";
 import "./authForm.css";
@@ -15,6 +15,8 @@ export default function AuthForm({
   children,
   wide = false,
   pillSubmit = false,
+  intro,
+  focusTitle = false,
 }) {
   const { t } = useLanguage();
 
@@ -25,6 +27,10 @@ export default function AuthForm({
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const busy = useRef(false);
+  const titleRef = useRef(null);
+  useEffect(() => {
+    if (focusTitle) titleRef.current?.focus({ preventScroll: true });
+  }, [focusTitle]);
   async function submit(event) {
     event.preventDefault();
     if (busy.current) return;
@@ -60,7 +66,14 @@ export default function AuthForm({
         aria-labelledby={`${id}-title`}
       >
         <p className="auth-eyebrow">{t("MIU Freelance")}</p>
-        <h1 id={`${id}-title`}>{title}</h1>
+        <h1
+          id={`${id}-title`}
+          ref={titleRef}
+          tabIndex={focusTitle ? -1 : undefined}
+        >
+          {title}
+        </h1>
+        {intro}
         <form
           noValidate
           onSubmit={submit}
@@ -200,7 +213,9 @@ export default function AuthForm({
           <button
             type="submit"
             disabled={submitting}
-            className={pillSubmit ? "auth-submit auth-submit--pill" : "auth-submit"}
+            className={
+              pillSubmit ? "auth-submit auth-submit--pill" : "auth-submit"
+            }
           >
             {submitting ? t("Please wait…") : t(submitLabel)}
             {pillSubmit && <ArrowRight size={22} aria-hidden="true" />}

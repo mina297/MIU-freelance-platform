@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useLanguage } from "../../i18n/LanguageContext.js";
 
-export default function GoogleAuthButton({ label }) {
+export default function GoogleAuthButton({ label, onClick }) {
   const { t } = useLanguage();
   const [showNotice, setShowNotice] = useState(false);
 
   return (
     <div className="auth-google">
-      <button type="button" onClick={() => setShowNotice(true)}>
+      <button type="button" onClick={onClick ?? (() => setShowNotice(true))}>
         {t(label)}
       </button>
       <p role="status" className="auth-hint">

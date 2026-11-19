@@ -21,7 +21,11 @@ export const passwordError = (password) =>
 
 const initialCountries = Object.freeze(["Egypt"]);
 
-export function validateRegistration(values, countries = initialCountries) {
+export function validateRegistration(
+  values,
+  countries = initialCountries,
+  { passwordRequired = true } = {},
+) {
   const errors = {};
   if (typeof values.firstName !== "string" || !values.firstName.trim())
     errors.firstName = "Enter your first name.";
@@ -41,12 +45,26 @@ export function validateRegistration(values, countries = initialCountries) {
   ) {
     errors.email = "Use your university email ending in @miuegypt.edu.eg.";
   }
-  if (passwordError(values.password))
+  if (passwordRequired && passwordError(values.password))
     errors.password = passwordError(values.password);
   if (!PUBLIC_REGISTRATION_ROLES.includes(values.role))
     errors.role = "Choose Student or Client.";
   return errors;
 }
+
+// Fictional identities for the Phase 1 Google completion preview only.
+export const GOOGLE_PREVIEW_PROFILES = Object.freeze({
+  [ROLES.STUDENT]: Object.freeze({
+    firstName: "Student",
+    lastName: "Preview",
+    email: "google.student@miuegypt.edu.eg",
+  }),
+  [ROLES.CLIENT]: Object.freeze({
+    firstName: "Client",
+    lastName: "Preview",
+    email: "google.client@example.test",
+  }),
+});
 
 /** One store per provider mount. Passwords stay in this private memory-only map. */
 export function createMockAuthStore(fixtures = []) {
@@ -64,6 +82,36 @@ export function createMockAuthStore(fixtures = []) {
   let nextId = 1;
   const findByEmail = (email) =>
     [...accounts.values()].find((user) => user.email === normalizeEmail(email));
+  function registerAccount(values, passwordRequired = true) {
+    const errors = validateRegistration(values, settings.countries, {
+      passwordRequired,
+    });
+    if (!errors.email && findByEmail(values.email))
+      errors.email = "This email address is already in use.";
+    if (Object.keys(errors).length) return { ok: false, errors };
+    let id;
+    do {
+      id = `registered_${nextId++}`;
+    } while (accounts.has(id));
+    const firstName = values.firstName.trim();
+    const lastName = values.lastName.trim();
+    const user = {
+      id,
+      firstName,
+      lastName,
+      displayName: `${firstName} ${lastName}`,
+      country: values.country,
+      emailSubscription: values.emailSubscription === true,
+      acceptTerms: true,
+      email: normalizeEmail(values.email),
+      role: values.role,
+      accountStatus: "active",
+      verificationStatus: "pending",
+    };
+    accounts.set(id, user);
+    if (passwordRequired) passwords.set(id, values.password);
+    return { ok: true, user: toSessionUser(user) };
+  }
   return {
     getRegistrationSettings: () => settings,
     addRegistrationCountry(session, { country, reason }) {
@@ -117,33 +165,21 @@ export function createMockAuthStore(fixtures = []) {
       const user = accounts.get(id);
       return user ? toSessionUser(user) : undefined;
     },
-    register(values) {
-      const errors = validateRegistration(values, settings.countries);
-      if (!errors.email && findByEmail(values.email))
-        errors.email = "This email address is already in use.";
-      if (Object.keys(errors).length) return { ok: false, errors };
-      let id;
-      do {
-        id = `registered_${nextId++}`;
-      } while (accounts.has(id));
-      const firstName = values.firstName.trim();
-      const lastName = values.lastName.trim();
-      const user = {
-        id,
-        firstName,
-        lastName,
-        displayName: `${firstName} ${lastName}`,
-        country: values.country,
-        emailSubscription: values.emailSubscription === true,
-        acceptTerms: true,
-        email: normalizeEmail(values.email),
-        role: values.role,
-        accountStatus: "active",
-        verificationStatus: "pending",
-      };
-      accounts.set(id, user);
-      passwords.set(id, values.password);
-      return { ok: true, user: toSessionUser(user) };
+    register: (values) => registerAccount(values),
+    registerGoogle(values) {
+      if (!PUBLIC_REGISTRATION_ROLES.includes(values.role))
+        return { ok: false, errors: { role: "Choose Student or Client." } };
+      const profile = GOOGLE_PREVIEW_PROFILES[values.role];
+      const result = registerAccount({ ...values, ...profile }, false);
+      if (result.errors?.email) {
+        return {
+          ok: false,
+          errors: {
+            form: "This preview account already exists. Refresh to start a new prototype session.",
+          },
+        };
+      }
+      return result;
     },
     login({ email, password }) {
       const errors = {};

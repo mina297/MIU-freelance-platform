@@ -2,7 +2,7 @@ import LandingHeader from "../components/navigation/LandingHeader.jsx";
 import { usesApplicationNavigation } from "../components/navigation/navigationModel.js";
 import { useLanguage } from "../i18n/LanguageContext.js";
 import { useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import PublicLayout from "../layouts/PublicLayout.jsx";
 import HomepageTheme from "../features/public/HomepageTheme.jsx";
 import PublicLink from "../components/navigation/PublicLink.jsx";
@@ -16,6 +16,7 @@ export default function PublicWebsite() {
   const { t } = useLanguage();
 
   const { pathname, hash, key } = useLocation();
+  const navigate = useNavigate();
   const { session, logout } = useAuth();
   const signedIn =
     session.status === "authenticated" && isActiveUser(session.user);
@@ -34,7 +35,14 @@ export default function PublicWebsite() {
       >
         {t("My workspace")}
       </PublicLink>
-      <button type="button" onClick={logout} className="miu-public-link">
+      <button
+        type="button"
+        className="miu-public-link"
+        onClick={() => {
+          logout();
+          navigate("/", { replace: true });
+        }}
+      >
         {t("Sign out")}
       </button>
     </>

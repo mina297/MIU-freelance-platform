@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   BriefcaseBusiness,
   LayoutDashboard,
@@ -54,6 +54,7 @@ export default function ApplicationNavigation({ children }) {
   const { session, logout } = useAuth();
   const { t } = useLanguage();
   const location = useLocation();
+  const navigate = useNavigate();
   const { layout, setLayout } = useNavigationLayout();
   const [drawer, setDrawer] = useState(null);
   const active = usesApplicationNavigation(session, location.pathname);
@@ -174,6 +175,7 @@ export default function ApplicationNavigation({ children }) {
                       onClick={() => {
                         close();
                         logout();
+                        navigate("/", { replace: true });
                       }}
                     >
                       <LogOut size={17} aria-hidden="true" />{t("Sign out")}

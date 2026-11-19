@@ -31,6 +31,11 @@ export default function AuthProvider({ children }) {
           if (result.ok) dispatch({ type: "start", user: result.user });
           return result;
         },
+        registerGoogle: (values) => {
+          const result = accounts.registerGoogle(values);
+          if (result.ok) dispatch({ type: "start", user: result.user });
+          return result;
+        },
         login: (values) => {
           const result = accounts.login(values);
           // Failed attempts must not preserve a previous privileged session.
