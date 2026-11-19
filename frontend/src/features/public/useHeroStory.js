@@ -78,6 +78,9 @@ export function useHeroStory(ref, enabled) {
           // Every item starts at the door in the shared artwork coordinate
           // system, including after a responsive resize/ScrollTrigger refresh.
           const stage = root.querySelector(".miu-journey-stage");
+          // Door travel finishes at 1 + 0.7. Reveal the stage only then;
+          // CSS keeps it hidden during loading, pause and reduced motion.
+          timeline.set(stage, { visibility: "visible" }, 1.7);
           const emerge = {
             opacity: 0,
             x: (_, element) =>
@@ -95,13 +98,13 @@ export function useHeroStory(ref, enabled) {
           // Each light segment begins behind the preceding object and only
           // starts after its segment finishes, forming one continuous chain.
           for (const [selector, trail, at] of [
-            [".miu-scene-project", "project", 1.4],
-            [".miu-scene-profile", "profile", 1.85],
-            [".miu-floating-users", "users", 2.3],
-            [".miu-floating-briefcase", "briefcase", 2.75],
-            [".miu-scene-service", "service", 3.2],
-            [".miu-scene-laptop", "laptop", 3.65],
-            [".miu-scene-earnings", "earnings", 4.1],
+            [".miu-scene-project", "project", 1.8],
+            [".miu-scene-profile", "profile", 2.25],
+            [".miu-floating-users", "users", 2.7],
+            [".miu-floating-briefcase", "briefcase", 3.15],
+            [".miu-scene-service", "service", 3.6],
+            [".miu-scene-laptop", "laptop", 4.05],
+            [".miu-scene-earnings", "earnings", 4.5],
           ]) {
             timeline.from(select(selector), { ...emerge }, at);
             timeline.fromTo(

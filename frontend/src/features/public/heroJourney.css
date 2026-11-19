@@ -13,6 +13,8 @@
   position: absolute;
 }
 .miu-journey-stage {
+  /* Stay hidden before the optional animation module loads as well. */
+  visibility: hidden;
   position: absolute;
   left: 56%;
   top: 14%;
