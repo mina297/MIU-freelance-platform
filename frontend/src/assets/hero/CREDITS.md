@@ -1,5 +1,17 @@
 # Homepage hero footage
 
+## Active crimson hero artwork
+
+### Dark screenshot match — 19 November 2026
+
+- Active dark file: `miu-crimson-dark-reference.webp` (1672 × 941), created using built-in ImageGen, then encoded as WebP. The previous dark plate is retained.
+- Edit target: `miu-crimson-dark.webp`. Lighting reference: the user-supplied `codex-clipboard-9f16f640-4f5e-4f17-96ed-20ce75281540.jpg` screenshot.
+- Prompt: relight the existing scene to match the reference's charcoal building, near-black oxblood walls/floor, glossy crimson MIU letters and closed door, restrained rose rim lighting and off-white university signage; remove the purple wash, preserve geometry/framing/door coordinates and left negative space, and omit all website controls, cards and mascot.
+
+### Earlier crimson editions
+
+`miu-crimson-light.webp` and `miu-crimson-dark.webp` are 1672 × 941 WebP editions of the approved crimson preview. Built-in ImageGen refined edges in the light edition and relit the same scene with charcoal architecture and crimson accents in the dark edition. Both prompts preserved the original framing, signage and door position. The generated images were encoded at their native size.
+
 - Video: [People Working Using a Laptop in the Office](https://www.pexels.com/video/people-working-using-a-laptop-in-the-office-7688066/)
 - Creator: Kindel Media / Pexels
 - License: [Pexels License](https://www.pexels.com/license/), checked 24 October 2026.

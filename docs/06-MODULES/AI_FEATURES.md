@@ -48,7 +48,9 @@ Recommendation methods, scoring, and fairness evaluation require later design.
 
 ### 2.3 AI Chatbot
 
-The composer's left-side question-mark button opens six public FAQs above the input by hover or activation.
+19 November 2026: Frequently asked questions now appears inside the header's three-dot Quick Actions menu, with a question-mark icon. Its keyboard-accessible disclosure expands the same six public FAQs. The composer no longer has a separate question-mark button and uses the freed space for the message field. The menu scrolls within the viewport when expanded. Automated model/render checks cover FAQ placement and canned replies; browser interaction and visual acceptance remain pending.
+
+Hover refinement — 19 November 2026: mouse hover opens the FAQ disclosure and leaving closes it unless keyboard focus remains inside. Native click/touch and keyboard activation remain available. The action menu hides its scrollbar while retaining scrolling for short viewports. Each action and FAQ receives a red edge light and subtle tint on hover or keyboard focus, following the reading direction. Browser hover, touch and visual acceptance remain pending.
 Clicking outside the widget minimizes it and preserves the current conversation and draft.
 Choosing a question adds it and its canned reply to the conversation, with links
 to the relevant public pages, including Terms, Privacy and role selection.

@@ -198,7 +198,7 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     assert.match(html, /role="search"/);
     assert.match(html, /class="landing-hero-media" aria-hidden="true"/);
     assert.match(html, /class="landing-scene" viewBox="0 0 1672 941"/);
-    assert.match(html, /miu-reference-ivory\.webp/);
+    assert.match(html, /miu-crimson-light\.webp/);
     assert.match(html, /class="landing-scene-doors"/);
     for (const kind of ["project", "profile", "service", "earnings"]) {
       assert.match(html, new RegExp('miu-scene-card miu-scene-' + kind));
@@ -210,9 +210,7 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     assert.match(html, /aria-label="Choose Hire or Work"/);
     assert.match(html, /aria-pressed="false">Hire<\/button>/);
     assert.match(html, /aria-pressed="true">Work<\/button>/);
-    assert.match(html, /All categories/);
-    assert.match(html, /Explore categories/);
-    assert.match(html, /class="disclosure-item landing-category-option"/);
+    assert.doesNotMatch(html, /All categories|landing-category-select|landing-category-option/);
     assert.match(html, /id="categories-title">Explore your next direction<\/h2>/);
     assert.doesNotMatch(
       html,
@@ -241,8 +239,8 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     );
     assert.match(html, /Hire Talent/);
     assert.match(html, /Find Work/);
-    // Desktop disclosures, language, appearance, category picker and mobile drawer.
-    assert.equal((html.match(/aria-expanded="false"/g) ?? []).length, 6);
+    // Desktop disclosures, language, appearance and mobile drawer.
+    assert.equal((html.match(/aria-expanded="false"/g) ?? []).length, 5);
     assert.match(html, /aria-label="Open navigation" aria-haspopup="dialog"/);
     assert.match(html, /href="\/#student-talent"/);
     assert.match(html, /href="\/register\?role=student"/);

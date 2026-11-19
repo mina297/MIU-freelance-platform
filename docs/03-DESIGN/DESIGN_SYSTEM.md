@@ -70,6 +70,10 @@ The planned visual identity uses MIU-inspired colors.
 
 ### Branding Rules
 
+User-approved dark logo edition — 19 November 2026: for dark mode, the team explicitly requested swapping the anniversary logo's black and white details while keeping crimson. This authorizes the color-only exception to the original-color rule below. The `miu-logo-dark` SVG filter in ThemeProvider masks red pixels and inverts neutral colors on the original transparent image. The root dark-theme selector applies it to shared and dashboard-export logos instead of the previous rose glow. Light mode retains the original appearance. Geometry, meaning and navigation remain unchanged. ImageGen alternatives were rejected because they changed fine details; no generated logo asset is consumed.
+
+Validation: production build, ESLint and both shared-theme tests passed. Browser visual verification remains pending because the local preview connection timed out.
+
 - Preserve the official MIU anniversary logo's original proportions and colors.
 - Do not stretch, recolor, or reconstruct the logo inaccurately.
 - Do not claim university approval that has not been granted.

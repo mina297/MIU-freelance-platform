@@ -18,6 +18,7 @@ import {
   Minimize2,
   Maximize2,
   CirclePlus,
+  CircleHelp,
 } from "lucide-react";
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useAuth } from "../../hooks/useAuth.js";
@@ -256,6 +257,38 @@ export default function ChatbotWidget() {
                   <CirclePlus size={18} aria-hidden="true" />
                   {t("New conversation")}
                 </button>
+                <details
+                  className="chatbot-faq"
+                  onPointerEnter={(event) => {
+                    if (event.pointerType === "mouse")
+                      event.currentTarget.open = true;
+                  }}
+                  onPointerLeave={(event) => {
+                    if (
+                      event.pointerType === "mouse" &&
+                      !event.currentTarget.contains(document.activeElement)
+                    )
+                      event.currentTarget.open = false;
+                  }}
+                >
+                  <summary>
+                    <CircleHelp size={18} aria-hidden="true" />
+                    {t("Frequently asked questions")}
+                  </summary>
+                  {FAQ_ACTIONS.map(({ id, label, question }) => (
+                    <button
+                      key={id}
+                      type="button"
+                      onClick={(event) =>
+                        action(event, close, () =>
+                          send(question, { suggested: true }),
+                        )
+                      }
+                    >
+                      {t(label)}
+                    </button>
+                  ))}
+                </details>
               </>
             )}
           </Dropdown>
@@ -305,32 +338,6 @@ export default function ChatbotWidget() {
               send(conversation.draft);
             }}
           >
-            <Dropdown
-              label="?"
-              className="chatbot-actions chatbot-faq"
-              triggerProps={{ "aria-label": t("Frequently asked questions") }}
-            >
-              {(close) => (
-                <>
-                  <p className="chatbot-actions-title">
-                    {t("Frequently asked questions")}
-                  </p>
-                  {FAQ_ACTIONS.map(({ id, label, question }) => (
-                    <button
-                      key={id}
-                      type="button"
-                      onClick={(event) =>
-                        action(event, close, () =>
-                          send(question, { suggested: true }),
-                        )
-                      }
-                    >
-                      {t(label)}
-                    </button>
-                  ))}
-                </>
-              )}
-            </Dropdown>
             <Input
               ref={input}
               label={t("Your message")}

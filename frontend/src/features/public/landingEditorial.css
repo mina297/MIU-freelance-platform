@@ -3,9 +3,6 @@
   position: relative;
   isolation: isolate;
 }
-.landing-hero:has(.landing-category-select [aria-expanded="true"]) {
-  z-index: 2;
-}
 .landing-hero > :not(.landing-creative-notes, .landing-hero-media) {
   position: relative;
 }

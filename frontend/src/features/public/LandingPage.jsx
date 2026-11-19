@@ -2,8 +2,7 @@ import HeroTypingProvider from "./HeroTypingProvider.jsx";
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Check, Grid2X2, Pause, Play } from "lucide-react";
-import Dropdown from "../../components/ui/Dropdown.jsx";
+import { ArrowUpRight, Pause, Play } from "lucide-react";
 import CategoryCarousel from "./CategoryCarousel.jsx";
 import HowItWorks from "./HowItWorks.jsx";
 import OverlapSection from "./OverlapSection.jsx";
@@ -18,7 +17,6 @@ import {
   filterLandingJobs,
   filterLandingStudents,
   getStudentShowcase,
-  landingCategories,
 } from "./landingData.js";
 import "./landing.css";
 import "./landingEditorial.css";
@@ -196,7 +194,7 @@ export default function LandingPage() {
             <HeroHeadline />
             <p className="landing-intro">
               {t(
-                "Showcase your skills, discover projects, and turn your potential into real opportunities.",
+                "Find student talent, discover projects, and bring your ideas to life.",
               )}
             </p>
             <div
@@ -257,40 +255,6 @@ export default function LandingPage() {
                 <Icon name="search" />
               </button>
             </form>
-            <Dropdown
-              className="landing-category-select"
-              label={
-                <>
-                  <Grid2X2 size={17} aria-hidden="true" />
-                  <span>{t(category || "All categories")}</span>
-                </>
-              }
-            >
-              {(close) => (
-                <>
-                  <p className="landing-category-heading">
-                    {t("Explore categories")}
-                  </p>
-                  {["", ...landingCategories].map((value) => (
-                    <button
-                      type="button"
-                      key={value}
-                      className="disclosure-item landing-category-option"
-                      aria-pressed={category === value}
-                      onClick={() => {
-                        setCategory(value);
-                        close();
-                      }}
-                    >
-                      <span>{t(value || "All categories")}</span>
-                      {category === value && (
-                        <Check size={16} aria-hidden="true" />
-                      )}
-                    </button>
-                  ))}
-                </>
-              )}
-            </Dropdown>
             <p className="landing-mode-caption" aria-live="polite">
               {mode === "hire"
                 ? t("Great ideas start with the right people. ")

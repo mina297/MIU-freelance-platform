@@ -128,11 +128,16 @@
   :is(.public-preferences, .public-account-menu)
   > .disclosure-trigger,
 :root[data-theme="dark"] .homepage-theme .public-mobile-menu {
-  background: #35232cce;
-  border-color: #d9aebc66;
+  background: #2c1d1eb8;
+  border-color: #b99a9e40;
   box-shadow:
-    inset 0 1px 2px #ffffff26,
-    0 6px 20px #10030b1f;
+    inset 0 1px 2px #ffffff12,
+    0 6px 20px #08020326;
+}
+:root[data-theme="dark"] .homepage-theme .public-sign-up {
+  background: linear-gradient(135deg, #c9082b, #ae0823);
+  border-color: #c51a36;
+  box-shadow: 0 5px 18px #be092b30, inset 0 1px 2px #ffffff24;
 }
 @media (max-width: 1179px) {
   .homepage-theme > .public-header {

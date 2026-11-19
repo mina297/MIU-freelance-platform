@@ -110,11 +110,17 @@ test("approved compact design exposes public starter buttons, action menu and si
     "Minimize chat",
     "Collapse view",
     "New conversation",
+    "Frequently asked questions",
   ])
     assert.ok(html.includes(label), label);
   assert.match(html, /Demo replies · Not a real AI service/);
   assert.match(html, /Demo assistant · Predefined replies/);
   assert.match(html, /Compose your message…/);
+  const heading = html.match(/<header class="chatbot-heading">[\s\S]*?<\/header>/)?.[0];
+  assert.match(heading, /<details class="chatbot-faq">[\s\S]*?<summary>[\s\S]*?Frequently asked questions/);
+  const composer = html.match(/<form class="chatbot-composer"[\s\S]*?<\/form>/)?.[0];
+  assert.ok(composer);
+  assert.doesNotMatch(composer, /chatbot-faq|Frequently asked questions|disclosure-trigger/);
   assert.match(html, /lucide-x/);
   assert.doesNotMatch(html, /chatbot-launcher-copy|chatbot-launcher-badge/);
   assert.equal(

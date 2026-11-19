@@ -8,11 +8,13 @@ import {
   Layers3,
 } from "lucide-react";
 import { useLanguage } from "../../i18n/LanguageContext.js";
+import { useTheme } from "../../theme/ThemeContext.js";
 import { formatEGP } from "../../utils/formatEGP.js";
-import scene from "../../assets/hero/miu-reference-ivory.webp";
+import lightScene from "../../assets/hero/miu-crimson-light.webp";
+import darkScene from "../../assets/hero/miu-crimson-dark-reference.webp";
 import "./heroScene.css";
 
-// Coordinates of the doorway in the 1672 × 941 background plate.
+// Both images use this 1672 × 941 coordinate system for the doorway.
 const doorway =
   "M1131 723 V537 C1131 485 1168 416 1207 409 C1251 407 1292 461 1292 517 V687 Z";
 
@@ -35,6 +37,8 @@ function SceneCard({ kind, icon: Icon, eyebrow, title, children }) {
 export default function HeroScene() {
   const id = useId();
   const { t, locale } = useLanguage();
+  const { theme } = useTheme();
+  const scene = theme === "dark" ? darkScene : lightScene;
   const url = (name) => `url(#${id}-${name})`;
   const photo = { width: 1672, height: 941 };
   return (
@@ -42,7 +46,7 @@ export default function HeroScene() {
       <svg
         className="landing-scene"
         viewBox="0 0 1672 941"
-        preserveAspectRatio="xMidYMin meet"
+        preserveAspectRatio="xMaxYMin meet"
         width="1672"
         height="941"
         focusable="false"

@@ -1,7 +1,7 @@
 export default {
   "Your Talent": "موهبتك",
   "Opens Doors.": "تفتح الأبواب.",
-  "Showcase your skills, discover projects, and turn your potential into real opportunities.": "اعرض مهاراتك، واكتشف المشاريع، وحوّل إمكاناتك إلى فرص حقيقية.",
+  "Find student talent, discover projects, and bring your ideas to life.": "اكتشف مواهب الطلاب، واستكشف المشاريع، وحوّل أفكارك إلى واقع.",
   "Explore Projects": "استكشف المشاريع",
   "Join as Freelancer": "انضم كمستقل",
   "A new opportunity": "فرصة جديدة",

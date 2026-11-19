@@ -23,16 +23,13 @@
   color: var(--hero-ink);
   overflow: clip;
 }
-.landing-hero:has(.landing-category-select [aria-expanded="true"]) {
-  overflow: visible;
-}
 .landing .landing-hero-copy {
   position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 22px;
+  gap: 20px;
   width: min(510px, 41%);
   min-width: 0;
   margin: 0;
@@ -60,10 +57,10 @@
   margin: 0;
   width: 100%;
   font-family: var(--font-sans);
-  font-size: clamp(40px, 4.55vw, 76px);
+  font-size: clamp(38px, 4.1vw, 68px);
   font-weight: 750;
-  line-height: 1.025;
-  letter-spacing: -0.065em;
+  line-height: 1.08;
+  letter-spacing: -0.05em;
   text-align: start;
   color: var(--hero-ink);
   text-shadow: none;
@@ -74,8 +71,8 @@
 }
 .landing .landing-hero .landing-intro {
   margin: 0;
-  max-width: 370px;
-  font-size: clamp(14px, 1.15vw, 18px);
+  max-width: 390px;
+  font-size: clamp(15px, 1.15vw, 17px);
   line-height: 1.65;
   text-align: start;
   color: #403136;
@@ -91,9 +88,9 @@
   box-shadow: none;
 }
 .landing .landing-hero .landing-mode-toggle button {
-  min-height: 29px;
-  padding: 4px 19px;
-  font-size: 11px;
+  min-height: 36px;
+  padding: 6px 20px;
+  font-size: 12px;
 }
 .landing .landing-hero .landing-mode-indicator {
   border-radius: 999px;
@@ -120,7 +117,7 @@
   width: auto;
 }
 .landing .landing-hero .landing-search :is(input, .landing-search-hint) {
-  font-size: 13px;
+  font-size: 16px;
 }
 .landing .landing-hero .landing-search .miu-hero-search-submit {
   flex: 0 0 62px;
@@ -132,17 +129,6 @@
 .landing .landing-hero .miu-hero-search-submit .landing-icon {
   width: 20px;
   height: 20px;
-}
-.landing .landing-hero .landing-category-select {
-  flex: 0 0 auto;
-  margin-top: -10px;
-  border: 0;
-  padding-inline-start: 0;
-}
-.landing .landing-hero .landing-category-select .disclosure-panel {
-  inset-inline-start: 0;
-  inset-inline-end: auto;
-  width: min(260px, calc(100vw - 64px));
 }
 .landing .landing-hero .landing-pathways {
   display: flex;
@@ -156,7 +142,7 @@
   min-height: 47px;
   gap: 16px;
   padding: 12px 23px;
-  font-size: 12px;
+  font-size: 13px;
   border-color: #a51535;
   background: #fff9f270;
   color: var(--hero-crimson);
@@ -174,7 +160,7 @@
   order: 2;
   margin: -8px 0 0;
   color: #796468;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.5;
 }
 .landing-hero .landing-mode-caption a {
@@ -191,7 +177,7 @@
   border: 0;
   background: transparent;
   color: #795c62;
-  font-size: 10px;
+  font-size: 12px;
 }
 .landing .landing-hero-media {
   position: absolute;
@@ -209,8 +195,18 @@
 }
 .landing-scene {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: min(100%, 1672px);
+  height: min(100%, 56.28vw, 941px);
+  margin-left: auto;
+  mask-image: linear-gradient(#000 88%, transparent);
+}
+@media (min-width: 1673px) {
+  .landing-scene {
+    mask-image:
+      linear-gradient(to right, transparent, #000 18%),
+      linear-gradient(#000 88%, transparent);
+    mask-composite: intersect;
+  }
 }
 .landing-scene-doors {
   opacity: 1;
@@ -218,7 +214,7 @@
 .miu-scene-overlay {
   position: absolute;
   z-index: 2;
-  width: 57%;
+  width: min(57%, 953px);
   height: min(650px, 82%);
   right: 0;
   top: 13%;
@@ -576,17 +572,14 @@
 .landing-hero-story:not([data-story-ready="true"]) .miu-match-line {
   stroke-dashoffset: 0;
 }
-/* The full composition remains legible in shared dark appearance. */
+/* Dark appearance follows the supplied charcoal/crimson hero reference. */
 :root[data-theme="dark"] .landing-hero-story {
-  --hero-surface: #221820;
-  --hero-ink: #fff2ed;
-  --hero-crimson: #ffb4bd;
-}
-:root[data-theme="dark"] .landing-hero-media > .landing-scene {
-  filter: brightness(0.62) saturate(0.8);
+  --hero-surface: #19090c;
+  --hero-ink: #f8f4ed;
+  --hero-crimson: #e5b6ba;
 }
 :root[data-theme="dark"] .landing-hero-media::after {
-  background: linear-gradient(90deg, #221820, #221820c0 32%, transparent 65%);
+  background: linear-gradient(90deg, #19090c80, #19090c26 32%, transparent 55%);
 }
 :root[data-theme="dark"]
   .landing
@@ -600,26 +593,42 @@
     .miu-story-disclosure,
     .miu-story-chapters li
   ) {
-  color: #e0bdc6;
+  color: #d3bfc1;
 }
 :root[data-theme="dark"] .landing .landing-hero .landing-search {
-  color: #f6e6ed;
-  background: #35252ce8;
-  border-color: #8d626e;
+  color: #f8f4ed;
+  background: #2c1d1ee8;
+  border-color: #705356;
+  box-shadow: 0 8px 24px #08020330, inset 0 1px 2px #fff3ed12;
 }
 :root[data-theme="dark"]
   .landing
   .landing-hero
   .landing-pathways
   .landing-button:not(.primary) {
-  background: #38242c;
-  border-color: #bd7b8c;
+  background: #21111480;
+  border-color: #b99a9e;
+  color: #f8e9e9;
 }
 :root[data-theme="dark"] .landing .landing-hero .landing-mode-toggle {
-  background: #38242c;
+  background: #2c1d1ed9;
+  border-color: #705356;
 }
 :root[data-theme="dark"] .landing .landing-hero .landing-mode-indicator {
-  background: #ae1438;
+  background: #b50928;
+  box-shadow: inset 0 1px 2px #ffffff1f;
+}
+:root[data-theme="dark"] .landing .landing-hero .landing-pathways .primary,
+:root[data-theme="dark"] .landing .landing-hero .miu-hero-search-submit {
+  background: linear-gradient(135deg, #c9082b, #ae0823);
+  border-color: #c51a36;
+  box-shadow: 0 6px 20px #be092b30, inset 0 1px 2px #ffffff24;
+}
+:root[data-theme="dark"] .landing .landing-hero .landing-search-hint {
+  color: #d3bfc1;
+}
+:root[data-theme="dark"] .miu-story-progress-fill {
+  background: #e5b6ba;
 }
 :root[data-theme="dark"] .miu-story-progress {
   background: #b9839445;
@@ -628,18 +637,27 @@
   color: #d6a5b3;
 }
 :root[data-theme="dark"] .miu-scene-card {
-  background: linear-gradient(135deg, #402832ee, #2e1c27e6);
-  color: #fff1ed;
-  border-color: #d6a9b67a;
+  background: linear-gradient(135deg, #302023f2, #1e1316ed);
+  color: #f8f4ed;
+  border-color: #b99a9e66;
+  box-shadow: 0 14px 30px -12px #08020380, inset 0 1px #fff3ed12;
 }
 :root[data-theme="dark"]
   .miu-scene-card
   :is(small, .miu-card-detail, .miu-card-tag, .miu-card-skills) {
-  color: #e0b2c0;
+  color: #d3bfc1;
 }
 :root[data-theme="dark"] .miu-scene-card-icon,
 :root[data-theme="dark"] .miu-scene-earnings strong {
-  color: #ffb4c0;
+  color: #e5b6ba;
+}
+:root[data-theme="dark"] .miu-scene-match {
+  background: #2c1d1ef2;
+  border-color: #705356;
+  color: #f1c9cc;
+}
+:root[data-theme="dark"] .miu-completed {
+  color: #d3bfc1;
 }
 @media (prefers-reduced-transparency: reduce) {
   .miu-scene-card,
@@ -662,7 +680,7 @@
     gap: 19px;
   }
   .landing .landing-hero .miu-hero-title {
-    font-size: 4.9vw;
+    font-size: 4.5vw;
   }
   .miu-scene-card {
     padding: 10px;
@@ -708,13 +726,14 @@
     height: auto;
   }
   .landing .landing-hero {
+    --hero-gutter: 24px;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     position: relative;
     min-height: 0;
     height: auto;
-    padding: 124px 24px 26px;
+    padding: 124px var(--hero-gutter) 26px;
     overflow: clip;
   }
   .landing .landing-hero-copy {
@@ -723,12 +742,12 @@
     gap: 19px;
   }
   .landing .landing-hero .miu-hero-title {
-    font-size: clamp(39px, 8.7vw, 61px);
+    font-size: clamp(34px, 8vw, 56px);
     letter-spacing: -0.055em;
   }
   .landing .landing-hero .landing-intro {
     max-width: 380px;
-    font-size: 14px;
+    font-size: 15px;
   }
   .landing .landing-hero .landing-community {
     font-size: 8px;
@@ -738,7 +757,7 @@
   }
   .landing .landing-hero .landing-pathways .landing-button {
     padding: 11px 17px;
-    font-size: 11px;
+    font-size: 12px;
   }
   .landing .landing-hero-media {
     position: relative;
@@ -746,14 +765,19 @@
     order: 2;
     z-index: 0;
     flex-shrink: 0;
-    width: calc(100% + 48px);
-    height: clamp(340px, 84vw, 540px);
-    margin: -8px -24px 0;
+    width: calc(100% + 2 * var(--hero-gutter));
+    aspect-ratio: 5 / 4;
+    min-height: 310px;
+    margin: -8px calc(-1 * var(--hero-gutter)) 0;
   }
   .landing-hero-media > .landing-scene {
-    width: 100%;
-    max-width: 100%;
-    margin-left: 0;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 145%;
+    height: auto;
+    max-height: 100%;
+    transform: translateY(-50%);
   }
   .landing-hero-media::after {
     background: linear-gradient(
@@ -852,10 +876,10 @@
   }
   :root[data-theme="dark"] .landing-hero-media::after {
     background: linear-gradient(
-      #221820,
+      var(--hero-surface),
       transparent 20%,
       transparent 85%,
-      #221820
+      var(--hero-surface)
     );
   }
   /* Live copy stays first in reading order, artwork follows it visually. */
@@ -865,14 +889,14 @@
 }
 @media (max-width: 360px) {
   .landing .landing-hero {
-    padding-inline: 18px;
+    --hero-gutter: 18px;
   }
   .landing .landing-hero .miu-hero-title {
-    font-size: 36px;
+    font-size: 32px;
   }
   .landing .landing-hero .landing-pathways .landing-button {
     padding-inline: 13px;
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 @media (prefers-reduced-motion: no-preference) {

@@ -1,5 +1,11 @@
 # Landing Page — Phase 1 frontend
 
+Dark reference update — 19 November 2026: the user's supplied screenshot now guides P-01 dark appearance. `miu-crimson-dark-reference.webp` replaces the earlier dark plate with charcoal architecture, bright crimson rooftop letters/doors and off-white university signage. The 1672 × 941 coordinate system is retained for all three image layers. Hero surfaces use near-black oxblood `#19090c`, warm off-white text, dusty rose headline accents, muted brown glass and crimson actions; homepage navigation uses matching glass. Light appearance, routes, roles, search and the existing story remain unchanged. This supports FR-V01 and NFR-02/NFR-03 without claiming requirement completion. Browser visual acceptance remains pending.
+
+Verification of that hero update: production build, ESLint and 16 targeted route/theme tests passed. The artwork dimensions are verified as 1672 × 941, and the selected hero text/surface pairs have a minimum calculated contrast of 8.65:1. The in-app browser timed out connecting to the local Vite server, so full visual acceptance is still pending.
+
+The homepage hero uses separate crimson artwork for light and dark mode. The shared theme selects the image, including the animated door panels. On phones, the artwork sits below the copy and crops the empty left area to focus on the building. The scene scales proportionally and caps its desktop display width at the asset's native width.
+
 Hero background update — 12 November 2026: the light-mode hero canvas and desktop/mobile artwork edge fades now use white (`#ffffff`) instead of beige. The hero artwork in `miu-reference-ivory.webp` is also replaced with the user's latest neutral-white image, retaining its 1672 × 941 dimensions, red accents and existing image/door alignment. Existing dark-mode overrides are retained.
 
 Implemented at `/`, based on [MIU Freelance desktop, node 8:2656](https://www.figma.com/design/4OarPMFlQbiJI1Q1WxblcC/MIU-Freelancing-Platform--Copy-?node-id=8-2656).
@@ -9,6 +15,10 @@ Related requirements: P-01, FR-V01–FR-V04, NFR-01–NFR-03 and SR-09. This scr
 `frontend/src/features/public/` owns the page, scoped styles and fictional landing-only examples. Assets in `frontend/src/assets/figma/landing/` are downloaded originals from the frame; no temporary Figma URLs are used at runtime. Inter, Playfair Display and brand colors reuse the existing theme. The shared public header now uses Upwork-inspired Hire Talent and Find Work dropdowns, How it works, Sign In and Sign Up, with MIU branding retained (23 October 2026).
 
 ## Behavior
+
+### Hero search simplification — 19 November 2026
+
+The user's latest direction removes the “All categories” picker from the hero, superseding the picker descriptions below. Hire/Work, text search and the category carousel remain available; carousel selection still combines with the query, with existing empty-result recovery. Supporting copy now addresses both talent and project discovery in English and Arabic. The hero uses a smaller responsive heading, closer vertical spacing, and more readable search, action and helper text. Routes, roles and mock data contracts are unchanged. Supports P-01, FR-V01–FR-V03 and NFR-02–NFR-03. Automated rendering covers the removed picker and retained category cards; browser visual and real-device acceptance remain pending.
 
 Search appearance — 12 November 2026: the hero search uses a white pill surface with a red oval icon-only submit button and an accessible Search label. The existing rotating search examples, query, Hire/Work mode and filtering behavior are preserved. The category picker sits below the pill and still combines with the query on submission. The hero search perimeter animation is removed to match the supplied reference.
 
