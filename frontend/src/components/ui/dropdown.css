@@ -45,7 +45,7 @@
 @media (hover: hover) and (pointer: fine) {
   .disclosure-item:hover {
     background: var(--theme-hover, #f0e9ed);
-    color: var(--theme-accent, #a82242);
+    color: var(--theme-accent, var(--brand-red-hover, #a82242));
   }
 }
 @media (prefers-reduced-motion: reduce) {

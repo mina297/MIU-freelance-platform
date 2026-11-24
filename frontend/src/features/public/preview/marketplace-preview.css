@@ -33,7 +33,7 @@ body:has(.marketplace-preview) {
 .marketplace-preview .miu-control {
   font-weight: 400;
   border-color: var(--theme-border, #bba4b3);
-  background: var(--theme-field, #fcfafb);
+  background: var(--theme-field, var(--brand-red-tint, #fcfafb));
 }
 
 .marketplace-preview .miu-field__label {
@@ -53,10 +53,10 @@ body:has(.marketplace-preview) {
 }
 .marketplace-preview .miu-public-footer {
   background: #351923;
-  --public-footer-muted: #d6c1cb;
+  --public-footer-muted: var(--brand-red-border, #d6c1cb);
 }
 .marketplace-preview .miu-public-footer__meta {
-  border-color: var(--theme-border, #76505f);
+  border-color: var(--theme-border, var(--brand-red, #76505f));
 }
 
 .marketplace-preview .m4-public-info,
@@ -73,11 +73,15 @@ body:has(.marketplace-preview) {
       #ffffff07 141px 210px,
       transparent 211px
     ),
-    radial-gradient(ellipse at 90% 80%, #84354a 0, transparent 65%),
-    linear-gradient(120deg, #351923, #572333);
+    radial-gradient(
+      ellipse at 90% 80%,
+      var(--brand-red, #84354a) 0,
+      transparent 65%
+    ),
+    linear-gradient(120deg, #351923, var(--brand-red-hover, #572333));
   color: #fff;
   padding-block: clamp(48px, 7vw, 96px);
-  border-bottom: 1px solid var(--theme-border, #9b647a);
+  border-bottom: 1px solid var(--theme-border, var(--brand-red-muted, #9b647a));
 }
 
 .marketplace-preview .m4-public-info__intro h1,
@@ -93,17 +97,17 @@ body:has(.marketplace-preview) {
 }
 
 .marketplace-preview .m4-public-info__intro > p:not(.m4-public-info__notice) {
-  color: #f1dce5;
+  color: var(--brand-red-soft, #f1dce5);
   font-size: 18px;
   line-height: 1.8;
 }
 
 .marketplace-preview .m4-public-info__notice {
-  border: 1px solid var(--theme-border, #c195a8);
-  border-inline-start: 4px solid var(--theme-border, #b91c2b);
+  border: 1px solid var(--theme-border, var(--brand-red-muted, #c195a8));
+  border-inline-start: 4px solid var(--theme-border, var(--brand-red, #b91c2b));
   border-radius: 12px;
   color: var(--theme-muted-text, #59434e);
-  background: var(--theme-accent-surface, #fff8fb);
+  background: var(--theme-accent-surface, var(--brand-red-tint, #fff8fb));
 }
 
 .marketplace-preview .m4-public-info__body {
@@ -111,7 +115,7 @@ body:has(.marketplace-preview) {
   padding-block: 48px 72px;
 }
 .marketplace-preview .m4-public-info__card {
-  border-top: 4px solid var(--theme-border, #b86c85);
+  border-top: 4px solid var(--theme-border, var(--brand-red-muted, #b86c85));
 }
 .marketplace-preview .m4-public-info__card h2 {
   letter-spacing: -0.025em;
@@ -138,8 +142,8 @@ body:has(.marketplace-preview) {
   padding: 28px;
 }
 .marketplace-preview .m4-how-it-works__icon-plate {
-  border: 1px solid var(--theme-border, #d6a7b8);
-  background: var(--theme-accent-surface, #f9e6ee);
+  border: 1px solid var(--theme-border, var(--brand-red-border, #d6a7b8));
+  background: var(--theme-accent-surface, var(--brand-red-soft, #f9e6ee));
 }
 
 .marketplace-preview__toolbar {
@@ -163,7 +167,7 @@ body:has(.marketplace-preview) {
   margin-top: 5px;
 }
 .marketplace-preview__toolbar a {
-  color: var(--theme-accent, #9d1831);
+  color: var(--theme-accent, var(--brand-red, #9d1831));
   font-size: 14px;
   font-weight: 600;
 }
@@ -178,7 +182,7 @@ body:has(.marketplace-preview) {
   padding-inline: clamp(24px, 5vw, 64px);
 }
 .marketplace-preview[data-ui-preview] > header p {
-  color: #f1dce5;
+  color: var(--brand-red-soft, #f1dce5);
 }
 .marketplace-preview[data-ui-preview] > nav {
   background: var(--theme-surface, #fff);
@@ -186,7 +190,7 @@ body:has(.marketplace-preview) {
   padding: 22px;
 }
 .marketplace-preview[data-ui-preview] > nav a {
-  color: var(--theme-accent, #8f2845);
+  color: var(--theme-accent, var(--brand-red, #8f2845));
   text-underline-offset: 5px;
 }
 .marketplace-preview[data-ui-preview] section {

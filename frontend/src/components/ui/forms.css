@@ -38,7 +38,7 @@ fieldset.miu-field > legend {
   padding: 12px;
   border: 1px solid var(--border-control);
   border-radius: var(--radius-control);
-  background: var(--theme-field, #fffcfd);
+  background: var(--theme-field, var(--brand-red-tint, #fffcfd));
   color: inherit;
   font: inherit;
 }
@@ -59,13 +59,14 @@ select.miu-control[multiple] {
 
 .miu-control:focus-visible,
 .miu-choice-control:focus-visible {
-  outline: 2px solid var(--theme-focus, var(--color-miu-red, #b91c2b));
+  outline: 2px solid
+    var(--theme-focus, var(--color-miu-red, var(--brand-red, #b91c2b)));
   outline-offset: 3px;
 }
 
 .miu-control:focus {
-  border-color: var(--color-miu-red, #b91c2b);
-  box-shadow: inset 0 0 0 1px var(--color-miu-red, #b91c2b);
+  border-color: var(--color-miu-red, var(--brand-red, #b91c2b));
+  box-shadow: inset 0 0 0 1px var(--color-miu-red, var(--brand-red, #b91c2b));
 }
 
 .miu-control[aria-invalid="true"] {
@@ -118,7 +119,7 @@ select.miu-control[multiple] {
   width: 18px;
   height: 18px;
   margin: 2px 0 0;
-  accent-color: var(--color-miu-red, #b91c2b);
+  accent-color: var(--color-miu-red, var(--brand-red, #b91c2b));
 }
 
 .miu-choice-control:disabled {

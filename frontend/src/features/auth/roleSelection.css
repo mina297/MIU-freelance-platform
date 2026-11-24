@@ -52,7 +52,7 @@
   background: linear-gradient(
     150deg,
     var(--theme-surface, white) 60%,
-    var(--theme-accent-surface, #f8e9ef)
+    var(--theme-accent-surface, var(--brand-red-tint, #f8e9ef))
   );
   box-shadow:
     0 16px 40px -16px rgb(17 17 17 / 20%),

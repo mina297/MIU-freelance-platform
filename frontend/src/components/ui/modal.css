@@ -52,7 +52,7 @@
 }
 
 .miu-modal__title:focus-visible {
-  outline: 2px solid var(--color-miu-red, #b91c2b);
+  outline: 2px solid var(--color-miu-red, var(--brand-red, #b91c2b));
   outline-offset: 3px;
   border-radius: 2px;
 }

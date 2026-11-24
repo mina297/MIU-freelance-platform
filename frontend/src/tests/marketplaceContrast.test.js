@@ -19,6 +19,39 @@ function contrast(first, second) {
   return (values[0] + 0.05) / (values[1] + 0.05);
 }
 
+const brandCSS = readFileSync(
+  new URL("../styles/brand-palette.css", import.meta.url),
+  "utf8",
+);
+function brandColor(name) {
+  const value = brandCSS.match(new RegExp(`--${name}:\\s*([^;]+)`))?.[1];
+  assert.ok(value, `Missing ${name}`);
+  if (value.startsWith("#")) return value.slice(1);
+  const mix = value.match(/var\(--brand-red\)\s+([\d.]+)%,\s*(white|black)/);
+  assert.ok(mix, `Unsupported brand mix: ${value}`);
+  const weight = Number(mix[1]) / 100;
+  const other = mix[2] === "white" ? 255 : 0;
+  return brandColor("brand-red")
+    .match(/../g)
+    .map((channel) =>
+      Math.round(parseInt(channel, 16) * weight + other * (1 - weight))
+        .toString(16)
+        .padStart(2, "0"),
+    )
+    .join("");
+}
+
+test("hero-derived light palette keeps actions, links and dark-banner copy readable", () => {
+  for (const name of ["brand-red", "brand-red-hover", "brand-red-muted"]) {
+    assert.ok(contrast(brandColor(name), "ffffff") >= 4.5, `${name} on white`);
+  }
+  for (const surface of ["brand-red-soft", "brand-red-tint"]) {
+    assert.ok(contrast(brandColor("brand-red"), brandColor(surface)) >= 4.5);
+    for (const banner of ["brand-red", "brand-red-hover", "brand-red-deep"])
+      assert.ok(contrast(brandColor(surface), brandColor(banner)) >= 4.5);
+  }
+});
+
 test("shared premium palette keeps readable text, visible fields and dark-header focus", () => {
   const css = readFileSync(
     new URL("../styles/premium-theme.css", import.meta.url),
@@ -79,9 +112,12 @@ test("freelancer disclosure text and marketplace hero link focus retain sufficie
       contrast(note, background) >= 4.5,
       `Normal disclosure text against #${background}`,
     );
-  const focus = catalogueCSS.match(
-    /\.services-catalogue \.services-hero a:focus-visible\s*{[^}]*outline-color:\s*var\(--theme-focus,\s*#([\da-f]{6})/i,
+  const focusDeclaration = catalogueCSS.match(
+    /\.services-catalogue \.services-hero a:focus-visible\s*{[^}]*outline-color:\s*([^;]+)/i,
   )?.[1];
+  const focus = focusDeclaration?.includes("--brand-red-tint")
+    ? brandColor("brand-red-tint")
+    : focusDeclaration?.match(/#([\da-f]{6})/i)?.[1];
   assert.ok(focus, "Dark hero links need a visible focus outline");
   for (const background of ["351923", "602637", "8c3c55"])
     assert.ok(

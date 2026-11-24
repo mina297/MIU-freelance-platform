@@ -23,12 +23,12 @@
 .cp-heading {
   padding: clamp(20px, 3vw, 32px);
   border: 1px solid var(--border-soft);
-  border-inline-start: 4px solid var(--theme-border, #9b3554);
+  border-inline-start: 4px solid var(--theme-border, var(--brand-red, #9b3554));
   border-radius: var(--radius-panel);
   background: linear-gradient(
     120deg,
     var(--theme-surface, #fff),
-    var(--theme-accent-surface, #f8e9ef)
+    var(--theme-accent-surface, var(--brand-red-tint, #f8e9ef))
   );
   box-shadow: var(--shadow-panel);
 }
@@ -55,7 +55,7 @@
 }
 .cp-nav .active {
   color: var(--theme-accent, var(--color-miu-red));
-  background: var(--theme-accent-surface, #f8e9ef);
+  background: var(--theme-accent-surface, var(--brand-red-tint, #f8e9ef));
   box-shadow: inset 0 0 0 1px var(--border-soft);
   font-weight: 600;
 }

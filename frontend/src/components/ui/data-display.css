@@ -175,7 +175,7 @@
 .miu-stat-card__icon {
   display: inline-flex;
   flex: 0 0 auto;
-  color: var(--theme-accent, var(--color-miu-red, #b91c2b));
+  color: var(--theme-accent, var(--color-miu-red, var(--brand-red, #b91c2b)));
 }
 
 .miu-stat-card__value {

@@ -30,12 +30,12 @@
 }
 .order-delivery__meta span {
   font-size: 12px;
-  color: var(--theme-accent, #9c3659);
+  color: var(--theme-accent, var(--brand-red, #9c3659));
 }
 .order-delivery__revision {
   padding: 18px;
-  background: var(--theme-accent-surface, #f8eaf1);
-  border: 1px solid var(--theme-border, #d8b4c7);
+  background: var(--theme-accent-surface, var(--brand-red-tint, #f8eaf1));
+  border: 1px solid var(--theme-border, var(--brand-red-border, #d8b4c7));
   border-radius: 10px;
   margin-top: 16px;
   font-size: 13px;
@@ -69,11 +69,11 @@
 }
 .order-workspace__heading > span {
   font-size: 12px;
-  color: var(--theme-accent, #8e4966);
-  border: 1px solid var(--theme-border, #d0afc0);
+  color: var(--theme-accent, var(--brand-red, #8e4966));
+  border: 1px solid var(--theme-border, var(--brand-red-border, #d0afc0));
   padding: 8px 14px;
   border-radius: 20px;
-  background: var(--theme-accent-surface, #fff5fa);
+  background: var(--theme-accent-surface, var(--brand-red-tint, #fff5fa));
 }
 .order-workspace__disclosure,
 .order-workspace__help {
@@ -145,7 +145,7 @@
 }
 .order-workspace__saved > p:not(.order-workspace__text) {
   font-size: 12px;
-  color: var(--theme-accent, #8c4967);
+  color: var(--theme-accent, var(--brand-red, #8c4967));
   margin-block: 8px;
 }
 .order-workspace__text {
@@ -157,7 +157,7 @@
 .order-workspace__samples {
   list-style: none;
   font-size: 12px;
-  color: var(--theme-muted-text, #7f5067);
+  color: var(--theme-muted-text, var(--brand-red, #7f5067));
   margin-top: 12px;
   line-height: 1.85;
 }
@@ -173,13 +173,14 @@
 .order-workspace__message {
   background: var(--theme-accent-surface, #f8f4f7);
   border: 1px solid var(--theme-border, #d5c1cd);
-  border-inline-start: 3px solid var(--theme-border, #b8849c);
+  border-inline-start: 3px solid
+    var(--theme-border, var(--brand-red-muted, #b8849c));
   padding: 20px;
   border-radius: 12px;
 }
 .order-workspace__message--own {
-  background: var(--theme-accent-surface, #fff3f8);
-  border-inline-start-color: var(--theme-border, #b91c2b);
+  background: var(--theme-accent-surface, var(--brand-red-tint, #fff3f8));
+  border-inline-start-color: var(--theme-border, var(--brand-red, #b91c2b));
 }
 .order-workspace__message > div {
   display: flex;
@@ -227,8 +228,8 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #b91c2b;
-  border: 3px solid var(--theme-border, #f9eaf1);
+  background: var(--brand-red, #b91c2b);
+  border: 3px solid var(--theme-border, var(--brand-red-tint, #f9eaf1));
 }
 .order-workspace__timeline li p {
   font-size: 12px;

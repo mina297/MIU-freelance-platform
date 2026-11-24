@@ -30,7 +30,7 @@
   z-index: 100;
   padding: 12px;
   background: var(--theme-surface, #fff);
-  color: var(--theme-accent, var(--color-miu-red, #b91c2b));
+  color: var(--theme-accent, var(--color-miu-red, var(--brand-red, #b91c2b)));
   transform: translateY(-200%);
 }
 
@@ -114,16 +114,16 @@ a.miu-public-link:hover {
   box-sizing: border-box;
   min-height: 44px;
   padding: 10px 16px;
-  border: 1px solid var(--color-miu-red, #b91c2b);
+  border: 1px solid var(--color-miu-red, var(--brand-red, #b91c2b));
   border-radius: 9999px;
-  background: var(--color-miu-red, #b91c2b);
+  background: var(--color-miu-red, var(--brand-red, #b91c2b));
   color: var(--public-white);
   font-size: 14px;
   line-height: 22px;
 }
 
 .miu-public-header a.miu-public-signup:hover {
-  background: var(--color-miu-red-dark, #8f1420);
+  background: var(--color-miu-red-dark, var(--brand-red-hover, #8f1420));
 }
 
 .miu-public-header span.miu-public-signup {

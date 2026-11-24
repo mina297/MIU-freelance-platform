@@ -1,5 +1,12 @@
 # Landing Page — Phase 1 frontend
 
+Shared light crimson — 24 November 2026: hero text, actions and decorative red
+accents now consume the site-wide hero-derived brand palette. Lighter treatments
+are white mixes of the same crimson; dark styles retain their prior fallback
+colors. See [Design System](../03-DESIGN/DESIGN_SYSTEM.md#shared-light-mode-crimson--24-november-2026).
+This palette update does not replace the artwork or change scene geometry,
+door motion, layout, discovery or role access.
+
 Hero footer cleanup — 19 November 2026. Removed the chapter rail, progress line, discovery shortcut and its explanatory caption. The discovery section remains below the hero. The illustrated earnings retain their existing fictional example disclosure.
 
 First-scroll door opening — 19 November 2026. The hero starts playback as soon as the page scrolls past the top of the hero. The door opens in half a second, then the cards and lights follow. Playback continues after the first scroll input. Returning above the start point resets the scene so it can play again.

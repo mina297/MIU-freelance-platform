@@ -36,7 +36,8 @@
   box-shadow:
     inset 0 1px 3px #ffffff,
     0 4px 20px #ffffff75,
-    0 8px 24px -16px #7d35463b;
+    0 8px 24px -16px
+      color-mix(in srgb, var(--brand-red, #7d3546) 23.14%, transparent);
 }
 .homepage-theme .public-navigation > .public-nav-link,
 .homepage-theme .public-nav-dropdown > .disclosure-trigger {
@@ -83,21 +84,25 @@
 .homepage-theme .public-sign-up {
   min-height: 42px;
   padding: 10px 19px;
-  border: 1px solid #bc0825;
+  border: 1px solid var(--brand-red, #bc0825);
   border-radius: 999px;
-  background: linear-gradient(135deg, #d40525, #b0001e);
+  background: linear-gradient(
+    135deg,
+    var(--brand-red, #d40525),
+    var(--brand-red, #b0001e)
+  );
   box-shadow:
     inset 0 1px 2px #ffffff61,
-    0 5px 15px #a9092421;
+    0 5px 15px color-mix(in srgb, var(--brand-red, #a90924) 12.94%, transparent);
   font-size: 12px;
   text-decoration: none;
 }
 .homepage-theme
   .public-nav-dropdown
   > .disclosure-trigger[aria-expanded="true"] {
-  color: #ae0826;
+  color: var(--brand-red, #ae0826);
   background: #ffffff80;
-  box-shadow: inset 0 -2px #bd0c2d;
+  box-shadow: inset 0 -2px var(--brand-red, #bd0c2d);
 }
 @supports (
   (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))
@@ -200,7 +205,7 @@
 }
 .homepage-skip-link:focus {
   top: 12px;
-  outline: 3px solid #b91c2b;
+  outline: 3px solid var(--brand-red, #b91c2b);
 }
 :root[data-theme="dark"] {
   --home-canvas: var(--theme-canvas);

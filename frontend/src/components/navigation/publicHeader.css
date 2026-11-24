@@ -4,7 +4,7 @@
   inset-block-start: 0;
   z-index: 30;
   padding: 16px 24px;
-  background: var(--theme-canvas, #f6f2f4);
+  background: var(--theme-canvas, var(--brand-red-tint, #f6f2f4));
   font-family: var(--font-sans);
   color: var(--theme-text, #30252c);
 }
@@ -32,7 +32,8 @@
   border: 1px solid var(--theme-divider, #e3d8de);
   border-radius: 24px;
   background: var(--theme-surface, #fff);
-  box-shadow: 0 8px 24px -18px #48233555;
+  box-shadow: 0 8px 24px -18px
+    color-mix(in srgb, var(--brand-red-deep, #482335) 33.33%, transparent);
 }
 /* Navigation controls should not pick up the site's rose text-selection fill. */
 .public-header-inner :is(a, button) {
@@ -63,7 +64,7 @@
   letter-spacing: -0.6px;
 }
 .public-brand b {
-  color: var(--theme-accent, #bd1734);
+  color: var(--theme-accent, var(--brand-red, #bd1734));
 }
 .public-navigation {
   display: flex;
@@ -90,7 +91,7 @@
 }
 .public-nav-dropdown > .disclosure-trigger[aria-expanded="true"] {
   background: var(--theme-surface, #fff);
-  color: var(--theme-accent, #b71935);
+  color: var(--theme-accent, var(--brand-red, #b71935));
   box-shadow: 0 2px 6px #30252c0a;
 }
 .public-auth-links,
@@ -173,7 +174,7 @@
   white-space: nowrap;
 }
 .public-header :is(a, button, select):focus-visible {
-  outline: 3px solid var(--theme-focus, #a5294b);
+  outline: 3px solid var(--theme-focus, var(--brand-red, #a5294b));
   outline-offset: 3px;
 }
 .public-nav-dropdown .disclosure-panel {
@@ -198,8 +199,8 @@
   flex: 0 0 38px;
   height: 38px;
   border-radius: 11px;
-  color: var(--theme-accent, #b71935);
-  background: var(--theme-accent-surface, #f8edf1);
+  color: var(--theme-accent, var(--brand-red, #b71935));
+  background: var(--theme-accent-surface, var(--brand-red-tint, #f8edf1));
 }
 .public-dropdown-link > span:nth-child(2) {
   min-width: 0;
@@ -290,7 +291,7 @@
   background: var(--theme-hover, #f0e9ed);
 }
 .public-drawer-group > summary:focus-visible {
-  outline: 3px solid var(--theme-focus, #a5294b);
+  outline: 3px solid var(--theme-focus, var(--brand-red, #a5294b));
   outline-offset: 2px;
 }
 .public-drawer-group-links {
@@ -317,10 +318,10 @@
   .public-account-menu > .disclosure-trigger:hover,
   .public-account-menu__actions :is(a, button):hover {
     background: var(--theme-hover, #f0e9ed);
-    color: var(--theme-accent, #a82242);
+    color: var(--theme-accent, var(--brand-red-hover, #a82242));
   }
   .public-sign-up:hover {
-    background: #99152d;
+    background: var(--brand-red-hover, #99152d);
   }
 }
 @media (max-width: 1179px) {

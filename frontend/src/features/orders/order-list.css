@@ -19,7 +19,7 @@
   background: var(--theme-surface, #fff);
 }
 .order-list .miu-stat-card__value {
-  color: var(--theme-accent, #7f2946);
+  color: var(--theme-accent, var(--brand-red, #7f2946));
 }
 .order-list__filters {
   display: grid;
@@ -74,7 +74,7 @@
   gap: 12px;
   margin-bottom: 20px;
   font-size: 11px;
-  color: var(--theme-muted-text, #875a70);
+  color: var(--theme-muted-text, var(--brand-red, #875a70));
 }
 .order-list__meta > span:first-child {
   display: inline-flex;
@@ -85,11 +85,11 @@
   font-weight: 700;
 }
 .order-list__status {
-  border: 1px solid var(--theme-border, #d8b8c9);
+  border: 1px solid var(--theme-border, var(--brand-red-border, #d8b8c9));
   border-radius: 24px;
   padding: 5px 12px;
-  background: var(--theme-accent-surface, #faf0f5);
-  color: var(--theme-accent, #8c3353);
+  background: var(--theme-accent-surface, var(--brand-red-tint, #faf0f5));
+  color: var(--theme-accent, var(--brand-red, #8c3353));
   font-weight: 600;
 }
 .order-list__card h3 {
@@ -100,7 +100,7 @@
   overflow-wrap: anywhere;
 }
 .order-list__card h3 a:hover {
-  color: var(--theme-accent, #ac2b4c);
+  color: var(--theme-accent, var(--brand-red-hover, #ac2b4c));
 }
 .order-list__card-main > p {
   margin-top: 12px;
@@ -148,7 +148,7 @@
   gap: 12px;
   margin-top: 20px;
   padding: 10px 16px;
-  background: #b91c2b;
+  background: var(--brand-red, #b91c2b);
   color: #fff;
   border-radius: 9px;
   font-size: 13px;
@@ -163,13 +163,13 @@
   min-height: 44px;
   display: inline-flex;
   align-items: center;
-  color: var(--theme-accent, #a52d4b);
+  color: var(--theme-accent, var(--brand-red, #a52d4b));
   font-size: 14px;
   font-weight: 650;
   text-decoration: underline;
 }
 .order-list a:focus-visible {
-  outline: 2px solid var(--theme-focus, #b91c2b);
+  outline: 2px solid var(--theme-focus, var(--brand-red, #b91c2b));
   outline-offset: 4px;
 }
 .order-list__recovery {

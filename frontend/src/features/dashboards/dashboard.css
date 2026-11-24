@@ -7,7 +7,7 @@
   font-weight: 700;
 }
 .access-message a {
-  color: var(--theme-accent, #b91c2b);
+  color: var(--theme-accent, var(--brand-red, #b91c2b));
   text-decoration: underline;
 }
 .student-dashboard {
@@ -93,9 +93,9 @@
 .sd-navigation nav button[aria-current],
 .sd-navigation nav a[aria-current="page"] {
   border-radius: var(--radius-control);
-  box-shadow: inset 3px 0 #a52d4b;
-  color: var(--theme-accent, #b91c2b);
-  background: var(--theme-accent-surface, #fbe0e3);
+  box-shadow: inset 3px 0 var(--brand-red, #a52d4b);
+  color: var(--theme-accent, var(--brand-red, #b91c2b));
+  background: var(--theme-accent-surface, var(--brand-red-soft, #fbe0e3));
   font-weight: 600;
 }
 .sd-icon {
@@ -105,7 +105,7 @@
 }
 .sd-help {
   margin-top: 32px;
-  background: var(--theme-accent-surface, #fdf2f3);
+  background: var(--theme-accent-surface, var(--brand-red-tint, #fdf2f3));
   padding: 16px;
   border-radius: 10px;
   display: flex;
@@ -123,7 +123,7 @@
 .sd-help button {
   font-size: 12px;
   font-weight: 600;
-  color: var(--theme-accent, #b91c2b);
+  color: var(--theme-accent, var(--brand-red, #b91c2b));
   text-align: start;
 }
 .sd-workspace {
@@ -157,7 +157,7 @@
   gap: 24px;
 }
 .sd-account a {
-  color: var(--theme-accent, #b91c2b);
+  color: var(--theme-accent, var(--brand-red, #b91c2b));
   font-weight: 600;
 }
 .sd-account b {
@@ -188,7 +188,7 @@
   justify-content: space-between;
   gap: 16px;
   padding: clamp(20px, 3vw, 32px);
-  border: 1px solid var(--theme-border, #84516a);
+  border: 1px solid var(--theme-border, var(--brand-red, #84516a));
   border-radius: var(--radius-panel);
   background: var(--hero-gradient);
   color: #fff;
@@ -202,10 +202,10 @@
   letter-spacing: -0.04em;
 }
 .sd-welcome p {
-  color: #f0d4e0;
+  color: var(--brand-red-soft, #f0d4e0);
 }
 .sd-welcome :is(a, button):focus-visible {
-  outline-color: var(--theme-focus, #ffe1ec);
+  outline-color: var(--theme-focus, var(--brand-red-tint, #ffe1ec));
 }
 .sd-button {
   display: inline-flex;
@@ -224,7 +224,7 @@
 .sd-primary {
   background: var(--brand-gradient);
   color: white;
-  border-color: var(--theme-border, #b91c2b);
+  border-color: var(--theme-border, var(--brand-red, #b91c2b));
 }
 .sd-secondary {
   background: var(--theme-surface, white);
@@ -243,7 +243,8 @@
   gap: 16px;
 }
 .sd-stat {
-  border-block-start: 3px solid var(--theme-border, #b77690);
+  border-block-start: 3px solid
+    var(--theme-border, var(--brand-red-muted, #b77690));
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -361,7 +362,7 @@
 .sd-section-heading button {
   font-size: 12px;
   font-weight: 600;
-  color: var(--theme-accent, #b91c2b);
+  color: var(--theme-accent, var(--brand-red, #b91c2b));
 }
 .sd-job-grid {
   display: grid;
@@ -438,11 +439,11 @@
   background: var(--surface-muted);
 }
 .sd-progress progress::-webkit-progress-value {
-  background: #b91c2b;
+  background: var(--brand-red, #b91c2b);
   border-radius: 999px;
 }
 .sd-progress progress::-moz-progress-bar {
-  background: #b91c2b;
+  background: var(--brand-red, #b91c2b);
   border-radius: 999px;
 }
 .sd-footer {
@@ -483,7 +484,7 @@
   color: var(--ink-secondary);
 }
 .sd-summary input {
-  accent-color: #b91c2b;
+  accent-color: var(--brand-red, #b91c2b);
 }
 .sd-demo-controls {
   font-size: 12px;
@@ -501,7 +502,7 @@
   text-align: center;
 }
 .sd-empty a {
-  color: var(--theme-accent, #b91c2b);
+  color: var(--theme-accent, var(--brand-red, #b91c2b));
   display: inline-block;
   margin-top: 16px;
 }
@@ -541,7 +542,7 @@
   z-index: 10;
   padding: 12px;
   background: var(--theme-surface, white);
-  color: var(--theme-accent, #b91c2b);
+  color: var(--theme-accent, var(--brand-red, #b91c2b));
 }
 .sd-skip:focus {
   top: 10px;

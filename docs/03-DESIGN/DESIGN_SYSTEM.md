@@ -8,6 +8,28 @@ tags: [MIU, design-system, UI]
 
 # MIU Freelance Platform — Design System
 
+### Shared light-mode crimson — 24 November 2026
+
+At the user's direction, the light interface now uses the hero artwork's deep
+crimson family across public pages, authentication, marketplace, profiles,
+dashboards and shared controls. `frontend/src/styles/brand-palette.css` owns
+`--brand-red` (`#a00018`), with hover/deep shades mixed with black and muted,
+border, soft and tint shades mixed with white. Adjust this source rather than
+adding unrelated reds. Tailwind `miu-red` utilities, theme accent surfaces and
+feature styles consume the same palette; translucent brand shadows retain their opacity.
+
+These tokens apply only outside dark mode. Existing literal fallbacks preserve
+the dark appearance. Status/error colors, official logos and raster artwork keep
+their own colors. This is a presentation change supporting NFR-01–NFR-03; routes,
+permissions and mock workflows are unchanged. The palette contrast checks cover
+white button labels, red links, tinted surfaces and pale text on crimson banners.
+Homepage, projects and sign-in were visually reviewed in desktop Chrome; full
+route-by-route, real-device and assistive-technology acceptance remain separate.
+
+Validation: production build and ESLint passed; all 354 tests passed, including
+the palette contrast checks. A source comparison also confirmed that all 233
+existing declarations under explicit dark-theme rules retained their values.
+
 Latest homepage hero background choice — 12 November 2026: use white (`#ffffff`) for the light-mode hero canvas and its artwork edge fades, superseding the previous beige backdrop. This is scoped to P-01.
 
 ## 1. Purpose

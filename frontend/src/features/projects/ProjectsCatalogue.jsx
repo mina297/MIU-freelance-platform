@@ -234,7 +234,7 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
               event.preventDefault();
               setQuery(searchDraft.trim());
             }}
-            className="flex flex-col gap-3 rounded-2xl border-2 border-[color:var(--theme-border,#b78c9e)] focus-within:ring-2 focus-within:ring-[#b91c2b]/40 focus-within:ring-offset-2 bg-[var(--theme-surface,#fff)] p-3 shadow-[0_22px_50px_-29px_rgba(72,20,34,0.48)] sm:flex-row sm:items-center"
+            className="flex flex-col gap-3 rounded-2xl border-2 border-[color:var(--theme-border,#b78c9e)] focus-within:ring-2 focus-within:ring-miu-red/40 focus-within:ring-offset-2 bg-[var(--theme-surface,#fff)] p-3 shadow-[0_22px_50px_-29px_rgba(72,20,34,0.48)] sm:flex-row sm:items-center"
           >
             <span className="hidden size-12 shrink-0 place-items-center rounded-xl bg-[color:var(--theme-accent-surface,#fdf1f3)] text-[var(--theme-accent,var(--color-miu-red))] sm:grid">
               <Search size={22} aria-hidden="true" />

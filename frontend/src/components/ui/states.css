@@ -29,7 +29,7 @@
   box-sizing: border-box;
   width: 24px;
   height: 24px;
-  border: 3px solid var(--color-miu-red, #b91c2b);
+  border: 3px solid var(--color-miu-red, var(--brand-red, #b91c2b));
   border-inline-end-color: transparent;
   border-radius: 50%;
   animation: miu-state-spin 800ms linear infinite;
@@ -103,7 +103,7 @@
   border: 0;
   border-radius: 999px;
   background: var(--border-soft);
-  accent-color: var(--color-miu-red, #b91c2b);
+  accent-color: var(--color-miu-red, var(--brand-red, #b91c2b));
 }
 
 .miu-progress__bar::-webkit-progress-bar {
@@ -113,19 +113,19 @@
 
 .miu-progress__bar::-webkit-progress-value {
   border-radius: inherit;
-  background: var(--color-miu-red, #b91c2b);
+  background: var(--color-miu-red, var(--brand-red, #b91c2b));
 }
 
 .miu-progress__bar::-moz-progress-bar {
   border-radius: inherit;
-  background: var(--color-miu-red, #b91c2b);
+  background: var(--color-miu-red, var(--brand-red, #b91c2b));
 }
 
 .miu-progress__bar:indeterminate {
   background: repeating-linear-gradient(
     110deg,
     var(--border-soft) 0 16px,
-    var(--color-miu-red, #b91c2b) 16px 32px
+    var(--color-miu-red, var(--brand-red, #b91c2b)) 16px 32px
   );
   background-size: 200% 100%;
   animation: miu-state-progress 2400ms linear infinite;

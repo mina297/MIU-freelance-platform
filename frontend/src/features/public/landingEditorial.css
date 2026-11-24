@@ -19,11 +19,12 @@
   gap: 12px;
   width: 200px;
   padding: 22px;
-  border: 1px solid var(--theme-border, #d4bdc8);
+  border: 1px solid var(--theme-border, var(--brand-red-border, #d4bdc8));
   border-radius: 18px;
   background: var(--theme-surface, #ffffffb8);
-  box-shadow: 0 16px 40px -20px #64283d40;
-  color: var(--theme-accent, #6f3048);
+  box-shadow: 0 16px 40px -20px
+    color-mix(in srgb, var(--brand-red-hover, #64283d) 25.1%, transparent);
+  color: var(--theme-accent, var(--brand-red, #6f3048));
   font-size: 13px;
   font-weight: 650;
 }
@@ -46,11 +47,11 @@
   position: absolute;
   inset-inline-end: 20%;
   top: 55px;
-  color: var(--theme-accent, #aa4e68);
+  color: var(--theme-accent, var(--brand-red, #aa4e68));
 }
 .landing-hero h1 em {
   text-decoration: underline;
-  text-decoration-color: #dca7b8;
+  text-decoration-color: var(--brand-red-border, #dca7b8);
   text-decoration-thickness: 2px;
   text-underline-offset: 10px;
 }
@@ -69,7 +70,7 @@
   gap: 18px;
   min-width: 0;
   padding: 26px;
-  border: 1px solid var(--theme-border, #c3a1b1);
+  border: 1px solid var(--theme-border, var(--brand-red-border, #c3a1b1));
   border-radius: 20px;
   text-decoration: none;
   transition:
@@ -78,13 +79,19 @@
 }
 .landing-pathway-projects {
   background:
-    radial-gradient(ellipse at 100% 0%, #84384f, transparent 75%), #391e2b;
+    radial-gradient(
+      ellipse at 100% 0%,
+      var(--brand-red, #84384f),
+      transparent 75%
+    ),
+    #391e2b;
   color: white;
-  box-shadow: 0 14px 30px -18px #54223980;
+  box-shadow: 0 14px 30px -18px
+    color-mix(in srgb, var(--brand-red-hover, #542239) 50.2%, transparent);
 }
 .landing-pathway-services {
-  background: var(--theme-accent-surface, #fffafc);
-  color: var(--theme-accent, #4b2638);
+  background: var(--theme-accent-surface, var(--brand-red-tint, #fffafc));
+  color: var(--theme-accent, var(--brand-red-deep, #4b2638));
 }
 .landing-pathway-icon {
   display: grid;
@@ -97,9 +104,9 @@
   background: #ffffff10;
 }
 .landing-pathway-services .landing-pathway-icon {
-  border-color: var(--theme-border, #e2c4d1);
-  background: var(--theme-accent-surface, #f6e6ed);
-  color: var(--theme-accent, #a32648);
+  border-color: var(--theme-border, var(--brand-red-border, #e2c4d1));
+  background: var(--theme-accent-surface, var(--brand-red-soft, #f6e6ed));
+  color: var(--theme-accent, var(--brand-red, #a32648));
 }
 .landing-pathway-copy {
   display: grid;
@@ -121,14 +128,14 @@
   line-height: 1.6;
 }
 .landing-pathway-projects .landing-pathway-copy > span {
-  color: #ead5de;
+  color: var(--brand-red-soft, #ead5de);
 }
 .landing-pathway-arrow {
   flex-shrink: 0;
   margin-inline-start: auto;
 }
 .landing .landing-pathway:focus-visible {
-  outline-color: var(--theme-focus, #b91c2b);
+  outline-color: var(--theme-focus, var(--brand-red, #b91c2b));
   outline-offset: 5px;
 }
 .landing-heading h2::after {
@@ -138,26 +145,30 @@
   height: 3px;
   margin-top: 16px;
   border-radius: 3px;
-  background: #b73959;
+  background: var(--brand-red, #b73959);
 }
 .landing-job h3 {
   font-weight: 700;
   letter-spacing: -0.025em;
 }
 .landing-job:focus-within {
-  border-color: var(--theme-border, #a63052);
+  border-color: var(--theme-border, var(--brand-red, #a63052));
 }
 .landing-invitation {
   padding: 76px 24px;
-  border-top: 1px solid var(--theme-border, #d4bcc8);
+  border-top: 1px solid var(--theme-border, var(--brand-red-border, #d4bcc8));
   background:
     radial-gradient(
       circle at 65% 100%,
       transparent 0 110px,
-      var(--theme-accent-surface, #c58a9e16) 111px 160px,
+      var(
+          --theme-accent-surface,
+          color-mix(in srgb, var(--brand-red-muted, #c58a9e) 8.63%, transparent)
+        )
+        111px 160px,
       transparent 161px
     ),
-    var(--theme-accent-surface, #f3e6ec);
+    var(--theme-accent-surface, var(--brand-red-soft, #f3e6ec));
 }
 .landing-invitation-inner {
   display: flex;
@@ -172,7 +183,7 @@
 }
 .landing-invitation h2 em {
   font-family: var(--font-display);
-  color: var(--theme-accent, #843450);
+  color: var(--theme-accent, var(--brand-red, #843450));
 }
 .landing-invitation-inner > div > p:last-child {
   max-width: 480px;
@@ -196,7 +207,8 @@
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .landing[data-motion="on"] .landing-pathway:hover {
     transform: translateY(-4px);
-    box-shadow: 0 16px 32px -20px #54223970;
+    box-shadow: 0 16px 32px -20px
+      color-mix(in srgb, var(--brand-red-hover, #542239) 43.92%, transparent);
   }
 }
 @media (max-width: 1250px) {

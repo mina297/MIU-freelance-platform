@@ -34,13 +34,13 @@
 
 .miu-tabs .miu-tabs__tab[aria-selected="true"] {
   background: var(--color-miu-red-tint);
-  border-color: var(--theme-border, #c68b9f);
-  color: var(--theme-accent, var(--color-miu-red, #b91c2b));
+  border-color: var(--theme-border, var(--brand-red-muted, #c68b9f));
+  color: var(--theme-accent, var(--color-miu-red, var(--brand-red, #b91c2b)));
   font-weight: 600;
 }
 
 .miu-tabs .miu-tabs__tab:hover:not(:disabled) {
-  background: var(--color-miu-red-tint, #fdf2f3);
+  background: var(--color-miu-red-tint, var(--brand-red-tint, #fdf2f3));
 }
 
 .miu-tabs .miu-tabs__tab:disabled {
@@ -58,7 +58,7 @@
 }
 
 .miu-tabs__panel:focus-visible {
-  outline: 2px solid var(--color-miu-red, #b91c2b);
+  outline: 2px solid var(--color-miu-red, var(--brand-red, #b91c2b));
   outline-offset: 3px;
 }
 
@@ -109,8 +109,8 @@
 }
 
 .miu-pagination .miu-pagination__button[aria-current="page"] {
-  border-color: var(--color-miu-red, #b91c2b);
-  background: var(--color-miu-red, #b91c2b);
+  border-color: var(--color-miu-red, var(--brand-red, #b91c2b));
+  background: var(--color-miu-red, var(--brand-red, #b91c2b));
   color: #fff;
 }
 

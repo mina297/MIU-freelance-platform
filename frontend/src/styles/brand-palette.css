@@ -1,0 +1,13 @@
+/* Light-mode brand colors follow the crimson hero artwork. Keeping these
+   tokens light-only lets existing color fallbacks preserve the dark palette. */
+:root:not([data-theme="dark"]) {
+  --brand-red: #a00018;
+  --brand-red-hover: color-mix(in srgb, var(--brand-red) 85%, black);
+  --brand-red-deep: color-mix(in srgb, var(--brand-red) 60%, black);
+  --brand-red-muted: color-mix(in srgb, var(--brand-red) 70%, white);
+  --brand-red-border: color-mix(in srgb, var(--brand-red) 35%, white);
+  --brand-red-soft: color-mix(in srgb, var(--brand-red) 14%, white);
+  --brand-red-tint: color-mix(in srgb, var(--brand-red) 5%, white);
+  --theme-accent: var(--brand-red);
+  --theme-accent-surface: var(--brand-red-tint);
+}

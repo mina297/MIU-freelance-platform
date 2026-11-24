@@ -36,15 +36,15 @@
   flex: 0 0 32px;
   height: 32px;
   border-radius: 11px;
-  color: var(--theme-accent, #b71935);
-  background: var(--theme-accent-surface, #f8edf1);
+  color: var(--theme-accent, var(--brand-red, #b71935));
+  background: var(--theme-accent-surface, var(--brand-red-tint, #f8edf1));
   font-size: 11px;
   font-weight: 600;
 }
 .language-menu-option > svg {
   margin-inline-start: auto;
   flex-shrink: 0;
-  color: var(--theme-accent, #b71935);
+  color: var(--theme-accent, var(--brand-red, #b71935));
 }
 .language-draft {
   display: block;

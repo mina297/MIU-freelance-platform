@@ -2,7 +2,7 @@
    Existing declaration fallbacks preserve each original light-mode color. */
 :root {
   color-scheme: light;
-  --public-action-background: #b71935;
+  --public-action-background: var(--brand-red, #b71935);
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
@@ -133,7 +133,7 @@ html[data-theme="dark"] body {
   width: 70px;
   height: 36px;
   padding: 9px;
-  border: 1px solid #b58b9d;
+  border: 1px solid var(--brand-red-muted, #b58b9d);
   border-radius: 999px;
   background: #f4eaf0;
   color: #755065;
@@ -154,13 +154,13 @@ html[data-theme="dark"] body {
 }
 .theme-toggle[aria-pressed="true"] .theme-toggle-track::before {
   transform: translateX(34px);
-  background: #b91c2b;
+  background: var(--brand-red, #b91c2b);
 }
 .theme-toggle:hover .theme-toggle-track {
-  border-color: #b91c2b;
+  border-color: var(--brand-red-hover, #b91c2b);
 }
 .theme-toggle:focus-visible {
-  outline: 2px solid var(--theme-focus, #b91c2b);
+  outline: 2px solid var(--theme-focus, var(--brand-red, #b91c2b));
   outline-offset: 4px;
 }
 :root[data-theme="dark"] .theme-toggle-track {

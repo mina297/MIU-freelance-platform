@@ -81,7 +81,7 @@
 }
 .service-order__total dd {
   font-size: 25px;
-  color: var(--theme-accent, #a12a49);
+  color: var(--theme-accent, var(--brand-red, #a12a49));
 }
 .service-order__summary > .miu-button {
   width: 100%;
@@ -104,7 +104,7 @@
   font-weight: 750;
 }
 .service-order__recovery a {
-  color: var(--theme-accent, #a12a49);
+  color: var(--theme-accent, var(--brand-red, #a12a49));
   text-decoration: underline;
   min-height: 44px;
 }

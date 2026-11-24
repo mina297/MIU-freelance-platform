@@ -36,10 +36,10 @@
   flex-shrink: 0;
   border: 1px solid var(--theme-border, #caa8bb);
   border-radius: 22px;
-  color: var(--theme-accent, #9a3658);
+  color: var(--theme-accent, var(--brand-red, #9a3658));
   background: linear-gradient(
     135deg,
-    var(--theme-accent-surface, #f9edf3),
+    var(--theme-accent-surface, var(--brand-red-tint, #f9edf3)),
     var(--theme-accent-surface, #eadbe7)
   );
   font-family: var(--font-display, Georgia, serif);
@@ -82,7 +82,7 @@
 .freelancer-card__price {
   margin-block: 24px;
   padding: 20px;
-  border: 1px solid var(--theme-border, #d7b6c7);
+  border: 1px solid var(--theme-border, var(--brand-red-border, #d7b6c7));
   border-radius: 12px;
   background: var(--theme-accent-surface, #fcf1f7);
 }
@@ -94,7 +94,7 @@
 .freelancer-card__price dd {
   font-size: 26px;
   font-weight: 750;
-  color: var(--theme-accent, #8c2d4d);
+  color: var(--theme-accent, var(--brand-red, #8c2d4d));
   letter-spacing: -0.035em;
   overflow-wrap: anywhere;
 }
@@ -121,7 +121,7 @@
   min-height: 44px;
   font-size: 14px;
   font-weight: 650;
-  color: var(--theme-accent, #a13757);
+  color: var(--theme-accent, var(--brand-red, #a13757));
 }
 .freelancer-card__services a > span {
   overflow-wrap: anywhere;

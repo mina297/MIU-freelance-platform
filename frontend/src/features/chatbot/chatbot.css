@@ -1,7 +1,7 @@
 .chatbot-widget {
   --chatbot-launcher-width: 120px;
   --chatbot-launcher-height: 104px;
-  --chatbot-accent: var(--theme-accent, #800020);
+  --chatbot-accent: var(--theme-accent, var(--brand-red-hover, #800020));
   position: fixed;
   inset-inline-end: max(20px, env(safe-area-inset-right));
   bottom: max(20px, env(safe-area-inset-bottom));
@@ -50,7 +50,11 @@
       #ffffff07 46px 47px,
       transparent 48px 88px
     ),
-    linear-gradient(135deg, #581529, #800020);
+    linear-gradient(
+      135deg,
+      var(--brand-red-deep, #581529),
+      var(--brand-red-hover, #800020)
+    );
   color: #fff;
 }
 .chatbot-title-pill {
@@ -87,7 +91,7 @@
   margin: 2px 0 0;
   font-size: 10px;
   line-height: 1.5;
-  color: #efcbd6;
+  color: var(--brand-red-soft, #efcbd6);
 }
 .chatbot-widget .chatbot-actions {
   position: absolute;
@@ -185,27 +189,40 @@
   bottom: 24%;
   width: 3px;
   border-radius: 999px;
-  background: #800020;
-  box-shadow: 0 0 9px 2px #80002070;
+  background: var(--brand-red-hover, #800020);
+  box-shadow: 0 0 9px 2px
+    color-mix(in srgb, var(--brand-red-hover, #800020) 43.92%, transparent);
   opacity: 0;
   pointer-events: none;
 }
 .chatbot-widget .chatbot-actions .disclosure-panel :is(button, summary):focus-visible {
-  background: linear-gradient(to right, #80002018, transparent 80%);
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--brand-red-hover, #800020) 9.41%, transparent),
+    transparent 80%
+  );
 }
 .chatbot-actions .disclosure-panel :is(button, summary):focus-visible::before {
   opacity: 1;
 }
 @media (hover: hover) and (pointer: fine) {
   .chatbot-widget .chatbot-actions .disclosure-panel :is(button, summary):hover {
-    background: linear-gradient(to right, #80002018, transparent 80%);
+    background: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--brand-red-hover, #800020) 9.41%, transparent),
+      transparent 80%
+    );
   }
   .chatbot-actions .disclosure-panel :is(button, summary):hover::before {
     opacity: 1;
   }
 }
 .chatbot-widget:dir(rtl) .chatbot-actions .disclosure-panel :is(button, summary):is(:hover, :focus-visible) {
-  background: linear-gradient(to left, #80002018, transparent 80%);
+  background: linear-gradient(
+    to left,
+    color-mix(in srgb, var(--brand-red-hover, #800020) 9.41%, transparent),
+    transparent 80%
+  );
 }
 .chatbot-transcript {
   min-height: 0;
@@ -253,7 +270,7 @@
   max-width: 86%;
 }
 .chatbot-message--user .chatbot-bubble {
-  background: #800020;
+  background: var(--brand-red-hover, #800020);
   color: #fff;
 }
 .chatbot-guidance-links {
@@ -280,7 +297,7 @@
   min-width: 0;
   min-height: 36px;
   padding: 7px 8px;
-  border: 1px solid var(--theme-border, #d9b7c2);
+  border: 1px solid var(--theme-border, var(--brand-red-border, #d9b7c2));
   border-radius: 10px;
   background: var(--theme-surface, #fff);
   color: var(--chatbot-accent);
@@ -408,7 +425,7 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: #800020;
+  background: var(--brand-red-hover, #800020);
   box-shadow: 0 5px 17px #391e2b30;
 }
 .chatbot-widget[data-open="true"] .chatbot-launcher-close {
@@ -453,7 +470,7 @@
 }
 .chatbot-widget .chatbot-heading :is(button, a):focus-visible,
 .chatbot-widget[data-open="true"] .chatbot-launcher:focus-visible {
-  outline-color: #efcbd6;
+  outline-color: var(--brand-red-soft, #efcbd6);
 }
 .chatbot-widget .chatbot-actions .disclosure-panel :is(button, summary):focus-visible {
   outline-color: var(--chatbot-accent);

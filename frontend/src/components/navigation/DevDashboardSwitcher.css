@@ -24,7 +24,7 @@
   border-radius: 9999px;
   background: var(--color-miu-red-tint);
   font-weight: 600;
-  color: var(--theme-accent, #a52234);
+  color: var(--theme-accent, var(--brand-red, #a52234));
 }
 .dev-dashboard-switcher summary::-webkit-details-marker {
   display: none;
@@ -65,11 +65,11 @@
   border-radius: 6px;
 }
 .dev-dashboard-switcher a {
-  color: var(--theme-accent, #b91c2b);
+  color: var(--theme-accent, var(--brand-red, #b91c2b));
   font-weight: 600;
 }
 .dev-dashboard-switcher a:hover {
-  background: var(--theme-accent-surface, #fdf2f3);
+  background: var(--theme-accent-surface, var(--brand-red-tint, #fdf2f3));
 }
 .dev-dashboard-switcher [aria-disabled] {
   color: var(--theme-muted-text, #6b7280);

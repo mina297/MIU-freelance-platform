@@ -34,25 +34,29 @@
 .project-create__header > span {
   padding: 7px 12px;
   border-radius: 30px;
-  background: var(--theme-accent-surface, #fceff3);
-  color: var(--theme-accent, #9b2035);
+  background: var(--theme-accent-surface, var(--brand-red-tint, #fceff3));
+  color: var(--theme-accent, var(--brand-red, #9b2035));
   font-size: 12px;
 }
 .project-create__hero {
   padding: 60px 0 72px;
   color: white;
   background:
-    radial-gradient(ellipse at 90% 80%, #84354a, transparent 65%),
-    linear-gradient(120deg, #351923, #572333);
+    radial-gradient(
+      ellipse at 90% 80%,
+      var(--brand-red, #84354a),
+      transparent 65%
+    ),
+    linear-gradient(120deg, #351923, var(--brand-red-hover, #572333));
 }
 .project-create__eyebrow {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.16em;
-  color: var(--theme-accent, #a62c46);
+  color: var(--theme-accent, var(--brand-red, #a62c46));
 }
 .project-create__hero .project-create__eyebrow {
-  color: #f0b9ca;
+  color: var(--brand-red-border, #f0b9ca);
 }
 .project-create__hero h1 {
   margin: 18px 0;
@@ -66,13 +70,13 @@
   font-weight: 600;
 }
 .project-create__hero em {
-  color: #ffd5e0;
+  color: var(--brand-red-soft, #ffd5e0);
 }
 .project-create__hero > div > p:last-child {
   max-width: 610px;
   font-size: 16px;
   line-height: 1.8;
-  color: #f1dce5;
+  color: var(--brand-red-soft, #f1dce5);
 }
 .project-create__workspace {
   padding-bottom: 64px;
@@ -158,12 +162,12 @@
   font-weight: 700;
 }
 .project-create__steps li[aria-current] {
-  color: var(--theme-accent, #9b2035);
+  color: var(--theme-accent, var(--brand-red, #9b2035));
   font-weight: 700;
 }
 .project-create__steps li[aria-current] > span {
-  background: #b91c2b;
-  border-color: var(--theme-border, #b91c2b);
+  background: var(--brand-red, #b91c2b);
+  border-color: var(--theme-border, var(--brand-red, #b91c2b));
   color: white;
 }
 .project-create__columns {
@@ -185,12 +189,12 @@
   align-items: center;
   gap: 14px;
   padding: 26px 30px;
-  border-bottom: 1px solid var(--theme-border, #d8b3bf);
-  background: var(--theme-accent-surface, #fbf1f5);
+  border-bottom: 1px solid var(--theme-border, var(--brand-red-border, #d8b3bf));
+  background: var(--theme-accent-surface, var(--brand-red-tint, #fbf1f5));
 }
 .project-create__panel-title > svg {
   flex-shrink: 0;
-  color: var(--theme-accent, #a62c46);
+  color: var(--theme-accent, var(--brand-red, #a62c46));
 }
 .project-create__panel-title h2 {
   margin-top: 5px;
@@ -217,7 +221,7 @@
 }
 .project-create .miu-control {
   border-radius: 10px;
-  background: var(--theme-accent-surface, #fcfafb);
+  background: var(--theme-accent-surface, var(--brand-red-tint, #fcfafb));
 }
 .project-create .miu-button {
   min-height: 48px;
@@ -259,12 +263,12 @@
 }
 .project-create__tip {
   padding: 28px;
-  border: 1px solid var(--theme-border, #c7a8b7);
+  border: 1px solid var(--theme-border, var(--brand-red-border, #c7a8b7));
   border-radius: 18px;
-  background: var(--theme-accent-surface, #f7e4ec);
+  background: var(--theme-accent-surface, var(--brand-red-soft, #f7e4ec));
 }
 .project-create__tip > svg {
-  color: var(--theme-accent, #9b2035);
+  color: var(--theme-accent, var(--brand-red, #9b2035));
   margin-bottom: 20px;
 }
 .project-create__tip h2 {
@@ -275,7 +279,7 @@
   letter-spacing: -0.03em;
 }
 .project-create__tip h2 em {
-  color: var(--theme-accent, #9b2035);
+  color: var(--theme-accent, var(--brand-red, #9b2035));
 }
 .project-create__tip > p:last-of-type,
 .project-create__tip ul {
@@ -331,7 +335,7 @@
   gap: 24px 60px;
   padding: 24px;
   margin-top: 26px;
-  border: 1px solid var(--theme-border, #d6b7c5);
+  border: 1px solid var(--theme-border, var(--brand-red-border, #d6b7c5));
   border-radius: 12px;
   background: var(--theme-accent-surface, #f6edf2);
 }
@@ -376,16 +380,16 @@
 }
 .project-create__alert {
   padding: 14px;
-  border: 1px solid var(--theme-border, #b91c2b);
+  border: 1px solid var(--theme-border, var(--brand-red, #b91c2b));
   border-radius: 10px;
-  background: var(--theme-accent-surface, #fff1f3);
-  color: var(--theme-accent, #921a2d);
+  background: var(--theme-accent-surface, var(--brand-red-tint, #fff1f3));
+  color: var(--theme-accent, var(--brand-red-hover, #921a2d));
 }
 .project-create__skill-picker .project-create__error {
   color: var(--theme-accent, #921a2d);
 }
 .project-create a:focus-visible {
-  outline: 2px solid var(--theme-focus, #b91c2b);
+  outline: 2px solid var(--theme-focus, var(--brand-red, #b91c2b));
   outline-offset: 4px;
 }
 @media (max-width: 900px) {

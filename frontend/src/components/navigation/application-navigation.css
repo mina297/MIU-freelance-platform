@@ -17,7 +17,8 @@
   width: min(1440px, calc(100% - 48px));
   border: 1px solid var(--theme-divider, #dfd5db);
   border-radius: 24px;
-  box-shadow: 0 8px 24px -18px #48233555;
+  box-shadow: 0 8px 24px -18px
+    color-mix(in srgb, var(--brand-red-deep, #482335) 33.33%, transparent);
   background: var(--theme-surface, #fff);
   position: relative;
   z-index: 30;
@@ -63,12 +64,12 @@
 }
 .application-navigation a[aria-current="page"],
 .application-account nav a[aria-current="page"] {
-  color: var(--theme-accent, #b71935);
-  background: var(--theme-accent-surface, #fbedf1);
+  color: var(--theme-accent, var(--brand-red, #b71935));
+  background: var(--theme-accent-surface, var(--brand-red-tint, #fbedf1));
   font-weight: 700;
 }
 .application-navigation :is(a, button, input):focus-visible {
-  outline: 3px solid var(--theme-focus, #ab2347);
+  outline: 3px solid var(--theme-focus, var(--brand-red, #ab2347));
   outline-offset: 3px;
 }
 .application-navigation__utilities {
@@ -92,8 +93,8 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: var(--theme-accent-surface, #fbedf1);
-  color: var(--theme-accent, #b71935);
+  background: var(--theme-accent-surface, var(--brand-red-tint, #fbedf1));
+  color: var(--theme-accent, var(--brand-red, #b71935));
   font-weight: 700;
 }
 .application-account .disclosure-trigger {
@@ -134,7 +135,7 @@
 .navigation-choice__caption svg { opacity: 0; flex-shrink: 0; }
 .navigation-choice input:checked + .navigation-choice__card .navigation-choice__caption svg { opacity: 1; color: var(--theme-accent); }
 .navigation-miniature { display: block; height: 48px; position: relative; border: 1px solid var(--theme-divider); border-radius: 6px; background: var(--theme-surface); overflow: hidden; }
-.navigation-miniature i { position: absolute; background: var(--theme-accent); opacity: .75; border-radius: 2px; }
+.navigation-miniature i { position: absolute; background: var(--theme-accent); opacity: 0.75; border-radius: 2px; }
 .navigation-miniature b, .navigation-miniature em { position: absolute; background: var(--theme-divider); border-radius: 2px; }
 .navigation-miniature--top i { inset: 5px 5px auto; height: 7px; }
 .navigation-miniature--top b { inset: 17px 5px 5px; }
@@ -242,7 +243,7 @@
   [data-navigation-layout="side"] .application-navigation__links a[aria-current="page"] {
     position: relative;
     background: var(--theme-canvas, #f7f5f6);
-    color: var(--theme-accent, #b71935);
+    color: var(--theme-accent, var(--brand-red, #b71935));
     border-radius: 18px;
     border-start-end-radius: 0;
     border-end-end-radius: 0;
@@ -325,7 +326,7 @@
 @media (hover: hover) and (pointer: fine) {
   .application-navigation :is(a, button):hover,
   .application-drawer nav a:hover {
-    background-color: var(--theme-hover, #f5eff2);
+    background-color: var(--theme-hover, var(--brand-red-tint, #f5eff2));
   }
 }
 

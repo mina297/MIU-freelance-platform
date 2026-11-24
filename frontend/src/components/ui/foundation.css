@@ -31,15 +31,16 @@
 }
 
 .miu-button--primary {
-  border-color: var(--color-miu-red, #b91c2b);
+  border-color: var(--color-miu-red, var(--brand-red, #b91c2b));
   background: var(--brand-gradient);
-  box-shadow: 0 4px 12px #65162d18;
+  box-shadow: 0 4px 12px
+    color-mix(in srgb, var(--brand-red-hover, #65162d) 9.41%, transparent);
   color: var(--ui-white);
 }
 
 .miu-button--primary:hover:not(:disabled) {
-  border-color: var(--color-miu-red-dark, #8f1420);
-  background: var(--color-miu-red-dark, #8f1420);
+  border-color: var(--color-miu-red-dark, var(--brand-red-hover, #8f1420));
+  background: var(--color-miu-red-dark, var(--brand-red-hover, #8f1420));
 }
 
 .miu-button--secondary {
@@ -54,13 +55,13 @@
 }
 
 .miu-button--outline {
-  border-color: var(--color-miu-red, #b91c2b);
+  border-color: var(--color-miu-red, var(--brand-red, #b91c2b));
   background: var(--surface-raised, var(--ui-white));
-  color: var(--theme-accent, var(--color-miu-red, #b91c2b));
+  color: var(--theme-accent, var(--color-miu-red, var(--brand-red, #b91c2b)));
 }
 
 .miu-button--outline:hover:not(:disabled) {
-  background: var(--color-miu-red-tint, #fdf2f3);
+  background: var(--color-miu-red-tint, var(--brand-red-tint, #fdf2f3));
 }
 
 .miu-button--ghost {
@@ -85,7 +86,7 @@
 }
 
 .miu-button:focus-visible {
-  outline: 2px solid var(--color-miu-red, #b91c2b);
+  outline: 2px solid var(--color-miu-red, var(--brand-red, #b91c2b));
   outline-offset: 3px;
 }
 

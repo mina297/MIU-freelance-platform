@@ -2,6 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from "reac
 import { ThemeContext } from "./ThemeContext.js";
 import "../styles/premium-theme.css";
 import "./theme.css";
+import "../styles/brand-palette.css";
 import "../styles/interface-motion.css";
 import LanguageProvider from "../i18n/LanguageProvider.jsx";
 

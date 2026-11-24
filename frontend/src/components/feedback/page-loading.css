@@ -3,9 +3,9 @@
   --loader-surface: #fff;
   --loader-ink: #35212c;
   --loader-muted: #6a5864;
-  --loader-line: #dfcdd6;
-  --loader-accent: #b91c35;
-  --loader-wash: #f2e4eb;
+  --loader-line: var(--brand-red-border, #dfcdd6);
+  --loader-accent: var(--brand-red, #b91c35);
+  --loader-wash: var(--brand-red-soft, #f2e4eb);
   position: relative;
   isolation: isolate;
   display: grid;

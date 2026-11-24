@@ -2,7 +2,7 @@
 .landing-hero-story {
   --hero-surface: #ffffff;
   --hero-ink: #300510;
-  --hero-crimson: #b0001e;
+  --hero-crimson: var(--brand-red, #b0001e);
   background: var(--hero-surface);
 }
 .landing-hero-story[data-story-ready="true"] {
@@ -42,7 +42,7 @@
   background: none;
   box-shadow: none;
   backdrop-filter: none;
-  color: #7a4a50;
+  color: var(--brand-red, #7a4a50);
   font-size: 10px;
   font-weight: 650;
   letter-spacing: 0.16em;
@@ -82,7 +82,8 @@
   min-height: 0;
   margin: 0 0 -12px;
   padding: 3px;
-  border: 1px solid #8f58622b;
+  border: 1px solid
+    color-mix(in srgb, var(--brand-red, #8f5862) 16.86%, transparent);
   border-radius: 999px;
   background: #ffffff70;
   box-shadow: none;
@@ -143,17 +144,21 @@
   gap: 16px;
   padding: 12px 23px;
   font-size: 13px;
-  border-color: #a51535;
+  border-color: var(--brand-red, #a51535);
   background: #fff9f270;
   color: var(--hero-crimson);
 }
 .landing .landing-hero .landing-pathways .primary,
 .landing .landing-hero .miu-hero-search-submit {
   color: white;
-  background: linear-gradient(135deg, #dc0624, #b4001d);
-  border: 1px solid #bf1230;
+  background: linear-gradient(
+    135deg,
+    var(--brand-red, #dc0624),
+    var(--brand-red, #b4001d)
+  );
+  border: 1px solid var(--brand-red, #bf1230);
   box-shadow:
-    0 7px 18px #d1082938,
+    0 7px 18px color-mix(in srgb, var(--brand-red, #d10829) 21.96%, transparent),
     inset 0 1px 2px #ffffff70;
 }
 .landing .landing-hero .landing-mode-caption {

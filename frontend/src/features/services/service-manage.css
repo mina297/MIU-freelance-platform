@@ -72,7 +72,7 @@
 }
 .service-manage__row legend {
   padding-inline: 8px;
-  color: var(--theme-accent, #a13856);
+  color: var(--theme-accent, var(--brand-red, #a13856));
 }
 .service-manage__preview > p {
   margin-block: 16px;
@@ -111,7 +111,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  color: var(--theme-accent, #a13856);
+  color: var(--theme-accent, var(--brand-red, #a13856));
   text-decoration: underline;
 }
 .service-manage__actions {
@@ -121,8 +121,8 @@
 .service-manage__create {
   display: inline-flex;
   margin-top: 24px;
-  background: var(--theme-accent-surface, #fff1f6);
-  color: var(--theme-accent, #7d2440);
+  background: var(--theme-accent-surface, var(--brand-red-tint, #fff1f6));
+  color: var(--theme-accent, var(--brand-red, #7d2440));
   padding: 13px 20px;
   border-radius: 10px;
   font-size: 14px;
@@ -138,16 +138,16 @@
   font-weight: 700;
 }
 .service-manage__recovery a {
-  color: var(--theme-accent, #a13856);
+  color: var(--theme-accent, var(--brand-red, #a13856));
   text-decoration: underline;
   min-height: 44px;
 }
 .service-manage a:focus-visible {
-  outline: 2px solid var(--theme-focus, #b91c2b);
+  outline: 2px solid var(--theme-focus, var(--brand-red, #b91c2b));
   outline-offset: 4px;
 }
 .service-manage .project-create__hero a:focus-visible {
-  outline-color: var(--theme-focus, #ffcfdf);
+  outline-color: var(--theme-focus, var(--brand-red-soft, #ffcfdf));
 }
 @media (max-width: 760px) {
   .service-manage__filters {

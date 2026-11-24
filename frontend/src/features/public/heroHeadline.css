@@ -8,7 +8,7 @@
   font-size: clamp(32px, 4.3vw, 58px);
   line-height: 1.2;
   letter-spacing: -0.045em;
-  color: #fff8fb;
+  color: var(--brand-red-tint, #fff8fb);
   text-shadow: 0 3px 24px #190b18aa;
 }
 .landing-typed-visual {
@@ -26,7 +26,7 @@
   height: 0.85em;
   margin-inline-start: 5px;
   vertical-align: -0.04em;
-  background: var(--theme-accent-surface, #ffd2e2);
+  background: var(--theme-accent-surface, var(--brand-red-soft, #ffd2e2));
 }
 @media (max-width: 600px) {
   .landing .landing-hero .landing-typed-headline {

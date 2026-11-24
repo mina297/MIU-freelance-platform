@@ -284,7 +284,7 @@
   background: var(--hero-gradient);
   color: #fff;
   padding: 28px;
-  border: 1px solid var(--theme-border, #84516a);
+  border: 1px solid var(--theme-border, var(--brand-red, #84516a));
   border-radius: var(--radius-panel);
   box-shadow: var(--shadow-dialog);
 }
@@ -294,14 +294,14 @@
 }
 .ec-summary-caption {
   font-size: 11px;
-  color: #edd5df;
+  color: var(--brand-red-soft, #edd5df);
   margin-top: 4px;
 }
 .ec-amount {
   margin: 24px 0 28px;
 }
 .ec-amount > span {
-  color: #edd5df;
+  color: var(--brand-red-soft, #edd5df);
   font-size: 13px;
 }
 .ec-amount strong {
@@ -313,7 +313,7 @@
   margin: 4px 0;
 }
 .ec-amount > small {
-  color: #edd5df;
+  color: var(--brand-red-soft, #edd5df);
   font-size: 11px;
 }
 .ec-costs {
@@ -360,7 +360,7 @@
 }
 .ec-escrow-note svg {
   flex-shrink: 0;
-  color: #fbe0e3;
+  color: var(--brand-red-soft, #fbe0e3);
 }
 .ec-escrow-note b {
   font-size: 13px;
