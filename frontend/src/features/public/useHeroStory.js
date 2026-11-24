@@ -1,7 +1,10 @@
 import { useEffect } from "react";
+import { useTheme } from "../../theme/ThemeContext.js";
+import { getHeroDoorGeometry } from "./heroDoorGeometry.js";
 
 /** The first scroll starts playback. Returning to the top resets the scene. */
 export function useHeroStory(ref, enabled) {
+  const { theme } = useTheme();
   useEffect(() => {
     if (!enabled) return;
     let cancelled = false;
@@ -42,26 +45,27 @@ export function useHeroStory(ref, enabled) {
             },
           });
           const doorStart = 0;
+          const door = getHeroDoorGeometry(theme);
           const doorDuration = 0.5;
           const doorOpenAt = doorStart + doorDuration;
           timeline
             .to(
               select(".landing-scene-door-left"),
-              // Follow the artwork's sloping threshold (34 / 161).
-              { x: -79, y: (79 * 34) / 161, duration: doorDuration },
+              // Follow this theme's threshold and clear the stationary frame.
+              {
+                x: -door.leftTravel,
+                y: -door.leftTravel * door.slope,
+                duration: doorDuration,
+              },
               doorStart,
             )
             .to(
               select(".landing-scene-door-right"),
-              // Clear the widened opening at x=1302, plus 2px for its edge.
-              // The right leaf starts at x=1209: 1302 - 1209 + 2 = 95.
-              { x: 95, y: (-95 * 34) / 161, duration: doorDuration },
-              doorStart,
-            )
-            .fromTo(
-              select(".miu-door-original-rim"),
-              { opacity: 1 },
-              { opacity: 0, duration: doorDuration },
+              {
+                x: door.rightTravel,
+                y: door.rightTravel * door.slope,
+                duration: doorDuration,
+              },
               doorStart,
             );
           // Every item starts at the door in the shared artwork coordinate
@@ -121,5 +125,5 @@ export function useHeroStory(ref, enabled) {
       context?.revert();
       delete root.dataset.storyReady;
     };
-  }, [ref, enabled]);
+  }, [ref, enabled, theme]);
 }

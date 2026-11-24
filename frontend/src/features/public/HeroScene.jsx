@@ -2,22 +2,18 @@ import { useId } from "react";
 import { useTheme } from "../../theme/ThemeContext.js";
 import HeroJourneyOverlay from "./HeroJourneyOverlay.jsx";
 import lightScene from "../../assets/hero/miu-crimson-light.webp";
-import darkScene from "../../assets/hero/miu-crimson-dark-reference.webp";
+import darkScene from "../../assets/hero/miu-crimson-dark-ivory.webp";
+import { getHeroDoorGeometry } from "./heroDoorGeometry.js";
 import "./heroScene.css";
 import "./heroJourney.css";
-
-// Both images use this 1672 × 941 coordinate system for the doorway.
-const doorway =
-  "M1131 721 V548 C1131 491 1169 427 1209 417 C1255 405 1292 450 1292 505 V687 Z";
-// Include the red curved lip baked into the plate, outside the moving leaves.
-const openDoorway =
-  "M1131 721 V548 C1131 489 1168 423 1209 413 C1260 400 1302 448 1302 505 V685 Z";
-const floorReflection = "matrix(1 -0.42236025 0 -1 0 1919.68944)";
 
 export default function HeroScene() {
   const id = useId();
   const { theme } = useTheme();
   const scene = theme === "dark" ? darkScene : lightScene;
+  const door = getHeroDoorGeometry(theme);
+  const doorway = door.outline;
+  const floorReflection = door.reflection;
   const url = (name) => `url(#${id}-${name})`;
   const photo = { width: 1672, height: 941 };
   return (
@@ -43,23 +39,30 @@ export default function HeroScene() {
             style={{ maskType: "luminance" }}
           >
             <rect width="1672" height="941" fill="white" />
-            <path d={openDoorway} fill="black" />
-            <path d={openDoorway} transform={floorReflection} fill="black" />
+            <path d={doorway} fill="black" />
+            <path d={doorway} transform={floorReflection} fill="black" />
           </mask>
           <clipPath id={`${id}-door`}>
             <path d={doorway} />
           </clipPath>
           <clipPath id={`${id}-opening`}>
-            <path d={openDoorway} />
-          </clipPath>
-          <clipPath id={`${id}-original-rim`}>
-            <path d={`${openDoorway} ${doorway}`} clipRule="evenodd" />
+            <path d={doorway} />
           </clipPath>
           <clipPath id={`${id}-left`}>
-            <rect x="1130" y="405" width="79" height="325" />
+            <rect
+              x={door.left}
+              y="405"
+              width={door.split - door.left}
+              height="325"
+            />
           </clipPath>
           <clipPath id={`${id}-right`}>
-            <rect x="1209" y="405" width="85" height="325" />
+            <rect
+              x={door.split}
+              y="405"
+              width={door.right - door.split}
+              height="325"
+            />
           </clipPath>
           <radialGradient
             id={`${id}-interior`}
@@ -108,20 +111,10 @@ export default function HeroScene() {
               className="landing-scene-doors"
               clipPath={url("opening")}
             >
-              {/* One continuous cavity avoids antialiased seams at the old
-                inner arch and a differently lit strip along its right edge. */}
-              <path d={openDoorway} fill={url("interior")} />
+              {/* Keep the cavity inside the fixed frame, including at the crown. */}
+              <path d={doorway} fill={url("interior")} />
               {/* Soft floor lighting preserves depth without a colored arch lip. */}
-              <path
-                d="M1131 721 L1302 685 V620 L1131 656 Z"
-                fill={url("floor")}
-              />
-              <g
-                className="miu-door-original-rim"
-                clipPath={url("original-rim")}
-              >
-                <image href={scene} {...photo} />
-              </g>
+              <path d={door.floor} fill={url("floor")} />
               {/* Clip the arch before moving each leaf so wall pixels cannot
                 slide into the opening. The outer clip keeps the frame fixed. */}
               <g className="landing-scene-door-left">

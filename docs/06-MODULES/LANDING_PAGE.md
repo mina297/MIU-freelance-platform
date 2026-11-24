@@ -1,5 +1,22 @@
 # Landing Page — Phase 1 frontend
 
+### Dark hero artwork and inner arch correction — 24 November 2026
+
+P-01 now selects the user's ivory-building/crimson-background artwork in dark
+mode (`miu-crimson-dark-ivory.webp`, 1672 × 941, approximately 167 KiB). Built-in
+ImageGen refined the supplied screenshot; WebP encoding keeps the decorative
+asset compact. The light artwork remains unchanged. Source and enhancement
+prompt are recorded in the hero asset credits.
+
+The cavity previously used a widened outline that extended above the inner
+door frame. Both themes now use the same fitted inner outline for their plate
+mask, cavity and moving leaves. `heroDoorGeometry.js` records each plate's
+coordinates and derives leaf travel and the reflection from its threshold.
+The ornamental rim stays fixed rather than being erased during opening.
+Changing appearance rebuilds the optional timeline with the selected geometry;
+pause/reduced-motion and reverse-scroll cleanup remain supported. This
+supersedes the widened-arch/rim removal notes below. Scope: FR-V01, NFR-02–NFR-04.
+
 Shared hero navigation — 24 November 2026: at the user's request, the hero's
 glass destination group, compact utilities, pill actions and responsive spacing
 now apply wherever `LandingHeader` is used. The appearance lives in

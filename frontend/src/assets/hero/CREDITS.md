@@ -2,6 +2,14 @@
 
 ## Active crimson hero artwork
 
+### Ivory building in dark mode — 24 November 2026
+
+- Active dark file: `miu-crimson-dark-ivory.webp` (1672 × 941, 170,712 bytes).
+- Source: the user's selected `codex-clipboard-f7ed72d5-1130-4344-b51c-74f59aa572db.png`.
+- Enhanced using built-in ImageGen and encoded as WebP at quality 95. The tool returned 1672 × 941; this is not a native 4K asset.
+- Final prompt: restore crisp university lettering, roof letters, arch lattice, globe grid, wood grain and metal details; remove compression artifacts and blur; preserve the selected ivory building, black university name, red details, dark crimson background, framing, lighting and floor reflections; add no text, UI or objects.
+- This supersedes the active dark file below. Prior editions and the light plate are retained. Door masks are fitted separately to each active theme's inner frame.
+
 ### Dark screenshot match — 19 November 2026
 
 - Active dark file: `miu-crimson-dark-reference.webp` (1672 × 941), created using built-in ImageGen, then encoded as WebP. The previous dark plate is retained.
