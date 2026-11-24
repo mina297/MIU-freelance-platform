@@ -16,6 +16,7 @@ import {
 import Dropdown from "../ui/Dropdown.jsx";
 import miuLogo from "../../assets/figma/miu-anniversary-logo.png";
 import "./publicHeader.css";
+import "./publicHeaderAppearance.css";
 import ThemeToggle from "../../theme/ThemeToggle.jsx";
 import LanguageControl from "../../i18n/LanguageControl.jsx";
 

@@ -18,7 +18,7 @@
     ),
     linear-gradient(115deg, #351923, var(--brand-red-hover, #602637));
   color: white;
-  padding-block: 72px 95px;
+  padding-block: var(--public-page-start, 32px) 95px;
   border-block: 1px solid var(--theme-border, var(--brand-red, #825567));
 }
 .services-hero__layout {
@@ -432,7 +432,7 @@
 }
 @media (max-width: 760px) {
   .services-hero {
-    padding-block: 44px 65px;
+    padding-block: var(--public-page-start, 24px) 65px;
   }
   .services-hero__layout,
   .services-workspace {

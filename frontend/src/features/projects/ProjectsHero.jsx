@@ -23,7 +23,7 @@ export default function ProjectsHero({ project }) {
         className="pointer-events-none absolute bottom-0 end-[26%] size-52 rounded-full border border-white/10"
         aria-hidden="true"
       />
-      <div className="relative mx-auto grid max-w-[1280px] gap-10 px-5 pb-28 pt-14 sm:px-8 sm:pt-20 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:px-10 lg:pb-32">
+      <div className="relative mx-auto grid max-w-[1280px] gap-10 px-5 pb-28 pt-[var(--public-page-start,2rem)] sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:px-10 lg:pb-32">
         <div>
           <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-[var(--brand-red-soft,#ffb9c4)]">
             <span className="h-px w-7 bg-[color:var(--theme-accent-surface,#e998a6)]" />{" "}

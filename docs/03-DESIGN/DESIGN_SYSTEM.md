@@ -8,6 +8,24 @@ tags: [MIU, design-system, UI]
 
 # MIU Freelance Platform — Design System
 
+### Shared hero navbar — 24 November 2026
+
+The hero's glass navigation treatment now belongs to `LandingHeader` itself.
+`publicHeaderAppearance.css` provides the same control sizes, pill shapes,
+translucent surfaces, light/dark treatment and responsive spacing on public
+pages and other layouts using that header. The outer header background is
+transparent across these pages in both themes; the homepage alone retains its
+artwork overlap. This supersedes the
+homepage-only navigation appearance described below; destination and account
+behavior remain unchanged (FR-V01, FR-V03–FR-V05, NFR-02–NFR-03).
+
+Navbar-to-content spacing: the shared header reserves its own height in normal
+flow outside the homepage overlay. Its bottom padding is 12px on desktop and
+8px on narrower screens. Marketplace and public information introductions use
+`--public-page-start` (24–40px), replacing their former 48–80px top padding.
+This keeps the page directly beneath the navbar with a compact reading gap;
+the homepage artwork and copy keep their existing overlay spacing.
+
 ### Shared light-mode crimson — 24 November 2026
 
 At the user's direction, the light interface now uses the hero artwork's deep

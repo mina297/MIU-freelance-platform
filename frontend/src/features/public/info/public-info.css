@@ -18,7 +18,7 @@
 }
 
 .m4-public-info__header {
-  padding-block: 48px;
+  padding-block: var(--public-page-start, 32px) 48px;
   background: var(--hero-gradient);
   color: white;
   border-block-end: 1px solid var(--theme-border, var(--brand-red, #84516a));

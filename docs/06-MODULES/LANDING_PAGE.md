@@ -1,5 +1,24 @@
 # Landing Page — Phase 1 frontend
 
+Shared hero navigation — 24 November 2026: at the user's request, the hero's
+glass destination group, compact utilities, pill actions and responsive spacing
+now apply wherever `LandingHeader` is used. The appearance lives in
+`components/navigation/publicHeaderAppearance.css`, imported by the shared header,
+rather than depending on the homepage wrapper or a prior homepage visit. The
+homepage keeps only its header/content overlap. The outer header background is
+transparent on every page using the shared header, including dark mode; the
+individual glass controls retain their surfaces.
+The shared header now uses smaller bottom padding, and other marketplace/info
+page introductions share a 24–40px top inset so they begin closer beneath it.
+The homepage retains its existing artwork overlay and safe copy inset.
+Existing dropdowns, account actions, mobile drawer, theme/language controls,
+route access and specialized account/workspace navigation are retained.
+
+Validation: production build, ESLint and all 14 targeted route/homepage-theme
+tests passed. Desktop Chrome confirmed the shared treatment on a direct Projects
+entry and the Hire Talent dropdown. Real-device and full mobile/RTL visual
+acceptance remain pending.
+
 Shared light crimson — 24 November 2026: hero text, actions and decorative red
 accents now consume the site-wide hero-derived brand palette. Lighter treatments
 are white mixes of the same crimson; dark styles retain their prior fallback
