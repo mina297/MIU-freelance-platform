@@ -12,22 +12,41 @@
   --theme-field: #191a1f;
   --theme-hover: #303139;
   --theme-overlay: #2b2c33;
-  --theme-accent-surface: #38232d;
+  --theme-accent-surface: color-mix(
+    in srgb,
+    var(--brand-red) 18%,
+    var(--theme-surface)
+  );
+  --theme-accent-raised: color-mix(
+    in srgb,
+    var(--brand-red) 30%,
+    var(--theme-surface)
+  );
+  --theme-accent-border: color-mix(
+    in srgb,
+    var(--brand-red-border) 60%,
+    var(--theme-surface)
+  );
+  --theme-accent-canvas: color-mix(
+    in srgb,
+    var(--brand-red) 8%,
+    var(--theme-canvas)
+  );
   --theme-text: #f4f1f3;
   --theme-muted-text: #bfbac3;
-  --theme-accent: #ffa9bd;
+  --theme-accent: var(--brand-red-border);
   --theme-border: #89838f;
   --theme-divider: #48454f;
-  --theme-focus: #ffc3d2;
+  --theme-focus: var(--brand-red-soft);
   --theme-success-text: #a0e2ba;
   --theme-success-surface: #213b30;
   --theme-info-text: #afcbff;
   --theme-info-surface: #25334c;
   --theme-warning-text: #f4cd8b;
   --theme-warning-surface: #42321e;
-  --theme-danger-text: #ffb3c1;
-  --theme-danger-surface: #482432;
-  --theme-destructive: #af233b;
+  --theme-danger-text: var(--brand-red-border);
+  --theme-danger-surface: var(--theme-accent-raised);
+  --theme-destructive: var(--brand-red);
   --surface-page: var(--theme-canvas);
   --surface-raised: var(--theme-surface);
   --surface-muted: var(--theme-subtle-surface);
@@ -41,18 +60,22 @@
   --color-border-control: var(--border-control);
   --color-ink-secondary: var(--ink-secondary);
   --color-miu-black: var(--theme-text);
-  --color-miu-red-light: #4c2b39;
+  --color-miu-red-light: var(--theme-accent-raised);
   --color-miu-red-tint: var(--theme-accent-surface);
   --color-star: #f4c66b;
+  --theme-hero-base: var(--brand-red-deep);
   --shadow-panel: 0 12px 32px -18px #0009;
   --shadow-dialog: 0 24px 80px -24px #000b;
+  --hero-gradient:
+    radial-gradient(ellipse at 100% 0%, var(--brand-red), transparent 75%),
+    var(--brand-red-deep);
 }
 html[data-theme="dark"] body {
   background: var(--surface-page);
   color: var(--ink-primary);
 }
 :root[data-theme="dark"] ::selection {
-  background: #71394f;
+  background: var(--brand-red);
   color: #fff;
 }
 :root[data-theme="dark"]
@@ -71,7 +94,7 @@ html[data-theme="dark"] body {
   color: var(--theme-text);
 }
 :root[data-theme="dark"] :is(.miu-modal, .landing-dialog)::backdrop {
-  background: #100b13bd;
+  background: color-mix(in srgb, var(--theme-canvas) 75%, transparent);
   backdrop-filter: blur(5px);
 }
 :root[data-theme="dark"] :is(.miu-modal__close, .miu-toast__dismiss) img {
@@ -106,7 +129,8 @@ html[data-theme="dark"] body {
 }
 
 /* User-approved dark edition: swap neutral black/white and retain crimson. */
-:root[data-theme="dark"] img:is([src*="/miu-anniversary-logo"], [src*="/f03cc"]) {
+:root[data-theme="dark"]
+  img:is([src*="/miu-anniversary-logo"], [src*="/f03cc"]) {
   padding: 0;
   background: transparent;
   border-radius: 0;
@@ -164,9 +188,9 @@ html[data-theme="dark"] body {
   outline-offset: 4px;
 }
 :root[data-theme="dark"] .theme-toggle-track {
-  background: #332633;
-  color: #dcc3d0;
-  border-color: #987d90;
+  background: var(--theme-accent-surface);
+  color: var(--theme-accent);
+  border-color: var(--theme-accent-border);
 }
 :root[data-theme="dark"] .theme-toggle-track > svg:last-child {
   color: #fff;

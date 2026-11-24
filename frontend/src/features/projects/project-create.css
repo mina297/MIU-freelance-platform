@@ -47,7 +47,11 @@
       var(--brand-red, #84354a),
       transparent 65%
     ),
-    linear-gradient(120deg, #351923, var(--brand-red-hover, #572333));
+    linear-gradient(
+      120deg,
+      var(--theme-hero-base, #351923),
+      var(--brand-red-hover, #572333)
+    );
 }
 .project-create__eyebrow {
   font-size: 11px;

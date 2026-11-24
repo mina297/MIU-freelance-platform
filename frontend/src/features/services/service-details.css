@@ -7,7 +7,11 @@
       var(--brand-red, #88354d),
       transparent 62%
     ),
-    linear-gradient(110deg, #351923, var(--brand-red-hover, #592337));
+    linear-gradient(
+      110deg,
+      var(--theme-hero-base, #351923),
+      var(--brand-red-hover, #592337)
+    );
   border-bottom: 1px solid var(--theme-border, var(--brand-red, #956176));
 }
 .service-details__hero nav {

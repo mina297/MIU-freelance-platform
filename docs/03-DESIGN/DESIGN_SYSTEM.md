@@ -62,7 +62,7 @@ flow outside the homepage overlay. Its bottom padding is 12px on desktop and
 This keeps the page directly beneath the navbar with a compact reading gap;
 the homepage artwork and copy keep their existing overlay spacing.
 
-### Shared light-mode crimson — 24 November 2026
+### Shared crimson in both themes — 24 November 2026
 
 At the user's direction, the light interface now uses the hero artwork's deep
 crimson family across public pages, authentication, marketplace, profiles,
@@ -72,17 +72,37 @@ border, soft and tint shades mixed with white. Adjust this source rather than
 adding unrelated reds. Tailwind `miu-red` utilities, theme accent surfaces and
 feature styles consume the same palette; translucent brand shadows retain their opacity.
 
-These tokens apply only outside dark mode. Existing literal fallbacks preserve
-the dark appearance. Status/error colors, official logos and raster artwork keep
+The same brand tokens now apply in both themes, superseding the earlier light-only
+palette. Dark primary actions, including header sign-up and homepage search/actions,
+use the same `#a00018` and hover shade as light mode. Dark accent text uses the
+shared border shade and focus uses the soft shade to retain readable contrast;
+dark neutral and semantic surfaces remain theme-specific.
+Status/error colors, official logos and raster artwork keep
 their own colors. This is a presentation change supporting NFR-01–NFR-03; routes,
 permissions and mock workflows are unchanged. The palette contrast checks cover
 white button labels, red links, tinted surfaces and pale text on crimson banners.
 Homepage, projects and sign-in were visually reviewed in desktop Chrome; full
 route-by-route, real-device and assistive-technology acceptance remain separate.
 
-Validation: production build and ESLint passed; all 354 tests passed, including
+Earlier light-palette validation: production build and ESLint passed; all 354 tests passed, including
 the palette contrast checks. A source comparison also confirmed that all 233
 existing declarations under explicit dark-theme rules retained their values.
+
+Shared-theme palette validation: all five theme/render and contrast checks passed,
+along with ESLint and the production build. The build retains its existing bundle
+size advisory. Browser visual review was not performed for this palette update.
+
+Dark burgundy follow-up: tinted surfaces, raised accent surfaces, borders, glass
+panels, category states, timeline connectors, selection and the theme toggle now
+derive from the same crimson palette. Homepage and hero overrides consume these
+tokens instead of separate wine/purple literals, including the journey cards and
+reduced-transparency surfaces. Shared hero gradients use crimson and its deep
+shade in dark mode. Contrast checks resolve the actual mixed tokens for both the
+global theme and homepage, including the raised accent surface.
+Project, service and marketplace-preview hero bases also switch to the deep
+crimson token in dark mode; their light-mode fallbacks remain intact. Error
+surfaces use the same red family, while success, info and warning semantics retain
+their distinct colors. All seven theme/homepage/contrast checks passed.
 
 Latest homepage hero background choice — 12 November 2026: use white (`#ffffff`) for the light-mode hero canvas and its artwork edge fades, superseding the previous beige backdrop. This is scoped to P-01.
 

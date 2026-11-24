@@ -1,3 +1,4 @@
+import { getDarkThemeColor } from "../../tests/helpers/themeColors.js";
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
@@ -26,13 +27,13 @@ function contrast(a, b) {
 }
 
 test("dark homepage text and keyboard focus contrast against each principal surface", () => {
-  const css = readFileSync(
-    new URL("../../theme/theme.css", import.meta.url),
-    "utf8",
-  );
-  const names = { surface: "subtle-surface", raised: "surface", wine: "accent-surface", secondary: "muted-text" };
-  const token = (name) =>
-    css.match(new RegExp(`--theme-${names[name] ?? name}:\\s*#([a-f0-9]{6})`))[1];
+  const names = {
+    surface: "subtle-surface",
+    raised: "surface",
+    wine: "accent-surface",
+    secondary: "muted-text",
+  };
+  const token = (name) => getDarkThemeColor(`theme-${names[name] ?? name}`);
   for (const surface of ["canvas", "surface", "raised", "wine"]) {
     for (const text of ["text", "secondary", "accent"]) {
       assert.ok(
@@ -40,8 +41,8 @@ test("dark homepage text and keyboard focus contrast against each principal surf
         `${text} on ${surface}`,
       );
     }
-    assert.ok(contrast(token(surface), "ffc3d2") >= 3);
+    assert.ok(contrast(token(surface), token("focus")) >= 3);
   }
-  assert.ok(contrast("ffffff", "b91c35") >= 4.5);
+  assert.ok(contrast("ffffff", getDarkThemeColor("brand-red")) >= 4.5);
   assert.ok(contrast("a0e2ba", "213b30") >= 4.5);
 });

@@ -16,7 +16,11 @@
       var(--brand-red, #8c3c55),
       transparent 60%
     ),
-    linear-gradient(115deg, #351923, var(--brand-red-hover, #602637));
+    linear-gradient(
+      115deg,
+      var(--theme-hero-base, #351923),
+      var(--brand-red-hover, #602637)
+    );
   color: white;
   padding-block: var(--public-page-start, 32px) 95px;
   border-block: 1px solid var(--theme-border, var(--brand-red, #825567));

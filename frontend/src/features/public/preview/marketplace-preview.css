@@ -52,7 +52,7 @@ body:has(.marketplace-preview) {
   height: 62px;
 }
 .marketplace-preview .miu-public-footer {
-  background: #351923;
+  background: var(--theme-hero-base, #351923);
   --public-footer-muted: var(--brand-red-border, #d6c1cb);
 }
 .marketplace-preview .miu-public-footer__meta {
@@ -78,7 +78,11 @@ body:has(.marketplace-preview) {
       var(--brand-red, #84354a) 0,
       transparent 65%
     ),
-    linear-gradient(120deg, #351923, var(--brand-red-hover, #572333));
+    linear-gradient(
+      120deg,
+      var(--theme-hero-base, #351923),
+      var(--brand-red-hover, #572333)
+    );
   color: #fff;
   padding-block: clamp(48px, 7vw, 96px);
   border-bottom: 1px solid var(--theme-border, var(--brand-red-muted, #9b647a));

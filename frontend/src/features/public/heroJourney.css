@@ -395,21 +395,25 @@
   font-size: 1.3cqw;
 }
 :root[data-theme="dark"] .miu-journey-stage .miu-scene-card {
-  --journey-glass: linear-gradient(130deg, #44262cdd, #241015c9);
-  color: #fff3ef;
-  border-color: #f7c5c9;
+  --journey-glass: linear-gradient(
+    130deg,
+    color-mix(in srgb, var(--theme-accent-raised) 87%, transparent),
+    color-mix(in srgb, var(--brand-red-deep) 79%, transparent)
+  );
+  color: var(--theme-text);
+  border-color: var(--theme-accent);
   box-shadow:
     inset 0 0 0 2px #fff2,
-    0 0 8px #f7b4be60,
+    0 0 8px color-mix(in srgb, var(--brand-red-border) 38%, transparent),
     0 10px 24px #08020380;
 }
 :root[data-theme="dark"]
   .miu-journey-stage
   :is(.miu-card-detail, .miu-profile-caption, .miu-journey-disclosure) {
-  color: #e8bcc1;
+  color: var(--theme-muted-text);
 }
 :root[data-theme="dark"] .miu-journey-stage .miu-scene-earnings strong {
-  color: #ffacb6;
+  color: var(--theme-accent);
 }
 @media (max-width: 760px) {
   .landing-hero-media .miu-scene-overlay {
@@ -424,6 +428,6 @@
     backdrop-filter: none;
   }
   :root[data-theme="dark"] .miu-journey-stage .miu-scene-card {
-    background: #30191f;
+    background: var(--theme-accent-surface);
   }
 }

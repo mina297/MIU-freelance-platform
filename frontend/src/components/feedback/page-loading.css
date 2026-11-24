@@ -25,8 +25,8 @@
   --loader-ink: #f7f0f4;
   --loader-muted: #c2b6c0;
   --loader-line: #48404b;
-  --loader-accent: #ff8299;
-  --loader-wash: #30212b;
+  --loader-accent: var(--theme-accent);
+  --loader-wash: var(--theme-accent-surface);
 }
 .miu-page-loading--page {
   min-block-size: 75svh;

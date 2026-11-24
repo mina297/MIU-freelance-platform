@@ -84,7 +84,7 @@
       var(--brand-red, #84384f),
       transparent 75%
     ),
-    #391e2b;
+    var(--theme-hero-base, #391e2b);
   color: white;
   box-shadow: 0 14px 30px -18px
     color-mix(in srgb, var(--brand-red-hover, #542239) 50.2%, transparent);

@@ -1,10 +1,10 @@
+import { getDarkThemeColor } from "../tests/helpers/themeColors.js";
 import test from "node:test";
 import assert from "node:assert/strict";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { MemoryRouter } from "react-router-dom";
 import { createServer } from "vite";
-import { readFileSync } from "node:fs";
 
 test("registered routes expose theme controls where available in light and dark presentations", async () => {
   const vite = await createServer({
@@ -14,7 +14,9 @@ test("registered routes expose theme controls where available in light and dark 
   try {
     // Inspect Vite's client graph, not just source colors: a missing stylesheet
     // made SSR checks pass while the browser displayed an incomplete theme.
-    const clientProvider = await vite.transformRequest("/src/theme/ThemeProvider.jsx");
+    const clientProvider = await vite.transformRequest(
+      "/src/theme/ThemeProvider.jsx",
+    );
     assert.match(clientProvider.code, /theme\/theme\.css/);
     assert.match(clientProvider.code, /styles\/premium-theme\.css/);
     const clientStyles = await vite.transformRequest("/src/theme/theme.css");
@@ -79,7 +81,13 @@ test("registered routes expose theme controls where available in light and dark 
       const role = route.roles?.[0] ?? "student";
       for (const theme of ["light", "dark"]) {
         const html = render(path, role, theme);
-        const compactAuth = ["/login", "/register", "/register/role", "/profile/setup", "/profile/setup/work"].includes(path);
+        const compactAuth = [
+          "/login",
+          "/register",
+          "/register/role",
+          "/profile/setup",
+          "/profile/setup/work",
+        ].includes(path);
         assert.equal(
           (html.match(/aria-label="Dark mode"/g) ?? []).length,
           compactAuth ? 0 : 1,
@@ -139,10 +147,21 @@ function contrast(a, b) {
   return (values[0] + 0.05) / (values[1] + 0.05);
 }
 test("global dark palette keeps body, supporting, semantic text and focus readable", () => {
-  const css = readFileSync(new URL("./theme.css", import.meta.url), "utf8");
-  const token = (name) =>
-    css.match(new RegExp(`--theme-${name}:\\s*#([a-f0-9]{6})`))[1];
-  for (const bg of ["canvas", "surface", "subtle-surface", "accent-surface"]) {
+  const brand = getDarkThemeColor;
+  const token = (name) => getDarkThemeColor(`theme-${name}`);
+  assert.equal(brand("brand-red"), "a00018");
+  for (const action of ["brand-red", "brand-red-hover"])
+    assert.ok(
+      contrast("ffffff", brand(action)) >= 4.5,
+      `white labels on shared ${action}`,
+    );
+  for (const bg of [
+    "canvas",
+    "surface",
+    "subtle-surface",
+    "accent-surface",
+    "accent-raised",
+  ]) {
     for (const text of ["text", "muted-text", "accent"])
       assert.ok(contrast(token(text), token(bg)) >= 4.5, `${text} on ${bg}`);
     assert.ok(contrast(token("focus"), token(bg)) >= 3);

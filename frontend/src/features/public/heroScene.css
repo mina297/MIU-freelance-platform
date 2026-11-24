@@ -226,12 +226,17 @@
 }
 /* Dark appearance follows the supplied charcoal/crimson hero reference. */
 :root[data-theme="dark"] .landing-hero-story {
-  --hero-surface: #19090c;
-  --hero-ink: #f8f4ed;
-  --hero-crimson: #e5b6ba;
+  --hero-surface: var(--theme-accent-canvas);
+  --hero-ink: var(--theme-text);
+  --hero-crimson: var(--theme-accent);
 }
 :root[data-theme="dark"] .landing-hero-media::after {
-  background: linear-gradient(90deg, #19090c80, #19090c26 32%, transparent 55%);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--theme-accent-canvas) 50%, transparent),
+    color-mix(in srgb, var(--theme-accent-canvas) 15%, transparent) 32%,
+    transparent 55%
+  );
 }
 :root[data-theme="dark"]
   .landing
@@ -242,62 +247,72 @@
     .landing-mode-caption,
     .landing-motion-control
   ) {
-  color: #d3bfc1;
+  color: var(--theme-muted-text);
 }
 :root[data-theme="dark"] .landing .landing-hero .landing-search {
-  color: #f8f4ed;
-  background: #2c1d1ee8;
-  border-color: #705356;
-  box-shadow: 0 8px 24px #08020330, inset 0 1px 2px #fff3ed12;
+  color: var(--theme-text);
+  background: color-mix(in srgb, var(--theme-accent-surface) 91%, transparent);
+  border-color: var(--theme-accent-border);
+  box-shadow:
+    0 8px 24px #08020330,
+    inset 0 1px 2px #fff3ed12;
 }
 :root[data-theme="dark"]
   .landing
   .landing-hero
   .landing-pathways
   .landing-button:not(.primary) {
-  background: #21111480;
-  border-color: #b99a9e;
-  color: #f8e9e9;
+  background: color-mix(in srgb, var(--theme-accent-canvas) 50%, transparent);
+  border-color: var(--theme-accent-border);
+  color: var(--theme-text);
 }
 :root[data-theme="dark"] .landing .landing-hero .landing-mode-toggle {
-  background: #2c1d1ed9;
-  border-color: #705356;
+  background: color-mix(in srgb, var(--theme-accent-surface) 85%, transparent);
+  border-color: var(--theme-accent-border);
 }
 :root[data-theme="dark"] .landing .landing-hero .landing-mode-indicator {
-  background: #b50928;
+  background: var(--brand-red);
   box-shadow: inset 0 1px 2px #ffffff1f;
 }
 :root[data-theme="dark"] .landing .landing-hero .landing-pathways .primary,
 :root[data-theme="dark"] .landing .landing-hero .miu-hero-search-submit {
-  background: linear-gradient(135deg, #c9082b, #ae0823);
-  border-color: #c51a36;
-  box-shadow: 0 6px 20px #be092b30, inset 0 1px 2px #ffffff24;
+  background: var(--brand-red);
+  border-color: var(--brand-red);
+  box-shadow:
+    0 6px 20px color-mix(in srgb, var(--brand-red) 19%, transparent),
+    inset 0 1px 2px #ffffff24;
 }
 :root[data-theme="dark"] .landing .landing-hero .landing-search-hint {
-  color: #d3bfc1;
+  color: var(--theme-muted-text);
 }
 :root[data-theme="dark"] .miu-scene-card {
-  background: linear-gradient(135deg, #302023f2, #1e1316ed);
-  color: #f8f4ed;
-  border-color: #b99a9e66;
-  box-shadow: 0 14px 30px -12px #08020380, inset 0 1px #fff3ed12;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--theme-accent-surface) 95%, transparent),
+    color-mix(in srgb, var(--theme-accent-canvas) 93%, transparent)
+  );
+  color: var(--theme-text);
+  border-color: color-mix(in srgb, var(--theme-accent-border) 40%, transparent);
+  box-shadow:
+    0 14px 30px -12px #08020380,
+    inset 0 1px #fff3ed12;
 }
 :root[data-theme="dark"]
   .miu-scene-card
   :is(small, .miu-card-detail, .miu-card-tag, .miu-card-skills) {
-  color: #d3bfc1;
+  color: var(--theme-muted-text);
 }
 :root[data-theme="dark"] .miu-scene-card-icon,
 :root[data-theme="dark"] .miu-scene-earnings strong {
-  color: #e5b6ba;
+  color: var(--theme-accent);
 }
 :root[data-theme="dark"] .miu-scene-match {
-  background: #2c1d1ef2;
-  border-color: #705356;
-  color: #f1c9cc;
+  background: color-mix(in srgb, var(--theme-accent-surface) 95%, transparent);
+  border-color: var(--theme-accent-border);
+  color: var(--theme-accent);
 }
 :root[data-theme="dark"] .miu-completed {
-  color: #d3bfc1;
+  color: var(--theme-muted-text);
 }
 @media (prefers-reduced-transparency: reduce) {
   .miu-scene-card,
@@ -550,7 +565,19 @@
 }
 
 /* Keep the headline footprint stable while typing. */
-.landing .landing-hero .miu-hero-title--typing { display: grid; }
-.miu-hero-title--typing > .miu-title-reserve, .miu-hero-title--typing > .miu-title-typed { grid-area: 1 / 1; color: inherit; white-space: normal; }
-.miu-title-reserve { visibility: hidden; pointer-events: none; }
-.miu-title-typed > span { color: var(--hero-crimson); }
+.landing .landing-hero .miu-hero-title--typing {
+  display: grid;
+}
+.miu-hero-title--typing > .miu-title-reserve,
+.miu-hero-title--typing > .miu-title-typed {
+  grid-area: 1 / 1;
+  color: inherit;
+  white-space: normal;
+}
+.miu-title-reserve {
+  visibility: hidden;
+  pointer-events: none;
+}
+.miu-title-typed > span {
+  color: var(--hero-crimson);
+}
