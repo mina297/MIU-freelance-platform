@@ -92,7 +92,14 @@ function ReviewWorkspace({ project, proposals }) {
       restoreResultsFocus.current = true;
     setNotice(
       result.ok
-        ? `${studentName(proposal.studentId)} ${result.proposal.status === "shortlisted" ? "shortlisted" : "removed from shortlist"} — simulation. No notification sent.`
+        ? t("{name}: {status}. No notification sent.", {
+            name: studentName(proposal.studentId),
+            status: t(
+              result.proposal.status === "shortlisted"
+                ? "Shortlisted"
+                : "Removed from shortlist",
+            ),
+          })
         : "",
     );
   }

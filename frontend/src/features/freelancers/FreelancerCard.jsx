@@ -1,6 +1,6 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Layers3 } from "lucide-react";
+import { Layers3 } from "lucide-react";
 import Card from "../../components/ui/Card.jsx";
 import { formatEGP } from "../../utils/formatEGP.js";
 
@@ -67,7 +67,7 @@ export default function FreelancerCard({ person }) {
             <li key={service.id}>
               <Link to={`/services/${service.id}`}>
                 <span>{service.title}</span>
-                <ArrowUpRight size={16} aria-hidden="true" />
+
               </Link>
               <p>
                 {pack

@@ -55,13 +55,13 @@ export function validateRegistration(
 // Fictional identities for the Phase 1 Google completion preview only.
 export const GOOGLE_PREVIEW_PROFILES = Object.freeze({
   [ROLES.STUDENT]: Object.freeze({
-    firstName: "Student",
-    lastName: "Preview",
+    firstName: "Youssef",
+    lastName: "Hassan",
     email: "google.student@miuegypt.edu.eg",
   }),
   [ROLES.CLIENT]: Object.freeze({
-    firstName: "Client",
-    lastName: "Preview",
+    firstName: "Mariam",
+    lastName: "Nabil",
     email: "google.client@example.test",
   }),
 });
@@ -91,7 +91,7 @@ export function createMockAuthStore(fixtures = []) {
     if (Object.keys(errors).length) return { ok: false, errors };
     let id;
     do {
-      id = `registered_${nextId++}`;
+      id = `registered_${crypto.randomUUID()}_${nextId++}`;
     } while (accounts.has(id));
     const firstName = values.firstName.trim();
     const lastName = values.lastName.trim();

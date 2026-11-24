@@ -1,7 +1,7 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Search, UsersRound } from "lucide-react";
+import { Search, UsersRound } from "lucide-react";
 import { useServiceData } from "../services/useServiceData.js";
 import Input from "../../components/ui/Input.jsx";
 import Select from "../../components/ui/Select.jsx";
@@ -80,7 +80,7 @@ export default function FreelancersCatalogue({
             </p>
             <Link to="/services">
               {t("Browse all services")}{" "}
-              <ArrowUpRight size={16} aria-hidden="true" />
+
             </Link>
           </div>
         </div>
@@ -104,8 +104,8 @@ export default function FreelancersCatalogue({
             maxLength={160}
             disabled={!ready}
           />
-          <Button type="submit" disabled={!ready}>
-            {t("Find talent")} <ArrowUpRight size={16} aria-hidden="true" />
+          <Button type="submit" className="button-text-only" disabled={!ready}>
+            {t("Find talent")}
           </Button>
         </form>
         <p className="services-disclosure">

@@ -8,6 +8,131 @@ tags: [MIU, authentication, accounts]
 
 # Authentication Module
 
+### Post-registration profile setup — 24 November 2026
+
+Next from `/profile/setup` now opens the student-only `/profile/setup/work` step
+after a manual choice or valid resume/LinkedIn file selection. The new page follows
+the supplied work-category reference with MIU branding, progress, an
+introduction, a category card, shared Dropdown and Back/Next controls. Categories
+use the twelve onboarding fields from the approved reference: Accounting & Consulting,
+Admin Support, Customer Service, Data Science & Analytics, Design & Creative,
+Engineering & Architecture, IT & Networking, Legal, Sales & Marketing, Translation,
+Web, Mobile & Software Dev, and Writing. Existing design, development and writing
+IDs remain stable; this onboarding list does not change marketplace filters.
+The dropdown focuses a search input when opened and filters English or translated
+labels without changing the selected category. Search resets when reopened;
+unmatched searches show a recovery message. Its options scroll below the search.
+The category field and its label are centered with a maximum width of 560px,
+shrinking to the available content width on smaller screens.
+Next requires a listed category;
+it saves the selection to the existing session draft and opens `/profile/edit`.
+The selected category initializes an empty student headline, which remains editable;
+existing saved headlines are preserved. No account role or verification changes.
+Back returns to the start with the method/file intact. Category and per-step scroll
+positions persist in memory for the active session. A direct work-step visit
+without a completed start returns to `/profile/setup`. Onboarding now describes
+four stages: Get started, Type of work, Profile details and View your profile.
+Both setup pages use the same header and numbered progress component. The red
+active ring marks 1 on the method page and moves to 2 on Type of work; Back marks
+1 again. Earlier steps remain filled crimson and their connecting segments turn
+crimson up to the current step, forming a continuous sequence. Future steps and
+connectors stay neutral. Logical positioning preserves this sequence in RTL.
+The separate work-step progress bar is removed.
+Type of work uses the same full-width framed panel as the first step, with a
+crimson side border, tinted icon/title header and Step 2 of 4 badge. Introduction,
+category form and Back/Next footer sit inside this single frame. Its overflow
+remains visible so the shared category dropdown is not clipped by the card.
+Related requirement: FR-S03. No automatic job matching or profile publication is
+performed by choosing a category. Browser/real-device acceptance remains separate
+from draft, role, category-validation and rendered-screen checks.
+
+Interface copy follows the latest site-wide editorial wording in
+`i18n/productCopy.js`: the footer describes progress/session lifetime
+without development labels. Resume guidance explains that the file stays on the
+device and profile details are entered on the next page. Capabilities and
+student-only access are unchanged.
+The section subtitle and the separate resume/manual-entry note are omitted at
+the user's request.
+Method cards omit the Ready to start tag. LinkedIn opens file selection rather
+than an external account connection.
+
+The latest sizing adjustment uses a compact 1000px container, 40px progress
+circles and 16px method titles. The latest header follows the Admission reference:
+“Let's build your profile” is a bold, centered title (20–24px), immediately followed
+by “Please complete all required fields carefully.” in muted text (13–15px).
+The logo link has no bottom margin or inline baseline gap; the title has no top margin.
+The decorative tagline remains removed.
+Header padding and the gap before progress are reduced. Header, card and footer
+spacing is reduced while primary controls retain a 44px minimum height. Mobile
+cards still stack and footer actions can wrap. The production build passed;
+this presentation adjustment has not been visually verified in a live browser.
+
+Successful student email and fictional Google-preview registration opens the
+student-only `/profile/setup` page. Client registration opens `/`; clients and
+all other roles are denied direct access to `/profile/setup`. This supersedes the
+earlier shared registration redirect. Login continues to open `/`.
+The MIU Admission-inspired introduction shows numbered
+progress and three profile-building cards. Manual selection enables Next to the
+existing owner-only `/profile/edit` form. Selecting Upload your resume reveals a
+keyboard-accessible picker/drop zone beneath the method cards, matching the supplied
+reference. It accepts one nonempty PDF, DOC or DOCX up to 5MB, shows its filename,
+supports replacement/removal and reports recoverable validation errors. Only
+filename/size metadata lives in component state; contents are never read, sent or
+stored. Next requires a valid selection and opens the existing editor, with an
+explicit notice to complete details manually. Selecting Import from LinkedIn
+shows Upload LinkedIn profile, instructions to save the profile as PDF, and the
+same drop zone restricted to a nonempty PDF up to 5MB. This is manual file
+selection; LinkedIn account connection and automatic extraction remain planned.
+Both file methods retain only filename/size metadata, and switching methods
+clears the previous selection.
+
+At widths up to 700px, selecting either file method opens a bottom sheet instead
+of the inline drop zone. The sheet reuses shared Modal for focus containment,
+Escape/backdrop/close-button dismissal, focus return and background scroll locking.
+It shows the matching title, instructions and file limits above Choose a file.
+A valid file closes the sheet and leaves its filename/Change file control on the
+page; invalid files retain the sheet with a specific error. The selected card can
+be tapped again to reopen it. Dismissing the sheet with its close button, backdrop
+or Escape clears the active file method, filename and validation message.
+Cancelling only the native file picker keeps the sheet and current selection.
+The page does not show an extra Choose a file link below the method cards; that
+control appears only inside the sheet. A selected filename retains Change file.
+Desktop keeps the inline drag/drop presentation. The sheet fits its content with
+a dynamic viewport height cap and safe-area padding; viewport-fit=cover enables device insets without
+disabling zoom. Validation and student-only access remain unchanged. Shared modal
+and compact-uploader markup are covered automatically; phone-based interaction,
+native file picker and safe-area review still require real-device acceptance.
+
+Returning to `/profile/setup` within the same active student session restores the
+chosen method, resume filename/size, validation feedback and scroll position.
+Switching browser tabs does not reset the page or refocus its heading. A
+session-keyed in-memory draft preserves this state across route unmounts without
+browser storage or file contents. New logins, other accounts and refresh do not
+inherit it; authentication remains memory-only. Scroll restoration runs after
+the restored content is laid out. Automated draft tests cover isolation,
+restoration and metadata sanitization; live browser acceptance remains pending.
+
+Do this
+later returns to `/`. Language/theme controls are omitted from this focused setup
+header at the user's request; the page inherits the current app preferences.
+The shell includes keyboard focus
+and responsive card stacking; it excludes workspace navigation.
+
+Student/client registration initializes an empty memory-only public profile shell
+using only ID, display name and role. The editor and role-specific public lookups
+consume it alongside existing fixtures. No verified badge, skills, reviews, jobs
+or portfolio are invented. Saving uses the existing allowlisted owner-checked
+editor and opens the matching public profile. Unique registration IDs prevent a
+fresh account from inheriting prior sessionStorage edits. Refresh clears accounts,
+sessions and new profile shells; the existing profile-edit sessionStorage behavior
+remains disclosed. No credentials or private registration fields are published.
+
+Related requirements: FR-V03, FR-S01, FR-S03, FR-C01, FR-C03, NFR-02/NFR-03.
+Automated coverage checks profile creation/resolution, editor rendering, default
+selection, planned imports, ID isolation and permissions. Live setup, keyboard and
+mobile acceptance remain pending: the current dev server timed out in preview and
+desktop Chrome. This is frontend demonstration work, not production onboarding.
+
 ### Google sign-up completion preview — 19 November 2026
 
 The registration Google button now opens `/register?role=student&method=google` or the corresponding client query on the existing route. The website-styled completion card shows a fictional role-specific identity, Country, optional email preference, required unchecked agreement with the existing policy links, Create my account, Use email instead and Sign in. Keyboard entry focuses its heading; role selection and the admin-managed country list are preserved. The regular email form and Google sign-in notice retain their existing behavior.

@@ -4,6 +4,7 @@ import {
 } from "../../../data/fixtures/profiles.js";
 import { getCompletedProjectsForClient } from "../../../data/fixtures/reviews.js";
 import { PROFILE_EDIT_STORAGE_KEY } from "../constants.js";
+import { getRegistrationProfile } from "../registrationProfiles.js";
 
 function readEditOverrides(profileId) {
   try {
@@ -21,7 +22,8 @@ function readEditOverrides(profileId) {
  */
 export function getClientProfileById(clientId) {
   if (!clientId) return null;
-  const base = clientProfiles.find((profile) => profile.id === clientId);
+  const base = clientProfiles.find((profile) => profile.id === clientId)
+    ?? getRegistrationProfile(clientId, "client");
   if (!base) return null;
 
   const overrides =

@@ -82,7 +82,7 @@ export default function ProjectActions({ project, session }) {
           </div>
           {cancelError && (
             <p id={helpId} className="project-create__action-help">
-              {cancelError}
+              {t(cancelError)}
             </p>
           )}
         </>

@@ -97,14 +97,14 @@ test("decisions connect review, student confirmation, participant order access a
     assert.equal(orderStore.getSnapshot().length, count);
     assert.equal(getOrderById(result.order.id), result.order);
     const orderPath = `/orders/${result.order.id}`;
-    assert.match(render(reviewPath), /View demo order/);
-    assert.match(render(orderPath), /Awaiting payment — demo/);
+    assert.match(render(reviewPath), /View order/);
+    assert.match(render(orderPath), /Awaiting payment/);
     assert.match(render(orderPath), /6,200/);
     assert.match(render(orderPath), /14 days/);
     assert.match(render(orderPath, student), /6,200/);
     const confirmation = render("/projects/project_001/propose", student);
     assert.match(confirmation, /Accepted/);
-    assert.match(confirmation, /View demo order/);
+    assert.match(confirmation, /View order/);
     assert.doesNotMatch(
       render("/projects"),
       /Build a responsive event website/,

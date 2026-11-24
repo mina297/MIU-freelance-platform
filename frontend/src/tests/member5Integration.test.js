@@ -92,7 +92,7 @@ test("M5 routes preserve canonical identities, session ownership and actual comp
       />Leave a review<\/button>|Nour El-Sayed/,
     );
     assert.match(render("/clients/client_001"), /Nile Studio/);
-    assert.match(render("/profile/edit", student), /Editing.*student/s);
+    assert.match(render("/profile/edit", student), /Update your details, skills and links/);
     assert.match(
       wrap(
         React.createElement(ProfileEdit, {

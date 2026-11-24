@@ -142,7 +142,7 @@
 .order-list__card-terms > a {
   display: inline-flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   min-height: 44px;
   gap: 12px;

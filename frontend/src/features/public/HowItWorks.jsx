@@ -1,6 +1,6 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef } from "react";
-import { BriefcaseBusiness, Users, Star, ArrowUpRight } from "lucide-react";
+import { BriefcaseBusiness, Users, Star } from "lucide-react";
 import { getTimelineMotion } from "./timelineMotion.js";
 import OverlapSection from "./OverlapSection.jsx";
 import "./howItWorks.css";
@@ -124,7 +124,7 @@ export default function HowItWorks({ motionEnabled }) {
           </div>
           <span className="landing-how-caption">
             {t("YOUR NEXT CHAPTER STARTS HERE")}{" "}
-            <ArrowUpRight size={18} aria-hidden="true" />
+
           </span>
         </div>
         <div ref={timeline} className="landing-timeline">

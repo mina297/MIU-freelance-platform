@@ -68,7 +68,7 @@ test("every recognized active role gets an initially minimized, named nonmodal w
     assert.match(html, /Open assistant/);
     assert.match(html, /aria-expanded="false"/);
     assert.match(html, /<section[^>]*hidden=""/);
-    assert.match(html, /Not a real AI service/);
+    assert.match(html, /Answers from platform guides/);
     assert.match(html, /role="log"/);
     assert.match(html, /aria-live="polite"/);
     assert.match(html, /maxLength="500"/i);
@@ -113,8 +113,8 @@ test("approved compact design exposes public starter buttons, action menu and si
     "Frequently asked questions",
   ])
     assert.ok(html.includes(label), label);
-  assert.match(html, /Demo replies · Not a real AI service/);
-  assert.match(html, /Demo assistant · Predefined replies/);
+  assert.match(html, /Answers from platform guides/);
+  assert.match(html, /Help with MIU Freelance/);
   assert.match(html, /Compose your message…/);
   const heading = html.match(/<header class="chatbot-heading">[\s\S]*?<\/header>/)?.[0];
   assert.match(heading, /<details class="chatbot-faq">[\s\S]*?<summary>[\s\S]*?Frequently asked questions/);

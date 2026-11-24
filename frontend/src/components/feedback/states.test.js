@@ -200,11 +200,11 @@ test("feedback renders long labels and descriptions as escaped text", () => {
   }
 });
 
-test("demo pages disclose simulation and provide content without nested public landmarks", () => {
+test("state pages explain their controls without development labels or nested landmarks", () => {
   for (const name of ["LoadingDemoPage", "ErrorDemoPage"]) {
     const markup = render(name);
     assert.equal((markup.match(/<h1/g) || []).length, 1);
-    assert.match(markup, /Phase 1 component demonstration/);
+    assert.match(markup, /Explore (loading indicators|error, empty and recovery states)/);
     assert.doesNotMatch(markup, /<main|<nav|<footer|href="#/);
   }
   const loading = render("LoadingDemoPage");
@@ -218,6 +218,6 @@ test("demo pages disclose simulation and provide content without nested public l
     assert.ok(loading.includes(label));
   }
   const error = render("ErrorDemoPage");
-  assert.match(error, /Simulate error/);
+  assert.match(error, /Show error state/);
   assert.match(error, /Clear filters/);
 });

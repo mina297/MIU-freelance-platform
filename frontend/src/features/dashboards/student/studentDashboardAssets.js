@@ -16,7 +16,6 @@ const files = {
   check: "9baa1.svg",
   star: "03247.svg",
   more: "5a082.svg",
-  arrow: "9e83f.svg",
 };
 export function asset(name) {
   return new URL(

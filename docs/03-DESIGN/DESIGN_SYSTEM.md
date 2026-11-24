@@ -8,6 +8,42 @@ tags: [MIU, design-system, UI]
 
 # MIU Freelance Platform — Design System
 
+### Interface wording — 24 November 2026
+
+User direction replaces development labels (Phase 1, Demo, Prototype, Coming Soon,
+and similar scaffolding) with concise product language throughout translated UI.
+`i18n/productCopy.js` owns reviewed English/Arabic wording for the existing stable
+message keys; `translate()` resolves these before the legacy dictionaries. This
+does not transform user-authored content, create testimonials, invent activity or
+change permissions, record identifiers, or data lifecycles. Add explicit wording
+here when retiring another legacy key; do not strip words with a runtime regex.
+
+Unavailable integrations retain factual copy, for example Google is not connected,
+payment confirmation makes no charge, and support requests stay in the browser.
+Legal pages do not invent an approved policy. Profile setup retains its current
+layout and selection behavior with natural labels and a concise session notice.
+The profile editor omits internal record IDs and storage implementation details.
+This changes UI text only; the documented project scope remains applicable.
+
+Validation: production build and ESLint passed. Updated content, authentication,
+profile, checkout, order, proposal and public-page checks passed on rerun. The
+localization regression also renders every registered route in English/Arabic and
+rejects development labels in visible text; separate checks preserve interpolation
+and user-authored text. Live browser visual review was not performed for this update.
+
+### Button decoration — 24 November 2026
+
+At the user's request, diagonal up-right arrows are removed from action buttons
+and button-style links across navigation, public pages, discovery, profiles,
+orders, dashboards and chatbot guidance. Labels and destinations remain intact;
+directional navigation controls retain their functional icons. This presentation
+change supports NFR-02/NFR-03 and introduces no permission or workflow changes.
+
+Follow-up: affected action buttons keep their former intrinsic width by splitting
+the removed icon's width and gap equally around the centered label through
+`styles/button-labels.css`. Existing heights, padding and responsive sizing remain
+in effect. Full-width order actions retain their width and center their text.
+
 ### Shared hero navbar — 24 November 2026
 
 The hero's glass navigation treatment now belongs to `LandingHeader` itself.

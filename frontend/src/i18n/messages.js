@@ -3,8 +3,11 @@ import feedback from "./validationMessages.js";
 import interfaces from "./interfaceMessages.js";
 import help from "./helpMessages.js";
 import chatbot from "./chatbotMessages.js";
+import profileSetup from "./profileSetupMessages.js";
 // Draft Modern Standard Arabic interface wording; team approval pending.
 export const ar = {
+  "Demo session controls": "أدوات الجلسة التجريبية",
+  demo: "تجريبي",
   "University Email": "البريد الإلكتروني الجامعي",
   "Use your university email ending in @miuegypt.edu.eg.":
     "استخدم بريدك الإلكتروني الجامعي الذي ينتهي بـ @miuegypt.edu.eg.",
@@ -56,6 +59,7 @@ export const ar = {
   ...interfaces,
   ...help,
   ...chatbot,
+  ...profileSetup,
   Language: "اللغة",
   "Select language": "اختر اللغة",
   Appearance: "المظهر",

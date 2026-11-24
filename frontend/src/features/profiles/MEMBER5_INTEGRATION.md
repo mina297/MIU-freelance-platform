@@ -16,7 +16,20 @@ Canonical `student_001` is Salma Farid, `student_002` is Omar Nabil and `client_
 
 Earlier Figma samples remain separately addressable as `m5_sample_student_nour`, `m5_sample_student_karim`, `m5_sample_client_robotics` and `m5_sample_client_startup`. Their historical orders use `m5_sample_order_*`. They do not collide with marketplace IDs or authorize new reviews. Their content remains fictional design data.
 
-Newly registered accounts without a profile record receive the profile-not-found state. A shared account/profile creation contract remains future integration; no arbitrary account data or private order history is published to fill gaps.
+24 November 2026: email and Google-preview registration initialize a minimal
+memory-only public profile through `registrationProfiles.js`. The editor and
+student/client profile lookups fall back to this shell for the corresponding
+role. Only ID, role and display name come from the account; editable fields start
+empty, verification is false, and history/rating counts start at zero.
+`/profile/setup` introduces manual entry to `/profile/edit`. Resume selection is
+a local metadata-only preview with 5MB PDF/DOC/DOCX validation; it opens the same
+manual editor without reading, uploading or extracting content. LinkedIn offers
+manual selection of an exported profile PDF up to 5MB, reusing the same desktop
+picker/mobile sheet and session draft. No LinkedIn connection or extraction is
+performed. Existing fixtures and owner-only edit rules are preserved. Unknown
+IDs still show profile-not-found. New registration IDs are unique across app
+instances, preventing inheritance of old tab-session edits. Refresh clears the
+new shells alongside mock accounts.
 
 ## Reviews
 
@@ -27,6 +40,12 @@ Reviews are memory-only and reset on refresh, just like marketplace orders. Old 
 `ReviewForm`, `NewReviewPage` and `LeaveReviewModal` use the current AuthContext. Legacy `defaultClientId` props do not impersonate a client. A consumer must provide AuthProvider. The client-to-student review direction (FR-C14) is implemented; student-to-client reviews (FR-S13) remain outside this fix.
 
 ## Profile and portfolio editing
+
+The student setup flow now inserts `/profile/setup/work` before `/profile/edit`.
+It records a marketplace category ID in the session draft. The editor uses its
+label only as the default for an empty headline; existing saved headlines win.
+The normal owner-checked save persists that editable headline through the existing
+profile field allowlist. No public profile schema or verification field changes.
 
 Profile edits and portfolio overrides remain explicitly simulated sessionStorage data. They survive reload until the tab session is cleared, unlike the memory-only order/review stores. Only the active owning session can write. Profile edits allowlist editable fields; they cannot change role, verification status or rating history.
 

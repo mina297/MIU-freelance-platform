@@ -145,7 +145,7 @@ function CheckoutExperience({ order, session }) {
   const paymentLabel =
     PAYMENT_METHODS.find((item) => item.id === values.method)?.label +
     (values.method === "apple_pay"
-      ? " · simulated wallet"
+      ? t(" · simulated wallet")
       : " · •••• " + selectedCard?.last4);
   function review(event) {
     event.preventDefault();

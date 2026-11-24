@@ -245,7 +245,7 @@ test("registration to login preserves identity and rejects case-insensitive dupl
 
 test("forgot-password is simulated and password reset changes only memory", () => {
   const store = createMockAuthStore(mockUsers);
-  store.register(registration);
+  const created = store.register(registration);
   assert.equal(store.forgotPassword("invalid").ok, false);
   assert.match(
     store.forgotPassword(registration.email).message,
@@ -278,7 +278,7 @@ test("forgot-password is simulated and password reset changes only memory", () =
     fresh.login({ ...registration, password: "Changed123" }).ok,
     false,
   );
-  assert.equal(fresh.findUser("registered_1"), undefined);
+  assert.equal(fresh.findUser(created.user.id), undefined);
   assert.equal(fresh.findUser("student_001").id, "student_001");
   assert.equal(
     store.resetPassword({ ...recovery, email: "student_001@example.test" }).ok,

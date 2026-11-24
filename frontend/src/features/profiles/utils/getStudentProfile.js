@@ -1,4 +1,5 @@
 import { studentProfiles } from "../../../data/fixtures/profiles.js";
+import { getRegistrationProfile } from "../registrationProfiles.js";
 import {
   getCompletedProjectsForStudent,
   getReviewsForStudent,
@@ -20,7 +21,8 @@ export function getStudentProfileById(studentId) {
     return null;
   }
 
-  const base = studentProfiles.find((entry) => entry.id === studentId);
+  const base = studentProfiles.find((entry) => entry.id === studentId)
+    ?? getRegistrationProfile(studentId, "student");
   if (!base) {
     return null;
   }

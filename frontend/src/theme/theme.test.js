@@ -79,7 +79,7 @@ test("registered routes expose theme controls where available in light and dark 
       const role = route.roles?.[0] ?? "student";
       for (const theme of ["light", "dark"]) {
         const html = render(path, role, theme);
-        const compactAuth = ["/login", "/register", "/register/role"].includes(path);
+        const compactAuth = ["/login", "/register", "/register/role", "/profile/setup", "/profile/setup/work"].includes(path);
         assert.equal(
           (html.match(/aria-label="Dark mode"/g) ?? []).length,
           compactAuth ? 0 : 1,

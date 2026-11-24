@@ -31,10 +31,11 @@ test("Google completion requires country and consent before creating an account"
     store.registerGoogle({ ...completion, country: "Unavailable" }).errors
       .country,
   );
-  assert.equal(store.findUser("registered_1"), undefined);
+  assert.equal(store.login({ email: GOOGLE_PREVIEW_PROFILES.student.email, password: "Unused123" }).ok, false);
   const result = store.registerGoogle(completion);
   assert.equal(result.ok, true);
-  assert.equal(result.user.id, "registered_1");
+  assert.match(result.user.id, /^registered_[0-9a-f-]+_1$/);
+  assert.deepEqual(store.findUser(result.user.id), result.user);
   assert.equal(result.user.role, ROLES.STUDENT);
   assert.equal(result.user.verificationStatus, "pending");
   assert.equal(
@@ -132,7 +133,7 @@ test("Google completion renders role-aware consent forms with no password or rea
       const html = render(`/register?role=${role}&method=google`);
       assert.match(html, /class="auth-google-identity"/);
       assert.ok(html.includes(GOOGLE_PREVIEW_PROFILES[role].email));
-      assert.match(html, /fictional account. No Google connection is made/);
+      assert.match(html, /This account is created locally. It is not connected to Google/);
       assert.match(html, /Create my account/);
       assert.match(html, /Use email instead/);
       assert.match(html, /Country/);

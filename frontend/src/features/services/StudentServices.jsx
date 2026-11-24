@@ -34,7 +34,16 @@ function ServiceActions({ service, session, onResult }) {
     const completed = action;
     close();
     onResult(
-      `${service.title}: ${completed === "remove" ? "removed" : completed === "pause" ? "paused" : "published"} — simulation.`,
+      t("{title}: {status}.", {
+        title: service.title,
+        status: t(
+          completed === "remove"
+            ? "Removed"
+            : completed === "pause"
+              ? "Paused"
+              : "Published",
+        ),
+      }),
       service.id,
     );
   }
@@ -69,7 +78,7 @@ function ServiceActions({ service, session, onResult }) {
                       ? t("Pause service")
                       : t("Remove service")}
                 </Button>
-                {reason && <p className="service-manage__help">{reason}</p>}
+                {reason && <p className="service-manage__help">{t(reason)}</p>}
               </div>
             );
           },

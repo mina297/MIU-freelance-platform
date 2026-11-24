@@ -7,6 +7,7 @@ import RoleSelectionPage from "./RoleSelectionPage.jsx";
 import GoogleAuthButton from "./GoogleAuthButton.jsx";
 import { publicDestinations } from "../../app/publicDestinations.js";
 import { GOOGLE_PREVIEW_PROFILES } from "./mockAuth.js";
+import { getRegistrationDestination } from "./navigation.js";
 
 const termsLinks = {
   "{terms}": ["Terms of Service", publicDestinations.terms],
@@ -146,7 +147,8 @@ export default function RegisterPage() {
           ...values,
           role,
         });
-        if (result.ok) navigate("/", { replace: true });
+        if (result.ok)
+          navigate(getRegistrationDestination(result.user), { replace: true });
         return result;
       }}
     >

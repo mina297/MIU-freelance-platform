@@ -2,7 +2,7 @@ import HeroTypingProvider from "./HeroTypingProvider.jsx";
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Pause, Play } from "lucide-react";
+import { Pause, Play } from "lucide-react";
 import CategoryCarousel from "./CategoryCarousel.jsx";
 import HowItWorks from "./HowItWorks.jsx";
 import OverlapSection from "./OverlapSection.jsx";
@@ -287,9 +287,9 @@ export default function LandingPage() {
               className="landing-pathways"
               aria-label={t("Choose your marketplace")}
             >
-              <Link className="landing-button primary" to="/projects">
+              <Link className="landing-button primary button-text-only" to="/projects">
                 {t("Explore Projects")}
-                <ArrowUpRight size={17} aria-hidden="true" />
+
               </Link>
               <Link className="landing-button" to="/register?role=student">
                 {t("Join as Freelancer")}
@@ -455,7 +455,7 @@ export default function LandingPage() {
                 <img
                   className="landing-avatar"
                   src={asset(student.image)}
-                  alt={`Fictional profile portrait for ${student.name}`}
+                  alt={`Profile photo of ${student.name}`}
                   width="88"
                   height="88"
                   loading="lazy"
@@ -570,15 +570,15 @@ export default function LandingPage() {
           </div>
           <div className="landing-invitation-actions">
             <Link
-              className="landing-button primary"
+              className="landing-button primary button-text-only"
               to="/register?role=student"
             >
               {t("Join as a student")}{" "}
-              <ArrowUpRight size={18} aria-hidden="true" />
+
             </Link>
-            <Link className="landing-button" to="/register?role=client">
+            <Link className="landing-button button-text-only" to="/register?role=client">
               {t("Join as a client")}{" "}
-              <ArrowUpRight size={18} aria-hidden="true" />
+
             </Link>
             <span>{t("Two ways to begin. One MIU community.")}</span>
           </div>

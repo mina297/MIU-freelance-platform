@@ -10,6 +10,7 @@ import { MemoryRouter } from "react-router-dom";
 import { createServer } from "vite";
 import { en, ar } from "./messages.js";
 import { translate } from "./translate.js";
+import { productCopy } from "./productCopy.js";
 import { readLanguage, LANGUAGE_KEY } from "./locale.js";
 import { formatCount } from "./formatCount.js";
 import { formatEGP } from "../utils/formatEGP.js";
@@ -85,7 +86,12 @@ test("dictionary parity, placeholders and every literal UI lookup are covered", 
     const source = readFileSync(file, "utf8");
     for (const match of source.matchAll(/\bt\(\s*("(?:\\.|[^"\\])*")/g)) {
       const key = JSON.parse(match[1]);
-      if (/[a-zA-Z]{2}/.test(key) && !Object.hasOwn(ar, key)) missing.add(key);
+      if (
+        /[a-zA-Z]{2}/.test(key) &&
+        !Object.hasOwn(ar, key) &&
+        !Object.hasOwn(productCopy, key)
+      )
+        missing.add(key);
     }
   }
   assert.deepEqual([...missing], []);
@@ -261,7 +267,19 @@ test("all registered routes render in both languages with one language control a
           ),
         ),
       );
-      const compactAuth = ["/login", "/register", "/register/role"].includes(url);
+      const compactAuth = [
+        "/login",
+        "/register",
+        "/register/role",
+        "/profile/setup",
+        "/profile/setup/work",
+      ].includes(url);
+      const visibleCopy = html.replace(/<[^>]*>/g, " ");
+      assert.doesNotMatch(
+        visibleCopy,
+        /\b(?:phase\s*1|prototype|demo|mock data|coming soon|under construction|beta|placeholder)\b/i,
+        `${url}: ${language} contains development labels`,
+      );
       assert.equal(
         (html.match(/class="language-control"/g) ?? []).length,
         compactAuth ? 0 : 1,
@@ -270,7 +288,10 @@ test("all registered routes render in both languages with one language control a
       if (compactAuth) continue;
       assert.ok(html.includes(language === "ar" ? "اللغة" : "Language"));
       assert.match(html, /class="language-control"><div class="disclosure /);
-      assert.match(html, /class="disclosure-item language-menu-option"[^>]*aria-pressed="true"/);
+      assert.match(
+        html,
+        /class="disclosure-item language-menu-option"[^>]*aria-pressed="true"/,
+      );
     }
   }
   assert.equal(JSON.stringify(routeConfig), beforeRoutes);

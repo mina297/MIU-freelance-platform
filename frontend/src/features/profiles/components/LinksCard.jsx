@@ -1,5 +1,5 @@
 import { useLanguage } from "../../../i18n/LanguageContext.js";
-import { ArrowUpRight, Code2, Globe, Link2 } from "lucide-react";
+import { Code2, Globe, Link2 } from "lucide-react";
 import { resolveExternalLink } from "../utils/safeExternalUrl.js";
 
 /** Lucide no longer ships brand icons; use generic glyphs that match link type. */
@@ -70,10 +70,7 @@ export default function LinksCard({ links = [] }) {
                     </p>
                   ) : null}
                 </div>
-                <ArrowUpRight
-                  className={`size-4 shrink-0 ${resolved.isSafe ? "text-[var(--theme-accent,var(--color-miu-red))]" : "text-[#d1d5db]"}`}
-                  aria-hidden="true"
-                />
+
               </>
             );
 

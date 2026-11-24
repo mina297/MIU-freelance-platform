@@ -24,6 +24,7 @@ export function usesApplicationNavigation(session, pathname) {
     return false;
   const route = matchRoutes(routeConfig, pathname)?.at(-1)?.route;
   if (!route || getRouteAccess(session, route) !== "allowed") return false;
+  if (route.layout === "onboarding") return false;
   return (
     route.access !== "public" ||
     [

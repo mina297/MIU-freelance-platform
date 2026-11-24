@@ -4,6 +4,7 @@ import "../styles/premium-theme.css";
 import "./theme.css";
 import "../styles/brand-palette.css";
 import "../styles/interface-motion.css";
+import "../styles/button-labels.css";
 import LanguageProvider from "../i18n/LanguageProvider.jsx";
 
 export default function ThemeProvider({ children, pageTitle }) {

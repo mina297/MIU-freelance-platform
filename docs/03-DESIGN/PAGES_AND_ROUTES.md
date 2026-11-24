@@ -7,6 +7,32 @@ tags: [MIU, pages, routing]
 
 # MIU Freelance Platform — Pages and Routes
 
+### Profile setup entry — 24 November 2026
+
+The first Next action now opens `/profile/setup/work`, a student-only onboarding
+route hidden from navigation. It requires a valid start choice and shows the
+Type of work category screen. Back returns to `/profile/setup`; Next opens
+`/profile/edit` after a listed category is selected. This supersedes the direct
+start-to-editor transition below. Category/scroll state shares the in-memory
+setup draft; refresh still clears the session.
+
+`/profile/setup` is an active-student-only onboarding route, hidden from
+global navigation. Successful student email or fictional Google-preview sign-up
+opens it; client sign-up and sign-in open `/`. Clients cannot access this setup
+route directly. A dedicated shell shows MIU branding, Admission-inspired progress, and
+Upwork-inspired method cards. Manual selection enables Next to `/profile/edit`;
+the existing save action opens the current user's student/client public profile.
+Resume selection reveals a local-only picker/drop zone (PDF/DOC/DOCX, max 5MB);
+valid selection enables Next to the same manual profile editor. No extraction or
+upload occurs. LinkedIn selection offers the same flow for a profile saved as PDF
+only, with instructions and the same 5MB limit; it does not connect to LinkedIn.
+Both file methods use the existing bottom sheet on narrow screens. Do this
+later returns to `/`. Progress describes these destinations; it does not add
+separate skills/experience routes. See the latest
+[Authentication update](../06-MODULES/AUTHENTICATION.md) for new-account profile
+creation and persistence boundaries (FR-S03, FR-C03). This supersedes earlier
+post-registration homepage redirects below.
+
 Sign out from the public header or workspace account menu returns to `/` and replaces the current history entry.
 
 Google registration preview — 19 November 2026: `/register?role=student&method=google` and `/register?role=client&method=google` are completion states on the existing public registration route. The Google sign-up button opens the relevant state; Use email instead returns to its role's ordinary form. Invalid/privileged role queries still show only public role selection. Successful mock completion starts a memory-only session and opens `/`. No Google OAuth or new route is introduced. See [Authentication](../06-MODULES/AUTHENTICATION.md).

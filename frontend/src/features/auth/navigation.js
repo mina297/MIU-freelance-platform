@@ -1,5 +1,9 @@
 import { matchPath } from "react-router-dom";
-import { getRouteAccess } from "./session.js";
+import { getRouteAccess, ROLES } from "./session.js";
+
+export function getRegistrationDestination(user) {
+  return user.role === ROLES.STUDENT ? "/profile/setup" : "/";
+}
 
 export function getLoginDestination(user, requested, routes) {
   const fallback =

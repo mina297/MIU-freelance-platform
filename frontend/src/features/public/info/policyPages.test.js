@@ -27,25 +27,22 @@ after(async () => server?.close());
 const render = (Component, props = {}) =>
   renderToStaticMarkup(createElement(Component, props));
 
-test("both policy pages clearly identify unapproved placeholders at introduction and content", () => {
+test("policy pages state publication status without inventing approved terms", () => {
   for (const Component of [TermsPage, PrivacyPage]) {
     const markup = render(Component);
-    assert.match(markup, /Phase 1 page placeholder/);
-    assert.match(markup, /Placeholder — awaiting team-approved content/);
-    assert.match(
-      markup,
-      /must supply and approve the final content before publication/,
-    );
-    assert.match(markup, /Phase 1 preview/);
-    assert.match(markup, /no real payments are processed/);
+    assert.match(markup, /ha(?:ve|s) not been published/);
+    assert.match(markup, /Policy information/);
+    assert.match(markup, /Contact support/);
+    assert.match(markup, /Payments are not processed on this website/);
+    assert.doesNotMatch(markup.replace(/<[^>]*>/g, " "), /Phase 1|Placeholder|Prototype/);
   }
-  assert.match(render(TermsPage), /not published Terms of Use/);
-  assert.match(render(PrivacyPage), /not a published Privacy Policy/);
+  assert.match(render(TermsPage), /Terms of service have not been published/);
+  assert.match(render(PrivacyPage), /A privacy policy has not been published/);
 });
 
 test("Terms does not invent operative clauses, acceptance or business commitments", () => {
   const markup = render(TermsPage);
-  assert.match(markup, /does not establish conditions for using the platform/);
+  assert.match(markup, /Terms of service have not been published/);
   assert.doesNotMatch(
     markup,
     /by using|you agree|we guarantee|governing law|commission|refund within|arbitration|effective date|last updated/i,
@@ -56,7 +53,7 @@ test("Privacy does not convert design requirements into claims about actual prac
   const markup = render(PrivacyPage);
   assert.match(
     markup,
-    /does not describe approved data collection, storage, sharing, retention or deletion practices/,
+    /A privacy policy has not been published/,
   );
   assert.doesNotMatch(
     markup,

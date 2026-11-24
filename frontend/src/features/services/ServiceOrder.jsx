@@ -198,7 +198,7 @@ function OrderingForm({ details, data, session }) {
                 </p>
               </>
             ) : (
-              <p role="alert">{quote.error}</p>
+              <p role="alert">{t(quote.error)}</p>
             )}
             <p>
               {t(
@@ -291,8 +291,10 @@ export default function ServiceOrder() {
         <div className="project-create__container service-order__recovery">
           <h1>{t("Service ordering unavailable")}</h1>
           <p>
-            {access ||
-              "This service or its packages are unavailable for ordering."}
+            {t(
+              access ||
+                "This service or its packages are unavailable for ordering.",
+            )}
           </p>
           <Link to="/services">{t("Browse services")}</Link>
         </div>

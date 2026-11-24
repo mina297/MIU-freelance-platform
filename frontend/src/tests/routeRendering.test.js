@@ -152,7 +152,7 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
       "Featured jobs",
       "Top-rated students",
       "Why MIU Freelance",
-      "Prototype content:",
+      "Discover projects and student talent",
     ])
       assert.ok(html.replace(/<[^>]*>/g, "").includes(text), text);
     for (const path of [
@@ -248,7 +248,7 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
       );
       previousTrailEnd = coordinates.slice(-2);
     }
-    assert.match(html, /Fictional example · no payment/);
+    assert.match(html, /Order details · No payment taken/);
     assert.match(html, /id="hero-discover"/);
     assert.doesNotMatch(html, /miu-story-rail|miu-story-progress|miu-story-chapters/);
     assert.match(html, /Create Impact\./);
@@ -348,8 +348,8 @@ test("public website routes render real pages in one shell with safe destination
       ["/", "Your Skills"],
       ["/about", "From university learning to practical experience"],
       ["/how-it-works", "Planned service journey"],
-      ["/terms", "not published Terms of Use"],
-      ["/privacy", "not a published Privacy Policy"],
+      ["/terms", "Terms of service have not been published"],
+      ["/privacy", "A privacy policy has not been published"],
       ["/loading-demo", "Interactive loading example"],
       ["/error-demo", "Empty and error states"],
     ]) {
@@ -470,9 +470,9 @@ test("proposal routes render eligible, unverified, missing, closed, and submitte
       );
     const open = renderRoute("project_001");
     assert.match(open, /Prepare your proposal/);
-    assert.match(open, /Submit demo proposal/);
+    assert.match(open, /Submit proposal/);
     assert.match(open, /Sample attachments \(optional\)/);
-    assert.match(open, /No real files are uploaded or stored/);
+    assert.match(open, /File contents are not uploaded or stored/);
     assert.match(open, /Sample portfolio\.pdf/);
     assert.match(open, /Sample project plan\.pdf/);
     for (const id of ["proposal-price", "proposal-days", "proposal-cover"]) {
@@ -502,9 +502,9 @@ test("proposal routes render eligible, unverified, missing, closed, and submitte
     assert.equal(result.ok, true);
     const submitted = renderRoute("project_001");
     assert.match(submitted, /Proposal submitted/);
-    assert.match(submitted, /No client was contacted/);
+    assert.match(submitted, /No notification was sent to the client/);
     assert.match(submitted, /Sample project plan\.pdf/);
-    assert.match(submitted, /no files were uploaded/i);
+    assert.match(submitted, /No files have been uploaded/);
     assert.match(submitted, /&lt;script&gt;fictional/);
     assert.doesNotMatch(submitted, /<form/);
     assert.match(
@@ -631,8 +631,8 @@ test("all five authentication routes render labeled forms or role selection", as
       ) {
         assert.match(html, /<form/);
         assert.match(html, /<label[^>]+for=/);
-        assert.match(html, /Prototype/);
-        assert.match(html, /Resets on refresh/);
+        assert.match(html, /Your sign-in lasts until you refresh this page/);
+        assert.doesNotMatch(html.replace(/<[^>]*>/g, " "), /Prototype|Phase 1/);
         assert.match(html, /class="auth-input"/);
         assert.match(html, /required=""/);
       }

@@ -71,7 +71,7 @@ function RequirementsEditor({ order, session, requirements }) {
       />
       {errors.form && (
         <p role="alert" tabIndex={-1} className="project-create__alert">
-          {errors.form}
+          {t(errors.form)}
         </p>
       )}
       <Button type="submit">{t("Save demo requirements")}</Button>
@@ -110,7 +110,9 @@ function MessageComposer({ order, session }) {
     setIds([]);
     setToken(crypto.randomUUID());
     setNotice(
-      `Demo message added at ${result.message.createdAt}. No notification sent.`,
+      t("Message saved at {time}. No notification sent.", {
+        time: result.message.createdAt,
+      }),
     );
     input.current?.focus();
   }
@@ -142,7 +144,7 @@ function MessageComposer({ order, session }) {
       />
       {errors.form && (
         <p role="alert" tabIndex={-1} className="project-create__alert">
-          {errors.form}
+          {t(errors.form)}
         </p>
       )}
       <p role="status">{t(notice)}</p>
@@ -239,7 +241,9 @@ function Collaboration({ order, session }) {
                   </p>
                 )}
                 {requirementsError ? (
-                  <p className="order-workspace__help">{requirementsError}</p>
+                  <p className="order-workspace__help">
+                    {t(requirementsError)}
+                  </p>
                 ) : (
                   <RequirementsEditor
                     key={requirements?.version ?? 0}
@@ -295,7 +299,7 @@ function Collaboration({ order, session }) {
                   </div>
                 )}
                 {messageError ? (
-                  <p className="order-workspace__help">{messageError}</p>
+                  <p className="order-workspace__help">{t(messageError)}</p>
                 ) : (
                   <MessageComposer order={order} session={session} />
                 )}

@@ -65,8 +65,8 @@ test("service-order configuration is client-only and summaries expose saved term
     for (const text of [
       "Choose a package",
       "Optional extras",
-      "Review demo order",
-      "Confirm demo order",
+      "Review order",
+      "Confirm order",
       "Keep editing selection",
       "1,800",
       "Landing page",
@@ -92,14 +92,14 @@ test("service-order configuration is client-only and summaries expose saved term
     ])
       assert.doesNotMatch(
         render(path, session),
-        /Choose your scope|Confirm demo order/,
+        /Choose your scope|Confirm order/,
       );
     assert.match(
       render(path, {
         ...client,
         user: { ...client.user, verificationStatus: "pending" },
       }),
-      /verification must be approved/,
+      /Verify your client account/,
     );
     assert.match(
       render("/services/missing/order"),

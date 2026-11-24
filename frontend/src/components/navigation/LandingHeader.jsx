@@ -3,7 +3,6 @@ import { useEffect, useId, useRef, useState } from "react";
 import Modal from "../ui/Modal.jsx";
 import { Link, useLocation } from "react-router-dom";
 import {
-  ArrowUpRight,
   BriefcaseBusiness,
   ChevronDown,
   GraduationCap,
@@ -116,9 +115,9 @@ export default function LandingHeader({ accountAction }) {
       <Link to="/login" className="public-sign-in">
         {t("Sign In")}
       </Link>
-      <Link to="/register" className="public-sign-up">
+      <Link to="/register" className="public-sign-up button-text-only">
         {t("Sign Up")}
-        <ArrowUpRight size={16} aria-hidden="true" />
+
       </Link>
     </>
   );
@@ -137,7 +136,7 @@ export default function LandingHeader({ accountAction }) {
           <strong>{t(title)}</strong>
           <small>{t(description)}</small>
         </span>
-        <ArrowUpRight size={16} aria-hidden="true" />
+
       </Link>
     ));
   }

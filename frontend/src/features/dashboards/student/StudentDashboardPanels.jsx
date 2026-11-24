@@ -144,7 +144,7 @@ export function ActiveJobs({ jobs, openDetail, showAll }) {
                   <p>{job.next}</p>
                 </div>
                 <button
-                  className="sd-button sd-secondary"
+                  className="sd-button sd-secondary button-text-only"
                   onClick={() =>
                     openDetail({
                       title: application.title,
@@ -152,7 +152,7 @@ export function ActiveJobs({ jobs, openDetail, showAll }) {
                     })
                   }
                 >
-                  <Icon name="arrow" />
+
                   {t("View job")}
                 </button>
               </article>

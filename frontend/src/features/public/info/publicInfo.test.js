@@ -69,15 +69,12 @@ test("planned journeys retain roles, proposals, packages and delivery without in
   );
 });
 
-test("both pages make Phase 1 limitations visible rather than claiming live operations", () => {
+test("information pages describe available workflows and payment limitations plainly", () => {
   for (const Component of [AboutPage, HowItWorksPage]) {
     const markup = render(Component);
     for (const copy of [
-      "Phase 1 preview",
-      "planned workflows",
-      "verification",
-      "simulated",
-      "no real payments",
+      "project and service workflows",
+      "Payments are not processed on this website",
     ])
       assert.ok(markup.includes(copy), copy);
     assert.doesNotMatch(

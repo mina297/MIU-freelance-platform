@@ -1,7 +1,7 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Layers3, Search, SlidersHorizontal } from "lucide-react";
+import { Layers3, Search, SlidersHorizontal } from "lucide-react";
 import { useServiceData } from "./useServiceData.js";
 import Button from "../../components/ui/Button.jsx";
 import Input from "../../components/ui/Input.jsx";
@@ -78,7 +78,7 @@ export default function ServicesCatalogue({
             </p>
             <Link to="/projects">
               {t("Prefer to post a brief? Explore projects")}{" "}
-              <ArrowUpRight size={16} aria-hidden="true" />
+
             </Link>
           </div>
         </div>
@@ -102,8 +102,8 @@ export default function ServicesCatalogue({
             onChange={(event) => setDraft(event.target.value)}
             disabled={!ready}
           />
-          <Button type="submit" disabled={!ready}>
-            {t("Find services")} <ArrowUpRight size={16} aria-hidden="true" />
+          <Button type="submit" className="button-text-only" disabled={!ready}>
+            {t("Find services")}
           </Button>
         </form>
         <p className="services-disclosure">

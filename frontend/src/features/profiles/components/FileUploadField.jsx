@@ -120,7 +120,7 @@ export default function FileUploadField({
           {t(label)}
         </label>
         {hint ? (
-          <span className="text-xs text-ink-secondary">{hint}</span>
+          <span className="text-xs text-ink-secondary">{t(hint)}</span>
         ) : null}
       </div>
 

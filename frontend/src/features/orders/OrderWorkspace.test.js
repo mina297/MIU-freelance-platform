@@ -70,8 +70,8 @@ test("both order sources compose one participant-only workspace with shared note
         "Requirements",
         "Messages (0)",
         "Progress &amp; activity",
-        "Save demo requirements",
-        "Send demo message",
+        "Save requirements",
+        "Send message",
         "Sample requirements.pdf",
         "No real files",
       ])
@@ -114,10 +114,10 @@ test("both order sources compose one participant-only workspace with shared note
     );
     assert.doesNotMatch(
       studentView,
-      /<script>fictional message|Save demo requirements/,
+      /<script>fictional message|Save requirements/,
     );
     assert.match(studentView, /Only the owning client/);
-    assert.match(render("order_001"), /Demo message added/);
+    assert.match(render("order_001"), /Message saved/);
     assert.doesNotMatch(
       render("order_002", salma),
       /Private fictional project requirements|fictional message/,

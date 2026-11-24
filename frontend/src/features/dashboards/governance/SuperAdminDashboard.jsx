@@ -6,7 +6,6 @@ import { startTransition, useEffect, useReducer, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Activity,
-  ArrowUpRight,
   Building2,
   ClipboardCheck,
   Globe,
@@ -217,7 +216,7 @@ export default function SuperAdminDashboard() {
             </p>
           </div>
           <Link className="ac-back" to="/">
-            {t("Demo session controls ↗")}
+            {t("Demo session controls")}
           </Link>
         </>
       }
@@ -446,11 +445,12 @@ export default function SuperAdminDashboard() {
                         {empty ? 0 : c.pending} {t("queued")}
                       </Badge>
                       <button
+                        className="button-text-only"
                         onClick={() => {
                           go("committees");
                         }}
                       >
-                        {t("Inspect workspace")} <ArrowUpRight size={15} />
+                        {t("Inspect workspace")}
                       </button>
                     </div>
                   </article>
@@ -533,6 +533,7 @@ export default function SuperAdminDashboard() {
                       <h3>{c.name}</h3>
                       <p>{c.description}</p>
                       <button
+                        className="button-text-only button-text-only--glyph"
                         onClick={() => {
                           startTransition(() => {
                             startDemoSession(c.account);
@@ -540,7 +541,7 @@ export default function SuperAdminDashboard() {
                           });
                         }}
                       >
-                        {t("Open")} {c.name} {t("demo ↗")}
+                        {t("Open")} {c.name} {t("demo")}
                       </button>
                     </article>
                   ))}

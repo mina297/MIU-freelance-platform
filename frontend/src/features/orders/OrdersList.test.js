@@ -66,7 +66,7 @@ test("role-specific order lists show only own live records, safe metrics, recove
     assert.match(clientList, /5,400/);
     assert.match(clientList, /href="\/orders\/order_001"/);
     assert.match(clientList, /href="\/orders\/order_002"/);
-    assert.match(clientList, /not money paid, earned/);
+    assert.match(clientList, /do not represent processed payments/);
     assert.equal((clientList.match(/<main\b/g) ?? []).length, 1);
     assert.equal((clientList.match(/<h1\b/g) ?? []).length, 1);
     const studentList = render("/student/orders", student);

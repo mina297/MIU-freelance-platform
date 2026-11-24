@@ -10,6 +10,7 @@ import {
   useParams,
   useLocation,
   matchRoutes,
+  Outlet,
 } from "react-router-dom";
 import StudentDashboard from "../features/dashboards/student/StudentDashboard.jsx";
 import ProtectedRoute from "../features/auth/ProtectedRoute.jsx";
@@ -48,6 +49,8 @@ import SuperAdminDashboard from "../features/dashboards/governance/SuperAdminDas
 import LoginPage from "../features/auth/LoginPage.jsx";
 import RoleSelectionPage from "../features/auth/RoleSelectionPage.jsx";
 import RegisterPage from "../features/auth/RegisterPage.jsx";
+import ProfileSetupPage from "../features/profiles/ProfileSetupPage.jsx";
+import ProfileWorkPage from "../features/profiles/ProfileWorkPage.jsx";
 import ForgotPasswordPage from "../features/auth/ForgotPasswordPage.jsx";
 import ResetPasswordPage from "../features/auth/ResetPasswordPage.jsx";
 import PublicWebsite from "./PublicWebsite.jsx";
@@ -64,6 +67,7 @@ import CheckoutPage from "../features/checkout/CheckoutPage.jsx";
 import ClientPaymentsDashboard from "../features/dashboards/ClientPaymentsDashboard.jsx";
 
 const layouts = {
+  onboarding: <Outlet />,
   standalone: <StandaloneLayout />,
   public: <PublicWebsite />,
   auth: <AuthLayout />,
@@ -100,6 +104,8 @@ function ProjectDetailsRoute() {
 }
 
 const featurePages = {
+  "/profile/setup/work": <ProfileWorkPage />,
+  "/profile/setup": <ProfileSetupPage />,
   "/SuperAdmin": <SuperAdminDashboard />,
   "/admin": <SuperAdminDashboard />,
   "/Checkout": <CheckoutPage />,

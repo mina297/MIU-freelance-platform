@@ -240,7 +240,7 @@ export default function ProposalForm({ project }) {
             className="mt-4 text-sm leading-6 text-[color:var(--theme-accent,#9b2035)]"
           >
             {Object.entries(errors).map(([key, message]) => (
-              <p key={key}>{message}</p>
+              <p key={key}>{t(message)}</p>
             ))}
           </div>
           <button

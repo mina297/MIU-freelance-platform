@@ -265,18 +265,18 @@ for (const [index, person] of marketplaceParticipants.students.entries()) {
     languages: [],
     rateEGP: null,
     availability: "Not specified",
-    profileImageAlt: `Placeholder for ${person.displayName}`,
+    profileImageAlt: `Profile photo of ${person.displayName}`,
     links: [],
     shortBio:
-      "Fictional student freelancer. Profile details are editable in this Phase 1 preview.",
+      "Student freelancer working with the MIU community on creative and practical projects.",
     aboutParagraphs: [
-      "A fictional marketplace participant. No historical qualifications or reviews are inferred.",
+      "Building practical experience through collaboration with clients in the MIU community.",
     ],
     verified:
       mockUsers.find(({ id }) => id === person.id)?.verificationStatus ===
       "approved",
     communityNote:
-      "Fictional Phase 1 account. Verification badges reflect demo account status only.",
+      "Part of the MIU Freelance community.",
     ratingSummary: {
       average: 0,
       count: 0,
@@ -293,13 +293,13 @@ for (const person of marketplaceParticipants.clients) {
     id: person.id,
     displayName: person.displayName,
     organizationName: person.displayName,
-    headline: "Fictional marketplace client",
-    shortBio: "Fictional client profile for the Phase 1 marketplace.",
+    headline: "MIU community client",
+    shortBio: "Connecting with student talent to bring new projects to life.",
     aboutParagraphs: [
       "Client profile details can be edited by the owning account.",
     ],
     profileImage: "",
-    profileImageAlt: `Placeholder for ${person.displayName}`,
+    profileImageAlt: `Profile photo of ${person.displayName}`,
     verified:
       mockUsers.find(({ id }) => id === person.id)?.verificationStatus ===
       "approved",

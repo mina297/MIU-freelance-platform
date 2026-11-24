@@ -233,7 +233,10 @@ function ProposalList() {
                         session={session}
                         onWithdraw={() =>
                           setNotice(
-                            `Proposal for ${title} withdrawn — simulation. No notification sent.`,
+                            t(
+                              "Proposal for {title} withdrawn. No notification sent.",
+                              { title },
+                            ),
                           )
                         }
                       />

@@ -173,7 +173,7 @@ function DeliveryPanel({ order, session }) {
         </div>
       )}
       {actionError ? (
-        <p className="order-workspace__help">{actionError}</p>
+        <p className="order-workspace__help">{t(actionError)}</p>
       ) : (
         <form
           ref={form}
@@ -227,7 +227,7 @@ function DeliveryPanel({ order, session }) {
           )}
           {errors.form && !confirmation && (
             <p role="alert" tabIndex={-1} className="project-create__alert">
-              {errors.form}
+              {t(errors.form)}
             </p>
           )}
           <Button type="submit">
@@ -299,7 +299,7 @@ function DeliveryPanel({ order, session }) {
         )}
         {errors.form && (
           <p role="alert" className="project-create__alert">
-            {errors.form}
+            {t(errors.form)}
           </p>
         )}
       </Modal>

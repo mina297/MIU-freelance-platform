@@ -42,10 +42,10 @@ test("public matching route explains its simulation, requires preferences and re
       );
     for (const text of [
       "Choose a starting point",
-      "does not run an AI model",
+      "Choose your skills to find listings",
       "Skills to match",
-      "Prices do not affect ranking",
-      "private profile",
+      "Prices and ratings do not affect",
+      "Compare the listing details",
     ])
       assert.ok(route.includes(text), text);
     assert.doesNotMatch(

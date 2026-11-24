@@ -146,7 +146,10 @@ export default function ClientDashboard() {
                 information(
                   "Notifications",
                   notifications
-                    ? `${metrics.applicants} new fictional applicants. Final delivery is ready for review.`
+                    ? t(
+                        "{count} new applicants. Final delivery is ready for review.",
+                        { count: metrics.applicants },
+                      )
                     : "Demo notification reminders are disabled.",
                 )
               }

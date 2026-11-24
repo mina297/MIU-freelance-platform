@@ -46,7 +46,7 @@ test("creation route renders the client form, guards other sessions, and exposes
     const html = render("/client/projects/new");
     assert.match(html, /Tell us what you’re building/);
     assert.match(html, /Preview project/);
-    assert.match(html, /simulated frontend workflow/);
+    assert.match(html, /Save a draft to continue later/);
     assert.equal((html.match(/<main\b/g) ?? []).length, 1);
     for (const field of [
       "title",
@@ -163,7 +163,7 @@ test("creation route renders the client form, guards other sessions, and exposes
     assert.match(render("/client/projects"), /Close project:/);
     assert.match(
       render("/client/projects"),
-      /linked order or accepted proposal/,
+      /has an order or accepted proposal/,
     );
     assert.equal(
       projectStore.transition(created.project.id, client, "close").ok,

@@ -3,6 +3,7 @@ import { mockUsers } from "../data/fixtures/users.js";
 import { INITIAL_SESSION, sessionReducer } from "../features/auth/session.js";
 import { AuthContext } from "./AuthContext.js";
 import { createMockAuthStore } from "../features/auth/mockAuth.js";
+import { createRegistrationProfile } from "../features/profiles/registrationProfiles.js";
 
 export default function AuthProvider({ children }) {
   const [session, dispatch] = useReducer(sessionReducer, INITIAL_SESSION);
@@ -28,12 +29,18 @@ export default function AuthProvider({ children }) {
           }),
         register: (values) => {
           const result = accounts.register(values);
-          if (result.ok) dispatch({ type: "start", user: result.user });
+          if (result.ok) {
+            createRegistrationProfile(result.user);
+            dispatch({ type: "start", user: result.user });
+          }
           return result;
         },
         registerGoogle: (values) => {
           const result = accounts.registerGoogle(values);
-          if (result.ok) dispatch({ type: "start", user: result.user });
+          if (result.ok) {
+            createRegistrationProfile(result.user);
+            dispatch({ type: "start", user: result.user });
+          }
           return result;
         },
         login: (values) => {

@@ -80,7 +80,7 @@ test("created orders open checkout and share funding and completed status across
       }).ok,
       true,
     );
-    assert.match(render(`/checkout/${id}`), /Demo payment confirmed/);
+    assert.match(render(`/checkout/${id}`), /Confirmation recorded/);
     assert.match(render(`/orders/${id}`, student), /in progress/);
     assert.doesNotMatch(
       render(`/orders/${id}`, student),

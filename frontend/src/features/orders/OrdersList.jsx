@@ -1,7 +1,7 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, BriefcaseBusiness, Layers3 } from "lucide-react";
+import { BriefcaseBusiness, Layers3 } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth.js";
 import { useServiceData } from "../services/useServiceData.js";
 import { projectStore, mergeProjects } from "../projects/projectStore.js";
@@ -279,7 +279,7 @@ function ListContent({ role, session, state, onRetry }) {
                           })}
                         >
                           {t("Open order")}{" "}
-                          <ArrowUpRight size={16} aria-hidden="true" />
+
                         </Link>
                       </div>
                     </Card>

@@ -1,5 +1,4 @@
 import { useLanguage } from "../../../i18n/LanguageContext.js";
-import Badge from "../../../components/ui/Badge.jsx";
 import PublicLink from "../../../components/navigation/PublicLink.jsx";
 import "./public-info.css";
 
@@ -17,7 +16,6 @@ export default function PublicInfoPage({
     <div className="m4-public-info">
       <div className="m4-public-info__header">
         <div className="m4-public-info__container m4-public-info__intro">
-          <Badge>{t("Phase 1 preview")}</Badge>
           <h1>{title}</h1>
           <p>{introduction}</p>
           <p className="m4-public-info__notice">

@@ -54,7 +54,7 @@ test("delivery workspace follows review/revision/completion across roles while l
       );
     const initial = render("/orders/order_001", student);
     assert.match(initial, /Delivery &amp; revisions/);
-    assert.match(initial, /Review demo delivery/);
+    assert.match(initial, /Review delivery/);
     assert.match(initial, /Sample completed work.pdf/);
     assert.doesNotMatch(initial, /type="file"|download=/);
     assert.equal((initial.match(/<main\b/g) ?? []).length, 1);
@@ -91,7 +91,7 @@ test("delivery workspace follows review/revision/completion across roles while l
       render("/orders/order_001", student),
       /Clarify the fictional scope notes/,
     );
-    assert.match(render("/orders/order_001", student), /Review demo delivery/);
+    assert.match(render("/orders/order_001", student), /Review delivery/);
     const second = orderStore.submitDelivery(
       "order_001",
       { text: "Revised fictional handover", attachmentIds: [] },
@@ -111,12 +111,12 @@ test("delivery workspace follows review/revision/completion across roles while l
     );
     for (const session of [client, student]) {
       const completed = render("/orders/order_001", session);
-      assert.match(completed, /Order completed — simulation/);
+      assert.match(completed, /Order completed/);
       assert.match(completed, /Revised fictional handover/);
-      assert.match(completed, /Client accepted delivery/);
+      assert.match(completed, /Delivery accepted/);
       assert.doesNotMatch(
         completed,
-        /Review demo delivery|Review revision request|>Accept latest delivery<|Send demo message|Save demo requirements/,
+        /Review delivery|Review revision request|>Accept latest delivery<|Send demo message|Save demo requirements/,
       );
     }
     assert.match(render("/client/orders"), /Completed/);
@@ -125,7 +125,7 @@ test("delivery workspace follows review/revision/completion across roles while l
     assert.match(servicePending, /Awaiting payment/);
     assert.doesNotMatch(
       servicePending,
-      /Review demo delivery|>Accept latest delivery</,
+      /Review delivery|>Accept latest delivery</,
     );
     const stranger = {
       ...student,

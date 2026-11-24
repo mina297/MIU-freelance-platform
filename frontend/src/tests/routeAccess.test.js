@@ -129,7 +129,7 @@ test("route registry has unique paths, valid roles and one public fallback", () 
   assert.equal(routeConfig.filter((route) => route.path === "*").length, 1);
   for (const route of routeConfig) {
     assert.ok(
-      ["standalone", "public", "auth", "app", "admin"].includes(route.layout),
+      ["standalone", "public", "auth", "app", "admin", "onboarding"].includes(route.layout),
     );
     assert.ok(["public", "authenticated", "roles"].includes(route.access));
     assert.ok(

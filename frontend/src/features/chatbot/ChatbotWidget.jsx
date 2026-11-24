@@ -74,7 +74,7 @@ export function ChatbotMessages({ messages }) {
               .filter(({ to }) => GUIDANCE_ROUTES.has(to))
               .map(({ label, to }) => (
                 <Link key={to} to={to}>
-                  {t(label)} <span aria-hidden="true">↗</span>
+                  {t(label)}
                 </Link>
               ))}
           </div>

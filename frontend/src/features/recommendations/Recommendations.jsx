@@ -1,7 +1,7 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useState, useSyncExternalStore } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { marketplaceData } from "../../data/fixtures/marketplace.js";
 import { mergeProjects, projectStore } from "../projects/projectStore.js";
 import { useServiceData } from "../services/useServiceData.js";
@@ -62,11 +62,11 @@ export function RecommendationCard({ item }) {
             : formatEGP(item.priceEGP, locale)}
         </dd>
       </dl>
-      <Link className="recommendation-card__link" to={item.href}>
+      <Link className="recommendation-card__link button-text-only" to={item.href}>
         {item.serviceTitle
           ? t("Explore matched service")
           : t("Explore opportunity")}{" "}
-        <ArrowUpRight size={17} aria-hidden="true" />
+
       </Link>
       <div
         className="recommendation-card__feedback"
@@ -173,7 +173,7 @@ export default function Recommendations({
             </p>
             <Link to="/freelancers">
               {t("Browse providers freely")}{" "}
-              <ArrowUpRight size={16} aria-hidden="true" />
+
             </Link>
           </div>
         </div>

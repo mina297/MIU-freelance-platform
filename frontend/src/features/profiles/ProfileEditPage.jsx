@@ -13,6 +13,9 @@ import {
 import FileUploadField from "./components/FileUploadField.jsx";
 import { getProfileEdit, saveProfileEdit } from "./utils/profileEditStorage.js";
 import { resolveExternalLink } from "./utils/safeExternalUrl.js";
+import { getRegistrationProfile } from "./registrationProfiles.js";
+import { getProfileSetupDraft } from "./profileSetupDraft.js";
+import { getProfileWorkCategory } from "./profileWorkCategories.js";
 
 export default function ProfileEditPage(props) {
   const { t } = useLanguage();
@@ -150,14 +153,27 @@ function ProfileEditor({
 
   const baseProfile = useMemo(() => {
     const list = role === "client" ? clientProfiles : studentProfiles;
-    return list.find((p) => p.id === resolvedId) ?? null;
+    return (
+      list.find((p) => p.id === resolvedId) ??
+      getRegistrationProfile(resolvedId, role)
+    );
   }, [role, resolvedId]);
 
   const initial = useMemo(() => {
     if (!baseProfile) return null;
     const overrides = getProfileEdit(resolvedId);
-    return buildInitialForm({ ...baseProfile, ...(overrides ?? {}) });
-  }, [baseProfile, resolvedId]);
+    const profile = { ...baseProfile, ...(overrides ?? {}) };
+    const workCategory =
+      role === "student"
+        ? getProfileWorkCategory(getProfileSetupDraft(session)?.categoryId)
+        : null;
+    return buildInitialForm({
+      ...profile,
+      headline:
+        overrides?.headline ??
+        (baseProfile.headline || workCategory?.label || ""),
+    });
+  }, [baseProfile, resolvedId, role, session]);
 
   const [form, setForm] = useState(initial);
   const [photoPreview, setPhotoPreview] = useState(initial?.profileImage || "");
@@ -303,9 +319,7 @@ function ProfileEditor({
             {t("Edit profile")}
           </h1>
           <p className="mt-1 text-sm text-ink-secondary">
-            {t("Editing")} {role} {t("profile")}{" "}
-            <span className="font-medium">{resolvedId}</span>
-            {t(". Changes stay in sessionStorage until the tab is cleared.")}
+            {t("Update your details, skills and links.")}
           </p>
         </div>
 
@@ -484,7 +498,7 @@ function ProfileEditor({
               className={`text-sm ${status === "error" ? "text-[var(--theme-danger-text,var(--color-danger))]" : "text-[var(--theme-success-text,var(--color-success))]"}`}
               role="status"
             >
-              {message}
+              {t(message)}
             </p>
           ) : null}
 

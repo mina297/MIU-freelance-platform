@@ -49,12 +49,12 @@ test("checkout and client history share authorized service funding across routes
       assert.match(html, /Mastercard/);
       assert.match(html, /Apple Pay/);
       assert.match(html, /Review escrow payment/);
-      assert.match(html, /Demo checkout/);
+      assert.match(html, /Payment entry is not connected/);
       assert.equal((html.match(/<main\b/g) ?? []).length, 1);
     }
     assert.match(
       render("/Checkout", { status: "anonymous", user: null }),
-      /Start client demo/,
+      /Open client workspace/,
     );
     assert.doesNotMatch(
       render("/Checkout", {
@@ -89,8 +89,8 @@ test("checkout and client history share authorized service funding across routes
     }
     assert.match(render("/client/payments/overview"), /In progress/);
     const confirmed = render("/Checkout");
-    assert.match(confirmed, /Demo payment confirmed/);
-    assert.match(confirmed, /No real payment was made/);
+    assert.match(confirmed, /Confirmation recorded/);
+    assert.match(confirmed, /No payment was made/);
     assert.doesNotMatch(confirmed, /Confirm demo payment/);
     assert.doesNotMatch(
       render("/client/payments", {

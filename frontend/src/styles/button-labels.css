@@ -1,0 +1,39 @@
+/* Split the former icon width and gap evenly around the label. This preserves
+   intrinsic button dimensions while keeping text centered in both directions. */
+:is(a, button).button-text-only {
+  --former-icon-size: 16px;
+  --former-icon-gap: 8px;
+  display: inline-flex !important;
+  justify-content: center !important;
+  column-gap: calc(var(--former-icon-gap) / 2) !important;
+  text-align: center;
+}
+.button-text-only::before,
+.button-text-only::after {
+  content: "";
+  flex: 0 0 calc(var(--former-icon-size) / 2);
+  pointer-events: none;
+}
+.landing-pathways .button-text-only {
+  --former-icon-size: 17px;
+  --former-icon-gap: 16px;
+}
+.landing-invitation-actions .button-text-only {
+  --former-icon-size: 18px;
+  --former-icon-gap: 22px;
+}
+.ac-committee .button-text-only {
+  --former-icon-size: 15px;
+  --former-icon-gap: 6px;
+}
+.recommendation-card__link.button-text-only {
+  --former-icon-size: 17px;
+  --former-icon-gap: 10px;
+}
+.sd-button.button-text-only {
+  --former-icon-size: 18px;
+}
+.ac-committee .button-text-only--glyph {
+  --former-icon-size: 0.85em;
+  --former-icon-gap: 0px;
+}

@@ -176,9 +176,9 @@ export default function SupportRequestForm({ onSuccess, onCancel }) {
           className="h-11 w-full rounded-lg border border-border-soft px-3 text-sm"
         >
           <option value="">{t("Select a topic")}</option>
-          {TOPICS.map((t) => (
-            <option key={t.value} value={t.value}>
-              {t.label}
+          {TOPICS.map((option) => (
+            <option key={option.value} value={option.value}>
+              {t(option.label)}
             </option>
           ))}
         </select>
