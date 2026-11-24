@@ -154,3 +154,24 @@ test("startup copy is available before React, with a no-JavaScript fallback", ()
   assert.match(html, /app-startup\.js/);
   assert.doesNotMatch(source, /localStorage|sessionStorage/);
 });
+
+test("startup loads the application brand palette before its first paint", () => {
+  const html = readFileSync(
+    new URL("../../../index.html", import.meta.url),
+    "utf8",
+  );
+  const head = html.match(/<head>[\s\S]*?<\/head>/)?.[0];
+  const palette = '<link rel="stylesheet" href="/src/styles/brand-palette.css" />';
+  assert.ok(
+    head?.includes(palette),
+    "Brand colors must load without React or async CSS",
+  );
+  assert.ok(
+    head.indexOf(palette) < head.indexOf("/src/components/feedback/page-loading.css"),
+  );
+  const provider = readFileSync(
+    new URL("../../theme/ThemeProvider.jsx", import.meta.url),
+    "utf8",
+  );
+  assert.match(provider, /import "\.\.\/styles\/brand-palette\.css"/);
+});

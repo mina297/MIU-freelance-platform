@@ -1,5 +1,18 @@
 # Branded startup loading — 27 October 2026
 
+## Stable startup color — 24 November 2026
+
+The document now loads `brand-palette.css` as a render-blocking stylesheet before
+the loader stylesheet and application module. The first paint therefore uses the
+same crimson and derived light shades as the mounted application, instead of
+briefly showing the loader's older fallback colors before React's theme imports
+arrive. No startup delay or change to readiness, recovery or dark-mode behavior
+is introduced.
+
+Validation: all six startup tests and the production build passed. The regression
+check covers the blocking palette link before loader styles and the shared
+post-mount palette import. Throttled-browser visual verification was not run.
+
 ## Scope and ownership
 
 Requested by Mina on `Loading-page`. Implements shared loading presentation
