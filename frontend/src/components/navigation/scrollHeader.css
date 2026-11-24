@@ -1,0 +1,21 @@
+.scroll-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 30;
+}
+.scroll-header[data-scroll-hidden]:not(
+    :has(:focus-visible, [aria-expanded="true"])
+  ) {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-header:not(:has(:focus-visible)) {
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-header {
+    transition: none;
+  }
+}

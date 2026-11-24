@@ -33,6 +33,9 @@ import {
 } from "./navigationModel.js";
 import "./publicHeader.css";
 import "./application-navigation.css";
+import "./publicHeaderAppearance.css";
+import "./applicationHeaderAppearance.css";
+import useScrollHeader from "./useScrollHeader.js";
 
 function iconFor(path) {
   if (path.includes("dashboard")) return LayoutDashboard;
@@ -58,7 +61,14 @@ export default function ApplicationNavigation({ children }) {
   const { layout, setLayout } = useNavigationLayout();
   const [drawer, setDrawer] = useState(null);
   const active = usesApplicationNavigation(session, location.pathname);
+  const landingHeader = layout === "top";
   const drawerOpen = active && drawer === location.key;
+  const header = useScrollHeader({
+    enabled: active,
+    routeKey: location.key,
+    keepVisible: drawerOpen,
+    desktopSidebar: layout === "side",
+  });
   if (drawer !== null && drawer !== location.key) setDrawer(null);
   useEffect(() => {
     const media = window.matchMedia("(min-width: 1280px)");
@@ -73,7 +83,14 @@ export default function ApplicationNavigation({ children }) {
     return items.map(({ to, label }) => {
       const Icon = iconFor(to);
       return (
-        <NavLink key={to} to={to} end title={t(label)} onClick={close}>
+        <NavLink
+          key={to}
+          to={to}
+          end
+          title={t(label)}
+          onClick={close}
+          className={landingHeader ? "public-nav-link" : undefined}
+        >
           <Icon size={21} aria-hidden="true" />
           <span>{t(label)}</span>
         </NavLink>
@@ -87,10 +104,18 @@ export default function ApplicationNavigation({ children }) {
         data-navigation-layout={active ? layout : undefined}
       >
         {active && (
-          <header className="application-navigation">
-            <a className="application-navigation__skip" href="#application-route-content">{t("Skip to content")}</a>
+          <header
+            ref={header}
+            className={`application-navigation scroll-header${landingHeader ? " public-header application-navigation--landing" : ""}`}
+          >
+            <a
+              className="application-navigation__skip"
+              href="#application-route-content"
+            >
+              {t("Skip to content")}
+            </a>
             <Link
-              className="application-navigation__brand"
+              className={`application-navigation__brand${landingHeader ? " public-brand" : ""}`}
               to="/"
               aria-label={t("MIU Freelance home")}
             >
@@ -102,20 +127,38 @@ export default function ApplicationNavigation({ children }) {
               />
             </Link>
             <nav
-              className="application-navigation__links"
+              className={`application-navigation__links${landingHeader ? " public-navigation" : ""}`}
               aria-label={t("Main navigation")}
             >
               {renderLinks(undefined, links.slice(0, 5))}
             </nav>
-            <div className="application-navigation__utilities">
+            <div
+              className={`application-navigation__utilities${landingHeader ? " public-header-tools" : ""}`}
+            >
               <div className="application-navigation__tools">
                 <LanguageControl />
-                <Dropdown key={`appearance-${location.key}`} className="public-preferences" label={<><SlidersHorizontal size={19} aria-hidden="true" /><span className="public-control-label">{t("Appearance settings")}</span></>}>
-                  {() => <div className="public-preferences-content"><span>{t("Appearance")}</span><ThemeToggle /></div>}
+                <Dropdown
+                  key={`appearance-${location.key}`}
+                  className="public-preferences"
+                  label={
+                    <>
+                      <SlidersHorizontal size={19} aria-hidden="true" />
+                      <span className="public-control-label">
+                        {t("Appearance settings")}
+                      </span>
+                    </>
+                  }
+                >
+                  {() => (
+                    <div className="public-preferences-content">
+                      <span>{t("Appearance")}</span>
+                      <ThemeToggle />
+                    </div>
+                  )}
                 </Dropdown>
               </div>
               <Link
-                className="application-navigation__help"
+                className={`application-navigation__help${landingHeader ? " public-sign-in" : ""}`}
                 to="/help"
                 aria-label={t("Help Center")}
               >
@@ -123,7 +166,7 @@ export default function ApplicationNavigation({ children }) {
               </Link>
               <Dropdown
                 key={location.key}
-                className="application-account"
+                className={`application-account${landingHeader ? " public-account-menu" : ""}`}
                 label={
                   <>
                     <span className="application-avatar" aria-hidden="true">
@@ -138,8 +181,13 @@ export default function ApplicationNavigation({ children }) {
                 {(close) => (
                   <div className="application-account__content">
                     <div className="application-account__identity">
-                      <span className="application-avatar" aria-hidden="true">{session.user.displayName.trim().slice(0, 1)}</span>
-                      <div><small>{t("My workspace")}</small><strong>{session.user.displayName}</strong></div>
+                      <span className="application-avatar" aria-hidden="true">
+                        {session.user.displayName.trim().slice(0, 1)}
+                      </span>
+                      <div>
+                        <small>{t("My workspace")}</small>
+                        <strong>{session.user.displayName}</strong>
+                      </div>
                     </div>
                     <fieldset>
                       <legend>{t("Navigation layout")}</legend>
@@ -154,15 +202,27 @@ export default function ApplicationNavigation({ children }) {
                             value={value}
                             checked={layout === value}
                             onChange={(event) => {
-                              const trigger = event.currentTarget.closest(".application-account")?.querySelector(".disclosure-trigger");
+                              const trigger = event.currentTarget
+                                .closest(".application-account")
+                                ?.querySelector(".disclosure-trigger");
                               trigger?.focus({ preventScroll: true });
                               close();
                               setLayout(value);
                             }}
                           />
                           <span className="navigation-choice__card">
-                            <span className={`navigation-miniature navigation-miniature--${value}`} aria-hidden="true"><i /><b /><em /></span>
-                            <span className="navigation-choice__caption">{t(label)}<Check size={14} aria-hidden="true" /></span>
+                            <span
+                              className={`navigation-miniature navigation-miniature--${value}`}
+                              aria-hidden="true"
+                            >
+                              <i />
+                              <b />
+                              <em />
+                            </span>
+                            <span className="navigation-choice__caption">
+                              {t(label)}
+                              <Check size={14} aria-hidden="true" />
+                            </span>
                           </span>
                         </label>
                       ))}
@@ -178,13 +238,14 @@ export default function ApplicationNavigation({ children }) {
                         navigate("/", { replace: true });
                       }}
                     >
-                      <LogOut size={17} aria-hidden="true" />{t("Sign out")}
+                      <LogOut size={17} aria-hidden="true" />
+                      {t("Sign out")}
                     </button>
                   </div>
                 )}
               </Dropdown>
               <button
-                className="application-navigation__mobile-toggle"
+                className={`application-navigation__mobile-toggle${landingHeader ? " public-mobile-menu" : ""}`}
                 type="button"
                 aria-label={t("Open navigation")}
                 aria-haspopup="dialog"
@@ -196,7 +257,11 @@ export default function ApplicationNavigation({ children }) {
             </div>
           </header>
         )}
-        <div id={active ? "application-route-content" : undefined} tabIndex={active ? -1 : undefined} className={active ? "application-shell__content" : undefined}>
+        <div
+          id={active ? "application-route-content" : undefined}
+          tabIndex={active ? -1 : undefined}
+          className={active ? "application-shell__content" : undefined}
+        >
           {children}
         </div>
         {active && (

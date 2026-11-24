@@ -46,6 +46,24 @@ in effect. Full-width order actions retain their width and center their text.
 
 ### Shared hero navbar — 24 November 2026
 
+All top navigation headers now share `useScrollHeader`: after scrolling below the
+header height, downward scroll hides the bar and any upward scroll reveals it.
+Near the page top it stays visible. Landing, account, public and authentication
+headers use the same behavior; desktop side navigation stays fixed, while its
+mobile top bar follows scroll direction. Route changes reset visibility. Focus,
+expanded menus and open drawers keep navigation reachable. Motion uses the
+existing 160ms transform transition and ease-out curve, with no transition under
+reduced motion. Scroll listeners are passive and removed when disconnected.
+
+All authenticated pages with top navigation now use the same glass
+navigation classes from `publicHeaderAppearance.css` for the signed-in top header.
+The enclosing account bar is transparent with landing-page spacing; destination
+pills, language, appearance, help, account and mobile-menu controls share the
+landing treatment in both themes. Role-specific destinations and account actions
+remain available. The optional side rail keeps its existing layout. This applies
+to dashboards (including Overview), profiles and other account routes, and does
+not replace the routed content or reset drafts.
+
 The hero's glass navigation treatment now belongs to `LandingHeader` itself.
 `publicHeaderAppearance.css` provides the same control sizes, pill shapes,
 translucent surfaces, light/dark treatment and responsive spacing on public

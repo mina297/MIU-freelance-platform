@@ -64,3 +64,10 @@ Member 3 remains responsible for committee assignment and disputes. Financial fu
 Run `npm.cmd test`, `npm.cmd run lint` and `npm.cmd run build` from frontend. New regressions cover identity alignment, route guards, owner-only writes, storage failure propagation, live completion eligibility, duplicate submissions and escaped public review content. The historical profile render smoke script remains available explicitly at `src/features/profiles/__tests__/renderStudentProfile.smoke.mjs`.
 
 Automated/static rendering checks do not establish mobile layout, browser interaction, modal focus behavior or screen-reader acceptance. Those remain unrun unless separately recorded.
+# Profile navigation appearance — 24 November 2026
+
+Authenticated top navigation on `/students/:studentId`, `/clients/:clientId` and
+`/profile/edit` reuses LandingHeader's glass styling, as do Overview and all other
+authenticated pages with top navigation. Student/client links, account
+utilities, role access, mobile drawer and optional side navigation remain intact.
+Post-registration onboarding continues to use its dedicated header.

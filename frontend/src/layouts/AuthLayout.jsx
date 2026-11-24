@@ -5,6 +5,7 @@ import Dropdown from "../components/ui/Dropdown.jsx";
 import logo from "../assets/figma/miu-anniversary-logo.png";
 import { PUBLIC_REGISTRATION_ROLES, ROLES } from "../features/auth/session.js";
 import "../features/auth/authForm.css";
+import useScrollHeader from "../components/navigation/useScrollHeader.js";
 
 export default function AuthLayout() {
   const { t } = useLanguage();
@@ -16,6 +17,10 @@ export default function AuthLayout() {
   const role = new URLSearchParams(location.search).get("role");
   const showAccountType =
     path === "/register" && PUBLIC_REGISTRATION_ROLES.includes(role);
+  const header = useScrollHeader({
+    enabled: showAccountHeader,
+    routeKey: location.key,
+  });
 
   return (
     <div className="premium-auth-layout min-h-screen">
@@ -23,7 +28,7 @@ export default function AuthLayout() {
         {t("Skip to content")}
       </a>
       {showAccountHeader ? (
-        <header className="auth-account-header">
+        <header ref={header} className="auth-account-header scroll-header">
           <Link
             className="auth-home-link"
             to="/"

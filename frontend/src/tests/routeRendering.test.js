@@ -361,7 +361,7 @@ test("public website routes render real pages in one shell with safe destination
       assert.equal((html.match(/<main\b/g) ?? []).length, 1, path);
       assert.equal((html.match(/<footer\b/g) ?? []).length, 1, path);
       assert.equal((html.match(/<h1\b/g) ?? []).length, 1, path);
-      assert.match(html, /class="public-header"/);
+      assert.match(html, /class="public-header scroll-header"/);
       assert.doesNotMatch(
         html,
         /Phase 1 demo session controls|Simulated session controls|Demo navigation/,
@@ -603,7 +603,7 @@ test("all five authentication routes render labeled forms or role selection", as
       assert.doesNotMatch(html, /routing placeholder only/i);
       if (/^\/(login|register)\b/.test(path)) {
         assert.doesNotMatch(html, /Public navigation/);
-        assert.match(html, /class="auth-account-header"/);
+        assert.match(html, /class="auth-account-header scroll-header"/);
         assert.match(html, /class="auth-home-link"[^>]*href="\/"/);
         assert.doesNotMatch(
           html,

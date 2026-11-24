@@ -12,6 +12,7 @@ import {
 import "./public-shell.css";
 import ThemeToggle from "../../theme/ThemeToggle.jsx";
 import LanguageControl from "../../i18n/LanguageControl.jsx";
+import useScrollHeader from "./useScrollHeader.js";
 
 /** Visitor presentation only; routing and session policy belong to Member 1. */
 export default function PublicHeader({
@@ -24,7 +25,10 @@ export default function PublicHeader({
   const [menu, setMenu] = useState({ open: false, path: currentPath });
   const menuOpen = menu.open && menu.path === currentPath;
   const panelId = useId();
-  const headerRef = useRef(null);
+  const headerRef = useScrollHeader({
+    routeKey: currentPath,
+    keepVisible: menuOpen,
+  });
   const toggleRef = useRef(null);
   const homeRef = useRef(null);
   const closeMenu = () => setMenu({ open: false, path: currentPath });
@@ -54,7 +58,7 @@ export default function PublicHeader({
       document.removeEventListener("pointerdown", onOutsidePointer);
       desktop.removeEventListener("change", onResize);
     };
-  }, [menuOpen, currentPath]);
+  }, [menuOpen, currentPath, headerRef]);
 
   const renderLink = ({ key, label }, className = "") => (
     <PublicLink
@@ -70,7 +74,7 @@ export default function PublicHeader({
 
   return (
     <header
-      className="miu-public-header"
+      className="miu-public-header scroll-header"
       ref={headerRef}
       onKeyDown={(event) => {
         if (event.key === "Escape" && menuOpen) {

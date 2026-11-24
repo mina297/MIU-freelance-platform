@@ -1,0 +1,53 @@
+/* Account top navigation shares LandingHeader's glass controls and spacing. */
+.application-navigation--landing {
+  width: min(1568px, 100%);
+  min-height: 96px;
+  margin: 0 auto;
+  padding: 22px clamp(20px, 3.6vw, 64px) 12px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.application-navigation--landing .application-navigation__brand {
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.application-navigation--landing .application-navigation__links a {
+  min-height: 42px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.application-navigation--landing .application-navigation__links a svg {
+  width: 18px;
+  height: 18px;
+}
+.application-navigation--landing .application-navigation__utilities {
+  gap: 8px;
+}
+.application-navigation--landing .application-navigation__help {
+  width: 42px;
+  padding: 0;
+}
+@media (max-width: 1279px) {
+  .application-navigation--landing {
+    min-height: 82px;
+    padding: 14px 20px 8px;
+  }
+}
+@media (max-width: 600px) {
+  .application-navigation--landing {
+    padding: 12px 16px 8px;
+    gap: 8px;
+  }
+  .application-navigation--landing .application-navigation__utilities {
+    gap: 5px;
+  }
+  .application-navigation--landing .application-navigation__help {
+    display: none;
+  }
+}

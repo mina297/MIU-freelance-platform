@@ -1,5 +1,6 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useState } from "react";
+import useScrollHeader from "./useScrollHeader.js";
 import Modal from "../ui/Modal.jsx";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -76,31 +77,13 @@ export default function LandingHeader({ accountAction }) {
   const drawerGroup = useId();
   const { t } = useLanguage();
   const location = useLocation();
-  const header = useRef(null);
   const [drawerKey, setDrawerKey] = useState(null);
   const drawerOpen = drawerKey === location.key;
+  const header = useScrollHeader({
+    routeKey: location.key,
+    keepVisible: drawerOpen,
+  });
   if (drawerKey !== null && drawerKey !== location.key) setDrawerKey(null);
-  useEffect(() => {
-    const element = header.current;
-    const scroller = document.scrollingElement;
-    if (!element || !scroller) return;
-
-    let previous = Math.max(0, scroller.scrollTop);
-    function updateDirection() {
-      const current = Math.max(
-        0,
-        Math.min(scroller.scrollTop, scroller.scrollHeight - scroller.clientHeight),
-      );
-      if (current === previous) return;
-
-      const hide = current > element.offsetHeight && current > previous;
-      element.toggleAttribute("data-scroll-hidden", hide);
-      previous = current;
-    }
-
-    window.addEventListener("scroll", updateDirection, { passive: true });
-    return () => window.removeEventListener("scroll", updateDirection);
-  }, []);
   useEffect(() => {
     const desktop = window.matchMedia("(min-width: 1180px)");
     const close = () => {
@@ -117,7 +100,6 @@ export default function LandingHeader({ accountAction }) {
       </Link>
       <Link to="/register" className="public-sign-up button-text-only">
         {t("Sign Up")}
-
       </Link>
     </>
   );
@@ -136,12 +118,11 @@ export default function LandingHeader({ accountAction }) {
           <strong>{t(title)}</strong>
           <small>{t(description)}</small>
         </span>
-
       </Link>
     ));
   }
   return (
-    <header ref={header} className="public-header">
+    <header ref={header} className="public-header scroll-header">
       <div className="public-header-inner">
         <Link
           to="/"
@@ -249,9 +230,16 @@ export default function LandingHeader({ accountAction }) {
         className="public-navigation-drawer"
       >
         {drawerOpen && (
-          <nav aria-label={t("Public navigation")} className="public-drawer-groups">
+          <nav
+            aria-label={t("Public navigation")}
+            className="public-drawer-groups"
+          >
             {navigation.map(({ label, links, icon: GroupIcon }) => (
-              <details key={label} name={drawerGroup} className="public-drawer-group">
+              <details
+                key={label}
+                name={drawerGroup}
+                className="public-drawer-group"
+              >
                 <summary>
                   <span className="public-dropdown-icon">
                     <GroupIcon size={20} aria-hidden="true" />

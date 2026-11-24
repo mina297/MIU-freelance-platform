@@ -20,7 +20,8 @@
   box-shadow: 0 8px 24px -18px
     color-mix(in srgb, var(--brand-red-deep, #482335) 33.33%, transparent);
   background: var(--theme-surface, #fff);
-  position: relative;
+  position: sticky;
+  inset-block-start: 0;
   z-index: 30;
 }
 .application-navigation__brand {
