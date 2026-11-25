@@ -1,5 +1,11 @@
 # Landing Page — Phase 1 frontend
 
+Hero ribbon removal — 25 November 2026: removed all decorative light curves
+and moving light heads around the journey cards, including their drawing
+timeline and unused styles/geometry. Card artwork, placement and door/card
+entrances retain their existing behavior. This supersedes the ribbon notes
+below. Scope: P-01, FR-V01, NFR-02/NFR-03.
+
 Drawing light head — 25 November 2026: a small bright tip now follows the
 active ribbon as its stroke is revealed, leaving the drawn line visible behind
 it. Tip position and stroke offset share the same tween progress. Actual SVG

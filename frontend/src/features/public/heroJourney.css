@@ -24,38 +24,6 @@
   perspective: 900px;
   direction: ltr;
 }
-.miu-journey-stage .miu-connections {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-.miu-journey-stage .miu-light-trails {
-  stroke: #fffdfb;
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  /* A white core with a crimson bloom follows the reference's light ribbons. */
-  filter:
-    drop-shadow(0 0 0.3cqw #fffaf5)
-    drop-shadow(0 0 0.8cqw color-mix(in srgb, var(--brand-red) 45%, transparent));
-}
-.miu-journey-stage .miu-light-trails path {
-  stroke: inherit;
-  stroke-width: inherit;
-  opacity: 0.85;
-  filter: none;
-}
-.miu-ribbon-tips {
-  fill: #ffffff;
-  filter:
-    drop-shadow(0 0 0.4cqw #fffaf5)
-    drop-shadow(0 0 0.8cqw var(--brand-red-border));
-}
-.miu-ribbon-tips circle {
-  opacity: 0;
-}
 /* The approved raster artwork already includes its material, text and tilt. */
 .landing-hero-media .miu-journey-stage .miu-journey-item {
   display: block;

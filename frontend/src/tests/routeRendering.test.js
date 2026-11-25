@@ -225,14 +225,7 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     assert.equal((html.match(/class="miu-journey-artwork"/g) ?? []).length, 7);
     assert.match(html, /miu-journey-objects-light-crimson-v3\.webp/);
     assert.doesNotMatch(html, /miu-profile-stars|miu-earnings-chart|miu-laptop-keyboard/);
-    assert.match(html, /class="miu-light-trails"/);
-    for (const ribbon of ["rising", "upper-orbit", "lower-orbit"]) {
-      assert.ok(html.includes(`data-ribbon="${ribbon}"`));
-    }
-    assert.equal((html.match(/data-ribbon=/g) ?? []).length, 3);
-    assert.equal((html.match(/data-ribbon-tip=/g) ?? []).length, 3);
-    assert.doesNotMatch(html, /pathLength="1"/);
-    assert.doesNotMatch(html, /data-trail=/);
+    assert.doesNotMatch(html, /miu-connections|miu-light-trails|data-ribbon|miu-ribbon-tips/);
     assert.doesNotMatch(html, /Order details · No payment taken/);
     assert.match(html, /id="hero-discover"/);
     assert.doesNotMatch(html, /miu-story-rail|miu-story-progress|miu-story-chapters/);

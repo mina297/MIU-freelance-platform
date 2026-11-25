@@ -86,7 +86,6 @@ export function useHeroStory(ref, enabled) {
             duration: 0.45,
             ease: "power3.out",
           };
-          // Keep the broad reference orbits; draw each complete curve smoothly.
           const reveals = [
             ".miu-scene-project",
             ".miu-scene-profile",
@@ -99,43 +98,6 @@ export function useHeroStory(ref, enabled) {
           for (const [index, selector] of reveals.entries()) {
             const at = doorOpenAt + 0.1 + index * emerge.duration;
             timeline.from(select(selector), { ...emerge }, at);
-          }
-          let ribbonStart = doorOpenAt + 0.1;
-          // SVG units per second: different lengths retain the same drawing
-          // speed. Each ribbon starts as soon as the preceding one finishes.
-          const ribbonSpeed = 700;
-          for (const ribbon of ["rising", "upper-orbit", "lower-orbit"]) {
-            const path = select(`[data-ribbon="${ribbon}"]`)[0];
-            const tip = select(`[data-ribbon-tip="${ribbon}"]`)[0];
-            if (!path || !tip) continue;
-            const length = path.getTotalLength();
-            const duration = length / ribbonSpeed;
-            const start = path.getPointAtLength(0);
-            const setTipX = gsap.quickSetter(tip, "x", "px");
-            const setTipY = gsap.quickSetter(tip, "y", "px");
-            timeline.set(tip, { x: start.x, y: start.y, opacity: 0 }, 0);
-            timeline.set(tip, { opacity: 1 }, ribbonStart);
-            timeline.fromTo(
-              path,
-              // Use actual SVG units: CSS px offsets and normalized pathLength
-              // can otherwise disagree about how much of a path is hidden.
-              { strokeDasharray: `${length} ${length}`, strokeDashoffset: length },
-              {
-                strokeDashoffset: 0,
-                duration,
-                ease: "none",
-                onUpdate: function () {
-                  // The pen and the revealed stroke share one tween's progress,
-                  // including reset/reverse: the bright head cannot run ahead.
-                  const point = path.getPointAtLength(length * this.progress());
-                  setTipX(point.x);
-                  setTipY(point.y);
-                },
-              },
-              ribbonStart,
-            );
-            ribbonStart += duration;
-            timeline.set(tip, { opacity: 0 }, ribbonStart);
           }
         }, root);
         ScrollTrigger.refresh();
