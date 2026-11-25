@@ -32,402 +32,89 @@
   overflow: visible;
 }
 .miu-journey-stage .miu-light-trails {
-  stroke: #fff9f7;
-  stroke-width: 1.8;
-  filter: drop-shadow(0 0 3px var(--brand-red-border, #ff657b))
-    drop-shadow(0 0 7px var(--brand-red-soft, #ffbac4));
+  stroke: #fffdfb;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /* A white core with a crimson bloom follows the reference's light ribbons. */
+  filter:
+    drop-shadow(0 0 0.3cqw #fffaf5)
+    drop-shadow(0 0 0.8cqw color-mix(in srgb, var(--brand-red) 45%, transparent));
 }
 .miu-journey-stage .miu-light-trails path {
   stroke: inherit;
   stroke-width: inherit;
-  opacity: 0.9;
-  stroke-dasharray: 1;
+  opacity: 0.85;
   filter: none;
 }
-.miu-journey-stage .miu-scene-card {
-  --journey-glass: linear-gradient(
-    130deg,
-    #ffffffeb,
-    color-mix(in srgb, var(--brand-red-tint, #fff1f1) 70.98%, transparent) 58%,
-    color-mix(in srgb, var(--brand-red-soft, #f8c7cd) 47.84%, transparent)
-  );
-  box-sizing: border-box;
-  display: flex;
-  position: absolute;
-  padding: 1.36cqw;
-  gap: 1.12cqw;
-  border: 1px solid #fff8f5;
-  border-radius: 1.92cqw;
-  background: var(--journey-glass);
-  box-shadow:
-    inset 0 0 0 2px #ffffff60,
-    inset 0 0 12px #ffffffb0,
-    2px 3px 0
-      color-mix(in srgb, var(--brand-red-muted, #d9808b) 37.65%, transparent),
-    0 0 10px var(--brand-red-tint, #fff5f4),
-    0 10px 24px
-      color-mix(in srgb, var(--brand-red, #8b1527) 20.39%, transparent);
-  backdrop-filter: blur(5px);
-  color: #3b171c;
-  transform-style: preserve-3d;
-  text-align: left;
-  direction: ltr;
+.miu-ribbon-tips {
+  fill: #ffffff;
+  filter:
+    drop-shadow(0 0 0.4cqw #fffaf5)
+    drop-shadow(0 0 0.8cqw var(--brand-red-border));
 }
-.miu-journey-stage .miu-scene-card::after {
-  content: "";
-  position: absolute;
-  inset: 3px;
-  border: 1px solid #ffffff6e;
-  border-radius: inherit;
+.miu-ribbon-tips circle {
+  opacity: 0;
+}
+/* The approved raster artwork already includes its material, text and tilt. */
+.landing-hero-media .miu-journey-stage .miu-journey-item {
+  display: block;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  transform: none;
+}
+.miu-journey-artwork {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
   pointer-events: none;
 }
-.miu-journey-stage .miu-scene-card strong {
-  font-family: var(--font-sans);
-  font-size: 1.52cqw;
-  line-height: 1.25;
-  font-weight: 750;
-  color: inherit;
-  letter-spacing: -0.025em;
-}
-.miu-journey-stage .miu-scene-card-icon {
-  display: grid;
-  place-items: center;
-  width: 5.2cqw;
-  height: 5.2cqw;
-  flex-shrink: 0;
-  border-radius: 0.88cqw;
-  color: #fff3ee;
-  background: linear-gradient(
-    135deg,
-    var(--brand-red-muted, #ec5660),
-    var(--brand-red, #a6091c)
-  );
-  border: 1px solid var(--brand-red-soft, #ffb6ba);
-  box-shadow:
-    inset 0 1px 3px #fff7,
-    0 2px 5px color-mix(in srgb, var(--brand-red, #a90b2b) 25.1%, transparent);
-}
-.miu-journey-stage .miu-scene-card-icon svg {
-  width: 3.2cqw;
-  height: 3.2cqw;
-}
 .miu-journey-stage .miu-scene-project {
-  display: block;
-  left: 48%;
-  top: 29%;
-  width: 24%;
-  padding: 0 1.2cqw 1.36cqw;
-  transform: rotate(-13deg) rotateY(-18deg) rotateX(5deg);
-}
-.miu-window-bar {
-  display: flex;
-  align-items: center;
-  gap: 0.52cqw;
-  height: 3.52cqw;
-  border-bottom: 1px solid
-    color-mix(in srgb, var(--brand-red-muted, #c79899) 22.75%, transparent);
-}
-.miu-window-bar i {
-  width: 0.68cqw;
-  height: 0.68cqw;
-  background: var(--brand-red-muted, #c63a47);
-  border-radius: 50%;
-  box-shadow: 0 0 3px var(--brand-red-border, #fc6977);
-}
-.miu-window-bar span {
-  margin-left: auto;
-  width: 2.4cqw;
-  height: 0.4cqw;
-  background: color-mix(
-    in srgb,
-    var(--brand-red-muted, #c38e94) 43.92%,
-    transparent
-  );
-}
-.miu-window-content {
-  display: flex;
-  align-items: center;
-  gap: 1.12cqw;
-  padding: 1.2cqw 0;
-}
-.miu-window-content > div {
-  flex: 1;
-  min-width: 0;
-  display: grid;
-  gap: 0.72cqw;
-}
-.miu-skeleton-line {
-  display: block;
-  width: 100%;
-  height: 0.64cqw;
-  background: color-mix(
-    in srgb,
-    var(--brand-red-muted, #a87c83) 43.92%,
-    transparent
-  );
-  border-radius: 1px;
-}
-.miu-skeleton-line.short {
-  width: 70%;
-}
-.miu-project-progress {
-  display: block;
-  height: 0.88cqw;
-  background: color-mix(
-    in srgb,
-    var(--brand-red-border, #d5a1a4) 26.27%,
-    transparent
-  );
-  border-radius: 1px;
-  overflow: hidden;
-}
-.miu-project-progress i {
-  display: block;
-  width: 67%;
-  height: 100%;
-  background: var(--brand-red, #c63240);
+  left: 45.6%;
+  top: 27.4%;
+  width: 28.8%;
 }
 .miu-journey-stage .miu-scene-profile {
-  display: block;
-  left: 6%;
-  top: 49%;
-  width: 21.6%;
-  transform: rotate(9deg) rotateY(22deg) rotateX(-4deg);
-}
-.miu-profile-preview {
-  display: flex;
-  gap: 1.44cqw;
-  align-items: center;
-}
-.miu-profile-avatar {
-  width: 8cqw;
-  height: 8.8cqw;
-  border-radius: 0.8cqw;
-  background: var(--brand-red-soft, #f1dfde);
-}
-.miu-profile-preview > div {
-  display: grid;
-  flex: 1;
-  gap: 1.04cqw;
-}
-.miu-profile-stars {
-  display: flex;
-  gap: 0.36cqw;
-  padding-top: 0.8cqw;
-  color: var(--brand-red, #bf2333);
-}
-.miu-profile-stars svg {
-  width: 2.32cqw;
-  height: 2.32cqw;
-  stroke-width: 1;
-}
-.miu-profile-caption {
-  display: block;
-  margin-top: 0.56cqw;
-  font-size: 1.08cqw;
-  color: var(--brand-red, #84535a);
+  left: 3.6%;
+  top: 47.4%;
+  width: 28.8%;
 }
 .miu-journey-stage .miu-scene-service {
-  display: flex;
-  left: 36%;
+  left: 33.6%;
   right: auto;
-  top: 76%;
-  width: 24%;
-  transform: rotate(7deg) rotateY(17deg);
-}
-.miu-journey-stage .miu-scene-service > div {
-  min-width: 0;
-  display: grid;
-  flex: 1;
-  gap: 0.8cqw;
-}
-.miu-journey-stage .miu-card-detail {
-  font-size: 1.08cqw;
-  color: #765358;
-  line-height: 1.3;
+  top: 75%;
+  width: 28.8%;
 }
 .miu-journey-stage .miu-scene-earnings {
-  display: block;
-  left: 81%;
-  top: 26%;
-  width: 12%;
-  padding: 1.04cqw;
-  transform: rotate(-12deg) rotateY(-14deg);
-}
-.miu-journey-stage .miu-scene-earnings strong {
-  color: var(--brand-red, #b31c2c);
-  font-size: 2.4cqw;
-}
-.miu-earnings-chart {
-  position: relative;
-  display: flex;
-  align-items: end;
-  gap: 0.64cqw;
-  height: 5.6cqw;
-  padding-top: 0.8cqw;
-}
-.miu-earnings-chart i {
-  width: 1.36cqw;
-  height: 35%;
-  background: linear-gradient(
-    var(--brand-red-muted, #ed5762),
-    var(--brand-red, #a30b1f)
-  );
-}
-.miu-earnings-chart i:nth-child(2) {
-  height: 50%;
-}
-.miu-earnings-chart i:nth-child(3) {
-  height: 72%;
-}
-.miu-earnings-chart i:nth-child(4) {
-  height: 94%;
-}
-.miu-earnings-chart svg {
-  position: absolute;
-  inset: -0.48cqw 0 auto;
-  width: 100%;
-  height: 4cqw;
-  color: var(--brand-red, #d12437);
+  left: 79.8%;
+  top: 24.8%;
+  width: 14.4%;
 }
 .miu-journey-stage .miu-scene-laptop {
   left: 73%;
   right: auto;
   top: 59%;
   width: 24%;
-  transform: rotate(-7deg) rotateY(-18deg);
 }
-.miu-journey-stage .miu-laptop-screen {
-  display: grid;
-  place-items: center;
-  padding: 0;
-  width: 100%;
-  height: 15cqw;
-  border: 0.7cqw solid #32252a;
-  border-radius: 1cqw 1cqw 0.3cqw 0.3cqw;
-  background: radial-gradient(
-    ellipse at center,
-    var(--brand-red-deep, #581120),
-    #19090e 68%
-  );
-  transform: skewX(-12deg);
-  box-shadow:
-    inset 0 0 0 1px #ffffff20,
-    0 0 12px
-      color-mix(in srgb, var(--brand-red-tint, #fff5f5) 25.1%, transparent);
-}
-.miu-laptop-screen > svg {
-  width: 7cqw;
-  height: 7cqw;
-  color: var(--brand-red, #c21e36);
-  stroke-width: 0.9;
-  filter: drop-shadow(0 0 3px var(--brand-red-muted, #f92e4f));
-}
-.miu-laptop-keyboard {
-  position: relative;
-  width: 103%;
-  height: 4.5cqw;
-  margin-left: -2%;
-  background:
-    repeating-linear-gradient(90deg, transparent 0 6%, #9c8f933b 6% 7%),
-    linear-gradient(var(--brand-red-tint, #f8e9e9), #d1bfc1);
-  transform: skewX(-37deg);
-  border: 1px solid #fffc;
-}
-.miu-laptop-keyboard i {
-  display: block;
-  position: absolute;
-  width: 25%;
-  height: 35%;
-  left: 36%;
-  bottom: 5%;
-  background: #bba9ac;
-  border: 1px solid #fff9;
-}
-.miu-journey-stage .miu-laptop-base {
-  width: 112%;
-  height: 0.8cqw;
-  margin-left: -8%;
-  background: linear-gradient(#fff7f5, #ad969c);
-  transform: skewX(-37deg);
-  border-radius: 0 0 2cqw 2cqw;
-}
-.miu-floating-icon {
-  position: absolute;
-  display: grid;
-  place-items: center;
-  width: 10%;
-  aspect-ratio: 1;
-  border-radius: 2cqw;
-  color: #fff5ef;
-  background: linear-gradient(
-    135deg,
-    var(--brand-red-soft, #ffb4b0),
-    var(--brand-red-muted, #d33948) 48%,
-    var(--brand-red, #ad1025)
-  );
-  border: 1px solid #fff8;
-  box-shadow:
-    inset 0 0 7px var(--brand-red-tint, #ffe3e4),
-    0 0 12px var(--brand-red-border, #ff9ca6);
-}
-.miu-floating-icon svg {
-  width: 58%;
-  height: 58%;
-  stroke-width: 1.5;
-}
-.miu-floating-briefcase {
+.miu-journey-stage .miu-floating-briefcase {
   left: 70%;
   top: 7%;
-  transform: rotate(8deg) rotateY(-10deg);
+  width: 10%;
 }
-.miu-floating-users {
+.miu-journey-stage .miu-floating-users {
   left: -5%;
   top: 52%;
   width: 9%;
-  transform: rotate(-11deg) rotateY(16deg);
-}
-.miu-journey-disclosure {
-  position: absolute;
-  left: 48%;
-  top: 96%;
-  color: var(--brand-red, #7b454d);
-  font-size: 1.3cqw;
-}
-:root[data-theme="dark"] .miu-journey-stage .miu-scene-card {
-  --journey-glass: linear-gradient(
-    130deg,
-    color-mix(in srgb, var(--theme-accent-raised) 87%, transparent),
-    color-mix(in srgb, var(--brand-red-deep) 79%, transparent)
-  );
-  color: var(--theme-text);
-  border-color: var(--theme-accent);
-  box-shadow:
-    inset 0 0 0 2px #fff2,
-    0 0 8px color-mix(in srgb, var(--brand-red-border) 38%, transparent),
-    0 10px 24px #08020380;
-}
-:root[data-theme="dark"]
-  .miu-journey-stage
-  :is(.miu-card-detail, .miu-profile-caption, .miu-journey-disclosure) {
-  color: var(--theme-muted-text);
-}
-:root[data-theme="dark"] .miu-journey-stage .miu-scene-earnings strong {
-  color: var(--theme-accent);
 }
 @media (max-width: 760px) {
   .landing-hero-media .miu-scene-overlay {
     width: 145%;
     top: 50%;
     transform: translateY(-50%);
-  }
-}
-@media (prefers-reduced-transparency: reduce) {
-  .miu-journey-stage .miu-scene-card {
-    background: #fff3ef;
-    backdrop-filter: none;
-  }
-  :root[data-theme="dark"] .miu-journey-stage .miu-scene-card {
-    background: var(--theme-accent-surface);
   }
 }

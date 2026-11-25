@@ -57,7 +57,7 @@ test("both themes clip the hero cavity and moving leaves to the same inner frame
       );
       assert.ok(html.includes(`<path d="${opening}" fill="black"`));
       assert.doesNotMatch(html, /original-rim/);
-      const images = [...html.matchAll(/<image href="([^"]+)"/g)].map(
+      const images = [...html.matchAll(/<image href="([^"]*miu-crimson[^"]*)"/g)].map(
         (match) => match[1],
       );
       assert.equal(images.length, 3);
@@ -72,6 +72,12 @@ test("both themes clip the hero cavity and moving leaves to the same inner frame
           ? /miu-crimson-dark-ivory\.webp/
           : /miu-crimson-light\.webp/,
       );
+      const objects = [...html.matchAll(/<image href="([^"]*miu-journey-objects[^"]*)"/g)].map((match) => match[1]);
+      assert.equal(objects.length, 7, "Every decorative object uses raster artwork");
+      assert.equal(new Set(objects).size, 1, "Objects share one atlas per theme");
+      assert.match(objects[0], theme === "dark"
+        ? /miu-journey-objects-dark-ivory-v2\.webp/
+        : /miu-journey-objects-light-crimson-v3\.webp/);
     }
   } finally {
     await vite.close();

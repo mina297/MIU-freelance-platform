@@ -42,6 +42,74 @@ The footage is locally bundled; no Pexels request is required at runtime.
 - This illustrative asset does not establish official university approval. All website controls and floating card text are rendered separately in React.
 
 
+## Approved raster journey objects — 25 November 2026
+
+Active light edition: `miu-journey-objects-light-crimson-v3.webp` (1536 × 1024,
+RGBA), edited with built-in ImageGen from the pearl-white PNG. Generated source:
+`exec-2342ddcb-d7c1-40f9-9cc0-baa6f3c9ebc1.png`. Final prompt: keep the four
+glass cards predominantly pearl white and mix a very light crimson undertone
+inside their surfaces (5–7% `#a00018` in white, approximately `#faf1f3`), with
+subtle internal reflections. No new outer glow, bloom or halo. Preserve strong
+red accents, typography, laptop, tiles, fictional portrait, all seven objects'
+exact geometry/layout/content and the 1536 × 1024 transparent canvas. The dark
+edition is unchanged. WebP encoding retains alpha.
+
+Previous pearl light edition: `miu-journey-objects-light-pearl-v2.webp` (1536 × 1024,
+RGBA), edited with built-in ImageGen from the original approved light atlas.
+Generated source: `exec-6ebc2840-7acf-44c3-9adb-25c69da436a8.png`.
+Final prompt: reduce the pink cast of light glass card surfaces by about 65%,
+toward pearl white `#faf9f8`, neutral gray `#e6e1e1` shading and near-white edge
+highlights. Retain the crimson icons, stars, shirt, bars and globe, dark text,
+laptop and icon tiles. Preserve all seven positions, silhouettes, dimensions,
+angles, content and exact text on the transparent 1536 × 1024 canvas. No new
+objects, background, watermark or beige/yellow cast. WebP encoding retains alpha.
+
+Active dark edition: `miu-journey-objects-dark-ivory-v2.webp` (1536 × 1024,
+RGBA), created with built-in ImageGen using the light atlas as edit target and
+`miu-crimson-dark-ivory.webp` as color reference. Generated source:
+`exec-27cf7c29-9400-4389-9d3c-f214ccbe4a3d.png`. Final prompt: preserve all
+seven positions, silhouettes, dimensions, angles, text and transparent canvas;
+keep the light-mode design with pearl/ivory glass matching the building
+(`#e4dacf` highlights, `#cec3b6` shadows, `#f4eee4` edges), dark readable text,
+and deep ruby crimson accents (`#900019`, `#60000e` shadows). Keep the pale
+laptop body, charcoal screen, red globe and fictional avatar. No dark panels,
+background, architecture, added objects or watermark. WebP encoding retains
+alpha. This supersedes the earlier dark-glass proposal below.
+
+Earlier dark proposal: `miu-journey-objects-dark-v1.webp` (1536 × 1024, RGBA), created
+with the built-in ImageGen editor from the approved light atlas, then encoded
+as WebP. Generated source: `exec-ea7a2b5d-0c68-4219-be7f-ceb3f95288a0.png`.
+Final edit prompt: color/material lighting only; preserve all seven objects'
+positions, dimensions, silhouettes, perspective, spacing and exact text on the
+1536 × 1024 transparent canvas. Replace pale glass with charcoal `#25262c` and
+burgundy `#38232d`, deep crimson `#60000e` shadows, rose `#dea6af` edge highlights
+and restrained `#a00018` rim light. Use off-white `#f4f1f3` typography and muted
+`#bfbac3` details. Retain crimson accents, five stars, natural fictional skin/hair,
+white tile symbols and globe. Laptop metal becomes satin graphite. Preserve
+all existing labels and clean transparency; add no objects, logo or watermark.
+The shared theme selects this atlas only in dark appearance.
+
+- File: `miu-journey-objects-v1.webp`, 1536 × 1024, 233,032 bytes, RGBA.
+- Source: the built-in ImageGen preview explicitly approved by the user in this
+  chat (`exec-e363314f-9615-449b-9f68-26025759bb2c.png`). No new generation or
+  manual redraw was used for integration. WebP encoding preserves its alpha.
+- Reference: the user's MIU-building hero screenshot. The building/logo were
+  style context only; they are not included in this asset.
+- Prompt: create a transparent, spacious seven-object contact sheet of premium
+  3D glass/acrylic freelance illustrations in site crimson `#a00018`, white,
+  pale blush `#f2dce1` and burgundy shadows `#60000e`. Include a fictional student
+  profile with five crimson stars and “Student freelancer”; a browser card with
+  “Website Project”; a code card with “New Project” and “Website Development”;
+  an “EGP” chart with four rising bars; an ivory/charcoal laptop with a red globe;
+  a crimson briefcase tile; and a crimson people tile. Soft studio highlights,
+  beveled translucent edges and restrained rim lighting. No building, navigation,
+  website headline, extra objects, watermark, real identities or financial data.
+- `heroJourneyArtwork.js` records seven SVG viewports over the single raster
+  atlas. SVG supplies clipping only. The painted text, stars, avatar, materials
+  and perspective are raster pixels, replacing earlier React/CSS drawings.
+- The atlas uses baked-in English labels in both themes and language modes.
+  It remains a fictional decorative illustration, not real marketplace data.
+
 ## Reference-matched rose hero — 12 November 2026
 
 - Active file: `miu-reference-rose.webp` (1672 × 941). The earlier beige `miu-reference-ivory.webp` is retained for reverting.

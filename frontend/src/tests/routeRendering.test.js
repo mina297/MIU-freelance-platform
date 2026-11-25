@@ -219,36 +219,21 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
       assert.match(html, new RegExp("miu-scene-card miu-scene-" + kind));
     }
     assert.match(html, /class="miu-journey-stage"/);
-    assert.match(html, /class="miu-profile-stars"/);
-    assert.match(html, /class="miu-earnings-chart"/);
-    assert.match(html, /class="miu-light-trails"/);
-    let previousTrailEnd = [273, 410];
-    for (const trail of [
-      "project",
-      "profile",
-      "users",
-      "briefcase",
-      "service",
-      "laptop",
-      "earnings",
-    ]) {
-      assert.ok(
-        html.includes(`data-trail="${trail}"`),
-        `Dedicated light trail for ${trail}`,
-      );
-      const path = html.match(
-        new RegExp(`data-trail="${trail}"[^>]* d="([^"]+)"`),
-      )?.[1];
-      assert.ok(path, `Light path exists for ${trail}`);
-      const coordinates = path.match(/-?\d+(?:\.\d+)?/g).map(Number);
-      assert.deepEqual(
-        coordinates.slice(0, 2),
-        previousTrailEnd,
-        `${trail} continues the previous light path`,
-      );
-      previousTrailEnd = coordinates.slice(-2);
+    for (const kind of ["project", "profile", "service", "earnings", "laptop", "briefcase", "users"]) {
+      assert.ok(html.includes(`data-artwork="${kind}"`));
     }
-    assert.match(html, /Order details · No payment taken/);
+    assert.equal((html.match(/class="miu-journey-artwork"/g) ?? []).length, 7);
+    assert.match(html, /miu-journey-objects-light-crimson-v3\.webp/);
+    assert.doesNotMatch(html, /miu-profile-stars|miu-earnings-chart|miu-laptop-keyboard/);
+    assert.match(html, /class="miu-light-trails"/);
+    for (const ribbon of ["rising", "upper-orbit", "lower-orbit"]) {
+      assert.ok(html.includes(`data-ribbon="${ribbon}"`));
+    }
+    assert.equal((html.match(/data-ribbon=/g) ?? []).length, 3);
+    assert.equal((html.match(/data-ribbon-tip=/g) ?? []).length, 3);
+    assert.doesNotMatch(html, /pathLength="1"/);
+    assert.doesNotMatch(html, /data-trail=/);
+    assert.doesNotMatch(html, /Order details · No payment taken/);
     assert.match(html, /id="hero-discover"/);
     assert.doesNotMatch(html, /miu-story-rail|miu-story-progress|miu-story-chapters/);
     assert.match(html, /Create Impact\./);

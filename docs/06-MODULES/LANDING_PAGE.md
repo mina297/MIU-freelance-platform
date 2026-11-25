@@ -1,5 +1,90 @@
 # Landing Page — Phase 1 frontend
 
+Drawing light head — 25 November 2026: a small bright tip now follows the
+active ribbon as its stroke is revealed, leaving the drawn line visible behind
+it. Tip position and stroke offset share the same tween progress. Actual SVG
+length units replace normalized pathLength values, avoiding CSS offset-unit
+ambiguity. Each tip is hidden before drawing and after reaching the object.
+The three curves still draw sequentially at a common speed. This supersedes
+the normalized-dash note below; the hero's existing motion controls are retained.
+
+Progressive ribbon drawing — 25 November 2026: the user's latest direction
+replaces whole-ribbon fading with sequential drawing along each curve. Paths
+use normalized dash offsets; duration derives from actual SVG length at 700
+viewBox units/second with linear easing. The rising sweep draws first, then the
+upper orbit, then the lower orbit, with no gap between them. The new smooth
+geometry is retained. Door-first reveal, reset, theme rebuild and existing
+pause/reduced-motion handling remain in place. This supersedes the fade-only
+timing below.
+
+Reference light ribbons — 25 November 2026: the existing curved trails around
+the journey objects now use a brighter white core, rounded ends and layered
+white/crimson bloom matching the user's reference. Glow radii scale with the
+journey stage. The connected paths and their existing per-object reveal timing
+remain unchanged. The effect belongs to the light ribbons rather than adding
+an outer shadow to the card pictures; their internal tint is retained.
+
+Internal card tint — 25 November 2026: the user's clarification adds a very
+light crimson undertone inside the four pale glass card surfaces, rather than
+external rim lighting. The light theme now selects
+`miu-journey-objects-light-crimson-v3.webp`; the discarded CSS glow remains
+removed. Dark artwork, placement, sizing and motion retain their existing values.
+
+Light glass refinement — 25 November 2026: the light theme now selects
+`miu-journey-objects-light-pearl-v2.webp`, reducing pink in the card surfaces
+and edge glow in favor of pearl white and neutral gray shading. Crimson
+accents, text, object viewports, sizing and motion retain their existing design.
+The separate dark-mode ivory/crimson atlas remains selected only in dark mode.
+
+Dark raster artwork — 25 November 2026: the user's clarified reference keeps
+the cards light in dark mode, with pearl/ivory glass matched to the dark hero's
+building and deeper ruby crimson accents matched to its architecture. Labels
+remain dark on the light panels. `miu-journey-objects-dark-ivory-v2.webp` replaces
+the charcoal/burgundy proposal. Built-in ImageGen preserves the 1536 × 1024
+canvas and existing viewports. ThemeContext selects this atlas only in dark
+mode; light artwork, card sizes, positions and motion retain their values.
+
+Raster card sizing follow-up — 25 November 2026: enlarged the student profile,
+Website Project, New Project and EGP pictures by 20%. Their left/top offsets
+compensate for the extra width and height to keep their centers near the same
+light-path anchors. Sizes remain relative to the shared responsive stage;
+laptop and floating tile sizes retain their existing values. This supersedes
+the card sizes described below.
+
+### Raster journey objects — 25 November 2026
+
+At the user's request, all seven decorative journey objects now display the
+approved ImageGen preview as raster artwork: student profile, Website Project,
+New Project, EGP chart, laptop, briefcase and people tile. A single 1536 × 1024
+WebP atlas preserves transparency and avoids seven asset downloads. SVG
+viewports isolate the individual pictures; they do not draw the cards. Their
+materials, text, stars and perspective are baked into the image. Earlier CSS/SVG
+card drawing styles are removed. Stage positions, animation selectors, connected
+light paths and door behavior remain in place. The same crimson/white pictures
+are used in both themes. Labels in the decorative artwork are baked-in English;
+functional navigation and language selection retain their existing behavior.
+The layout studio is absent from the current checkout and was not recreated.
+Related: P-01, FR-V01, NFR-02/NFR-03. See the hero asset credits for provenance.
+
+Hero caption removal — 25 November 2026: removed the decorative
+“Order details · No payment taken” line beneath the building at the user's
+request. Journey cards remain fictional, noninteractive illustrations hidden
+from assistive technology. No payment functionality is introduced. This
+supersedes earlier notes describing a visible no-payment hero caption.
+
+### Student freelancer illustration proportions — 25 November 2026
+
+P-01's decorative student card follows the user's second reference: a 1.4:1
+landscape panel, a larger portrait, five evenly spaced stars and a separate
+caption. Its width is 24% of the responsive journey stage (approximately 130px
+across a 1280px desktop composition, following the full-building reference); padding, typography
+and stars scale with that stage. A grid reserves space for each row and the
+portrait keeps its original aspect ratio. The shallower side tilt and softly
+tinted glass improve clarity beside the building. This supersedes the profile
+card's earlier 20% reduction; the other journey objects retain their sizing.
+Scope: FR-V01, NFR-02/NFR-03. The card remains an aria-hidden fictional
+illustration within the existing hero, rather than a real profile or rating.
+
 ### Dark hero artwork and inner arch correction — 24 November 2026
 
 P-01 now selects the user's ivory-building/crimson-background artwork in dark
@@ -307,7 +392,7 @@ The headline reads “Your Talent Opens Doors.” The primary links open `/proje
 
 Pause motion and system reduced motion remove the scroll runway and show a complete static composition. The optional runtime cleans up with `gsap.context().revert()` on unmount or preference changes. Chunk failure also leaves a readable static layout. Only three small decorative particles repeat. The artwork is hidden from assistive technology; the stable heading and fully interactive controls stay semantic. New interface text is included in the existing draft Arabic dictionary. The illustration is not mirrored in RTL.
 
-All cards are fictional illustrations. The earnings card explicitly says “Fictional example · no payment”; there is no matching engine, order completion or financial mutation. This work supports FR-V01–FR-V03, FR-V05, NFR-01–NFR-03 and BR-02/BR-10 without marking SRS requirements complete.
+All cards are fictional illustrations; there is no matching engine, order completion or financial mutation. The decorative no-payment caption was removed at the user's request on 25 November 2026. This work supports FR-V01–FR-V03, FR-V05, NFR-01–NFR-03 and BR-02/BR-10 without marking SRS requirements complete.
 
 Verification: `npm.cmd run build`, `npm.cmd run lint` and `npm.cmd test` passed (347 tests, zero failures). Route/localization regressions cover the new hero, original navbar/search markup and discovery behavior. Native Chrome accessibility inspection confirmed the restored navbar/search/account links and new hero content. The in-app browser could not reach loopback, and native visual inspection was obstructed by the foreground app/user interaction. Full viewport, reduced-motion and reverse-scroll visual acceptance therefore remain pending; automated markup checks are not browser acceptance.
 
