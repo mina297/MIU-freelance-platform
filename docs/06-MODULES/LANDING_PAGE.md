@@ -432,3 +432,5 @@ Explore your next direction links to the project catalogue in Work mode and the 
 The homepage closes with separate student and client signup cards and a responsive footer that groups marketplace, platform and support links. The invitation uses the shared sans-serif typeface and includes Arabic copy.
 
 The trust section sizes to its content, with a divider and compact spacing before the signup cards.
+
+The hero search uses a compact bordered field and one 44px icon submit control. It retains the animated search hint and the Hire and Work search behavior.
