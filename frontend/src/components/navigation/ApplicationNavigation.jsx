@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   BriefcaseBusiness,
   LayoutDashboard,
@@ -15,11 +15,13 @@ import {
   HelpCircle,
   Store,
   Users,
+  Clock,
+  CircleCheck,
+  Settings,
 } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth.js";
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import ThemeToggle from "../../theme/ThemeToggle.jsx";
-import LanguageControl from "../../i18n/LanguageControl.jsx";
 import Dropdown from "../ui/Dropdown.jsx";
 import Modal from "../ui/Modal.jsx";
 import logo from "../../assets/figma/miu-anniversary-logo.png";
@@ -38,6 +40,14 @@ import "./applicationHeaderAppearance.css";
 import useScrollHeader from "./useScrollHeader.js";
 
 function iconFor(path) {
+  if (path === "/help") return HelpCircle;
+  if (path.includes("section=applications")) return FileText;
+  if (path.includes("section=jobs")) return BriefcaseBusiness;
+  if (path.includes("section=applicants")) return Users;
+  if (path.includes("section=active")) return Clock;
+  if (path.includes("section=completed")) return CircleCheck;
+  if (path.includes("section=profile")) return UserRound;
+  if (path.includes("section=settings")) return Settings;
   if (path.includes("dashboard")) return LayoutDashboard;
   if (path.includes("payment")) return Wallet;
   if (
@@ -55,7 +65,7 @@ function iconFor(path) {
 }
 export default function ApplicationNavigation({ children }) {
   const { session, logout } = useAuth();
-  const { t } = useLanguage();
+  const { t, language, setLanguage } = useLanguage();
   const location = useLocation();
   const navigate = useNavigate();
   const { layout, setLayout } = useNavigationLayout();
@@ -79,21 +89,43 @@ export default function ApplicationNavigation({ children }) {
     return () => media.removeEventListener("change", close);
   }, []);
   const links = navigationItems(session);
+  const sectionLinks = links.filter((item) => item.section);
+  const helpLink = { to: "/help", label: "Help Center" };
+  const moreLinks = [...sectionLinks, helpLink];
+  const routeLinks = links.filter(
+    (item) => !item.section && item.to !== "/help",
+  );
   function renderLinks(close = () => {}, items = links) {
-    return items.map(({ to, label }) => {
+    return items.map(({ to, label, section }) => {
       const Icon = iconFor(to);
+      const targetPath = to.split("?")[0];
+      const requestedSection = new URLSearchParams(location.search).get(
+        "section",
+      );
+      const currentSection = sectionLinks.some(
+        (item) => item.section === requestedSection,
+      )
+        ? requestedSection
+        : "overview";
+      const isActive =
+        location.pathname === targetPath &&
+        (!sectionLinks.some((item) => item.to.split("?")[0] === targetPath) ||
+          currentSection === (section ?? "overview"));
       return (
-        <NavLink
+        <Link
           key={to}
           to={to}
-          end
+          aria-current={isActive ? "page" : undefined}
           title={t(label)}
           onClick={close}
-          className={landingHeader ? "public-nav-link" : undefined}
+          className={
+            `${landingHeader ? "public-nav-link" : ""}${isActive ? " active" : ""}`.trim() ||
+            undefined
+          }
         >
           <Icon size={21} aria-hidden="true" />
           <span>{t(label)}</span>
-        </NavLink>
+        </Link>
       );
     });
   }
@@ -130,13 +162,25 @@ export default function ApplicationNavigation({ children }) {
               className={`application-navigation__links${landingHeader ? " public-navigation" : ""}`}
               aria-label={t("Main navigation")}
             >
-              {renderLinks(undefined, links.slice(0, 5))}
+              {renderLinks(undefined, routeLinks.slice(0, 5))}
+              {moreLinks.length > 0 && (
+                <Dropdown
+                  key={location.key}
+                  label={t("More navigation")}
+                  className="application-navigation__sections"
+                >
+                  {(close) => (
+                    <nav aria-label={t("More navigation")}>
+                      {renderLinks(close, moreLinks)}
+                    </nav>
+                  )}
+                </Dropdown>
+              )}
             </nav>
             <div
               className={`application-navigation__utilities${landingHeader ? " public-header-tools" : ""}`}
             >
               <div className="application-navigation__tools">
-                <LanguageControl />
                 <Dropdown
                   key={`appearance-${location.key}`}
                   className="public-preferences"
@@ -151,19 +195,36 @@ export default function ApplicationNavigation({ children }) {
                 >
                   {() => (
                     <div className="public-preferences-content">
-                      <span>{t("Appearance")}</span>
-                      <ThemeToggle />
+                      <div className="application-preferences__row">
+                        <span>{t("Appearance")}</span>
+                        <ThemeToggle />
+                      </div>
+                      <div className="application-preferences__row">
+                        <span>{t("Language")}</span>
+                        <button
+                          type="button"
+                          className="theme-toggle application-language-toggle"
+                          aria-label={`${t("Language")}: العربية`}
+                          aria-pressed={language === "ar"}
+                          title={language === "ar" ? "English" : "العربية"}
+                          onClick={() =>
+                            setLanguage(language === "ar" ? "en" : "ar")
+                          }
+                        >
+                          <span
+                            className="theme-toggle-track"
+                            dir="ltr"
+                            aria-hidden="true"
+                          >
+                            <span lang="en">EN</span>
+                            <span lang="en">AR</span>
+                          </span>
+                        </button>
+                      </div>
                     </div>
                   )}
                 </Dropdown>
               </div>
-              <Link
-                className={`application-navigation__help${landingHeader ? " public-sign-in" : ""}`}
-                to="/help"
-                aria-label={t("Help Center")}
-              >
-                <HelpCircle size={22} />
-              </Link>
               <Dropdown
                 key={location.key}
                 className={`application-account${landingHeader ? " public-account-menu" : ""}`}
@@ -228,7 +289,7 @@ export default function ApplicationNavigation({ children }) {
                       ))}
                     </fieldset>
                     <nav aria-label={t("More navigation")}>
-                      {renderLinks(close, links.slice(5))}
+                      {renderLinks(close, routeLinks.slice(5))}
                     </nav>
                     <button
                       type="button"
@@ -273,7 +334,10 @@ export default function ApplicationNavigation({ children }) {
             className="application-drawer"
           >
             <nav aria-label={t("Main navigation")}>
-              {renderLinks(() => setDrawer(null))}
+              {renderLinks(
+                () => setDrawer(null),
+                [...links.filter((item) => item.to !== "/help"), helpLink],
+              )}
             </nav>
           </Modal>
         )}

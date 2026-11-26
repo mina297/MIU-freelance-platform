@@ -31,11 +31,11 @@ test("both placements render the same permitted links with one account utility s
           : role === "finance_committee"
             ? "/committee/finance"
             : `/${role}/dashboard`;
-      const render = (layout) =>
+      const render = (layout, entry = path) =>
         renderToStaticMarkup(
           React.createElement(
             MemoryRouter,
-            { initialEntries: [path] },
+            { initialEntries: [entry] },
             React.createElement(
               AuthContext.Provider,
               {
@@ -87,6 +87,31 @@ test("both placements render the same permitted links with one account utility s
         assert.match(html, /aria-haspopup="dialog"/);
       }
       assert.deepEqual(top.match(/href="[^"]+"/g), side.match(/href="[^"]+"/g));
+      if (["student", "client"].includes(role)) {
+        for (const layout of ["top", "side"]) {
+          const dashboard = `/${role}/dashboard`;
+          const section = render(layout, `${dashboard}?section=active`);
+          assert.match(
+            section,
+            new RegExp(
+              `aria-current="page"[^>]*href="${dashboard}\\?section=active"`,
+            ),
+          );
+          assert.doesNotMatch(
+            section,
+            new RegExp(`aria-current="page"[^>]*href="${dashboard}"`),
+          );
+          assert.match(
+            render(layout, `${dashboard}?section=unknown`),
+            new RegExp(`aria-current="page"[^>]*href="${dashboard}"`),
+          );
+          const otherRole = role === "client" ? "student" : "client";
+          assert.doesNotMatch(
+            section,
+            new RegExp(`href="/${otherRole}/dashboard\\?section=`),
+          );
+        }
+      }
     }
     for (const role of ["student", "client"]) {
       for (const path of [

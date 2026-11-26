@@ -23,6 +23,7 @@ export default function DashboardLayout({
   navigationLinks = [],
   onSectionChange,
   overlays,
+  contentOnly = false,
 }) {
   const { t } = useLanguage();
   const { activeSection, navigate } = useDashboardSection(
@@ -73,58 +74,62 @@ export default function DashboardLayout({
       <a className={`${prefix}-skip`} href={`#${mainId}`}>
         {t(admin ? "Skip to control center" : "Skip to dashboard content")}
       </a>
-      <aside className={`${prefix}-sidebar`}>
-        {brand}
-        {admin ? (
-          <>
-            <p className="ac-eyebrow">{t(caption)}</p>
-            {nav}
-            {sidebarFooter}
-          </>
-        ) : (
-          <>
-            <button
-              className="sd-menu"
-              aria-label={t(
-                variant === "client"
-                  ? "Toggle client navigation"
-                  : "Toggle student navigation",
-              )}
-              aria-controls={navigationId}
-              aria-expanded={menuOpen}
-              onClick={() => setMenuOpen(!menuOpen)}
-            >
-              ☰
-            </button>
-            {mobileAccount}
-            <div
-              id={navigationId}
-              className={`sd-navigation ${menuOpen ? "sd-open" : ""}`}
-              onKeyDown={(event) => {
-                if (event.key === "Escape") setMenuOpen(false);
-              }}
-            >
-              <p className="sd-caption">{t(caption)}</p>
+      {!contentOnly && (
+        <aside className={`${prefix}-sidebar`}>
+          {brand}
+          {admin ? (
+            <>
+              <p className="ac-eyebrow">{t(caption)}</p>
               {nav}
               {sidebarFooter}
-            </div>
-          </>
-        )}
-      </aside>
-      <div className={`${prefix}-workspace`}>
-        <header className={`${prefix}-topbar`}>
-          {admin ? (
-            <span>
-              {t(title)} <span aria-hidden="true">/</span> <b>{t(label)}</b>
-            </span>
+            </>
           ) : (
-            <div className="sd-breadcrumb">
-              {t(title)} {breadcrumbIcon}
-              <strong>{t(label)}</strong>
-            </div>
+            <>
+              <button
+                className="sd-menu"
+                aria-label={t(
+                  variant === "client"
+                    ? "Toggle client navigation"
+                    : "Toggle student navigation",
+                )}
+                aria-controls={navigationId}
+                aria-expanded={menuOpen}
+                onClick={() => setMenuOpen(!menuOpen)}
+              >
+                ☰
+              </button>
+              {mobileAccount}
+              <div
+                id={navigationId}
+                className={`sd-navigation ${menuOpen ? "sd-open" : ""}`}
+                onKeyDown={(event) => {
+                  if (event.key === "Escape") setMenuOpen(false);
+                }}
+              >
+                <p className="sd-caption">{t(caption)}</p>
+                {nav}
+                {sidebarFooter}
+              </div>
+            </>
           )}
-          {headerAccount}
-        </header>
+        </aside>
+      )}
+      <div className={`${prefix}-workspace`}>
+        {!contentOnly && (
+          <header className={`${prefix}-topbar`}>
+            {admin ? (
+              <span>
+                {t(title)} <span aria-hidden="true">/</span> <b>{t(label)}</b>
+              </span>
+            ) : (
+              <div className="sd-breadcrumb">
+                {t(title)} {breadcrumbIcon}
+                <strong>{t(label)}</strong>
+              </div>
+            )}
+            {headerAccount}
+          </header>
+        )}
         <main id={mainId} className={`${prefix}-main`}>
           {subtitle && <p>{t(subtitle)}</p>}
           {typeof children === "function"

@@ -1,4 +1,45 @@
 /* Account top navigation shares LandingHeader's glass controls and spacing. */
+.application-navigation .public-preferences > .disclosure-panel {
+  box-sizing: border-box;
+  width: 240px;
+  max-width: calc(100vw - 84px);
+  padding: 12px;
+  border-radius: 20px;
+}
+.application-navigation .public-preferences-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-content: stretch;
+  gap: 12px;
+  align-items: stretch;
+  width: 100%;
+}
+.application-preferences__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  width: 100%;
+  font-size: 14px;
+}
+.application-preferences__row > .theme-toggle {
+  justify-self: end;
+}
+.application-preferences__row > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.application-language-toggle .theme-toggle-track > span {
+  width: 16px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 16px;
+}
+.application-language-toggle[aria-pressed="true"] .theme-toggle-track > span:last-child {
+  color: #fff;
+}
 .application-navigation--landing {
   width: min(1568px, 100%);
   min-height: 96px;

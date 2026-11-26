@@ -63,6 +63,41 @@
 .application-navigation__links a svg {
   flex-shrink: 0;
 }
+.application-navigation__sections {
+  flex-shrink: 0;
+}
+.application-navigation__sections > .disclosure-trigger {
+  min-height: 44px;
+  padding: 10px 12px;
+  white-space: nowrap;
+}
+.application-navigation__sections .disclosure-panel {
+  width: 240px;
+  max-height: calc(100dvh - 140px);
+  overflow-y: auto;
+}
+.application-navigation__sections nav {
+  display: grid;
+}
+@media (min-width: 1280px) {
+  [data-navigation-layout="top"] .application-navigation__links {
+    flex-wrap: wrap;
+  }
+  [data-navigation-layout="side"] .application-navigation__sections {
+    width: 100%;
+  }
+  [data-navigation-layout="side"] .application-navigation__sections > .disclosure-trigger {
+    white-space: normal;
+    font-size: 12px;
+    width: 100%;
+  }
+  [data-navigation-layout="side"] .application-navigation__sections .disclosure-panel {
+    inset-inline-start: 100%;
+    inset-inline-end: auto;
+    top: auto;
+    bottom: 0;
+  }
+}
 .application-navigation a[aria-current="page"],
 .application-account nav a[aria-current="page"] {
   color: var(--theme-accent, var(--brand-red, #b71935));

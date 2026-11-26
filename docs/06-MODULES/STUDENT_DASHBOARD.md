@@ -1,5 +1,42 @@
 # Student Dashboard — Phase 1 frontend
 
+## Consolidated navigation — 26 November 2026
+
+Follow-up: the application navbar groups the English/Arabic language selector and
+appearance toggle inside the sliders preferences dropdown. Help Center now appears
+in More navigation and in the mobile drawer, using the existing `/help` route.
+Language and help no longer occupy separate navbar buttons. Both navigation
+placements retain access to these controls.
+The preferences dropdown stacks Appearance above Language. Language uses an
+EN/AR toggle with the same track, size and focus styling as the Light/Dark toggle,
+and updates the existing language provider, including RTL direction. The toggle's
+pressed state indicates Arabic is selected.
+Sizing follows the main navbar preferences panel: 240px width, 12px padding and
+20px corners, with height determined by the two 44px rows and their 12px gap.
+Each row fills the panel and aligns its toggle to the same edge, avoiding uneven
+column widths. The panel remains constrained to the mobile viewport.
+
+At the user's request, the student dashboard renders content without its internal
+sidebar or breadcrumb/account bar. The application navbar retains Overview,
+Orders, My proposals, My services and Projects. Its More navigation dropdown adds
+My Applications, Active Jobs, Completed Jobs, Profile and Settings; mobile
+navigation includes the same destinations. Help, notifications and the signed-in
+account remain reachable through the existing application navigation. The
+duplicate fictional account display has been removed.
+
+Sections retain their `?section=` URLs and browser history. The shared configuration
+is `studentDashboardNavigation.js`; the navbar highlights the selected section.
+The layout's optional `contentOnly` mode is used only by the student dashboard.
+Client and administrative layouts retain their controls. Existing section
+demonstrations and loading/empty/error views remain. Permissions and data
+contracts are unchanged. Requirements: FR-S04, FR-S06, FR-S08–FR-S09, FR-S16,
+NFR-02 and NFR-03.
+
+Automated navigation, student-route and shared-layout checks cover section links,
+active states, duplicate chrome removal and role restrictions. Live browser,
+keyboard and responsive visual acceptance remain pending for this update.
+Earlier sidebar/topbar descriptions below record the original implementation.
+
 Route: `/student/dashboard` (P-11), connected through the shared router with the
 student role guard and memory-only mock sessions. The landing page is at `/`;
 the marketplace catalogue is at `/projects`. Real authentication remains out of scope.
