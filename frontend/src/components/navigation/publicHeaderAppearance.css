@@ -166,7 +166,7 @@
 :root[data-theme="dark"]
   .public-header
   :is(
-    .public-brand > span,
+    .public-brand > span:not(:lang(ar)),
     .public-nav-link,
     .public-nav-dropdown > .disclosure-trigger:not([aria-expanded="true"])
   ) {
