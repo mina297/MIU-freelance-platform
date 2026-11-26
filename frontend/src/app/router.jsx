@@ -10,6 +10,7 @@ import {
   useNavigate,
   useParams,
   useLocation,
+  useSearchParams,
   matchRoutes,
   Outlet,
 } from "react-router-dom";
@@ -78,8 +79,12 @@ const layouts = {
 
 function ProjectsCatalogueRoute() {
   const navigate = useNavigate();
+  const [params] = useSearchParams();
   return (
     <ProjectsCatalogue
+      key={params.toString()}
+      initialCategoryId={params.get("category") ?? ""}
+      initialQuery={params.get("q") ?? ""}
       onOpenProject={(projectId) => navigate(`/projects/${projectId}`)}
       onCreateProject={() => navigate("/client/projects/new")}
     />

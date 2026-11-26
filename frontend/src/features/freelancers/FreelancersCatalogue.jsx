@@ -1,6 +1,6 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Search, UsersRound } from "lucide-react";
 import { useServiceData } from "../services/useServiceData.js";
 import Input from "../../components/ui/Input.jsx";
@@ -26,8 +26,15 @@ export default function FreelancersCatalogue({
   const { t } = useLanguage();
 
   const data = useServiceData(suppliedData);
-  const [filters, setFilters] = useState({ ...emptyFreelancerFilters });
-  const [draft, setDraft] = useState("");
+  const [params] = useSearchParams();
+  const query = params.get("q") ?? "";
+  const categoryId = params.get("category") ?? "";
+  const [filters, setFilters] = useState(() => ({
+    ...emptyFreelancerFilters,
+    query,
+    categoryId: data.categories.some(({ id }) => id === categoryId) ? categoryId : "",
+  }));
+  const [draft, setDraft] = useState(query);
   const ready = state === "ready";
   const results = ready ? discoverFreelancers(filters, data) : [];
   const update = (key) => (event) =>

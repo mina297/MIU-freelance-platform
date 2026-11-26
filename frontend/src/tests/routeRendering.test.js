@@ -273,6 +273,12 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
       7,
     );
     assert.equal((html.match(/data-reveal-repeat="true"/g) ?? []).length, 7);
+    for (const filter of [
+      "category=graphic_design", "category=web_development", "category=writing",
+      "q=Translation", "q=Marketing", "q=Video", "q=Tutoring",
+    ]) {
+      assert.ok(html.includes(`href="/projects?${filter}"`), filter);
+    }
     assert.equal((html.match(/class="landing-step-number"/g) ?? []).length, 3);
     assert.match(html, /<ol class="landing-timeline-list">/);
     assert.doesNotMatch(html, /data-motion-ready="true"/);
@@ -550,6 +556,17 @@ test("public project routes render marketplace screens, not placeholders", async
     assert.match(catalogueHtml, /The project marketplace/i);
     assert.match(catalogueHtml, /Projects to explore/i);
     assert.match(catalogueHtml, /Build a responsive event website/i);
+    const designProjects = renderRoute("/projects?category=graphic_design");
+    assert.match(designProjects, /Create a student club brand kit/i);
+    const designResults = designProjects.split('id="project-results"')[1];
+    assert.doesNotMatch(designResults, /Build a responsive event website/i);
+    assert.match(
+      renderRoute("/projects?q=Tutoring"),
+      /No matching projects/i,
+    );
+    const webTalent = renderRoute("/freelancers?category=web_development");
+    assert.match(webTalent, /Omar Nabil/);
+    assert.doesNotMatch(webTalent, /Salma Farid/);
     assert.match(detailsHtml, /Scope of work/i);
     assert.match(detailsHtml, /Expected deliverables/i);
     assert.match(detailsHtml, /Browse projects/i);

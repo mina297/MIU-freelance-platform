@@ -426,3 +426,5 @@ Beige restoration — 12 November 2026: the latest user request restores the sup
 Latest artwork replacement — 12 November 2026: `miu-reference-ivory.webp` now contains the user-selected lighter off-white version with restored architectural contrast and a corrected red glass door arch. The optimized WebP retains the original 1672 × 941 dimensions and existing SVG image/door alignment. This is a decorative asset replacement for P-01/FR-V01; navigation, roles and interactions are unchanged.
 
 The hero artwork, animated doors and journey cards share a proportional frame that covers the hero media area. Desktop framing favors the right side of the illustration. On narrow screens the illustration sits below the hero copy and keeps its closer framing.
+
+Explore your next direction links to the project catalogue in Work mode and the freelancer directory in Hire mode. Each link initializes the destination with a matching marketplace category when available or a keyword search otherwise.

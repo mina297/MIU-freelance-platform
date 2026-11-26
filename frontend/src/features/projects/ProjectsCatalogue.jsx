@@ -31,7 +31,12 @@ import FilterPanel from "./FilterPanel.jsx";
 import ProjectCard from "./ProjectCard.jsx";
 import ProjectsHero from "./ProjectsHero.jsx";
 
-export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
+export default function ProjectsCatalogue({
+  onOpenProject,
+  onCreateProject,
+  initialCategoryId = "",
+  initialQuery = "",
+}) {
   const applicationShell = useContext(ApplicationShellContext);
   const { t, count } = useLanguage();
 
@@ -47,9 +52,11 @@ export default function ProjectsCatalogue({ onOpenProject, onCreateProject }) {
       ),
     [demoProjects],
   );
-  const [searchDraft, setSearchDraft] = useState("");
-  const [query, setQuery] = useState("");
-  const [categoryId, setCategoryId] = useState("");
+  const [searchDraft, setSearchDraft] = useState(initialQuery);
+  const [query, setQuery] = useState(initialQuery);
+  const [categoryId, setCategoryId] = useState(
+    categoryNames.has(initialCategoryId) ? initialCategoryId : "",
+  );
   const [skillId, setSkillId] = useState("");
   const [budget, setBudget] = useState("all");
   const [sort, setSort] = useState("newest");

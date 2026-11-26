@@ -1,5 +1,6 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import {
   ArrowLeft,
   ArrowRight,
@@ -26,11 +27,13 @@ const categoryIcons = {
   Tutoring: GraduationCap,
 };
 
-export default function CategoryCarousel({
-  category,
-  onSelect,
-  motionEnabled,
-}) {
+const marketplaceCategoryIds = {
+  Design: "graphic_design",
+  Development: "web_development",
+  Writing: "writing",
+};
+
+export default function CategoryCarousel({ mode, motionEnabled }) {
   const { t, language } = useLanguage();
 
   const root = useRef(null);
@@ -96,16 +99,19 @@ export default function CategoryCarousel({
         >
           {landingCategories.map((value, index) => {
             const CategoryIcon = categoryIcons[value];
+            const categoryId = marketplaceCategoryIds[value];
+            const params = new URLSearchParams(
+              categoryId ? { category: categoryId } : { q: value },
+            );
+            const catalogue = mode === "hire" ? "/freelancers" : "/projects";
             return (
-              <button
+              <Link
                 key={value}
-                type="button"
+                to={`${catalogue}?${params}`}
                 className="landing-category-card"
                 data-reveal
                 data-reveal-repeat
                 style={{ "--reveal-delay": `${index * 70}ms` }}
-                aria-pressed={category === value}
-                onClick={() => onSelect(value)}
               >
                 <span className="landing-category-name">
                   {t(landingCategoryLabels[value] || value)}
@@ -122,7 +128,7 @@ export default function CategoryCarousel({
                   size={18}
                   aria-hidden="true"
                 />
-              </button>
+              </Link>
             );
           })}
         </div>

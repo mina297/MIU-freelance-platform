@@ -159,10 +159,6 @@ export default function LandingPage() {
       .getElementById(mode === "hire" ? "student-talent" : "featured-jobs")
       .scrollIntoView({ block: "start" });
   }
-  function selectCategory(value) {
-    setCategory(value === category ? "" : value);
-    setFilters({ query, category: value === category ? "" : value });
-  }
   function toggleSaved(job) {
     const exists = saved.includes(job.id);
     setSaved((current) =>
@@ -301,8 +297,7 @@ export default function LandingPage() {
 
       <div id="hero-discover" className="landing-category-backdrop">
         <CategoryCarousel
-          category={category}
-          onSelect={selectCategory}
+          mode={mode}
           motionEnabled={motionEnabled}
         />
       </div>
