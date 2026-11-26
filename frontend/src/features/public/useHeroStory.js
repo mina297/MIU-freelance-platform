@@ -68,21 +68,31 @@ export function useHeroStory(ref, enabled) {
               },
               doorStart,
             );
-          // Every item starts at the door in the shared artwork coordinate
-          // system, including after a responsive resize/ScrollTrigger refresh.
-          const stage = root.querySelector(".miu-journey-stage");
+          const frame = root.querySelector(".landing-scene-frame");
+          const stage = frame.querySelector(".miu-journey-stage");
           timeline.set(stage, { visibility: "visible" }, doorOpenAt);
+
+          // Convert the doorway point from the SVG viewBox into the stage.
+          // These functions run again when ScrollTrigger refreshes after a resize.
           const emerge = {
             opacity: 0,
             x: (_, element) =>
-              stage.clientWidth * 0.39 -
+              (door.split / 1672) * frame.clientWidth -
+              stage.offsetLeft -
               element.offsetLeft -
               element.offsetWidth / 2,
             y: (_, element) =>
-              stage.clientHeight * 0.63 -
+              ((door.bottomLeft - 125) / 941) * frame.clientHeight -
+              stage.offsetTop -
               element.offsetTop -
               element.offsetHeight / 2,
-            scale: 0.94,
+            scale: 0.28,
+          };
+          const settle = {
+            opacity: 1,
+            x: 0,
+            y: 0,
+            scale: 1,
             duration: 0.45,
             ease: "power3.out",
           };
@@ -96,8 +106,8 @@ export function useHeroStory(ref, enabled) {
             ".miu-scene-earnings",
           ];
           for (const [index, selector] of reveals.entries()) {
-            const at = doorOpenAt + 0.1 + index * emerge.duration;
-            timeline.from(select(selector), { ...emerge }, at);
+            const at = doorOpenAt + 0.1 + index * settle.duration;
+            timeline.fromTo(select(selector), { ...emerge }, { ...settle }, at);
           }
         }, root);
         ScrollTrigger.refresh();

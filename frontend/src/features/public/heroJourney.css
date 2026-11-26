@@ -2,11 +2,9 @@
 .landing-hero-media .miu-scene-overlay {
   position: absolute;
   z-index: 2;
-  top: 0;
-  right: 0;
-  width: min(100%, 1672px);
-  height: auto;
-  aspect-ratio: 1672 / 941;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   perspective: none;
 }
 .miu-journey-item {
@@ -78,11 +76,4 @@
   left: -5%;
   top: 52%;
   width: 9%;
-}
-@media (max-width: 760px) {
-  .landing-hero-media .miu-scene-overlay {
-    width: 145%;
-    top: 50%;
-    transform: translateY(-50%);
-  }
 }

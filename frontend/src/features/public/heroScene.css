@@ -190,28 +190,30 @@
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
+  container-type: size;
 }
 .landing-hero-media::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(90deg, #ffffff70, #ffffff1a 35%, transparent 52%);
+  background:
+    linear-gradient(transparent 88%, var(--hero-surface)),
+    linear-gradient(90deg, #ffffff70, #ffffff1a 35%, transparent 52%);
+}
+.landing-scene-frame {
+  position: absolute;
+  inset: 0 0 auto auto;
+  /* Cover the media box while keeping the artwork and overlays proportional. */
+  width: max(100%, calc(100cqh * 1672 / 941));
+  aspect-ratio: 1672 / 941;
 }
 .landing-scene {
+  position: absolute;
+  inset: 0;
   display: block;
-  width: min(100%, 1672px);
-  height: min(100%, 56.28vw, 941px);
-  margin-left: auto;
-  mask-image: linear-gradient(#000 88%, transparent);
-}
-@media (min-width: 1673px) {
-  .landing-scene {
-    mask-image:
-      linear-gradient(to right, transparent, #000 18%),
-      linear-gradient(#000 88%, transparent);
-    mask-composite: intersect;
-  }
+  width: 100%;
+  height: 100%;
 }
 .landing-scene-doors {
   opacity: 1;
@@ -231,12 +233,14 @@
   --hero-crimson: var(--theme-accent);
 }
 :root[data-theme="dark"] .landing-hero-media::after {
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--theme-accent-canvas) 50%, transparent),
-    color-mix(in srgb, var(--theme-accent-canvas) 15%, transparent) 32%,
-    transparent 55%
-  );
+  background:
+    linear-gradient(transparent 88%, var(--hero-surface)),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--theme-accent-canvas) 50%, transparent),
+      color-mix(in srgb, var(--theme-accent-canvas) 15%, transparent) 32%,
+      transparent 55%
+    );
 }
 :root[data-theme="dark"]
   .landing
@@ -421,13 +425,9 @@
     min-height: 310px;
     margin: -8px calc(-1 * var(--hero-gutter)) 0;
   }
-  .landing-hero-media > .landing-scene {
-    position: absolute;
-    right: 0;
+  .landing-scene-frame {
     top: 50%;
-    width: 145%;
-    height: auto;
-    max-height: 100%;
+    width: max(145%, calc(100cqh * 1672 / 941));
     transform: translateY(-50%);
   }
   .landing-hero-media::after {
