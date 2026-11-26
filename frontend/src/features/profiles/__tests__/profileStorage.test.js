@@ -19,8 +19,12 @@ test("profile and portfolio writes require current ownership and protect account
     await vite.ssrLoadModule("/src/features/help/utils/supportStorage.js");
   const memory = new Map();
   globalThis.window = {
-    sessionStorage: {
+    localStorage: {
       getItem: (key) => memory.get(key) ?? null,
+      setItem: (key, value) => memory.set(key, value),
+    },
+    sessionStorage: {
+      getItem: () => null,
       setItem: (key, value) => memory.set(key, value),
     },
   };
@@ -58,6 +62,7 @@ test("profile and portfolio writes require current ownership and protect account
     window.sessionStorage.setItem = () => {
       throw new Error("Storage unavailable");
     };
+    window.localStorage.setItem = window.sessionStorage.setItem;
     assert.throws(() =>
       saveProfileEdit("student_001", { shortBio: "Unsaved" }, session),
     );
@@ -65,6 +70,7 @@ test("profile and portfolio writes require current ownership and protect account
     assert.throws(() => saveSupportSubmission({ id: "not-saved" }));
     assert.deepEqual(loadSupportSubmissions(), []);
     window.sessionStorage.getItem = () => "null";
+    window.localStorage.getItem = () => "null";
     assert.deepEqual(loadProfileEdits(), {});
     assert.deepEqual(loadSupportSubmissions(), []);
   } finally {

@@ -1,5 +1,24 @@
 # Super Admin Platform Control Center
 
+## Saved local accounts — 26 November 2026
+
+This supersedes the display-only account creation and automatic committee-session
+switching below. Sign in with the published fictional seed account
+`admin_001@example.test` / `MiuDemo2026!`, then open `/admin?section=users` or
+`/admin?section=committees`. The directory reads the same local account store as
+registration and login, includes account emails, and supports persisted
+suspension/restoration. Admin accounts cannot be suspended by these controls.
+Committee creation requires member name, unique email, one of five roles, a test
+password and reason. The resulting account can sign in and survives refresh.
+Account mutations/audits commit together; countries and their audits also persist.
+Committee links now open sign-in without impersonating another account.
+
+The public `/SuperAdmin` preview exposes fictional fixtures only when no admin is
+signed in; it cannot provision or manage saved accounts. Case/permission previews
+remain workspace-only. Their controls do not change login guards. Committee routes
+are still workflow placeholders. See [Authentication](AUTHENTICATION.md) for
+storage, recovery and security limits. No real credentials should be entered.
+
 ## Shared dashboard refactor — 15 November 2026
 
 The implementation now lives in `frontend/src/features/dashboards/governance/`

@@ -67,18 +67,19 @@ export const GOOGLE_PREVIEW_PROFILES = Object.freeze({
 });
 
 /** One store per provider mount. Passwords stay in this private memory-only map. */
-export function createMockAuthStore(fixtures = []) {
+export function createMockAuthStore(fixtures = [], initialSettings) {
   const accounts = new Map(
     fixtures.map((user) => [
       user.id,
       {
+        ...user,
         ...toSessionUser(user),
         email: normalizeEmail(user.email || `${user.id}@example.test`),
       },
     ]),
   );
   const passwords = new Map();
-  let settings = { countries: initialCountries, audit: [] };
+  let settings = initialSettings ?? { countries: initialCountries, audit: [] };
   let nextId = 1;
   const findByEmail = (email) =>
     [...accounts.values()].find((user) => user.email === normalizeEmail(email));
@@ -113,6 +114,7 @@ export function createMockAuthStore(fixtures = []) {
     return { ok: true, user: toSessionUser(user) };
   }
   return {
+    listUsers: () => [...accounts.values()].map((user) => ({ ...user })),
     getRegistrationSettings: () => settings,
     addRegistrationCountry(session, { country, reason }) {
       if (
@@ -175,7 +177,7 @@ export function createMockAuthStore(fixtures = []) {
         return {
           ok: false,
           errors: {
-            form: "This preview account already exists. Refresh to start a new prototype session.",
+            form: "This preview account already exists. Use the demo reset form to set a password and sign in.",
           },
         };
       }

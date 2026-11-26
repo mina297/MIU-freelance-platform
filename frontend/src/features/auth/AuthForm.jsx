@@ -224,7 +224,7 @@ export default function AuthForm({
         </form>
         <div className="auth-links">{children}</div>
         <p className="auth-prototype-note">
-          {t("Prototype · Resets on refresh. Use test details only.")}
+          {t("Local demo · Accounts stay in this browser until site data is cleared. Sign in again after refresh. Use test details only.")}
         </p>
       </section>
     </div>

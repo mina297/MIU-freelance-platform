@@ -123,7 +123,7 @@ function validateEditForm(form, role) {
 }
 
 /**
- * Edit Profile page with simulated sessionStorage persistence.
+ * Edit Profile page with local demo persistence.
  * Expected route: `/profile/edit`
  *
  * Does not modify AuthProvider — profile id/role are passed as props
@@ -297,7 +297,7 @@ function ProfileEditor({
       saveProfileEdit(resolvedId, patch, session);
       setStatus("success");
       setMessage(
-        "Profile saved in this browser session only (Phase 1 simulated persistence).",
+        "Profile saved locally in this browser until site data is cleared.",
       );
       onSaved?.(resolvedId);
     } catch {

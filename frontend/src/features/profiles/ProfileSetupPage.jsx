@@ -275,7 +275,7 @@ export default function ProfileSetupPage() {
         </section>
         <p className="profile-setup__disclosure">
           {t(
-            "Phase 1 prototype. Use fictional details. Accounts reset on refresh; profile edits stay in this tab's session storage.",
+            "Local demo. Use fictional details. Accounts and saved profiles stay in this browser until site data is cleared.",
           )}
         </p>
       </main>

@@ -7,6 +7,20 @@ tags: [MIU, issues, decisions]
 
 # MIU Freelance Platform — Known Issues and Open Decisions
 
+## Local account persistence — 26 November 2026
+
+Accounts, saved profiles/portfolios, registration settings and account audits now
+persist on the same browser/origin. Sessions and onboarding drafts do not. Account
+data lost before this change cannot be recovered; available legacy profile tab
+data migrates. There is no cross-device sync or production authentication. All
+demo seed credentials are public; recovery remains an unverified simulation.
+Browser data and role checks can be altered locally. Concurrent account writes
+reject stale snapshots rather than overwrite them; other tabs do not live-refresh
+their already rendered session/directory. Committee workflows remain placeholders.
+Marketplace data persistence is outside this increment. Clearing site data removes
+local accounts/profiles. Browser keyboard/mobile acceptance remains separate from
+automated store and server-rendered UI checks.
+
 ## Order delivery increment — 24 October 2026
 
 Automated verification: all 230 tests, ESLint and production build passed. The

@@ -277,7 +277,8 @@ test("all registered routes render in both languages with one language control a
       const visibleCopy = html.replace(/<[^>]*>/g, " ");
       assert.doesNotMatch(
         visibleCopy,
-        /\b(?:phase\s*1|prototype|demo|mock data|coming soon|under construction|beta|placeholder)\b/i,
+        // Local account persistence now has explicit demo disclosures.
+        /\b(?:phase\s*1|prototype|mock data|coming soon|under construction|beta|placeholder)\b/i,
         `${url}: ${language} contains development labels`,
       );
       assert.equal(

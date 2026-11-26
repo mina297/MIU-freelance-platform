@@ -1,10 +1,10 @@
 import { PROFILE_EDIT_STORAGE_KEY } from "../constants.js";
 import { ownsProfile } from "./profileOwnership.js";
+import { readProfileLocalData } from "./profileLocalStorage.js";
 
 export function loadProfileEdits() {
   try {
-    const raw = window.sessionStorage.getItem(PROFILE_EDIT_STORAGE_KEY);
-    const value = raw ? JSON.parse(raw) : {};
+    const value = readProfileLocalData(PROFILE_EDIT_STORAGE_KEY);
     return value && typeof value === "object" && !Array.isArray(value)
       ? value
       : {};
@@ -39,9 +39,9 @@ export function saveProfileEdit(profileId, patch, session) {
   const safePatch = Object.fromEntries(
     Object.entries(patch).filter(([key]) => allowed.includes(key)),
   );
-  const all = loadProfileEdits();
+  const all = readProfileLocalData(PROFILE_EDIT_STORAGE_KEY);
   all[profileId] = { ...(all[profileId] ?? {}), ...safePatch };
-  window.sessionStorage.setItem(PROFILE_EDIT_STORAGE_KEY, JSON.stringify(all));
+  window.localStorage.setItem(PROFILE_EDIT_STORAGE_KEY, JSON.stringify(all));
   return all[profileId];
 }
 

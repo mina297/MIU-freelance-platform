@@ -7,6 +7,17 @@ tags: [MIU, pages, routing]
 
 # MIU Freelance Platform — Pages and Routes
 
+### Local sign-in destinations — 26 November 2026
+
+Valid local demo login now opens `/student/dashboard`, `/client/dashboard`,
+`/admin`, or the account's matching `/committee/verification|marketplace|finance|support|ai-quality`
+destination. This supersedes homepage-on-login notes below; registration still
+opens student setup or the client homepage. No new routes were introduced.
+Accounts/profile edits survive refresh, while sessions require sign-in again.
+Admin Users/Committees sections consume saved registrations and committee
+provisioning; committee links open `/login` without switching identities.
+See [Authentication](../06-MODULES/AUTHENTICATION.md#local-account-persistence--26-november-2026).
+
 ### Profile setup entry — 24 November 2026
 
 The first Next action now opens `/profile/setup/work`, a student-only onboarding

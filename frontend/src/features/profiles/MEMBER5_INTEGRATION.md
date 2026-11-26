@@ -1,5 +1,16 @@
 # Member 5 — Profiles, Reviews and Support integration
 
+## Local profile persistence — 26 November 2026
+
+This supersedes the account/profile lifetime notes below. New profile shells are
+reconstructed from saved local accounts after reload; private account data and
+password verifiers are never copied. Profile edits and portfolio overrides use
+their existing keys in localStorage, copying available legacy sessionStorage data
+once before removing the old copy. Owner checks and account-controlled field
+protection remain. Storage errors preserve form input and prevent success.
+Sessions and unsaved onboarding drafts remain memory-only. Reviews/support
+storage is unchanged. See `docs/06-MODULES/AUTHENTICATION.md` for demo boundaries.
+
 Updated 24 October 2026. This branch includes an uncommitted merge from main plus review fixes; Mina owns the commit, push and PR merge.
 
 ## Registered routes

@@ -8,6 +8,18 @@ tags: [MIU, testing, QA]
 
 # MIU Freelance Platform — Testing Strategy
 
+### Local account persistence — 26 November 2026
+
+`src/tests/localAuthStore.test.js` checks reconstruction after reload, stable IDs,
+duplicate emails, password verification, absence of plaintext persisted passwords,
+Super Admin provisioning of each committee role, saved status changes/audits,
+recovery persistence, unavailable/corrupt/full storage, saved public profile shells
+and legacy profile migration. Profile storage tests still enforce ownership and
+account-controlled field protection. Route/localization tests require truthful
+persistence/session notices and permit explicit local-demo disclosures. All 376
+tests, lint and build passed for this increment; live browser/mobile acceptance
+was not performed. Existing build chunk-size advisory remains.
+
 ## 1. Purpose
 
 Ensure that frontend workflows are usable, consistent, responsive, and aligned with SRS v1.1.

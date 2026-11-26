@@ -1,4 +1,50 @@
 export default {
+  "These countries are saved in this browser and appear in the sign-up form.":
+    "تُحفظ هذه الدول في هذا المتصفح وتظهر في نموذج التسجيل.",
+  "Enter a name, valid email, committee, password (8+ characters with a letter and number), and decision reason.":
+    "أدخل الاسم وبريدًا صالحًا واللجنة وكلمة مرور من ٨ أحرف على الأقل تشمل حرفًا ورقمًا وسبب القرار.",
+  "Local demo · Accounts stay in this browser until site data is cleared. Sign in again after refresh. Use test details only.":
+    "عرض تجريبي محلي · تبقى الحسابات في هذا المتصفح حتى مسح بيانات الموقع. سجّل الدخول مجددًا بعد إعادة التحميل. استخدم بيانات تجريبية فقط.",
+  "Fictional demo sign-in accounts": "حسابات دخول تجريبية وهمية",
+  "Demo password: MiuDemo2026! — use fictional details only.":
+    "كلمة المرور التجريبية: MiuDemo2026! — استخدم بيانات وهمية فقط.",
+  "Local demo account. Set a test password and share it manually; no activation email is sent.":
+    "حساب تجريبي محلي. عيّن كلمة مرور تجريبية وشاركها يدويًا؛ لا تُرسل رسالة تفعيل.",
+  "Demo password": "كلمة المرور التجريبية",
+  "Local demo · Accounts and account audit records stay in this browser. Other workspace previews reset when you leave. No real verification, payments or escrow.":
+    "عرض تجريبي محلي · تبقى الحسابات وسجلات إدارتها في هذا المتصفح. تُعاد بقية المعاينات عند المغادرة. لا يوجد تحقق هوية أو دفع أو ضمان مالي حقيقي.",
+  "Local demo. Use fictional details. Accounts and saved profiles stay in this browser until site data is cleared.":
+    "عرض تجريبي محلي. استخدم بيانات وهمية. تبقى الحسابات والملفات المحفوظة في هذا المتصفح حتى مسح بيانات الموقع.",
+  "Profile saved locally in this browser until site data is cleared.":
+    "تم حفظ الملف محليًا في هذا المتصفح حتى مسح بيانات الموقع.",
+  "Saved local demo accounts, including students, clients and provisioned committees.":
+    "حسابات تجريبية محفوظة محليًا تشمل الطلاب والعملاء وأعضاء اللجان.",
+  "Committee members sign in with their assigned credentials. Committee screens currently show routing placeholders.":
+    "يدخل أعضاء اللجان ببيانات حساباتهم المخصصة. تعرض شاشات اللجان حاليًا صفحات مؤقتة.",
+  "Created only by Super Admin. Saved accounts can sign in with their assigned email and test password.":
+    "ينشئها المشرف العام فقط. يمكن للحسابات المحفوظة الدخول بالبريد وكلمة المرور التجريبية المخصصين لها.",
+  "Account events are saved locally; case and permission preview events last for this workspace session.":
+    "تُحفظ أحداث الحسابات محليًا؛ وتستمر أحداث معاينة الحالات والصلاحيات خلال جلسة مساحة العمل فقط.",
+  "Demo account saved in this browser. Committee members can sign in with their assigned email and password.":
+    "تم حفظ الحساب التجريبي في هذا المتصفح. يمكن لأعضاء اللجان الدخول بالبريد وكلمة المرور المخصصين لهم.",
+  "Could not save demo accounts. Allow site storage or free up space, then try again.":
+    "تعذر حفظ الحسابات التجريبية. اسمح بتخزين بيانات الموقع أو وفّر مساحة، ثم أعد المحاولة.",
+  "Enter a valid email and password.":
+    "أدخل بريدًا إلكترونيًا صالحًا وكلمة مرور.",
+  "Only the Super Admin can create committee accounts.":
+    "يمكن للمشرف العام فقط إنشاء حسابات اللجان.",
+  "Sign in as Super Admin to manage saved accounts.":
+    "سجّل الدخول كمشرف عام لإدارة الحسابات المحفوظة.",
+  "Could not save the account. Please try again.":
+    "تعذر حفظ الحساب. حاول مجددًا.",
+  "Only the Super Admin can manage accounts.":
+    "يمكن للمشرف العام فقط إدارة الحسابات.",
+  "Choose an eligible account, status and decision reason.":
+    "اختر حسابًا مؤهلًا وحالة وسببًا للقرار.",
+  "Demo password saved on this browser. No email ownership or reset token was checked.":
+    "تم حفظ كلمة المرور التجريبية في هذا المتصفح. لم يتم التحقق من ملكية البريد أو رمز إعادة التعيين.",
+  "This preview account already exists. Use the demo reset form to set a password and sign in.":
+    "هذا الحساب التجريبي موجود بالفعل. استخدم نموذج إعادة التعيين التجريبي لتحديد كلمة مرور والدخول.",
   "A world of opportunity": "عالم من الفرص",
   "Preparing your next chapter…": "نجهّز خطوتك القادمة…",
   "Student talent. Real opportunities.": "مواهب طلابية. فرص حقيقية.",

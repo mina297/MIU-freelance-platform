@@ -8,6 +8,21 @@ tags: [MIU, data-models, database]
 
 # MIU Freelance Platform — Data Models
 
+### Browser demo account records — 26 November 2026
+
+`miu.demo-accounts.v1` stores `{version: 1, users, credentials, settings, audit}`.
+Users retain stable IDs, display names, role, account/verification status, email
+and submitted public-registration fields. Credentials are keyed by user ID and
+contain byte-array salt/hash fields (PBKDF2/SHA-256); plaintext passwords are
+excluded. Settings contain registration countries and their audit events. Account
+audit entries hold ID, timestamp, actor, action, target, reason, before/after and
+result. Sessions remain React state, outside this record. Public profile shells
+derive only from account ID, role and display name, with empty profile defaults.
+Existing profile-edit/portfolio keys retain their shapes but use localStorage;
+available sessionStorage entries are migrated once. No marketplace order/project
+or financial persistence change. This is an editable browser demo model, not a
+database/security contract. See [Authentication](../06-MODULES/AUTHENTICATION.md).
+
 ### Simulated order delivery records (24 October 2026)
 
 Optional immutable `Order.deliveries` stores submission ID, handover text, fictional

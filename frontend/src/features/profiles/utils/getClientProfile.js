@@ -3,15 +3,12 @@ import {
   studentProfiles,
 } from "../../../data/fixtures/profiles.js";
 import { getCompletedProjectsForClient } from "../../../data/fixtures/reviews.js";
-import { PROFILE_EDIT_STORAGE_KEY } from "../constants.js";
+import { getProfileEdit } from "./profileEditStorage.js";
 import { getRegistrationProfile } from "../registrationProfiles.js";
 
 function readEditOverrides(profileId) {
   try {
-    const raw = window.sessionStorage.getItem(PROFILE_EDIT_STORAGE_KEY);
-    if (!raw) return null;
-    const all = JSON.parse(raw);
-    return all?.[profileId] ?? null;
+    return getProfileEdit(profileId);
   } catch {
     return null;
   }
@@ -22,8 +19,9 @@ function readEditOverrides(profileId) {
  */
 export function getClientProfileById(clientId) {
   if (!clientId) return null;
-  const base = clientProfiles.find((profile) => profile.id === clientId)
-    ?? getRegistrationProfile(clientId, "client");
+  const base =
+    clientProfiles.find((profile) => profile.id === clientId) ??
+    getRegistrationProfile(clientId, "client");
   if (!base) return null;
 
   const overrides =

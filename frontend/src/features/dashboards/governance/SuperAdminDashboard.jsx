@@ -2,7 +2,7 @@ import DashboardLayout from "../shared/DashboardLayout.jsx";
 import { useDashboardSection } from "../shared/useDashboardSection.js";
 import { DashboardStat } from "../shared/DashboardUi.jsx";
 import { useLanguage } from "../../../i18n/LanguageContext.js";
-import { startTransition, useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Activity,
@@ -41,7 +41,10 @@ export default function SuperAdminDashboard() {
   const { t, locale } = useLanguage();
   const {
     session,
-    startDemoSession,
+    listAccounts,
+    accountAudit = [],
+    createCommitteeAccount,
+    updateAccountStatus,
     registrationSettings,
     addRegistrationCountry,
   } = useAuth();
@@ -72,13 +75,18 @@ export default function SuperAdminDashboard() {
   const [notice, setNotice] = useState("");
   const [scenario, setScenario] = useState("sample");
   const [loaded, setLoaded] = useState(false);
+  const [saving, setSaving] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     const timer = setTimeout(() => setLoaded(true), 250);
     return () => clearTimeout(timer);
   }, [scenario]);
   const empty = scenario === "empty";
-  const users = empty ? [] : state.users;
+  const users = empty
+    ? []
+    : canManageRegistration && listAccounts
+      ? listAccounts()
+      : state.users;
   const cases = empty ? [] : state.cases;
   const pending = cases.filter((c) =>
     ["Pending", "Escalated"].includes(c.status),
@@ -100,9 +108,46 @@ export default function SuperAdminDashboard() {
     setError("");
     setDialog(value);
   }
-  function submit(event) {
+  async function submit(event) {
     event.preventDefault();
+    if (saving) return;
+    if (!canManageRegistration) {
+      setError("Sign in as Super Admin to manage saved accounts.");
+      return;
+    }
     const form = new FormData(event.currentTarget);
+    if (["create", "status"].includes(dialog.type)) {
+      setSaving(true);
+      try {
+        const result =
+          dialog.type === "create"
+            ? await createCommitteeAccount({
+                name: String(form.get("name")),
+                email: String(form.get("email")),
+                password: String(form.get("password")),
+                committee: String(form.get("committee")),
+                reason: String(form.get("reason")),
+              })
+            : updateAccountStatus({
+                target: dialog.target,
+                value: dialog.value,
+                reason: String(form.get("reason")),
+              });
+        if (!result.ok) {
+          setError(result.message || result.errors?.form);
+          return;
+        }
+        setDialog(null);
+        setNotice(
+          "Demo account saved in this browser. Committee members can sign in with their assigned email and password.",
+        );
+      } catch {
+        setError("Could not save the account. Please try again.");
+      } finally {
+        setSaving(false);
+      }
+      return;
+    }
     if (dialog.type === "add-country") {
       const result = addRegistrationCountry({
         country: String(form.get("country")),
@@ -122,23 +167,8 @@ export default function SuperAdminDashboard() {
       timestamp: new Date().toISOString(),
       eventId: crypto.randomUUID(),
     };
-    if (dialog.type === "create")
-      action.value = {
-        name: String(form.get("name")).trim(),
-        email: String(form.get("email")).trim(),
-        committee: form.get("committee"),
-      };
     if (!action.reason) {
       setError("A decision reason is required.");
-      return;
-    }
-    if (
-      dialog.type === "create" &&
-      state.users.some(
-        (u) => u.email?.toLowerCase() === action.value.email.toLowerCase(),
-      )
-    ) {
-      setError("This demo email is already assigned.");
       return;
     }
     dispatch(action);
@@ -247,7 +277,7 @@ export default function SuperAdminDashboard() {
               )}
               close={() => setDialog(null)}
             >
-              <form onSubmit={submit}>
+              <form onSubmit={submit} aria-busy={saving}>
                 {dialog.type === "add-country" ? (
                   <label>
                     {t("Country name")}
@@ -257,7 +287,7 @@ export default function SuperAdminDashboard() {
                   <>
                     <p>
                       {t(
-                        "Fictional account only. No credentials or activation email will be generated.",
+                        "Local demo account. Set a test password and share it manually; no activation email is sent.",
                       )}
                     </p>
                     <label>
@@ -271,6 +301,16 @@ export default function SuperAdminDashboard() {
                         type="email"
                         required
                         maxLength={160}
+                      />
+                    </label>
+                    <label>
+                      {t("Demo password")}
+                      <input
+                        name="password"
+                        type="password"
+                        autoComplete="new-password"
+                        required
+                        minLength={8}
                       />
                     </label>
                     <label>
@@ -320,8 +360,8 @@ export default function SuperAdminDashboard() {
                   <button type="button" onClick={() => setDialog(null)}>
                     {t("Cancel")}
                   </button>
-                  <button className="ac-primary">
-                    {t("Confirm demo change")}
+                  <button className="ac-primary" disabled={saving}>
+                    {t(saving ? "Please wait…" : "Confirm demo change")}
                   </button>
                 </div>
               </form>
@@ -344,6 +384,7 @@ export default function SuperAdminDashboard() {
         </div>
         <button
           className="ac-primary"
+          disabled={!canManageRegistration}
           onClick={() =>
             open({
               type: "create",
@@ -356,7 +397,7 @@ export default function SuperAdminDashboard() {
       </div>
       <div className="ac-demo">
         {t(
-          "Fictional records · EGP only · No real verification, AI, payments or escrow. Changes reset when you leave this workspace.",
+          "Local demo · Accounts and account audit records stay in this browser. Other workspace previews reset when you leave. No real verification, payments or escrow.",
         )}
       </div>
       <p role="status" className="ac-notice">
@@ -461,7 +502,7 @@ export default function SuperAdminDashboard() {
           {section === "users" && (
             <Panel
               title={t("User directory")}
-              subtitle="Manage fictional student and client accounts; committee accounts remain separate."
+              subtitle="Saved local demo accounts, including students, clients and provisioned committees."
             >
               <div className="ac-filters">
                 <label>
@@ -488,6 +529,7 @@ export default function SuperAdminDashboard() {
                 rows={selectedUsers}
                 columns={[
                   { key: "displayName", label: "Account" },
+                  { key: "email", label: "Email" },
                   { key: "role", label: "Role" },
                   {
                     key: "accountStatus",
@@ -499,6 +541,9 @@ export default function SuperAdminDashboard() {
                     label: "Action",
                     render: (u) => (
                       <button
+                        disabled={
+                          !canManageRegistration || u.role === ROLES.SUPER_ADMIN
+                        }
                         onClick={() =>
                           open({
                             type: "status",
@@ -525,7 +570,7 @@ export default function SuperAdminDashboard() {
             <>
               <Panel
                 title={t("Five specialist workspaces")}
-                subtitle="Opening a committee demo switches the simulated account. Committee screens are currently routing placeholders; use session controls to return as Super Admin."
+                subtitle="Committee members sign in with their assigned credentials. Committee screens currently show routing placeholders."
               >
                 <div className="ac-committee-grid ac-padded">
                   {committees.map((c) => (
@@ -535,13 +580,10 @@ export default function SuperAdminDashboard() {
                       <button
                         className="button-text-only button-text-only--glyph"
                         onClick={() => {
-                          startTransition(() => {
-                            startDemoSession(c.account);
-                            navigate(`/committee/${c.id}`);
-                          });
+                          navigate("/login");
                         }}
                       >
-                        {t("Open")} {c.name} {t("demo")}
+                        {t("Sign in")} · {c.name}
                       </button>
                     </article>
                   ))}
@@ -549,12 +591,13 @@ export default function SuperAdminDashboard() {
               </Panel>
               <Panel
                 title={t("Provisioned committee accounts")}
-                subtitle="No public registration. New records are display-only and cannot log in."
+                subtitle="Created only by Super Admin. Saved accounts can sign in with their assigned email and test password."
               >
                 <DataTable
                   rows={users.filter((u) => u.role.endsWith("committee"))}
                   columns={[
                     { key: "displayName", label: "Member" },
+                    { key: "email", label: "Email" },
                     { key: "role", label: "Committee" },
                     { key: "accountStatus", label: "Status" },
                     {
@@ -658,7 +701,7 @@ export default function SuperAdminDashboard() {
             <Panel
               title={t("Registration countries")}
               subtitle={t(
-                "These countries appear in the sign-up form until the page is refreshed.",
+                "These countries are saved in this browser and appear in the sign-up form.",
               )}
             >
               <ul className="mb-4 list-disc space-y-1 ps-5">
@@ -691,7 +734,7 @@ export default function SuperAdminDashboard() {
               </div>
               <Panel
                 title={t("Administrative audit history")}
-                subtitle="Session-only events. Actor, target, reason, timestamp and before/after values are recorded together."
+                subtitle="Account events are saved locally; case and permission preview events last for this workspace session."
               >
                 <DataTable
                   rows={
@@ -699,6 +742,7 @@ export default function SuperAdminDashboard() {
                       ? []
                       : [
                           ...state.audit,
+                          ...accountAudit,
                           ...(canManageRegistration
                             ? registrationSettings.audit
                             : []),

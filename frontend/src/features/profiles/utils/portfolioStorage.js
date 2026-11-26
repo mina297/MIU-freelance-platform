@@ -4,11 +4,11 @@ import {
 } from "../../../data/fixtures/portfolio.js";
 import { PORTFOLIO_OVERRIDES_STORAGE_KEY } from "../constants.js";
 import { ownsProfile } from "./profileOwnership.js";
+import { readProfileLocalData } from "./profileLocalStorage.js";
 
 function readAll() {
   try {
-    const raw = window.sessionStorage.getItem(PORTFOLIO_OVERRIDES_STORAGE_KEY);
-    const value = raw ? JSON.parse(raw) : {};
+    const value = readProfileLocalData(PORTFOLIO_OVERRIDES_STORAGE_KEY);
     return value && typeof value === "object" && !Array.isArray(value)
       ? value
       : {};
@@ -18,7 +18,7 @@ function readAll() {
 }
 
 function writeAll(all) {
-  window.sessionStorage.setItem(
+  window.localStorage.setItem(
     PORTFOLIO_OVERRIDES_STORAGE_KEY,
     JSON.stringify(all),
   );
@@ -58,7 +58,7 @@ export function getResolvedPortfolioItems(studentId) {
 export function savePortfolioItemsForStudent(studentId, items, session) {
   if (!ownsProfile(session, studentId, "student"))
     throw new Error("Only the active student owner can change this portfolio.");
-  const all = readAll();
+  const all = readProfileLocalData(PORTFOLIO_OVERRIDES_STORAGE_KEY);
   all[studentId] = items;
   writeAll(all);
   return items;

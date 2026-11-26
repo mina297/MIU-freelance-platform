@@ -1,4 +1,5 @@
 import { isActiveUser } from "../auth/session.js";
+import { createLocalAuthStore } from "../auth/localAuthStore.js";
 
 // New-account profile shells contain public fields only and reset with the app.
 const profiles = new Map();
@@ -40,6 +41,8 @@ export function createRegistrationProfile(user) {
 }
 
 export function getRegistrationProfile(id, role) {
-  const profile = profiles.get(id);
+  const savedUser = createLocalAuthStore().getPublicProfileUser(id, role);
+  const profile =
+    profiles.get(id) ?? (savedUser && createRegistrationProfile(savedUser));
   return profile?.role === role ? profile : null;
 }

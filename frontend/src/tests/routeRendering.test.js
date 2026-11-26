@@ -219,16 +219,33 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
       assert.match(html, new RegExp("miu-scene-card miu-scene-" + kind));
     }
     assert.match(html, /class="miu-journey-stage"/);
-    for (const kind of ["project", "profile", "service", "earnings", "laptop", "briefcase", "users"]) {
+    for (const kind of [
+      "project",
+      "profile",
+      "service",
+      "earnings",
+      "laptop",
+      "briefcase",
+      "users",
+    ]) {
       assert.ok(html.includes(`data-artwork="${kind}"`));
     }
     assert.equal((html.match(/class="miu-journey-artwork"/g) ?? []).length, 7);
     assert.match(html, /miu-journey-objects-light-crimson-v3\.webp/);
-    assert.doesNotMatch(html, /miu-profile-stars|miu-earnings-chart|miu-laptop-keyboard/);
-    assert.doesNotMatch(html, /miu-connections|miu-light-trails|data-ribbon|miu-ribbon-tips/);
+    assert.doesNotMatch(
+      html,
+      /miu-profile-stars|miu-earnings-chart|miu-laptop-keyboard/,
+    );
+    assert.doesNotMatch(
+      html,
+      /miu-connections|miu-light-trails|data-ribbon|miu-ribbon-tips/,
+    );
     assert.doesNotMatch(html, /Order details · No payment taken/);
     assert.match(html, /id="hero-discover"/);
-    assert.doesNotMatch(html, /miu-story-rail|miu-story-progress|miu-story-chapters/);
+    assert.doesNotMatch(
+      html,
+      /miu-story-rail|miu-story-progress|miu-story-chapters/,
+    );
     assert.match(html, /Create Impact\./);
     assert.doesNotMatch(html, /<video\b/);
     assert.match(html, /aria-label="Choose Hire or Work"/);
@@ -577,7 +594,13 @@ test("all five authentication routes render labeled forms or role selection", as
         assert.match(html, /<h1[^>]*>Sign in<\/h1>/);
         assert.match(html, /class="auth-card auth-card--wide"/);
       }
-      assert.doesNotMatch(html.replace(/<[^>]*>/g, " "), /\bdemo\b/i);
+      if (html.includes('class="auth-prototype-note"')) {
+        assert.match(
+          html,
+          /Accounts stay in this browser until site data is cleared/,
+        );
+        assert.match(html, /Sign in again after refresh/);
+      }
       assert.doesNotMatch(html, /routing placeholder only/i);
       if (/^\/(login|register)\b/.test(path)) {
         assert.doesNotMatch(html, /Public navigation/);
@@ -609,7 +632,7 @@ test("all five authentication routes render labeled forms or role selection", as
       ) {
         assert.match(html, /<form/);
         assert.match(html, /<label[^>]+for=/);
-        assert.match(html, /Your sign-in lasts until you refresh this page/);
+        assert.match(html, /Sign in again after refresh/);
         assert.doesNotMatch(html.replace(/<[^>]*>/g, " "), /Prototype|Phase 1/);
         assert.match(html, /class="auth-input"/);
         assert.match(html, /required=""/);

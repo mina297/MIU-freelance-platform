@@ -142,8 +142,8 @@ export default function RegisterPage() {
           !googleSignup ||
           ["country", "emailSubscription", "acceptTerms"].includes(field.name),
       )}
-      onSubmit={(values) => {
-        const result = (googleSignup ? registerGoogle : register)({
+      onSubmit={async (values) => {
+        const result = await (googleSignup ? registerGoogle : register)({
           ...values,
           role,
         });

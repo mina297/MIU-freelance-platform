@@ -8,6 +8,15 @@ tags: [MIU, design-system, UI]
 
 # MIU Freelance Platform — Design System
 
+### Local account disclosure — 26 November 2026
+
+The approved local account demo adds concise English/Arabic persistence and test
+credential disclosures to auth/setup/admin screens. Explicit local-demo wording
+is permitted here so saved browser credentials cannot be mistaken for production
+authentication. This supersedes the blanket exclusion of “demo” below; unfinished
+feature scaffolding labels remain excluded. Existing form/table/mobile styles and
+accessible labels are reused.
+
 ### Interface wording — 24 November 2026
 
 User direction replaces development labels (Phase 1, Demo, Prototype, Coming Soon,

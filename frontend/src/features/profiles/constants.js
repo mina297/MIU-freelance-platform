@@ -14,7 +14,7 @@ export const DEFAULT_CLIENT_PROFILE_ID = "client_001";
 /** Simulated fixture load delay (ms) for loading-state demos. */
 export const PROFILE_LOAD_DELAY_MS = 200;
 
-/** sessionStorage key for simulated profile edit persistence. */
+/** localStorage key for simulated profile edits (legacy session data migrates). */
 export const PROFILE_EDIT_STORAGE_KEY = "miu-m5-profile-edits-v1";
 
 /** sessionStorage key for simulated review submissions. */
@@ -23,5 +23,5 @@ export const REVIEW_SUBMISSIONS_STORAGE_KEY = "miu-m5-review-submissions-v1";
 /** sessionStorage key for simulated support tickets. */
 export const SUPPORT_SUBMISSIONS_STORAGE_KEY = "miu-m5-support-submissions-v1";
 
-/** sessionStorage key for simulated per-student portfolio overrides. */
+/** localStorage key for simulated per-student portfolio overrides. */
 export const PORTFOLIO_OVERRIDES_STORAGE_KEY = "miu-m5-portfolio-overrides-v1";

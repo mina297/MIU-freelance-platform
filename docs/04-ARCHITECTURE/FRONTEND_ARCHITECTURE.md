@@ -8,6 +8,18 @@ tags: [MIU, React, frontend]
 
 # MIU Freelance Platform — Frontend Architecture
 
+### Local demo account store — 26 November 2026
+
+AuthProvider now consumes `features/auth/localAuthStore.js`. It validates versioned
+browser snapshots, reuses the memory auth engine's registration rules, derives
+salted password verifiers through Web Crypto, and commits account mutations with
+their audit records. Async auth callers await success before starting sessions or
+navigating. Sessions stay in React state and are never persisted. The admin
+directory and login use the same account source. Profile shells are reconstructed
+from public account fields; edits/portfolios migrate to localStorage. Stale
+concurrent account snapshots reject writes. No server or dependency added. This
+supersedes memory-only account notes below; see [Authentication](../06-MODULES/AUTHENTICATION.md).
+
 ## 1. Goal
 
 Build a maintainable, responsive React application that supports the Phase 1 mock workflows and can later connect to real backend APIs.

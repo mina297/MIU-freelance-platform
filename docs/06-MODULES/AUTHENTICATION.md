@@ -8,6 +8,54 @@ tags: [MIU, authentication, accounts]
 
 # Authentication Module
 
+## Local account persistence — 26 November 2026
+
+This supersedes the memory-only account lifecycle below. AuthProvider now uses
+`features/auth/localAuthStore.js`; `mockAuth.js` remains the isolated memory demo
+engine and supplies shared registration validation.
+
+- Versioned localStorage key `miu.demo-accounts.v1` holds accounts, password
+  verifiers, registration countries and account audit records. Stable IDs survive
+  refresh and closing/reopening the browser on the same origin/device.
+- Password verifiers use Web Crypto PBKDF2/SHA-256, 100,000 iterations, a random
+  16-byte salt and 32-byte result. Plaintext passwords and active sessions are not
+  saved. Refresh requires sign-in again; logout does not delete accounts.
+- Valid sign-in opens the student's/client's dashboard, `/admin`, or the matching
+  committee route. Public signup remains Student/Client only. Only an active
+  Super Admin may provision committees or suspend/restore non-admin accounts.
+- Public registrations and provisioned accounts share the admin user directory.
+  Provisioning/status changes and their actor/reason/before/after audit commit
+  together. Countries and their existing audit records also persist locally.
+- Fictional seed accounts use `<fixture ID>@example.test` and the published demo
+  password `MiuDemo2026!` until reset. Example: `admin_001@example.test`.
+  Login lists the admin/committee demo identities. These are public demo values.
+- Google remains a fictional completion preview with no OAuth or password.
+  Existing preview accounts can use the disclosed demo reset form to set a local
+  password. Recovery still checks no email ownership or reset token; replacement
+  verifiers persist. This is not production authentication or authorization.
+- Storage failure prevents success feedback. Corrupt account data is not silently
+  overwritten. A concurrent snapshot change is rejected so the action can be retried.
+  Clearing site data deletes local accounts; private browsing and changing
+  browser/device/origin do not guarantee access to the same data.
+
+Public profile shells are reconstructed from saved public account fields. Profile
+edits and portfolio overrides use localStorage with one-time migration from
+available legacy sessionStorage data. Credentials/private registration fields
+are never published. Unsaved onboarding drafts remain memory-only; no resume,
+identity document or biometric contents are persisted.
+
+Requirements: FR-S01, FR-S03, FR-C01, FR-C03, FR-A01, FR-A03–FR-A05, FR-A09,
+committee sign-in requirements, BR-03–BR-05 and BR-12. No backend/dependency or
+production authentication was added. Committee workflows remain placeholders.
+Browser storage is editable and provides no server-enforced security.
+
+Verification for this increment: all 376 tests passed, as did ESLint and the
+production build. Build still reports the existing large-chunk advisory. New
+store tests cover reload, duplicate/wrong-password rejection, all five committee
+roles, admin directory/status/audit integration, recovery, blocked/corrupt/full
+storage, profile reconstruction and legacy migration. Render/localization checks
+cover labels and persistence disclosures. Live browser/mobile checks were not run.
+
 ### Post-registration profile setup — 24 November 2026
 
 Next from `/profile/setup` now opens the student-only `/profile/setup/work` step
