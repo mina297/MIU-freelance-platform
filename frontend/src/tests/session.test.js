@@ -49,6 +49,7 @@ const registration = {
   acceptTerms: true,
   email: "student@miuegypt.edu.eg",
   password: "DemoPass1",
+  confirmPassword: "DemoPass1",
   role: ROLES.STUDENT,
 };
 const recovery = { ...registration, confirmPassword: registration.password };
@@ -132,6 +133,11 @@ test("auth email validation requires at least two letters after the final dot", 
 
 test("registration validates all fields and rejects privileged or manipulated roles", () => {
   assert.deepEqual(validateRegistration(registration), {});
+  assert.equal(
+    validateRegistration({ ...registration, confirmPassword: "Different123" })
+      .confirmPassword,
+    "Passwords must match.",
+  );
   const missing = validateRegistration({});
   assert.deepEqual(
     Object.keys(missing).sort(),
@@ -142,6 +148,7 @@ test("registration validates all fields and rejects privileged or manipulated ro
       "acceptTerms",
       "email",
       "password",
+      "confirmPassword",
       "role",
     ].sort(),
   );
@@ -252,7 +259,7 @@ test("forgot-password is simulated and password reset changes only memory", () =
     /no email was sent/,
   );
   assert.equal(store.forgotPassword("unknown@example.test").ok, true);
-  assert.ok(store.resetPassword(registration).errors.confirmPassword);
+  assert.ok(store.resetPassword({ ...registration, confirmPassword: "" }).errors.confirmPassword);
   assert.equal(
     store.resetPassword({ ...recovery, password: "weak" }).ok,
     false,

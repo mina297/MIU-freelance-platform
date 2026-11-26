@@ -2,7 +2,7 @@ import HeroTypingProvider from "./HeroTypingProvider.jsx";
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, BriefcaseBusiness, GraduationCap, Pause, Play } from "lucide-react";
+import { ArrowUpRight, BriefcaseBusiness, GraduationCap, Pause, Play, Search } from "lucide-react";
 import CategoryCarousel from "./CategoryCarousel.jsx";
 import HowItWorks from "./HowItWorks.jsx";
 import OverlapSection from "./OverlapSection.jsx";
@@ -28,7 +28,6 @@ const assets = import.meta.glob("../../assets/figma/landing/*", {
 const asset = (name) => assets[`../../assets/figma/landing/${name}`];
 const icons = {
   accent: "66e2b.svg",
-  search: "1966c.svg",
   chevron: "f0601.svg",
   briefcase: "05e24.svg",
   users: "a8d66.svg",
@@ -217,13 +216,8 @@ export default function LandingPage() {
               className="landing-search"
               onSubmit={search}
               role="search"
-              aria-label={t(
-                mode === "hire"
-                  ? t("Search student talent")
-                  : t("Search featured jobs"),
-              )}
+              aria-label={t(mode === "hire" ? "Search student talent" : "Search featured jobs")}
             >
-              <Icon name="search" />
               <label className="sr-only" htmlFor="landing-query">
                 {mode === "hire"
                   ? t("Search students by name or skill")
@@ -244,26 +238,12 @@ export default function LandingPage() {
               </div>
               <button
                 type="submit"
-                className="landing-button primary miu-hero-search-submit"
+                className="miu-hero-search-submit"
                 aria-label={t("Search")}
               >
-                <Icon name="search" />
+                <Search size={19} aria-hidden="true" />
               </button>
             </form>
-            <p className="landing-mode-caption" aria-live="polite">
-              {mode === "hire"
-                ? t("Great ideas start with the right people. ")
-                : t("Your next opportunity starts here. ")}
-              <Link
-                to={
-                  mode === "hire"
-                    ? "/register?role=client"
-                    : "/register?role=student"
-                }
-              >
-                {mode === "hire" ? t("Join to hire") : t("Join to work")} &rarr;
-              </Link>
-            </p>
             {!reducedMotion && (
               <button
                 type="button"

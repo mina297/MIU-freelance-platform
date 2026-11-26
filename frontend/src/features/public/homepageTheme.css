@@ -52,7 +52,7 @@
   border-color: var(--theme-accent-border);
   backdrop-filter: blur(12px);
 }
-:root[data-theme="dark"] :is(.landing-search, .landing-mode-toggle) {
+:root[data-theme="dark"] .landing-mode-toggle {
   background: var(--theme-field);
   color: var(--home-text);
   border-color: var(--theme-accent-border);

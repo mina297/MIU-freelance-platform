@@ -25,6 +25,7 @@ const values = {
   role: "student",
   email: "demo@miuegypt.edu.eg",
   password: "Fictional123!",
+  confirmPassword: "Fictional123!",
 };
 
 test("registration survives store recreation, normalizes duplicate emails and verifies passwords without storing plaintext", async () => {

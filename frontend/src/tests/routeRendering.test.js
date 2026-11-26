@@ -673,7 +673,10 @@ test("all five authentication routes render labeled forms or role selection", as
         assert.doesNotMatch(html, /<form/);
       }
       if (/^\/register\?role=(student|client)$/.test(path)) {
-        assert.doesNotMatch(html, /name="confirmPassword"/);
+        assert.match(
+          html,
+          /<input(?=[^>]*name="confirmPassword")(?=[^>]*type="password")(?=[^>]*required="")[^>]*>/,
+        );
         assert.match(html, /name="firstName"/);
         assert.match(html, /name="lastName"/);
         assert.match(html, /name="email"[\s\S]*name="password"/);

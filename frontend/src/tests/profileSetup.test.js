@@ -225,6 +225,7 @@ const values = {
   lastName: "Student",
   email: "test@miuegypt.edu.eg",
   password: "Fictional123",
+  confirmPassword: "Fictional123",
   country: "Egypt",
   acceptTerms: true,
   role: ROLES.STUDENT,

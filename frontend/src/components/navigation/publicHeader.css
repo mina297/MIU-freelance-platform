@@ -59,6 +59,22 @@
 .public-brand b {
   color: var(--theme-accent, var(--brand-red, #bd1734));
 }
+.public-brand > span:lang(ar) {
+  padding: 5px 12px 7px;
+  border: 1px solid var(--theme-divider, #e3d8de);
+  border-radius: 10px;
+  background: var(--theme-subtle-surface, #f8f3f5);
+  color: var(--theme-text, #30252c);
+  font-family: "Segoe UI", "Geeza Pro", "Noto Sans Arabic", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: normal;
+  white-space: nowrap;
+}
+.public-brand b:lang(ar) {
+  display: none;
+}
 .public-navigation {
   display: flex;
   align-items: center;

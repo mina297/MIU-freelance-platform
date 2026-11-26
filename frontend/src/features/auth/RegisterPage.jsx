@@ -104,6 +104,13 @@ export default function RegisterPage() {
           hint: "8+ characters, with a letter and a number.",
         },
         {
+          name: "confirmPassword",
+          label: "Confirm password",
+          type: "password",
+          autoComplete: "new-password",
+          revealPassword: true,
+        },
+        {
           name: "country",
           label: "Country",
           options: registrationSettings.countries.map((country) => ({

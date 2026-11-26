@@ -410,3 +410,5 @@ Future implementation must provide:
 - [SRS](../01-PROJECT/SRS.md)
 - [Roles and Permissions](../02-REQUIREMENTS/USER_ROLES_AND_PERMISSIONS.md)
 - [Verification](VERIFICATION.md)
+
+Student and client email registration require password confirmation. Both values must match before the demo creates an account. The Google signup preview uses its existing passwordless flow.
