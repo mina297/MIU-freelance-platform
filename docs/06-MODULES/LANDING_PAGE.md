@@ -428,3 +428,7 @@ Latest artwork replacement — 12 November 2026: `miu-reference-ivory.webp` now 
 The hero artwork, animated doors and journey cards share a proportional frame that covers the hero media area. Desktop framing favors the right side of the illustration. On narrow screens the illustration sits below the hero copy and keeps its closer framing.
 
 Explore your next direction links to the project catalogue in Work mode and the freelancer directory in Hire mode. Each link initializes the destination with a matching marketplace category when available or a keyword search otherwise.
+
+The homepage closes with separate student and client signup cards and a responsive footer that groups marketplace, platform and support links. The invitation uses the shared sans-serif typeface and includes Arabic copy.
+
+The trust section sizes to its content, with a divider and compact spacing before the signup cards.
