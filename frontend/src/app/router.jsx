@@ -4,6 +4,7 @@ import ApplicationNavigation from "../components/navigation/ApplicationNavigatio
 import { useEffect } from "react";
 import { useLanguage } from "../i18n/LanguageContext.js";
 import {
+  Link,
   Route,
   Routes,
   useNavigate,
@@ -165,6 +166,28 @@ const featurePages = {
   "/reset-password": <ResetPasswordPage />,
 };
 
+function RouteRecovery({ path }) {
+  const { t } = useLanguage();
+  const { state } = useLocation();
+
+  if (!["/access-denied", "/session-expired", "*"].includes(path)) return null;
+  return (
+    <div className="mt-5 flex flex-wrap gap-4">
+      <Link className="underline underline-offset-4" to="/">
+        {t("Home")}
+      </Link>
+      {path === "/session-expired" && (
+        <Link className="underline underline-offset-4" to="/login" state={state}>
+          {t("Sign in")}
+        </Link>
+      )}
+      <Link className="underline underline-offset-4" to="/help">
+        {t("Help Center")}
+      </Link>
+    </div>
+  );
+}
+
 export default function AppRouter() {
   const { t } = useLanguage();
   const { pathname } = useLocation();
@@ -196,6 +219,7 @@ export default function AppRouter() {
                               "Planned feature — routing placeholder only. This screen does not implement the feature workflow.",
                           )}
                         </p>
+                        <RouteRecovery path={route.path} />
                       </section>
                     )}
                   </ProtectedRoute>

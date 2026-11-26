@@ -39,7 +39,7 @@ export function usesApplicationNavigation(session, pathname) {
     ].some((path) => pathname === path || pathname.startsWith(`${path}/`))
   );
 }
-const publicWork = ["/projects", "/services", "/freelancers"];
+const publicWork = ["/projects", "/services", "/freelancers", "/recommendations", "/support/contact"];
 export function navigationItems(session) {
   const priority = [
     `/${session.user?.role}/dashboard`,

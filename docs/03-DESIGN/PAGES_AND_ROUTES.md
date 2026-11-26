@@ -442,3 +442,11 @@ M5 review fixes (24 October 2026) connect public `/students/:studentId`, `/clien
 `StudentDashboard` in the shared router content outlet. The shared navbar, layout
 and student role guard are preserved. Mock sessions remain memory-only: refresh
 requires signing in again before returning to the dashboard.
+
+### Navigation entry points
+
+- The landing footer links to the freelancer directory, skills matching, public information, Help Center, support contact, terms and privacy. Its UI previews disclosure links to the four existing public demonstration routes.
+- Public sign-up opens role selection. Login resumes an authorized requested route or opens the account's workspace. Session expiry offers a return through sign-in. Error pages offer Home and Help Center.
+- Signed-in navigation includes skills matching and support contact. Project details link to the client's public profile when available.
+- Record-specific pages are reached from their owning flows. Project and service catalogues open details; client projects open edits and proposal review; student proposals and services open edits; orders open their workspace and eligible checkout; the Help Center opens articles. Student onboarding starts after registration and the work category follows the profile step.
+- Committee workspaces and notifications have role-aware entry points and remain labeled placeholders. UI previews remain separate from protected workflows.

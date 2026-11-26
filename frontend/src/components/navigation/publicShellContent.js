@@ -48,5 +48,4 @@ export const FOOTER_GROUPS = [
 export const LEGAL_LINKS = [
   { key: "privacy", label: "Privacy" },
   { key: "terms", label: "Terms" },
-  { key: "communityGuidelines", label: "Community Guidelines" },
 ];

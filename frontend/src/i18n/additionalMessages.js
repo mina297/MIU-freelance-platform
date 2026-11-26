@@ -1,4 +1,5 @@
 export default {
+  "UI previews": "معاينات الواجهة",
   "Sign up to find work you love": "سجّل للعثور على عمل تحبه",
   "Sign up to find the talent you need": "سجّل للعثور على المواهب التي تحتاجها",
   "Create my account": "إنشاء حسابي",

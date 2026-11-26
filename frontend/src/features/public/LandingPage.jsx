@@ -602,19 +602,24 @@ export default function LandingPage() {
             <nav aria-label={t("Marketplace footer")}>
               <h3>{t("Marketplace")}</h3>
               <Link to="/projects">{t("Browse Jobs")}</Link>
-              <a href="#student-talent">{t("Find Talent")}</a>
-              <a href="#how-it-works">{t("How it Works")}</a>
+              <Link to="/freelancers">{t("Find Talent")}</Link>
+              <Link to="/how-it-works">{t("How it Works")}</Link>
+              <Link to="/recommendations">{t("Skills Matching")}</Link>
+              <Link to="/about">{t("About")}</Link>
               <Link to="/services">{t("Browse Services")}</Link>
             </nav>
             <nav aria-label={t("Support footer")}>
               <h3>{t("Support")}</h3>
               <a href="#trust">{t("Safety & Trust")}</a>
-              <button onClick={() => showInfo("Help Center")}>
-                {t("Help Center")}
-              </button>
-              <button onClick={() => showInfo("Contact Us")}>
-                {t("Contact Us")}
-              </button>
+              <Link to="/help">{t("Help Center")}</Link>
+              <Link to="/support/contact">{t("Contact Us")}</Link>
+              <details>
+                <summary>{t("UI previews")}</summary>
+                <Link to="/loading-demo">{t("Loading states")}</Link>
+                <Link to="/error-demo">{t("Error states")}</Link>
+                <Link to="/Checkout">{t("Checkout frontend preview")}</Link>
+                <Link to="/SuperAdmin">{t("Super Admin frontend preview")}</Link>
+              </details>
             </nav>
           </div>
           <div className="landing-footer-meta">
@@ -622,11 +627,11 @@ export default function LandingPage() {
               {t("© 2026 Misr International University. All rights reserved.")}
             </p>
             <div>
-              {["Privacy", "Terms", "Community Guidelines"].map((title) => (
-                <button key={title} onClick={() => showInfo(title)}>
-                  {t(title)}
-                </button>
-              ))}
+              <Link to="/privacy">{t("Privacy")}</Link>
+              <Link to="/terms">{t("Terms")}</Link>
+              <button onClick={() => showInfo("Community Guidelines")}>
+                {t("Community Guidelines")}
+              </button>
             </div>
           </div>
         </div>

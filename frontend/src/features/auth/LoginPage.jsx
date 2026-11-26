@@ -1,16 +1,18 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
 import AuthForm from "./AuthForm.jsx";
 import GoogleAuthButton from "./GoogleAuthButton.jsx";
 import { PUBLIC_REGISTRATION_ROLES } from "./session.js";
-import { getLoginDestination } from "./localAuthStore.js";
+import { getLoginDestination } from "./navigation.js";
+import { routeConfig } from "../../app/routeConfig.js";
 
 export default function LoginPage() {
   const { t } = useLanguage();
 
   const { login } = useAuth();
   const navigate = useNavigate();
+  const { state } = useLocation();
   const [params] = useSearchParams();
   const selectedRole = params.get("role");
   const role = PUBLIC_REGISTRATION_ROLES.includes(selectedRole)
@@ -53,7 +55,9 @@ export default function LoginPage() {
       onSubmit={async (values) => {
         const result = await login(values);
         if (result.ok)
-          navigate(getLoginDestination(result.user), { replace: true });
+          navigate(getLoginDestination(result.user, state?.from, routeConfig), {
+            replace: true,
+          });
         return result;
       }}
     >
@@ -69,7 +73,7 @@ export default function LoginPage() {
       </details>
       <p>
         {t("New here?")}{" "}
-        <Link to={role ? `/register?role=${role}` : "/register"}>
+        <Link to={role ? `/register?role=${role}` : "/register/role"}>
           {t("Create an account")}
         </Link>
       </p>

@@ -159,7 +159,7 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
       "/projects",
       "/services",
       "/login",
-      "/register",
+      "/register/role",
       "/register?role=client",
     ])
       assert.ok(html.includes(`href="${path}"`), path);
@@ -290,6 +290,14 @@ test("landing route renders Figma sections, safe discovery and existing auth nav
     assert.equal((html.match(/aria-expanded="false"/g) ?? []).length, 5);
     assert.match(html, /aria-label="Open navigation" aria-haspopup="dialog"/);
     assert.match(html, /href="\/#student-talent"/);
+    const footer = html.match(/<footer class="landing-footer">[\s\S]*?<\/footer>/)[0];
+    for (const path of [
+      "/freelancers", "/recommendations", "/how-it-works", "/about", "/help",
+      "/support/contact", "/terms", "/privacy", "/loading-demo", "/error-demo",
+      "/Checkout", "/SuperAdmin",
+    ]) {
+      assert.ok(footer.includes(`href="${path}"`), path);
+    }
     assert.match(html, /href="\/register\?role=student"/);
     assert.match(html, /<label[^>]+for="landing-query"/);
     assert.match(html, /<dialog[^>]+aria-labelledby="preview-title"/);

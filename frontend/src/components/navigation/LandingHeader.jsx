@@ -98,7 +98,7 @@ export default function LandingHeader({ accountAction }) {
       <Link to="/login" className="public-sign-in">
         {t("Sign In")}
       </Link>
-      <Link to="/register" className="public-sign-up button-text-only">
+      <Link to="/register/role" className="public-sign-up button-text-only">
         {t("Sign Up")}
       </Link>
     </>

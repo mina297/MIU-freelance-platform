@@ -34,6 +34,7 @@ test("open project shows a distinct scope, deliverables, EGP budget, and preview
   const html = renderProject("project_001");
 
   assert.match(html, /Build a responsive event website/);
+  assert.match(html, /href="\/clients\/client_001"/);
   assert.match(html, /Scope of work/);
   assert.match(html, /Expected deliverables/);
   assert.match(html, /Clear event schedule/);

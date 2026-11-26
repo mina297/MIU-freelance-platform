@@ -1,18 +1,16 @@
 import { matchPath } from "react-router-dom";
 import { getRouteAccess, ROLES } from "./session.js";
+import { getLoginDestination as getWorkspacePath } from "./localAuthStore.js";
 
 export function getRegistrationDestination(user) {
   return user.role === ROLES.STUDENT ? "/profile/setup" : "/";
 }
 
 export function getLoginDestination(user, requested, routes) {
-  const fallback =
-    routes.find(
-      (route) =>
-        ["app", "admin"].includes(route.layout) &&
-        route.roles?.length === 1 &&
-        route.roles[0] === user.role,
-    )?.path || "/";
+  const workspace = getWorkspacePath(user);
+  const fallback = routes.some((route) => route.path === workspace)
+    ? workspace
+    : "/";
   if (
     typeof requested !== "string" ||
     !requested.startsWith("/") ||

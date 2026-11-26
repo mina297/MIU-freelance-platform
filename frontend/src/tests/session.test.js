@@ -371,6 +371,12 @@ test("safe return navigation preserves authorized internal targets and rejects u
       String(from),
     );
   }
+  const client = mockUsers.find((fixture) => fixture.role === ROLES.CLIENT);
+  assert.equal(getLoginDestination(client, null, routeConfig), "/client/dashboard");
+  assert.equal(
+    getLoginDestination(client, "/checkout/order_001?source=orders#summary", routeConfig),
+    "/checkout/order_001?source=orders#summary",
+  );
   for (const fixture of mockUsers) {
     const destination = getLoginDestination(fixture, undefined, routeConfig);
     assert.ok(destination.startsWith("/"));

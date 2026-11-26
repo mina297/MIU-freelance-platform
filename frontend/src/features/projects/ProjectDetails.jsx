@@ -8,6 +8,8 @@ import {
   FolderOpen,
   Info,
 } from "lucide-react";
+import PublicLink from "../../components/navigation/PublicLink.jsx";
+import { getClientProfileById } from "../profiles/utils/getClientProfile.js";
 import miuLogo from "../../assets/figma/miu-anniversary-logo.png";
 import { formatDate } from "../../utils/formatDate.js";
 import { formatEGP } from "../../utils/formatEGP.js";
@@ -61,7 +63,8 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
     );
   }
 
-  const clientName = clientNames.get(project.clientId) ?? "Client";
+  const clientProfile = getClientProfileById(project.clientId);
+  const clientName = clientProfile?.profile.displayName ?? clientNames.get(project.clientId) ?? "Client";
   const initials = clientName
     .split(" ")
     .map((part) => part[0])
@@ -300,7 +303,16 @@ export default function ProjectDetails({ projectId, onBack, onPropose }) {
                   {initials}
                 </span>
                 <div>
-                  <p className="font-bold">{clientName}</p>
+                  {clientProfile ? (
+                    <PublicLink
+                      className="font-bold underline underline-offset-4"
+                      href={`/clients/${encodeURIComponent(project.clientId)}`}
+                    >
+                      {clientName}
+                    </PublicLink>
+                  ) : (
+                    <p className="font-bold">{clientName}</p>
+                  )}
                   <p className="text-xs text-[color:var(--theme-muted-text,#7e6c75)]">
                     {t("Fictional client")}
                   </p>
