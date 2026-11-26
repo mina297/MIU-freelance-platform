@@ -2,7 +2,7 @@ import HeroTypingProvider from "./HeroTypingProvider.jsx";
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Pause, Play } from "lucide-react";
+import { ArrowUpRight, BriefcaseBusiness, GraduationCap, Pause, Play } from "lucide-react";
 import CategoryCarousel from "./CategoryCarousel.jsx";
 import HowItWorks from "./HowItWorks.jsx";
 import OverlapSection from "./OverlapSection.jsx";
@@ -550,32 +550,24 @@ export default function LandingPage() {
         aria-labelledby="landing-invitation-title"
       >
         <div className="landing-container landing-invitation-inner">
-          <div>
-            <p className="landing-eyebrow">{t("Your next chapter")}</p>
-            <h2 id="landing-invitation-title">
-              {t("A little ambition.")}
-              <br />
-              <em>{t("A world of possibility.")}</em>
-            </h2>
-            <p>
-              {t(
-                "Bring your skills. Bring your ideas. Start with one meaningful collaboration.",
-              )}
-            </p>
-          </div>
-          <div className="landing-invitation-actions">
-            <Link
-              className="landing-button primary button-text-only"
-              to="/register?role=student"
-            >
-              {t("Join as a student")}{" "}
-
-            </Link>
-            <Link className="landing-button button-text-only" to="/register?role=client">
-              {t("Join as a client")}{" "}
-
-            </Link>
-            <span>{t("Two ways to begin. One MIU community.")}</span>
+          <h2 id="landing-invitation-title">{t("Find work or hire student talent")}</h2>
+          <div className="landing-invitation-options">
+            <article className="landing-invitation-card">
+              <span className="landing-invitation-icon"><GraduationCap aria-hidden="true" size={23} /></span>
+              <h3>{t("Find freelance work")}</h3>
+              <p>{t("Browse projects from clients and pitch the skills you bring.")}</p>
+              <Link className="landing-button primary" to="/register?role=student">
+                {t("Join as a student")} <ArrowUpRight aria-hidden="true" size={17} />
+              </Link>
+            </article>
+            <article className="landing-invitation-card">
+              <span className="landing-invitation-icon"><BriefcaseBusiness aria-hidden="true" size={23} /></span>
+              <h3>{t("Hire student talent")}</h3>
+              <p>{t("Post a project or find an MIU student with the skills you need.")}</p>
+              <Link className="landing-button" to="/register?role=client">
+                {t("Join as a client")} <ArrowUpRight aria-hidden="true" size={17} />
+              </Link>
+            </article>
           </div>
         </div>
       </section>
@@ -591,21 +583,24 @@ export default function LandingPage() {
               />
               <div>
                 <p>{t("MIU Freelance")}</p>
-                <small>{t("Real projects. Proven student talent.")}</small>
+                <small>{t("A freelance marketplace for the MIU community.")}</small>
               </div>
             </div>
             <nav aria-label={t("Marketplace footer")}>
               <h3>{t("Marketplace")}</h3>
               <Link to="/projects">{t("Browse Jobs")}</Link>
               <Link to="/freelancers">{t("Find Talent")}</Link>
-              <Link to="/how-it-works">{t("How it Works")}</Link>
-              <Link to="/recommendations">{t("Skills Matching")}</Link>
-              <Link to="/about">{t("About")}</Link>
               <Link to="/services">{t("Browse Services")}</Link>
+              <Link to="/recommendations">{t("Skills Matching")}</Link>
+            </nav>
+            <nav aria-label={t("Platform")}>
+              <h3>{t("Platform")}</h3>
+              <Link to="/how-it-works">{t("How it Works")}</Link>
+              <Link to="/about">{t("About")}</Link>
+              <a href="#trust">{t("Safety & Trust")}</a>
             </nav>
             <nav aria-label={t("Support footer")}>
               <h3>{t("Support")}</h3>
-              <a href="#trust">{t("Safety & Trust")}</a>
               <Link to="/help">{t("Help Center")}</Link>
               <Link to="/support/contact">{t("Contact Us")}</Link>
               <details>

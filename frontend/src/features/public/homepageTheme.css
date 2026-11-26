@@ -274,49 +274,6 @@
   background: var(--theme-accent-canvas);
   border-color: var(--theme-accent-border);
 }
-:root[data-theme="dark"] .landing-invitation {
-  background:
-    radial-gradient(
-      circle at 65% 100%,
-      transparent 0 110px,
-      color-mix(in srgb, var(--brand-red-border) 13%, transparent) 111px 160px,
-      transparent 161px
-    ),
-    linear-gradient(
-      120deg,
-      var(--theme-accent-surface),
-      var(--theme-accent-canvas)
-    );
-  border-color: var(--theme-accent-border);
-}
-:root[data-theme="dark"] .landing-invitation h2 em {
-  color: var(--home-accent);
-}
-:root[data-theme="dark"]
-  :is(
-    .landing-invitation-inner > div > p:last-child,
-    .landing-invitation-actions > span
-  ) {
-  color: var(--home-secondary);
-}
-:root[data-theme="dark"] .landing-footer {
-  background: linear-gradient(
-    120deg,
-    var(--theme-accent-canvas),
-    var(--theme-accent-surface)
-  );
-  border-top: 1px solid var(--theme-accent-border);
-}
-:root[data-theme="dark"]
-  :is(.landing-footer small, .landing-footer h3, .landing-footer-meta) {
-  color: var(--home-secondary);
-}
-:root[data-theme="dark"] .landing-footer-meta {
-  border-color: var(--theme-accent-border);
-}
-:root[data-theme="dark"] .landing-footer :is(a, button):hover {
-  color: var(--home-accent);
-}
 :root[data-theme="dark"] .landing-dialog {
   color: var(--home-text);
   background: var(--theme-overlay);

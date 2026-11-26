@@ -154,55 +154,92 @@
 .landing-job:focus-within {
   border-color: var(--theme-border, var(--brand-red, #a63052));
 }
+.landing .landing-overlap-panel.landing-trust {
+  min-height: 0;
+  padding-block: clamp(38px, 5vw, 64px) clamp(24px, 3vw, 40px);
+}
 .landing-invitation {
-  padding: 76px 24px;
-  border-top: 1px solid var(--theme-border, var(--brand-red-border, #d4bcc8));
-  background:
-    radial-gradient(
-      circle at 65% 100%,
-      transparent 0 110px,
-      var(
-          --theme-accent-surface,
-          color-mix(in srgb, var(--brand-red-muted, #c58a9e) 8.63%, transparent)
-        )
-        111px 160px,
-      transparent 161px
-    ),
-    var(--theme-accent-surface, var(--brand-red-soft, #f3e6ec));
+  position: relative;
+  padding: clamp(24px, 3vw, 40px) 24px clamp(36px, 5vw, 64px);
+  border-block-start: 1px solid var(--theme-border, #e4d5da);
+  background: var(--theme-canvas, #f8f5f6);
+  font-family: var(--font-sans);
+}
+.landing-invitation::before {
+  content: "";
+  position: absolute;
+  inset-block-start: -2px;
+  inset-inline: 0;
+  width: 64px;
+  height: 3px;
+  margin-inline: auto;
+  border-radius: 999px;
+  background: var(--theme-accent, #b0001e);
 }
 .landing-invitation-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 48px;
+  padding: clamp(20px, 4vw, 52px);
+  border: 1px solid var(--theme-border, #e4d5da);
+  border-radius: 28px;
+  background: var(--theme-surface, #fff);
 }
-.landing-invitation h2 {
-  margin: 18px 0;
-  font-size: clamp(32px, 3.4vw, 48px);
-  line-height: 1.2;
+.landing .landing-invitation h2 {
+  margin: 0 0 24px;
+  font-family: inherit;
+  font-size: clamp(27px, 3vw, 42px);
+  font-weight: 750;
+  line-height: 1.16;
+  letter-spacing: -0.035em;
 }
-.landing-invitation h2 em {
-  font-family: var(--font-display);
-  color: var(--theme-accent, var(--brand-red, #843450));
-}
-.landing-invitation-inner > div > p:last-child {
-  max-width: 480px;
-  color: var(--theme-muted-text, #6e5361);
-}
-.landing-invitation-actions {
+.landing-invitation-options {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.landing-invitation-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 12px;
-  min-width: 260px;
+  min-width: 0;
+  padding: clamp(18px, 3vw, 30px);
+  border: 1px solid var(--theme-border, #e4d5da);
+  border-radius: 20px;
+  background: var(--theme-subtle-surface, #f8f5f6);
 }
-.landing-invitation-actions .landing-button {
-  gap: 22px;
-  justify-content: space-between;
-  padding: 16px 24px;
+.landing-invitation-card:first-child {
+  background: var(--theme-accent-surface, #faedf0);
 }
-.landing-invitation-actions > span {
-  font-size: 11px;
-  text-align: center;
-  color: var(--theme-muted-text, #755b68);
+.landing-invitation-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--theme-border, #e4d5da);
+  border-radius: 13px;
+  color: var(--theme-accent, #b0001e);
+  background: var(--theme-surface, #fff);
+}
+.landing-invitation-card h3 {
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 730;
+  line-height: 1.25;
+}
+.landing-invitation-card p {
+  color: var(--theme-muted-text, #6e5361);
+  line-height: 1.6;
+}
+.landing-invitation-card .landing-button {
+  margin-block-start: auto;
+  gap: 12px;
+}
+.landing-invitation-card .landing-button svg {
+  flex-shrink: 0;
+}
+[dir="rtl"] .landing-invitation-card .landing-button svg {
+  transform: scaleX(-1);
+}
+@media (max-width: 640px) {
+  .landing-invitation-options { grid-template-columns: 1fr; }
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .landing[data-motion="on"] .landing-pathway:hover {
@@ -221,15 +258,7 @@
     grid-template-columns: 1fr;
     max-width: 620px;
   }
-  .landing-invitation-inner {
-    align-items: stretch;
-    flex-direction: column;
-    gap: 28px;
-  }
-  .landing-invitation-actions {
-    min-width: 0;
-    max-width: 400px;
-  }
+
 }
 @media (max-width: 450px) {
   .landing-pathway {
@@ -247,7 +276,7 @@
     width: 18px;
   }
   .landing-invitation {
-    padding: 48px 20px;
+    padding-inline: 20px;
   }
 }
 .landing[data-motion="off"] .landing-pathway {

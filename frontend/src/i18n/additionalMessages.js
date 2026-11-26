@@ -1,4 +1,11 @@
 export default {
+  "Find work or hire student talent": "ابحث عن عمل أو وظّف المواهب الطلابية",
+  "Find freelance work": "ابحث عن عمل حر",
+  "Browse projects from clients and pitch the skills you bring.": "تصفّح مشاريع العملاء وقدّم عروضًا تبرز مهاراتك.",
+  "Hire student talent": "وظّف المواهب الطلابية",
+  "Post a project or find an MIU student with the skills you need.": "انشر مشروعًا أو اعثر على طالب من جامعة مصر الدولية يمتلك المهارات التي تحتاجها.",
+  "Platform": "المنصة",
+  "A freelance marketplace for the MIU community.": "سوق للعمل الحر لمجتمع جامعة مصر الدولية.",
   "Show more": "عرض المزيد",
   "Show less": "عرض أقل",
   "UI previews": "معاينات الواجهة",
