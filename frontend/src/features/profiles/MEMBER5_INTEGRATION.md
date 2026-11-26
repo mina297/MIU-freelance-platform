@@ -1,5 +1,53 @@
 # Member 5 — Profiles, Reviews and Support integration
 
+## Owner profile and student reference design — 26 November 2026
+
+Presentation follow-up groups the existing student profile shell into a padded
+glass container with brand-tinted backing, 32px outer corners, shared 20px inner
+panel corners and pill action buttons. The student sidebar's open state now
+reserves 240px (108px collapsed), allowing this container to shrink and shift
+without being covered. Its cards, content, editor and public preview are
+unchanged. Browser checks at 1440px confirmed the rail/card bounds remain
+separate, and at 390px confirmed the wrapper stays inside the viewport.
+
+The private `/profile` route derives the active Student/Client owner. Both public
+registration methods and every participant sign-in land here; staff keep their
+workspace destinations. The navbar avatar is a direct profile link. An adjacent
+account menu preserves layout preferences, secondary navigation and sign-out.
+The old dashboard Profile link is omitted from More navigation.
+
+The supplied reference is for the student profile only: compact identity header,
+stacked View public profile/Profile settings actions, underline tabs, About Me,
+Skills and Portfolio in the primary column, with Work Stats, Education,
+Experience, Languages and Reviews alongside it. Responsive layouts stack the
+columns and actions. Existing canonical profiles/edits/portfolio/review selectors
+are reused; no new example identities, success rates, reviews or qualifications
+are invented. Experience has an explicit empty state because the current profile
+contract does not store employment records. Education uses existing field of
+study/year data. Client profiles retain their layout with the two owner actions.
+
+Public preview uses `?view=public` on the existing ID-based profile routes and
+hides settings/portfolio editing controls; it does not bypass storage ownership
+checks. Profile settings uses the existing editor, and save/cancel return to
+`/profile`. Setup screens remain directly reachable as before. Requirements:
+FR-S03, FR-C03, FR-C06, FR-X01, NFR-02 and NFR-03. This supersedes earlier
+navigation/landing descriptions without marking complete SRS workflows.
+
+Browser checks for this increment: fictional student sign-in opens `/profile`;
+avatar returns to it; the public-preview action hides profile/portfolio editing
+controls; settings opens `/profile/edit`; Skills + ArrowRight selects Experience.
+The student page was inspected at 1440px and 390px, including Arabic RTL at 390px,
+with no document-width overflow in those checks. Registration and role denial
+are covered by automated route/model checks; a new-account browser registration,
+client browser flow and assistive-technology review were not performed.
+
+Validation: ESLint, production build and the profile render smoke script passed.
+The full run executed 378 tests: 376 passed, with the existing footer-copy mismatch
+and the former homepage workspace-destination assertion failing. The latter was
+updated to expect `/profile` and passed on a focused rerun. The untouched footer
+test remains recorded in `docs/07-HANDOVER/KNOWN_ISSUES.md`; the full suite was
+not rerun after that focused correction.
+
 ## Local profile persistence — 26 November 2026
 
 This supersedes the account/profile lifetime notes below. New profile shells are
@@ -16,7 +64,7 @@ Updated 24 October 2026. This branch includes an uncommitted merge from main plu
 ## Registered routes
 
 - Public: `/students/:studentId`, `/clients/:clientId`, `/help`, `/help/:articleSlug`, `/support/contact`.
-- Active student/client owner: `/profile/edit`. The route derives profile ID and role from the current session. Page and storage mutations also check ownership; visitor/owner props cannot grant access.
+- Active student/client owner: `/profile` and `/profile/edit`. These routes derive profile ID and role from the current session. Page and storage mutations also check ownership; visitor/owner props cannot grant access.
 - Active client: `/reviews/new`. Optional `orderId` and `studentId` query parameters preselect/filter candidates; they do not authorize a review.
 
 Pages use Member 1/4's existing public shell. Proposals, comparison headings, services and provider cards link to the student profile. Completed order summaries link to the review page. The review success action opens the student's Reviews tab.

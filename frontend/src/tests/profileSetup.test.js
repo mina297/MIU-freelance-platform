@@ -286,7 +286,7 @@ test("profile setup is restricted to active students and excluded from menus", (
   }
 });
 
-test("email and Google registration send only students to setup; clients return home", () => {
+test("email and Google registration open the participant profile", () => {
   for (const role of [ROLES.STUDENT, ROLES.CLIENT]) {
     for (const method of ["register", "registerGoogle"]) {
       const result = createMockAuthStore()[method]({ ...values, role });
@@ -294,7 +294,7 @@ test("email and Google registration send only students to setup; clients return 
       const destination = getRegistrationDestination(result.user);
       assert.equal(
         destination,
-        role === ROLES.STUDENT ? "/profile/setup" : "/",
+        "/profile",
       );
       const route = routeConfig.find((entry) => entry.path === destination);
       assert.equal(

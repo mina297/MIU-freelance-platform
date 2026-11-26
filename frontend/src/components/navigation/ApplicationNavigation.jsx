@@ -134,6 +134,16 @@ export default function ApplicationNavigation({ children }) {
       <div
         className={active ? "application-shell" : undefined}
         data-navigation-layout={active ? layout : undefined}
+        data-student-workspace={
+          active && session.user.role === "student" ? "" : undefined
+        }
+        data-student-dashboard={
+          active &&
+          session.user.role === "student" &&
+          location.pathname === "/student/dashboard"
+            ? ""
+            : undefined
+        }
       >
         {active && (
           <header
@@ -166,7 +176,12 @@ export default function ApplicationNavigation({ children }) {
               {moreLinks.length > 0 && (
                 <Dropdown
                   key={location.key}
-                  label={t("More navigation")}
+                  label={
+                    <span className="application-navigation__more-label">
+                      {t("More navigation")}
+                    </span>
+                  }
+                  triggerProps={{ title: t("More navigation") }}
                   className="application-navigation__sections"
                 >
                   {(close) => (
@@ -225,14 +240,30 @@ export default function ApplicationNavigation({ children }) {
                   )}
                 </Dropdown>
               </div>
+              {["student", "client"].includes(session.user.role) && (
+                <Link
+                  to="/profile"
+                  className="application-profile-link"
+                  aria-label={t("My profile")}
+                  title={t("My profile")}
+                >
+                  <span className="application-avatar" aria-hidden="true">
+                    {session.user.displayName.trim().slice(0, 1)}
+                  </span>
+                </Link>
+              )}
               <Dropdown
                 key={location.key}
                 className={`application-account${landingHeader ? " public-account-menu" : ""}`}
                 label={
                   <>
-                    <span className="application-avatar" aria-hidden="true">
-                      {session.user.displayName.trim().slice(0, 1)}
-                    </span>
+                    {["student", "client"].includes(session.user.role) ? (
+                      <UserRound size={20} aria-hidden="true" />
+                    ) : (
+                      <span className="application-avatar" aria-hidden="true">
+                        {session.user.displayName.trim().slice(0, 1)}
+                      </span>
+                    )}
                     <span className="application-account__label">
                       {t("Account menu")}
                     </span>

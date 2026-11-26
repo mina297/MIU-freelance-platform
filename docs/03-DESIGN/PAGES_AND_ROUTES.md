@@ -7,6 +7,25 @@ tags: [MIU, pages, routing]
 
 # MIU Freelance Platform — Pages and Routes
 
+### Owner profile workspace — 26 November 2026
+
+`/profile` is an active Student/Client route that opens the current account's
+profile. Student/client sign-in and registration land here. The navbar avatar
+links here directly; duplicate Profile links are removed from More navigation.
+Account utilities remain accessible through the adjacent account-menu control.
+The Profile settings action opens `/profile/edit`; saving/canceling returns to
+`/profile`. View public profile opens `/students/:studentId?view=public` or
+`/clients/:clientId?view=public`, suppressing owner controls while retaining the
+existing public fields. The preview parameter grants no editing permission.
+
+The student profile follows the supplied student design reference. The client
+profile retains its current design with the two owner actions. Student profile
+tabs add Skills, Experience and Education; About, Portfolio, Reviews and
+Completed Jobs remain available. Missing qualifications/history show empty
+states. Existing `/profile/setup` routes remain student-only and are not the
+automatic registration destination. This supersedes earlier landing/profile
+navigation descriptions below.
+
 ### Client dashboard navigation — 26 November 2026
 
 The client dashboard now uses the main application navbar without an internal

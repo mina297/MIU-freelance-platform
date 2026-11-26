@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { selectStudentRecords } from "./studentDashboardModel.js";
 import "../dashboard.css";
+import "./studentGlassyDashboard.css";
+import "./studentDashboardPalette.css";
 import DashboardLayout from "../shared/DashboardLayout.jsx";
 import { useDashboardSection } from "../shared/useDashboardSection.js";
 import { DetailDialog } from "../shared/DashboardUi.jsx";

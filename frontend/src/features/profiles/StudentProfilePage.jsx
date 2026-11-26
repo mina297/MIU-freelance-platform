@@ -1,18 +1,18 @@
-import { useLanguage } from "../../i18n/LanguageContext.js";
 import { useContext, useState, useSyncExternalStore } from "react";
 import { AuthContext } from "../../contexts/AuthContext.js";
-import { NavLink } from "react-router-dom";
+import { ApplicationShellContext } from "../../components/navigation/NavigationContext.js";
 import { ownsProfile } from "./utils/profileOwnership.js";
 import { reviewClientAllowed, reviewStore } from "../reviews/reviewStore.js";
 import ReviewFormModal from "../reviews/components/ReviewFormModal.jsx";
-import AboutSection from "./components/AboutSection.jsx";
-import AtAGlanceCard from "./components/AtAGlanceCard.jsx";
-import CommunityCard from "./components/CommunityCard.jsx";
 import CompletedJobsSection from "./components/CompletedJobsSection.jsx";
-import LinksCard from "./components/LinksCard.jsx";
 import PortfolioSection from "./components/PortfolioSection.jsx";
-import ProfileBreadcrumb from "./components/ProfileBreadcrumb.jsx";
 import ProfileHeader from "./components/ProfileHeader.jsx";
+import StudentProfileOverview, {
+  SkillsCard,
+  EducationCard,
+  ExperienceCard,
+} from "./components/StudentProfileOverview.jsx";
+import "./studentProfile.css";
 import {
   ProfileLoadingState,
   ProfileNotFoundState,
@@ -22,20 +22,19 @@ import ReviewsSection from "./components/ReviewsSection.jsx";
 import { DEFAULT_STUDENT_PROFILE_ID } from "./constants.js";
 import { useStudentProfile } from "./hooks/useStudentProfile.js";
 
-/** Student profile page (About, Portfolio, Reviews, Completed Jobs). */
+/** Student profile overview, portfolio, qualifications and review tabs. */
 export default function StudentProfilePage({
   studentId = DEFAULT_STUDENT_PROFILE_ID,
   viewerMode = "visitor",
   initialTabId = "about",
-  onBack,
   onContact,
   onEditProfile,
+  onViewPublicProfile,
   onLeaveReview,
   simulateDelay = true,
 }) {
-  const { t } = useLanguage();
-
   const auth = useContext(AuthContext);
+  const Content = useContext(ApplicationShellContext) ? "main" : "div";
   useSyncExternalStore(
     reviewStore.subscribe,
     reviewStore.getSnapshot,
@@ -53,17 +52,17 @@ export default function StudentProfilePage({
 
   if (status === "loading") {
     return (
-      <div className="w-full bg-surface-page px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
+      <Content className="w-full bg-surface-page px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
         <ProfileLoadingState />
-      </div>
+      </Content>
     );
   }
 
   if (status === "not_found" || !data) {
     return (
-      <div className="w-full bg-surface-page px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
+      <Content className="w-full bg-surface-page px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
         <ProfileNotFoundState studentId={studentId} />
-      </div>
+      </Content>
     );
   }
 
@@ -78,23 +77,12 @@ export default function StudentProfilePage({
   }
 
   return (
-    <div className="w-full bg-surface-page">
-      <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-7 px-5 py-8 sm:px-8 md:gap-7 md:px-[120px] md:pb-16 md:pt-8">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <ProfileBreadcrumb onBack={onBack} />
-          {isOwner && onEditProfile ? (
-            <button
-              type="button"
-              onClick={onEditProfile}
-              className="h-10 rounded-full border border-miu-red px-4 text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))] hover:bg-miu-red-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
-            >
-              {t("Edit profile")}
-            </button>
-          ) : null}
-        </div>
-
+    <Content className="student-profile-page">
+      <div className="student-profile-shell">
         <ProfileHeader
           profile={profile}
+          onViewPublicProfile={isOwner ? onViewPublicProfile : undefined}
+          onEditProfile={isOwner ? onEditProfile : undefined}
           onContact={
             isOwner
               ? undefined
@@ -108,57 +96,51 @@ export default function StudentProfilePage({
           contactLabel={isOwner ? "Owner view" : "Contact"}
         />
 
-        {isOwner ? (
-          <p className="rounded-lg bg-miu-red-tint px-4 py-2 text-sm text-miu-black">
-            {t(
-              "You are viewing your profile as the owner. Visitors see the public Contact action instead of Edit profile.",
-            )}
-          </p>
-        ) : null}
-
-        <ProfileTabs activeTabId={activeTabId} onTabSelect={setActiveTabId} />
-
-        {activeTabId === "about" ? (
+        <div className="student-profile-tabs">
+          <ProfileTabs activeTabId={activeTabId} onTabSelect={setActiveTabId} />
+        </div>
+        {activeTabId === "about" && (
           <div
             role="tabpanel"
             id="profile-panel-about"
             aria-labelledby="profile-tab-about"
-            className="flex w-full flex-col gap-6 lg:flex-row lg:items-start lg:gap-6"
           >
-            <div className="flex min-w-0 flex-1 flex-col gap-6">
-              <AboutSection
-                firstName={profile.firstName}
-                paragraphs={profile.aboutParagraphs}
-                skills={profile.skills}
-              />
-              <LinksCard links={profile.links} />
-            </div>
-
-            <aside className="flex w-full shrink-0 flex-col gap-6 lg:w-[360px]">
-              {isOwner && (
-                <nav
-                  aria-label="Profile workspace"
-                  className="rounded-[10px] border border-[#e5e7eb] bg-white p-5"
-                >
-                  <NavLink
-                    to="/student/orders"
-                    className="inline-flex min-h-11 w-full items-center rounded-full px-4 font-semibold text-miu-red hover:bg-miu-red-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
-                  >
-                    Orders
-                  </NavLink>
-                </nav>
-              )}
-              <AtAGlanceCard
-                completedJobsCount={profile.completedJobsCount}
-                ratingSummary={profile.ratingSummary}
-                location={profile.location}
-                languages={profile.languages}
-                availability={profile.availability}
-              />
-              <CommunityCard description={t(profile.communityNote)} />
-            </aside>
+            <StudentProfileOverview
+              profile={profile}
+              studentId={studentId}
+              isOwner={isOwner}
+              reviews={reviews}
+              onSelectTab={setActiveTabId}
+            />
           </div>
-        ) : null}
+        )}
+        {activeTabId === "skills" && (
+          <div
+            role="tabpanel"
+            id="profile-panel-skills"
+            aria-labelledby="profile-tab-skills"
+          >
+            <SkillsCard skills={profile.skills} />
+          </div>
+        )}
+        {activeTabId === "experience" && (
+          <div
+            role="tabpanel"
+            id="profile-panel-experience"
+            aria-labelledby="profile-tab-experience"
+          >
+            <ExperienceCard />
+          </div>
+        )}
+        {activeTabId === "education" && (
+          <div
+            role="tabpanel"
+            id="profile-panel-education"
+            aria-labelledby="profile-tab-education"
+          >
+            <EducationCard profile={profile} />
+          </div>
+        )}
 
         {activeTabId === "portfolio" ? (
           <div
@@ -218,6 +200,6 @@ export default function StudentProfilePage({
           setActiveTabId("reviews");
         }}
       />
-    </div>
+    </Content>
   );
 }

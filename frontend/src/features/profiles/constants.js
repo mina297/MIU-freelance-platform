@@ -4,6 +4,9 @@
 export const PROFILE_TABS = [
   { id: "about", label: "About", implemented: true },
   { id: "portfolio", label: "Portfolio", implemented: true },
+  { id: "skills", label: "Skills", implemented: true },
+  { id: "experience", label: "Experience", implemented: true },
+  { id: "education", label: "Education", implemented: true },
   { id: "reviews", label: "Reviews", implemented: true },
   { id: "completed-jobs", label: "Completed Jobs", implemented: true },
 ];

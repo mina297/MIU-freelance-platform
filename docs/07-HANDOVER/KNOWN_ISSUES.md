@@ -7,6 +7,15 @@ tags: [MIU, issues, decisions]
 
 # MIU Freelance Platform — Known Issues and Open Decisions
 
+## Public footer test mismatch — 26 November 2026
+
+The full automated run during the profile workspace update flags
+`components/navigation/publicShell.test.js`'s footer-copy check: it still expects
+Community Guidelines, while the current `publicShellContent.js` Support group
+contains Safety & Trust, Help Center and Contact Us. These footer files were not
+changed by the profile task. Reconcile the approved footer inventory and its
+assertion in a separate update; the profile work does not add a policy page.
+
 ## Local account persistence — 26 November 2026
 
 Accounts, saved profiles/portfolios, registration settings and account audits now

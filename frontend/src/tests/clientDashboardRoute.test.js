@@ -57,7 +57,6 @@ test("client dashboard direct entries preserve the shared shell and client role 
         "applicants",
         "active",
         "completed",
-        "profile",
         "settings",
       ]) {
         assert.match(

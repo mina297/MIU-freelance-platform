@@ -4,6 +4,14 @@ import { ROLES, PUBLIC_REGISTRATION_ROLES } from "../features/auth/session.js";
 // Access metadata describes role-level demo access, not production permissions.
 export const routeConfig = [
   {
+    path: "/profile",
+    title: "My profile",
+    layout: "app",
+    access: "roles",
+    roles: [ROLES.STUDENT, ROLES.CLIENT],
+    showInNavigation: false,
+  },
+  {
     path: "/profile/setup/work",
     title: "Type of work",
     layout: "onboarding",

@@ -14,16 +14,33 @@ import HelpCenterPage from "../help/HelpCenterPage.jsx";
 import HelpArticlePage from "../help/HelpArticlePage.jsx";
 import { ownsProfile } from "./utils/profileOwnership.js";
 
-export function StudentProfileRoute() {
+export function MyProfileRoute() {
+  const { session } = useAuth();
+  return session.user.role === "student" ? (
+    <StudentProfileRoute own />
+  ) : (
+    <ClientProfileRoute own />
+  );
+}
+
+export function StudentProfileRoute({ own = false }) {
   const { t } = useLanguage();
 
-  const { studentId } = useParams();
+  const routeParams = useParams();
   const { session } = useAuth();
+  const studentId = own ? session.user.id : routeParams.studentId;
   const navigate = useNavigate();
   const [params] = useSearchParams();
   return (
     <>
-      <p className="px-5 pt-5 text-sm text-[var(--theme-accent,var(--color-miu-red))]">
+      {params.get("view") === "public" &&
+        ownsProfile(session, studentId, "student") && (
+          <div className="profile-preview-notice">
+            <span>{t("Public profile preview")}</span>
+            <Link to="/profile">{t("Back to my profile")}</Link>
+          </div>
+        )}
+      <p className="sr-only">
         {t(
           "Fictional Phase 1 profile. Account badges are simulated. Historical design samples use separate IDs.",
         )}
@@ -32,16 +49,29 @@ export function StudentProfileRoute() {
         key={`${studentId}:${session.user?.id ?? "visitor"}:${params.get("tab")}`}
         studentId={studentId}
         initialTabId={
-          ["portfolio", "reviews", "completed-jobs"].includes(params.get("tab"))
+          [
+            "portfolio",
+            "skills",
+            "experience",
+            "education",
+            "reviews",
+            "completed-jobs",
+          ].includes(params.get("tab"))
             ? params.get("tab")
             : "about"
         }
         viewerMode={
-          ownsProfile(session, studentId, "student") ? "owner" : "visitor"
+          ownsProfile(session, studentId, "student") &&
+          params.get("view") !== "public"
+            ? "owner"
+            : "visitor"
         }
         simulateDelay={false}
         onBack={() => navigate("/freelancers")}
         onEditProfile={() => navigate("/profile/edit")}
+        onViewPublicProfile={() =>
+          navigate(`/students/${encodeURIComponent(studentId)}?view=public`)
+        }
         onLeaveReview={() =>
           navigate(`/reviews/new?studentId=${encodeURIComponent(studentId)}`)
         }
@@ -49,12 +79,14 @@ export function StudentProfileRoute() {
     </>
   );
 }
-export function ClientProfileRoute() {
+export function ClientProfileRoute({ own = false }) {
   const { t } = useLanguage();
 
-  const { clientId } = useParams();
+  const routeParams = useParams();
   const { session } = useAuth();
+  const clientId = own ? session.user.id : routeParams.clientId;
   const navigate = useNavigate();
+  const [params] = useSearchParams();
   return (
     <>
       <p className="px-5 pt-5 text-sm text-[var(--theme-accent,var(--color-miu-red))]">
@@ -64,11 +96,17 @@ export function ClientProfileRoute() {
         key={`${clientId}:${session.user?.id ?? "visitor"}`}
         clientId={clientId}
         viewerMode={
-          ownsProfile(session, clientId, "client") ? "owner" : "visitor"
+          ownsProfile(session, clientId, "client") &&
+          params.get("view") !== "public"
+            ? "owner"
+            : "visitor"
         }
         simulateDelay={false}
         onBack={() => navigate("/projects")}
         onEditProfile={() => navigate("/profile/edit")}
+        onViewPublicProfile={() =>
+          navigate(`/clients/${encodeURIComponent(clientId)}?view=public`)
+        }
         onViewStudent={(id) => navigate(`/students/${id}`)}
       />
     </>
@@ -77,7 +115,7 @@ export function ClientProfileRoute() {
 export function ProfileEditRoute() {
   const { session } = useAuth();
   const navigate = useNavigate();
-  const destination = `/${session.user.role === "student" ? "students" : "clients"}/${session.user.id}`;
+  const destination = "/profile";
   return (
     <ProfileEditPage
       profileId={session.user.id}

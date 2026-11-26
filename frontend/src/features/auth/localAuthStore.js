@@ -362,6 +362,7 @@ export function createLocalAuthStore(
 }
 
 export function getLoginDestination(user) {
+  if ([ROLES.STUDENT, ROLES.CLIENT].includes(user.role)) return "/profile";
   if (user.role === ROLES.SUPER_ADMIN) return "/admin";
   const committee = Object.entries(committeeRoles).find(
     ([, role]) => role === user.role,

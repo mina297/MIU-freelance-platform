@@ -1,7 +1,8 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
-import { BadgeCheck } from "lucide-react";
+import { BadgeCheck, Eye, Settings } from "lucide-react";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext.js";
+import { ApplicationShellContext } from "../../components/navigation/NavigationContext.js";
 import { ownsProfile } from "./utils/profileOwnership.js";
 import ProfileBreadcrumb from "./components/ProfileBreadcrumb.jsx";
 import {
@@ -32,6 +33,7 @@ export default function ClientProfilePage({
   viewerMode = "visitor",
   onBack,
   onEditProfile,
+  onViewPublicProfile,
   onViewStudent,
   simulateDelay = true,
 }) {
@@ -39,22 +41,23 @@ export default function ClientProfilePage({
 
   const { status, data } = useClientProfile(clientId, { simulateDelay });
   const auth = useContext(AuthContext);
+  const Content = useContext(ApplicationShellContext) ? "main" : "div";
   const isOwner =
     viewerMode === "owner" && ownsProfile(auth?.session, clientId, "client");
 
   if (status === "loading") {
     return (
-      <div className="w-full bg-surface-page px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
+      <Content className="w-full bg-surface-page px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
         <ProfileLoadingState />
-      </div>
+      </Content>
     );
   }
 
   if (status === "not_found" || !data) {
     return (
-      <div className="w-full bg-surface-page px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
+      <Content className="w-full bg-surface-page px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
         <ProfileNotFoundState studentId={clientId} />
-      </div>
+      </Content>
     );
   }
 
@@ -67,18 +70,33 @@ export default function ClientProfilePage({
     .join("");
 
   return (
-    <div className="w-full bg-surface-page">
+    <Content className="w-full bg-surface-page">
       <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-7 px-5 py-8 sm:px-8 md:px-[120px] md:pb-16 md:pt-8">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <ProfileBreadcrumb onBack={onBack} />
           {isOwner && onEditProfile ? (
-            <button
-              type="button"
-              onClick={onEditProfile}
-              className="h-10 rounded-full border border-miu-red px-4 text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))] hover:bg-miu-red-tint"
-            >
-              {t("Edit profile")}
-            </button>
+            <div className="flex flex-wrap gap-3">
+              {onViewPublicProfile && (
+                <button
+                  type="button"
+                  onClick={onViewPublicProfile}
+                  className="inline-flex min-h-11 items-center gap-2 rounded-full border border-miu-red px-4 text-sm font-semibold text-miu-red"
+                >
+                  <Eye size={17} aria-hidden="true" />
+                  {t("View public profile")}
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={onEditProfile}
+                className="h-10 rounded-full border border-miu-red px-4 text-sm font-semibold text-[var(--theme-accent,var(--color-miu-red))] hover:bg-miu-red-tint"
+              >
+                <span className="inline-flex items-center gap-2">
+                  <Settings size={17} aria-hidden="true" />
+                  {t("Profile settings")}
+                </span>
+              </button>
+            </div>
           ) : null}
         </div>
 
@@ -179,6 +197,6 @@ export default function ClientProfilePage({
           )}
         </section>
       </div>
-    </div>
+    </Content>
   );
 }

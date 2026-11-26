@@ -61,7 +61,7 @@ test("registration survives store recreation, normalizes duplicate emails and ve
     reload.getPublicProfileUser(result.user.id, "student").displayName,
     "Demo Student",
   );
-  assert.equal(getLoginDestination(result.user), "/student/dashboard");
+  assert.equal(getLoginDestination(result.user), "/profile");
 });
 
 test("Super Admin sees registrations, provisions all five roles, and suspension/audit persist", async () => {

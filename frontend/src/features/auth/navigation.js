@@ -3,10 +3,11 @@ import { getRouteAccess, ROLES } from "./session.js";
 import { getLoginDestination as getWorkspacePath } from "./localAuthStore.js";
 
 export function getRegistrationDestination(user) {
-  return user.role === ROLES.STUDENT ? "/profile/setup" : "/";
+  return [ROLES.STUDENT, ROLES.CLIENT].includes(user.role) ? "/profile" : "/";
 }
 
 export function getLoginDestination(user, requested, routes) {
+  if ([ROLES.STUDENT, ROLES.CLIENT].includes(user.role)) return "/profile";
   const workspace = getWorkspacePath(user);
   const fallback = routes.some((route) => route.path === workspace)
     ? workspace

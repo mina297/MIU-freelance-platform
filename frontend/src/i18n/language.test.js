@@ -223,7 +223,10 @@ test("all registered routes render in both languages with one language control a
   ]);
   const beforeRoutes = JSON.stringify(routeConfig);
   for (const route of routeConfig) {
-    assert.ok(ar[route.title], `document title: ${route.title}`);
+    assert.ok(
+      ar[route.title] || productCopy[route.title]?.[1],
+      `document title: ${route.title}`,
+    );
     const url = route.path
       .replace(":studentId", "student_001")
       .replace(":clientId", "client_001")
@@ -281,13 +284,24 @@ test("all registered routes render in both languages with one language control a
         /\b(?:phase\s*1|prototype|mock data|coming soon|under construction|beta|placeholder)\b/i,
         `${url}: ${language} contains development labels`,
       );
+      const applicationShell = html.includes('class="application-shell"');
       assert.equal(
         (html.match(/class="language-control"/g) ?? []).length,
-        compactAuth ? 0 : 1,
+        compactAuth || applicationShell ? 0 : 1,
         `${url}: ${language}`,
       );
       if (compactAuth) continue;
       assert.ok(html.includes(language === "ar" ? "اللغة" : "Language"));
+      if (applicationShell) {
+        assert.match(html, /class="theme-toggle application-language-toggle"/);
+        assert.match(
+          html,
+          new RegExp(
+            `aria-label="(?:Language|اللغة): العربية" aria-pressed="${language === "ar"}"`,
+          ),
+        );
+        continue;
+      }
       assert.match(html, /class="language-control"><div class="disclosure /);
       assert.match(
         html,

@@ -403,7 +403,7 @@ test("public website routes render real pages in one shell with safe destination
         },
       },
     });
-    assert.match(loggedIn, /href="\/student\/dashboard"/);
+    assert.match(loggedIn, /href="\/profile"/);
     assert.match(loggedIn, /My workspace/);
     assert.match(loggedIn, /Sign out/);
     assert.doesNotMatch(

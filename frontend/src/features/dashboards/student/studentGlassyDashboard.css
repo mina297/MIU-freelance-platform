@@ -1,0 +1,675 @@
+/* The video supplies the material and proportions; the website supplies color.
+   Only the student dashboard opts in. All content and interactions are retained. */
+[data-student-workspace] {
+  --student-surface: var(--theme-surface, var(--surface-raised, #fff));
+  --student-canvas: var(--theme-canvas, var(--surface-page, #efe9ed));
+  --student-ink: var(--theme-text, var(--ink-primary, #35212c));
+  --student-accent: var(--theme-accent, var(--brand-red));
+  --student-focus: var(--theme-focus, var(--brand-red));
+  --student-scene-highlight: var(--brand-red-soft);
+  --student-glass: color-mix(
+    in srgb,
+    var(--student-surface, #fff) 65%,
+    transparent
+  );
+  --student-glass-edge: color-mix(
+    in srgb,
+    var(--student-surface, #fff) 84%,
+    transparent
+  );
+  --student-glass-line: color-mix(in srgb, var(--brand-red) 10%, transparent);
+  --student-glass-shadow:
+    0 12px 36px -24px color-mix(in srgb, var(--brand-red-deep) 30%, transparent),
+    inset 0 1px 0 var(--student-glass-edge);
+  --student-glass-selected: color-mix(
+    in srgb,
+    var(--student-surface, #fff) 92%,
+    transparent
+  );
+}
+[data-student-dashboard] {
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+  background: var(--student-canvas, #faf7f8);
+}
+[data-student-dashboard]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 4% 14%,
+      color-mix(in srgb, var(--brand-red) 21%, transparent),
+      transparent 48%
+    ),
+    radial-gradient(
+      ellipse at 95% 5%,
+      color-mix(in srgb, var(--student-scene-highlight) 80%, transparent),
+      transparent 46%
+    ),
+    radial-gradient(
+      ellipse at 76% 80%,
+      color-mix(in srgb, var(--brand-red-muted) 19%, transparent),
+      transparent 55%
+    ),
+    linear-gradient(
+      112deg,
+      transparent 12%,
+      color-mix(in srgb, var(--student-surface) 62%, transparent) 12.5% 26%,
+      transparent 26.5% 64%,
+      color-mix(in srgb, var(--student-surface) 70%, transparent) 64.5% 77%,
+      transparent 77.5%
+    ),
+    var(--student-canvas, #faf7f8);
+}
+[data-student-dashboard] .student-dashboard {
+  background: transparent;
+}
+[data-student-dashboard] .sd-main {
+  max-width: 1440px;
+  padding: 28px 32px 40px;
+  gap: 22px;
+}
+[data-student-dashboard] :is(.sd-panel, .sd-welcome) {
+  border: 1px solid var(--student-glass-edge);
+  border-radius: 20px;
+  box-shadow: var(--student-glass-shadow);
+}
+[data-student-dashboard] .sd-panel {
+  background: var(--student-glass);
+}
+[data-student-dashboard] .sd-welcome {
+  padding: 32px;
+  min-height: 156px;
+  background:
+    radial-gradient(
+      ellipse at 2% 0%,
+      color-mix(in srgb, var(--brand-red-soft) 30%, transparent),
+      transparent 65%
+    ),
+    linear-gradient(
+      125deg,
+      color-mix(in srgb, var(--brand-red) 86%, transparent),
+      color-mix(in srgb, var(--brand-red-deep) 92%, transparent)
+    );
+  color: white;
+  box-shadow:
+    0 16px 36px -24px color-mix(in srgb, var(--brand-red) 65%, transparent),
+    inset 0 1px 0 #ffffff50;
+}
+[data-student-dashboard] .sd-welcome h1 {
+  font-size: clamp(26px, 2.5vw, 36px);
+  letter-spacing: -0.035em;
+  font-weight: 700;
+}
+[data-student-dashboard] .sd-welcome p {
+  color: #fff;
+  opacity: 0.88;
+  font-size: 14px;
+  line-height: 1.6;
+}
+[data-student-dashboard] .sd-welcome .sd-primary {
+  background: var(--student-surface, #fff);
+  color: var(--student-accent);
+  border-color: #ffffff90;
+  box-shadow: 0 4px 12px #0000000d;
+}
+[data-student-dashboard] .sd-stats {
+  gap: 16px;
+}
+[data-student-dashboard] .sd-stat {
+  padding: 22px;
+  gap: 12px;
+  border-block-start-width: 1px;
+  min-height: 148px;
+}
+[data-student-dashboard] .sd-stat > div {
+  align-items: center;
+  font-size: 13px;
+  font-weight: 550;
+}
+[data-student-dashboard] .sd-stat > div .sd-icon {
+  align-self: center;
+  padding: 7px;
+  box-sizing: content-box;
+  border: 1px solid var(--student-glass-edge);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--student-surface) 74%, transparent);
+}
+[data-student-dashboard] .sd-stat > strong {
+  font-size: 32px;
+  font-weight: 650;
+  letter-spacing: -0.045em;
+}
+[data-student-dashboard] .sd-stat:nth-child(3) {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--brand-red) 88%, transparent),
+    color-mix(in srgb, var(--brand-red-deep) 94%, transparent)
+  );
+  color: #fff;
+}
+[data-student-dashboard] .sd-stat:nth-child(3) :is(small, div) {
+  color: #fff;
+}
+[data-student-dashboard] .sd-stat:nth-child(3) .sd-icon {
+  background: #ffffff24;
+  border-color: #ffffff55;
+  filter: brightness(0) invert(1);
+}
+[data-student-dashboard] .sd-panel-heading {
+  padding: 22px 24px 18px;
+}
+[data-student-dashboard] h2 {
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+[data-student-dashboard] .sd-table-head {
+  background: color-mix(in srgb, var(--brand-red) 4%, transparent);
+}
+[data-student-dashboard] :is(.sd-table-row, .sd-table-footer, .sd-summary li) {
+  border-color: var(--student-glass-line);
+}
+[data-student-dashboard] .sd-table-row {
+  min-height: 74px;
+}
+[data-student-dashboard] .sd-applications {
+  overflow: hidden;
+}
+[data-student-dashboard] .sd-more {
+  background: color-mix(in srgb, var(--student-surface) 55%, transparent);
+  border-color: var(--student-glass-edge);
+}
+[data-student-dashboard] .sd-job {
+  padding: 24px;
+}
+[data-student-dashboard] .sd-secondary {
+  background: color-mix(in srgb, var(--student-surface) 66%, transparent);
+  border-color: var(--student-glass-edge);
+  box-shadow: inset 0 1px 0 var(--student-glass-edge);
+}
+[data-student-dashboard]
+  :is(
+    .application-navigation,
+    .application-navigation__links,
+    .application-drawer
+  ) {
+  background: var(--student-glass);
+  border: 1px solid var(--student-glass-edge);
+  box-shadow: var(--student-glass-shadow);
+}
+[data-student-dashboard] .application-navigation {
+  border-radius: 22px;
+  width: calc(100% - 40px);
+  margin: 16px auto 0;
+  padding: 12px 20px;
+  min-height: 84px;
+}
+[data-student-dashboard] .application-navigation__links {
+  background: color-mix(in srgb, var(--student-surface) 24%, transparent);
+}
+[data-student-dashboard] .application-navigation :is(a, button):focus-visible {
+  outline: 3px solid var(--student-focus);
+  outline-offset: 3px;
+}
+@supports (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  [data-student-dashboard]
+    :is(.sd-panel, .application-navigation, .application-drawer) {
+    -webkit-backdrop-filter: blur(16px) saturate(125%);
+    backdrop-filter: blur(16px) saturate(125%);
+  }
+}
+@supports (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation {
+    -webkit-backdrop-filter: blur(16px) saturate(125%);
+    backdrop-filter: blur(16px) saturate(125%);
+  }
+}
+@media (min-width: 1280px) {
+  [data-student-workspace][data-navigation-layout="side"] {
+    padding-inline-start: 240px;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation {
+    inset-block: 16px;
+    inset-inline-start: 16px;
+    width: 216px;
+    margin: 0;
+    padding: 20px 12px;
+    gap: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+    align-items: stretch;
+    border: 1px solid var(--student-glass-edge);
+    border-radius: 22px;
+    background: color-mix(
+      in srgb,
+      var(--student-surface) 40%,
+      color-mix(in srgb, var(--brand-red-muted) 16%, transparent)
+    );
+    box-shadow: var(--student-glass-shadow);
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__brand {
+    order: 0;
+    grid-column: 1 / -1;
+    padding: 0 12px 12px;
+    background: transparent;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__brand
+    img {
+    width: 144px;
+    height: 66px;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__links {
+    order: 1;
+    grid-column: 1 / -1;
+    height: 100%;
+    align-items: stretch;
+    gap: 6px;
+    padding: 8px 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    /* Keep flyout menus outside the rail's clipping area. */
+    overflow: visible;
+    min-height: 300px;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__links
+    a {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    min-height: 44px;
+    padding: 11px 14px;
+    border-radius: 11px;
+    font-size: 13px;
+    text-align: start;
+    font-weight: 550;
+    color: var(--student-ink);
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__links
+    a[aria-current="page"] {
+    background: var(--student-glass-selected);
+    color: var(--student-accent);
+    border-radius: 11px;
+    box-shadow:
+      0 3px 12px color-mix(in srgb, var(--brand-red-deep) 6%, transparent),
+      inset 0 1px 0 var(--student-glass-edge);
+    font-weight: 700;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__links
+    a[aria-current="page"]::before,
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__links
+    a[aria-current="page"]::after {
+    content: none;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__sections
+    > .disclosure-trigger {
+    padding: 11px 14px;
+    font-size: 13px;
+    text-align: start;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__tools {
+    order: 2;
+    grid-column: 1 / -1;
+    align-items: stretch;
+    padding-top: 12px;
+    border-top: 1px solid var(--student-glass-line);
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-profile-link {
+    order: 3;
+    justify-self: center;
+    align-self: center;
+    border-color: var(--student-glass-edge);
+    background: color-mix(in srgb, var(--student-surface) 40%, transparent);
+  }
+  [data-student-workspace][data-navigation-layout="side"] .application-account {
+    order: 4;
+    justify-self: center;
+    align-self: center;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__sections
+    .disclosure-panel {
+    top: auto;
+    bottom: 0;
+    max-height: min(65dvh, 440px);
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-account
+    .disclosure-panel {
+    top: auto;
+    bottom: 0;
+    max-height: calc(100dvh - 48px);
+  }
+  [data-student-workspace][data-navigation-layout="side"] .sd-main {
+    padding-inline: 24px 32px;
+  }
+}
+@media (min-width: 1280px) and (max-height: 700px) {
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation {
+    padding-block: 12px;
+    gap: 8px;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__brand
+    img {
+    height: 44px;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__links {
+    min-height: 280px;
+  }
+}
+:root[data-theme="dark"] [data-student-workspace] {
+  --student-scene-highlight: color-mix(
+    in srgb,
+    var(--brand-red) 28%,
+    var(--student-canvas)
+  );
+  --student-glass: color-mix(in srgb, var(--student-surface) 80%, transparent);
+  --student-glass-edge: color-mix(
+    in srgb,
+    var(--brand-red-soft) 20%,
+    transparent
+  );
+  --student-glass-line: color-mix(
+    in srgb,
+    var(--brand-red-soft) 13%,
+    transparent
+  );
+  --student-glass-selected: color-mix(
+    in srgb,
+    var(--student-surface) 90%,
+    var(--brand-red-deep)
+  );
+  --student-glass-shadow:
+    0 12px 36px -24px #0009, inset 0 1px 0 var(--student-glass-edge);
+}
+:root[data-theme="dark"] [data-student-dashboard] .sd-welcome .sd-primary {
+  background: var(--student-surface);
+  color: var(--student-ink);
+}
+@media (max-width: 760px) {
+  [data-student-dashboard] .sd-main {
+    padding: 20px 16px 32px;
+    gap: 18px;
+  }
+  [data-student-dashboard] .sd-welcome {
+    padding: 24px;
+  }
+  [data-student-dashboard] .sd-stat {
+    padding: 16px;
+    min-height: 144px;
+  }
+  [data-student-dashboard] .sd-stat > strong {
+    font-size: 28px;
+  }
+  [data-student-dashboard] .sd-stat > div {
+    flex-wrap: wrap;
+  }
+  [data-student-dashboard] .application-navigation {
+    width: calc(100% - 24px);
+    margin-top: 12px;
+    padding: 10px 12px;
+    min-height: 76px;
+  }
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  [data-student-workspace] {
+    --student-glass: var(--student-surface);
+    --student-glass-edge: var(--theme-border, var(--border-control));
+  }
+  [data-student-dashboard]
+    :is(.sd-panel, .application-navigation, .application-drawer) {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation {
+    background: var(--student-surface);
+  }
+}
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  [data-student-workspace] {
+    --student-glass: var(--student-surface);
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation {
+    background: var(--student-surface);
+  }
+}
+
+/* A narrow student rail reveals the same links on pointer hover or keyboard
+   focus. The page reserves the open rail width while it is expanded; only the glass backing
+   and labels animate, so text is never stretched. Coarse pointers stay open. */
+@media (min-width: 1280px) and (hover: hover) and (pointer: fine) {
+  [data-student-workspace][data-navigation-layout="side"] {
+    padding-inline-start: 108px;
+  }
+  [data-student-workspace][data-navigation-layout="side"]:has(
+      .application-navigation:is(
+        :hover,
+        :has(:focus-visible),
+        :has([aria-expanded="true"])
+      )
+    ) {
+    padding-inline-start: 240px;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation {
+    width: 76px;
+    padding-inline: 12px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr) auto auto auto;
+    border: 0;
+    border-radius: 14px;
+    background: transparent;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    isolation: isolate;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: 216px;
+    z-index: -1;
+    pointer-events: none;
+    border: 1px solid var(--student-glass-edge);
+    border-radius: 20px;
+    background: color-mix(
+      in srgb,
+      var(--student-surface) 58%,
+      color-mix(in srgb, var(--brand-red-muted) 16%, transparent)
+    );
+    box-shadow: var(--student-glass-shadow);
+    -webkit-backdrop-filter: blur(16px) saturate(125%);
+    backdrop-filter: blur(16px) saturate(125%);
+    transform: scaleX(0.351852);
+    transform-origin: left center;
+    transition: transform 180ms var(--ease-out, cubic-bezier(0.23, 1, 0.32, 1));
+  }
+  [dir="rtl"]
+    [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation::before {
+    transform-origin: right center;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation:is(
+      :hover,
+      :has(:focus-visible),
+      :has([aria-expanded="true"])
+    ) {
+    width: 216px;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation:is(
+      :hover,
+      :has(:focus-visible),
+      :has([aria-expanded="true"])
+    )::before {
+    transform: scaleX(1);
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 66px;
+    padding: 0;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__brand
+    img {
+    width: 52px;
+    height: 52px;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__links
+    a {
+    gap: 0;
+    padding-inline: 14px;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__links
+    a
+    > span,
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__more-label {
+    max-inline-size: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition:
+      opacity 150ms var(--ease-out, cubic-bezier(0.23, 1, 0.32, 1)),
+      transform 150ms var(--ease-out, cubic-bezier(0.23, 1, 0.32, 1));
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation:is(
+      :hover,
+      :has(:focus-visible),
+      :has([aria-expanded="true"])
+    )
+    .application-navigation__links
+    a {
+    gap: 12px;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation:is(
+      :hover,
+      :has(:focus-visible),
+      :has([aria-expanded="true"])
+    )
+    :is(
+      .application-navigation__links a > span,
+      .application-navigation__more-label
+    ) {
+    max-inline-size: 170px;
+    opacity: 1;
+    transform: none;
+  }
+  /* Flyout labels remain visible independently of the rail's collapsed state. */
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__sections
+    .disclosure-panel
+    a
+    > span {
+    max-inline-size: none;
+    opacity: 1;
+    transform: none;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__sections
+    > .disclosure-trigger {
+    width: 100%;
+    min-height: 44px;
+    padding-inline: 18px;
+    gap: 0;
+    justify-content: space-between;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__tools
+    .disclosure-trigger {
+    justify-content: center;
+    width: 100%;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__tools
+    .disclosure-trigger
+    > svg:last-child {
+    display: none;
+  }
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation:has(:focus-visible)
+    :is(
+      .application-navigation__links a > span,
+      .application-navigation__more-label
+    ),
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation:has(:focus-visible)::before {
+    transition: none;
+  }
+}
+@media (min-width: 1280px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation::before,
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__links
+    a
+    > span,
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation__more-label {
+    transition: none;
+  }
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation::before {
+    background: var(--student-surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation::before {
+    background: var(--student-surface);
+  }
+}

@@ -1,4 +1,16 @@
 /* Account top navigation shares LandingHeader's glass controls and spacing. */
+.application-profile-link {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--theme-divider);
+  border-radius: 50%;
+}
+@media (min-width: 1280px) {
+  [data-navigation-layout="side"] .application-profile-link { order: 1; }
+}
 .application-navigation .public-preferences > .disclosure-panel {
   box-sizing: border-box;
   width: 240px;

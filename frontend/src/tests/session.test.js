@@ -345,11 +345,11 @@ test("session records explicitly discard credentials and extra account data", ()
     assert.equal(key in state.user, false);
 });
 
-test("safe return navigation preserves authorized internal targets and rejects unsafe destinations", () => {
+test("participant sign-in always opens the profile and rejects alternate destinations", () => {
   const user = mockUsers[0];
   assert.equal(
     getLoginDestination(user, "/projects?skill=react#results", routeConfig),
-    "/projects?skill=react#results",
+    "/profile",
   );
   for (const from of [
     "https://evil.test",
@@ -367,15 +367,15 @@ test("safe return navigation preserves authorized internal targets and rejects u
   ]) {
     assert.equal(
       getLoginDestination(user, from, routeConfig),
-      "/student/dashboard",
+      "/profile",
       String(from),
     );
   }
   const client = mockUsers.find((fixture) => fixture.role === ROLES.CLIENT);
-  assert.equal(getLoginDestination(client, null, routeConfig), "/client/dashboard");
+  assert.equal(getLoginDestination(client, null, routeConfig), "/profile");
   assert.equal(
     getLoginDestination(client, "/checkout/order_001?source=orders#summary", routeConfig),
-    "/checkout/order_001?source=orders#summary",
+    "/profile",
   );
   for (const fixture of mockUsers) {
     const destination = getLoginDestination(fixture, undefined, routeConfig);

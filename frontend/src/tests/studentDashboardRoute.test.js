@@ -31,7 +31,7 @@ test("student dashboard direct entries retain the shared shell and role guard", 
       assert.equal((html.match(/class="student-dashboard"/g) ?? []).length, 1);
       assert.doesNotMatch(html, /routing placeholder only/);
       assert.doesNotMatch(html, /class="sd-sidebar"|class="sd-topbar"|class="sd-account"/);
-      for (const section of ["applications", "active", "completed", "profile", "settings"]) {
+      for (const section of ["applications", "active", "completed", "settings"]) {
         assert.match(html, new RegExp(`href="/student/dashboard\\?section=${section}"`));
       }
     }

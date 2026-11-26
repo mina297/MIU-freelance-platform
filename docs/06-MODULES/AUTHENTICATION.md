@@ -8,6 +8,22 @@ tags: [MIU, authentication, accounts]
 
 # Authentication Module
 
+## Profile landing after authentication — 26 November 2026
+
+Current user direction sends Student and Client accounts to `/profile` after
+every successful email sign-in and email/fictional-Google registration. This
+supersedes the dashboard/homepage/setup destinations below, including preserved
+return URLs for these two roles. Staff sign-in and validated staff return paths
+retain their existing behavior. The private profile route derives its ID and
+role from the active session; public profile URLs retain their own access rules.
+
+Registration still creates the minimal public profile shell. Setup screens remain
+available on their existing student-only routes, but are no longer the automatic
+registration destination. Profile settings opens the existing owner-checked
+editor. Local account persistence, credential validation, session expiry and
+Super Admin/committee restrictions remain unchanged. Requirements: FR-S01,
+FR-S03, FR-C01, FR-C03, FR-X01, NFR-02 and NFR-03.
+
 ## Local account persistence — 26 November 2026
 
 This supersedes the memory-only account lifecycle below. AuthProvider now uses

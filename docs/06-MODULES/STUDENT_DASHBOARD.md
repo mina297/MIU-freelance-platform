@@ -1,5 +1,55 @@
 # Student Dashboard — Phase 1 frontend
 
+## Glass presentation from the video — 26 November 2026
+
+Latest palette direction uses the user-supplied admissions screenshot's off-white
+canvas (`#f8f7f4`), white cards, warm-gray borders (`#dedad4`), dark text and
+primary red (`#c0001a`) with a pale red wash. `studentDashboardPalette.css` scopes
+these light-mode tokens to student workspace screens. The welcome/third-stat
+cards use light backgrounds with red accents; the glass material, hover rail,
+responsive sizing, content and actions remain. No form fields or components from
+the reference are introduced. Dark mode and other account roles are unaffected.
+
+Hover follow-up: on desktop with a fine pointer, the student side rail rests at
+76px with icons and expands to 216px on hover, returning when the pointer leaves.
+Keyboard-visible focus also reveals labels immediately; an open flyout keeps
+the rail expanded until it closes. At the user's follow-up request, content now
+uses a 108px inset while collapsed and 240px while expanded. Existing cards resize
+beside the rail, so it no longer overlays the profile/dashboard content.
+The glass backing transforms over 180ms and labels fade/translate over 150ms;
+width itself is not animated. Reduced motion removes those transitions. Touch
+and mobile navigation retain their existing behavior, and coarse-pointer desktop
+layouts keep the expanded labels. No navigation items or components were added.
+Browser checks confirmed 76→216→76px, responsive content sizing, keyboard
+expansion without animation, an unclipped More flyout and no overflow at 390px.
+
+The user-supplied video guides glass materials, card proportions and the expanded
+side navigation. The user's follow-up keeps the website's existing crimson,
+burgundy and pale pink palette; the video's beige colors, sample data, calendar,
+charts and other components are not copied. The component tree, mock records,
+labels, links, dialogs, states and authentication destinations remain intact.
+
+`student/studentGlassyDashboard.css` scopes the decorative background and
+translucent panels to `/student/dashboard` through `data-student-dashboard`.
+The existing student side-navigation preference uses a 216px frosted rail with
+horizontal icon/label links and a light selected item across student workspace
+routes, scoped by `data-student-workspace`. Top/side selection, mobile drawer,
+profile/avatar, appearance controls and account utilities retain their behavior.
+Client, staff and public layouts do not opt in. No new UI components are added.
+
+Glass uses CSS gradients derived from the existing brand tokens, translucent
+surfaces, light edges and backdrop blur. Dark mode uses the same brand family;
+reduced-transparency/high-contrast preferences and unsupported backdrop blur use
+solid materials. Main/rail spacing remains responsive, and flyouts open upward
+from the lower sidebar controls to stay inside the viewport. Requirements:
+FR-S04–FR-S06, FR-S08–FR-S09, NFR-02 and NFR-03. This is presentation only.
+
+Checks: four existing navigation/student-route/shared-layout tests passed.
+Browser review exercised side navigation, section links, account/More flyouts,
+light/dark mode and Arabic RTL. Width checks at 1440px and 390px found no document
+overflow; the rail/account controls fit a 1440×650 short desktop viewport.
+No real-device or assistive-technology review was performed for this styling.
+
 ## Consolidated navigation — 26 November 2026
 
 Follow-up: the application navbar groups the English/Arabic language selector and

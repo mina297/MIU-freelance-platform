@@ -127,7 +127,7 @@ test("created orders open checkout and share funding and completed status across
   }
 });
 
-test("student and client profile/workspace sidebars link to the existing guarded, owner-scoped Orders pages", async () => {
+test("student and client navigation links to the existing guarded, owner-scoped Orders pages", async () => {
   const vite = await createServer({
     server: { middlewareMode: true, hmr: false },
     appType: "custom",
@@ -164,7 +164,7 @@ test("student and client profile/workspace sidebars link to the existing guarded
         },
       };
       const sidebar = render(`/${role}/dashboard`, session).match(
-        /<aside\b[\s\S]*?<\/aside>/,
+        /<nav[^>]*aria-label="Main navigation"[\s\S]*?<\/nav>/,
       )?.[0];
       assert.ok(sidebar);
       assert.match(sidebar, new RegExp(`href="/${role}/orders"`));
@@ -202,7 +202,7 @@ test("student and client profile/workspace sidebars link to the existing guarded
     };
     assert.match(
       render("/students/student_001", owner),
-      /aria-label="Profile workspace"/,
+      /Profile settings<\/button>/,
     );
     assert.match(
       render("/students/student_001", owner),
@@ -210,11 +210,11 @@ test("student and client profile/workspace sidebars link to the existing guarded
     );
     assert.doesNotMatch(
       render("/students/student_001", { status: "anonymous", user: null }),
-      /aria-label="Profile workspace"/,
+      /Profile settings<\/button>/,
     );
     assert.doesNotMatch(
       render("/students/student_002", owner),
-      /aria-label="Profile workspace"/,
+      /Profile settings<\/button>/,
     );
   } finally {
     await vite.close();

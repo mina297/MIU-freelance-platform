@@ -1,5 +1,13 @@
 import { useLanguage } from "../../../i18n/LanguageContext.js";
-import { BadgeCheck, MessageCircle } from "lucide-react";
+import {
+  BadgeCheck,
+  MessageCircle,
+  Eye,
+  Settings,
+  MapPin,
+  BriefcaseBusiness,
+  Star,
+} from "lucide-react";
 import { getRatingAriaLabel, getStarDisplay } from "../utils/ratingDisplay.js";
 import SafeImage from "./SafeImage.jsx";
 
@@ -8,12 +16,12 @@ export default function ProfileHeader({
   profile,
   onContact,
   contactLabel = "Contact",
+  onViewPublicProfile,
+  onEditProfile,
 }) {
   const { t, language } = useLanguage();
 
-  const { filled, empty, label } = getStarDisplay(
-    profile.ratingSummary.average,
-  );
+  const { label } = getStarDisplay(profile.ratingSummary.average);
   const initials = profile.displayName
     .split(" ")
     .filter(Boolean)
@@ -22,8 +30,8 @@ export default function ProfileHeader({
     .join("");
 
   return (
-    <header className="premium-profile-header flex w-full flex-col items-start gap-6 overflow-hidden rounded-panel border border-border-soft bg-[var(--theme-surface,#fff)] p-5 shadow-[var(--shadow-panel)] sm:p-8 md:flex-row md:gap-7">
-      <div className="relative size-[120px] shrink-0 overflow-hidden rounded-full bg-surface-muted md:size-[132px]">
+    <header className="profile-hero">
+      <div className="profile-hero__photo">
         <SafeImage
           src={profile.profileImage}
           alt={
@@ -37,11 +45,9 @@ export default function ProfileHeader({
         />
       </div>
 
-      <div className="flex min-w-0 flex-1 flex-col items-start gap-3">
+      <div className="profile-hero__identity">
         <div className="flex flex-wrap items-center gap-2.5">
-          <h1 className="text-[28px] font-bold leading-normal text-miu-black md:text-[32px]">
-            {profile.displayName}
-          </h1>
+          <h1>{profile.displayName}</h1>
           {profile.verified ? (
             <span
               className="inline-flex items-center"
@@ -55,18 +61,31 @@ export default function ProfileHeader({
           ) : null}
         </div>
 
-        <p className="text-base leading-normal text-ink-secondary">
-          {profile.headline}
-        </p>
-
-        {profile.availability?.trim() ? (
-          <p className="inline-flex max-w-full items-center rounded-full bg-miu-red-tint px-3 py-1 text-xs font-semibold text-[var(--theme-accent,var(--color-miu-red))] sm:text-sm">
-            {profile.availability.trim()}
+        {profile.headline && (
+          <p className="text-base leading-normal text-ink-secondary">
+            {profile.headline}
           </p>
-        ) : null}
+        )}
+
+        <div className="profile-hero__meta">
+          {profile.location && (
+            <span>
+              <MapPin size={14} aria-hidden="true" />
+              {profile.location}
+            </span>
+          )}
+          {profile.availability?.trim() && (
+            <span>
+              {profile.availability !== "Not specified" && (
+                <i className="profile-availability-dot" aria-hidden="true" />
+              )}
+              {profile.availability.trim()}
+            </span>
+          )}
+        </div>
 
         <div
-          className="flex flex-wrap items-center gap-2"
+          className="profile-hero__meta"
           aria-label={t(
             getRatingAriaLabel(
               profile.ratingSummary.average,
@@ -75,22 +94,41 @@ export default function ProfileHeader({
             ),
           )}
         >
-          <span className="text-base leading-none text-star" aria-hidden="true">
-            {"★".repeat(filled)}
-            <span className="text-[#d1d5db]">{"★".repeat(empty)}</span>
+          <span>
+            <Star size={15} className="profile-accent" aria-hidden="true" />
+            <b>{t(label)}</b> ({profile.ratingSummary.count} {t("reviews)")}
           </span>
-          <span className="text-sm font-semibold text-miu-black">
-            {t(label)}
-          </span>
-          <span className="text-[13px] text-ink-secondary">
-            ({profile.ratingSummary.count} {t("reviews)")}
+          <span>
+            <BriefcaseBusiness size={15} aria-hidden="true" />
+            {profile.completedJobsCount} {t("Projects")}
           </span>
         </div>
-
-        <p className="max-w-[710px] text-[15px] leading-[1.6] text-ink-secondary">
-          {profile.shortBio}
-        </p>
       </div>
+
+      {(onViewPublicProfile || onEditProfile) && (
+        <div className="profile-hero__actions">
+          {onViewPublicProfile && (
+            <button
+              type="button"
+              className="profile-action profile-action--primary"
+              onClick={onViewPublicProfile}
+            >
+              <Eye size={17} aria-hidden="true" />
+              {t("View public profile")}
+            </button>
+          )}
+          {onEditProfile && (
+            <button
+              type="button"
+              className="profile-action"
+              onClick={onEditProfile}
+            >
+              <Settings size={17} aria-hidden="true" />
+              {t("Profile settings")}
+            </button>
+          )}
+        </div>
+      )}
 
       {typeof onContact === "function" ? (
         <button

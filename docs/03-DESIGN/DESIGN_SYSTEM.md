@@ -8,6 +8,76 @@ tags: [MIU, design-system, UI]
 
 # MIU Freelance Platform — Design System
 
+### Student glass dashboard — 26 November 2026
+
+Palette follow-up supersedes the stronger pink/burgundy light treatment below.
+The user's admissions screenshot supplies sampled colors: `#f8f7f4` canvas,
+`#ffffff` cards, `#dedad4` decorative borders, `#1e1c18` text, `#c0001a` primary
+red and `#fef2f3` pale red wash. Secondary copy uses warm gray `#706c65` for
+readability (4.87:1 against the canvas); white on the primary red is 6.45:1.
+The welcome card uses a pale wash/red edge and the third stat uses a red value
+and edge on white, keeping saturated red for actions and emphasis. Tokens are
+scoped to the student workspace's light mode in `studentDashboardPalette.css`,
+including its navbar/profile. Glass, rounded corners, sidebar resizing and all
+components/workflows remain. Dark mode and other roles keep their current palette.
+Browser inspection confirmed the sampled red/border/canvas and no desktop
+overflow. Production build passed.
+
+The side-navigation hover refinement uses a compact 76px icon rail that expands
+to 216px on desktop hover or visible keyboard focus. The content inset changes
+from 108px to 240px when the rail opens, letting the existing content/card resize
+beside it without overlap. The glass backing and labels reveal with short
+transform/opacity transitions.
+Keyboard and reduced-motion reveals are immediate. Coarse-pointer desktop and
+mobile keep accessible navigation without requiring hover.
+
+The supplied video guides the student dashboard's frosted cards, bright edges,
+soft shadows and expanded side rail. Current user direction preserves the site's
+crimson/burgundy/pale pink palette through existing brand tokens. A CSS gradient
+scene supplies depth behind translucent surfaces; no photo, chart, calendar or
+additional UI component is introduced. The existing welcome card and third stat
+card carry the brand accent. The student's side rail uses horizontal labels and
+a light selected pill. Public/client/staff styling remains outside this scope.
+Dark mode, mobile/RTL and solid-material accessibility fallbacks are included.
+
+### Student profile reference — 26 November 2026
+
+Latest profile palette removes rose backgrounds and red-tinted shadows. Website
+red remains the action/accent color; light details use beige `#f4efe6`/`#f4f1eb`,
+with neutral borders/shadows and an off-white canvas. This includes skill chips,
+avatar placeholders, preview notices and the student navbar's light hover/avatar
+surfaces while the profile is open. Dark mode keeps dark neutral surfaces.
+
+Side-layout spacing follow-up removes the profile shell's desktop centering cap
+and reduces its leading page padding to 8px. The outer card fills the available
+workspace, leaving about 16–24px beside the expanded/collapsed rail. Top navigation
+and mobile keep their current spacing; the rail's no-overlap inset is preserved.
+
+The existing profile shell now groups the hero, tabs and information cards in
+one padded glass container over a brand-tinted background. The shell uses 32px
+corners, inner panels use the shared 20px panel radius and action buttons use
+the website's pill corners. Mobile reduces wrapper padding. Dark mode and solid
+fallbacks for reduced transparency/high contrast are retained; no content or
+new UI component is introduced. The container naturally resizes with the
+student sidebar's inset. Browser geometry checks confirmed no rail/card overlap
+at 1440px and no document overflow at 390px; production build passed.
+
+Typography is moderated after the user's follow-up: name up to 38px,
+headline 18px, section headings 22px, body 17px and tabs 15px. The two header
+actions use a 208px desktop column, 14px labels, 16px icons and 44px minimum
+height. Mobile uses 28px names, 20px section headings and 16px body text.
+Existing layout, colors and
+content are preserved; action width and heading wrapping accommodate the type.
+
+The owner student profile follows the user-supplied student reference: a white
+identity card with avatar and two stacked actions, underline tabs, a primary
+About/Skills/Portfolio column and secondary statistics/information cards. The
+actions read View public profile and Profile settings. Theme tokens, existing
+fictional/public profile fields, 44px action targets, keyboard tabs and mobile
+stacking are retained. The client profile is not given the student design.
+Absent education, experience, skills, portfolio, languages and reviews have
+explicit empty states; the reference's sample identity and stats are not copied.
+
 ### Local account disclosure — 26 November 2026
 
 The approved local account demo adds concise English/Arabic persistence and test

@@ -1,0 +1,159 @@
+/* Sampled from the user's admissions screenshot. Scope the approved light
+   palette to the student workspace; keep structure, behavior and dark mode. */
+:root:not([data-theme="dark"])
+  [data-student-workspace]:has(.student-profile-page) {
+  --brand-red-soft: #f4efe6;
+  --brand-red-tint: #f4efe6;
+  --theme-accent-surface: #f4efe6;
+  --theme-hover: #f4efe6;
+  --theme-subtle-surface: #f4f1eb;
+  --surface-muted: #f4f1eb;
+  --color-surface-muted: #f4f1eb;
+  --color-miu-red-tint: #f4efe6;
+}
+:root:not([data-theme="dark"]) [data-student-workspace] {
+  --brand-red: #c0001a;
+  --brand-red-hover: #a50016;
+  --brand-red-deep: #960014;
+  --brand-red-muted: #d95061;
+  --brand-red-border: #f0bbc2;
+  --brand-red-soft: #fef2f3;
+  --brand-red-tint: #fef2f3;
+  --theme-canvas: #f8f7f4;
+  --theme-surface: #ffffff;
+  --theme-subtle-surface: #fafaf8;
+  --theme-field: #f7f6f3;
+  --theme-text: #1e1c18;
+  --theme-muted-text: #706c65;
+  --theme-accent: #c0001a;
+  --theme-accent-surface: #fef2f3;
+  --theme-accent-border: #f0bbc2;
+  --theme-divider: #dedad4;
+  --theme-border: #8f8981;
+  --theme-hover: #fef2f3;
+  --theme-focus: #c0001a;
+  --surface-page: var(--theme-canvas);
+  --surface-raised: var(--theme-surface);
+  --surface-muted: var(--theme-field);
+  --ink-primary: var(--theme-text);
+  --ink-secondary: var(--theme-muted-text);
+  --border-soft: var(--theme-divider);
+  --border-control: var(--theme-border);
+  --brand-gradient: linear-gradient(
+    135deg,
+    var(--brand-red),
+    var(--brand-red-hover)
+  );
+  --student-glass: color-mix(in srgb, var(--theme-surface) 86%, transparent);
+  --student-glass-edge: var(--theme-divider);
+  --student-glass-line: #e8e5e0;
+  --student-glass-shadow: 0 12px 32px -24px #1e1c1826, inset 0 1px 0 #ffffffd9;
+  --student-glass-selected: #ffffff;
+}
+:root:not([data-theme="dark"]) [data-student-dashboard]::before {
+  background:
+    radial-gradient(ellipse at 4% 0%, #fef2f3a0, transparent 45%),
+    linear-gradient(
+      115deg,
+      transparent 20%,
+      #ffffff66 20.5% 30%,
+      transparent 30.5% 74%,
+      #ffffff55 74.5% 86%,
+      transparent 86.5%
+    ),
+    var(--student-canvas);
+}
+:root:not([data-theme="dark"]) [data-student-dashboard] .sd-welcome {
+  background: linear-gradient(100deg, #fef2f3, #fafaf8);
+  color: var(--student-ink);
+  border-color: var(--theme-divider);
+  border-inline-start: 5px solid var(--student-accent);
+  box-shadow: var(--student-glass-shadow);
+}
+:root:not([data-theme="dark"]) [data-student-dashboard] .sd-welcome h1 {
+  color: var(--student-accent);
+}
+:root:not([data-theme="dark"]) [data-student-dashboard] .sd-welcome p {
+  color: var(--theme-muted-text);
+  opacity: 1;
+}
+:root:not([data-theme="dark"])
+  [data-student-dashboard]
+  .sd-welcome
+  .sd-primary {
+  background: var(--brand-red);
+  color: #ffffff;
+  border-color: var(--brand-red);
+  box-shadow: 0 3px 8px #c0001a1f;
+}
+:root:not([data-theme="dark"]) [data-student-dashboard] .sd-stat:nth-child(3) {
+  background: var(--student-glass);
+  color: var(--student-ink);
+  border-inline-start: 3px solid var(--student-accent);
+}
+:root:not([data-theme="dark"])
+  [data-student-dashboard]
+  .sd-stat:nth-child(3)
+  :is(small, div) {
+  color: var(--theme-muted-text);
+}
+:root:not([data-theme="dark"])
+  [data-student-dashboard]
+  .sd-stat:nth-child(3)
+  > strong {
+  color: var(--student-accent);
+}
+:root:not([data-theme="dark"])
+  [data-student-dashboard]
+  .sd-stat:nth-child(3)
+  .sd-icon {
+  filter: none;
+  background: var(--theme-accent-surface);
+  border-color: var(--theme-divider);
+}
+:root:not([data-theme="dark"]) [data-student-dashboard] .sd-table-head {
+  background: var(--theme-subtle-surface);
+}
+:root:not([data-theme="dark"])
+  [data-student-workspace][data-navigation-layout="side"]
+  .application-navigation,
+:root:not([data-theme="dark"])
+  [data-student-workspace][data-navigation-layout="side"]
+  .application-navigation::before {
+  background: var(--student-glass);
+}
+/* The hover rail uses its existing backing pseudo-element, without a second fill. */
+@media (min-width: 1280px) and (hover: hover) and (pointer: fine) {
+  :root:not([data-theme="dark"])
+    [data-student-workspace][data-navigation-layout="side"]
+    .application-navigation {
+    background: transparent;
+  }
+}
+:root:not([data-theme="dark"]) [data-student-workspace] .student-profile-shell {
+  background: #ffffffb3;
+  border-color: var(--theme-divider);
+  box-shadow: var(--student-glass-shadow);
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  :root:not([data-theme="dark"]) [data-student-workspace] {
+    --student-glass: var(--theme-surface);
+  }
+  :root:not([data-theme="dark"])
+    [data-student-workspace]
+    .student-profile-shell {
+    background: var(--theme-surface);
+  }
+}
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  :root:not([data-theme="dark"]) [data-student-workspace] {
+    --student-glass: var(--theme-surface);
+  }
+  :root:not([data-theme="dark"])
+    [data-student-workspace]
+    .student-profile-shell {
+    background: var(--theme-surface);
+  }
+}

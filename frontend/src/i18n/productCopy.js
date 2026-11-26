@@ -1,6 +1,21 @@
 // Existing English keys are stable message IDs. Keep editorial wording separate
 // from records, permissions and outcome state; never apply it to user content.
 export const productCopy = {
+  "My profile": ["My profile", "ملفي الشخصي"],
+  "View public profile": ["View public profile", "عرض الملف العام"],
+  "Profile settings": ["Profile settings", "إعدادات الملف الشخصي"],
+  "Public profile preview": ["Public profile preview", "معاينة الملف العام"],
+  "Back to my profile": ["Back to my profile", "العودة إلى ملفي الشخصي"],
+  "About Me": ["About Me", "نبذة عني"],
+  "Work Stats": ["Work Stats", "إحصائيات العمل"],
+  "View all": ["View all", "عرض الكل"],
+  "Education": ["Education", "التعليم"],
+  "Experience": ["Experience", "الخبرات"],
+  "Languages": ["Languages", "اللغات"],
+  "No education added yet.": ["No education added yet.", "لم تُضف بيانات التعليم بعد."],
+  "No experience added yet.": ["No experience added yet.", "لم تُضف خبرات بعد."],
+  "No introduction added yet.": ["No introduction added yet.", "لم تُضف نبذة تعريفية بعد."],
+  "No languages added yet.": ["No languages added yet.", "لم تُضف لغات بعد."],
   "Youssef Hassan": ["Youssef Hassan", "يوسف حسن"],
   "Mariam Nabil": ["Mariam Nabil", "مريم نبيل"],
   "This service or its packages are unavailable for ordering.": [

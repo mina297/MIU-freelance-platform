@@ -93,11 +93,14 @@ export function navigationItems(session) {
     items.splice(
       5,
       0,
-      ...dashboardSections.slice(1).map(([section, label]) => ({
-        to: `${dashboardPath}?section=${section}`,
-        label,
-        section,
-      })),
+      ...dashboardSections
+        .slice(1)
+        .filter(([section]) => section !== "profile")
+        .map(([section, label]) => ({
+          to: `${dashboardPath}?section=${section}`,
+          label,
+          section,
+        })),
     );
   }
   return items;
