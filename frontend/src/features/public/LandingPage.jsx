@@ -244,20 +244,6 @@ export default function LandingPage() {
                 <Search size={19} aria-hidden="true" />
               </button>
             </form>
-            <p className="landing-mode-caption" aria-live="polite">
-              {mode === "hire"
-                ? t("Great ideas start with the right people. ")
-                : t("Your next opportunity starts here. ")}
-              <Link
-                to={
-                  mode === "hire"
-                    ? "/register?role=client"
-                    : "/register?role=student"
-                }
-              >
-                {mode === "hire" ? t("Join to hire") : t("Join to work")} &rarr;
-              </Link>
-            </p>
             {!reducedMotion && (
               <button
                 type="button"
