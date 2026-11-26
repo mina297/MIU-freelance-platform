@@ -555,6 +555,11 @@ test("public project routes render marketplace screens, not placeholders", async
 
     assert.match(catalogueHtml, /The project marketplace/i);
     assert.match(catalogueHtml, /Projects to explore/i);
+    for (const filter of [
+      "category=writing", "q=Translation", "q=Marketing", "q=Video", "q=Tutoring",
+    ]) {
+      assert.ok(catalogueHtml.includes(`href="/projects?${filter}"`), filter);
+    }
     assert.match(catalogueHtml, /Build a responsive event website/i);
     const designProjects = renderRoute("/projects?category=graphic_design");
     assert.match(designProjects, /Create a student club brand kit/i);

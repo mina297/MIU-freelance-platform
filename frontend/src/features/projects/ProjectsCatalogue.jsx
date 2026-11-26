@@ -22,6 +22,7 @@ import {
   budgetOptions,
   categories,
   categoryNames,
+  disciplineFilter,
   matchesBudget,
   openProjects as fixtureOpenProjects,
   skillNames,
@@ -52,11 +53,25 @@ export default function ProjectsCatalogue({
       ),
     [demoProjects],
   );
+  const [expandedDisciplines, setExpandedDisciplines] = useState(() =>
+    categories.slice(4).some(({ keyword }) => keyword === initialQuery),
+  );
   const [searchDraft, setSearchDraft] = useState(initialQuery);
   const [query, setQuery] = useState(initialQuery);
   const [categoryId, setCategoryId] = useState(
     categoryNames.has(initialCategoryId) ? initialCategoryId : "",
   );
+  const [previousSearch, setPreviousSearch] = useState({
+    category: initialCategoryId,
+    query: initialQuery,
+  });
+  if (previousSearch.category !== initialCategoryId || previousSearch.query !== initialQuery) {
+    setPreviousSearch({ category: initialCategoryId, query: initialQuery });
+    setSearchDraft(initialQuery);
+    setQuery(initialQuery);
+    setCategoryId(categoryNames.has(initialCategoryId) ? initialCategoryId : "");
+  }
+
   const [skillId, setSkillId] = useState("");
   const [budget, setBudget] = useState("all");
   const [sort, setSort] = useState("newest");
@@ -102,6 +117,17 @@ export default function ProjectsCatalogue({
     setBudget("all");
     setSort("newest");
     setSavedOnly(false);
+  }
+
+  function selectDiscipline(event, discipline) {
+    if (
+      event.defaultPrevented || event.button !== 0 ||
+      event.metaKey || event.ctrlKey || event.altKey || event.shiftKey
+    ) return;
+    const filter = disciplineFilter(discipline);
+    setCategoryId(filter.category ?? "");
+    setQuery(filter.q ?? "");
+    setSearchDraft(filter.q ?? "");
   }
 
   function toggleSaved(projectId) {
@@ -293,23 +319,52 @@ export default function ProjectsCatalogue({
                 {t("Find your kind of work")}
               </h2>
             </div>
-            <p className="max-w-md text-sm leading-6 text-[color:var(--theme-muted-text,#797075)]">
-              {t(
-                "Explore opportunities shaped around your interests and skills.",
-              )}
-            </p>
+            <div className="flex flex-wrap items-center gap-4">
+              <p className="max-w-md text-sm leading-6 text-[color:var(--theme-muted-text,#797075)]">
+                {t("Explore opportunities shaped around your interests and skills.")}
+              </p>
+              <button
+                type="button"
+                aria-expanded={expandedDisciplines}
+                aria-controls="project-disciplines"
+                onClick={() => setExpandedDisciplines((expanded) => !expanded)}
+                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--theme-border)] bg-[var(--theme-surface)] px-4 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red"
+              >
+                {t(expandedDisciplines ? "Show less" : "Show more")}
+                <ChevronDown
+                  size={16}
+                  aria-hidden="true"
+                  className={expandedDisciplines ? "rotate-180" : undefined}
+                />
+              </button>
+            </div>
           </div>
           <div
+            id="project-disciplines"
+            role="group"
             aria-label={t("Project categories")}
-            className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4"
+            className="grid grid-cols-2 gap-4 lg:grid-cols-4"
           >
-            {categories.map((category) => (
-              <CategoryCard
-                key={category.id || "all"}
-                category={category}
-                selected={categoryId === category.id}
-                onSelect={setCategoryId}
-              />
+            {categories.map((category, index) => (
+              <div
+                key={category.id || category.keyword || "all"}
+                hidden={index >= 4 && !expandedDisciplines}
+                className="min-w-0"
+              >
+                <CategoryCard
+                  category={category}
+                  selected={
+                    category.keyword
+                      ? !categoryId && query.toLowerCase() === category.keyword.toLowerCase()
+                      : category.id ? categoryId === category.id : !categoryId && !query
+                  }
+                  count={findProjects(
+                    { categoryId: category.id, query: category.keyword },
+                    { projects: openProjects },
+                  ).length}
+                  onSelect={(event) => selectDiscipline(event, category)}
+                />
+              </div>
             ))}
           </div>
 

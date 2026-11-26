@@ -1,20 +1,20 @@
 import { useLanguage } from "../../i18n/LanguageContext.js";
 import { Check } from "lucide-react";
-import { openProjects } from "./catalogueModel.js";
+import { Link } from "react-router-dom";
+import { disciplineFilter } from "./catalogueModel.js";
 
-export default function CategoryCard({ category, selected, onSelect }) {
+export default function CategoryCard({ category, selected, count, onSelect }) {
   const { t } = useLanguage();
 
   const Icon = category.icon;
-  const count = openProjects.filter(
-    (project) => !category.id || project.categoryId === category.id,
-  ).length;
+  const params = new URLSearchParams(disciplineFilter(category));
+  const to = params.size ? `/projects?${params}` : "/projects";
   return (
-    <button
-      type="button"
-      aria-pressed={selected}
-      onClick={() => onSelect(category.id)}
-      className={`group relative flex min-h-[112px] flex-col justify-between overflow-hidden rounded-2xl border-2 p-4 text-start transition duration-200 hover:-translate-y-1 hover:shadow-[0_16px_32px_-21px_rgba(85,28,39,0.35)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red sm:min-h-[164px] sm:p-5 motion-reduce:transform-none motion-reduce:transition-none ${selected ? "border-miu-red bg-[linear-gradient(135deg,var(--theme-surface,#fff),var(--theme-accent-surface,#fce9ee))] shadow-[0_5px_16px_rgba(126,24,42,0.12)]" : "border-[color:var(--theme-border,#c9bac1)] bg-[var(--theme-surface,#fff)] shadow-[0_3px_10px_rgba(62,39,43,0.06)]"}`}
+    <Link
+      to={to}
+      aria-current={selected ? "true" : undefined}
+      onClick={onSelect}
+      className={`group relative flex h-full w-full min-h-[112px] flex-col justify-between overflow-hidden rounded-2xl border-2 p-4 text-start transition duration-200 hover:-translate-y-1 hover:shadow-[0_16px_32px_-21px_rgba(85,28,39,0.35)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-miu-red sm:min-h-[164px] sm:p-5 motion-reduce:transform-none motion-reduce:transition-none ${selected ? "border-miu-red bg-[linear-gradient(135deg,var(--theme-surface,#fff),var(--theme-accent-surface,#fce9ee))] shadow-[0_5px_16px_rgba(126,24,42,0.12)]" : "border-[color:var(--theme-border,#c9bac1)] bg-[var(--theme-surface,#fff)] shadow-[0_3px_10px_rgba(62,39,43,0.06)]"}`}
     >
       <span
         aria-hidden="true"
@@ -40,9 +40,11 @@ export default function CategoryCard({ category, selected, onSelect }) {
           {count}
         </span>
       </span>
-      <span className="relative mt-2 hidden text-xs leading-5 text-[color:var(--theme-muted-text,#70666b)] sm:block">
-        {category.detail}
-      </span>
-    </button>
+      {category.detail && (
+        <span className="relative mt-2 hidden text-xs leading-5 text-[color:var(--theme-muted-text,#70666b)] sm:block">
+          {t(category.detail)}
+        </span>
+      )}
+    </Link>
   );
 }

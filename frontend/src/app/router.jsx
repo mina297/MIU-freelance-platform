@@ -82,7 +82,6 @@ function ProjectsCatalogueRoute() {
   const [params] = useSearchParams();
   return (
     <ProjectsCatalogue
-      key={params.toString()}
       initialCategoryId={params.get("category") ?? ""}
       initialQuery={params.get("q") ?? ""}
       onOpenProject={(projectId) => navigate(`/projects/${projectId}`)}

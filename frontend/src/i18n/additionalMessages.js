@@ -1,4 +1,6 @@
 export default {
+  "Show more": "عرض المزيد",
+  "Show less": "عرض أقل",
   "UI previews": "معاينات الواجهة",
   "Sign up to find work you love": "سجّل للعثور على عمل تحبه",
   "Sign up to find the talent you need": "سجّل للعثور على المواهب التي تحتاجها",

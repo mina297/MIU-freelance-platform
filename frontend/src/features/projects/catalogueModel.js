@@ -1,4 +1,4 @@
-import { Code2, LayoutGrid, Palette, PenLine } from "lucide-react";
+import { Code2, GraduationCap, Languages, LayoutGrid, Megaphone, Palette, PenLine, Video } from "lucide-react";
 import { marketplaceData } from "../../data/fixtures/marketplace.js";
 import { PROJECT_STATUS } from "../marketplace/constants.js";
 
@@ -44,13 +44,30 @@ export const categories = [
   },
   {
     id: "writing",
-    label: "Writing & Content",
-    shortLabel: "Writing",
+    label: "Content writing",
+    shortLabel: "Content writing",
     icon: PenLine,
     tone: "bg-[var(--theme-success-surface,#e7f0eb)] text-[var(--theme-success-text,#3e7357)]",
     detail: "Turn good stories into great content",
   },
+  ...[
+    { keyword: "Translation", label: "Translation", icon: Languages },
+    { keyword: "Marketing", label: "Digital marketing", icon: Megaphone },
+    { keyword: "Video", label: "Video editing", icon: Video },
+    { keyword: "Tutoring", label: "Tutoring", icon: GraduationCap },
+  ].map((discipline) => ({
+    ...discipline,
+    shortLabel: discipline.label,
+    tone: "bg-[var(--theme-accent-surface,#f9e5e9)] text-[var(--theme-accent,#9b2035)]",
+  })),
 ];
+
+export function disciplineFilter({ id, keyword }) {
+  if (id) return { category: id };
+  if (keyword) return { q: keyword };
+  return {};
+}
+
 export const budgetOptions = [
   { value: "all", label: "Any budget" },
   { value: "under3000", label: "Under EGP 3,000" },

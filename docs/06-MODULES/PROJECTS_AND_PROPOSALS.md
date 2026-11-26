@@ -424,3 +424,7 @@ as the separate Member 2 feature described in section 5.
 - [Business Rules](../02-REQUIREMENTS/BUSINESS_RULES.md)
 
 Catalogue header update: /projects embeds language and theme controls beside navigation and its action. The standalone toolbar is suppressed on this route; desktop uses one row and mobile wraps controls.
+
+The Browse by discipline cards use shareable project catalogue links. Content writing uses the writing category. Translation, Digital marketing, Video editing and Tutoring use keyword searches and show the standard empty state when there are no matching projects.
+
+Browse by discipline displays the first four cards in a responsive grid. Show more reveals the remaining cards in rows below them.
