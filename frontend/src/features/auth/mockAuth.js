@@ -45,8 +45,12 @@ export function validateRegistration(
   ) {
     errors.email = "Use your university email ending in @miuegypt.edu.eg.";
   }
-  if (passwordRequired && passwordError(values.password))
-    errors.password = passwordError(values.password);
+  if (passwordRequired) {
+    const invalidPassword = passwordError(values.password);
+    if (invalidPassword) errors.password = invalidPassword;
+    if (!values.confirmPassword || values.confirmPassword !== values.password)
+      errors.confirmPassword = "Passwords must match.";
+  }
   if (!PUBLIC_REGISTRATION_ROLES.includes(values.role))
     errors.role = "Choose Student or Client.";
   return errors;
