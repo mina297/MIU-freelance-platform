@@ -3,7 +3,6 @@ import { useDashboardSection } from "../shared/useDashboardSection.js";
 import { DashboardStat } from "../shared/DashboardUi.jsx";
 import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { formatEGP } from "../../../utils/formatEGP.js";
 import { formatDate } from "../../../utils/formatDate.js";
 import {
@@ -19,15 +18,7 @@ import "./clientDashboard.css";
 import { asset } from "./clientDashboardAssets.js";
 import { Icon, Badge } from "./ClientDashboardUi.jsx";
 import { ReviewForm, JobsTable } from "./ClientDashboardPanels.jsx";
-const navigation = [
-  ["overview", "Overview"],
-  ["jobs", "My Jobs"],
-  ["applicants", "Applicants"],
-  ["active", "Active Jobs"],
-  ["completed", "Completed Jobs"],
-  ["profile", "Profile"],
-  ["settings", "Settings"],
-];
+import { clientDashboardNavigation as navigation } from "./clientDashboardNavigation.js";
 
 export default function ClientDashboard() {
   const { t, locale } = useLanguage();
@@ -84,6 +75,7 @@ export default function ClientDashboard() {
   }
   return (
     <DashboardLayout
+      contentOnly
       title="Client dashboard"
       variant="client"
       navItems={navigation.map(([id, label]) => ({
@@ -96,78 +88,6 @@ export default function ClientDashboard() {
       mainId="client-main"
       navLabel="Client workspace"
       caption="CLIENT WORKSPACE"
-      brand={
-        <>
-          {" "}
-          <Link className="sd-brand" to="/projects">
-            <img src={asset("logo")} alt={t("MIU anniversary logo")} />
-            <span>
-              <b>{t("MIU Freelance")}</b>
-              <small>{t("The MIU community at work")}</small>
-            </span>
-          </Link>
-        </>
-      }
-      sidebarFooter={
-        <>
-          {" "}
-          <div className="sd-help">
-            <Icon name="shield" />
-            <h3>{t("Built on campus trust")}</h3>
-            <p>{t("Real projects. Verified members of the MIU community.")}</p>
-            <button onClick={help}>{t("Visit Help Center →")}</button>
-          </div>
-        </>
-      }
-      mobileAccount={
-        <>
-          {" "}
-          <span className="cd-initials cd-mobile-account">{t("RC")}</span>
-        </>
-      }
-      headerAccount={
-        <>
-          {" "}
-          <div className="sd-account">
-            <button
-              className="cd-red"
-              onClick={() =>
-                information(
-                  "Find Talent",
-                  "Freelancer discovery and service browsing await the marketplace module. No AI matching is performed.",
-                )
-              }
-            >
-              {t("Find Talent")}
-            </button>
-            <button
-              aria-label={t("View notifications")}
-              onClick={() =>
-                information(
-                  "Notifications",
-                  notifications
-                    ? t(
-                        "{count} new applicants. Final delivery is ready for review.",
-                        { count: metrics.applicants },
-                      )
-                    : "Demo notification reminders are disabled.",
-                )
-              }
-            >
-              <Icon name="bell" />
-            </button>
-            <span className="cd-initials">{t("RC")}</span>
-            <span>
-              <b>{t("MIU Robotics Club")}</b>
-              <small>{t("Verified MIU club")}</small>
-            </span>
-          </div>
-        </>
-      }
-      breadcrumbIcon={<Icon name="chevron" />}
-      navigationLinks={[
-        { to: "/client/orders", label: "Orders", icon: <Icon name="jobs" /> },
-      ]}
       overlays={
         <>
           {dialog?.type === "info" && (
@@ -259,7 +179,7 @@ export default function ClientDashboard() {
     >
       <div className="sd-welcome">
         <div>
-          <h1>{section === "overview" ? t("MIU Robotics Club") : label}</h1>
+          <h1>{section === "overview" ? t("MIU Robotics Club") : t(label)}</h1>
           <p>{t("Your talent, applications, and projects in one place.")}</p>
         </div>
         <button

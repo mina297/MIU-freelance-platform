@@ -7,6 +7,26 @@ tags: [MIU, pages, routing]
 
 # MIU Freelance Platform — Pages and Routes
 
+### Client dashboard navigation — 26 November 2026
+
+The client dashboard now uses the main application navbar without an internal
+sidebar or account/breadcrumb bar. More navigation includes My Jobs, Applicants,
+Active Jobs, Completed Jobs, Profile and Settings. These retain
+`/client/dashboard?section=jobs|applicants|active|completed|profile|settings`;
+Overview retains `/client/dashboard`. The mobile drawer includes the same links,
+and the client role guard remains unchanged. See
+[Client Dashboard](../06-MODULES/CLIENT_DASHBOARD.md).
+
+### Student dashboard navigation — 26 November 2026
+
+The student dashboard's internal sidebar and account/breadcrumb bar are removed.
+Its application navbar retains the existing main destinations and adds My
+Applications, Active Jobs, Completed Jobs, Profile and Settings under More
+navigation (also included in the mobile drawer). These remain sections of
+`/student/dashboard?section=applications|active|completed|profile|settings`;
+Overview uses `/student/dashboard`. Existing student role guards still apply.
+See [Student Dashboard](../06-MODULES/STUDENT_DASHBOARD.md).
+
 ### Local sign-in destinations — 26 November 2026
 
 Valid local demo login now opens `/student/dashboard`, `/client/dashboard`,

@@ -1,26 +1,15 @@
 import { useLanguage } from "../../../i18n/LanguageContext.js";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  dashboardStudent,
-  selectStudentRecords,
-} from "./studentDashboardModel.js";
+import { selectStudentRecords } from "./studentDashboardModel.js";
 import "../dashboard.css";
 import DashboardLayout from "../shared/DashboardLayout.jsx";
 import { useDashboardSection } from "../shared/useDashboardSection.js";
 import { DetailDialog } from "../shared/DashboardUi.jsx";
-import { asset } from "./studentDashboardAssets.js";
 import { Icon } from "./StudentDashboardUi.jsx";
 import { StudentSectionViews } from "./StudentDashboardPanels.jsx";
+import { studentDashboardNavigation as navigation } from "./studentDashboardNavigation.js";
 
-const navigation = [
-  ["overview", "Overview"],
-  ["applications", "My Applications"],
-  ["active", "Active Jobs"],
-  ["completed", "Completed Jobs"],
-  ["profile", "Profile"],
-  ["settings", "Settings"],
-];
 export default function StudentDashboard() {
   const { t } = useLanguage();
 
@@ -46,6 +35,7 @@ export default function StudentDashboard() {
   }
   return (
     <DashboardLayout
+      contentOnly
       title="Student dashboard"
       variant="student"
       navItems={navigation.map(([id, label]) => ({
@@ -57,72 +47,6 @@ export default function StudentDashboard() {
       mainId="student-main"
       navLabel="Student workspace"
       caption="STUDENT WORKSPACE"
-      brand={
-        <>
-          {" "}
-          <Link to="/projects" className="sd-brand">
-            <img src={asset("logo")} alt={t("MIU anniversary logo")} />
-            <span>
-              <b>{t("MIU Freelance")}</b>
-              <small>{t("The MIU community at work")}</small>
-            </span>
-          </Link>
-        </>
-      }
-      sidebarFooter={
-        <>
-          {" "}
-          <div className="sd-help">
-            <Icon name="shield" />
-            <h3>{t("Built on campus trust")}</h3>
-            <p>{t("Real projects. Verified members of the MIU community.")}</p>
-            <button onClick={showHelp}>{t("Visit Help Center →")}</button>
-          </div>
-        </>
-      }
-      mobileAccount={
-        <img
-          className="sd-mobile-avatar"
-          src={asset("avatar")}
-          alt={t("Fictional student avatar")}
-        />
-      }
-      headerAccount={
-        <>
-          {" "}
-          <div className="sd-account">
-            <Link to="/projects">{t("Browse Jobs")}</Link>
-            <button
-              aria-label={t("View notifications")}
-              onClick={() =>
-                setDetail({
-                  title: "Notifications",
-                  body: "Demo notification: your campus map proposal was accepted. Notifications are fictional and do not update from a server.",
-                })
-              }
-            >
-              <Icon name="bell" />
-            </button>
-            <img
-              className="sd-avatar"
-              src={asset("avatar")}
-              alt={t("Fictional student avatar")}
-            />
-            <span>
-              <b>{dashboardStudent.name}</b>
-              <small>{dashboardStudent.course}</small>
-            </span>
-          </div>
-        </>
-      }
-      breadcrumbIcon={<Icon name="chevron" />}
-      navigationLinks={[
-        {
-          to: "/student/orders",
-          label: "Orders",
-          icon: <Icon name="briefcase" />,
-        },
-      ]}
       overlays={
         <>
           {detail && (
@@ -133,7 +57,7 @@ export default function StudentDashboard() {
     >
       <div className="sd-welcome">
         <div>
-          <h1>{section === "overview" ? t("Welcome back, Nour") : label}</h1>
+          <h1>{section === "overview" ? t("Welcome back, Nour") : t(label)}</h1>
           <p>
             {t("Keep your applications and current projects moving forward.")}
           </p>

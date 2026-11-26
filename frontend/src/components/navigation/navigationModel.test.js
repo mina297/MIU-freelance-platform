@@ -46,7 +46,7 @@ test("all role links resolve to permitted routes without preview or dynamic path
     assert.ok(items.length);
     assert.equal(new Set(items.map((item) => item.to)).size, items.length);
     for (const item of items) {
-      const route = routeConfig.find((route) => route.path === item.to);
+      const route = routeConfig.find((route) => route.path === item.to.split("?")[0]);
       assert.equal(getRouteAccess(current, route), "allowed");
       assert.ok(!item.to.includes(":"));
       assert.notEqual(route.showInNavigation, false);

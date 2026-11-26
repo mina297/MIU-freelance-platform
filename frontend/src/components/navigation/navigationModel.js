@@ -1,6 +1,8 @@
 import { matchRoutes } from "react-router-dom";
 import { routeConfig } from "../../app/routeConfig.js";
 import { getRouteAccess, isActiveUser } from "../../features/auth/session.js";
+import { studentDashboardNavigation } from "../../features/dashboards/student/studentDashboardNavigation.js";
+import { clientDashboardNavigation } from "../../features/dashboards/client/clientDashboardNavigation.js";
 
 export const NAVIGATION_STORAGE_KEY = "miu.navigation-layout";
 export function readNavigationLayout(storage) {
@@ -39,7 +41,13 @@ export function usesApplicationNavigation(session, pathname) {
     ].some((path) => pathname === path || pathname.startsWith(`${path}/`))
   );
 }
-const publicWork = ["/projects", "/services", "/freelancers", "/recommendations", "/support/contact"];
+const publicWork = [
+  "/projects",
+  "/services",
+  "/freelancers",
+  "/recommendations",
+  "/support/contact",
+];
 export function navigationItems(session) {
   const priority = [
     `/${session.user?.role}/dashboard`,
@@ -51,7 +59,7 @@ export function navigationItems(session) {
     "/projects",
     "/admin",
   ];
-  return routeConfig
+  const items = routeConfig
     .filter(
       (route) =>
         route.path !== "*" &&
@@ -65,5 +73,32 @@ export function navigationItems(session) {
         (priority.includes(a.path) ? priority.indexOf(a.path) : 99) -
         (priority.includes(b.path) ? priority.indexOf(b.path) : 99),
     )
-    .map((route) => ({ to: route.path, label: route.path === "/client/projects/new" ? "Post a project" : route.path.endsWith("/dashboard") ? "Overview" : route.path.endsWith("/orders") ? "Orders" : route.title }));
+    .map((route) => ({
+      to: route.path,
+      label:
+        route.path === "/client/projects/new"
+          ? "Post a project"
+          : route.path.endsWith("/dashboard")
+            ? "Overview"
+            : route.path.endsWith("/orders")
+              ? "Orders"
+              : route.title,
+    }));
+  const dashboardPath = `/${session.user?.role}/dashboard`;
+  const dashboardSections = {
+    student: studentDashboardNavigation,
+    client: clientDashboardNavigation,
+  }[session.user?.role];
+  if (dashboardSections && items.some(({ to }) => to === dashboardPath)) {
+    items.splice(
+      5,
+      0,
+      ...dashboardSections.slice(1).map(([section, label]) => ({
+        to: `${dashboardPath}?section=${section}`,
+        label,
+        section,
+      })),
+    );
+  }
+  return items;
 }

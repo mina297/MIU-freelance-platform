@@ -1,5 +1,28 @@
 # Client Dashboard — Phase 1 frontend
 
+## Consolidated navigation — 26 November 2026
+
+The client dashboard now follows the student dashboard's navigation arrangement.
+Its internal sidebar and breadcrumb/account bar are removed via the shared
+layout's `contentOnly` option. Overview and Orders remain in the application
+navbar; More navigation contains My Jobs, Applicants, Active Jobs, Completed Jobs,
+Profile and Settings alongside Help Center. Mobile navigation exposes the same
+destinations. The shared configuration is `clientDashboardNavigation.js`.
+
+Sections retain `/client/dashboard?section=jobs|applicants|active|completed|profile|settings`
+and browser history; Overview uses `/client/dashboard`. Only the current section
+is highlighted. The active client's role guard, fixture data, completion/review
+dialogs, filters, preferences and loading/empty/error states remain unchanged.
+The removed fictional club account display is replaced by the existing signed-in
+account menu. Notifications and discovery remain reachable in application
+navigation. Relevant requirements: FR-C03–FR-C05, FR-C11–FR-C14, FR-C17,
+NFR-02 and NFR-03; this presentation change does not complete those requirements.
+
+Navigation and route rendering checks cover both roles, section links and active
+states, duplicate chrome removal, and rejection of anonymous/wrong-role access.
+Browser keyboard, mobile and visual acceptance remain pending for this update.
+Earlier sidebar/header descriptions below record the original implementation.
+
 ## Shared dashboard refactor — 15 November 2026
 
 The implementation now lives in `frontend/src/features/dashboards/client/` and
