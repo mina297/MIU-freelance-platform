@@ -1,6 +1,254 @@
 // Existing English keys are stable message IDs. Keep editorial wording separate
 // from records, permissions and outcome state; never apply it to user content.
 export const productCopy = {
+  "Every simulated decision includes a reason and an audit record.": [
+    "Every preview decision includes a reason and an audit record.",
+    "يتضمن كل قرار في المعاينة سببًا وسجل تدقيق.",
+  ],
+  "Preview controls": ["Preview controls", "عناصر التحكم في المعاينة"],
+  "Sandbox preview": ["Preview", "معاينة"],
+  "Local preview · Accounts and account audit records stay in this browser. Other workspace previews reset when you leave. No real verification, payments or escrow.":
+    [
+      "Local preview · Account and audit records stay in this browser. Other workspaces reset when you leave. No real verification, payments or escrow.",
+      "معاينة محلية · تبقى الحسابات وسجلات التدقيق في هذا المتصفح. تُعاد بقية مساحات العمل عند المغادرة. لا توجد عمليات تحقق أو دفع أو ضمان حقيقية.",
+    ],
+  "Unable to load this preview": [
+    "Unable to load this preview",
+    "تعذر تحميل هذه المعاينة",
+  ],
+  "Role for {value0}": ["Role for {value0}", "دور {value0}"],
+  "Status and actions for {value0}": [
+    "Status and actions for {value0}",
+    "الحالة والإجراءات لـ {value0}",
+  ],
+  "Search users, jobs, and audit logs": [
+    "Search users, jobs and audit logs",
+    "ابحث عن المستخدمين والمشروعات وسجلات التدقيق",
+  ],
+  "Search results": ["Search results", "نتائج البحث"],
+  User: ["User", "مستخدم"],
+  "Audit log": ["Audit log", "سجل التدقيق"],
+  "Job or service": ["Job or service", "مشروع أو خدمة"],
+  "Notifications ({value0} unread)": [
+    "Notifications ({value0} unread)",
+    "الإشعارات ({value0} غير مقروءة)",
+  ],
+  "Recent admin alerts": ["Recent admin alerts", "تنبيهات الإدارة الأخيرة"],
+  "{value0} unread": ["{value0} unread", "{value0} غير مقروءة"],
+  "Mark all read": ["Mark all read", "تحديد الكل كمقروء"],
+  "No recent admin alerts.": [
+    "No recent admin alerts.",
+    "لا توجد تنبيهات إدارية حديثة.",
+  ],
+  "Super Admin account menu": [
+    "Super Admin account menu",
+    "قائمة حساب المسؤول العام",
+  ],
+  "Platform administrator": ["Platform administrator", "مسؤول المنصة"],
+  "Platform-wide oversight": [
+    "Platform-wide oversight",
+    "إشراف على مستوى المنصة",
+  ],
+  "Open overview": ["Open overview", "فتح النظرة العامة"],
+  "Total Students": ["Total Students", "إجمالي الطلاب"],
+  "Student accounts in the directory": [
+    "Student accounts in the directory",
+    "حسابات الطلاب في الدليل",
+  ],
+  "Open projects and published services": [
+    "Open projects and published services",
+    "المشروعات المفتوحة والخدمات المنشورة",
+  ],
+  "Total Escrow Volume": ["Total Escrow Volume", "إجمالي المبالغ المحتجزة"],
+  "Recorded checkout funds held": [
+    "Recorded checkout funds held",
+    "الأموال المسجلة والمحتجزة من عمليات الدفع",
+  ],
+  "Awaiting a decision": ["Awaiting a decision", "بانتظار اتخاذ قرار"],
+  "Monthly platform activity": [
+    "Monthly platform activity",
+    "نشاط المنصة الشهري",
+  ],
+  "Recent urgent alerts": ["Recent urgent alerts", "التنبيهات العاجلة الأخيرة"],
+  "Illustrative baseline plus administrative actions recorded this session.": [
+    "Illustrative baseline plus administrative actions recorded this session.",
+    "بيانات توضيحية تضاف إليها الإجراءات الإدارية المسجلة في هذه الجلسة.",
+  ],
+  "High-priority items from the unified review queue.": [
+    "High-priority items from the unified review queue.",
+    "العناصر عالية الأولوية في قائمة المراجعة الموحدة.",
+  ],
+  "Queue totals update when cases are resolved. Inspection is a local workspace preview.":
+    [
+      "Queue totals update when cases are resolved. Inspection is a local workspace preview.",
+      "تتحدث أعداد الحالات عند حلها. استعراض المساحة معاينة محلية.",
+    ],
+  "Role and directory status selections are temporary preview values; suspension and ban actions update the saved account.":
+    [
+      "Role and directory status selections are temporary preview values; suspension and ban actions update the saved account.",
+      "اختيارات الدور والحالة مؤقتة في المعاينة؛ أما التعليق والحظر فيحدثان الحساب المحفوظ.",
+    ],
+  "ID verification, flagged content, finance exceptions, quality reports and disputes share one reason-required decision queue.":
+    [
+      "ID verification, flagged content, finance exceptions, quality reports and disputes share one reason-required decision queue.",
+      "تجمع قائمة واحدة للتحكيم المعلل بين التحقق من الهوية والمحتوى المُبلغ عنه والاستثناءات المالية وتقارير الجودة والنزاعات.",
+    ],
+  "Moderation changes affect this workspace preview only; existing order terms and marketplace records are not changed.":
+    [
+      "Moderation changes affect this workspace preview only; existing order terms and marketplace records are not changed.",
+      "تؤثر تغييرات الإشراف في معاينة مساحة العمل فقط؛ ولا تعدل شروط الطلبات أو سجلات السوق.",
+    ],
+  "Account events are saved locally; review, moderation and settings records last for this workspace session.":
+    [
+      "Account events are saved locally; review, moderation and settings records last for this workspace session.",
+      "تُحفظ أحداث الحساب محليًا؛ وتستمر سجلات المراجعة والإشراف والإعدادات طوال جلسة مساحة العمل.",
+    ],
+  "External profile resubmission": [
+    "External profile resubmission",
+    "إعادة إرسال الملف التعريفي الخارجي",
+  ],
+  "Reported service description": [
+    "Reported service description",
+    "وصف خدمة تم الإبلاغ عنه",
+  ],
+  "Disputed project delivery": [
+    "Disputed project delivery",
+    "نزاع حول تسليم المشروع",
+  ],
+  "Escrow reconciliation check": [
+    "Escrow reconciliation check",
+    "مراجعة مطابقة الضمان",
+  ],
+  "Matching quality feedback": [
+    "Matching quality feedback",
+    "ملاحظات حول جودة المطابقة",
+  ],
+  "Monthly platform activity chart with six months of preview activity.": [
+    "Monthly platform activity chart with six months of preview activity.",
+    "مخطط توضيحي لنشاط المنصة خلال ستة أشهر.",
+  ],
+  "No urgent alerts.": ["No urgent alerts.", "لا توجد تنبيهات عاجلة."],
+  "Open review queue": ["Open review queue", "فتح قائمة المراجعة"],
+  "Inspect workspace · {value0}": [
+    "Inspect workspace · {value0}",
+    "استعراض مساحة العمل · {value0}",
+  ],
+  "open cases in this queue": [
+    "open cases in this queue",
+    "حالات مفتوحة في هذه القائمة",
+  ],
+  "No open cases in this queue.": [
+    "No open cases in this queue.",
+    "لا توجد حالات مفتوحة في هذه القائمة.",
+  ],
+  "Review case": ["Review case", "مراجعة الحالة"],
+  "Identity verification": ["Identity verification", "التحقق من الهوية"],
+  "Flagged content": ["Flagged content", "محتوى تم الإبلاغ عنه"],
+  "Escalated dispute": ["Escalated dispute", "نزاع مُصعّد"],
+  "Finance exception": ["Finance exception", "استثناء مالي"],
+  "AI quality review": ["AI quality review", "مراجعة جودة الذكاء الاصطناعي"],
+  "Search review queue": ["Search review queue", "ابحث في قائمة المراجعة"],
+  "Jobs and services": ["Jobs and services", "المشروعات والخدمات"],
+  "Search listings": ["Search listings", "ابحث في الإعلانات"],
+  "Listing type": ["Listing type", "نوع الإعلان"],
+  Listing: ["Listing", "الإعلان"],
+  Owner: ["Owner", "المالك"],
+  Moderation: ["Moderation", "الإشراف"],
+  "Moderate {value0}": ["Moderate {value0}", "الإشراف على {value0}"],
+  Job: ["Job", "مشروع"],
+  Service: ["Service", "خدمة"],
+  "Choose action": ["Choose action", "اختر إجراءً"],
+  Approve: ["Approve", "موافقة"],
+  Reject: ["Reject", "رفض"],
+  Pause: ["Pause", "إيقاف مؤقت"],
+  Remove: ["Remove", "إزالة"],
+  "No matching listings.": ["No matching listings.", "لا توجد إعلانات مطابقة."],
+  "Platform settings": ["Platform settings", "إعدادات المنصة"],
+  "These values are saved in this preview only. Financial policy limits remain unconfigured until approved.":
+    [
+      "These values are saved in this preview only. Financial policy limits remain unconfigured until approved.",
+      "تُحفظ هذه القيم في المعاينة فقط. تظل حدود السياسات المالية غير محددة حتى اعتمادها.",
+    ],
+  "Platform commission (%)": ["Platform commission (%)", "عمولة المنصة (%)"],
+  "Minimum project budget (EGP)": [
+    "Minimum project budget (EGP)",
+    "الحد الأدنى لميزانية المشروع (جنيه مصري)",
+  ],
+  "Maximum project budget (EGP)": [
+    "Maximum project budget (EGP)",
+    "الحد الأقصى لميزانية المشروع (جنيه مصري)",
+  ],
+  "Leave blank until a rate is approved.": [
+    "Leave blank until a rate is approved.",
+    "اتركه فارغًا حتى اعتماد النسبة.",
+  ],
+  "Maintenance mode": ["Maintenance mode", "وضع الصيانة"],
+  "Preview setting only; this does not take the platform offline.": [
+    "Preview setting only; this does not take the platform offline.",
+    "إعداد للمعاينة فقط؛ لا يوقف المنصة.",
+  ],
+  "Enter a commission percentage from 0 to 100.": [
+    "Enter a commission percentage from 0 to 100.",
+    "أدخل نسبة عمولة من 0 إلى 100.",
+  ],
+  "Choose a valid maintenance mode setting.": [
+    "Choose a valid maintenance mode setting.",
+    "اختر إعدادًا صالحًا لوضع الصيانة.",
+  ],
+  "Set both project budget limits to whole EGP amounts, with the maximum at least the minimum.":
+    [
+      "Set both project budget limits to whole EGP amounts, with the maximum at least the minimum.",
+      "أدخل الحدين الأدنى والأقصى كقيم صحيحة بالجنيه المصري، على ألا يقل الأقصى عن الأدنى.",
+    ],
+  "Add a reason before saving platform settings.": [
+    "Add a reason before saving platform settings.",
+    "أضف سببًا قبل حفظ إعدادات المنصة.",
+  ],
+  "No platform setting changes to save.": [
+    "No platform setting changes to save.",
+    "لا توجد تغييرات على إعدادات المنصة لحفظها.",
+  ],
+  "Platform settings updated in this preview and recorded in audit history.": [
+    "Platform settings updated in this preview and recorded in audit history.",
+    "تم تحديث إعدادات المنصة في المعاينة وتسجيلها في سجل التدقيق.",
+  ],
+  "Save settings": ["Save settings", "حفظ الإعدادات"],
+  "Approved decisions": ["Approved decisions", "القرارات المعتمدة"],
+  "Rejected decisions": ["Rejected decisions", "القرارات المرفوضة"],
+  "Open review queues": ["Open review queues", "قوائم المراجعة المفتوحة"],
+  "Administrative actions": ["Administrative actions", "الإجراءات الإدارية"],
+  "Live administrative records": [
+    "Live administrative records",
+    "السجلات الإدارية الحالية",
+  ],
+  "Search audit history": ["Search audit history", "ابحث في سجل التدقيق"],
+  "Jobs & Services": ["Jobs & Services", "المشروعات والخدمات"],
+  "Platform Settings": ["Platform Settings", "إعدادات المنصة"],
+  "Review queue item": ["Review queue item", "مراجعة عنصر في القائمة"],
+  "Moderate marketplace record": [
+    "Moderate marketplace record",
+    "الإشراف على إعلان في السوق",
+  ],
+  "MIU ID and external government ID reviews": [
+    "MIU ID and external government ID reviews",
+    "مراجعة بطاقات MIU والهويات الحكومية الخارجية",
+  ],
+  "Jobs, services, proposals and content reports": [
+    "Jobs, services, proposals and content reports",
+    "المشروعات والخدمات والعروض وبلاغات المحتوى",
+  ],
+  "Transactions, escrow, refunds, payouts and fees": [
+    "Transactions, escrow, refunds, payouts and fees",
+    "المعاملات والضمان والاستردادات والمدفوعات والرسوم",
+  ],
+  "Tickets, disputes, evidence and resolutions": [
+    "Tickets, disputes, evidence and resolutions",
+    "التذاكر والنزاعات والأدلة وقرارات الحل",
+  ],
+  "Matching, chatbot, moderation and error reports": [
+    "Matching, chatbot, moderation and error reports",
+    "المطابقة والمساعد والإشراف وبلاغات الأخطاء",
+  ],
   "My profile": ["My profile", "ملفي الشخصي"],
   "View public profile": ["View public profile", "عرض الملف العام"],
   "Profile settings": ["Profile settings", "إعدادات الملف الشخصي"],
@@ -9,12 +257,21 @@ export const productCopy = {
   "About Me": ["About Me", "نبذة عني"],
   "Work Stats": ["Work Stats", "إحصائيات العمل"],
   "View all": ["View all", "عرض الكل"],
-  "Education": ["Education", "التعليم"],
-  "Experience": ["Experience", "الخبرات"],
-  "Languages": ["Languages", "اللغات"],
-  "No education added yet.": ["No education added yet.", "لم تُضف بيانات التعليم بعد."],
-  "No experience added yet.": ["No experience added yet.", "لم تُضف خبرات بعد."],
-  "No introduction added yet.": ["No introduction added yet.", "لم تُضف نبذة تعريفية بعد."],
+  Education: ["Education", "التعليم"],
+  Experience: ["Experience", "الخبرات"],
+  Languages: ["Languages", "اللغات"],
+  "No education added yet.": [
+    "No education added yet.",
+    "لم تُضف بيانات التعليم بعد.",
+  ],
+  "No experience added yet.": [
+    "No experience added yet.",
+    "لم تُضف خبرات بعد.",
+  ],
+  "No introduction added yet.": [
+    "No introduction added yet.",
+    "لم تُضف نبذة تعريفية بعد.",
+  ],
   "No languages added yet.": ["No languages added yet.", "لم تُضف لغات بعد."],
   "Youssef Hassan": ["Youssef Hassan", "يوسف حسن"],
   "Mariam Nabil": ["Mariam Nabil", "مريم نبيل"],
@@ -165,11 +422,6 @@ export const productCopy = {
     "A completed order is required to leave a review.",
     "يلزم إكمال طلب لكتابة تقييم.",
   ],
-  "Fictional account only. No credentials or activation email will be generated.":
-    [
-      "Account changes are saved for this session. No activation email is sent.",
-      "تُحفظ تغييرات الحساب للجلسة الحالية. لا يُرسل بريد تفعيل.",
-    ],
   "Fictional approach and delivery outline": [
     "Approach and delivery plan",
     "أسلوب العمل وخطة التسليم",
@@ -997,7 +1249,6 @@ export const productCopy = {
   "Prototype session controls": ["Account controls", "إعدادات الحساب"],
   "Simulated session controls": ["Account controls", "إعدادات الحساب"],
   "Available demo accounts": ["Available accounts", "الحسابات المتاحة"],
-  "Demo email": ["Email", "البريد الإلكتروني"],
   "Demo Super Admin": ["Super Admin", "المشرف العام"],
   "This demo email is already assigned.": [
     "This email is already assigned to an account.",

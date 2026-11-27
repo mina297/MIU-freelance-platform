@@ -21,7 +21,12 @@ export function Badge({ children }) {
 export function AdminDialog(props) {
   return <DashboardDialog {...props} variant="admin" />;
 }
-export function DataTable({ columns, rows, empty = "No matching records." }) {
+export function DataTable({
+  columns,
+  rows,
+  empty = "No matching records.",
+  tableClassName,
+}) {
   const { t } = useLanguage();
 
   if (!rows.length) return <p className="ac-empty">{t(empty)}</p>;
@@ -32,7 +37,7 @@ export function DataTable({ columns, rows, empty = "No matching records." }) {
       role="region"
       aria-label={t("Scrollable records")}
     >
-      <table>
+      <table className={tableClassName}>
         <thead>
           <tr>
             {columns.map((c) => (

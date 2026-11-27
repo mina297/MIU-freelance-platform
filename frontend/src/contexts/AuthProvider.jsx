@@ -18,11 +18,6 @@ export default function AuthProvider({ children }) {
         session,
         listAccounts: () => accounts.listUsers(session),
         accountAudit: accounts.getAudit(session),
-        createCommitteeAccount: async (values) => {
-          const result = await accounts.createCommitteeAccount(session, values);
-          if (result.ok) refreshAccounts();
-          return result;
-        },
         updateAccountStatus: (values) => {
           const result = accounts.updateAccountStatus(session, values);
           if (result.ok) refreshAccounts();

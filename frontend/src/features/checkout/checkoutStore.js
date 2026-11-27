@@ -94,7 +94,7 @@ export function createCheckoutStore(
           ? sampleCardPresets[payment.preset]
           : savedCards.find((item) => item.id === payment.cardId);
       const transaction = Object.freeze({
-        id: "DEMO-PAY-" + order.id,
+        id: "PAY-" + order.id,
         orderId: order.id,
         serviceId: order.serviceId,
         clientId: order.clientId,

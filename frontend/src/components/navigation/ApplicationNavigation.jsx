@@ -70,7 +70,11 @@ export default function ApplicationNavigation({ children }) {
   const navigate = useNavigate();
   const { layout, setLayout } = useNavigationLayout();
   const [drawer, setDrawer] = useState(null);
-  const active = usesApplicationNavigation(session, location.pathname);
+  const adminWorkspace = ["/admin", "/superadmin"].includes(
+    location.pathname.toLowerCase(),
+  );
+  const active =
+    !adminWorkspace && usesApplicationNavigation(session, location.pathname);
   const landingHeader = layout === "top";
   const drawerOpen = active && drawer === location.key;
   const header = useScrollHeader({

@@ -31,7 +31,6 @@ flowchart TD
 The Super Admin can:
 - View platform activity summaries
 - Manage student/client account status
-- Create committee accounts
 - Assign committee roles
 - Change permitted role assignments
 - Suspend or reactivate committee accounts
@@ -40,9 +39,17 @@ The Super Admin can:
 - Make final decisions on cases beyond committee authority
 - Manage permitted platform settings
 
-## 4. Committee Account Provisioning
+Committee-account creation remains a platform requirement (FR-A04/BR-04), but the
+current frontend preview intentionally omits its form, action and account-store
+operation. Preloaded fictional committee records do not demonstrate provisioning.
+
+## 4. Committee Account Provisioning Requirement
 
 **Confirmed rule:** Committee members cannot self-register.
+
+FR-A04 and BR-04 require Super Admin provisioning. The workflow below describes
+the target platform behavior; it is not implemented in the current frontend
+preview.
 
 Workflow:
 1. Super Admin opens committee management.
@@ -149,8 +156,17 @@ Records should be accessible only to authorized roles.
 
 Use mock accounts, fictional cases, and simulated decisions.
 
+Committee-account creation remains a platform requirement but is not included in
+the current preview. Preloaded fixture accounts do not demonstrate provisioning.
+
 Demonstrate:
-- Committee account creation
+- Global administrative search, notifications, profile and language controls
+- Overview KPIs, illustrative activity, urgent alerts and live case queue counts
+- Committee workspace inspection and the unified review queue
+- Reason-required review decisions with administrative audit entries
+- Workspace-local project/service moderation
+- Validated, workspace-local platform settings
+- Committee test-account sign-in
 - Role-specific login
 - Five committee dashboards
 - Case review

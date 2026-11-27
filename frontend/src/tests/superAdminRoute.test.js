@@ -37,6 +37,10 @@ test("SuperAdmin preview renders its full shell on direct and case-variant URLs"
       );
       assert.match(html, /admin-center/);
       assert.match(html, /Super Admin sections/);
+      assert.match(html, /Search users, jobs and audit logs/);
+      assert.match(html, /Notifications \(\d+ unread\)/);
+      assert.match(html, /Super Admin account menu/);
+      assert.doesNotMatch(html, /Hire Talent|Find Work|How it works/i);
       assert.match(html, /Financial overview/);
       assert.doesNotMatch(html, /Registration settings|Add country/);
       assert.doesNotMatch(html, /routing placeholder only/);

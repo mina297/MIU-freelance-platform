@@ -35,7 +35,8 @@ export const ar = {
   "Terms of Service": "شروط الخدمة",
   "User Agreement": "اتفاقية المستخدم",
   "Privacy Policy": "سياسة الخصوصية",
-  "The User Agreement is awaiting team approval.": "اتفاقية المستخدم بانتظار اعتماد فريق المشروع.",
+  "The User Agreement is awaiting team approval.":
+    "اتفاقية المستخدم بانتظار اعتماد فريق المشروع.",
   "Required for this prototype. Policy links open in a new tab.":
     "الموافقة مطلوبة في النموذج الأولي. تُفتح روابط السياسات في علامة تبويب جديدة.",
   "Registration settings": "إعدادات التسجيل",
@@ -47,7 +48,8 @@ export const ar = {
   "Enter a country name.": "أدخل اسم الدولة.",
   "This country is already available.": "هذه الدولة متاحة بالفعل.",
   "Country added to the sign-up list.": "تمت إضافة الدولة إلى قائمة التسجيل.",
-  "Only the Super Admin can add countries.": "يمكن للمسؤول العام وحده إضافة الدول.",
+  "Only the Super Admin can add countries.":
+    "يمكن للمسؤول العام وحده إضافة الدول.",
   "Main navigation": "القائمة الرئيسية",
   "More navigation": "المزيد من الروابط",
   "Account menu": "قائمة الحساب",
@@ -70,7 +72,17 @@ export const ar = {
   "Switch to dark mode": "التبديل إلى الوضع الداكن",
   "(fictional metadata only)": "(بيانات وصفية افتراضية فقط)",
   "(fictional sample; no file)": "(نموذج افتراضي؛ لا يوجد ملف)",
-  "+ Create committee account": "+ إنشاء حساب لجنة",
+  "AI & Quality": "الذكاء الاصطناعي والجودة",
+  "Account actions": "إجراءات الحساب",
+  Active: "نشط",
+  Ban: "حظر",
+  "Directory status": "حالة الدليل",
+  Finance: "المالية",
+  "Marketplace Operations": "عمليات السوق",
+  Restore: "استعادة",
+  "Support & Disputes": "الدعم والنزاعات",
+  Suspend: "تعليق",
+  Verification: "التحقق",
   ", with payment status": "، وحالة الدفع",
   "-day delivery": " أيام للتسليم",
   "-day delivery estimate. Its existing status is preserved. No notification sent.":
@@ -368,7 +380,6 @@ export const ar = {
   "Create a project": "إنشاء مشروع",
   "Create a service": "إنشاء خدمة",
   "Create an account": "إنشاء حساب",
-  "Create committee account": "إنشاء حساب لجنة",
   "Create this demo service order?": "هل تريد إنشاء طلب الخدمة التجريبي؟",
   "Create your first project": "أنشئ مشروعك الأول",
   Created: "تاريخ الإنشاء",
@@ -404,7 +415,6 @@ export const ar = {
   "Demo checkout · fictional payment methods, no real charges or escrow custody.":
     "دفع تجريبي · طرق دفع افتراضية دون رسوم حقيقية أو احتجاز أموال.",
   "Demo controls": "أدوات التجربة",
-  "Demo email": "البريد الإلكتروني التجريبي",
   "Demo example · not a live external link":
     "مثال تجريبي · ليس رابطًا خارجيًا فعليًا",
   "Demo financial records only. No real money is collected, held or released. Refresh clears this session's records.":
@@ -536,8 +546,6 @@ export const ar = {
     "ملف افتراضي للمرحلة الأولى. شارات الحساب محاكاة. تستخدم نماذج التصميم السابقة معرّفات منفصلة.",
   "Fictional Phase 1 service. Prices are in EGP. No order, payment, message or notification is created on this page.":
     "خدمة افتراضية للمرحلة الأولى بأسعار بالجنيه المصري. لا يُنشأ في هذه الصفحة طلب أو دفع أو رسالة أو إشعار.",
-  "Fictional account only. No credentials or activation email will be generated.":
-    "حساب افتراضي فقط. لن تُنشأ بيانات دخول أو رسالة تفعيل.",
   "Fictional attachment metadata": "بيانات مرفق افتراضي",
   "Fictional client": "عميل افتراضي",
   "Fictional component demonstration.": "عرض تجريبي لمكون افتراضي.",

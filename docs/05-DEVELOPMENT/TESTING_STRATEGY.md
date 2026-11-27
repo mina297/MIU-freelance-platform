@@ -8,17 +8,21 @@ tags: [MIU, testing, QA]
 
 # MIU Freelance Platform — Testing Strategy
 
-### Local account persistence — 26 November 2026
+### Current preview validation — 27 November 2026
 
 `src/tests/localAuthStore.test.js` checks reconstruction after reload, stable IDs,
 duplicate emails, password verification, absence of plaintext persisted passwords,
-Super Admin provisioning of each committee role, saved status changes/audits,
+preloaded committee role sign-in, saved status changes/audits,
 recovery persistence, unavailable/corrupt/full storage, saved public profile shells
 and legacy profile migration. Profile storage tests still enforce ownership and
 account-controlled field protection. Route/localization tests require truthful
-persistence/session notices and permit explicit local-demo disclosures. All 376
-tests, lint and build passed for this increment; live browser/mobile acceptance
-was not performed. Existing build chunk-size advisory remains.
+persistence/session notices and permit explicit local-preview disclosures. The
+current 384-test run has 383 passing tests and one pre-existing footer-copy
+assertion failure (`Community Guidelines` versus the rendered `Safety & Trust`).
+Lint and build pass; the build retains its existing chunk-size advisory.
+Interactive Super Admin preview checks were performed in the browser, including
+search, notifications, profile menu, committee inspection, review decisions,
+listing moderation, settings validation/audit updates and viewport overflow.
 
 ## 1. Purpose
 
@@ -95,6 +99,16 @@ missing package/provider metadata, unique comparison header/cell associations,
 loading/error suppression, escaping, hidden dynamic navigation and unchanged
 order snapshots. Live table-scroll, keyboard and mobile review remain pending.
 
+Super Admin governance model tests cover review decisions and audit atomicity,
+reasonless/invalid transitions, queue-count updates, cross-domain search,
+moderation overrides, platform-setting validation, and role/status options.
+Localization and route-rendering tests check the administrative header's language
+control, direct `/SuperAdmin` routes, and translated interface copy. Headless
+browser checks cover the live search/notification/profile controls, committee
+inspection, reason-required decisions, moderation, settings validation/audit,
+reports, empty/error recovery and viewport overflow; browser results must be
+recorded separately from automated model/SSR checks.
+
 ### Integration Testing
 Verify that modules work together through shared mock data and routing.
 
@@ -138,7 +152,7 @@ Verify keyboard, focus, labels, and relevant assistive technology behavior.
 | Review | Eligible user submits feedback |
 | Payment | Sandbox checkout outcome |
 | Escrow | Simulated escrow status |
-| Admin | Super Admin creates a committee account |
+| Admin | Committee provisioning remains a requirement; the current preview omits creation |
 | Verification Committee | Reviews an identity case |
 | Marketplace Operations | Reviews reported content |
 | Finance Committee | Reviews a sandbox transaction |
@@ -236,7 +250,7 @@ Suggested tracking table:
 |---|---|---|---|
 | FR-S05 | Proposal Form | Valid simulated submission, eligibility, fields, fictional attachments, duplicate prevention, and confirmation rendering | Automated checks passed 23 October 2026; browser/visual review pending |
 | FR-C09 | Checkout | Simulated funding | Not tested |
-| FR-A04 | Committee Accounts | Create committee account | Not tested |
+| FR-A04 | Committee Accounts | Create committee account | Not implemented in current preview; requirement retained |
 | NFR-03 | All pages | Responsive check | Not tested |
 | NFR-10 | Payments | Sandbox-only behavior | Not tested |
 

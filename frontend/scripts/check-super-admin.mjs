@@ -12,6 +12,13 @@ try {
   const page = await browser.newPage();
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
+  const assertNoCommitteeProvisioning = async () => {
+    assert.equal(await page.$(".ac-heading button"), null);
+    assert.doesNotMatch(
+      await page.$eval("body", (node) => node.textContent),
+      /Create committee account/i,
+    );
+  };
   const selectSection = async (index) => {
     const selector = `.ac-sidebar nav button:nth-child(${index})`;
     await page.click(selector);
@@ -21,11 +28,13 @@ try {
       {},
       selector,
     );
+    await assertNoCommitteeProvisioning();
   };
   await page.setViewport({ width: 1440, height: 1100 });
   await page.goto(`${baseUrl}/SuperAdmin`, { waitUntil: "networkidle0" });
   await page.reload({ waitUntil: "networkidle0" });
   await page.waitForSelector(".ac-stats");
+  await assertNoCommitteeProvisioning();
   const inspectDashboardShell = async () => {
     assert.doesNotMatch(
       await page.$eval("body", (node) => node.textContent),
@@ -41,6 +50,29 @@ try {
     assert.equal(await page.$('[aria-label="Demo session controls"]'), null);
   };
   await inspectDashboardShell();
+  await page.click(".ac-header-icon");
+  await page.waitForSelector(".ac-notifications-popover");
+  await page.click(".ac-text-button");
+  await page.click(".ac-profile-button");
+  await page.waitForSelector(".ac-profile-popover");
+  await page.click(".ac-profile-popover button");
+  await page.type(".ac-global-search input", "Salma");
+  await page.waitForSelector(".ac-search-results button");
+  await page.click(".ac-search-results button");
+  await page.waitForFunction(
+    () => document.querySelectorAll(".ac-user-table tbody tr").length === 1,
+  );
+  await selectSection(1);
+  await selectSection(3);
+  await page.click(".ac-committee button");
+  await page.waitForSelector("dialog.ac-dialog");
+  assert.match(
+    await page.$eval("dialog.ac-dialog", (node) => node.textContent),
+    /open cases in this queue/i,
+  );
+  await page.click('dialog.ac-dialog button[aria-label="Close dialog"]');
+  await page.waitForSelector("dialog.ac-dialog", { hidden: true });
+  await selectSection(1);
   for (const width of [1440, 1024, 768, 390, 320]) {
     await page.setViewport({ width, height: 1000 });
     await inspectDashboardShell();
@@ -56,6 +88,52 @@ try {
         fullPage: true,
       });
   }
+  await selectSection(6);
+  assert.equal(await page.$(".ac-heading"), null);
+  assert.doesNotMatch(
+    await page.$eval("#admin-content", (node) => node.textContent),
+    /\bDemo\b|MIU FREELANCE · GOVERNANCE|Clarity across the platform/i,
+  );
+  await selectSection(1);
+  await selectSection(7);
+  await page.select(".ac-table-wrap tbody select", "paused");
+  await page.type("dialog textarea", "Listing reviewed for this preview.");
+  await page.click("dialog .ac-primary");
+  await page.waitForSelector("dialog", { hidden: true });
+  assert.match(
+    await page.$eval(".ac-table-wrap tbody tr", (row) => row.textContent),
+    /Paused/,
+  );
+  await selectSection(8);
+  await page.type('input[name="commissionPercent"]', "7.5");
+  await page.type('input[name="minProjectBudgetEGP"]', "100");
+  await page.type('input[name="maxProjectBudgetEGP"]', "50");
+  await page.click('input[name="maintenanceMode"]');
+  await page.type(
+    '.ac-settings-form textarea[name="settingsReason"]',
+    "Reviewed local preview settings.",
+  );
+  await page.click('.ac-settings-form button[type="submit"]');
+  await page.waitForSelector(".ac-form-error");
+  assert.match(
+    await page.$eval(".ac-form-error", (node) => node.textContent),
+    /maximum at least the minimum/i,
+  );
+  await page.click('input[name="maxProjectBudgetEGP"]');
+  await page.keyboard.press("Control+A");
+  await page.type('input[name="maxProjectBudgetEGP"]', "200");
+  await page.click('.ac-settings-form button[type="submit"]');
+  await page.waitForFunction(() =>
+    document
+      .querySelector(".ac-notice")
+      ?.textContent.includes("Platform settings updated"),
+  );
+  await selectSection(9);
+  assert.match(
+    await page.$eval(".ac-table-wrap tbody", (node) => node.textContent),
+    /Platform settings|Updated platform settings/,
+  );
+  await selectSection(1);
   await page.setViewport({ width: 1440, height: 1100 });
   await page.goto(`${baseUrl}/`, { waitUntil: "networkidle0" });
   await page.select("#demo-account", "admin_001");
@@ -78,19 +156,9 @@ try {
   await page.waitForSelector("dialog", { hidden: true });
   assert.equal(
     await page.$$(".ac-table-wrap tbody tr").then((r) => r.length),
-    2,
+    4,
   );
-  await page.click(".ac-heading button");
-  await page.type('input[name="name"]', "Fictional Reviewer");
-  await page.type('input[name="email"]', "reviewer@example.test");
-  await page.select('select[name="committee"]', "finance");
-  await page.type("dialog textarea", "Demo workload coverage.");
-  await page.click("dialog .ac-primary");
   await selectSection(3);
-  assert.match(
-    await page.$eval("main", (e) => e.textContent),
-    /Fictional Reviewer/,
-  );
   await selectSection(2);
   await page.waitForSelector(".ac-filters input");
   await page.type(".ac-filters input", "Salma");
@@ -98,12 +166,25 @@ try {
     await page.$$(".ac-table-wrap tbody tr").then((r) => r.length),
     1,
   );
-  await page.click(".ac-table-wrap button");
-  await page.type("dialog textarea", "Demo account review.");
+  const roleSelect = '.ac-user-table select[aria-label^="Role for"]';
+  const actionSelect =
+    '.ac-user-table select[aria-label^="Status and actions for"]';
+  await page.select(roleSelect, "verification_committee");
+  assert.equal(
+    await page.$eval(roleSelect, (select) => select.value),
+    "verification_committee",
+  );
+  await page.select(actionSelect, "In Progress");
+  assert.equal(
+    await page.$eval(actionSelect, (select) => select.value),
+    "In Progress",
+  );
+  await page.select(actionSelect, "suspend");
+  await page.type("dialog textarea", "Account review.");
   await page.click("dialog .ac-primary");
-  assert.match(
-    await page.$eval(".ac-table-wrap", (e) => e.textContent),
-    /suspended/,
+  assert.equal(
+    await page.$eval(actionSelect, (select) => select.value),
+    "restore",
   );
   await selectSection(4);
   await page.click(".ac-table-wrap button");
@@ -115,10 +196,10 @@ try {
     ),
     "false",
   );
-  await selectSection(7);
+  await selectSection(10);
   assert.equal(
     await page.$$(".ac-table-wrap tbody tr").then((r) => r.length),
-    4,
+    5,
   );
   await selectSection(1);
   for (const width of [1440, 1024, 768, 390, 320]) {
@@ -150,27 +231,18 @@ try {
   await page.setViewport({ width: 1440, height: 1000 });
   for (let index = 0; index < 5; index++) {
     await selectSection(3);
-    await page.evaluate(
-      (i) => document.querySelectorAll(".ac-padded button")[i].click(),
-      index,
-    );
-    await page.waitForSelector("#demo-account");
+    await page.click(`.ac-padded .ac-committee:nth-child(${index + 1}) button`);
+    await page.waitForSelector("dialog.ac-dialog");
     assert.match(
-      await page.$eval("#main-content", (e) => e.textContent),
-      /routing placeholder/,
+      await page.$eval("dialog.ac-dialog h2", (e) => e.textContent),
+      /Inspect workspace/,
     );
-    await page.select("#demo-account", "admin_001");
-    await page.evaluate(() =>
-      [...document.querySelectorAll("button")]
-        .find((b) => b.textContent === "Start demo session")
-        .click(),
-    );
-    await page.click('a[href="/admin"]');
-    await page.waitForSelector(".ac-stats");
+    await page.click('dialog.ac-dialog button[aria-label="Close dialog"]');
+    await page.waitForSelector("dialog.ac-dialog", { hidden: true });
   }
   assert.deepEqual(errors, []);
   console.log(
-    "PASS: direct /SuperAdmin and refresh without a development bar or top spacing, authenticated navigation, case decision, provisioning, suspension, scoped permissions, audit records, empty/error/retry, all five committee demo links, and no overflow at 1440/1024/768/390/320px. Screenshots in OS temp directory.",
+    "PASS: direct /SuperAdmin and refresh without a development bar or top spacing, global search, notifications, profile menu, committee inspection, reason-required review/moderation/settings actions, audit records, suspension, scoped permissions, empty/error/retry, all five committee workspaces and no overflow at 1440/1024/768/390/320px. Screenshots in OS temp directory.",
   );
 } finally {
   await browser.close();

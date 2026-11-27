@@ -68,6 +68,13 @@ test("both placements render the same permitted links with one account utility s
         );
       const top = render("top"),
         side = render("side");
+      if (role === "super_admin") {
+        for (const html of [top, side]) {
+          assert.doesNotMatch(html, /application-navigation/);
+          assert.match(html, /value="Existing draft"/);
+        }
+        continue;
+      }
       for (const [layout, html] of [
         ["top", top],
         ["side", side],

@@ -83,7 +83,7 @@ test("checkout and client history share authorized service funding across routes
     assert.equal(result.ok, true);
     for (const path of ["/client/payments/overview", "/client/payments"]) {
       const html = render(path);
-      assert.match(html, /DEMO-PAY-order_002/);
+      assert.match(html, /PAY-order_002/);
       assert.match(html, /Partially Paid — Escrow Held/);
       assert.match(html, /Held in Escrow/);
     }
@@ -97,7 +97,7 @@ test("checkout and client history share authorized service funding across routes
         ...client,
         user: { ...client.user, id: "different_client" },
       }),
-      /DEMO-PAY-order_002/,
+      /PAY-order_002/,
     );
   } finally {
     await vite.close();

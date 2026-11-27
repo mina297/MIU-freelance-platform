@@ -1,9 +1,4 @@
-import {
-  createMockAuthStore,
-  emailError,
-  normalizeEmail,
-  passwordError,
-} from "./mockAuth.js";
+import { createMockAuthStore, emailError, normalizeEmail } from "./mockAuth.js";
 import { isActiveUser, ROLES, toSessionUser } from "./session.js";
 
 export const LOCAL_ACCOUNTS_KEY = "miu.demo-accounts.v1";
@@ -16,7 +11,7 @@ export const committeeRoles = Object.freeze({
   "ai-quality": ROLES.AI_QUALITY,
 });
 const storageError =
-  "Could not save demo accounts. Allow site storage or free up space, then try again.";
+  "Could not save local accounts. Allow site storage or free up space, then try again.";
 const failed = (message) => ({ ok: false, message, errors: { form: message } });
 
 export function browserLocalStorage() {
@@ -94,7 +89,7 @@ export function createLocalAuthStore(
       data = JSON.parse(raw);
     } catch {
       throw new Error(
-        "Saved demo accounts are damaged. Clear this site's demo data to start again.",
+        "Saved local accounts are damaged. Clear this site's saved data to start again.",
       );
     }
     if (
@@ -116,7 +111,7 @@ export function createLocalAuthStore(
       !Array.isArray(data.settings?.audit)
     )
       throw new Error(
-        "Saved demo accounts are invalid. Clear this site's demo data to start again.",
+        "Saved local accounts are invalid. Clear this site's saved data to start again.",
       );
     revisions.set(data, raw);
     return data;
@@ -148,7 +143,7 @@ export function createLocalAuthStore(
       reason: reason.trim(),
       before,
       after,
-      result: "Local demo success",
+      result: "Local preview success",
     });
   }
   async function register(values, google = false) {
@@ -260,53 +255,8 @@ export function createLocalAuthStore(
         return {
           ok: true,
           message:
-            "Demo password saved on this browser. No email ownership or reset token was checked.",
+            "Password saved on this browser. No email ownership or reset token was checked.",
         };
-      } catch {
-        return failed(storageError);
-      }
-    },
-    async createCommitteeAccount(session, values) {
-      try {
-        const data = read();
-        if (!admin(data, session))
-          return failed("Only the Super Admin can create committee accounts.");
-        const role = Object.hasOwn(committeeRoles, values.committee)
-          ? committeeRoles[values.committee]
-          : undefined;
-        if (
-          !role ||
-          !values.name?.trim() ||
-          emailError(values.email) ||
-          passwordError(values.password) ||
-          !values.reason?.trim()
-        )
-          return failed(
-            "Enter a name, valid email, committee, password (8+ characters with a letter and number), and decision reason.",
-          );
-        if (data.users.some((u) => u.email === normalizeEmail(values.email)))
-          return failed("This email address is already in use.");
-        const user = {
-          id: `committee_${crypto.randomUUID()}`,
-          displayName: values.name.trim(),
-          email: normalizeEmail(values.email),
-          role,
-          accountStatus: "active",
-          verificationStatus: "pending",
-        };
-        data.credentials[user.id] = await credential(values.password);
-        data.users.push(user);
-        audit(
-          data,
-          session,
-          "Create committee account",
-          user.id,
-          values.reason,
-          "Not created",
-          role,
-        );
-        save(data);
-        return { ok: true, user: toSessionUser(user) };
       } catch {
         return failed(storageError);
       }
@@ -320,7 +270,8 @@ export function createLocalAuthStore(
         if (
           !user ||
           user.role === ROLES.SUPER_ADMIN ||
-          !["active", "suspended"].includes(value) ||
+          !["active", "suspended", "banned"].includes(value) ||
+          user.accountStatus === "banned" ||
           !reason?.trim()
         )
           return failed(

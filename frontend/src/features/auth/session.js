@@ -20,7 +20,7 @@ export const PUBLIC_REGISTRATION_ROLES = Object.freeze([
  * @property {string} id Stable account ID shared with related module records.
  * @property {string} displayName Fictional display name.
  * @property {string} role One of ROLES; visitors have no user record.
- * @property {"active"|"suspended"|"deactivated"} accountStatus Account access state.
+ * @property {"active"|"suspended"|"banned"|"deactivated"} accountStatus Account access state.
  * @property {"pending"|"approved"|"rejected"|"resubmission_requested"|"escalated"} verificationStatus Separate from account access; gating is deferred.
  */
 

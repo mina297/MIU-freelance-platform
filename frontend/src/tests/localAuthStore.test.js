@@ -65,7 +65,7 @@ test("registration survives store recreation, normalizes duplicate emails and ve
   assert.equal(getLoginDestination(result.user), "/profile");
 });
 
-test("Super Admin sees registrations, provisions all five roles, and suspension/audit persist", async () => {
+test("Super Admin sees registrations and manages preloaded committee accounts", async () => {
   const storage = storageMock();
   const store = createLocalAuthStore(mockUsers, storage);
   const adminLogin = await store.login({
@@ -77,41 +77,30 @@ test("Super Admin sees registrations, provisions all five roles, and suspension/
   const student = await store.register(values);
   assert.ok(store.listUsers(session).some((u) => u.id === student.user.id));
   assert.deepEqual(store.listUsers({ status: "anonymous" }), []);
-  const forbidden = await store.createCommitteeAccount(
-    { status: "authenticated", user: student.user },
-    {},
-  );
-  assert.equal(forbidden.ok, false);
+  assert.equal(store.createCommitteeAccount, undefined);
   for (const [committee, role] of Object.entries(committeeRoles)) {
-    const email = `${committee}@example.test`;
-    const created = await store.createCommitteeAccount(session, {
-      name: "Demo Reviewer",
-      email,
-      password: "Committee123!",
-      committee,
-      reason: "Academic demonstration",
-    });
-    assert.equal(created.ok, true);
-    assert.equal(created.user.role, role);
+    const member = mockUsers.find((user) => user.role === role);
+    assert.ok(member);
+    const email = `${member.id}@example.test`;
     const reload = createLocalAuthStore(mockUsers, storage);
-    const signedIn = await reload.login({ email, password: "Committee123!" });
+    const signedIn = await reload.login({ email, password: DEMO_PASSWORD });
     assert.equal(signedIn.ok, true);
     assert.equal(getLoginDestination(signedIn.user), `/committee/${committee}`);
     assert.equal(
       reload.updateAccountStatus(session, {
-        target: created.user.id,
+        target: member.id,
         value: "suspended",
         reason: "Test suspension",
       }).ok,
       true,
     );
     assert.equal(
-      (await store.login({ email, password: "Committee123!" })).ok,
+      (await store.login({ email, password: DEMO_PASSWORD })).ok,
       false,
     );
     assert.equal(
       store.updateAccountStatus(session, {
-        target: created.user.id,
+        target: member.id,
         value: "active",
         reason: "Test restoration",
       }).ok,
@@ -120,7 +109,7 @@ test("Super Admin sees registrations, provisions all five roles, and suspension/
   }
   assert.equal(
     createLocalAuthStore(mockUsers, storage).getAudit(session).length,
-    15,
+    10,
   );
   assert.equal(
     (
@@ -130,6 +119,40 @@ test("Super Admin sees registrations, provisions all five roles, and suspension/
         role: "super_admin",
       })
     ).ok,
+    false,
+  );
+});
+
+test("Super Admin can ban an account and a banned account cannot be restored", async () => {
+  const store = createLocalAuthStore(mockUsers, storageMock());
+  const admin = await store.login({
+    email: "admin_001@example.test",
+    password: DEMO_PASSWORD,
+  });
+  const session = { status: "authenticated", user: admin.user };
+  assert.equal(
+    store.updateAccountStatus(session, {
+      target: "student_001",
+      value: "banned",
+      reason: "Repeated policy violation",
+    }).ok,
+    true,
+  );
+  assert.equal(
+    (
+      await store.login({
+        email: "student_001@example.test",
+        password: DEMO_PASSWORD,
+      })
+    ).ok,
+    false,
+  );
+  assert.equal(
+    store.updateAccountStatus(session, {
+      target: "student_001",
+      value: "active",
+      reason: "Attempt restoration",
+    }).ok,
     false,
   );
 });
